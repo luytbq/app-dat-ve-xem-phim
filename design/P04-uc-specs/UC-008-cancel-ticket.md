@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.3 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.7; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-45); UC-005-book-tickets.md 1.4 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Phiên bản | 1.4 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; UC-005-book-tickets.md 1.8 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-36 gộp vào Q-30); không có ASM (NGHIEM_NGAT) |
 
@@ -16,7 +16,7 @@
 | Tên use case | Huỷ vé (Cancel Ticket) |
 | Tác nhân chính | ACT-01 Khách, ACT-02 Nhân viên quầy |
 | Tác nhân phụ | ACT-07 Cổng thanh toán |
-| Mô tả ngắn | Use case này mô tả tương tác giữa khách (hoặc nhân viên quầy khi vé được mua tại quầy) và hệ thống khi muốn huỷ một vé đã mua trước giờ chiếu. Kết quả là vé bị huỷ, khách được hoàn 70% giá vé và ghế của vé trở về trạng thái trống để người khác chọn; khi hoàn tiền không thành công sau khi thử lại, ghế vẫn trở về trống và khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống. |
+| Mô tả ngắn | Use case này mô tả tương tác giữa khách (hoặc nhân viên quầy khi vé được mua tại quầy) và hệ thống khi muốn huỷ một vé đã mua trước giờ bắt đầu của suất chiếu. Kết quả là vé bị huỷ, khách được hoàn 70% giá vé và ghế của vé trở về trạng thái trống để người khác chọn; khi hoàn tiền không thành công sau khi thử lại, ghế vẫn trở về trống và khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống. |
 | Sự kiện kích hoạt | Khách muốn huỷ vé đã mua (EV-10) |
 | Tiền điều kiện | Khi tác nhân là khách: khách đã đăng nhập và đang có phiên làm việc (REQ-12).<br>Khi tác nhân là nhân viên quầy: nhân viên quầy đã đăng nhập và đang có phiên làm việc (REQ-102). |
 | Hậu điều kiện (thành công) | Vé ở trạng thái đã huỷ.<br>Ghế của vé ở trạng thái trống trên sơ đồ ghế của suất chiếu và được chọn, giữ, mua như mọi ghế trống khác.<br>Số tiền hoàn bằng 70% giá vé, làm tròn xuống đồng (BR-31), được ghi nhận cho vé kèm tình trạng hoàn tiền: đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi (REQ-99).<br>Với vé mua trực tuyến: cổng thanh toán đã báo hoàn tiền thành công, hoặc (luồng 5c, 6b) khoản hoàn đã được ghi log lỗi để xử lý thủ công ngoài hệ thống và không có email cho khách (BR-41).<br>Với vé mua tại quầy (luồng 5a): nhân viên quầy đã xác nhận hoàn tiền mặt (tình trạng đã hoàn); không có giao dịch hoàn tiền qua cổng thanh toán. |
@@ -50,7 +50,7 @@
 | 2a | Tác nhân là khách và vé không phải vé khách đã mua trực tuyến (vé mua tại quầy hoặc vé của người khác) (BR-17) | Hệ thống | Từ chối huỷ vé và thông báo quy tắc bị vi phạm (BR-17). | Kết thúc use case (thất bại) |
 | 2b | Tác nhân là nhân viên quầy và vé là vé mua trực tuyến (BR-17) | Hệ thống | Từ chối huỷ vé và thông báo quy tắc bị vi phạm (BR-17). | Kết thúc use case (thất bại) |
 | 2c | Tác nhân là nhân viên quầy và vé mua tại quầy của cụm rạp khác cụm rạp của nhân viên quầy (BR-17) | Hệ thống | Từ chối huỷ vé và thông báo quy tắc bị vi phạm (BR-17). | Kết thúc use case (thất bại) |
-| 3a | Thời điểm hệ thống kiểm tra cách giờ bắt đầu suất chiếu chưa tới 2 tiếng, kể cả suất chiếu đã bắt đầu hoặc đã kết thúc (BR-18, BR-32) | Hệ thống | Từ chối huỷ vé và thông báo hạn chót huỷ vé (BR-18). | Kết thúc use case (thất bại) |
+| 3a | Thời điểm hệ thống kiểm tra cách giờ bắt đầu suất chiếu chưa tới 2 tiếng, kể cả suất chiếu đã bắt đầu hoặc đã kết thúc (BR-18, BR-32) | Hệ thống | Từ chối huỷ vé và thông báo hạn huỷ vé (BR-18). | Kết thúc use case (thất bại) |
 | 4a | Vé đã huỷ, kể cả khi vừa bị huỷ bởi một yêu cầu huỷ khác xử lý ngay trước đó (BR-21); kiểm điều kiện này trước 4b | Hệ thống | Thông báo vé đã huỷ và không hoàn tiền thêm (BR-21). | Kết thúc use case (thất bại) |
 | 4b | Vé chưa huỷ (không thuộc 4a) và đã sử dụng (đã soát, kể cả khi vừa được soát ngay trước đó, BR-30) | Hệ thống | Từ chối huỷ vé và thông báo vé đã sử dụng không huỷ được (BR-30). | Kết thúc use case (thất bại) |
 | 5a | Tác nhân là nhân viên quầy (vé mua tại quầy hoàn bằng tiền mặt, BR-20) | - | Hoàn tiền mặt tại quầy | - |
@@ -88,7 +88,7 @@ Dữ liệu ra 2 (bước 1a2)
 
 | STT | Trường dữ liệu | Mô tả | Định dạng hiển thị | Ví dụ |
 |---|---|---|---|---|
-| 1 | Các vé của lần đặt | Với mỗi vé: vị trí ghế, giá vé và trạng thái vé (hợp lệ, đã huỷ, đã sử dụng) | Mã hàng và số ghế; giá vé như Dữ liệu ra 1; trạng thái là văn bản | F7, 120.000 đ, hợp lệ |
+| 1 | Các vé của lần đặt | Với mỗi vé: vị trí ghế, giá vé và trạng thái vé (chưa sử dụng, đã huỷ, đã sử dụng) | Mã hàng và số ghế; giá vé như Dữ liệu ra 1; trạng thái là văn bản | F7, 120.000 đ, chưa sử dụng |
 
 ## 6. Quy tắc nghiệp vụ
 
@@ -127,7 +127,7 @@ Dữ liệu ra 2 (bước 1a2)
 - Vé được ghi nhận huỷ ở bước 4, trước khi hoàn tiền (bước 5, 6). Ghế vẫn ở trạng thái đã bán cho tới bước 7. Khi hoàn tiền không hoàn tất, hệ thống tự thử lại theo BR-41 rồi ghi log lỗi khoản hoàn (luồng 5c, 6b) và vẫn trả ghế về trống ở bước 7 (BR-42); khoản hoàn được xử lý thủ công ngoài hệ thống, nằm ngoài phạm vi, không có use case. Vì mọi đường đi đều qua bước 7 nên không có trạng thái vé đã huỷ mà ghế không bao giờ trống. Mỗi yêu cầu hoàn dùng khoá chống hoàn trùng gồm mã giao dịch và mã vé vì một giao dịch có thể có nhiều lần hoàn 70% của nhiều vé (BR-43, BR-26). Số lần thử lại và khoảng cách giữa hai lần thử là quyết định thiết kế (P09); đặc tả chỉ cố định thời hạn chờ 30 giây (BR-43).
 - Bước 7 là bước duy nhất làm ghế trở về trống; sau bước 7 ghế được xử lý như mọi ghế trống (chọn, giữ, mua theo UC-005) và hiện trên sơ đồ ghế của người đang xem chậm nhất 3 giây (REQ-119, Mục 7).
 - Mỗi lần huỷ một vé (huỷ từng vé, REQ-40). Ghế đôi là một ghế (REQ-87) nên một vé ghế đôi trả đúng một ghế về trống.
-- Hạn chót huỷ: giờ bắt đầu suất chiếu trừ 2 tiếng (BR-18). Ví dụ: suất chiếu 19:30 ngày 15/11/2026 --> hạn chót 17:30 cùng ngày (19:30 - 2:00); huỷ lúc 17:30 còn được (đúng 2 tiếng là "ít nhất 2 tiếng"), huỷ lúc 17:31 bị từ chối ở luồng 3a. Mốc thời điểm huỷ là thời điểm hệ thống kiểm tra ở bước 3 (BR-32), không phải lúc tác nhân gửi yêu cầu.
+- Hạn huỷ vé: giờ bắt đầu suất chiếu trừ 2 tiếng (BR-18). Ví dụ: suất chiếu 19:30 ngày 15/11/2026 --> hạn huỷ vé 17:30 cùng ngày (19:30 - 2:00); huỷ lúc 17:30 còn được (đúng 2 tiếng là "ít nhất 2 tiếng"), huỷ lúc 17:31 bị từ chối ở luồng 3a. Mốc thời điểm huỷ là thời điểm hệ thống kiểm tra ở bước 3 (BR-32), không phải lúc tác nhân gửi yêu cầu.
 - Ví dụ làm tròn (BR-31): giá vé 85.555 đ --> 70% là 59.888,5 đ --> số tiền hoàn 59.888 đ.
 - Nếu nhân viên quầy nhập mã đặt vé không tồn tại thì không có vé nào để chọn: luồng 1a1a thông báo mã không tồn tại và cho nhập lại (cách thông báo cụ thể do bước thiết kế quyết định).
 - Nguồn không nêu việc gửi email khi huỷ vé (REQ-90 chỉ áp dụng cho hoàn tiền thanh toán đến trễ ở UC-006), nên use case không gọi dịch vụ email và P02 không gán ACT-08 cho UC-008. Khi hoàn tiền không thành công, hệ thống cũng không gửi email cho khách (BR-41).
@@ -139,7 +139,7 @@ Dữ liệu ra 2 (bước 1a2)
 
 - KB1: Luồng chính --> khách huỷ vé mua trực tuyến, nhận hoàn 70% qua cổng thanh toán, ghế trở về trống.
 - KB2: Luồng chính + 1a tới bước 4 + 5a --> nhân viên quầy huỷ vé mua tại quầy, hoàn 70% tiền mặt, ghế trở về trống (bước 7, 8).
-- KB3: Luồng chính + 3a --> huỷ khi còn chưa tới 2 tiếng trước giờ chiếu, bị từ chối, vé và ghế không đổi.
+- KB3: Luồng chính + 3a --> huỷ khi còn chưa tới 2 tiếng trước giờ bắt đầu của suất chiếu, bị từ chối, vé và ghế không đổi.
 - KB4: Luồng chính + 4a --> hai yêu cầu huỷ cùng một vé: yêu cầu đầu hoàn tiền một lần, yêu cầu sau nhận thông báo vé đã huỷ.
 - KB5: Luồng chính + 5b hoặc 6a --> cổng không phản hồi hoặc báo hoàn tiền thất bại, hệ thống thử lại; nếu hết lượt (5c hoặc 6b) thì ghi log lỗi để xử lý thủ công ngoài hệ thống, vé đã huỷ, ghế vẫn trả về trống.
 - KB6: Luồng chính + 4b --> vé đã được soát vào rạp, bị từ chối huỷ.
@@ -194,9 +194,9 @@ Bảng Node
 | A-2b | Action | Từ chối: nhân viên quầy huỷ vé trực tuyến (BR-17) | - | P-SYS | 2b | x=300, y=640 (tương đối partition) |
 | A-2c | Action | Từ chối: vé quầy của cụm rạp khác (BR-17) | - | P-SYS | 2c | x=300, y=740 (tương đối partition) |
 | FINAL-1 | ActivityFinal | - | - | P-SYS | - | x=520, y=660 (tương đối partition) |
-| A-3 | Action | Kiểm tra hạn chót huỷ 2 tiếng | - | P-SYS | 3 | x=60, y=810 (tương đối partition) |
+| A-3 | Action | Kiểm tra hạn huỷ vé 2 tiếng | - | P-SYS | 3 | x=60, y=810 (tương đối partition) |
 | D-3 | Decision | - | - | P-SYS | 3a | x=130, y=900 (tương đối partition) |
-| A-3a | Action | Từ chối: quá hạn chót huỷ (BR-18) | - | P-SYS | 3a | x=300, y=890 (tương đối partition) |
+| A-3a | Action | Từ chối: quá hạn huỷ vé (BR-18) | - | P-SYS | 3a | x=300, y=890 (tương đối partition) |
 | FINAL-2 | ActivityFinal | - | - | P-SYS | - | x=520, y=900 (tương đối partition) |
 | A-4 | Action | Kiểm tra vé chưa huỷ, chưa dùng; ghi nhận huỷ | - | P-SYS | 4 | x=60, y=980 (tương đối partition) |
 | D-4 | Decision | - | - | P-SYS | 4a, 4b | x=130, y=1070 (tương đối partition) |

@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.10; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-73); UC-005-book-tickets.md 1.7, UC-014-schedule-showtimes.md 1.2 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
+| Phiên bản | 1.2 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; UC-005-book-tickets.md 1.8, UC-014-schedule-showtimes.md 1.3 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
 | Phạm vi | UC-013 |
 | Mã Q, ASM cuối đã cấp | Q-67 (Q-61 đến Q-67 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -94,7 +94,7 @@ Dữ liệu ra 2 (bước 6)
 | BR-61 | Quản lý cụm rạp chỉ xem và thiết lập bảng giá của cụm rạp mình. | Ràng buộc | 2, 1a1, Dữ liệu vào 2 | REQ-37, REQ-59; REQ-100 (phụ) | Mới |
 | BR-62 | Mỗi mục giá của bảng giá gồm một loại phòng, một định dạng phim, một loại ghế, một khung giờ chiếu và đúng một giá vé; mỗi tổ hợp bốn yếu tố có tối đa một mục giá trong bảng giá của cụm rạp. | Ràng buộc | 5, Dữ liệu vào 1 | REQ-37, REQ-38 | Mới |
 | BR-63 | Khi mục giá đã bị một yêu cầu khác đổi, tạo hoặc bỏ kể từ lúc quản lý cụm rạp được hiển thị, yêu cầu đặt giá hoặc bỏ giá của quản lý cụm rạp sau bị từ chối và không ghi đè thay đổi trước. | Ràng buộc | 5, 5a, 1a3, 1a3a, Dữ liệu vào 2 | REQ-148; REQ-59 (phụ) | Mới |
-| BR-64 | Không được bỏ mục giá khi cụm rạp còn suất chiếu chưa tới giờ bắt đầu và còn trong lịch suất chiếu mà loại phòng của phòng chiếu và định dạng bằng của mục giá, phòng chiếu có ít nhất một ghế thuộc loại ghế của mục giá, và khung giờ xác định theo giờ bắt đầu (BR-12) bằng khung giờ của mục giá. | Ràng buộc | 1a3, 1a3b, Dữ liệu vào 2 | REQ-146; REQ-59, REQ-145 (phụ) | Mới |
+| BR-64 | Không được bỏ mục giá khi cụm rạp còn suất chiếu chưa tới giờ bắt đầu và còn trong lịch chiếu mà loại phòng của phòng chiếu và định dạng bằng của mục giá, phòng chiếu có ít nhất một ghế thuộc loại ghế của mục giá, và khung giờ xác định theo giờ bắt đầu (BR-12) bằng khung giờ của mục giá. | Ràng buộc | 1a3, 1a3b, Dữ liệu vào 2 | REQ-146; REQ-59, REQ-145 (phụ) | Mới |
 | BR-65 | Giá vé của một lần giữ ghế được chốt cùng lúc với việc giữ ghế (UC-005 bước 7) và giữ nguyên tới hết lần giữ ghế; việc đặt giá, bỏ giá sau đó không đổi giá của lần giữ ghế đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | Hậu điều kiện, Mục 8 (kiểm ở UC-005 bước 7) | REQ-149; REQ-37, REQ-38 (phụ) | Mới |
 | BR-66 | Thay đổi bảng giá có hiệu lực ngay khi lưu, áp dụng cho mọi lần chốt giá sau đó, kể cả các suất chiếu đã lập; không hẹn ngày hiệu lực. | Ràng buộc | 5, 6, 1a4, Hậu điều kiện | REQ-150; REQ-59 (phụ) | Mới |
 | BR-67 | Thay đổi bảng giá không đổi giá của vé đã bán; vé giữ giá đã ghi trên vé. | Suy luận | Hậu điều kiện | REQ-149; REQ-105 (phụ) | Mới |
@@ -112,7 +112,7 @@ Không có
 ## 8. Thông tin bổ sung
 
 - Luồng chính là kịch bản đặt giá của một tổ hợp (REQ-59): một mục giá gồm loại phòng, định dạng phim, loại ghế, khung giờ chiếu và giá vé (BR-11, BR-62). Tổ hợp chưa có mục giá thì tạo mục giá, đã có thì đổi giá, cùng một thao tác ở bước 5. Bỏ giá (luồng 1a) là thao tác thứ hai; quản lý cụm rạp chọn đặt hoặc bỏ giá thay cho bước 1, nên trên activity diagram decision D-1 đặt ngay sau INIT, trước A-1. Nguồn chỉ nêu "thiết lập bảng giá" (REQ-59), không nêu bỏ giá; luồng 1a theo trả lời Q-62 (REQ-146).
-- Bảng giá có tối đa 3 loại phòng x 2 định dạng x 3 loại ghế x 4 khung giờ = 72 mục giá mỗi cụm rạp. Nguồn không bắt buộc bảng giá đủ mọi tổ hợp, nhưng UC-014 chặn từ gốc (trả lời Q-61, phương án A): khi lập hoặc sửa suất chiếu, bảng giá phải có giá cho mọi loại ghế có trong phòng chiếu, ứng với khung giờ của giờ bắt đầu, theo loại phòng và định dạng của suất chiếu (BR-69; BR-59 là trường hợp riêng chỉ xét loại phòng và định dạng). Vì vậy quản lý cụm rạp đặt giá trước, lập suất chiếu sau: lập một suất chiếu ngày thường buộc bảng giá có đủ giá cho mọi loại ghế của phòng ở khung giờ đó.
+- Bảng giá có tối đa 3 loại phòng x 2 định dạng x 3 loại ghế x 4 khung giờ = 72 mục giá mỗi cụm rạp. Nguồn không bắt buộc bảng giá đủ mọi tổ hợp, nhưng UC-014 chặn từ gốc (trả lời Q-61, phương án A): khi lập hoặc sửa suất chiếu, bảng giá phải có giá cho mọi loại ghế có trong phòng chiếu, ứng với khung giờ của giờ bắt đầu, theo loại phòng và định dạng của suất chiếu (BR-69; BR-59 đã gộp vào BR-69). Vì vậy quản lý cụm rạp đặt giá trước, lập suất chiếu sau: lập một suất chiếu ngày thường buộc bảng giá có đủ giá cho mọi loại ghế của phòng ở khung giờ đó.
 - Bước 5 và bước 1a3 gộp kiểm tra và ghi thành một thao tác không chia cắt. Lý do: nếu tách rời, hai quản lý cùng thấy mục giá chưa đổi rồi cùng lưu, người sau ghi đè người trước (BR-63); và UC-005 bước 7 có thể chốt giá giữa lúc kiểm tra và lúc lưu (BR-71). Cơ chế bảo đảm thuộc bước thiết kế (P07, P09). BR-63 là hệ quả khi nhiều yêu cầu cùng sửa, gồm hai quản lý cụm rạp hoặc hai phiên làm việc của cùng một người (trả lời Q-64, REQ-148).
 - Điểm nối với UC-005 (đua giữ ghế, thanh toán với đổi giá). Giá vé từng ghế được chốt ở UC-005 bước 7, trong cùng thao tác không chia cắt với việc giữ ghế (BR-65, BR-71); bước 8 chỉ hiển thị giá đã chốt, và số tiền giao dịch ở bước 10 do UC-005 quy định (REQ-111). Quản lý cụm rạp đổi giá sau bước 7: khách vẫn trả đúng giá đã chốt tới hết lần giữ ghế, kể cả khi cổng thanh toán báo thành công sau đó; giá mới chỉ áp dụng cho lần giữ ghế chốt giá sau thời điểm lưu (BR-65, BR-66). Trước khi khách xác nhận chọn ghế (UC-005 bước 4 đến 6) khách chưa thấy giá nên không có giá nào bị đổi (trả lời Q-65, Q-66). Nếu lúc chốt giá bảng giá không có giá cho một ghế đã chọn, UC-005 luồng 7e từ chối giữ ghế (BR-72); luồng này là lưới an toàn vì bất biến "mọi suất chiếu chưa diễn ra đều đủ giá" có thể vỡ qua UC-012 (xem BR-73), nên phương án A giảm xác suất thiếu giá, không loại bỏ khả năng đó.
 - Vé đã bán không đổi giá (BR-67): mỗi vé ghi giá vé (REQ-105) và số tiền hoàn 70% ở UC-008 là 70% giá vé của vé đó (BR-19, BR-31), nên đổi hoặc bỏ giá không làm thay đổi số tiền hoàn của vé đã bán trước đó. Doanh thu theo REQ-99 tính theo tiền vé đã bán, không bị đổi giá ảnh hưởng.
@@ -231,8 +231,7 @@ Ghi chú sơ đồ: D-1 đặt trong partition của quản lý cụm rạp, nga
 
 ## Đề xuất sửa artifact trước
 
-- UC-012 (chưa đặc tả): khi đặc tả cần dẫn BR-73 (sửa phòng chiếu không làm suất chiếu chưa tới giờ bắt đầu thiếu giá) và cặp quy tắc loại trừ giữa sửa sơ đồ ghế với việc lưu suất chiếu của UC-014, giống BR-68.
-- P06: xét gộp BR-59 vào BR-69 (BR-59 là trường hợp riêng của BR-69).
+- UC-012 (chưa đặc tả): khi đặc tả cần dẫn BR-73 (sửa phòng chiếu không làm suất chiếu chưa tới giờ bắt đầu thiếu giá) và BR-87 (không sửa sơ đồ ghế khi phòng có suất chiếu đã tới thời điểm mở bán mà chưa kết thúc), cùng cặp quy tắc loại trừ giữa sửa phòng chiếu với việc lưu suất chiếu của UC-014, giống BR-68.
 
 ## Vấn đề còn mở
 

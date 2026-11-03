@@ -23,9 +23,9 @@
         <mxCell id="A-2b" value="Từ chối: nhân viên quầy huỷ vé trực tuyến (BR-17)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="260" y="631" width="180" height="78" as="geometry" /></mxCell>
         <mxCell id="A-2c" value="Từ chối: vé quầy của cụm rạp khác (BR-17)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="260" y="731" width="180" height="78" as="geometry" /></mxCell>
         <mxCell id="FINAL-1" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="660" width="40" height="40" as="geometry" /></mxCell>
-        <mxCell id="A-3" value="Kiểm tra hạn chót huỷ 2 tiếng" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="801" width="180" height="78" as="geometry" /></mxCell>
+        <mxCell id="A-3" value="Kiểm tra hạn huỷ vé 2 tiếng" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="801" width="180" height="78" as="geometry" /></mxCell>
         <mxCell id="D-3" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="900" width="40" height="40" as="geometry" /></mxCell>
-        <mxCell id="A-3a" value="Từ chối: quá hạn chót huỷ (BR-18)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="260" y="881" width="180" height="78" as="geometry" /></mxCell>
+        <mxCell id="A-3a" value="Từ chối: quá hạn huỷ vé (BR-18)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="260" y="881" width="180" height="78" as="geometry" /></mxCell>
         <mxCell id="FINAL-2" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="900" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="A-4" value="Kiểm tra vé chưa huỷ, chưa dùng; ghi nhận huỷ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="971" width="180" height="78" as="geometry" /></mxCell>
         <mxCell id="D-4" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="1070" width="40" height="40" as="geometry" /></mxCell>

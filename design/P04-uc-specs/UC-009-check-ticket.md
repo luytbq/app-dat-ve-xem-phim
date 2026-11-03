@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.3 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.7; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-45); UC-005-book-tickets.md 1.4 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.3 (điểm nối huỷ và soát) |
+| Phiên bản | 1.4 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; UC-005-book-tickets.md 1.8 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.4 (điểm nối huỷ và soát) |
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
 
@@ -104,8 +104,9 @@ Dữ liệu ra 3 (luồng 4a đến 4e)
 | BR-30 | Vé đã sử dụng không được huỷ; khi việc huỷ và việc soát cùng một vé xảy ra cùng lúc thì bên ghi nhận trước thành công, bên sau bị từ chối. | Ràng buộc | 4, 4d, 4e | REQ-118; REQ-51 (phụ) | Đã có |
 | BR-33 | Khi một vé vi phạm nhiều điều kiện soát, hệ thống chỉ báo một lý do theo thứ tự: cụm rạp, suất chiếu, đã sử dụng, đã huỷ. | Ràng buộc | 4, 4a đến 4e, Dữ liệu ra 3 | REQ-124; REQ-94 (phụ) | Mới |
 | BR-34 | Nhân viên soát vé chỉ chọn suất chiếu của cụm rạp mình; suất chiếu đã chọn áp dụng cho các vé quét liên tiếp tới khi chọn lại. | Ràng buộc | 1, 2, 7, Dữ liệu vào 1 | REQ-123; REQ-93 (phụ) | Mới |
+| BR-83 | Vé được soát vào bất kỳ thời điểm nào so với giờ bắt đầu của suất chiếu; hệ thống không giới hạn thời điểm soát vé. | Ràng buộc | 4, Mục 8 | REQ-125 | Đã có |
 
-Không có BR nào của sổ hiện có trùng nghĩa: BR-02 chỉ áp dụng cho nhân viên quầy bán vé, không áp dụng cho nhân viên soát vé.
+BR-83 (REQ-125) cấp ở P06 cho điều kiện không giới hạn thời điểm soát. Không có BR nào khác của sổ trùng nghĩa: BR-02 chỉ áp dụng cho nhân viên quầy bán vé, không áp dụng cho nhân viên soát vé.
 
 ## 7. Yêu cầu đặc biệt
 
@@ -123,7 +124,7 @@ Không có
 - Nội dung vé hiển thị ở bước 6 là nội dung do UC-005 tạo (REQ-30, REQ-105).
 - Vé có thể ở trạng thái đã huỷ do UC-008 Huỷ vé đặt; bước 4 kiểm tra điều kiện này (luồng 4e). Vé đã sử dụng không huỷ được ở UC-008 và việc huỷ và soát cùng lúc xử lý theo BR-30.
 - Không có use case nào do tác nhân thời gian kích hoạt dùng dữ liệu của use case này làm mốc, nên không có bước hẹn hoặc huỷ mốc (F4.2 mục 17).
-- Nguồn không giới hạn thời điểm soát so với giờ chiếu (REQ-125), nên bước 4 không có điều kiện về thời điểm quét. Khi camera không đọc được mã QR thì không có cách nhập tay (REQ-126), nên không có luồng thay thế tại bước 3; có thể bổ sung nếu nguồn nêu sau này.
+- Nguồn không giới hạn thời điểm soát so với giờ bắt đầu của suất chiếu (REQ-125, BR-83), nên bước 4 không có điều kiện về thời điểm quét. Khi camera không đọc được mã QR thì không có cách nhập tay (REQ-126), nên không có luồng thay thế tại bước 3; có thể bổ sung nếu nguồn nêu sau này.
 - Mã QR không quy định nội dung và định dạng; hệ thống tự xác định vé từ mã (REQ-128), chi tiết mã hoá để bước thiết kế quyết định.
 
 ## 8a. Kịch bản chính
@@ -215,7 +216,7 @@ Partition P-ACT-03 là partition của ACT-03 Nhân viên soát vé. Decision D-
 |---|---|---|---|
 | Q-41 | Đã trả lời (Chỉ suất của cụm rạp mình, chọn một lần rồi quét liên tiếp), đề bài bổ sung Mục 13. Nhân viên soát vé được chọn những suất chiếu nào (chỉ suất của cụm rạp mình hay mọi cụm rạp; chỉ suất trong ngày hay bất kỳ), và suất chiếu đã chọn áp dụng cho các vé quét liên tiếp tới khi chọn lại hay phải chọn cho từng vé? (Chỉ suất của cụm rạp mình, chọn một lần cho nhiều vé / Phương án khác) | Bước 1, 2, 7; Dữ liệu vào 1; BR-22, BR-23 | Mục 13 chỉ nêu "chọn suất chiếu đang soát, rồi quét mã QR trên vé", không nêu phạm vi suất chiếu được chọn và thời điểm chọn lại |
 | Q-42 | Đã trả lời (Báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ), đề bài bổ sung Mục 13. Khi một vé vi phạm nhiều điều kiện cùng lúc (ví dụ vé của cụm rạp khác thì cũng khác suất chiếu), hệ thống báo một lý do hay báo mọi lý do? Nếu báo một lý do thì theo thứ tự ưu tiên nào? (Báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ / Báo mọi lý do) | Bước 4; luồng 4a đến 4e; Dữ liệu ra 3 | Mục 13 liệt kê bốn điều kiện hợp lệ và nêu "báo lý do" nhưng không nêu thứ tự ưu tiên hay số lý do |
-| Q-43 | Đã trả lời (Không giới hạn), đề bài bổ sung Mục 13. Có giới hạn thời điểm soát vé so với giờ chiếu không (vé quét quá sớm trước giờ bắt đầu, hoặc quá muộn sau giờ bắt đầu hay sau giờ kết thúc suất chiếu)? Nếu có thì khoảng thời gian là bao nhiêu và hệ thống phản hồi thế nào? (Không giới hạn / Có giới hạn, nêu khoảng thời gian) | Bước 4; luồng thay thế mới; BR mới | Mục 13 liệt kê bốn điều kiện hợp lệ và không nêu điều kiện về thời điểm quét |
+| Q-43 | Đã trả lời (Không giới hạn), đề bài bổ sung Mục 13. Có giới hạn thời điểm soát vé so với giờ bắt đầu của suất chiếu không (vé quét quá sớm trước giờ bắt đầu, hoặc quá muộn sau giờ bắt đầu hay sau giờ kết thúc suất chiếu)? Nếu có thì khoảng thời gian là bao nhiêu và hệ thống phản hồi thế nào? (Không giới hạn / Có giới hạn, nêu khoảng thời gian) | Bước 4; luồng thay thế mới; BR mới | Mục 13 liệt kê bốn điều kiện hợp lệ và không nêu điều kiện về thời điểm quét |
 | Q-44 | Đã trả lời (Không có nhập tay trong phạm vi này), đề bài bổ sung Mục 13. Khi camera của thiết bị không đọc được mã QR (mã mờ, rách), nhân viên soát vé có được nhập mã tay không? Nếu có thì nhập thông tin gì để xác định vé (mã đặt vé không đủ vì một mã đặt vé có nhiều vé) và có cùng các kiểm tra ở bước 4 không? (Không có cách nhập tay / Có nhập tay, nêu thông tin nhập) | Bước 3; Dữ liệu vào 2; luồng thay thế mới tại bước 3 | Mục 13 chỉ nêu quét mã QR bằng camera; Q-22 xác nhận camera là kênh nhập duy nhất được nêu |
 | Q-45 | Đã trả lời (Vé hợp lệ hiển thị toàn bộ nội dung vé trừ mã QR; vé bị từ chối chỉ hiển thị lý do), đề bài bổ sung Mục 13. Khi vé hợp lệ, hệ thống hiển thị cho nhân viên soát vé những thông tin nào trên vé (toàn bộ nội dung vé theo REQ-105 hay một phần)? Khi vé bị từ chối, có hiển thị thêm thông tin vé (ví dụ vé đã được soát lúc nào) không? (Toàn bộ nội dung vé khi hợp lệ, chỉ lý do khi từ chối / Phương án khác) | Bước 6; Dữ liệu ra 2, 3 | Mục 13 chỉ nêu "báo lý do cho nhân viên soát vé"; Mục 7 liệt kê nội dung vé nhưng không nêu phần nào hiển thị khi soát |
 | Q-46 | Đã trả lời (Không quy định định dạng; hệ thống tự xác định vé từ mã), đề bài bổ sung Mục 13. Mã QR của vé mã hoá thông tin gì và có định dạng quy định không (ví dụ mã vé duy nhất, hay các thông tin của vé)? (Không quy định định dạng, hệ thống tự xác định vé từ mã / Quy định định dạng cụ thể) | Bước 3, 4; Dữ liệu vào 2; luồng 4a | Mục 7 chỉ nêu "mã QR riêng" của mỗi vé, không nêu nội dung hay định dạng |
