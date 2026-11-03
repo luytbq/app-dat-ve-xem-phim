@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P00 |
-| Phiên bản | 1.8 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-01 đến Q-35, Q-37 đến Q-46, Q-48 đến Q-51 và quyết định thay đáp án Q-32, Q-34); P00-problem-brief.md 1.7 |
+| Phiên bản | 1.9 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-01 đến Q-35, Q-37 đến Q-46, Q-48 đến Q-60 và quyết định thay đáp án Q-32, Q-34); P00-problem-brief.md 1.8 |
 | Phạm vi | Toàn hệ thống |
-| Mã Q, ASM cuối đã cấp | Q-51, đã trả lời (Q-23 cấp ở P01; Q-24 đến Q-26 cấp ở P04 UC-005; Q-27 đến Q-51 cấp ở P04 UC-006, UC-008, UC-009, trong đó Q-36 gộp vào Q-30 và Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-61 (cấp ở P04 UC-014, chờ trả lời; không đổi danh sách REQ); Q-60 đã trả lời (Q-23 cấp ở P01; Q-24 đến Q-26 cấp ở P04 UC-005; Q-27 đến Q-51 cấp ở P04 UC-006, UC-008, UC-009, trong đó Q-36 gộp vào Q-30 và Q-47 gộp vào Q-35; Q-52 đến Q-60 cấp ở P04 UC-014, trong đó Q-60 tách từ Q-53); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Bối cảnh và mục tiêu nghiệp vụ
 
@@ -31,7 +31,7 @@ Trong phạm vi:
 - Soát vé bằng mã QR (REQ-50 đến REQ-52, REQ-93, REQ-94).
 - Quản lý phim, cụm rạp (REQ-53 đến REQ-55, REQ-95, REQ-96).
 - Quản lý phòng chiếu, sơ đồ ghế, bảng giá của cụm rạp (REQ-56 đến REQ-59).
-- Lập lịch suất chiếu, thời điểm mở bán (REQ-60 đến REQ-65, REQ-86, REQ-97, REQ-98).
+- Lập lịch suất chiếu, thời điểm mở bán (REQ-60 đến REQ-65, REQ-86, REQ-97, REQ-98, REQ-135, REQ-137 đến REQ-145).
 - Báo cáo doanh thu và tỉ lệ lấp đầy (REQ-66 đến REQ-69, REQ-99).
 - Quản trị tài khoản nhân viên, phân quyền, đăng nhập nhân viên và quản trị viên (REQ-70 đến REQ-72, REQ-100 đến REQ-104).
 
@@ -56,7 +56,7 @@ Chờ Q-nn: Không có.
 | SH-08 | Nhân viên soát vé | Người dùng trực tiếp | Soát vé đúng suất, mỗi vé chỉ vào một lần | Có | REQ-50 đến REQ-52, REQ-93, REQ-94 |
 | SH-09 | Camera của thiết bị soát vé | Hệ thống hoặc thiết bị ngoài | Đọc mã QR trên vé khi soát vé | Không (camera của thiết bị nhân viên dùng, không có giao tiếp riêng với phần mềm) | REQ-50 |
 | SH-10 | Quản lý chuỗi | Người vận hành, quản trị | Quản lý phim, cụm rạp; xem báo cáo toàn chuỗi | Có | REQ-53 đến REQ-55, REQ-68, REQ-69, REQ-95 |
-| SH-11 | Quản lý cụm rạp | Người vận hành, quản trị | Quản lý phòng chiếu, bảng giá, suất chiếu; xem báo cáo của cụm | Có | REQ-56 đến REQ-67, REQ-86, REQ-97, REQ-98 |
+| SH-11 | Quản lý cụm rạp | Người vận hành, quản trị | Quản lý phòng chiếu, bảng giá, suất chiếu; xem báo cáo của cụm | Có | REQ-56 đến REQ-67, REQ-86, REQ-97, REQ-98, REQ-137 đến REQ-145 |
 | SH-12 | Quản trị viên | Người vận hành, quản trị | Quản lý tài khoản nhân viên, gán cụm rạp, phân quyền | Có | REQ-70 đến REQ-72, REQ-100 đến REQ-104 |
 
 ## 4. Danh sách yêu cầu
@@ -199,6 +199,15 @@ Chờ Q-nn: Không có.
 | REQ-134 | Khi nhân viên quầy đã thu tiền mặt của khách nhưng lần giữ ghế đã hết hạn trước khi xác nhận tới hệ thống, hệ thống từ chối xác nhận và thông báo nhân viên trả lại tiền mặt cho khách. Việc so thời điểm hết hạn với việc xác nhận đã thu tiền và chuyển ghế sang đã bán là một thao tác không chia cắt. | Quy tắc nghiệp vụ | "Nếu nhân viên quầy đã thu tiền mặt của khách nhưng lần giữ ghế đã hết hạn trước khi xác nhận tới hệ thống, hệ thống từ chối xác nhận và thông báo nhân viên trả lại tiền mặt cho khách" (Mục 12) | Bổ sung ở phiên bản 1.7 theo trả lời Q-49 (P04 UC-005). Thao tác không chia cắt giống kênh trực tuyến (REQ-22, REQ-32, REQ-47, REQ-48) |
 | REQ-135 | Từ giờ bắt đầu của suất chiếu, hệ thống ngừng bán vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Quy tắc nghiệp vụ | "Từ giờ bắt đầu của suất chiếu, hệ thống ngừng bán vé của suất chiếu đó, kể cả khi bán tại quầy" (Mục 16) | Bổ sung ở phiên bản 1.7 theo trả lời Q-50 (P04 UC-005). Đi cặp với REQ-86 (mốc mở bán) |
 | REQ-136 | Khi tạo giao dịch thanh toán, hệ thống truyền kèm mã tham chiếu của lần giữ ghế cho cổng thanh toán; cổng báo kết quả giao dịch kèm mã tham chiếu đó và số tiền đã thanh toán. Nhờ vậy giao dịch thứ hai của lần giữ ghế đã có vé được nhận ra, không tạo vé và hoàn toàn bộ số tiền cổng báo; giao dịch không có mã tham chiếu nhận ra được vẫn xử lý theo REQ-129. | Quy tắc nghiệp vụ | "Khi tạo giao dịch, hệ thống truyền kèm mã tham chiếu lần giữ ghế; cổng báo kết quả kèm mã tham chiếu đó và số tiền đã thanh toán" (Mục 9, Mục 21) | Bổ sung ở phiên bản 1.8 theo trả lời Q-51 (P04 UC-005, UC-006). Bổ sung cho REQ-111 (giao dịch hệ thống tạo lấy số tiền từ giao dịch đã lưu) và REQ-130 |
+| REQ-137 | Thời điểm mở bán của suất chiếu phải trước giờ bắt đầu của suất chiếu. | Quy tắc nghiệp vụ | "Thời điểm mở bán của suất chiếu phải trước giờ bắt đầu của suất chiếu" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-52 (P04 UC-014). Đi cặp với REQ-86 (mốc mở bán) và REQ-135 (mốc ngừng bán) |
+| REQ-138 | Không được lập suất chiếu mới hoặc sửa suất chiếu sang giờ bắt đầu đã qua. | Quy tắc nghiệp vụ | "Không được lập suất chiếu mới hoặc sửa suất chiếu sang giờ bắt đầu đã qua" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-53 (P04 UC-014), phần lập và sửa |
+| REQ-139 | Suất chiếu đã tới giờ bắt đầu không được sửa hoặc xoá. | Quy tắc nghiệp vụ | "Suất chiếu đã tới giờ bắt đầu không được sửa hoặc xoá" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-60 (tách từ Q-53, P04 UC-014) |
+| REQ-140 | Xoá suất chiếu là bỏ suất chiếu khỏi lịch và ngừng bán vé của suất chiếu đó; thông tin của suất chiếu vẫn được giữ để phục vụ vé đã huỷ, hoàn tiền (kể cả thanh toán đến trễ) và báo cáo. | Quy tắc nghiệp vụ | "Xoá suất chiếu là bỏ suất chiếu khỏi lịch và ngừng bán vé của suất chiếu đó; thông tin của suất chiếu vẫn được giữ để phục vụ vé đã huỷ, hoàn tiền (kể cả thanh toán đến trễ) và báo cáo" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-54 (P04 UC-014). Liên quan REQ-35, REQ-36, REQ-116 (UC-006) và REQ-66, REQ-67, REQ-99 |
+| REQ-141 | Ghế đã quá thời điểm hết hạn giữ ghế không còn chặn việc sửa hoặc xoá suất chiếu, kể cả khi chưa được giải phóng. | Quy tắc nghiệp vụ | "ghế đã quá thời điểm hết hạn giữ ghế không còn chặn việc sửa hoặc xoá suất chiếu, kể cả khi chưa được giải phóng" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-55 (P04 UC-014). Làm rõ REQ-65; cùng mốc thời điểm hết hạn với REQ-36, REQ-76 |
+| REQ-142 | Nếu suất chiếu bị sửa hoặc xoá lúc khách hoặc nhân viên quầy đang xem sơ đồ ghế của suất chiếu đó, hệ thống từ chối khi họ xác nhận chọn ghế. | Quy tắc nghiệp vụ | "Nếu suất chiếu bị sửa hoặc xoá lúc khách hoặc nhân viên quầy đang xem sơ đồ ghế của suất chiếu đó, hệ thống từ chối khi họ xác nhận chọn ghế" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-56 (P04 UC-014, UC-005 luồng 7d). Ghế đang chọn chưa giữ nên REQ-65 không chặn (REQ-88) |
+| REQ-143 | Nếu hai quản lý cùng sửa một suất chiếu, người lưu sau bị từ chối và không ghi đè. | Quy tắc nghiệp vụ | "Nếu hai quản lý cùng sửa một suất chiếu, người lưu sau bị từ chối và không ghi đè" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-57 (P04 UC-014) |
+| REQ-144 | Phim hoặc phòng chiếu thay đổi sau khi lập suất chiếu không làm suất chiếu tự đổi. | Quy tắc nghiệp vụ | "Phim hoặc phòng chiếu thay đổi sau khi lập suất chiếu không làm suất chiếu tự đổi" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-58 (P04 UC-014) |
+| REQ-145 | Không được lập suất chiếu, hoặc sửa suất chiếu thành suất chiếu, khi bảng giá của cụm chưa có giá cho đúng loại phòng và định dạng phim của suất chiếu đó. | Quy tắc nghiệp vụ | "Không được lập suất chiếu, hoặc sửa suất chiếu thành suất chiếu, khi bảng giá của cụm chưa có giá cho đúng loại phòng và định dạng phim của suất chiếu đó" (Mục 16) | Bổ sung ở phiên bản 1.9 theo trả lời Q-59 (P04 UC-014). Loại ghế và khung giờ không thuộc điều kiện này (Q-61) |
 
 ## 5. Vấn đề chất lượng của tài liệu nguồn
 
@@ -256,6 +265,24 @@ Chờ Q-nn: Không có.
 | 50 | Thiếu | REQ-22, REQ-32, REQ-47 | "Khách tại quầy trả tiền mặt" (Mục 12) | Đã xử lý: đề bài bổ sung Mục 12, tạo REQ-134 | Q-49 |
 | 51 | Thiếu | REQ-60, REQ-61, REQ-86 | "thời điểm mở bán" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-135 | Q-50 |
 | 52 | Thiếu | REQ-78, REQ-111, REQ-130 | "Cổng thanh toán báo kết quả giao dịch kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo lúc thanh toán"; "báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, Mục 21 (hệ thống truyền mã tham chiếu lần giữ ghế khi tạo giao dịch; cổng báo kèm mã tham chiếu và số tiền đã thanh toán), tạo REQ-136 | Q-51 |
+| Q-52 | Đã trả lời (Theo đề xuất: thời điểm mở bán phải trước giờ bắt đầu suất chiếu), đề bài bổ sung Mục 16. Thời điểm mở bán của suất chiếu có điều kiện hợp lệ nào so với giờ bắt đầu? | REQ-137 | Mục 16 |
+| Q-53 | Đã trả lời (Theo đề xuất: không được lập suất chiếu mới hoặc sửa suất chiếu sang giờ bắt đầu đã qua; ý sửa, xoá suất đã tới giờ bắt đầu tách thành Q-60), đề bài bổ sung Mục 16. Có cho lập hoặc sửa suất chiếu với giờ bắt đầu đã qua không? | REQ-138 | Mục 16 |
+| Q-54 | Đã trả lời (Theo đề xuất: xoá suất chiếu giữ lại dữ liệu để phục vụ vé đã huỷ, hoàn tiền kể cả thanh toán trễ UC-006, và báo cáo), đề bài bổ sung Mục 16. Xoá suất chiếu thì xoá hẳn dữ liệu suất chiếu hay giữ lại để vé đã huỷ, email hoàn tiền, thanh toán trễ và báo cáo vẫn tra được? | REQ-140 | Mục 16 |
+| Q-55 | Đã trả lời (Theo đề xuất mới: ghế đã quá thời điểm hết hạn giữ ghế không còn chặn sửa hoặc xoá suất chiếu, kể cả khi chưa được giải phóng; hết hạn tính theo thời điểm hết hạn), đề bài bổ sung Mục 16. Ghế đã hết hạn giữ nhưng chưa được giải phóng có còn là "ghế được giữ" theo REQ-65 không? | REQ-141 | Mục 16 |
+| Q-56 | Đã trả lời (Theo đề xuất: từ chối khi khách hoặc nhân viên quầy xác nhận chọn ghế của suất chiếu đã sửa hoặc xoá), đề bài bổ sung Mục 16. Suất chiếu bị sửa hoặc xoá lúc khách đang xem sơ đồ ghế và chưa xác nhận chọn ghế thì xử lý thế nào khi họ xác nhận? | REQ-142 | Mục 16 |
+| Q-57 | Đã trả lời (Theo đề xuất: người lưu sau bị từ chối, không ghi đè), đề bài bổ sung Mục 16. Hai quản lý cùng sửa một suất chiếu thì xử lý thế nào? | REQ-143 | Mục 16 |
+| Q-58 | Đã trả lời (Theo đề xuất: không tự đổi suất chiếu đã lập), đề bài bổ sung Mục 16. Phim hoặc phòng chiếu thay đổi sau khi lập suất chiếu thì suất chiếu hiện có xử lý thế nào? | REQ-144 | Mục 16 |
+| Q-59 | Đã trả lời (Theo đề xuất mới: không lập hoặc sửa thành suất chiếu khi bảng giá của cụm rạp chưa có giá cho đúng loại phòng và định dạng phim của suất chiếu), đề bài bổ sung Mục 16. Bảng giá của cụm rạp chưa có giá cho suất chiếu thì có chặn lập suất chiếu không? | REQ-145 | Mục 16 |
+| Q-60 | Đã trả lời (Theo đề xuất: suất chiếu đã tới giờ bắt đầu không được sửa hoặc xoá), đề bài bổ sung Mục 16. Có cho sửa, xoá suất chiếu đã tới giờ bắt đầu khi không có ghế giữ và vé chưa huỷ không? Tách từ Q-53. | REQ-139 | Mục 16 |
+| 53 | Thiếu | REQ-61, REQ-86, REQ-135 | "thời điểm mở bán" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-137 | Q-52 |
+| 54 | Thiếu | REQ-60, REQ-61 | "lập lịch suất chiếu" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-138 | Q-53 |
+| 55 | Thiếu | REQ-65 | "Không được sửa hoặc xoá suất chiếu đang có ghế được giữ hoặc có vé đã bán chưa bị huỷ" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-139 | Q-60 |
+| 56 | Thiếu | REQ-65 | "xoá" suất chiếu (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-140 | Q-54 |
+| 57 | Mơ hồ | REQ-65, REQ-76 | "ghế đang được giữ" (Mục 16); "giải phóng trong không quá 1 phút" (Mục 19) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-141 | Q-55 |
+| 58 | Thiếu | REQ-65, REQ-88 | "Ghế khách đang chọn trên sơ đồ vẫn ở trạng thái trống" (Mục 5); "Không được sửa hoặc xoá suất chiếu đang có ghế được giữ" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-142 | Q-56 |
+| 59 | Thiếu | REQ-60, REQ-65 | "Quản lý cụm rạp lập lịch suất chiếu" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-143 | Q-57 |
+| 60 | Thiếu | REQ-55, REQ-57, REQ-61, REQ-95 | "Mỗi phim được phát hành ở một hoặc nhiều định dạng" (Mục 14); "loại phòng ... các định dạng phim" (Mục 15) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-144 | Q-58 |
+| 61 | Thiếu | REQ-37, REQ-38, REQ-59, REQ-61 | "Mỗi cụm rạp có bảng giá riêng" (Mục 10); "Quản lý cụm rạp thiết lập bảng giá" (Mục 15) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-145 | Q-59 |
 
 ## 6. Ma trận phủ nguồn
 
@@ -302,7 +329,7 @@ Chờ Q-nn: Không có.
 | Mục 13, câu 5-9 | Phạm vi chọn suất chiếu; thứ tự báo một lý do; không giới hạn thời điểm soát; không nhập tay; nội dung hiển thị; định dạng mã QR | REQ-123, REQ-124, REQ-125, REQ-126, REQ-127, REQ-128 |
 | Mục 14 | Quản lý phim, cụm rạp; định dạng phát hành; ngày khởi chiếu, ngày kết thúc chiếu; đang chiếu, sắp chiếu | REQ-53, REQ-54, REQ-55, REQ-95, REQ-96 |
 | Mục 15 | Quản lý phòng chiếu, sơ đồ ghế, ràng buộc sửa sơ đồ, bảng giá cụm | REQ-56, REQ-57, REQ-58, REQ-59 |
-| Mục 16 | Lập lịch suất chiếu, thời điểm mở bán, ngừng bán từ giờ bắt đầu, khoảng ngày chiếu, định dạng, giờ kết thúc, dọn phòng, ràng buộc sửa xoá | REQ-60 đến REQ-65, REQ-86, REQ-135, REQ-97, REQ-98 |
+| Mục 16 | Lập lịch suất chiếu, thời điểm mở bán, ngừng bán từ giờ bắt đầu, khoảng ngày chiếu, định dạng, giờ kết thúc, dọn phòng, ràng buộc sửa xoá | REQ-60 đến REQ-65, REQ-86, REQ-135, REQ-97, REQ-98, REQ-137 đến REQ-145 |
 | Mục 17 | Báo cáo của cụm rạp; báo cáo toàn chuỗi, so sánh cụm; cách tính doanh thu | REQ-66, REQ-67, REQ-68, REQ-69, REQ-99 |
 | Mục 18 | Quản lý tài khoản nhân viên, gán cụm, phân quyền; quy tắc gán, vai trò; đăng nhập nhân viên; tài khoản và đăng nhập quản trị viên | REQ-70, REQ-71, REQ-72, REQ-100 đến REQ-104 |
 | Mục 19 | Tải đồng thời, thời gian giữ ghế, độ trễ giải phóng | REQ-73, REQ-74, REQ-75, REQ-76 |
@@ -372,5 +399,5 @@ Không có
 
 ## Vấn đề còn mở
 
-- REQ-81 đến REQ-136 được cấp mã tiếp nối mã lớn nhất của phiên bản trước theo quy tắc giữ mã khi chạy lại, nên thứ tự mã không còn trùng thứ tự xuất hiện trong nguồn. Ma trận phủ nguồn ghi đúng vị trí của từng REQ.
-- Đề bài sau phiên bản 1.8 có 136 mã REQ (5 mã ở trạng thái Loại: REQ-112, REQ-113, REQ-114, REQ-115, REQ-117), vượt mức tham khảo 80 REQ của bước. Phần lớn là REQ Quy tắc nghiệp vụ tách từ các ngưỡng định lượng (quy tắc tách 5 của F2), không phải do tách quá nhỏ.
+- REQ-81 đến REQ-145 được cấp mã tiếp nối mã lớn nhất của phiên bản trước theo quy tắc giữ mã khi chạy lại, nên thứ tự mã không còn trùng thứ tự xuất hiện trong nguồn. Ma trận phủ nguồn ghi đúng vị trí của từng REQ.
+- Đề bài sau phiên bản 1.9 có 145 mã REQ (5 mã ở trạng thái Loại: REQ-112, REQ-113, REQ-114, REQ-115, REQ-117), vượt mức tham khảo 80 REQ của bước. Phần lớn là REQ Quy tắc nghiệp vụ tách từ các ngưỡng định lượng (quy tắc tách 5 của F2), không phải do tách quá nhỏ.
