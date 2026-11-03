@@ -1,0 +1,63 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="UC-013" name="UC-013">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="P-ACT-04" value="Quản lý cụm rạp" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="560" height="1500" as="geometry" /></mxCell>
+        <mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="560" y="0" width="601" height="1500" as="geometry" /></mxCell>
+        <mxCell id="INIT" value="" style="ellipse;html=1;fillColor=#000000;" vertex="1" parent="P-ACT-04"><mxGeometry x="130" y="60" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="D-1" value="" style="rhombus;html=1;" vertex="1" parent="P-ACT-04"><mxGeometry x="130" y="130" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-1" value="Yêu cầu thiết lập bảng giá" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-04"><mxGeometry x="60" y="210" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-2" value="Hiển thị bảng giá của cụm rạp" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="210" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="M-3" value="" style="rhombus;html=1;" vertex="1" parent="P-ACT-04"><mxGeometry x="130" y="330" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-3" value="Chọn tổ hợp và nhập giá vé" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-04"><mxGeometry x="60" y="400" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-4" value="Kiểm tra giá vé hợp lệ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="400" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="D-4" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="500" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-4a" value="Từ chối: giá vé không hợp lệ (BR-62)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="490" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-5" value="Kiểm tra mục giá chưa bị đổi rồi lưu giá" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="600" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="D-5" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="700" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-5a" value="Từ chối: mục giá đã bị người khác đổi (BR-63)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="690" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-6" value="Thông báo lưu giá thành công" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="800" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="FINAL-1" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="700" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="FINAL-2" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="900" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-1a1" value="Hiển thị bảng giá của cụm rạp" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="1000" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-1a2" value="Chọn mục giá cần bỏ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-04"><mxGeometry x="300" y="1000" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-1a3" value="Kiểm tra mục giá rồi bỏ khỏi bảng giá" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="1100" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="D-1a3" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="1200" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="A-1a3a" value="Từ chối bỏ: mục giá đã bị người khác đổi (BR-63)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="1190" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-1a3b" value="Từ chối bỏ: suất chiếu đang dùng (BR-64)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="1290" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-1a4" value="Thông báo bỏ giá thành công" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="1300" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="FINAL-3" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="1200" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="FINAL-4" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="1300" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="FINAL-5" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="1400" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="N-*a" value="*a: Tại bất kỳ bước nào trước bước 5, kể cả trong luồng 1a trước bước 1a3, quản lý huỷ yêu cầu: hệ thống không đổi bảng giá, kết thúc (thất bại)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-ACT-04"><mxGeometry x="300" y="43.5" width="240" height="93" as="geometry" /></mxCell>
+        <mxCell id="E-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="INIT" target="D-1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-02" value="[đặt giá]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1" target="A-1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-03" value="[bỏ giá]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-1" target="A-1a1"><mxGeometry relative="1" as="geometry" x="-0.1"><Array as="points"><mxPoint x="610" y="150" /><mxPoint x="610" y="985" /><mxPoint x="710" y="985" /></Array></mxGeometry></mxCell>
+        <mxCell id="E-04" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1" target="A-2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-05" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-2" target="M-3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-06" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="M-3" target="A-3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-07" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-3" target="A-4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-08" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-4" target="D-4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-09" value="[giá vé không hợp lệ]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-4" target="A-4a"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-10" value="[khác]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-4" target="A-5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-4a" target="M-3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="970" y="475" /><mxPoint x="250" y="475" /><mxPoint x="250" y="315" /><mxPoint x="150" y="315" /></Array></mxGeometry></mxCell>
+        <mxCell id="E-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-5" target="D-5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-13" value="[mục giá đã bị người khác đổi]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-5" target="A-5a"><mxGeometry relative="1" as="geometry" x="-0.1" /></mxCell>
+        <mxCell id="E-14" value="[khác]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-5" target="A-6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-5a" target="FINAL-1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-16" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-6" target="FINAL-2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a1" target="A-1a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a2" target="A-1a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a3" target="D-1a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-20" value="[mục giá đã bị người khác đổi]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1a3" target="A-1a3a"><mxGeometry relative="1" as="geometry" x="-0.1" /></mxCell>
+        <mxCell id="E-21" value="[suất chiếu đang dùng]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1a3" target="A-1a3b"><mxGeometry relative="1" as="geometry" x="0.1" /></mxCell>
+        <mxCell id="E-22" value="[khác]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1a3" target="A-1a4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a3a" target="FINAL-3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a3b" target="FINAL-4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1a4" target="FINAL-5"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
