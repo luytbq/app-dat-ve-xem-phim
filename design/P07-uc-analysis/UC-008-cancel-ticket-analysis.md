@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-008-cancel-ticket.md 1.4; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.0 (sổ đăng ký AC). Chạy song song với P07 của các use case khác: không đọc file P07 khác, mã Q tạm Q-U008-nn |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-008-cancel-ticket.md 1.4; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.1 (sổ đăng ký AC); P07-uc-analysis/UC-006-refund-late-payment-analysis.md 1.1 (AC-E-RefundRequest); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-91 đến Q-94 |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-94; không có ASM (NGHIEM_NGAT) |
 
@@ -19,9 +19,9 @@
 | Được include bởi (UC) | Không có |
 | Extend (UC, điểm mở rộng, điều kiện) | Không có |
 | Được extend bởi (UC, điểm mở rộng, điều kiện) | Không có |
-| Use case liên quan không qua include, extend | UC-005 Đặt vé tạo vé, lần đặt, lần giữ ghế, giao dịch thanh toán mà UC-008 huỷ và hoàn tiền, và dùng lại sơ đồ ghế khi ghế trống (BR-45); UC-009 Soát vé loại trừ với bước 4 trên cùng một vé (BR-30); UC-006 Hoàn tiền thanh toán trễ dùng chung khoá chống hoàn trùng và BR-26 với UC-008; UC-015, UC-016 đọc tình trạng hoàn tiền để trừ doanh thu (BR-77). Q-91 phụ thuộc Q-83 của UC-005 |
+| Use case liên quan không qua include, extend | UC-005 Đặt vé tạo vé, lần đặt, lần giữ ghế, giao dịch thanh toán mà UC-008 huỷ và hoàn tiền, và dùng lại sơ đồ ghế khi ghế trống (BR-45); UC-009 Soát vé loại trừ với bước 4 trên cùng một vé (BR-30); UC-006 Hoàn tiền thanh toán trễ dùng chung entity RefundRequest, tên trách nhiệm hoàn tiền và BR-26, BR-41, BR-43 với UC-008, mỗi yêu cầu hoàn có khoá chống hoàn trùng riêng; UC-015, UC-016 đọc tình trạng hoàn tiền để trừ doanh thu (BR-77) |
 | Tác nhân thời gian | Không có. Thời hạn chờ 30 giây của yêu cầu hoàn tiền (BR-43) là thời hạn nội bộ do control nhận biết (A2). UC-008 không tạo, đổi hay làm mất hiệu lực mốc nào của use case do tác nhân thời gian kích hoạt (P04 Mục 8; EV-06 chỉ gắn với giữ ghế của UC-005) nên không có message hẹn, hẹn lại, huỷ mốc |
-| File P07 đã có được dùng làm sổ đăng ký AC | P07-uc-analysis/UC-005-book-tickets-analysis.md (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở). Tái dùng mã AC-B-PaymentGateway, AC-B-BookTicketsForm, AC-E-Ticket, AC-E-Booking, AC-E-SeatHold, AC-E-Showtime, AC-E-PaymentTransaction, AC-E-SeatStatus |
+| File P07 đã có được dùng làm sổ đăng ký AC | P07-uc-analysis/UC-005-book-tickets-analysis.md (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở) và UC-006-refund-late-payment-analysis.md (AC-E-RefundRequest). Tái dùng mã AC-B-PaymentGateway, AC-B-BookTicketsForm, AC-E-Ticket, AC-E-Booking, AC-E-SeatHold, AC-E-Showtime, AC-E-PaymentTransaction, AC-E-SeatStatus, AC-E-RefundRequest |
 
 ## 2. Đặc tả bổ sung
 
@@ -41,16 +41,16 @@
 | 4 | Hệ thống | Kiểm tra vé chưa huỷ và chưa sử dụng, rồi ghi nhận vé đã huỷ, thành một thao tác không chia cắt. | Vé tự kiểm tra trạng thái của mình: chưa huỷ trước, chưa sử dụng sau; đạt cả hai thì chuyển sang đã huỷ ngay trong cùng thao tác, nên hai yêu cầu huỷ cùng một vé hoặc một yêu cầu huỷ và một lần soát cùng lúc chỉ có một bên thành công, bên sau nhận kết quả vé đã huỷ hoặc đã sử dụng. | BR-21, BR-30, GL-60, GL-61 |
 | 4a | Hệ thống | Vé đã huỷ: thông báo vé đã huỷ và không hoàn tiền thêm. | Vé trả kết quả đã huỷ (kiểm trước 4b) thì control báo boundary thông báo; không có khoản hoàn nào được tạo. | BR-21 |
 | 4b | Hệ thống | Vé chưa huỷ và đã sử dụng: từ chối huỷ vé và thông báo vé đã sử dụng không huỷ được. | Vé trả kết quả đã sử dụng thì control báo boundary thông báo từ chối; vé giữ nguyên. | BR-30 |
-| 5 | Hệ thống | Yêu cầu cổng thanh toán hoàn 70% giá vé, làm tròn xuống đồng, kèm mã giao dịch và mã vé làm khoá chống hoàn trùng. | Vé tính số tiền hoàn từ giá vé của mình (70%, làm tròn xuống đồng). Giao dịch thanh toán của lần giữ ghế (qua lần đặt) kiểm tra tổng đã hoàn cộng số tiền hoàn không vượt số đã thanh toán và lập khoá từ mã giao dịch và mã vé; control gửi yêu cầu hoàn qua boundary cổng và bắt đầu chờ 30 giây. | BR-19, BR-20, BR-26, BR-31, BR-43, GL-20, GL-45 |
+| 5 | Hệ thống | Yêu cầu cổng thanh toán hoàn 70% giá vé, làm tròn xuống đồng, kèm mã giao dịch và mã vé làm khoá chống hoàn trùng. | Vé tính số tiền hoàn từ giá vé của mình (70%, làm tròn xuống đồng). Giao dịch thanh toán của lần giữ ghế (qua lần đặt) kiểm tra tổng đã hoàn cộng số tiền hoàn không vượt số đã thanh toán rồi tạo yêu cầu hoàn gắn vé; yêu cầu hoàn lập khoá từ mã giao dịch và mã vé. Control bắt đầu chờ 30 giây, yêu cầu hoàn ghi nhận một lần gửi, rồi gửi số tiền hoàn và khoá qua boundary cổng. | BR-19, BR-20, BR-26, BR-31, BR-43, GL-20, GL-45 |
 | 5a1 | Hệ thống | Hiển thị số tiền mặt cần hoàn cho khách mua tại quầy. | Vé tính số tiền hoàn như bước 5; control chuyển cho boundary quầy hiển thị số tiền mặt cần hoàn. | BR-19, BR-20, BR-31 |
 | 5a2 | Nhân viên quầy | Hoàn tiền mặt cho khách mua tại quầy và xác nhận đã hoàn; tiếp tục bước 7. | Không đổi | BR-20, REQ-85 |
-| 5b | Hệ thống | Cổng không phản hồi trong 30 giây và còn lượt thử lại: quay lại bước 5. | Hết 30 giây chờ thì control kiểm tra còn lượt thử lại; còn thì chờ lại và gửi lại yêu cầu hoàn với cùng khoá chống hoàn trùng. | BR-41, BR-43 |
+| 5b | Hệ thống | Cổng không phản hồi trong 30 giây và còn lượt thử lại: quay lại bước 5. | Hết 30 giây chờ thì yêu cầu hoàn ghi nhận không phản hồi và kiểm còn lượt thử lại; còn thì control chờ lại và gửi lại yêu cầu hoàn với cùng khoá chống hoàn trùng. | BR-41, BR-43 |
 | 5c | Hệ thống | Cổng không phản hồi trong 30 giây và hết lượt thử lại: ghi log lỗi khoản hoàn, tiếp tục bước 7. | Control ghi log lỗi khoản hoàn (mã vé, mã giao dịch, số tiền hoàn) để xử lý thủ công ngoài hệ thống, không gửi email cho khách. | BR-41, REQ-131 |
 | 6 | Cổng thanh toán | Báo hoàn tiền thành công. | Không đổi | REQ-79 |
-| 6a | Hệ thống | Cổng báo hoàn tiền thất bại và còn lượt thử lại: quay lại bước 5. | Control ngừng chờ, kiểm tra còn lượt thử lại; còn thì chờ lại và gửi lại yêu cầu hoàn với cùng khoá. | BR-41, BR-43 |
+| 6a | Hệ thống | Cổng báo hoàn tiền thất bại và còn lượt thử lại: quay lại bước 5. | Control ngừng chờ, yêu cầu hoàn ghi kết quả thất bại và kiểm còn lượt thử lại; còn thì control chờ lại và gửi lại yêu cầu hoàn với cùng khoá. | BR-41, BR-43 |
 | 6b | Hệ thống | Cổng báo hoàn tiền thất bại và hết lượt thử lại: ghi log lỗi khoản hoàn, tiếp tục bước 7. | Như 5c. | BR-41, REQ-131 |
-| 7 | Hệ thống | Ghi nhận khoản hoàn của vé kèm tình trạng hoàn tiền và trả ghế của vé về trạng thái trống. | Giao dịch thanh toán cộng số tiền hoàn vào tổng đã hoàn khi hoàn qua cổng thành công; vé ghi số tiền hoàn và tình trạng hoàn tiền (đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi). Vé yêu cầu trạng thái ghế của mình chuyển từ đã bán về trống, kể cả khi hoàn tiền không thành công; control báo các màn hình đang xem sơ đồ ghế cập nhật. | BR-42, BR-26, GL-56, REQ-119 |
-| 8 | Hệ thống | Thông báo huỷ vé thành công, hiển thị số tiền hoàn và tình trạng hoàn tiền. | Vé cung cấp nội dung vé đã huỷ (mã đặt vé, vị trí ghế, giá vé, số tiền hoàn, tình trạng hoàn tiền); control chuyển cho boundary hiển thị kèm hình thức hoàn tiền theo kênh mua. | Dữ liệu ra 1, BR-20, GL-56 |
+| 7 | Hệ thống | Ghi nhận khoản hoàn của vé kèm tình trạng hoàn tiền và trả ghế của vé về trạng thái trống. | Giao dịch thanh toán cộng số tiền hoàn vào tổng đã hoàn khi hoàn qua cổng thành công; yêu cầu hoàn ghi kết quả (đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi), còn với vé mua tại quầy thì vé tạo yêu cầu hoàn tiền mặt có kết quả đã hoàn. Vé yêu cầu trạng thái ghế của mình chuyển từ đã bán về trống, kể cả khi hoàn tiền không thành công; suất chiếu Đã xoá vẫn tra được (BR-58). Control báo các màn hình đang xem sơ đồ ghế cập nhật. | BR-42, BR-26, BR-58, GL-56, REQ-119 |
+| 8 | Hệ thống | Thông báo huỷ vé thành công, hiển thị số tiền hoàn và tình trạng hoàn tiền. | Vé cung cấp nội dung vé đã huỷ (mã đặt vé, vị trí ghế, giá vé) và hỏi yêu cầu hoàn của mình số tiền hoàn và tình trạng hoàn tiền; control chuyển cho boundary hiển thị kèm hình thức hoàn tiền theo kênh mua. | Dữ liệu ra 1, BR-20, GL-56 |
 
 ## 3. Tìm lớp phân tích
 
@@ -62,13 +62,13 @@
 | ACT-02 Nhân viên quầy | Người | CounterCancelTicketForm | Giao diện người dùng | Mới - chạy song song, chờ P08 hợp nhất (AC-B-CounterCancelTicketForm) | Nhân viên quầy dùng chung luồng với khách (P02 U-R10 b) nhưng khác ở nhiều bước: nhập mã đặt vé, xem các vé của lần đặt, hoàn tiền mặt. Một boundary cho mỗi cặp tác nhân và use case. |
 | ACT-07 Cổng thanh toán | Hệ thống ngoài | PaymentGateway | Giao diện hệ thống | Tái dùng từ UC-005 (AC-B-PaymentGateway), bổ sung trách nhiệm | Cùng hệ thống ngoài; thêm yêu cầu hoàn tiền và nhận kết quả hoàn tiền (GL-02). Tên không trùng entity (entity là PaymentTransaction). |
 
-Số boundary giao tiếp trực tiếp với tác nhân là 3, bằng số tác nhân tham gia (không có tác nhân thời gian). Khách khác đang xem sơ đồ ghế nhận cập nhật qua AC-B-BookTicketsForm của UC-005 (tái dùng, không tạo boundary mới): đây không là boundary của tác nhân tham gia UC-008 mà là điểm nhận message cập nhật sơ đồ ghế (REQ-119), nên tổng số lớp boundary trong VOPC là 4. Máy in và dịch vụ email không tham gia UC-008 (P04 Mục 8).
+Số boundary giao tiếp trực tiếp với tác nhân là 3, bằng số tác nhân tham gia (không có tác nhân thời gian). Khách khác đang xem sơ đồ ghế nhận cập nhật qua AC-B-BookTicketsForm của UC-005 (tái dùng có chủ đích, không tạo boundary mới; xem Vấn đề còn mở): đây không là boundary của tác nhân tham gia UC-008 mà là điểm nhận message cập nhật sơ đồ ghế (REQ-119), nên tổng số lớp boundary trong VOPC là 4. Máy in và dịch vụ email không tham gia UC-008 (P04 Mục 8).
 
 ### 3.2 Bảng lọc danh từ
 
 | STT | Danh từ hoặc cụm danh từ | Vị trí (bước UC, mục dữ liệu, BR) | Kết luận | Lý do |
 |---|---|---|---|---|
-| 1 | vé | 1, 4, 5, 7, 8; Dữ liệu vào 2; BR-21, BR-30 | Entity AC-E-Ticket | Hệ thống lưu; có trạng thái (chưa sử dụng, đã huỷ, đã sử dụng), giá vé, số tiền hoàn, tình trạng hoàn tiền; tự kiểm tra và ghi nhận huỷ không chia cắt, trả ghế về trống (GL-59, GL-60, GL-61, GL-65). |
+| 1 | vé | 1, 4, 5, 7, 8; Dữ liệu vào 2; BR-21, BR-30 | Entity AC-E-Ticket | Hệ thống lưu; có trạng thái (chưa sử dụng, đã huỷ, đã sử dụng), giá vé; tự kiểm tra và ghi nhận huỷ không chia cắt, trả ghế về trống (GL-59, GL-60, GL-61, GL-65). |
 | 2 | khách | 1, 2, 2a | Loại - là tác nhân hoặc ngoài phạm vi | ACT-01; boundary CancelTicketForm. Khách khác đang xem sơ đồ ghế cũng thuộc ACT-01, dùng boundary BookTicketsForm của UC-005. |
 | 3 | nhân viên quầy | 1a, 2, 2b, 2c, 5a | Loại - là tác nhân hoặc ngoài phạm vi | ACT-02; boundary CounterCancelTicketForm. |
 | 4 | tác nhân | 2, 2a, 2b, 2c | Loại - trùng hoặc đồng nghĩa với khách, nhân viên quầy | Cách nói chung của ACT-01 và ACT-02. |
@@ -82,18 +82,18 @@ Số boundary giao tiếp trực tiếp với tác nhân là 3, bằng số tác
 | 12 | trạng thái vé (chưa sử dụng, đã huỷ, đã sử dụng) | 4, 4a, 4b; Dữ liệu ra 2 | Loại - thuộc tính của Ticket | Giá trị của status (GL-60, GL-61, GL-65). |
 | 13 | yêu cầu huỷ khác, việc soát | 4a, 4b | Loại - thao tác hoặc sự kiện | Sự kiện đồng thời; việc soát thuộc UC-009 và loại trừ với việc huỷ trên cùng vé (BR-30). |
 | 14 | cổng thanh toán | 5, 6 | Loại - là tác nhân hoặc ngoài phạm vi | ACT-07; boundary PaymentGateway (GL-02). |
-| 15 | 70% giá vé, số tiền hoàn | 5, 5a1; BR-19, BR-31 | Loại - thuộc tính của Ticket | refundAmount, tính từ price của vé (GL-45); làm tròn xuống đồng theo BR-31. |
+| 15 | 70% giá vé, số tiền hoàn | 5, 5a1; BR-19, BR-31 | Loại - thuộc tính của RefundRequest | refundAmount, do Ticket tính từ price của vé (GL-45); làm tròn xuống đồng theo BR-31. |
 | 16 | giá vé | 5, 8; Dữ liệu ra 1, 2; BR-11 | Loại - thuộc tính của Ticket | price, giá đã ghi trên vé khi bán (GL-10, BR-67). |
 | 17 | làm tròn xuống đồng | 5; BR-31 | Loại - tham số của quy tắc BR-31 | Quy tắc làm tròn của số tiền hoàn. |
-| 18 | giao dịch thanh toán | 5; BR-26, BR-43 | Entity AC-E-PaymentTransaction | Hệ thống lưu số tiền đã thanh toán; có hành vi kiểm tra tổng đã hoàn không vượt số đã thanh toán và lập khoá chống hoàn trùng (GL-12). |
+| 18 | giao dịch thanh toán | 5; BR-26, BR-43 | Entity AC-E-PaymentTransaction | Hệ thống lưu số tiền đã thanh toán; có hành vi kiểm tra tổng đã hoàn không vượt số đã thanh toán và tạo yêu cầu hoàn (GL-12). |
 | 19 | mã giao dịch | 5; BR-43 | Loại - thuộc tính của PaymentTransaction | transactionCode (GL-29). |
 | 20 | số tiền đã thanh toán, tổng đã hoàn | 5; BR-26 | Loại - thuộc tính của PaymentTransaction | amount và refundedTotal (GL-44). |
 | 21 | mã vé | 5; BR-43 | Loại - thuộc tính của Ticket | ticketCode (GL-32). |
-| 22 | khoá chống hoàn trùng, yêu cầu hoàn | 5, 5b, 6a; BR-43 | Loại - dữ liệu trao đổi qua boundary PaymentGateway | Khoá lập từ mã giao dịch và mã vé khi cần, gắn với từng yêu cầu hoàn, không lưu riêng (GL-20); yêu cầu hoàn là thao tác. |
-| 23 | khoản hoàn | 7; GL-45, GL-56 | Loại - thuộc tính của Ticket | Số tiền hoàn và tình trạng hoàn tiền gắn với vé (refundAmount, refundStatus); Q-93. |
-| 24 | tình trạng hoàn tiền | 7, 8; BR-41 | Loại - thuộc tính của Ticket | refundStatus: đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi (GL-56). |
+| 22 | khoá chống hoàn trùng, yêu cầu hoàn, khoản hoàn | 5, 5b, 6a, 7; BR-43 | Entity AC-E-RefundRequest (tái dùng từ UC-006) | Có định danh theo khoá chống hoàn trùng lập từ mã giao dịch và mã vé, vòng đời (số lần gửi, kết quả) và hành vi riêng; cùng khái niệm với yêu cầu hoàn toàn bộ của UC-006 (GL-20, GL-45, Q-87). |
+| 23 | số tiền hoàn đã ghi, tổng đã hoàn của vé | 7; GL-45, GL-56 | Loại - thuộc tính của RefundRequest | refundAmount của yêu cầu hoàn gắn vé; Ticket chỉ tham chiếu để hiển thị (Q-93). |
+| 24 | tình trạng hoàn tiền | 7, 8; BR-41 | Loại - thuộc tính của RefundRequest | result: đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi (GL-56). |
 | 25 | hình thức hoàn tiền, tiền mặt | 5a1, 8; Dữ liệu ra 1; BR-20 | Loại - giá trị suy ra từ Booking | Suy ra từ kênh mua vé: qua cổng thanh toán với vé trực tuyến, tiền mặt với vé quầy; không lưu. |
-| 26 | lượt thử lại, vài lần | 5b, 6a; BR-41 | Loại - tham số của quy tắc BR-41 | Số lần là quyết định thiết kế (P09); control chỉ xác định còn lượt hay không. |
+| 26 | lượt thử lại, vài lần | 5b, 6a; BR-41 | Loại - tham số của quy tắc BR-41 | Số lần là quyết định thiết kế (P09); chỉ RefundRequest xác định còn lượt hay không. |
 | 27 | 30 giây, không phản hồi | 5b, 5c; BR-43 | Loại - tham số của quy tắc BR-43 | Thời hạn chờ nội bộ của control, không là tác nhân (A2). |
 | 28 | log lỗi, xử lý thủ công ngoài hệ thống | 5c, 6b; BR-41 | Loại - cấu trúc cài đặt | Cơ chế ghi log thuộc thiết kế; xử lý thủ công nằm ngoài phạm vi, không có use case (REQ-131). |
 | 29 | email | Mục 8; BR-41 | Loại - không tham gia hành vi của use case này (khái niệm của UC-006) | UC-008 không gửi email (ACT-08 không tham gia); chỉ được nhắc để xác định ranh giới. |
@@ -112,7 +112,7 @@ Số boundary giao tiếp trực tiếp với tác nhân là 3, bằng số tác
 
 | Control | Use case điều phối | Mới hoặc tái dùng | Lý do (hoặc lý do không có control) |
 |---|---|---|---|
-| CancelTicketController | UC-008 | Mới - chạy song song, chờ P08 hợp nhất (AC-C-CancelTicketController) | Một control cho use case: điều phối trình tự bước 2 đến 8, nhận kết quả hoàn tiền, nhận sự kiện hết 30 giây (after BR-43), đếm lượt thử lại, ghi log lỗi khoản hoàn, báo các màn hình khác cập nhật sơ đồ ghế. Mọi quy tắc nghiệp vụ nằm ở entity. Có 8 trách nhiệm, trong đó 3 là message tự gọi theo A2 (startWaitingForRefundResponse, stopWaitingForRefundResponse, handleRefundNoResponse). |
+| CancelTicketController | UC-008 | Mới - chạy song song, chờ P08 hợp nhất (AC-C-CancelTicketController) | Một control cho use case: điều phối trình tự bước 2 đến 8, nhận sự kiện hết 30 giây (after BR-43), ghi log lỗi khoản hoàn, báo các màn hình khác cập nhật sơ đồ ghế. Mọi quy tắc nghiệp vụ nằm ở entity; lượt thử lại tính trên RefundRequest. Có 7 trách nhiệm, trong đó 4 là message tự gọi theo A2 hoặc ghi log (startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure), tên thống nhất với UC-006. |
 
 ### 3.4 Bảng lớp phân tích
 
@@ -122,15 +122,16 @@ Số boundary giao tiếp trực tiếp với tác nhân là 3, bằng số tác
 | AC-B-CounterCancelTicketForm | boundary | CounterCancelTicketForm | // enterBookingCode: nhân viên quầy nhập mã đặt vé của lần đặt chứa vé cần huỷ<br>// showBookingTickets: hiển thị các vé của lần đặt: vị trí ghế, giá vé, trạng thái vé<br>// selectTicketToCancel: nhân viên quầy chọn vé cần huỷ và yêu cầu huỷ vé<br>// notifyRefusal: thông báo từ chối kèm lý do, kể cả mã đặt vé không tồn tại<br>// showCashRefund: hiển thị số tiền mặt cần hoàn cho khách mua tại quầy<br>// confirmCashRefunded: nhân viên quầy xác nhận đã hoàn tiền mặt<br>// showCancellationResult: thông báo huỷ vé thành công, hiển thị vé đã huỷ, giá vé, số tiền hoàn, hình thức và tình trạng hoàn tiền | - | 1a1, 1a1a, 1a2, 1a3, 2b, 2c, 3a, 4a, 4b, 5a1, 5a2, 8 | Giao diện người dùng | Mới - chạy song song, chờ P08 hợp nhất | GL-35 |
 | AC-B-PaymentGateway | boundary | PaymentGateway | // requestRefund: chuyển yêu cầu hoàn tiền (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) tới cổng thanh toán và nhận kết quả hoàn tiền | - | 5, 5b, 6, 6a | Giao diện hệ thống | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-02 |
 | AC-B-BookTicketsForm | boundary | BookTicketsForm | // updateSeatMap: cập nhật sơ đồ ghế đang hiển thị khi trạng thái ghế của suất chiếu đổi | - | 7 | Giao diện người dùng | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-46 |
-| AC-C-CancelTicketController | control | CancelTicketController | // requestCancellation: điều phối bước 2 đến 8 cho vé mua trực tuyến: kiểm tra, ghi nhận huỷ, hoàn tiền qua cổng, trả ghế, báo kết quả<br>// findBookingTickets: điều phối bước 1a1, 1a1a, 1a2: tìm lần đặt theo mã đặt vé và lấy các vé để hiển thị<br>// confirmCashRefund: điều phối bước 5a2, 7, 8 khi nhân viên quầy xác nhận đã hoàn tiền mặt<br>// startWaitingForRefundResponse: bắt đầu chờ phản hồi hoàn tiền của cổng thanh toán (BR-43)<br>// stopWaitingForRefundResponse: ngừng chờ khi cổng thanh toán đã trả kết quả hoàn tiền<br>// handleRefundNoResponse: nhận sự kiện hết 30 giây không có phản hồi hoàn tiền (BR-43)<br>// checkRefundRetriesLeft: xác định còn lượt thử lại yêu cầu hoàn tiền trong lần huỷ vé này (BR-41)<br>// logRefundFailure: ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống, không gửi email cho khách (BR-41) | - | 1 đến 8, 1a1 đến 1a3, 2a đến 2c, 3a, 4a, 4b, 5a1, 5a2, 5b, 5c, 6a, 6b | - | Mới - chạy song song, chờ P08 hợp nhất | - |
-| AC-E-Ticket | entity | Ticket | // cancelTicket: thao tác không chia cắt: kiểm tra vé chưa huỷ và chưa sử dụng rồi ghi nhận vé đã huỷ (BR-21, BR-30)<br>// checkNotCancelledNotUsed: kiểm tra vé chưa huỷ (trước) rồi chưa sử dụng (BR-21, BR-30)<br>// markCancelled: chuyển trạng thái vé sang đã huỷ<br>// calculateRefundAmount: tính số tiền hoàn bằng 70% giá vé, làm tròn xuống đồng (BR-19, BR-31)<br>// recordRefund: ghi nhận số tiền hoàn và tình trạng hoàn tiền (đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi) cho vé<br>// releaseTicketSeat: trả ghế của vé về trống sau khi vé đã huỷ (BR-42)<br>// provideTicketContent: cung cấp nội dung vé để hiển thị | refundAmount (Số tiền) (mới ở UC này), refundStatus (Trạng thái) (mới ở UC này); ticketCode, seatPosition, seatType, price, status đã có ở UC-005 | 1a2, 4, 4a, 4b, 5, 5a1, 7, 8 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-59, GL-60, GL-61, GL-65, GL-45, GL-56 |
+| AC-C-CancelTicketController | control | CancelTicketController | // requestCancellation: điều phối bước 2 đến 8 cho vé mua trực tuyến: kiểm tra, ghi nhận huỷ, hoàn tiền qua cổng, trả ghế, báo kết quả<br>// findBookingTickets: điều phối bước 1a1, 1a1a, 1a2: tìm lần đặt theo mã đặt vé và lấy các vé để hiển thị<br>// confirmCashRefund: điều phối bước 5a2, 7, 8 khi nhân viên quầy xác nhận đã hoàn tiền mặt<br>// startWaitingForRefundResult: bắt đầu chờ kết quả hoàn tiền của cổng thanh toán (BR-43)<br>// stopWaitingForRefundResult: ngừng chờ khi cổng thanh toán đã trả kết quả hoàn tiền<br>// handleRefundNoResponse: nhận sự kiện hết 30 giây không có kết quả hoàn tiền (BR-43)<br>// logRefundFailure: ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống, không gửi email cho khách (BR-41) | - | 1 đến 8, 1a1 đến 1a3, 2a đến 2c, 3a, 4a, 4b, 5a1, 5a2, 5b, 5c, 6a, 6b | - | Mới - chạy song song, chờ P08 hợp nhất | - |
+| AC-E-Ticket | entity | Ticket | // cancelTicket: thao tác không chia cắt: kiểm tra vé chưa huỷ và chưa sử dụng rồi ghi nhận vé đã huỷ (BR-21, BR-30)<br>// checkNotCancelledNotUsed: kiểm tra vé chưa huỷ (trước) rồi chưa sử dụng (BR-21, BR-30)<br>// markCancelled: chuyển trạng thái vé sang đã huỷ<br>// calculateRefundAmount: tính số tiền hoàn bằng 70% giá vé, làm tròn xuống đồng (BR-19, BR-31)<br>// recordCashRefund: ghi nhận khoản hoàn tiền mặt của vé bằng cách tạo yêu cầu hoàn tiền mặt có kết quả đã hoàn (BR-20)<br>// releaseTicketSeat: trả ghế của vé về trống sau khi vé đã huỷ (BR-42)<br>// provideTicketContent: cung cấp nội dung vé để hiển thị, kèm số tiền hoàn và tình trạng hoàn tiền lấy từ yêu cầu hoàn của vé | ticketCode, seatPosition, seatType, price, status đã có ở UC-005 | 1a2, 4, 4a, 4b, 5, 5a1, 7, 8 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-59, GL-60, GL-61, GL-65, GL-45, GL-56 |
 | AC-E-Booking | entity | Booking | // checkCancellationChannel: kiểm tra kênh mua vé của lần đặt khớp tác nhân huỷ vé (BR-17)<br>// providePaymentTransaction: cung cấp giao dịch thanh toán của lần đặt để hoàn tiền<br>// provideBookingInfo: cung cấp mã đặt vé và nội dung các vé của lần đặt (trách nhiệm đã có ở UC-005, cùng ý nghĩa) | bookingCode đã có ở UC-005 | 1a2, 2, 2a, 2b, 5 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-24, GL-28, GL-63, GL-64 |
 | AC-E-SeatHold | entity | SeatHold | // checkHeldBy: kiểm tra người giữ ghế của lần giữ ghế là tác nhân huỷ vé và cho biết kênh mua (BR-17)<br>// providePaymentTransaction: cung cấp giao dịch thanh toán đã xử lý thành công của lần giữ ghế | holdRef, status, holdTime, expiryTime đã có ở UC-005 | 2, 2a, 2b, 5 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-25 |
 | AC-E-Showtime | entity | Showtime | // checkCancellationDeadline: kiểm tra thời điểm kiểm tra cách giờ bắt đầu ít nhất 2 tiếng (BR-18, BR-32)<br>// checkBelongsToCinema: kiểm tra suất chiếu thuộc cụm rạp của nhân viên quầy (BR-17), trách nhiệm đã có ở UC-005, cùng ý nghĩa | startTime, cinema đã có ở UC-005 | 2c, 3, 3a | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-47, GL-14, GL-16 |
-| AC-E-PaymentTransaction | entity | PaymentTransaction | // prepareRefundRequest: kiểm tra tổng đã hoàn cộng số tiền hoàn không vượt số tiền đã thanh toán (BR-26) và lập khoá chống hoàn trùng từ mã giao dịch và mã vé (BR-43)<br>// recordRefundedAmount: cộng số tiền hoàn vào tổng đã hoàn của giao dịch (BR-26) | refundedTotal (Số tiền) (mới ở UC này); transactionCode, amount đã có ở UC-005 | 5, 7 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-12, GL-20, GL-29, GL-44 |
+| AC-E-PaymentTransaction | entity | PaymentTransaction | // prepareRefundRequest: kiểm tra tổng đã hoàn cộng số tiền hoàn không vượt số tiền đã thanh toán rồi tạo yêu cầu hoàn gắn giao dịch và vé (BR-26, BR-43); cùng trách nhiệm với UC-006<br>// checkRefundWithinPaidAmount: kiểm tổng đã hoàn cộng khoản hoàn không vượt số tiền đã thanh toán (BR-26)<br>// recordRefundedAmount: cộng số tiền hoàn vào tổng đã hoàn của giao dịch (BR-26); cùng trách nhiệm với UC-006 | refundedTotal (Số tiền) (dùng chung với UC-006); transactionCode, amount đã có ở UC-005 | 5, 7 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-12, GL-20, GL-29, GL-44 |
+| AC-E-RefundRequest | entity | RefundRequest | // createRefundRequest: tạo yêu cầu hoàn gắn vé, loại yêu cầu (hoàn một vé qua cổng, hoàn một vé bằng tiền mặt) và số tiền hoàn (BR-43)<br>// generateIdempotencyKey: sinh khoá chống hoàn trùng từ mã giao dịch và mã vé, không đổi qua các lần thử lại (BR-43)<br>// recordAttempt: ghi nhận một lần gửi yêu cầu hoàn tới cổng<br>// recordResult: ghi nhận kết quả của lần gửi: thành công, thất bại, không phản hồi<br>// checkRetryRemaining: kiểm còn lượt thử lại (BR-41)<br>// provideRefundInfo: cung cấp số tiền hoàn và tình trạng hoàn tiền (đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi) để hiển thị | idempotencyKey, requestType, refundAmount, attemptCount, result đã có ở UC-006; requestType có thêm giá trị hoàn một vé qua cổng, hoàn một vé bằng tiền mặt (mới ở UC này) | 5, 5b, 6a, 7, 8, 5a2 | - | Tái dùng từ UC-006, bổ sung trách nhiệm | GL-20, GL-45, GL-56 |
 | AC-E-SeatStatus | entity | SeatStatus | // releaseSoldSeat: chuyển ghế đã bán về trống để chọn, giữ, mua như mọi ghế trống (BR-42) | seatPosition, seatType, status, heldPrice đã có ở UC-005 | 7 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-58 |
 
-Tổng cộng 11 lớp: 4 boundary, 1 control, 6 entity. Trách nhiệm releaseSoldSeat khác releaseSeat của UC-005 ở điều kiện (ghế đã bán chứ không phải đang giữ) nên đặt tên khác. Entity cốt lõi của chủ đề race condition, giữ ghế và giải phóng ghế: AC-E-Ticket (thao tác huỷ không chia cắt, một vé hoàn một lần) và AC-E-SeatStatus (trả ghế về trống).
+Tổng cộng 12 lớp: 4 boundary, 1 control, 7 entity. Trách nhiệm releaseSoldSeat khác releaseSeat của UC-005 ở điều kiện (ghế đã bán chứ không phải đang giữ) nên đặt tên khác. Entity cốt lõi của chủ đề race condition, giữ ghế và giải phóng ghế: AC-E-Ticket (thao tác huỷ không chia cắt, một vé hoàn một lần) và AC-E-SeatStatus (trả ghế về trống); chống hoàn trùng: AC-E-RefundRequest.
 
 ## 4. Phân bổ hành vi
 
@@ -152,25 +153,27 @@ Tổng cộng 11 lớp: 4 boundary, 1 control, 6 entity. Trách nhiệm releaseS
 | 4 | // cancelTicket, checkNotCancelledNotUsed, markCancelled | AC-E-Ticket | Information Expert | Trạng thái vé là dữ liệu của vé. Kiểm tra vé chưa huỷ, chưa sử dụng và ghi nhận đã huỷ nằm cùng một trách nhiệm của Ticket để yêu cầu tới sau gặp vé đã huỷ (một vé hoàn một lần, BR-21) và loại trừ với việc soát (BR-30). Tách kiểm tra ở control và ghi ở Ticket sẽ cho hai yêu cầu cùng thấy vé chưa huỷ. |
 | 5 | // calculateRefundAmount | AC-E-Ticket | Information Expert | Giá vé là dữ liệu của vé; giao control sẽ làm control giữ quy tắc tính (BR-19, BR-31). |
 | 5 | // providePaymentTransaction | AC-E-Booking, AC-E-SeatHold | Information Expert | Giao dịch thanh toán gắn với lần giữ ghế (GL-12); lần đặt đi tới lần giữ ghế qua quan hệ cấu trúc; Q-92. |
-| 5 | // prepareRefundRequest | AC-E-PaymentTransaction | Information Expert | Số tiền đã thanh toán, tổng đã hoàn và mã giao dịch là dữ liệu của giao dịch; mã vé nhận làm tham số. |
-| 5, 5b, 6a | // startWaitingForRefundResponse, // handleRefundNoResponse | AC-C-CancelTicketController | Controller | Thời hạn nội bộ (BR-43) không là tác nhân (A2). |
+| 5 | // prepareRefundRequest, checkRefundWithinPaidAmount | AC-E-PaymentTransaction | Information Expert | Số tiền đã thanh toán, tổng đã hoàn và mã giao dịch là dữ liệu của giao dịch; mã vé nhận làm tham số. Cùng trách nhiệm với UC-006 (Q-87). |
+| 5 | // createRefundRequest, generateIdempotencyKey, recordAttempt | AC-E-RefundRequest | Creator, Information Expert | Giao dịch ghi nhận các yêu cầu hoàn của nó nên tạo yêu cầu hoàn; khoá gắn với từng yêu cầu hoàn (mã giao dịch và mã vé) và không đổi qua các lần thử lại; số lần gửi đếm trên yêu cầu hoàn (BR-43). |
+| 5, 5b, 6a | // startWaitingForRefundResult, // handleRefundNoResponse | AC-C-CancelTicketController | Controller | Thời hạn nội bộ (BR-43) không là tác nhân (A2); cùng tên với UC-006. |
 | 5, 5b, 6a | // requestRefund | AC-B-PaymentGateway | Giao tiếp tác nhân | - |
-| 5b, 6a | // checkRefundRetriesLeft | AC-C-CancelTicketController | Controller | Số lần thử lại là quyết định thiết kế (P09); control chỉ biết còn lượt hay không trong lần huỷ vé này. |
+| 5b, 6a | // recordResult, checkRetryRemaining | AC-E-RefundRequest | Information Expert | Số lần thử lại là quyết định thiết kế (P09); yêu cầu hoàn biết số lần đã gửi của chính nó, không để control giữ số đếm nghiệp vụ. |
 | 5c, 6b | // logRefundFailure | AC-C-CancelTicketController | Controller | Ghi log không phải dữ liệu nghiệp vụ của entity nào (log lỗi là cấu trúc cài đặt). |
 | 5a1 | // calculateRefundAmount, // showCashRefund | AC-E-Ticket, AC-B-CounterCancelTicketForm | Information Expert, Giao tiếp tác nhân | - |
 | 5a2 | // confirmCashRefunded, // confirmCashRefund | AC-B-CounterCancelTicketForm, AC-C-CancelTicketController | Giao tiếp tác nhân, Controller | - |
 | 6 | // requestRefund (kết quả trả về) | AC-B-PaymentGateway | Giao tiếp tác nhân | Kết quả hoàn tiền đi theo lời gọi, Q-91. |
-| 6 | // stopWaitingForRefundResponse | AC-C-CancelTicketController | Controller | - |
+| 6 | // stopWaitingForRefundResult | AC-C-CancelTicketController | Controller | - |
 | 7 | // recordRefundedAmount | AC-E-PaymentTransaction | Information Expert | Tổng đã hoàn là dữ liệu của giao dịch (BR-26). |
-| 7 | // recordRefund | AC-E-Ticket | Information Expert | Khoản hoàn gắn với vé: số tiền hoàn và tình trạng hoàn tiền (GL-45, GL-56); Q-93. |
+| 7 | // recordResult | AC-E-RefundRequest | Information Expert | Kết quả hoàn gắn với yêu cầu hoàn: số tiền hoàn và tình trạng hoàn tiền (GL-45, GL-56); Q-93. Ticket chỉ tham chiếu. |
+| 7 | // recordCashRefund | AC-E-Ticket | Creator | Vé mua tại quầy không có giao dịch thanh toán; vé có số tiền hoàn đã tính nên tạo yêu cầu hoàn tiền mặt có kết quả đã hoàn. |
 | 7 | // releaseTicketSeat, // releaseSoldSeat | AC-E-Ticket, AC-E-SeatStatus | Information Expert | Vé biết ghế của mình (GL-59) nên vé yêu cầu trạng thái ghế chuyển về trống; giao control sẽ buộc control biết ghế nào thuộc vé. |
-| 7 | // updateSeatMap | AC-B-BookTicketsForm | Giao tiếp tác nhân | Control báo các màn hình đang xem sơ đồ ghế của suất chiếu (REQ-119); người xem tại quầy dùng CounterBookTicketsForm với cùng message. |
-| 8 | // provideTicketContent | AC-E-Ticket | Information Expert | - |
+| 7 | // updateSeatMap | AC-B-BookTicketsForm | Giao tiếp tác nhân | Control báo các màn hình đang xem sơ đồ ghế của suất chiếu (REQ-119); người xem tại quầy dùng CounterBookTicketsForm với cùng message. Tái dùng boundary của UC-005 là ngoại lệ có chủ đích của A3 (Vấn đề còn mở). |
+| 8 | // provideTicketContent, provideRefundInfo | AC-E-Ticket, AC-E-RefundRequest | Information Expert | Vé nắm nội dung vé và hỏi yêu cầu hoàn của mình số tiền hoàn, tình trạng hoàn tiền. |
 | 8 | // showCancellationResult | AC-B-CancelTicketForm, AC-B-CounterCancelTicketForm | Giao tiếp tác nhân | - |
 
 ## 5. Sequence diagram phân tích
 
-File diagrams/P07-sequence-UC-008.drawio có 7 trang, mỗi trang một sơ đồ. ID cell của lifeline là "<ID trang>-L-<khoá>", ID cell của message là "<ID trang>-M-<STT>" (các ký tự [ ] ( ) * trong STT đổi thành _, message trả về thêm hậu tố -R). Luồng thay thế rẽ tại message có STT 1.1.1 dùng STT 1.1.1a, 1.1.1b theo chữ của mã luồng; biến thể ACT-02 dùng hậu tố [ACT-02] cho message tương ứng với luồng chính và STT riêng (1a, 1a.1, 1.1.1c) cho message chỉ có ở biến thể. Lifeline w:BookTicketsForm là boundary của khách khác đang xem cùng sơ đồ ghế. Luồng 5b, 5c vẽ như luồng thời hạn: message tự gọi after(BR-43) rồi xử lý hết hạn; thời hạn này chỉ trùm bước 5 và 6 nên không dùng trang "*a" (A2). Bước 4 (cancelTicket) là một message duy nhất tới Ticket, hai message tự gọi 1.1.3.1 và 1.1.3.2 nằm trong cùng thao tác không chia cắt.
+File diagrams/P07-sequence-UC-008.drawio có 7 trang, mỗi trang một sơ đồ. ID cell của lifeline là "<ID trang>-L-<khoá>", ID cell của message là "<ID trang>-M-<STT>" (các ký tự [ ] ( ) * trong STT đổi thành _, message trả về thêm hậu tố -R). Luồng thay thế rẽ tại message có STT 1.1.1 dùng STT 1.1.1a, 1.1.1b theo chữ của mã luồng; biến thể ACT-02 dùng hậu tố [ACT-02] cho message tương ứng với luồng chính và STT riêng (1a, 1a.1, 1.1.1c) cho message chỉ có ở biến thể. Lifeline w:BookTicketsForm là boundary của khách khác đang xem cùng sơ đồ ghế. Luồng 5b, 5c vẽ như luồng thời hạn: message tự gọi after(BR-43) rồi xử lý hết hạn; thời hạn này chỉ trùm bước 5 và 6 nên không dùng trang "*a" (A2). Bước 4 (cancelTicket) là một message duy nhất tới Ticket, hai message tự gọi 1.1.3.1 và 1.1.3.2 nằm trong cùng thao tác không chia cắt. Kết quả hoàn tiền đi theo lời gọi requestRefund (Q-91).
 
 ### SD1 - Luồng chính, bước 1 đến 8
 
@@ -189,6 +192,7 @@ b) Bảng lifeline
 | SD1-L-SH | Lifeline | :SeatHold | «entity» | - | AC-E-SeatHold |
 | SD1-L-ST | Lifeline | :Showtime | «entity» | - | AC-E-Showtime |
 | SD1-L-PT | Lifeline | :PaymentTransaction | «entity» | - | AC-E-PaymentTransaction |
+| SD1-L-RR | Lifeline | :RefundRequest | «entity» | - | AC-E-RefundRequest (đỉnh lifeline đặt ngang message Tạo) |
 | SD1-L-SS | Lifeline | :SeatStatus | «entity» | - | AC-E-SeatStatus |
 | SD1-L-PG | Lifeline | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
 | SD1-L-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
@@ -214,22 +218,27 @@ c) Bảng message
 | 1.1.5.1 | :Booking | :SeatHold | // providePaymentTransaction | Đồng bộ | - | 5 |
 | 1.1.5.1 (trả về) | :SeatHold | :Booking | giao dịch thanh toán của lần giữ ghế | Trả về | - | 5 |
 | 1.1.5 (trả về) | :Booking | :CancelTicketController | giao dịch thanh toán của vé | Trả về | - | 5 |
-| 1.1.6 | :CancelTicketController | :PaymentTransaction | // prepareRefundRequest (số tiền hoàn, mã vé, BR-26, BR-43) | Đồng bộ | - | 5 |
-| 1.1.6 (trả về) | :PaymentTransaction | :CancelTicketController | mã giao dịch, khoá chống hoàn trùng | Trả về | - | 5 |
-| 1.1.7 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResponse (BR-43) | Tự gọi | - | 5 |
-| 1.1.8 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) | Đồng bộ | - | 5 |
-| 1.1.8.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) | Đồng bộ | - | 5 |
-| 1.1.8.1 (trả về) | :Cổng thanh toán | :PaymentGateway | báo hoàn tiền thành công | Trả về | - | 6 |
-| 1.1.8 (trả về) | :PaymentGateway | :CancelTicketController | kết quả hoàn tiền: thành công | Trả về | - | 6 |
-| 1.1.9 | :CancelTicketController | :CancelTicketController | // stopWaitingForRefundResponse | Tự gọi | - | 6 |
-| 1.1.10 | :CancelTicketController | :PaymentTransaction | // recordRefundedAmount (số tiền hoàn) | Đồng bộ | - | 7 |
-| 1.1.11 | :CancelTicketController | :Ticket | // recordRefund (số tiền hoàn, tình trạng hoàn tiền: đã hoàn) | Đồng bộ | - | 7 |
-| 1.1.12 | :CancelTicketController | :Ticket | // releaseTicketSeat | Đồng bộ | - | 7 |
-| 1.1.12.1 | :Ticket | :SeatStatus | // releaseSoldSeat | Đồng bộ | - | 7 |
-| 1.1.13 | :CancelTicketController | w:BookTicketsForm | // updateSeatMap (ghế đã trống) | Đồng bộ | - | 7 |
-| 1.1.14 | :CancelTicketController | :Ticket | // provideTicketContent | Đồng bộ | - | 8 |
-| 1.1.14 (trả về) | :Ticket | :CancelTicketController | vé đã huỷ: vị trí ghế, giá vé, số tiền hoàn, tình trạng hoàn tiền | Trả về | - | 8 |
-| 1.1.15 | :CancelTicketController | :CancelTicketForm | // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) | Đồng bộ | - | 8 |
+| 1.1.6 | :CancelTicketController | :PaymentTransaction | // prepareRefundRequest (số tiền hoàn, mã vé, loại hoàn một vé qua cổng, BR-26, BR-43) | Đồng bộ | - | 5 |
+| 1.1.6.1 | :PaymentTransaction | :PaymentTransaction | // checkRefundWithinPaidAmount (số tiền hoàn, BR-26) | Tự gọi | - | 5 |
+| 1.1.6.2 | :PaymentTransaction | :RefundRequest | «create» // createRefundRequest (mã vé, loại hoàn một vé qua cổng, số tiền hoàn) | Tạo | - | 5 |
+| 1.1.6.2.1 | :RefundRequest | :RefundRequest | // generateIdempotencyKey (mã giao dịch, mã vé) | Tự gọi | - | 5 |
+| 1.1.6 (trả về) | :PaymentTransaction | :CancelTicketController | yêu cầu hoàn: mã giao dịch, khoá chống hoàn trùng | Trả về | - | 5 |
+| 1.1.7 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResult (BR-43) | Tự gọi | - | 5 |
+| 1.1.8 | :CancelTicketController | :RefundRequest | // recordAttempt | Đồng bộ | - | 5 |
+| 1.1.9 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) | Đồng bộ | - | 5 |
+| 1.1.9.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) | Đồng bộ | - | 5 |
+| 1.1.9.1 (trả về) | :Cổng thanh toán | :PaymentGateway | báo hoàn tiền thành công | Trả về | - | 6 |
+| 1.1.9 (trả về) | :PaymentGateway | :CancelTicketController | kết quả hoàn tiền: thành công | Trả về | - | 6 |
+| 1.1.10 | :CancelTicketController | :CancelTicketController | // stopWaitingForRefundResult | Tự gọi | - | 6 |
+| 1.1.11 | :CancelTicketController | :PaymentTransaction | // recordRefundedAmount (số tiền hoàn) | Đồng bộ | - | 7 |
+| 1.1.12 | :CancelTicketController | :RefundRequest | // recordResult (thành công) | Đồng bộ | - | 7 |
+| 1.1.13 | :CancelTicketController | :Ticket | // releaseTicketSeat | Đồng bộ | - | 7 |
+| 1.1.13.1 | :Ticket | :SeatStatus | // releaseSoldSeat | Đồng bộ | - | 7 |
+| 1.1.14 | :CancelTicketController | w:BookTicketsForm | // updateSeatMap (ghế đã trống) | Đồng bộ | - | 7 |
+| 1.1.15 | :CancelTicketController | :Ticket | // provideTicketContent | Đồng bộ | - | 8 |
+| 1.1.15.1 | :Ticket | :RefundRequest | // provideRefundInfo | Đồng bộ | - | 8 |
+| 1.1.15 (trả về) | :Ticket | :CancelTicketController | vé đã huỷ: vị trí ghế, giá vé, số tiền hoàn, tình trạng hoàn tiền | Trả về | - | 8 |
+| 1.1.16 | :CancelTicketController | :CancelTicketForm | // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) | Đồng bộ | - | 8 |
 
 ### SD2 - Luồng 2a và 3a
 
@@ -282,24 +291,27 @@ b) Bảng lifeline
 | ID | Loại (Actor / Lifeline / Fragment) | Nhãn | Stereotype | Thuộc về (container) | Ghi chú |
 |---|---|---|---|---|---|
 | SD4-L-C | Lifeline | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
+| SD4-L-RR | Lifeline | :RefundRequest | «entity» | - | AC-E-RefundRequest |
 | SD4-L-PG | Lifeline | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
 | SD4-L-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
-| SD4-N1 | Note | Điểm rẽ: sau message 1.1.7 của SD1, khi hết 30 giây chờ mà chưa có phản hồi | - | - | Chú thích |
+| SD4-N1 | Note | Điểm rẽ: sau message 1.1.9 của SD1, khi hết 30 giây chờ bắt đầu từ message 1.1.7 mà chưa có phản hồi | - | - | Chú thích |
 | SD4-F1 | Fragment | alt [còn lượt thử lại (BR-41)] | - | - | Bao các message của fragment |
 | SD4-N2 | Note | quay lại bước 5 | - | - | Chú thích |
 | SD4-F1-O2 | Fragment | [đã hết lượt thử lại (BR-41)] | - | SD4-F1 | Toán hạng thứ hai; đường ngăn là edge SD4-F1-O2-SEP nét đứt |
-| SD4-N3 | Note | tiếp tục bước 7: không có 1.1.10; 1.1.11 ghi tình trạng hoàn tiền chưa hoàn được và đã ghi log lỗi; từ 1.1.12 như SD1 (BR-42) | - | - | Chú thích |
+| SD4-N3 | Note | tiếp tục bước 7: không có 1.1.11; 1.1.12 ghi kết quả chưa hoàn được và đã ghi log lỗi; từ 1.1.13 như SD1 (BR-42) | - | - | Chú thích |
 
 c) Bảng message
 
 | STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
 |---|---|---|---|---|---|---|
 | 1.1.7b.1 | :CancelTicketController | :CancelTicketController | // after(BR-43) handleRefundNoResponse | Tự gọi | - | 5b |
-| 1.1.7b.2 | :CancelTicketController | :CancelTicketController | // checkRefundRetriesLeft (BR-41) | Tự gọi | - | 5b |
-| 1.1.7b.3 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResponse (BR-43) | Tự gọi | SD4-F1 | 5b |
-| 1.1.7b.4 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD4-F1 | 5b |
-| 1.1.7b.4.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD4-F1 | 5b |
-| 1.1.7c.1 | :CancelTicketController | :CancelTicketController | // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) | Tự gọi | SD4-F1 | 5c |
+| 1.1.7b.2 | :CancelTicketController | :RefundRequest | // recordResult (không phản hồi) | Đồng bộ | - | 5b |
+| 1.1.7b.3 | :CancelTicketController | :RefundRequest | // checkRetryRemaining (BR-41) | Đồng bộ | - | 5b |
+| 1.1.7b.4 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResult (BR-43) | Tự gọi | SD4-F1 | 5b |
+| 1.1.7b.5 | :CancelTicketController | :RefundRequest | // recordAttempt | Đồng bộ | SD4-F1 | 5b |
+| 1.1.7b.6 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD4-F1 | 5b |
+| 1.1.7b.6.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD4-F1 | 5b |
+| 1.1.7c.1 | :CancelTicketController | :CancelTicketController | // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) | Tự gọi | SD4-F1-O2 | 5c |
 
 ### SD5 - Luồng 6a và 6b
 
@@ -310,24 +322,27 @@ b) Bảng lifeline
 | ID | Loại (Actor / Lifeline / Fragment) | Nhãn | Stereotype | Thuộc về (container) | Ghi chú |
 |---|---|---|---|---|---|
 | SD5-L-C | Lifeline | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
+| SD5-L-RR | Lifeline | :RefundRequest | «entity» | - | AC-E-RefundRequest |
 | SD5-L-PG | Lifeline | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
 | SD5-L-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
-| SD5-N1 | Note | Điểm rẽ: tại message 1.1.8 (trả về) của SD1 khi kết quả hoàn tiền là thất bại | - | - | Chú thích |
+| SD5-N1 | Note | Điểm rẽ: tại message 1.1.9 (trả về) của SD1 khi kết quả hoàn tiền là thất bại | - | - | Chú thích |
 | SD5-F1 | Fragment | alt [còn lượt thử lại (BR-41)] | - | - | Bao các message của fragment |
 | SD5-N2 | Note | quay lại bước 5 | - | - | Chú thích |
 | SD5-F1-O2 | Fragment | [đã hết lượt thử lại (BR-41)] | - | SD5-F1 | Toán hạng thứ hai; đường ngăn là edge SD5-F1-O2-SEP nét đứt |
-| SD5-N3 | Note | tiếp tục bước 7: không có 1.1.10; 1.1.11 ghi tình trạng hoàn tiền chưa hoàn được và đã ghi log lỗi; từ 1.1.12 như SD1 (BR-42) | - | - | Chú thích |
+| SD5-N3 | Note | tiếp tục bước 7: không có 1.1.11; 1.1.12 ghi kết quả chưa hoàn được và đã ghi log lỗi; từ 1.1.13 như SD1 (BR-42) | - | - | Chú thích |
 
 c) Bảng message
 
 | STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
 |---|---|---|---|---|---|---|
-| 1.1.8a.1 | :CancelTicketController | :CancelTicketController | // stopWaitingForRefundResponse | Tự gọi | - | 6a |
-| 1.1.8a.2 | :CancelTicketController | :CancelTicketController | // checkRefundRetriesLeft (BR-41) | Tự gọi | - | 6a |
-| 1.1.8a.3 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResponse (BR-43) | Tự gọi | SD5-F1 | 6a |
-| 1.1.8a.4 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD5-F1 | 6a |
-| 1.1.8a.4.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD5-F1 | 6a |
-| 1.1.8b.1 | :CancelTicketController | :CancelTicketController | // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) | Tự gọi | SD5-F1 | 6b |
+| 1.1.9a.1 | :CancelTicketController | :CancelTicketController | // stopWaitingForRefundResult | Tự gọi | - | 6a |
+| 1.1.9a.2 | :CancelTicketController | :RefundRequest | // recordResult (thất bại) | Đồng bộ | - | 6a |
+| 1.1.9a.3 | :CancelTicketController | :RefundRequest | // checkRetryRemaining (BR-41) | Đồng bộ | - | 6a |
+| 1.1.9a.4 | :CancelTicketController | :CancelTicketController | // startWaitingForRefundResult (BR-43) | Tự gọi | SD5-F1 | 6a |
+| 1.1.9a.5 | :CancelTicketController | :RefundRequest | // recordAttempt | Đồng bộ | SD5-F1 | 6a |
+| 1.1.9a.6 | :CancelTicketController | :PaymentGateway | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD5-F1 | 6a |
+| 1.1.9a.6.1 | :PaymentGateway | :Cổng thanh toán | // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) | Đồng bộ | SD5-F1 | 6a |
+| 1.1.9b.1 | :CancelTicketController | :CancelTicketController | // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) | Tự gọi | SD5-F1-O2 | 6b |
 
 ### SD6 - Luồng 5a
 
@@ -342,8 +357,9 @@ b) Bảng lifeline
 | SD6-L-WF | Lifeline | w:BookTicketsForm | «boundary» | - | Boundary của khách khác đang xem sơ đồ ghế của suất chiếu (AC-B-BookTicketsForm, UC-005) |
 | SD6-L-C | Lifeline | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
 | SD6-L-TK | Lifeline | :Ticket | «entity» | - | AC-E-Ticket |
+| SD6-L-RR | Lifeline | :RefundRequest | «entity» | - | AC-E-RefundRequest (đỉnh lifeline đặt ngang message Tạo) |
 | SD6-L-SS | Lifeline | :SeatStatus | «entity» | - | AC-E-SeatStatus |
-| SD6-N1 | Note | Điểm rẽ: tại bước 5, thay cho 1.1.4 đến 1.1.9 của SD1 khi tác nhân là nhân viên quầy (vé mua tại quầy, BR-20) | - | - | Chú thích |
+| SD6-N1 | Note | Điểm rẽ: tại bước 5, thay cho 1.1.4 đến 1.1.10 của SD1 khi tác nhân là nhân viên quầy (vé mua tại quầy, BR-20) | - | - | Chú thích |
 
 c) Bảng message
 
@@ -354,11 +370,13 @@ c) Bảng message
 | 1.1.4a.2 | :CancelTicketController | :CounterCancelTicketForm | // showCashRefund (số tiền mặt cần hoàn, hình thức hoàn tiền: tiền mặt) | Đồng bộ | - | 5a1 |
 | 2(5a) | :Nhân viên quầy | :CounterCancelTicketForm | // confirmCashRefunded | Đồng bộ | - | 5a2 |
 | 2(5a).1 | :CounterCancelTicketForm | :CancelTicketController | // confirmCashRefund | Đồng bộ | - | 5a2 |
-| 2(5a).1.1 | :CancelTicketController | :Ticket | // recordRefund (số tiền hoàn, tình trạng hoàn tiền: đã hoàn) | Đồng bộ | - | 7 |
+| 2(5a).1.1 | :CancelTicketController | :Ticket | // recordCashRefund (số tiền hoàn) | Đồng bộ | - | 7 |
+| 2(5a).1.1.1 | :Ticket | :RefundRequest | «create» // createRefundRequest (mã vé, loại hoàn một vé bằng tiền mặt, số tiền hoàn, kết quả đã hoàn) | Tạo | - | 7 |
 | 2(5a).1.2 | :CancelTicketController | :Ticket | // releaseTicketSeat | Đồng bộ | - | 7 |
 | 2(5a).1.2.1 | :Ticket | :SeatStatus | // releaseSoldSeat | Đồng bộ | - | 7 |
 | 2(5a).1.3 | :CancelTicketController | w:BookTicketsForm | // updateSeatMap (ghế đã trống) | Đồng bộ | - | 7 |
 | 2(5a).1.4 | :CancelTicketController | :Ticket | // provideTicketContent | Đồng bộ | - | 8 |
+| 2(5a).1.4.1 | :Ticket | :RefundRequest | // provideRefundInfo | Đồng bộ | - | 8 |
 | 2(5a).1.4 (trả về) | :Ticket | :CancelTicketController | vé đã huỷ: vị trí ghế, giá vé, số tiền hoàn, tình trạng hoàn tiền | Trả về | - | 8 |
 | 2(5a).1.5 | :CancelTicketController | :CounterCancelTicketForm | // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) | Đồng bộ | - | 8 |
 
@@ -380,7 +398,7 @@ b) Bảng lifeline
 | SD7-F1 | Fragment | alt [mã đặt vé không trùng mã của lần đặt nào (1a1a)] | - | - | Bao các message của fragment |
 | SD7-N1 | Note | quay lại bước 1a1 | - | - | Chú thích |
 | SD7-F1-O2 | Fragment | [mã đặt vé trùng mã của một lần đặt] | - | SD7-F1 | Toán hạng thứ hai; đường ngăn là edge SD7-F1-O2-SEP nét đứt |
-| SD7-F2 | Fragment | loop [mỗi vé của lần đặt] | - | SD7-F1 | Bao các message của fragment |
+| SD7-F2 | Fragment | loop [mỗi vé của lần đặt] | - | SD7-F1-O2 | Bao các message của fragment |
 | SD7-F3 | Fragment | break [tác nhân là nhân viên quầy và vé là vé mua trực tuyến (BR-17)] | - | - | Bao các message của fragment |
 | SD7-F4 | Fragment | break [vé mua tại quầy của cụm rạp khác cụm rạp của nhân viên quầy (BR-17)] | - | - | Bao các message của fragment |
 | SD7-N2 | Note | tiếp tục bước 3 như SD1 với :CounterCancelTicketForm thay :CancelTicketForm; vé mua tại quầy hoàn tiền mặt theo SD6 | - | - | Chú thích |
@@ -392,10 +410,10 @@ c) Bảng message
 | 1a | :Nhân viên quầy | :CounterCancelTicketForm | // enterBookingCode (mã đặt vé) | Đồng bộ | - | 1a1 |
 | 1a.1 | :CounterCancelTicketForm | :CancelTicketController | // findBookingTickets (mã đặt vé) | Đồng bộ | - | 1a1 |
 | 1a.1.1 | :CancelTicketController | :CounterCancelTicketForm | // notifyRefusal (mã đặt vé không tồn tại) | Đồng bộ | SD7-F1 | 1a1a |
-| 1a.1.2 | :CancelTicketController | :Booking | // provideBookingInfo | Đồng bộ | SD7-F1 | 1a2 |
+| 1a.1.2 | :CancelTicketController | :Booking | // provideBookingInfo | Đồng bộ | SD7-F1-O2 | 1a2 |
 | 1a.1.2.1 | :Booking | :Ticket | // provideTicketContent | Đồng bộ | SD7-F2 | 1a2 |
-| 1a.1.2 (trả về) | :Booking | :CancelTicketController | mã đặt vé và nội dung các vé: vị trí ghế, giá vé, trạng thái vé | Trả về | SD7-F1 | 1a2 |
-| 1a.1.3 | :CancelTicketController | :CounterCancelTicketForm | // showBookingTickets (các vé của lần đặt: vị trí ghế, giá vé, trạng thái vé) | Đồng bộ | SD7-F1 | 1a2 |
+| 1a.1.2 (trả về) | :Booking | :CancelTicketController | mã đặt vé và nội dung các vé: vị trí ghế, giá vé, trạng thái vé | Trả về | SD7-F1-O2 | 1a2 |
+| 1a.1.3 | :CancelTicketController | :CounterCancelTicketForm | // showBookingTickets (các vé của lần đặt: vị trí ghế, giá vé, trạng thái vé) | Đồng bộ | SD7-F1-O2 | 1a2 |
 | 1a.2 | :Nhân viên quầy | :CounterCancelTicketForm | // selectTicketToCancel (vé cần huỷ) | Đồng bộ | - | 1a3 |
 | 1.1[ACT-02] | :CounterCancelTicketForm | :CancelTicketController | // requestCancellation (vé cần huỷ) | Đồng bộ | - | 1a3 |
 | 1.1.1[ACT-02] | :CancelTicketController | :Booking | // checkCancellationChannel (vé cần huỷ, nhân viên quầy của phiên) | Đồng bộ | - | 2 |
@@ -425,36 +443,42 @@ a) Bảng Node
 
 | ID | Loại (Actor / Object) | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
-| CM1-O-K | Actor | :Khách | - | - | (ACT-01) |
+| CM1-O-K | Actor | :Khách | - | - | Tác nhân (ACT-01) |
 | CM1-O-BF | Object | :CancelTicketForm | «boundary» | - | AC-B-CancelTicketForm |
-| CM1-O-WF | Object | w:BookTicketsForm | «boundary» | - | AC-B-BookTicketsForm |
+| CM1-O-WF | Object | w:BookTicketsForm | «boundary» | - | Boundary của khách khác đang xem sơ đồ ghế của suất chiếu (AC-B-BookTicketsForm, UC-005) |
 | CM1-O-C | Object | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
 | CM1-O-TK | Object | :Ticket | «entity» | - | AC-E-Ticket |
 | CM1-O-BK | Object | :Booking | «entity» | - | AC-E-Booking |
 | CM1-O-SH | Object | :SeatHold | «entity» | - | AC-E-SeatHold |
 | CM1-O-ST | Object | :Showtime | «entity» | - | AC-E-Showtime |
 | CM1-O-PT | Object | :PaymentTransaction | «entity» | - | AC-E-PaymentTransaction |
+| CM1-O-RR | Object | :RefundRequest | «entity» | - | AC-E-RefundRequest (đỉnh lifeline đặt ngang message Tạo) |
 | CM1-O-SS | Object | :SeatStatus | «entity» | - | AC-E-SeatStatus |
 | CM1-O-PG | Object | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
-| CM1-O-A7 | Actor | :Cổng thanh toán | - | - | (ACT-07) |
+| CM1-O-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
 
 b) Bảng Edge
 
 | ID | Nguồn | Đích | Loại | Nhãn | Chiều message |
 |---|---|---|---|---|---|
 | CM1-L1 | CM1-O-K | CM1-O-BF | Link | 1: // selectTicketToCancel (vé cần huỷ) (-->) | Nguồn-->Đích: 1 |
-| CM1-L2 | CM1-O-BF | CM1-O-C | Link | 1.1: // requestCancellation (vé cần huỷ) (-->)<br>1.1.15: // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) (<--) | Nguồn-->Đích: 1.1; Đích-->Nguồn: 1.1.15 |
+| CM1-L2 | CM1-O-BF | CM1-O-C | Link | 1.1: // requestCancellation (vé cần huỷ) (-->)<br>1.1.16: // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) (<--) | Nguồn-->Đích: 1.1; Đích-->Nguồn: 1.1.16 |
 | CM1-L3 | CM1-O-C | CM1-O-BK | Link | 1.1.1: // checkCancellationChannel (vé cần huỷ, khách của phiên) (-->)<br>1.1.5: // providePaymentTransaction (-->) | Nguồn-->Đích: 1.1.1, 1.1.5 |
 | CM1-L4 | CM1-O-BK | CM1-O-SH | Link | 1.1.1.1: // checkHeldBy (khách của phiên) (-->)<br>1.1.5.1: // providePaymentTransaction (-->) | Nguồn-->Đích: 1.1.1.1, 1.1.5.1 |
 | CM1-L5 | CM1-O-C | CM1-O-ST | Link | 1.1.2: // checkCancellationDeadline (thời điểm kiểm tra, BR-18, BR-32) (-->) | Nguồn-->Đích: 1.1.2 |
-| CM1-L6 | CM1-O-C | CM1-O-TK | Link | 1.1.3: // cancelTicket (-->)<br>1.1.4: // calculateRefundAmount (BR-19, BR-31) (-->)<br>1.1.11: // recordRefund (số tiền hoàn, tình trạng hoàn tiền: đã hoàn) (-->)<br>1.1.12: // releaseTicketSeat (-->)<br>1.1.14: // provideTicketContent (-->) | Nguồn-->Đích: 1.1.3, 1.1.4, 1.1.11, 1.1.12, 1.1.14 |
+| CM1-L6 | CM1-O-C | CM1-O-TK | Link | 1.1.3: // cancelTicket (-->)<br>1.1.4: // calculateRefundAmount (BR-19, BR-31) (-->)<br>1.1.13: // releaseTicketSeat (-->)<br>1.1.15: // provideTicketContent (-->) | Nguồn-->Đích: 1.1.3, 1.1.4, 1.1.13, 1.1.15 |
 | CM1-L7 | CM1-O-TK | CM1-O-TK | Link | 1.1.3.1: // checkNotCancelledNotUsed (BR-21, BR-30) (-->)<br>1.1.3.2: // markCancelled (-->) | Nguồn-->Đích: 1.1.3.1, 1.1.3.2 |
-| CM1-L8 | CM1-O-C | CM1-O-PT | Link | 1.1.6: // prepareRefundRequest (số tiền hoàn, mã vé, BR-26, BR-43) (-->)<br>1.1.10: // recordRefundedAmount (số tiền hoàn) (-->) | Nguồn-->Đích: 1.1.6, 1.1.10 |
-| CM1-L9 | CM1-O-C | CM1-O-C | Link | 1.1.7: // startWaitingForRefundResponse (BR-43) (-->)<br>1.1.9: // stopWaitingForRefundResponse (-->) | Nguồn-->Đích: 1.1.7, 1.1.9 |
-| CM1-L10 | CM1-O-C | CM1-O-PG | Link | 1.1.8: // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) (-->) | Nguồn-->Đích: 1.1.8 |
-| CM1-L11 | CM1-O-PG | CM1-O-A7 | Link | 1.1.8.1: // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) (-->) | Nguồn-->Đích: 1.1.8.1 |
-| CM1-L12 | CM1-O-TK | CM1-O-SS | Link | 1.1.12.1: // releaseSoldSeat (-->) | Nguồn-->Đích: 1.1.12.1 |
-| CM1-L13 | CM1-O-WF | CM1-O-C | Link | 1.1.13: // updateSeatMap (ghế đã trống) (<--) | Đích-->Nguồn: 1.1.13 |
+| CM1-L8 | CM1-O-C | CM1-O-PT | Link | 1.1.6: // prepareRefundRequest (số tiền hoàn, mã vé, loại hoàn một vé qua cổng, BR-26, BR-43) (-->)<br>1.1.11: // recordRefundedAmount (số tiền hoàn) (-->) | Nguồn-->Đích: 1.1.6, 1.1.11 |
+| CM1-L9 | CM1-O-PT | CM1-O-PT | Link | 1.1.6.1: // checkRefundWithinPaidAmount (số tiền hoàn, BR-26) (-->) | Nguồn-->Đích: 1.1.6.1 |
+| CM1-L10 | CM1-O-PT | CM1-O-RR | Link | 1.1.6.2: «create» // createRefundRequest (mã vé, loại hoàn một vé qua cổng, số tiền hoàn) (-->) | Nguồn-->Đích: 1.1.6.2 |
+| CM1-L11 | CM1-O-RR | CM1-O-RR | Link | 1.1.6.2.1: // generateIdempotencyKey (mã giao dịch, mã vé) (-->) | Nguồn-->Đích: 1.1.6.2.1 |
+| CM1-L12 | CM1-O-C | CM1-O-C | Link | 1.1.7: // startWaitingForRefundResult (BR-43) (-->)<br>1.1.10: // stopWaitingForRefundResult (-->) | Nguồn-->Đích: 1.1.7, 1.1.10 |
+| CM1-L13 | CM1-O-C | CM1-O-RR | Link | 1.1.8: // recordAttempt (-->)<br>1.1.12: // recordResult (thành công) (-->) | Nguồn-->Đích: 1.1.8, 1.1.12 |
+| CM1-L14 | CM1-O-C | CM1-O-PG | Link | 1.1.9: // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) (-->) | Nguồn-->Đích: 1.1.9 |
+| CM1-L15 | CM1-O-PG | CM1-O-A7 | Link | 1.1.9.1: // requestRefund (mã giao dịch, số tiền hoàn, khoá chống hoàn trùng) (-->) | Nguồn-->Đích: 1.1.9.1 |
+| CM1-L16 | CM1-O-TK | CM1-O-SS | Link | 1.1.13.1: // releaseSoldSeat (-->) | Nguồn-->Đích: 1.1.13.1 |
+| CM1-L17 | CM1-O-C | CM1-O-WF | Link | 1.1.14: // updateSeatMap (ghế đã trống) (-->) | Nguồn-->Đích: 1.1.14 |
+| CM1-L18 | CM1-O-TK | CM1-O-RR | Link | 1.1.15.1: // provideRefundInfo (-->) | Nguồn-->Đích: 1.1.15.1 |
 
 ### Trang CM2 - Luồng thay thế của Khách (SD2 đến SD5)
 
@@ -464,17 +488,19 @@ a) Bảng Node
 |---|---|---|---|---|---|
 | CM2-O-BF | Object | :CancelTicketForm | «boundary» | - | AC-B-CancelTicketForm |
 | CM2-O-C | Object | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
+| CM2-O-RR | Object | :RefundRequest | «entity» | - | AC-E-RefundRequest |
 | CM2-O-PG | Object | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
-| CM2-O-A7 | Actor | :Cổng thanh toán | - | - | (ACT-07) |
+| CM2-O-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
 
 b) Bảng Edge
 
 | ID | Nguồn | Đích | Loại | Nhãn | Chiều message |
 |---|---|---|---|---|---|
-| CM2-L1 | CM2-O-BF | CM2-O-C | Link | 1.1.1a.1: // notifyRefusal (vé không phải vé mua trực tuyến của khách, BR-17) (<--) [khách huỷ vé không phải vé mua trực tuyến của mình (BR-17)]<br>1.1.2a.1: // notifyRefusal (quá hạn huỷ vé, BR-18) (<--) [thời điểm kiểm tra cách giờ bắt đầu chưa tới 2 tiếng, kể cả suất chiếu đã bắt đầu hoặc đã kết thúc (BR-18, BR-32)]<br>1.1.3a.1: // notifyRefusal (vé đã huỷ, không hoàn tiền thêm, BR-21) (<--) [vé đã huỷ, kể cả vừa bị huỷ bởi yêu cầu huỷ khác xử lý ngay trước đó (BR-21)]<br>1.1.3b.1: // notifyRefusal (vé đã sử dụng không huỷ được, BR-30) (<--) [vé chưa huỷ và đã sử dụng, kể cả vừa được soát ngay trước đó (BR-30)] | Đích-->Nguồn: 1.1.1a.1, 1.1.2a.1, 1.1.3a.1, 1.1.3b.1 |
-| CM2-L2 | CM2-O-C | CM2-O-C | Link | 1.1.7b.1: // after(BR-43) handleRefundNoResponse (-->)<br>1.1.7b.2: // checkRefundRetriesLeft (BR-41) (-->)<br>1.1.7b.3: // startWaitingForRefundResponse (BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.7c.1: // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) (-->) [còn lượt thử lại (BR-41)]<br>1.1.8a.1: // stopWaitingForRefundResponse (-->)<br>1.1.8a.2: // checkRefundRetriesLeft (BR-41) (-->)<br>1.1.8a.3: // startWaitingForRefundResponse (BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.8b.1: // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.1, 1.1.7b.2, 1.1.7b.3, 1.1.7c.1, 1.1.8a.1, 1.1.8a.2, 1.1.8a.3, 1.1.8b.1 |
-| CM2-L3 | CM2-O-C | CM2-O-PG | Link | 1.1.7b.4: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.8a.4: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.4, 1.1.8a.4 |
-| CM2-L4 | CM2-O-PG | CM2-O-A7 | Link | 1.1.7b.4.1: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.8a.4.1: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.4.1, 1.1.8a.4.1 |
+| CM2-L1 | CM2-O-C | CM2-O-BF | Link | 1.1.1a.1: // notifyRefusal (vé không phải vé mua trực tuyến của khách, BR-17) (-->) [khách huỷ vé không phải vé mua trực tuyến của mình (BR-17)]<br>1.1.2a.1: // notifyRefusal (quá hạn huỷ vé, BR-18) (-->) [thời điểm kiểm tra cách giờ bắt đầu chưa tới 2 tiếng, kể cả suất chiếu đã bắt đầu hoặc đã kết thúc (BR-18, BR-32)]<br>1.1.3a.1: // notifyRefusal (vé đã huỷ, không hoàn tiền thêm, BR-21) (-->) [vé đã huỷ, kể cả vừa bị huỷ bởi yêu cầu huỷ khác xử lý ngay trước đó (BR-21)]<br>1.1.3b.1: // notifyRefusal (vé đã sử dụng không huỷ được, BR-30) (-->) [vé chưa huỷ và đã sử dụng, kể cả vừa được soát ngay trước đó (BR-30)] | Nguồn-->Đích: 1.1.1a.1, 1.1.2a.1, 1.1.3a.1, 1.1.3b.1 |
+| CM2-L2 | CM2-O-C | CM2-O-C | Link | 1.1.7b.1: // after(BR-43) handleRefundNoResponse (-->)<br>1.1.7b.4: // startWaitingForRefundResult (BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.7c.1: // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) (-->) [đã hết lượt thử lại (BR-41)]<br>1.1.9a.1: // stopWaitingForRefundResult (-->)<br>1.1.9a.4: // startWaitingForRefundResult (BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.9b.1: // logRefundFailure (mã vé, mã giao dịch, số tiền hoàn, BR-41) (-->) [đã hết lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.1, 1.1.7b.4, 1.1.7c.1, 1.1.9a.1, 1.1.9a.4, 1.1.9b.1 |
+| CM2-L3 | CM2-O-C | CM2-O-RR | Link | 1.1.7b.2: // recordResult (không phản hồi) (-->)<br>1.1.7b.3: // checkRetryRemaining (BR-41) (-->)<br>1.1.7b.5: // recordAttempt (-->) [còn lượt thử lại (BR-41)]<br>1.1.9a.2: // recordResult (thất bại) (-->)<br>1.1.9a.3: // checkRetryRemaining (BR-41) (-->)<br>1.1.9a.5: // recordAttempt (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.2, 1.1.7b.3, 1.1.7b.5, 1.1.9a.2, 1.1.9a.3, 1.1.9a.5 |
+| CM2-L4 | CM2-O-C | CM2-O-PG | Link | 1.1.7b.6: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.9a.6: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.6, 1.1.9a.6 |
+| CM2-L5 | CM2-O-PG | CM2-O-A7 | Link | 1.1.7b.6.1: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)]<br>1.1.9a.6.1: // requestRefund (mã giao dịch, số tiền hoàn, cùng khoá chống hoàn trùng, BR-43) (-->) [còn lượt thử lại (BR-41)] | Nguồn-->Đích: 1.1.7b.6.1, 1.1.9a.6.1 |
 
 ### Trang CM3 - Biến thể ACT-02 (SD6, SD7)
 
@@ -482,29 +508,31 @@ a) Bảng Node
 
 | ID | Loại (Actor / Object) | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
-| CM3-O-NV | Actor | :Nhân viên quầy | - | - | (ACT-02) |
+| CM3-O-NV | Actor | :Nhân viên quầy | - | - | Tác nhân (ACT-02) |
 | CM3-O-CF | Object | :CounterCancelTicketForm | «boundary» | - | AC-B-CounterCancelTicketForm |
-| CM3-O-WF | Object | w:BookTicketsForm | «boundary» | - | AC-B-BookTicketsForm |
+| CM3-O-WF | Object | w:BookTicketsForm | «boundary» | - | Boundary của khách khác đang xem sơ đồ ghế của suất chiếu (AC-B-BookTicketsForm, UC-005) |
 | CM3-O-C | Object | :CancelTicketController | «control» | - | AC-C-CancelTicketController |
+| CM3-O-TK | Object | :Ticket | «entity» | - | AC-E-Ticket |
+| CM3-O-RR | Object | :RefundRequest | «entity» | - | AC-E-RefundRequest (đỉnh lifeline đặt ngang message Tạo) |
+| CM3-O-SS | Object | :SeatStatus | «entity» | - | AC-E-SeatStatus |
 | CM3-O-BK | Object | :Booking | «entity» | - | AC-E-Booking |
 | CM3-O-SH | Object | :SeatHold | «entity» | - | AC-E-SeatHold |
 | CM3-O-ST | Object | :Showtime | «entity» | - | AC-E-Showtime |
-| CM3-O-TK | Object | :Ticket | «entity» | - | AC-E-Ticket |
-| CM3-O-SS | Object | :SeatStatus | «entity» | - | AC-E-SeatStatus |
 
 b) Bảng Edge
 
 | ID | Nguồn | Đích | Loại | Nhãn | Chiều message |
 |---|---|---|---|---|---|
-| CM3-L1 | CM3-O-C | CM3-O-TK | Link | 1.1.4a.1: // calculateRefundAmount (BR-19, BR-31) (-->)<br>2(5a).1.1: // recordRefund (số tiền hoàn, tình trạng hoàn tiền: đã hoàn) (-->)<br>2(5a).1.2: // releaseTicketSeat (-->)<br>2(5a).1.4: // provideTicketContent (-->) | Nguồn-->Đích: 1.1.4a.1, 2(5a).1.1, 2(5a).1.2, 2(5a).1.4 |
-| CM3-L2 | CM3-O-CF | CM3-O-C | Link | 1.1.4a.2: // showCashRefund (số tiền mặt cần hoàn, hình thức hoàn tiền: tiền mặt) (<--)<br>2(5a).1: // confirmCashRefund (-->)<br>2(5a).1.5: // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) (<--)<br>1a.1: // findBookingTickets (mã đặt vé) (-->)<br>1a.1.1: // notifyRefusal (mã đặt vé không tồn tại) (<--) [mã đặt vé không trùng mã của lần đặt nào (1a1a)]<br>1a.1.3: // showBookingTickets (các vé của lần đặt: vị trí ghế, giá vé, trạng thái vé) (<--) [mã đặt vé không trùng mã của lần đặt nào (1a1a)]<br>1.1[ACT-02]: // requestCancellation (vé cần huỷ) (-->)<br>1.1.1b.1: // notifyRefusal (vé mua trực tuyến, BR-17) (<--) [tác nhân là nhân viên quầy và vé là vé mua trực tuyến (BR-17)]<br>1.1.1c.1: // notifyRefusal (vé quầy của cụm rạp khác, BR-17) (<--) [vé mua tại quầy của cụm rạp khác cụm rạp của nhân viên quầy (BR-17)] | Nguồn-->Đích: 2(5a).1, 1a.1, 1.1[ACT-02]; Đích-->Nguồn: 1.1.4a.2, 2(5a).1.5, 1a.1.1, 1a.1.3, 1.1.1b.1, 1.1.1c.1 |
+| CM3-L1 | CM3-O-C | CM3-O-TK | Link | 1.1.4a.1: // calculateRefundAmount (BR-19, BR-31) (-->)<br>2(5a).1.1: // recordCashRefund (số tiền hoàn) (-->)<br>2(5a).1.2: // releaseTicketSeat (-->)<br>2(5a).1.4: // provideTicketContent (-->) | Nguồn-->Đích: 1.1.4a.1, 2(5a).1.1, 2(5a).1.2, 2(5a).1.4 |
+| CM3-L2 | CM3-O-C | CM3-O-CF | Link | 1.1.4a.2: // showCashRefund (số tiền mặt cần hoàn, hình thức hoàn tiền: tiền mặt) (-->)<br>2(5a).1: // confirmCashRefund (<--)<br>2(5a).1.5: // showCancellationResult (vé đã huỷ, giá vé, số tiền hoàn, hình thức hoàn tiền, tình trạng hoàn tiền) (-->)<br>1a.1: // findBookingTickets (mã đặt vé) (<--)<br>1a.1.1: // notifyRefusal (mã đặt vé không tồn tại) (-->) [mã đặt vé không trùng mã của lần đặt nào (1a1a)]<br>1a.1.3: // showBookingTickets (các vé của lần đặt: vị trí ghế, giá vé, trạng thái vé) (-->) [mã đặt vé trùng mã của một lần đặt]<br>1.1[ACT-02]: // requestCancellation (vé cần huỷ) (<--)<br>1.1.1b.1: // notifyRefusal (vé mua trực tuyến, BR-17) (-->) [tác nhân là nhân viên quầy và vé là vé mua trực tuyến (BR-17)]<br>1.1.1c.1: // notifyRefusal (vé quầy của cụm rạp khác, BR-17) (-->) [vé mua tại quầy của cụm rạp khác cụm rạp của nhân viên quầy (BR-17)] | Nguồn-->Đích: 1.1.4a.2, 2(5a).1.5, 1a.1.1, 1a.1.3, 1.1.1b.1, 1.1.1c.1; Đích-->Nguồn: 2(5a).1, 1a.1, 1.1[ACT-02] |
 | CM3-L3 | CM3-O-NV | CM3-O-CF | Link | 2(5a): // confirmCashRefunded (-->)<br>1a: // enterBookingCode (mã đặt vé) (-->)<br>1a.2: // selectTicketToCancel (vé cần huỷ) (-->) | Nguồn-->Đích: 2(5a), 1a, 1a.2 |
-| CM3-L4 | CM3-O-TK | CM3-O-SS | Link | 2(5a).1.2.1: // releaseSoldSeat (-->) | Nguồn-->Đích: 2(5a).1.2.1 |
-| CM3-L5 | CM3-O-WF | CM3-O-C | Link | 2(5a).1.3: // updateSeatMap (ghế đã trống) (<--) | Đích-->Nguồn: 2(5a).1.3 |
-| CM3-L6 | CM3-O-C | CM3-O-BK | Link | 1a.1.2: // provideBookingInfo (-->) [mã đặt vé không trùng mã của lần đặt nào (1a1a)]<br>1.1.1[ACT-02]: // checkCancellationChannel (vé cần huỷ, nhân viên quầy của phiên) (-->) | Nguồn-->Đích: 1a.1.2, 1.1.1[ACT-02] |
-| CM3-L7 | CM3-O-BK | CM3-O-TK | Link | 1a.1.2.1: // provideTicketContent (-->) [lặp: mỗi vé của lần đặt] | Nguồn-->Đích: 1a.1.2.1 |
-| CM3-L8 | CM3-O-BK | CM3-O-SH | Link | 1.1.1.1[ACT-02]: // checkHeldBy (nhân viên quầy của phiên) (-->) | Nguồn-->Đích: 1.1.1.1[ACT-02] |
-| CM3-L9 | CM3-O-C | CM3-O-ST | Link | 1.1.1c: // checkBelongsToCinema (cụm rạp của nhân viên quầy) (-->) | Nguồn-->Đích: 1.1.1c |
+| CM3-L4 | CM3-O-TK | CM3-O-RR | Link | 2(5a).1.1.1: «create» // createRefundRequest (mã vé, loại hoàn một vé bằng tiền mặt, số tiền hoàn, kết quả đã hoàn) (-->)<br>2(5a).1.4.1: // provideRefundInfo (-->) | Nguồn-->Đích: 2(5a).1.1.1, 2(5a).1.4.1 |
+| CM3-L5 | CM3-O-TK | CM3-O-SS | Link | 2(5a).1.2.1: // releaseSoldSeat (-->) | Nguồn-->Đích: 2(5a).1.2.1 |
+| CM3-L6 | CM3-O-C | CM3-O-WF | Link | 2(5a).1.3: // updateSeatMap (ghế đã trống) (-->) | Nguồn-->Đích: 2(5a).1.3 |
+| CM3-L7 | CM3-O-C | CM3-O-BK | Link | 1a.1.2: // provideBookingInfo (-->) [mã đặt vé trùng mã của một lần đặt]<br>1.1.1[ACT-02]: // checkCancellationChannel (vé cần huỷ, nhân viên quầy của phiên) (-->) | Nguồn-->Đích: 1a.1.2, 1.1.1[ACT-02] |
+| CM3-L8 | CM3-O-BK | CM3-O-TK | Link | 1a.1.2.1: // provideTicketContent (-->) [lặp: mỗi vé của lần đặt] | Nguồn-->Đích: 1a.1.2.1 |
+| CM3-L9 | CM3-O-BK | CM3-O-SH | Link | 1.1.1.1[ACT-02]: // checkHeldBy (nhân viên quầy của phiên) (-->) | Nguồn-->Đích: 1.1.1.1[ACT-02] |
+| CM3-L10 | CM3-O-C | CM3-O-ST | Link | 1.1.1c: // checkBelongsToCinema (cụm rạp của nhân viên quầy) (-->) | Nguồn-->Đích: 1.1.1c |
 
 ## 8. VOPC
 
@@ -518,12 +546,13 @@ a) Bảng Node (lớp)
 | AC-B-CounterCancelTicketForm | Class | CounterCancelTicketForm | «boundary» | - | - | // enterBookingCode<br>// showBookingTickets<br>// selectTicketToCancel<br>// notifyRefusal<br>// showCashRefund<br>// confirmCashRefunded<br>// showCancellationResult |
 | AC-B-PaymentGateway | Class | PaymentGateway | «boundary» | - | - | // requestRefund |
 | AC-B-BookTicketsForm | Class | BookTicketsForm | «boundary» | - | - | // updateSeatMap |
-| AC-C-CancelTicketController | Class | CancelTicketController | «control» | - | - | // requestCancellation<br>// findBookingTickets<br>// confirmCashRefund<br>// startWaitingForRefundResponse<br>// stopWaitingForRefundResponse<br>// handleRefundNoResponse<br>// checkRefundRetriesLeft<br>// logRefundFailure |
-| AC-E-Ticket | Class | Ticket | «entity» | - | ticketCode (Văn bản)<br>seatPosition (Mã hàng, số ghế)<br>seatType (Văn bản)<br>price (Số tiền)<br>status (Trạng thái)<br>refundAmount (Số tiền) (mới ở UC này)<br>refundStatus (Trạng thái) (mới ở UC này) | // cancelTicket<br>// checkNotCancelledNotUsed<br>// markCancelled<br>// calculateRefundAmount<br>// recordRefund<br>// releaseTicketSeat<br>// provideTicketContent |
+| AC-C-CancelTicketController | Class | CancelTicketController | «control» | - | - | // requestCancellation<br>// findBookingTickets<br>// confirmCashRefund<br>// startWaitingForRefundResult<br>// stopWaitingForRefundResult<br>// handleRefundNoResponse<br>// logRefundFailure |
+| AC-E-Ticket | Class | Ticket | «entity» | - | ticketCode (Văn bản)<br>seatPosition (Mã hàng, số ghế)<br>seatType (Văn bản)<br>price (Số tiền)<br>status (Trạng thái) | // cancelTicket<br>// checkNotCancelledNotUsed<br>// markCancelled<br>// calculateRefundAmount<br>// recordCashRefund<br>// releaseTicketSeat<br>// provideTicketContent |
 | AC-E-Booking | Class | Booking | «entity» | - | bookingCode (Văn bản) | // checkCancellationChannel<br>// providePaymentTransaction<br>// provideBookingInfo |
 | AC-E-SeatHold | Class | SeatHold | «entity» | - | holdRef (Văn bản)<br>status (Trạng thái)<br>holdTime (Ngày giờ)<br>expiryTime (Ngày giờ) | // checkHeldBy<br>// providePaymentTransaction |
 | AC-E-Showtime | Class | Showtime | «entity» | - | startTime (Ngày giờ)<br>cinema (Cụm rạp) | // checkCancellationDeadline<br>// checkBelongsToCinema |
-| AC-E-PaymentTransaction | Class | PaymentTransaction | «entity» | - | transactionCode (Văn bản)<br>amount (Số tiền)<br>refundedTotal (Số tiền) (mới ở UC này) | // prepareRefundRequest<br>// recordRefundedAmount |
+| AC-E-PaymentTransaction | Class | PaymentTransaction | «entity» | - | transactionCode (Văn bản)<br>amount (Số tiền)<br>refundedTotal (Số tiền) (dùng chung với UC-006) | // prepareRefundRequest<br>// checkRefundWithinPaidAmount<br>// recordRefundedAmount |
+| AC-E-RefundRequest | Class | RefundRequest | «entity» | - | idempotencyKey (Văn bản)<br>requestType (Văn bản)<br>refundAmount (Số tiền)<br>attemptCount (Số lượng)<br>result (Văn bản) | // createRefundRequest<br>// generateIdempotencyKey<br>// recordAttempt<br>// recordResult<br>// checkRetryRemaining<br>// provideRefundInfo |
 | AC-E-SeatStatus | Class | SeatStatus | «entity» | - | seatPosition (Mã hàng, số ghế)<br>seatType (Văn bản)<br>status (Trạng thái)<br>heldPrice (Số tiền) | // releaseSoldSeat |
 
 b) Bảng quan hệ
@@ -532,16 +561,19 @@ b) Bảng quan hệ
 |---|---|---|---|---|---|---|
 | R-UC008-01 | AC-B-CancelTicketForm | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM1-L2, CM2-L1 |
 | R-UC008-02 | AC-B-CounterCancelTicketForm | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM3-L2 |
-| R-UC008-03 | AC-B-PaymentGateway | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM1-L10, CM2-L3 |
-| R-UC008-04 | AC-B-BookTicketsForm | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM1-L13, CM3-L5 |
+| R-UC008-03 | AC-B-PaymentGateway | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM1-L14, CM2-L4 |
+| R-UC008-04 | AC-B-BookTicketsForm | AC-C-CancelTicketController | Association | - | - | tạm thời; link F7: CM1-L17, CM3-L6 |
 | R-UC008-05 | AC-C-CancelTicketController | AC-E-Ticket | Association | - | - | tạm thời; link F7: CM1-L6, CM3-L1 |
-| R-UC008-06 | AC-C-CancelTicketController | AC-E-Booking | Association | - | - | tạm thời; link F7: CM1-L3, CM3-L6 |
-| R-UC008-07 | AC-C-CancelTicketController | AC-E-Showtime | Association | - | - | tạm thời; link F7: CM1-L5, CM3-L9 |
+| R-UC008-06 | AC-C-CancelTicketController | AC-E-Booking | Association | - | - | tạm thời; link F7: CM1-L3, CM3-L7 |
+| R-UC008-07 | AC-C-CancelTicketController | AC-E-Showtime | Association | - | - | tạm thời; link F7: CM1-L5, CM3-L10 |
 | R-UC008-08 | AC-C-CancelTicketController | AC-E-PaymentTransaction | Association | - | - | tạm thời; link F7: CM1-L8 |
-| R-UC008-09 | AC-E-SeatHold | AC-E-Booking | Association | A 1 - B 0..1 | - | Một lần giữ ghế dẫn tới tối đa một lần đặt (GL-24); cùng R-UC005-17; link F7: CM1-L4, CM3-L8 |
-| R-UC008-10 | AC-E-Booking | AC-E-Ticket | Aggregation | A 1 - B 1..8 | - | Lần đặt gồm mỗi ghế một vé, tối đa 8 ghế (GL-24, BR-05); cùng R-UC005-18; link F7: CM3-L7 |
-| R-UC008-11 | AC-E-Ticket | AC-E-SeatStatus | Association | A 0..* - B 1 | - | Vé ứng với đúng một ghế của một suất chiếu (GL-59); ghế đã trống bán lại được nên một trạng thái ghế có thể ứng với nhiều vé theo thời gian (BR-42); quan hệ mới ở UC này; link F7: CM1-L12, CM3-L4 |
+| R-UC008-09 | AC-E-SeatHold | AC-E-Booking | Association | A 1 - B 0..1 | - | Một lần giữ ghế dẫn tới tối đa một lần đặt (GL-24); cùng R-UC005-17; link F7: CM1-L4, CM3-L9 |
+| R-UC008-10 | AC-E-Booking | AC-E-Ticket | Aggregation | A 1 - B 1..8 | - | Lần đặt gồm mỗi ghế một vé, tối đa 8 ghế (GL-24, BR-05); cùng R-UC005-18; link F7: CM3-L8 |
+| R-UC008-11 | AC-E-Ticket | AC-E-SeatStatus | Association | A 0..* - B 1 | - | Vé ứng với đúng một ghế của một suất chiếu (GL-59); ghế đã trống bán lại được nên một trạng thái ghế có thể ứng với nhiều vé theo thời gian (BR-42); quan hệ mới ở UC này; link F7: CM1-L16, CM3-L5 |
 | R-UC008-12 | AC-E-SeatHold | AC-E-PaymentTransaction | Association | A 1 - B 0..* | - | Giao dịch thanh toán tạo cho tổng tiền của một lần giữ ghế, thử lại tạo giao dịch mới (GL-12); cùng R-UC005-16; bằng chứng từ đặc tả (Dữ liệu ra của vé mua trực tuyến, BR-26, BR-43), không có link; Q-92 |
+| R-UC008-13 | AC-E-Ticket | AC-E-RefundRequest | Association | A 0..1 - B 0..1 | - | Mỗi vé có tối đa một yêu cầu hoàn vì mỗi vé hoàn một lần (BR-21); yêu cầu hoàn của UC-006 không gắn vé; Q-87, Q-93; link F7: CM1-L18, CM3-L4 |
+| R-UC008-14 | AC-E-PaymentTransaction | AC-E-RefundRequest | Association | A 1 - B 0..* | - | Một giao dịch có nhiều yêu cầu hoàn khác khoá (vé khác nhau); cùng R-UC006-07; link F7: CM1-L10 |
+| R-UC008-15 | AC-C-CancelTicketController | AC-E-RefundRequest | Association | - | - | tạm thời; link F7: CM1-L13, CM2-L3 |
 
 ## 9. Ma trận truy vết
 
@@ -561,16 +593,16 @@ b) Bảng quan hệ
 | 4 | 1.1.3, 1.1.3.1, 1.1.3.2, 1.1.3 (trả về) | AC-C-CancelTicketController, AC-E-Ticket |
 | 4a | 1.1.3a.1 | AC-C-CancelTicketController, AC-B-CancelTicketForm |
 | 4b | 1.1.3b.1 | AC-C-CancelTicketController, AC-B-CancelTicketForm |
-| 5 | 1.1.4, 1.1.4 (trả về), 1.1.5, 1.1.5.1, 1.1.5.1 (trả về), 1.1.5 (trả về), 1.1.6, 1.1.6 (trả về), 1.1.7, 1.1.8, 1.1.8.1 | AC-C-CancelTicketController, AC-E-Ticket, AC-E-Booking, AC-E-SeatHold, AC-E-PaymentTransaction, AC-B-PaymentGateway |
+| 5 | 1.1.4, 1.1.4 (trả về), 1.1.5, 1.1.5.1, 1.1.5.1 (trả về), 1.1.5 (trả về), 1.1.6, 1.1.6.1, 1.1.6.2, 1.1.6.2.1, 1.1.6 (trả về), 1.1.7, 1.1.8, 1.1.9, 1.1.9.1 | AC-C-CancelTicketController, AC-E-Ticket, AC-E-Booking, AC-E-SeatHold, AC-E-PaymentTransaction, AC-E-RefundRequest, AC-B-PaymentGateway |
 | 5a1 | 1.1.4a.1, 1.1.4a.1 (trả về), 1.1.4a.2 | AC-C-CancelTicketController, AC-E-Ticket, AC-B-CounterCancelTicketForm |
 | 5a2 | 2(5a), 2(5a).1 | AC-B-CounterCancelTicketForm, AC-C-CancelTicketController |
-| 5b | 1.1.7b.1, 1.1.7b.2, 1.1.7b.3, 1.1.7b.4, 1.1.7b.4.1 | AC-C-CancelTicketController, AC-B-PaymentGateway |
+| 5b | 1.1.7b.1, 1.1.7b.2, 1.1.7b.3, 1.1.7b.4, 1.1.7b.5, 1.1.7b.6, 1.1.7b.6.1 | AC-C-CancelTicketController, AC-E-RefundRequest, AC-B-PaymentGateway |
 | 5c | 1.1.7c.1 | AC-C-CancelTicketController |
-| 6 | 1.1.8.1 (trả về), 1.1.8 (trả về), 1.1.9 | AC-B-PaymentGateway, AC-C-CancelTicketController |
-| 6a | 1.1.8a.1, 1.1.8a.2, 1.1.8a.3, 1.1.8a.4, 1.1.8a.4.1 | AC-C-CancelTicketController, AC-B-PaymentGateway |
-| 6b | 1.1.8b.1 | AC-C-CancelTicketController |
-| 7 | 1.1.10, 1.1.11, 1.1.12, 1.1.12.1, 1.1.13, 2(5a).1.1, 2(5a).1.2, 2(5a).1.2.1, 2(5a).1.3 | AC-C-CancelTicketController, AC-E-PaymentTransaction, AC-E-Ticket, AC-E-SeatStatus, AC-B-BookTicketsForm |
-| 8 | 1.1.14, 1.1.14 (trả về), 1.1.15, 2(5a).1.4, 2(5a).1.4 (trả về), 2(5a).1.5 | AC-C-CancelTicketController, AC-E-Ticket, AC-B-CancelTicketForm, AC-B-CounterCancelTicketForm |
+| 6 | 1.1.9.1 (trả về), 1.1.9 (trả về), 1.1.10 | AC-B-PaymentGateway, AC-C-CancelTicketController |
+| 6a | 1.1.9a.1, 1.1.9a.2, 1.1.9a.3, 1.1.9a.4, 1.1.9a.5, 1.1.9a.6, 1.1.9a.6.1 | AC-C-CancelTicketController, AC-E-RefundRequest, AC-B-PaymentGateway |
+| 6b | 1.1.9b.1 | AC-C-CancelTicketController |
+| 7 | 1.1.11, 1.1.12, 1.1.13, 1.1.13.1, 1.1.14, 2(5a).1.1, 2(5a).1.1.1, 2(5a).1.2, 2(5a).1.2.1, 2(5a).1.3 | AC-C-CancelTicketController, AC-E-PaymentTransaction, AC-E-RefundRequest, AC-E-Ticket, AC-E-SeatStatus, AC-B-BookTicketsForm |
+| 8 | 1.1.15, 1.1.15.1, 1.1.15 (trả về), 1.1.16, 2(5a).1.4, 2(5a).1.4.1, 2(5a).1.4 (trả về), 2(5a).1.5 | AC-C-CancelTicketController, AC-E-Ticket, AC-E-RefundRequest, AC-B-CancelTicketForm, AC-B-CounterCancelTicketForm |
 
 ## 10. File .drawio
 
@@ -578,12 +610,12 @@ Ba file nằm trong diagrams/: P07-sequence-UC-008.drawio (7 trang), P07-communi
 
 ## Câu hỏi mở
 
-| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
-|---|---|---|---|
-| Q-91 | Bước 6 (cổng báo hoàn tiền thành công hoặc thất bại) được phân tích như kết quả trả về của lời gọi hoàn tiền tới PaymentGateway trong thời hạn 30 giây (BR-43). Cổng thanh toán có báo kết quả hoàn tiền bằng callback riêng không; nếu có thì control nào tiếp nhận, và điều đó phụ thuộc kết luận Q-83 của UC-005 (control nào nhận callback cổng rồi chuyển cho UC-006)? (Kết quả trả về của lời gọi như SD1, SD4, SD5 / Callback, control tiếp nhận theo kết luận Q-83) | SD1 message 1.1.8, SD4, SD5; AC-B-PaymentGateway, // requestRefund; P07 của UC-005 và UC-006; P09 | GL-02 nêu giao tiếp gồm "tạo giao dịch, callback kết quả, hoàn tiền" nhưng không nói cách báo kết quả hoàn tiền; BR-43 chỉ nêu thời hạn chờ 30 giây |
-| Q-92 | Một lần giữ ghế có thể có nhiều giao dịch thanh toán do thử lại tạo giao dịch mới (R-UC005-16). Khi hoàn tiền vé mua trực tuyến, giao dịch cần hoàn là giao dịch đã xử lý thành công của lần giữ ghế dẫn tới lần đặt chứa vé (như phân tích, đi qua Ticket, Booking, SeatHold) hay lưu tham chiếu giao dịch trực tiếp trên lần đặt hoặc vé? (Giao dịch đã xử lý thành công của lần giữ ghế / Tham chiếu trực tiếp trên lần đặt hoặc vé) | SD1 message 1.1.5, 1.1.5.1; AC-E-Booking, AC-E-SeatHold, // providePaymentTransaction; R-UC008-12; P08 | P04 UC-008 bước 5 chỉ nêu "mã giao dịch và mã vé"; GL-12, GL-29 không nêu quan hệ giữa vé và giao dịch |
-| Q-93 | Khoản hoàn của một vé (số tiền hoàn, tình trạng hoàn tiền) được mô hình hoá là thuộc tính refundAmount, refundStatus của Ticket (như phân tích) hay entity riêng Refund, chung với hoàn toàn bộ thanh toán trễ của UC-006? (Thuộc tính của Ticket / Entity Refund) | AC-E-Ticket, // recordRefund; R-UC008; P07 của UC-006; P08 | GL-45 dùng "Số tiền hoàn" cho cả vé bị huỷ và thanh toán đến trễ; P05 xếp "khoản hoàn, yêu cầu hoàn" vào số tiền hoàn và tình trạng hoàn tiền, còn P04 Mục 1 ghi khoản hoàn "được ghi nhận cho vé" |
-| Q-94 | Khi cộng số tiền hoàn vào tổng đã hoàn của giao dịch mà vượt số tiền đã thanh toán (BR-26) thì use case xử lý thế nào? Phân tích coi // prepareRefundRequest luôn đạt vì mỗi vé chỉ hoàn một lần (BR-21) với 70% giá vé và không tạo luồng lỗi. (Không có luồng lỗi vì không xảy ra / Bổ sung luồng từ chối hoàn tiền) | SD1 message 1.1.6; AC-E-PaymentTransaction, // prepareRefundRequest | P04 UC-008 nêu BR-26 ở bước 5 nhưng không có luồng thay thế khi quy tắc bị vi phạm |
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Trạng thái |
+| --- | --- | --- | --- | --- |
+| Q-91 | Bước 6 (cổng báo hoàn tiền thành công hoặc thất bại) được phân tích như kết quả trả về của lời gọi hoàn tiền tới PaymentGateway trong thời hạn 30 giây (BR-43). Cổng thanh toán có báo kết quả hoàn tiền bằng callback riêng không; nếu có thì control nào tiếp nhận, và điều đó phụ thuộc kết luận Q-83 của UC-005 (control nào nhận callback cổng rồi chuyển cho UC-006)? (Kết quả trả về của lời gọi như SD1, SD4, SD5 / Callback, control tiếp nhận theo kết luận Q-83) | SD1 message 1.1.8, SD4, SD5; AC-B-PaymentGateway, // requestRefund; P07 của UC-005 và UC-006; P09 | GL-02 nêu giao tiếp gồm "tạo giao dịch, callback kết quả, hoàn tiền" nhưng không nói cách báo kết quả hoàn tiền; BR-43 chỉ nêu thời hạn chờ 30 giây | Đã trả lời: kết quả hoàn tiền là kết quả trả về của lời gọi hoàn trong 30 giây (BR-43), không có callback riêng; callback là chi tiết tích hợp của P09 (theo đề xuất của review). Gỡ reportRefundResult khỏi UC-006. |
+| Q-92 | Một lần giữ ghế có thể có nhiều giao dịch thanh toán do thử lại tạo giao dịch mới (R-UC005-16). Khi hoàn tiền vé mua trực tuyến, giao dịch cần hoàn là giao dịch đã xử lý thành công của lần giữ ghế dẫn tới lần đặt chứa vé (như phân tích, đi qua Ticket, Booking, SeatHold) hay lưu tham chiếu giao dịch trực tiếp trên lần đặt hoặc vé? (Giao dịch đã xử lý thành công của lần giữ ghế / Tham chiếu trực tiếp trên lần đặt hoặc vé) | SD1 message 1.1.5, 1.1.5.1; AC-E-Booking, AC-E-SeatHold, // providePaymentTransaction; R-UC008-12; P08 | P04 UC-008 bước 5 chỉ nêu "mã giao dịch và mã vé"; GL-12, GL-29 không nêu quan hệ giữa vé và giao dịch | Đã trả lời: giao dịch đã xử lý thành công của lần giữ ghế, tra qua vé, lần đặt, lần giữ ghế (theo đề xuất của review). |
+| Q-93 | Khoản hoàn của một vé (số tiền hoàn, tình trạng hoàn tiền) được mô hình hoá là thuộc tính refundAmount, refundStatus của Ticket (như phân tích) hay entity riêng Refund, chung với hoàn toàn bộ thanh toán trễ của UC-006? (Thuộc tính của Ticket / Entity Refund) | AC-E-Ticket, // recordCashRefund; AC-E-RefundRequest; R-UC008-13; P07 của UC-006; P08 | GL-45 dùng "Số tiền hoàn" cho cả vé bị huỷ và thanh toán đến trễ; P05 xếp "khoản hoàn, yêu cầu hoàn" vào số tiền hoàn và tình trạng hoàn tiền, còn P04 Mục 1 ghi khoản hoàn "được ghi nhận cho vé" | Gộp vào Q-87 (UC-006). Đã trả lời: entity riêng RefundRequest dùng chung với UC-006, Ticket chỉ tham chiếu để hiển thị. |
+| Q-94 | Khi cộng số tiền hoàn vào tổng đã hoàn của giao dịch mà vượt số tiền đã thanh toán (BR-26) thì use case xử lý thế nào? Phân tích coi // prepareRefundRequest luôn đạt vì mỗi vé chỉ hoàn một lần (BR-21) với 70% giá vé và không tạo luồng lỗi. (Không có luồng lỗi vì không xảy ra / Bổ sung luồng từ chối hoàn tiền) | SD1 message 1.1.6; AC-E-PaymentTransaction, // prepareRefundRequest | P04 UC-008 nêu BR-26 ở bước 5 nhưng không có luồng thay thế khi quy tắc bị vi phạm | Đã trả lời: không có luồng lỗi vì không xảy ra (mỗi vé hoàn một lần, 70% giá vé); giữ phép kiểm làm ràng buộc an toàn trong prepareRefundRequest (theo đề xuất của review). |
 
 ## Giả định
 
@@ -591,16 +623,18 @@ Không có (chế độ NGHIEM_NGAT).
 
 ## Đề xuất sửa artifact trước
 
-Không có
+| Bước | Mã phần tử | Vấn đề | Đề nghị |
+|---|---|---|---|
+| P05 | Mục 3 "Khoản hoàn, yêu cầu hoàn" | RefundRequest là entity dùng chung của UC-006 và UC-008 (Q-87, Q-93) | Thêm thuật ngữ Yêu cầu hoàn (Refund Request) vào P05 mục 2 và bỏ khỏi mục 3 |
+| P02R | UC-006 và UC-008 | Cùng một cơ chế hoàn tiền qua cổng (khoá chống hoàn trùng, chờ 30 giây, thử lại, log lỗi) lặp ở hai use case | Cân nhắc tách use case được include "Hoàn tiền qua cổng thanh toán"; khi đó control chờ, thử lại, log dùng chung thay cho hai bộ trách nhiệm trùng tên |
 
 ## Vấn đề còn mở
 
-- Phụ thuộc Q-83 (UC-005): UC-008 không tự quyết điểm tiếp nhận callback của cổng. Kết quả hoàn tiền được phân tích là trả về của lời gọi (Q-91), nên không có message callback hoàn tiền; nếu Q-83 và Q-91 chốt callback thì SD1, SD4, SD5 và PaymentGateway phải bổ sung // reportRefundResult.
-- Thao tác không chia cắt ở bước 4 là trách nhiệm cancelTicket của Ticket. Nó phải loại trừ với việc soát cùng một vé ở UC-009 bước 4, 5 (BR-30) và với yêu cầu huỷ khác của cùng vé (BR-21); phân tích chỉ chỉ ra ranh giới của thao tác, cơ chế loại trừ chọn ở P09.
-- Bước 7 là bước duy nhất làm ghế về trống, và mọi đường đi (thành công, 5c, 6b, 5a2) đều qua bước 7: SD1, SD4, SD5, SD6 cùng kết thúc ở // releaseTicketSeat. Ghế trả về trống sau giờ bắt đầu suất chiếu không bán lại được ở UC-005 (BR-45); UC-008 không kiểm thêm.
-- Số lớp là 11 (4 boundary, 1 control, 6 entity), trong đó 3 lớp là lớp mới của UC-008 (CancelTicketForm, CounterCancelTicketForm, CancelTicketController), 8 lớp tái dùng từ UC-005. Control có 8 trách nhiệm, trong đó 3 là message tự gọi theo A2; checkRefundRetriesLeft chỉ giữ việc còn lượt hay không, số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09).
-- Lớp tái dùng được bổ sung trách nhiệm: PaymentGateway (// requestRefund), BookTicketsForm (// updateSeatMap, đã được UC-005 dùng ở SD1a nhưng chưa có trong F3.4 của UC-005), Ticket, Booking, SeatHold, Showtime, PaymentTransaction, SeatStatus. Trách nhiệm // releaseSoldSeat khác // releaseSeat của UC-005 ở điều kiện (ghế đã bán, không phải đang giữ). Thuộc tính mới ở UC này: refundAmount, refundStatus của Ticket; refundedTotal của PaymentTransaction. Quan hệ mới Ticket - SeatStatus (R-UC008-11).
-- Người xem sơ đồ ghế tại quầy dùng CounterBookTicketsForm của UC-005 với cùng message updateSeatMap, không vẽ lifeline riêng. Khi tác nhân là nhân viên quầy, các message notifyRefusal của 3a, 4a, 4b gửi tới CounterCancelTicketForm thay CancelTicketForm (ghi chú ở SD2, SD3), không vẽ trang riêng.
-- Chạy song song: ba lớp mới ghi "Mới - chạy song song, chờ P08 hợp nhất". Mã Q tạm Q-91 đến Q-94 cần P08 đánh lại số liên tục.
-- File P07-sequence-UC-008.drawio giữ bố cục sinh từ bảng mô hình (không chạy diakempt). Hai file communication và class đã qua diakempt (communication bỏ bước compact, class bỏ bước classlayout); nhãn link trong communication dài vì mỗi cặp đối tượng một link nên một số nhãn có thể chồng nhau.
+- Thao tác không chia cắt ở bước 4 là trách nhiệm cancelTicket của Ticket. Nó phải loại trừ với việc soát cùng một vé ở UC-009 bước 4, 5 (BR-30) và với yêu cầu huỷ khác của cùng vé (BR-21); phân tích chỉ chỉ ra ranh giới của thao tác, đơn vị loại trừ nằm trong bảng cuối mục 4 của UC-005, cơ chế chọn ở P09.
+- Bước 7 là bước duy nhất làm ghế về trống, và mọi đường đi (thành công, 5c, 6b, 5a2) đều qua bước 7: SD1, SD4, SD5, SD6 cùng kết thúc ở // releaseTicketSeat. Ghế trả về trống sau giờ bắt đầu suất chiếu không bán lại được ở UC-005 (BR-45); UC-008 không kiểm thêm. Bước 7 và 8 chạy được trên suất chiếu Đã xoá (BR-58, UC-014).
+- Số lớp là 12 (4 boundary, 1 control, 7 entity), trong đó 3 lớp là lớp mới của UC-008 (CancelTicketForm, CounterCancelTicketForm, CancelTicketController), 9 lớp tái dùng (8 từ UC-005, RefundRequest từ UC-006). Control có 7 trách nhiệm, trong đó 4 là message tự gọi theo A2 hoặc ghi log; lượt thử lại tính trên RefundRequest, số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09).
+- Lớp tái dùng được bổ sung trách nhiệm: PaymentGateway (// requestRefund, kết quả trả về theo lời gọi), BookTicketsForm (// updateSeatMap), Ticket, Booking, SeatHold, Showtime, PaymentTransaction (// prepareRefundRequest, // recordRefundedAmount, cùng trách nhiệm với UC-006), SeatStatus, RefundRequest (thêm // provideRefundInfo và liên kết tới vé, R-UC008-13). Trách nhiệm // releaseSoldSeat khác // releaseSeat của UC-005 ở điều kiện (ghế đã bán, không phải đang giữ). Quan hệ mới Ticket - SeatStatus (R-UC008-11) và Ticket - RefundRequest (R-UC008-13). Khoản hoàn của vé nằm ở RefundRequest, không còn ở thuộc tính của Ticket.
+- BookTicketsForm của UC-005 được dùng lại làm điểm nhận message // updateSeatMap, trái nguyên tắc boundary người dùng không dùng chung giữa hai use case (A3): người nhận là khách khác đang xem sơ đồ ghế, tác nhân của UC-005, còn UC-008 chỉ là nguồn đổi trạng thái ghế. Mô hình giữ nguyên vì cách phát cập nhật là cơ chế dùng chung do P08 và P12 chọn (control dùng chung hoặc sự kiện), không thuộc phân tích của một use case. Người xem sơ đồ ghế tại quầy dùng CounterBookTicketsForm của UC-005 với cùng message.
+- Khi tác nhân là nhân viên quầy, các message notifyRefusal của 3a, 4a, 4b gửi tới CounterCancelTicketForm thay CancelTicketForm (ghi chú ở SD2, SD3), không vẽ trang riêng.
 - Luồng 1a vẽ trong biến thể ACT-02 (SD7) cùng 2b, 2c; luồng 5a vẽ ở SD6 và lặp lại bước 7, 8 của biến thể vì 5a nhập lại luồng chính ở bước 7 với tác nhân khác.
+- Ba lớp mới ghi "Mới - chạy song song, chờ P08 hợp nhất": CancelTicketForm, CounterCancelTicketForm, CancelTicketController.

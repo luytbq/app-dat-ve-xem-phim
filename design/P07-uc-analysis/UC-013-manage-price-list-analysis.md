@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-013-manage-price-list.md 1.2; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở) làm sổ đăng ký AC; chạy song song với các UC khác của P07 nên không đọc P07 của UC khác |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-013-manage-price-list.md 1.2; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.1 (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở) làm sổ đăng ký AC; P07-uc-analysis/_review-P07-batch.md |
 | Phạm vi | UC-013 |
 | Mã Q, ASM cuối đã cấp | Q-100; không có ASM (NGHIEM_NGAT) |
 
@@ -19,7 +19,7 @@
 | Được include bởi (UC) | Không có |
 | Extend (UC, điểm mở rộng, điều kiện) | Không có |
 | Được extend bởi (UC, điểm mở rộng, điều kiện) | Không có |
-| Use case liên quan không qua include, extend | UC-005 chốt giá vé khi giữ ghế (bước 7) và loại trừ với việc lưu thay đổi bảng giá (BR-65, BR-71); UC-014 lưu suất chiếu (bước 8) loại trừ với việc bỏ mục giá (BR-64, BR-68, BR-69); UC-012 chưa đặc tả, có thể làm suất chiếu thiếu giá (BR-73); UC-017 sở hữu khái niệm nhân viên và cụm rạp của nhân viên. Q-83 (control nào nhận callback cổng thanh toán rồi chuyển cho UC-006) không liên quan tới UC-013: use case này không có tác nhân phụ và không nhận kết quả giao dịch, nên không có phụ thuộc cần ghi |
+| Use case liên quan không qua include, extend | UC-005 chốt giá vé khi giữ ghế (bước 7) và loại trừ với việc lưu thay đổi bảng giá (BR-65, BR-71); UC-014 lưu suất chiếu (bước 8) loại trừ với việc bỏ mục giá (BR-64, BR-68, BR-69); UC-012 chưa đặc tả, có thể làm suất chiếu thiếu giá (BR-73); UC-017 sở hữu khái niệm nhân viên và cụm rạp của nhân viên. Q-83 (điểm tiếp nhận báo kết quả giao dịch của cổng) không liên quan tới UC-013: use case này không có tác nhân phụ và không nhận kết quả giao dịch, nên không có phụ thuộc cần ghi |
 | Tác nhân thời gian | Không có. Thay đổi bảng giá có hiệu lực ngay khi lưu (BR-66), P04 Mục 8 ghi không có bước hẹn hoặc huỷ mốc, và P02 không có use case do tác nhân thời gian kích hoạt trên mục giá, nên không có message hẹn mốc (A2) |
 | File P07 đã có được dùng làm sổ đăng ký AC | UC-005-book-tickets-analysis.md: dùng lại AC-E-PriceList (UC-005 ghi "Mới - chủ sở hữu UC-013"; UC-013 là chủ sở hữu nên bổ sung trách nhiệm) và AC-E-Showtime (chủ sở hữu UC-014) |
 
@@ -97,10 +97,10 @@
 |---|---|---|---|---|---|---|---|---|
 | AC-B-ManagePriceListForm | boundary | ManagePriceListForm | // requestPriceListSetup: quản lý cụm rạp yêu cầu thiết lập bảng giá<br>// showPriceList: hiển thị bảng giá của cụm rạp, giữ tình trạng từng mục giá lúc hiển thị<br>// enterPriceEntry: quản lý cụm rạp chọn tổ hợp, nhập giá vé rồi gửi<br>// notifyRefusal: thông báo từ chối kèm quy tắc bị vi phạm hoặc lý do<br>// showSavedPriceEntry: thông báo lưu giá thành công và hiển thị mục giá đã lưu<br>// requestPriceRemoval: quản lý cụm rạp chọn bỏ giá thay vì đặt giá<br>// selectPriceEntryToRemove: quản lý cụm rạp chọn mục giá cần bỏ<br>// showRemovalSuccess: thông báo bỏ giá thành công<br>// cancelRequest: quản lý cụm rạp huỷ yêu cầu | displayedPriceList (Bảng giá đang hiển thị, kèm tình trạng từng mục giá lúc hiển thị)<br>enteredPriceEntry (Tổ hợp bốn yếu tố và giá vé đã nhập)<br>selectedPriceEntry (Mục giá đã chọn để bỏ) | 1, 2, 3, 4a, 5a, 6, 1a, 1a1, 1a2, 1a3a, 1a3b, 1a4, *a | Giao diện người dùng | Mới | GL-42 |
 | AC-C-ManagePriceListController | control | ManagePriceListController | // startPriceListSetup: điều phối bước 1 và 2: xác định cụm rạp của quản lý, lấy bảng giá để hiển thị<br>// submitPriceEntry: điều phối bước 4 đến 6: kiểm tra giá vé, lưu giá, báo kết quả<br>// startPriceRemoval: điều phối bước 1a1: xác định cụm rạp của quản lý, lấy bảng giá để hiển thị<br>// submitPriceEntryRemoval: điều phối bước 1a3 và 1a4: bỏ giá, báo kết quả<br>// cancelRequest: điều phối luồng *a: huỷ yêu cầu<br>// discardRequest: bỏ yêu cầu, không đổi bảng giá (luồng *a) | - | 1 đến 6, 1a đến 1a4, 4a, 5a, *a | - | Mới | - |
-| AC-E-CinemaManager | entity | CinemaManager | // provideOwnCinema: cung cấp cụm rạp mà quản lý cụm rạp thuộc về, để chỉ xem và sửa bảng giá cụm mình (BR-61) | cinema (Cụm rạp của quản lý cụm rạp) | 2, 1a1 | - | Mới - chủ sở hữu UC-017 | GL-42 |
-| AC-E-PriceList | entity | PriceList | // providePriceEntries: cung cấp các mục giá của bảng giá kèm tình trạng từng mục giá lúc hiển thị (BR-62)<br>// checkTicketPriceValid: kiểm tra giá vé là số nguyên đồng lớn hơn 0 (BR-70)<br>// savePriceEntry: thao tác không chia cắt: kiểm tra mục giá của tổ hợp chưa bị đổi, tạo mục giá hoặc đổi giá, có hiệu lực ngay (BR-62, BR-63, BR-66, BR-71)<br>// checkEntryUnchangedSinceDisplayed: kiểm tra mục giá của tổ hợp chưa bị yêu cầu khác đổi, tạo hoặc bỏ kể từ lúc hiển thị (BR-63)<br>// findOrCreatePriceEntry: tìm mục giá của tổ hợp, chưa có thì tạo mục giá mới trong bảng giá (BR-62)<br>// removePriceEntry: thao tác không chia cắt: kiểm tra mục giá chưa bị đổi, kiểm tra không còn suất chiếu đang dùng, bỏ mục giá (BR-63, BR-64, BR-68, BR-71)<br>// deletePriceEntry: bỏ mục giá khỏi bảng giá, ghi mốc thay đổi của tổ hợp | cinema (Cụm rạp)<br>entryChangeTimes (Mốc thay đổi gần nhất của từng tổ hợp, kể cả tổ hợp đã bỏ) (mới ở UC này) | 2, 4, 5, 1a1, 1a3 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-01 |
+| AC-E-CinemaManager | entity | CinemaManager | // provideCinema: cung cấp cụm rạp mà quản lý cụm rạp thuộc về, để chỉ xem và sửa bảng giá cụm mình (BR-61) | cinema (Cụm rạp của quản lý cụm rạp) | 2, 1a1 | - | Mới - chủ sở hữu UC-017 | GL-42 |
+| AC-E-PriceList | entity | PriceList | // providePriceEntries: cung cấp các mục giá của bảng giá kèm tình trạng từng mục giá lúc hiển thị (BR-62)<br>// checkTicketPriceValid: kiểm tra giá vé là số nguyên đồng lớn hơn 0 (BR-70)<br>// savePriceEntry: thao tác không chia cắt: kiểm tra mục giá của tổ hợp chưa bị đổi, tạo mục giá hoặc đổi giá, có hiệu lực ngay (BR-62, BR-63, BR-66, BR-71)<br>// checkEntryUnchangedSinceDisplayed: kiểm tra mục giá của tổ hợp chưa bị yêu cầu khác đổi, tạo hoặc bỏ kể từ lúc hiển thị (BR-63)<br>// findOrCreatePriceEntry: tìm mục giá của tổ hợp, chưa có thì tạo mục giá mới trong bảng giá (BR-62)<br>// removePriceEntry: thao tác không chia cắt: kiểm tra mục giá chưa bị đổi, kiểm tra không còn suất chiếu đang dùng, bỏ mục giá (BR-63, BR-64, BR-68, BR-71)<br>// deletePriceEntry: bỏ mục giá khỏi bảng giá, ghi mốc thay đổi của tổ hợp<br>// determineTimeBand: xác định khung giờ chiếu từ giờ bắt đầu (BR-12), nơi duy nhất xác định khung giờ cho UC-005, UC-013 và UC-014 | cinema (Cụm rạp)<br>entryChangeTimes (Mốc thay đổi gần nhất của từng tổ hợp, kể cả tổ hợp đã bỏ) (mới ở UC này) | 2, 4, 5, 1a1, 1a3 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-01 |
 | AC-E-PriceEntry | entity | PriceEntry | // provideEntryInfo: cung cấp loại phòng, định dạng phim, loại ghế, khung giờ chiếu, giá vé và mốc thay đổi để hiển thị<br>// setTicketPrice: ghi giá vé của mục giá và mốc thay đổi, không đổi giá đã chốt của lần giữ ghế và vé đã bán (BR-65, BR-67) | auditoriumType (Văn bản)<br>movieFormat (Văn bản)<br>seatType (Văn bản)<br>timeBand (Văn bản)<br>ticketPrice (Số tiền)<br>lastChangedAt (Ngày giờ) | 2, 5, 1a1 | - | Mới - chạy song song, chờ P08 hợp nhất | GL-33 |
-| AC-E-Showtime | entity | Showtime | // checkUsesPriceEntry: kiểm tra suất chiếu chưa tới giờ bắt đầu, còn trong lịch chiếu, cùng loại phòng, định dạng, khung giờ và có ghế thuộc loại ghế của mục giá (BR-64)<br>// determineTimeBand: xác định khung giờ chiếu từ giờ bắt đầu (BR-12) | startTime (Ngày giờ)<br>movieFormat (Văn bản)<br>auditoriumType (Văn bản)<br>cinema (Cụm rạp)<br>scheduleStatus (Trạng thái: còn trong lịch chiếu hoặc đã xoá) (mới ở UC này) | 1a3, 1a3b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-47 |
+| AC-E-Showtime | entity | Showtime | // checkUsesPriceEntry: kiểm tra suất chiếu chưa tới giờ bắt đầu, còn trong lịch chiếu, cùng loại phòng, định dạng, khung giờ (hỏi PriceList xác định từ giờ bắt đầu) và có ghế thuộc loại ghế của mục giá (BR-64) | startTime (Ngày giờ)<br>movieFormat (Văn bản)<br>auditoriumType (Văn bản)<br>cinema (Cụm rạp)<br>scheduleStatus (Trạng thái: còn trong lịch chiếu hoặc đã xoá) (mới ở UC này) | 1a3, 1a3b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-47 |
 
 Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Entity cốt lõi của chủ đề race condition: AC-E-PriceList (loại trừ giữa hai quản lý cùng sửa một mục giá, giữa bỏ giá với lưu suất chiếu của UC-014 và giữa lưu giá với chốt giá của UC-005), AC-E-PriceEntry, AC-E-Showtime.
 
@@ -110,7 +110,7 @@ Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Entity cốt lõi của 
 |---|---|---|---|---|
 | 1 | // requestPriceListSetup | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
 | 1, 2 | // startPriceListSetup | AC-C-ManagePriceListController | Controller | - |
-| 2 | // provideOwnCinema | AC-E-CinemaManager | Information Expert | Cụm rạp của quản lý nằm ở hồ sơ quản lý. Giao cho control thì control giữ dữ liệu nhân sự, cao coupling và mất cohesion |
+| 2 | // provideCinema | AC-E-CinemaManager | Information Expert | Cụm rạp của quản lý nằm ở hồ sơ quản lý. Giao cho control thì control giữ dữ liệu nhân sự, cao coupling và mất cohesion |
 | 2 | // providePriceEntries | AC-E-PriceList | Information Expert | Bảng giá là đối tượng toàn thể nắm các mục giá (BR-62), nên liệt kê để hiển thị giao cho bảng giá và nó gửi message tới từng mục giá trong loop; control lặp thì phải biết cấu trúc của bảng giá |
 | 2 | // provideEntryInfo | AC-E-PriceEntry | Information Expert | - |
 | 2 | // showPriceList | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
@@ -126,13 +126,13 @@ Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Entity cốt lõi của 
 | 6 | // showSavedPriceEntry | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
 | 1a | // requestPriceRemoval | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
 | 1a1 | // startPriceRemoval | AC-C-ManagePriceListController | Controller | - |
-| 1a1 | // provideOwnCinema, // providePriceEntries, // provideEntryInfo, // showPriceList | AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry, AC-B-ManagePriceListForm | Information Expert / Giao tiếp tác nhân | Như bước 2 |
+| 1a1 | // provideCinema, // providePriceEntries, // provideEntryInfo, // showPriceList | AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry, AC-B-ManagePriceListForm | Information Expert / Giao tiếp tác nhân | Như bước 2 |
 | 1a2 | // selectPriceEntryToRemove | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
 | 1a3 | // submitPriceEntryRemoval | AC-C-ManagePriceListController | Controller | - |
 | 1a3 | // removePriceEntry | AC-E-PriceList | Information Expert | Dữ liệu ở bảng giá (mục giá, mốc thay đổi) và ở suất chiếu (giờ bắt đầu, loại phòng, định dạng). Giao cho bảng giá điều phối thao tác không chia cắt và hỏi suất chiếu qua quan hệ giữa hai lớp, vì bước sau của UC-014 cũng chạy trên cặp này (BR-68). Control gọi lần lượt suất chiếu rồi bảng giá thì kiểm tra và bỏ bị chia cắt |
 | 1a3 | // checkEntryUnchangedSinceDisplayed | AC-E-PriceList | Information Expert | Như bước 5 |
 | 1a3 | // checkUsesPriceEntry | AC-E-Showtime | Information Expert | Suất chiếu giữ giờ bắt đầu, loại phòng, định dạng, trạng thái trong lịch chiếu và các ghế của mình; bảng giá chỉ truyền bốn yếu tố của mục giá, không đọc dữ liệu suất chiếu |
-| 1a3 | // determineTimeBand | AC-E-Showtime | Information Expert | Khung giờ suy ra từ giờ bắt đầu của chính suất chiếu (BR-12) |
+| 1a3 | // determineTimeBand | AC-E-PriceList | Information Expert | Khung giờ chỉ được xác định ở bảng giá cho cả UC-005, UC-013, UC-014 (BR-12, Q-104); Showtime hỏi PriceList thay vì tự xác định. |
 | 1a3 | // deletePriceEntry | AC-E-PriceList | Information Expert | Bảng giá là toàn thể của mục giá nên bỏ mục giá (composition) |
 | 1a3a | // notifyRefusal | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
 | 1a3b | // notifyRefusal | AC-B-ManagePriceListForm | Giao tiếp tác nhân | - |
@@ -172,7 +172,7 @@ c) Bảng message
 |---|---|---|---|---|---|---|
 | 1 | :Quản lý cụm rạp | :ManagePriceListForm | // requestPriceListSetup | Đồng bộ | - | 1 |
 | 1.1 | :ManagePriceListForm | :ManagePriceListController | // startPriceListSetup | Đồng bộ | - | 1 |
-| 1.1.1 | :ManagePriceListController | :CinemaManager | // provideOwnCinema (BR-61) | Đồng bộ | - | 2 |
+| 1.1.1 | :ManagePriceListController | :CinemaManager | // provideCinema (BR-61) | Đồng bộ | - | 2 |
 | 1.1.1 (trả về) | :CinemaManager | :ManagePriceListController | cụm rạp của quản lý cụm rạp | Trả về | - | 2 |
 | 1.1.2 | :ManagePriceListController | :PriceList | // providePriceEntries (cụm rạp) | Đồng bộ | - | 2 |
 | 1.1.2.1 | :PriceList | :PriceEntry | // provideEntryInfo | Đồng bộ | SD1-F1 | 2 |
@@ -218,7 +218,7 @@ c) Bảng message
 |---|---|---|---|---|---|---|
 | 1a | :Quản lý cụm rạp | :ManagePriceListForm | // requestPriceRemoval | Đồng bộ | - | 1a |
 | 1a.1 | :ManagePriceListForm | :ManagePriceListController | // startPriceRemoval | Đồng bộ | - | 1a1 |
-| 1a.1.1 | :ManagePriceListController | :CinemaManager | // provideOwnCinema (BR-61) | Đồng bộ | - | 1a1 |
+| 1a.1.1 | :ManagePriceListController | :CinemaManager | // provideCinema (BR-61) | Đồng bộ | - | 1a1 |
 | 1a.1.1 (trả về) | :CinemaManager | :ManagePriceListController | cụm rạp của quản lý cụm rạp | Trả về | - | 1a1 |
 | 1a.1.2 | :ManagePriceListController | :PriceList | // providePriceEntries (cụm rạp) | Đồng bộ | - | 1a1 |
 | 1a.1.2.1 | :PriceList | :PriceEntry | // provideEntryInfo | Đồng bộ | SD2-F1 | 1a1 |
@@ -230,7 +230,7 @@ c) Bảng message
 | 2a.1.1 | :ManagePriceListController | :PriceList | // removePriceEntry (mục giá, tình trạng lúc hiển thị) | Đồng bộ | - | 1a3 |
 | 2a.1.1.1 | :PriceList | :PriceList | // checkEntryUnchangedSinceDisplayed (mục giá, tình trạng lúc hiển thị) | Tự gọi | - | 1a3 |
 | 2a.1.1.2 | :PriceList | :Showtime | // checkUsesPriceEntry (loại phòng, định dạng, loại ghế, khung giờ của mục giá) | Đồng bộ | - | 1a3 |
-| 2a.1.1.2.1 | :Showtime | :Showtime | // determineTimeBand | Tự gọi | - | 1a3 |
+| 2a.1.1.2.1 | :Showtime | :PriceList | // determineTimeBand (giờ bắt đầu của suất chiếu) | Đồng bộ | - | 1a3 |
 | 2a.1.1.2 (trả về) | :Showtime | :PriceList | có hoặc không có suất chiếu đang dùng mục giá | Trả về | - | 1a3 |
 | 2a.1.1.3 | :PriceList | :PriceList | // deletePriceEntry (mục giá) | Tự gọi | - | 1a3 |
 | 2a.1.1 (trả về) | :PriceList | :ManagePriceListController | đã bỏ mục giá, hoặc lý do từ chối | Trả về | - | 1a3 |
@@ -279,7 +279,7 @@ a) Bảng Node
 
 | ID | Loại (Actor / Object) | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
-| CM1-O-A4 | Actor | :Quản lý cụm rạp | - | - | ACT-04 |
+| CM1-O-A4 | Actor | :Quản lý cụm rạp | - | - | Tác nhân (ACT-04) |
 | CM1-O-PF | Object | :ManagePriceListForm | «boundary» | - | AC-B-ManagePriceListForm |
 | CM1-O-C | Object | :ManagePriceListController | «control» | - | AC-C-ManagePriceListController |
 | CM1-O-CM | Object | :CinemaManager | «entity» | - | AC-E-CinemaManager |
@@ -291,15 +291,14 @@ b) Bảng Edge
 
 | ID | Nguồn | Đích | Loại | Nhãn | Chiều message |
 |---|---|---|---|---|---|
-| CM1-L1 | CM1-O-A4 | CM1-O-PF | Link | 1: // requestPriceListSetup (-->)<br>2: // enterPriceEntry (tổ hợp, giá vé) (-->)<br>1a: // requestPriceRemoval (-->)<br>2a: // selectPriceEntryToRemove (mục giá) (-->)<br>1*a: // cancelRequest (-->) | Nguồn-->Đích |
-| CM1-L2 | CM1-O-PF | CM1-O-C | Link | 1.1: // startPriceListSetup (-->)<br>1.1.3: // showPriceList (bảng giá, tình trạng lúc hiển thị) (<--)<br>2.1: // submitPriceEntry (tổ hợp, giá vé, tình trạng lúc hiển thị) (-->)<br>2.1.2: // notifyRefusal (giá vé không hợp lệ, BR-70) (<--) [giá vé không hợp lệ (4a)]<br>2.1.4: // notifyRefusal (mục giá đã thay đổi, mở lại bảng giá từ đầu, BR-63) (<--) [mục giá của tổ hợp đã bị yêu cầu khác đổi, tạo hoặc bỏ kể từ lúc hiển thị (5a)]<br>2.1.5: // showSavedPriceEntry (mục giá đã lưu) (<--)<br>1a.1: // startPriceRemoval (-->)<br>1a.1.3: // showPriceList (bảng giá, tình trạng lúc hiển thị) (<--)<br>2a.1: // submitPriceEntryRemoval (mục giá, tình trạng lúc hiển thị) (-->)<br>2a.1.2: // notifyRefusal (mục giá đã thay đổi hoặc không còn, mở lại bảng giá từ đầu, BR-63) (<--) [mục giá đã bị yêu cầu khác đổi hoặc bỏ kể từ lúc hiển thị (1a3a)]<br>2a.1.3: // notifyRefusal (còn suất chiếu đang dùng mục giá, BR-64) (<--) [cụm rạp còn suất chiếu chưa tới giờ bắt đầu đang dùng mục giá, không thuộc 1a3a (1a3b)]<br>2a.1.4: // showRemovalSuccess (<--)<br>1*a.1: // cancelRequest (-->) | Hai chiều, ghi theo từng message |
-| CM1-L3 | CM1-O-C | CM1-O-CM | Link | 1.1.1: // provideOwnCinema (BR-61) (-->)<br>1a.1.1: // provideOwnCinema (BR-61) (-->) | Nguồn-->Đích |
-| CM1-L4 | CM1-O-C | CM1-O-PL | Link | 1.1.2: // providePriceEntries (cụm rạp) (-->)<br>2.1.1: // checkTicketPriceValid (giá vé) (-->)<br>2.1.3: // savePriceEntry (tổ hợp, giá vé, tình trạng lúc hiển thị) (-->)<br>1a.1.2: // providePriceEntries (cụm rạp) (-->)<br>2a.1.1: // removePriceEntry (mục giá, tình trạng lúc hiển thị) (-->) | Nguồn-->Đích |
-| CM1-L5 | CM1-O-PL | CM1-O-PE | Link | 1.1.2.1: // provideEntryInfo (-->) [lặp: mỗi mục giá của bảng giá]<br>2.1.3.3: // setTicketPrice (giá vé) (-->)<br>1a.1.2.1: // provideEntryInfo (-->) [lặp: mỗi mục giá của bảng giá] | Nguồn-->Đích |
-| CM1-L6 | CM1-O-PL | CM1-O-PL | Link | 2.1.3.1: // checkEntryUnchangedSinceDisplayed (tổ hợp, tình trạng lúc hiển thị) (-->)<br>2.1.3.2: // findOrCreatePriceEntry (tổ hợp) (-->)<br>2a.1.1.1: // checkEntryUnchangedSinceDisplayed (mục giá, tình trạng lúc hiển thị) (-->)<br>2a.1.1.3: // deletePriceEntry (mục giá) (-->) | Tự gọi |
-| CM1-L7 | CM1-O-PL | CM1-O-ST | Link | 2a.1.1.2: // checkUsesPriceEntry (loại phòng, định dạng, loại ghế, khung giờ của mục giá) (-->) | Nguồn-->Đích |
-| CM1-L8 | CM1-O-ST | CM1-O-ST | Link | 2a.1.1.2.1: // determineTimeBand (-->) | Tự gọi |
-| CM1-L9 | CM1-O-C | CM1-O-C | Link | 1*a.1.1: // discardRequest (không đổi bảng giá) (-->) | Tự gọi |
+| CM1-L1 | CM1-O-A4 | CM1-O-PF | Link | 1: // requestPriceListSetup (-->)<br>2: // enterPriceEntry (tổ hợp, giá vé) (-->)<br>1a: // requestPriceRemoval (-->)<br>2a: // selectPriceEntryToRemove (mục giá) (-->)<br>1*a: // cancelRequest (-->) | Nguồn-->Đích: 1, 2, 1a, 2a, 1*a |
+| CM1-L2 | CM1-O-PF | CM1-O-C | Link | 1.1: // startPriceListSetup (-->)<br>1.1.3: // showPriceList (bảng giá, tình trạng lúc hiển thị) (<--)<br>2.1: // submitPriceEntry (tổ hợp, giá vé, tình trạng lúc hiển thị) (-->)<br>2.1.2: // notifyRefusal (giá vé không hợp lệ, BR-70) (<--) [giá vé không hợp lệ (4a)]<br>2.1.4: // notifyRefusal (mục giá đã thay đổi, mở lại bảng giá từ đầu, BR-63) (<--) [mục giá của tổ hợp đã bị yêu cầu khác đổi, tạo hoặc bỏ kể từ lúc hiển thị (5a)]<br>2.1.5: // showSavedPriceEntry (mục giá đã lưu) (<--)<br>1a.1: // startPriceRemoval (-->)<br>1a.1.3: // showPriceList (bảng giá, tình trạng lúc hiển thị) (<--)<br>2a.1: // submitPriceEntryRemoval (mục giá, tình trạng lúc hiển thị) (-->)<br>2a.1.2: // notifyRefusal (mục giá đã thay đổi hoặc không còn, mở lại bảng giá từ đầu, BR-63) (<--) [mục giá đã bị yêu cầu khác đổi hoặc bỏ kể từ lúc hiển thị (1a3a)]<br>2a.1.3: // notifyRefusal (còn suất chiếu đang dùng mục giá, BR-64) (<--) [cụm rạp còn suất chiếu chưa tới giờ bắt đầu đang dùng mục giá, không thuộc 1a3a (1a3b)]<br>2a.1.4: // showRemovalSuccess (<--)<br>1*a.1: // cancelRequest (-->) | Nguồn-->Đích: 1.1, 2.1, 1a.1, 2a.1, 1*a.1; Đích-->Nguồn: 1.1.3, 2.1.2, 2.1.4, 2.1.5, 1a.1.3, 2a.1.2, 2a.1.3, 2a.1.4 |
+| CM1-L3 | CM1-O-C | CM1-O-CM | Link | 1.1.1: // provideCinema (BR-61) (-->)<br>1a.1.1: // provideCinema (BR-61) (-->) | Nguồn-->Đích: 1.1.1, 1a.1.1 |
+| CM1-L4 | CM1-O-C | CM1-O-PL | Link | 1.1.2: // providePriceEntries (cụm rạp) (-->)<br>2.1.1: // checkTicketPriceValid (giá vé) (-->)<br>2.1.3: // savePriceEntry (tổ hợp, giá vé, tình trạng lúc hiển thị) (-->)<br>1a.1.2: // providePriceEntries (cụm rạp) (-->)<br>2a.1.1: // removePriceEntry (mục giá, tình trạng lúc hiển thị) (-->) | Nguồn-->Đích: 1.1.2, 2.1.1, 2.1.3, 1a.1.2, 2a.1.1 |
+| CM1-L5 | CM1-O-PL | CM1-O-PE | Link | 1.1.2.1: // provideEntryInfo (-->) [lặp: mỗi mục giá của bảng giá]<br>2.1.3.3: // setTicketPrice (giá vé) (-->)<br>1a.1.2.1: // provideEntryInfo (-->) [lặp: mỗi mục giá của bảng giá] | Nguồn-->Đích: 1.1.2.1, 2.1.3.3, 1a.1.2.1 |
+| CM1-L6 | CM1-O-PL | CM1-O-PL | Link | 2.1.3.1: // checkEntryUnchangedSinceDisplayed (tổ hợp, tình trạng lúc hiển thị) (-->)<br>2.1.3.2: // findOrCreatePriceEntry (tổ hợp) (-->)<br>2a.1.1.1: // checkEntryUnchangedSinceDisplayed (mục giá, tình trạng lúc hiển thị) (-->)<br>2a.1.1.3: // deletePriceEntry (mục giá) (-->) | Nguồn-->Đích: 2.1.3.1, 2.1.3.2, 2a.1.1.1, 2a.1.1.3 |
+| CM1-L7 | CM1-O-PL | CM1-O-ST | Link | 2a.1.1.2: // checkUsesPriceEntry (loại phòng, định dạng, loại ghế, khung giờ của mục giá) (-->)<br>2a.1.1.2.1: // determineTimeBand (giờ bắt đầu của suất chiếu) (<--) | Nguồn-->Đích: 2a.1.1.2; Đích-->Nguồn: 2a.1.1.2.1 |
+| CM1-L8 | CM1-O-C | CM1-O-C | Link | 1*a.1.1: // discardRequest (không đổi bảng giá) (-->) | Nguồn-->Đích: 1*a.1.1 |
 
 ## 8. VOPC
 
@@ -311,10 +310,10 @@ a) Bảng Node (lớp)
 |---|---|---|---|---|---|---|
 | AC-B-ManagePriceListForm | Class | ManagePriceListForm | «boundary» | - | displayedPriceList (Bảng giá đang hiển thị, kèm tình trạng từng mục giá lúc hiển thị)<br>enteredPriceEntry (Tổ hợp bốn yếu tố và giá vé đã nhập)<br>selectedPriceEntry (Mục giá đã chọn để bỏ) | // requestPriceListSetup<br>// showPriceList<br>// enterPriceEntry<br>// notifyRefusal<br>// showSavedPriceEntry<br>// requestPriceRemoval<br>// selectPriceEntryToRemove<br>// showRemovalSuccess<br>// cancelRequest |
 | AC-C-ManagePriceListController | Class | ManagePriceListController | «control» | - | - | // startPriceListSetup<br>// submitPriceEntry<br>// startPriceRemoval<br>// submitPriceEntryRemoval<br>// cancelRequest<br>// discardRequest |
-| AC-E-CinemaManager | Class | CinemaManager | «entity» | - | cinema (Cụm rạp của quản lý cụm rạp) | // provideOwnCinema |
-| AC-E-PriceList | Class | PriceList | «entity» | - | cinema (Cụm rạp)<br>entryChangeTimes (Mốc thay đổi gần nhất của từng tổ hợp, kể cả tổ hợp đã bỏ) (mới ở UC này) | // providePriceEntries<br>// checkTicketPriceValid<br>// savePriceEntry<br>// checkEntryUnchangedSinceDisplayed<br>// findOrCreatePriceEntry<br>// removePriceEntry<br>// deletePriceEntry |
+| AC-E-CinemaManager | Class | CinemaManager | «entity» | - | cinema (Cụm rạp của quản lý cụm rạp) | // provideCinema |
+| AC-E-PriceList | Class | PriceList | «entity» | - | cinema (Cụm rạp)<br>entryChangeTimes (Mốc thay đổi gần nhất của từng tổ hợp, kể cả tổ hợp đã bỏ) (mới ở UC này) | // providePriceEntries<br>// checkTicketPriceValid<br>// savePriceEntry<br>// checkEntryUnchangedSinceDisplayed<br>// findOrCreatePriceEntry<br>// removePriceEntry<br>// deletePriceEntry<br>// determineTimeBand |
 | AC-E-PriceEntry | Class | PriceEntry | «entity» | - | auditoriumType (Văn bản)<br>movieFormat (Văn bản)<br>seatType (Văn bản)<br>timeBand (Văn bản)<br>ticketPrice (Số tiền)<br>lastChangedAt (Ngày giờ) | // provideEntryInfo<br>// setTicketPrice |
-| AC-E-Showtime | Class | Showtime | «entity» | - | startTime (Ngày giờ)<br>movieFormat (Văn bản)<br>auditoriumType (Văn bản)<br>cinema (Cụm rạp)<br>scheduleStatus (Trạng thái: còn trong lịch chiếu hoặc đã xoá) (mới ở UC này) | // checkUsesPriceEntry<br>// determineTimeBand |
+| AC-E-Showtime | Class | Showtime | «entity» | - | startTime (Ngày giờ)<br>movieFormat (Văn bản)<br>auditoriumType (Văn bản)<br>cinema (Cụm rạp)<br>scheduleStatus (Trạng thái: còn trong lịch chiếu hoặc đã xoá) (mới ở UC này) | // checkUsesPriceEntry |
 
 b) Bảng quan hệ
 
@@ -333,20 +332,20 @@ Quan hệ ST-PL (R-UC013-05) trùng với R-UC005-12 về cặp lớp và multip
 | Bước UC | Message (STT) | Lớp tham gia (AC) |
 |---|---|---|
 | 1 | 1, 1.1 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController |
-| 2 | 1.1.1, 1.1.2, 1.1.2.1, 1.1.3 | AC-C-ManagePriceListController, AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry, AC-B-ManagePriceListForm |
+| 2 | 1.1.1, 1.1.1 (trả về), 1.1.2, 1.1.2.1, 1.1.2.1 (trả về), 1.1.2 (trả về), 1.1.3 | AC-C-ManagePriceListController, AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry, AC-B-ManagePriceListForm |
 | 3 | 2, 2.1 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController |
-| 4 | 2.1.1 | AC-C-ManagePriceListController, AC-E-PriceList |
-| 4a | 2.1.2 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
-| 5 | 2.1.3, 2.1.3.1, 2.1.3.2, 2.1.3.3 | AC-C-ManagePriceListController, AC-E-PriceList, AC-E-PriceEntry |
-| 5a | 2.1.4 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
+| 4 | 2.1.1, 2.1.1 (trả về) | AC-C-ManagePriceListController, AC-E-PriceList |
+| 5 | 2.1.3, 2.1.3.1, 2.1.3.2, 2.1.3.3, 2.1.3 (trả về) | AC-C-ManagePriceListController, AC-E-PriceList, AC-E-PriceEntry |
 | 6 | 2.1.5 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
 | 1a | 1a | AC-B-ManagePriceListForm |
-| 1a1 | 1a.1, 1a.1.1, 1a.1.2, 1a.1.2.1, 1a.1.3 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController, AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry |
+| 1a1 | 1a.1, 1a.1.1, 1a.1.1 (trả về), 1a.1.2, 1a.1.2.1, 1a.1.2.1 (trả về), 1a.1.2 (trả về), 1a.1.3 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController, AC-E-CinemaManager, AC-E-PriceList, AC-E-PriceEntry |
 | 1a2 | 2a | AC-B-ManagePriceListForm |
-| 1a3 | 2a.1, 2a.1.1, 2a.1.1.1, 2a.1.1.2, 2a.1.1.2.1, 2a.1.1.3 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController, AC-E-PriceList, AC-E-Showtime |
+| 1a3 | 2a.1, 2a.1.1, 2a.1.1.1, 2a.1.1.2, 2a.1.1.2.1, 2a.1.1.2 (trả về), 2a.1.1.3, 2a.1.1 (trả về) | AC-B-ManagePriceListForm, AC-C-ManagePriceListController, AC-E-PriceList, AC-E-Showtime |
 | 1a3a | 2a.1.2 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
 | 1a3b | 2a.1.3 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
 | 1a4 | 2a.1.4 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
+| 4a | 2.1.2 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
+| 5a | 2.1.4 | AC-C-ManagePriceListController, AC-B-ManagePriceListForm |
 | *a | 1*a, 1*a.1, 1*a.1.1 | AC-B-ManagePriceListForm, AC-C-ManagePriceListController |
 
 ## 10. File .drawio
@@ -355,11 +354,11 @@ Ba file nằm trong diagrams/: P07-sequence-UC-013.drawio (3 trang), P07-communi
 
 ## Câu hỏi mở
 
-| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
-|---|---|---|---|
-| Q-98 | Việc kiểm tra "cụm rạp còn suất chiếu chưa tới giờ bắt đầu, còn trong lịch chiếu, dùng mục giá" (BR-64) cần cụm rạp, lịch chiếu, phòng chiếu, ghế. Mô hình hoá thế nào? (Giữ rút gọn như UC-005 Q-81: Showtime tự biết giờ bắt đầu, loại phòng, định dạng, các ghế qua SeatStatus, scheduleStatus; ":Showtime" là suất chiếu tìm được theo điều kiện / Tách ngay Cinema, Auditorium, Seat, và một lớp nắm lịch chiếu của cụm rạp để đếm hoặc hỏi) | AC-E-Showtime, // checkUsesPriceEntry, scheduleStatus; SD2 message 2a.1.1.2; R-UC013-05; P08 | P05 mục 3 nói lịch chiếu không phải thực thể riêng, trong khi BR-64 cần hỏi một tập suất chiếu; UC-005 Q-81 đã rút gọn Cinema, Auditorium, Seat |
-| Q-99 | "Kể từ lúc hiển thị" (BR-63) được so bằng mốc nào? (Mốc thay đổi theo từng tổ hợp, kể cả tổ hợp đã bỏ: người lưu sau chỉ bị từ chối khi chính tổ hợp đó đổi, như BR-63 viết / Một mốc thay đổi cho cả bảng giá: chặt hơn, từ chối cả khi tổ hợp khác đổi, trái BR-63) | AC-E-PriceList, entryChangeTimes, // checkEntryUnchangedSinceDisplayed; SD1 message 2.1.3.1; SD2 message 2a.1.1.1; P09 | P04 bước 5, 5a, 1a3a nêu "mục giá của tổ hợp đã bị đổi, tạo hoặc bỏ" nhưng mục giá đã bỏ không còn đối tượng để mang mốc, nên bảng giá phải giữ mốc của tổ hợp kể cả khi mục giá không còn. Phân tích này chọn phương án đầu |
-| Q-100 | Quản lý cụm rạp và nhân viên quầy đều là nhân viên thuộc đúng một cụm rạp (GL-34, BR-78). Mô hình hoá hồ sơ quản lý cụm rạp thành CinemaManager riêng, như UC-005 tách BoxOfficeClerk, hay gộp các hồ sơ nhân viên thành một entity Staff có vai trò? (Hai entity riêng, giống UC-005 Q-86 / Một entity nhân viên có vai trò) | AC-E-CinemaManager, // provideOwnCinema; P07 của UC-017; P08 | GL-34 là tên chung, GL-35 và GL-42 là hai thuật ngữ riêng; P01 không lập tác nhân "Nhân viên" |
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Trạng thái |
+| --- | --- | --- | --- | --- |
+| Q-98 | Việc kiểm tra "cụm rạp còn suất chiếu chưa tới giờ bắt đầu, còn trong lịch chiếu, dùng mục giá" (BR-64) cần cụm rạp, lịch chiếu, phòng chiếu, ghế. Mô hình hoá thế nào? (Giữ rút gọn như UC-005 Q-81: Showtime tự biết giờ bắt đầu, loại phòng, định dạng, các ghế qua SeatStatus, scheduleStatus; ":Showtime" là suất chiếu tìm được theo điều kiện / Tách ngay Cinema, Auditorium, Seat, và một lớp nắm lịch chiếu của cụm rạp để đếm hoặc hỏi) | AC-E-Showtime, // checkUsesPriceEntry, scheduleStatus; SD2 message 2a.1.1.2; R-UC013-05; P08 | P05 mục 3 nói lịch chiếu không phải thực thể riêng, trong khi BR-64 cần hỏi một tập suất chiếu; UC-005 Q-81 đã rút gọn Cinema, Auditorium, Seat | Gộp vào Q-81 (UC-005). Đã trả lời: giữ rút gọn, P08 tách Cinema, Auditorium, Seat khi gộp. |
+| Q-99 | "Kể từ lúc hiển thị" (BR-63) được so bằng mốc nào? (Mốc thay đổi theo từng tổ hợp, kể cả tổ hợp đã bỏ: người lưu sau chỉ bị từ chối khi chính tổ hợp đó đổi, như BR-63 viết / Một mốc thay đổi cho cả bảng giá: chặt hơn, từ chối cả khi tổ hợp khác đổi, trái BR-63) | AC-E-PriceList, entryChangeTimes, // checkEntryUnchangedSinceDisplayed; SD1 message 2.1.3.1; SD2 message 2a.1.1.1; P09 | P04 bước 5, 5a, 1a3a nêu "mục giá của tổ hợp đã bị đổi, tạo hoặc bỏ" nhưng mục giá đã bỏ không còn đối tượng để mang mốc, nên bảng giá phải giữ mốc của tổ hợp kể cả khi mục giá không còn. Phân tích này chọn phương án đầu | Đã trả lời: mốc theo từng tổ hợp, kể cả tổ hợp đã bỏ, đúng chữ BR-63; một mốc chung cho cả bảng giá sẽ từ chối cả khi tổ hợp khác đổi, trái BR-63 (theo đề xuất của review). |
+| Q-100 | Quản lý cụm rạp và nhân viên quầy đều là nhân viên thuộc đúng một cụm rạp (GL-34, BR-78). Mô hình hoá hồ sơ quản lý cụm rạp thành CinemaManager riêng, như UC-005 tách BoxOfficeClerk, hay gộp các hồ sơ nhân viên thành một entity Staff có vai trò? (Hai entity riêng, giống UC-005 Q-86 / Một entity nhân viên có vai trò) | AC-E-CinemaManager, // provideCinema; P07 của UC-017; P08 | GL-34 là tên chung, GL-35 và GL-42 là hai thuật ngữ riêng; P01 không lập tác nhân "Nhân viên" | Gộp vào Q-86 (UC-005). Đã trả lời: hồ sơ quản lý cụm rạp là entity riêng CinemaManager như BoxOfficeClerk; P08 có thể thêm lớp cha nhân viên nếu cần. |
 
 ## Giả định
 
@@ -371,10 +370,10 @@ Không có.
 
 ## Vấn đề còn mở
 
-- Cơ chế loại trừ ba chiều trên PriceList (hai yêu cầu sửa cùng mục giá: BR-63; bỏ giá và lưu suất chiếu của UC-014: BR-68; lưu giá và chốt giá của UC-005 bước 7: BR-71) chỉ được chỉ ra ở mức trách nhiệm: PriceList // savePriceEntry, PriceList // removePriceEntry là thao tác không chia cắt, đối ứng với Showtime // holdSeats của UC-005 và thao tác lưu suất chiếu của UC-014. Việc chọn cơ chế khoá, thứ tự để tránh khoá chéo giữa PriceList và Showtime do P09 quyết.
+- Cơ chế loại trừ ba chiều trên PriceList (hai yêu cầu sửa cùng mục giá: BR-63; bỏ giá và lưu suất chiếu của UC-014: BR-68; lưu giá và chốt giá của UC-005 bước 7: BR-71) chỉ được chỉ ra ở mức trách nhiệm: PriceList // savePriceEntry, PriceList // removePriceEntry là thao tác không chia cắt, đối ứng với Showtime // holdSeats của UC-005 và thao tác lưu suất chiếu của UC-014. Đơn vị loại trừ và thứ tự khoá đề xuất nằm trong bảng cuối mục 4 của UC-005; cơ chế khoá do P09 quyết.
 - Giá chốt khi giữ ghế (BR-65): UC-013 không có message tới lần giữ ghế, ghế hay vé. Bảo đảm "đổi giá không ảnh hưởng lần giữ ghế đang có và vé đã bán" đến từ chỗ UC-005 ghi giá vào SeatStatus (heldPrice) và Ticket (price) khi giữ ghế, và từ việc loại trừ BR-71 giữa // savePriceEntry với // determineSeatPrice. P08 cần giữ SeatStatus, Ticket không có quan hệ đọc về PriceEntry sau lúc chốt giá.
 - Chưa hết rủi ro thiếu giá (UC-012 chưa đặc tả, BR-73): UC-005 luồng 7e là lưới an toàn; không thuộc phân tích của UC-013.
-- AC-E-CinemaManager chỉ có một trách nhiệm // provideOwnCinema (cung cấp cụm rạp), gần với get; được giữ vì BR-61 yêu cầu quản lý chỉ xem và sửa bảng giá cụm mình và đặc tả không có hành vi khác trên hồ sơ quản lý. Nếu Q-100 chọn Staff chung thì trách nhiệm này do UC-017 xác định lại.
-- AC-E-PriceEntry là lớp mới do UC-013 sở hữu, chưa có trong sổ AC của UC-005; P08 gộp trùng nếu P07 của UC-014 cũng đặt entity cho mục giá. AC-E-CinemaManager cũng có thể trùng với entity của UC-014 hoặc UC-012.
+- Khung giờ chiếu chỉ do PriceList xác định (// determineTimeBand, Q-104): Showtime không còn trách nhiệm này. Hai phép khớp bốn yếu tố giữa suất chiếu và mục giá có mục đích khác nhau (Showtime // checkUsesPriceEntry: suất chiếu có dùng một mục giá cụ thể; PriceList // checkCoversShowtime của UC-014: bảng giá có phủ mọi loại ghế của suất chiếu) nên giữ hai tên; P08 xem xét gộp phần so khớp bốn yếu tố về một nơi.
+- AC-E-CinemaManager chỉ có một trách nhiệm // provideCinema (cung cấp cụm rạp), gần với get, cùng tên với UC-014; được giữ vì BR-61 yêu cầu quản lý chỉ xem và sửa bảng giá cụm mình và đặc tả không có hành vi khác trên hồ sơ quản lý. P08 xem xét lớp cha nhân viên theo Q-86, Q-100. Thuộc tính scheduleStatus của Showtime trùng nghĩa với status (UC-014); P08 gộp.
+- AC-E-PriceEntry là lớp mới do UC-013 sở hữu, chưa có trong sổ AC của UC-005; P08 gộp trùng nếu P07 của UC-014 cũng đặt entity cho mục giá. AC-E-CinemaManager có thể trùng với entity của UC-014.
 - ManagePriceListController có 6 trách nhiệm, trong ngưỡng 2-10; số lớp là 6, trong khoảng 4-12.
-- File P07-sequence-UC-013.drawio giữ bố cục sinh từ bảng mô hình (không chạy diakempt). Communication đã qua diakempt bỏ bước compact: còn một số nhãn link chồng nhau vì mỗi cặp đối tượng một link và nhãn chứa nhiều message. Class đã qua diakempt bỏ bước classlayout.
