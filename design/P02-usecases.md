@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P02 |
-| Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.3; P01-actors.md 1.1; yeu-cau-dat-ve.md; P02-usecases.md 1.1; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
+| Phiên bản | 1.6 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.7; P01-actors.md 1.1; yeu-cau-dat-ve.md; P02-usecases.md 1.5; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
 | Phạm vi | Toàn hệ thống |
-| Mã Q, ASM cuối đã cấp | Q-23; không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-51; không có ASM (NGHIEM_NGAT) |
 
 ## 1. Danh sách mục tiêu tác nhân
 
@@ -49,7 +49,7 @@
 | EV-05 | Khách muốn mua vé một suất chiếu (trực tuyến hoặc tại quầy) | Nghiệp vụ | ACT-01, ACT-02 | Giữ ghế, thu tiền, chuyển ghế sang đã bán, tạo vé | REQ-13, REQ-45 | CAND-12, CAND-28 |
 | EV-06 | Hết 10 phút giữ ghế mà chưa thanh toán hoặc chưa xác nhận thu tiền | Thời gian | - | Giải phóng ghế đang giữ | REQ-22, REQ-32, REQ-76 | CAND-19 |
 | EV-07 | Cổng thanh toán báo kết quả giao dịch trong thời gian giữ ghế | Hệ thống ngoài | ACT-07 | Thành công: chuyển ghế sang đã bán, tạo vé, gửi email; thất bại: giải phóng ghế | REQ-29, REQ-34 | CAND-21, CAND-22 |
-| EV-08 | Cổng thanh toán báo thanh toán thành công sau thời điểm hết hạn giữ ghế | Hệ thống ngoài | ACT-07 | Không tạo vé, hoàn toàn bộ tiền, gửi email thông báo | REQ-35, REQ-36, REQ-90 | CAND-23 |
+| EV-08 | Cổng thanh toán báo thanh toán thành công sau thời điểm hết hạn giữ ghế, hoặc sau khi khách đã huỷ giữ ghế hoặc cổng đã báo thất bại, hoặc báo thêm giao dịch thành công thứ hai cho lần giữ ghế đã có vé; cổng cũng có thể báo trùng một giao dịch đã xử lý hoặc báo thất bại vào lúc muộn (chỉ ghi nhận, không hoàn tiền) | Hệ thống ngoài | ACT-07 | Không tạo vé, hoàn toàn bộ tiền, gửi email thông báo | REQ-35, REQ-36, REQ-90, REQ-109, REQ-130 | CAND-23 |
 | EV-09 | Khách muốn xem lại vé đã đặt | Nghiệp vụ | ACT-01 | Cung cấp lịch sử đặt vé và vé | REQ-39 | CAND-25 |
 | EV-10 | Khách muốn huỷ vé đã mua (trực tuyến hoặc tại quầy) | Nghiệp vụ | ACT-01, ACT-02 | Huỷ vé, hoàn 70%, trả ghế về trống | REQ-40, REQ-83 | CAND-26, CAND-31 |
 | EV-11 | Khách mang vé tới cửa phòng chiếu | Nghiệp vụ | ACT-03 | Kiểm tra vé, đánh dấu vé đã sử dụng hoặc báo lý do không hợp lệ | REQ-50 | CAND-32 |
@@ -150,11 +150,11 @@ Bảng 4b. Bảng mô tả
 | UC-002 | - | Loại ở phiên bản 1.1 theo quy ước đã chốt: đăng nhập không là use case. Việc khách, nhân viên, quản trị viên đã đăng nhập được ghi là tiền điều kiện của UC-005, UC-007, UC-008 (khách) và mọi UC của ACT-02 đến ACT-06 ở P04. | Người dùng muốn dùng chức năng cần đăng nhập (EV-02) | REQ-12, REQ-102, REQ-103, REQ-104 | CAND-02, CAND-03, CAND-04 |
 | UC-003 | Khách biết các phim đang chiếu, sắp chiếu và thông tin của phim quan tâm. | Khách xem danh sách phim đang chiếu, sắp chiếu (xác định theo ngày khởi chiếu và ngày kết thúc chiếu) rồi xem thông tin một phim; không cần đăng nhập. | Khách muốn biết phim đang chiếu, sắp chiếu (EV-03) | REQ-05, REQ-06, REQ-07, REQ-96 | CAND-05, CAND-06, CAND-50 |
 | UC-004 | Khách biết các suất chiếu phù hợp với phim, cụm rạp, ngày, loại phòng, định dạng mình quan tâm. | Khách xem lịch chiếu theo phim hoặc theo cụm rạp, có thể lọc theo tỉnh, thành phố, ngày, loại phòng, định dạng phim; không cần đăng nhập. | Khách muốn biết lịch chiếu (EV-04) | REQ-08, REQ-09, REQ-10 | CAND-07, CAND-08, CAND-09 |
-| UC-005 | Khách có vé (mỗi ghế một vé có mã QR, cùng một mã đặt vé) cho các ghế đã chọn của một suất chiếu; các ghế chuyển sang đã bán. | Khách chọn suất chiếu đã mở bán, xem sơ đồ ghế, chọn tối đa 8 ghế và xác nhận để hệ thống giữ cả nhóm ghế trong 10 phút, rồi thanh toán qua cổng thanh toán và nhận vé qua email. Nhân viên quầy dùng UC này để bán vé tại quầy cho khách mua trực tiếp: thu tiền mặt, xác nhận đã thu tiền và in vé. Hết thời gian giữ, khách huỷ hoặc thanh toán thất bại thì ghế được giải phóng. Khách chưa đăng nhập được xem sơ đồ ghế, phải đăng nhập trước khi xác nhận chọn ghế. | Khách muốn mua vé một suất chiếu (EV-05) | REQ-13 đến REQ-34, REQ-45 đến REQ-49, REQ-81, REQ-82, REQ-86, REQ-88, REQ-89, REQ-92 | CAND-10 đến CAND-22, CAND-28, CAND-29, CAND-30, CAND-51 |
-| UC-006 | Khách được hoàn toàn bộ số tiền đã thanh toán và được báo qua email khi thanh toán thành công về tới hệ thống sau thời điểm hết hạn giữ ghế. | Cổng thanh toán báo một giao dịch thành công sau thời điểm hết hạn giữ ghế; hệ thống không tạo vé, yêu cầu cổng thanh toán hoàn toàn bộ tiền và gửi email thông báo hoàn tiền cho khách. | Cổng thanh toán báo thanh toán thành công sau thời điểm hết hạn giữ ghế (EV-08) | REQ-35, REQ-36, REQ-90 | CAND-23, CAND-24 |
+| UC-005 | Khách có vé (mỗi ghế một vé có mã QR, cùng một mã đặt vé) cho các ghế đã chọn của một suất chiếu; các ghế chuyển sang đã bán. | Khách chọn suất chiếu đã mở bán, xem sơ đồ ghế, chọn tối đa 8 ghế và xác nhận để hệ thống giữ cả nhóm ghế trong 10 phút, rồi thanh toán qua cổng thanh toán và nhận vé qua email. Nhân viên quầy dùng UC này để bán vé tại quầy cho khách mua trực tiếp: thu tiền mặt, xác nhận đã thu tiền và in vé. Hết thời gian giữ, khách huỷ hoặc thanh toán thất bại thì ghế được giải phóng. Khách chưa đăng nhập được xem sơ đồ ghế, phải đăng nhập trước khi xác nhận chọn ghế. | Khách muốn mua vé một suất chiếu (EV-05) | REQ-13 đến REQ-34, REQ-45 đến REQ-49, REQ-81, REQ-82, REQ-86, REQ-88, REQ-89, REQ-92, REQ-119, REQ-134, REQ-135 | CAND-10 đến CAND-22, CAND-28, CAND-29, CAND-30, CAND-51 |
+| UC-006 | Khách được hoàn toàn bộ số tiền đã thanh toán và được báo qua email khi thanh toán thành công về tới hệ thống sau thời điểm hết hạn giữ ghế, hoặc sau khi khách đã huỷ giữ ghế hoặc cổng thanh toán đã báo thất bại, hoặc khi giao dịch là giao dịch thứ hai cho lần giữ ghế đã có vé. Khi giao dịch hệ thống không nhận ra, use case chỉ ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống. | Cổng thanh toán báo một giao dịch thành công sau thời điểm hết hạn giữ ghế, hoặc sau khi khách đã huỷ giữ ghế hoặc cổng đã báo thất bại, hoặc cho lần giữ ghế đã có vé từ giao dịch khác; hệ thống không tạo vé, yêu cầu cổng thanh toán hoàn toàn bộ tiền và gửi email thông báo hoàn tiền cho khách. Với giao dịch hệ thống không nhận ra, hệ thống chỉ ghi log lỗi, không hoàn tiền, không gửi email. | Cổng thanh toán báo thanh toán thành công sau thời điểm hết hạn giữ ghế, hoặc sau khi khách đã huỷ giữ ghế hoặc cổng đã báo thất bại, hoặc báo thành công cho giao dịch hệ thống không nhận ra hoặc lần giữ ghế đã có vé (EV-08) | REQ-35, REQ-36, REQ-90, REQ-109 đến REQ-111, REQ-116, REQ-129 đến REQ-133 | CAND-23, CAND-24 |
 | UC-007 | Khách biết các lần đặt vé và các vé mình đã mua. | Khách đã đăng nhập xem lịch sử đặt vé và vé của mình. | Khách muốn xem lại vé đã đặt (EV-09) | REQ-39 | CAND-25 |
-| UC-008 | Vé được huỷ, khách được hoàn 70% giá vé, ghế trở về trạng thái trống. | Khách huỷ từng vé đã mua trực tuyến trước giờ chiếu ít nhất 2 tiếng và được hoàn tiền qua cổng thanh toán. Nhân viên quầy dùng UC này để huỷ vé mua tại quầy của cụm mình, hoàn tiền mặt. | Khách muốn huỷ vé đã mua (EV-10) | REQ-40 đến REQ-44, REQ-83, REQ-84, REQ-85 | CAND-26, CAND-27, CAND-31 |
-| UC-009 | Khách có vé hợp lệ được vào phòng chiếu; vé được đánh dấu đã sử dụng. | Nhân viên soát vé chọn suất chiếu đang soát, quét mã QR trên từng vé bằng camera của thiết bị; hệ thống kiểm tra vé và đánh dấu đã sử dụng, hoặc báo lý do không hợp lệ. | Khách mang vé tới cửa phòng chiếu (EV-11) | REQ-50, REQ-51, REQ-52, REQ-93, REQ-94 | CAND-32, CAND-33, CAND-34 |
+| UC-008 | Vé được huỷ, khách được hoàn 70% giá vé, ghế trở về trạng thái trống. | Khách huỷ từng vé đã mua trực tuyến trước giờ chiếu ít nhất 2 tiếng và được hoàn tiền qua cổng thanh toán. Nhân viên quầy dùng UC này để huỷ vé mua tại quầy của cụm mình, hoàn tiền mặt. | Khách muốn huỷ vé đã mua (EV-10) | REQ-40 đến REQ-44, REQ-83, REQ-84, REQ-85, REQ-118 đến REQ-122, REQ-131, REQ-132 | CAND-26, CAND-27, CAND-31 |
+| UC-009 | Khách có vé hợp lệ được vào phòng chiếu; vé được đánh dấu đã sử dụng. | Nhân viên soát vé chọn suất chiếu đang soát, quét mã QR trên từng vé bằng camera của thiết bị; hệ thống kiểm tra vé và đánh dấu đã sử dụng, hoặc báo lý do không hợp lệ. | Khách mang vé tới cửa phòng chiếu (EV-11) | REQ-50, REQ-51, REQ-52, REQ-93, REQ-94, REQ-118, REQ-123 đến REQ-128 | CAND-32, CAND-33, CAND-34 |
 | UC-010 | Danh sách phim của chuỗi đúng và đủ thông tin để lập lịch chiếu và cho khách tra cứu. | Quản lý chuỗi quản lý danh sách phim: thông tin phim, định dạng phát hành, ngày khởi chiếu, ngày kết thúc chiếu. | Chuỗi có phim mới hoặc thông tin phim thay đổi (EV-12) | REQ-53, REQ-55, REQ-95 | CAND-35 |
 | UC-011 | Danh sách cụm rạp của chuỗi đúng và đủ. | Quản lý chuỗi quản lý danh sách cụm rạp. | Chuỗi có cụm rạp mới hoặc thông tin cụm rạp thay đổi (EV-13) | REQ-54 | CAND-36 |
 | UC-012 | Các phòng chiếu của cụm có đúng loại phòng, sức chứa, định dạng chiếu được và sơ đồ ghế. | Quản lý cụm rạp quản lý phòng chiếu của cụm mình cùng sơ đồ ghế; không sửa được sơ đồ ghế của phòng đang có suất chiếu chưa diễn ra đã bán vé hoặc có ghế đang được giữ. | Cụm rạp có phòng chiếu mới hoặc phòng chiếu thay đổi (EV-14) | REQ-56, REQ-57, REQ-58 | CAND-37, CAND-38 |
@@ -272,6 +272,37 @@ Bảng 4b. Bảng mô tả
 | REQ-102 | Nhân viên đăng nhập | - | Tiền điều kiện của mọi UC của ACT-02 đến ACT-05, kể cả UC-005, UC-008 khi ACT-02 thực hiện (U-R01); P04 ghi ở hàng Tiền điều kiện |
 | REQ-103 | Tài khoản quản trị viên có sẵn | - | Chuyển P06 (ràng buộc) |
 | REQ-104 | Quản trị viên đăng nhập | - | Tiền điều kiện của UC-017 (U-R01); P04 ghi ở hàng Tiền điều kiện |
+| REQ-105 | Nội dung ghi trên vé | UC-005 | Không có |
+| REQ-106 | Mã đặt vé duy nhất toàn hệ thống | UC-005 | Không có |
+| REQ-107 | Định dạng email | UC-001 | Không có |
+| REQ-108 | Định dạng số điện thoại | UC-001 | Không có |
+| REQ-109 | Không tạo vé, hoàn tiền khi thanh toán báo về sau khi huỷ giữ ghế hoặc sau khi báo thất bại | UC-006 | Không có |
+| REQ-110 | Báo trùng kết quả giao dịch: không hoàn lần nữa, ghi nhận | UC-006 | Không có |
+| REQ-111 | Kết quả giao dịch kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo | UC-006 | Không có |
+| REQ-112 | Hoàn tiền bị từ chối: thử lại, vẫn lỗi thì xử lý thủ công, không email khách | UC-006, UC-008 | Trạng thái Loại, thay bởi REQ-131 |
+| REQ-113 | Hoàn tiền không phản hồi trong 30 giây: thử lại, chống hoàn hai lần | UC-006, UC-008 | Trạng thái Loại, thay bởi REQ-132 |
+| REQ-114 | Thất bại báo muộn: chỉ ghi nhận, không hoàn tiền | UC-006 | Trạng thái Loại, thay bởi REQ-133 |
+| REQ-115 | Giao dịch không nhận ra hoặc lần giữ ghế đã có vé: không tạo vé, hoàn toàn bộ | UC-006 | Trạng thái Loại, thay bởi REQ-129 và REQ-130 |
+| REQ-116 | Nội dung email thông báo hoàn tiền | UC-006 | Không có |
+| REQ-117 | Hoàn tiền huỷ vé chưa hoàn tất: vé vẫn huỷ, ghế chưa trống | UC-008 | Trạng thái Loại, thay bởi REQ-131 |
+| REQ-118 | Vé đã soát không huỷ được; huỷ và soát cùng lúc, bên ghi nhận trước thắng | UC-008, UC-009 | Không có |
+| REQ-119 | Mọi lần ghế trở về trống hiện trên sơ đồ ghế trong 3 giây | UC-005, UC-008 | Không có |
+| REQ-120 | Nhân viên quầy tìm vé cần huỷ bằng mã đặt vé | UC-008 | Không có |
+| REQ-121 | Mốc so hạn huỷ 2 tiếng là lúc hệ thống kiểm tra | UC-008 | Không có |
+| REQ-122 | Làm tròn xuống số tiền hoàn 70% | UC-008 | Không có |
+| REQ-123 | Soát vé: chỉ chọn suất của cụm rạp mình, chọn một lần | UC-009 | Không có |
+| REQ-124 | Soát vé: chỉ báo một lý do theo thứ tự ưu tiên | UC-009 | Không có |
+| REQ-125 | Không giới hạn thời điểm soát vé | UC-009 | Không có |
+| REQ-126 | Không nhập tay khi camera không đọc được mã QR | UC-009 | Không có |
+| REQ-127 | Nội dung hiển thị khi soát vé | UC-009 | Không có |
+| REQ-128 | Mã QR không quy định định dạng | UC-009 | Không có |
+| REQ-129 | Giao dịch thành công không nhận ra: ghi log lỗi, xử lý thủ công ngoài hệ thống | UC-006 | Không có |
+| REQ-130 | Giao dịch thứ hai cho lần giữ ghế đã có vé: không tạo vé, hoàn toàn bộ | UC-006 | Không có |
+| REQ-131 | Hoàn tiền qua cổng lỗi sau thử lại: ghế vẫn trống, ghi log lỗi, xử lý thủ công ngoài hệ thống, không email | UC-006, UC-008 | Không có use case xử lý thủ công (ngoài phạm vi) |
+| REQ-132 | Hoàn tiền không phản hồi trong 30 giây: thử lại, khoá chống hoàn trùng theo từng yêu cầu hoàn | UC-006, UC-008 | Không có |
+| REQ-133 | Thất bại báo muộn, báo cho giao dịch đã có vé hoặc không nhận ra: chỉ ghi nhận | UC-006 | Không có |
+| REQ-134 | Nhân viên quầy đã thu tiền mặt mà lần giữ ghế hết hạn trước khi xác nhận: từ chối xác nhận, trả lại tiền mặt; thao tác không chia cắt | UC-005 | Không có |
+| REQ-135 | Ngừng bán vé từ giờ bắt đầu suất chiếu, kể cả bán tại quầy | UC-005 | Không có |
 
 ## 6. Thống kê và nhận xét ngưỡng
 
@@ -298,10 +329,14 @@ Tổng số UC: 16 User-goal, không có Subfunction; UC-002 ở trạng thái L
 | Hệ quả của quy ước | Mục 6 | Cập nhật số UC theo tác nhân và tổng số UC |
 | UCR-01 (phiên bản 1.2) | UC-005 (Mô tả ngắn), dòng REQ-12, REQ-102 Mục 5 | Với khách, đăng nhập là điều kiện tại bước xác nhận chọn ghế của UC-005, không phải tiền điều kiện; với nhân viên quầy vẫn là tiền điều kiện |
 | UCR-02 (phiên bản 1.2) | UC-002 (cột Nhóm chức năng) | Đổi từ "Tài khoản" thành "-" |
+| Trả lời Q-49, Q-50 và bỏ luồng hoàn tiền mặt không thành công (phiên bản 1.6) | EV-08, UC-005 (cột REQ), REQ-131, REQ-134, REQ-135 (Mục 5) | Thêm REQ-134, REQ-135; EV-08 nêu thêm báo trùng và thất bại muộn; REQ-131 chỉ còn hoàn qua cổng thanh toán; không thêm use case, giữ nguyên tên và mã các UC |
+| Quyết định sau review cuối P04 (phiên bản 1.5) | EV-08, UC-006 (Mục tiêu, Mô tả ngắn, cột REQ), UC-008 (cột REQ), REQ-112 đến REQ-117 và REQ-129 đến REQ-133 (Mục 5) | Giao dịch không nhận ra chuyển sang ghi log lỗi, xử lý thủ công ngoài hệ thống (trả lời Q-48); hoàn tiền lỗi trả ghế về trống, xử lý thủ công ngoài hệ thống; REQ-112, REQ-113, REQ-114, REQ-115, REQ-117 chuyển Loại; không thêm use case; giữ nguyên tên và mã các UC |
+| Trả lời Q-27 đến Q-46 (phiên bản 1.4) | UC-006 (Mục tiêu, Mô tả ngắn, Sự kiện kích hoạt), EV-08, REQ-110 đến REQ-128 (Mục 5), cột REQ của UC-005, UC-006, UC-008, UC-009 | Thêm REQ-110 đến REQ-128 vào ma trận truy vết; mở rộng UC-006 để bao cả giao dịch hệ thống không nhận ra và lần giữ ghế đã có vé (Q-32); giữ nguyên tên và mã các UC |
+| Trả lời Q-25 (phiên bản 1.3) | UC-006 (Mục tiêu, Mô tả ngắn, Sự kiện kích hoạt), EV-08, REQ-105 đến REQ-109 (Mục 5) | Mở rộng UC-006 để bao cả trường hợp thanh toán thành công báo về sau khi khách huỷ giữ ghế hoặc sau khi cổng báo thất bại; giữ nguyên tên và mã UC-006 |
 
 ## Câu hỏi mở
 
-Không có. Q-01 đến Q-23 đã được trả lời ở P00, P01.
+Q-01 đến Q-46, Q-48, Q-49 và Q-50 đã được trả lời ở P00, P01, P04 (Q-36 gộp vào Q-30, Q-47 gộp vào Q-35). Q-51 (P04 UC-006, nội dung báo của cổng cho giao dịch thứ hai) chưa trả lời và không đổi danh sách use case.
 
 ## Đề xuất sửa artifact trước
 
@@ -311,6 +346,7 @@ Không có. Q-01 đến Q-23 đã được trả lời ở P00, P01.
 
 ## Vấn đề còn mở
 
+- Xử lý thủ công khoản hoàn tiền không hoàn được và giao dịch thành công không nhận ra diễn ra ngoài hệ thống (REQ-129, REQ-131), nên không có use case của ACT-06 cho việc này và nằm ngoài phạm vi.
 - UC-005 Đặt vé gộp việc khách đặt vé trực tuyến và nhân viên quầy bán vé tại quầy theo U-R10 b: hai luồng chỉ khác các bước tương ứng (thanh toán qua cổng so với thu tiền mặt và xác nhận; nhận vé qua email so với in vé), kết quả như nhau. Khác biệt được đặc tả thành luồng thay thế và BR theo vai trò ở P04. Tương tự cho UC-008 Huỷ vé.
 - UC-006 có ACT-07 Cổng thanh toán vừa là tác nhân chính (gửi kết quả giao dịch trễ) vừa là tác nhân phụ (thực hiện hoàn tiền), đúng với tính chất "Chính và phụ" ở P01.
 - Hết thời gian giữ ghế (EV-06) là luồng thay thế của UC-005 theo U-R07 hết giờ trong phiên, không có tác nhân thời gian (P01 Mục 4).

@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P00 |
-| Phiên bản | 1.3 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-01 đến Q-23); P00-problem-brief.md 1.2 |
+| Phiên bản | 1.8 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-01 đến Q-35, Q-37 đến Q-46, Q-48 đến Q-51 và quyết định thay đáp án Q-32, Q-34); P00-problem-brief.md 1.7 |
 | Phạm vi | Toàn hệ thống |
-| Mã Q, ASM cuối đã cấp | Q-23 (cấp ở P01); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-51, đã trả lời (Q-23 cấp ở P01; Q-24 đến Q-26 cấp ở P04 UC-005; Q-27 đến Q-51 cấp ở P04 UC-006, UC-008, UC-009, trong đó Q-36 gộp vào Q-30 và Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Bối cảnh và mục tiêu nghiệp vụ
 
@@ -36,6 +36,7 @@ Trong phạm vi:
 - Quản trị tài khoản nhân viên, phân quyền, đăng nhập nhân viên và quản trị viên (REQ-70 đến REQ-72, REQ-100 đến REQ-104).
 
 Ngoài phạm vi:
+- Xử lý thủ công ngoài hệ thống các khoản hoàn tiền không hoàn được sau khi hết số lần thử lại và các giao dịch thành công mà hệ thống không nhận ra: hệ thống chỉ ghi log lỗi, không có use case xử lý (REQ-129, REQ-131).
 - Cổng thanh toán của đối tác: hệ thống khác, hệ thống này chỉ gọi API tạo giao dịch, hoàn tiền và nhận thông báo kết quả (REQ-79, "Cổng thanh toán của đối tác cung cấp API...", Mục 21).
 - Dịch vụ email bên ngoài: hệ thống khác, hệ thống này chỉ gửi email qua dịch vụ đó (REQ-80, "Hệ thống gửi email qua dịch vụ email bên ngoài", Mục 21).
 
@@ -166,6 +167,38 @@ Chờ Q-nn: Không có.
 | REQ-102 | Nhân viên có thể đăng nhập bằng tài khoản do quản trị viên tạo. | Chức năng | "Nhân viên đăng nhập bằng tài khoản do quản trị viên tạo" (Mục 18) | Bổ sung ở phiên bản 1.2 theo trả lời Q-21 |
 | REQ-103 | Tài khoản quản trị viên có sẵn khi cài đặt hệ thống, không do ai tạo qua hệ thống. | Ràng buộc | "Tài khoản quản trị viên có sẵn khi cài đặt hệ thống, không do ai tạo qua hệ thống" (Mục 18) | Bổ sung ở phiên bản 1.3 theo trả lời Q-23 (P01) |
 | REQ-104 | Quản trị viên có thể đăng nhập bằng tài khoản quản trị viên có sẵn. | Chức năng | "quản trị viên đăng nhập bằng tài khoản đó" (Mục 18) | Bổ sung ở phiên bản 1.3 theo trả lời Q-23 (P01) |
+| REQ-105 | Mỗi vé (một ghế) ghi mã đặt vé, tên phim, định dạng phim, tên cụm rạp, tên phòng chiếu và loại phòng, ngày và giờ bắt đầu suất chiếu, vị trí ghế, loại ghế, giá vé và mã QR riêng của vé. | Dữ liệu | "Mỗi vé ghi mã đặt vé, tên phim, định dạng phim, tên cụm rạp, tên phòng chiếu và loại phòng, ngày và giờ bắt đầu suất chiếu, vị trí ghế, loại ghế, giá vé và mã QR của vé" (Mục 7) | Bổ sung ở phiên bản 1.4 theo trả lời Q-24 (P04 UC-005) |
+| REQ-106 | Mã đặt vé là duy nhất trên toàn hệ thống. | Quy tắc nghiệp vụ | "Mã đặt vé là duy nhất trên toàn hệ thống" (Mục 7) | Bổ sung ở phiên bản 1.4 theo trả lời Q-24 (P04 UC-005). Nguồn không quy định định dạng của mã |
+| REQ-107 | Email dùng để đăng ký và đăng nhập tài khoản khách theo định dạng email chuẩn. | Quy tắc nghiệp vụ | "Email theo định dạng email chuẩn" (Mục 3) | Bổ sung ở phiên bản 1.4 theo trả lời Q-26 (P04 UC-005) |
+| REQ-108 | Số điện thoại dùng để đăng ký và đăng nhập tài khoản khách là số Việt Nam gồm 10 chữ số, bắt đầu bằng chữ số 0. | Quy tắc nghiệp vụ | "số điện thoại là số Việt Nam gồm 10 chữ số, bắt đầu bằng chữ số 0" (Mục 3) | Bổ sung ở phiên bản 1.4 theo trả lời Q-26 (P04 UC-005) |
+| REQ-109 | Khi cổng thanh toán báo giao dịch thành công sau khi khách đã huỷ giữ ghế hoặc sau khi cổng đã báo thất bại, dù chưa tới thời điểm hết hạn giữ ghế, hệ thống không tạo vé, hoàn toàn bộ số tiền cho khách qua cổng thanh toán và gửi email thông báo hoàn tiền, như với REQ-35, REQ-36, REQ-90. | Quy tắc nghiệp vụ | "Hệ thống xử lý như vậy cả khi cổng thanh toán báo giao dịch thành công sau khi khách đã huỷ giữ ghế hoặc sau khi cổng đã báo thất bại, dù chưa tới thời điểm hết hạn giữ ghế" (Mục 9) | Bổ sung ở phiên bản 1.4 theo trả lời Q-25 (P04 UC-005). Kênh: cổng thanh toán (REQ-79), dịch vụ email (REQ-80) |
+| REQ-110 | Khi cổng thanh toán báo trùng nhiều lần cho cùng một giao dịch, hệ thống không hoàn tiền lần nữa và ghi nhận lần báo trùng. | Quy tắc nghiệp vụ | "Nếu cổng thanh toán báo trùng nhiều lần cho cùng một giao dịch, hệ thống không hoàn tiền lần nữa và ghi nhận lần báo trùng" (Mục 9) | Bổ sung ở phiên bản 1.5 theo trả lời Q-27 (P04 UC-006) |
+| REQ-111 | Cổng thanh toán báo kết quả giao dịch kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo lúc thanh toán. | Dữ liệu | "Cổng thanh toán báo kết quả giao dịch kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo lúc thanh toán" (Mục 9) | Bổ sung ở phiên bản 1.5 theo trả lời Q-28 (P04 UC-006). Mã giao dịch lưu theo REQ-78 |
+| REQ-112 | Khi cổng thanh toán từ chối hoàn tiền, hệ thống tự thử lại vài lần; nếu vẫn lỗi thì đánh dấu để quản trị xử lý thủ công và không gửi email cho khách. | Quy tắc nghiệp vụ | "Khi cổng thanh toán từ chối hoàn tiền hoặc không trả lời trong 30 giây, hệ thống tự thử lại vài lần ... nếu vẫn lỗi thì đánh dấu để quản trị xử lý thủ công, không gửi email cho khách" (Mục 21) | Bổ sung ở phiên bản 1.5 theo trả lời Q-29 (P04 UC-006, UC-008). Áp dụng cho hoàn toàn bộ (REQ-35) và hoàn 70% (REQ-43). Số lần thử lại không nêu, là quyết định thiết kế. Trạng thái: Loại, thay bởi REQ-131 (quyết định của người dùng sau review cuối P04; giữ mã theo quy ước) |
+| REQ-113 | Khi cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây, hệ thống thử lại theo REQ-112 và dùng mã giao dịch để cổng không hoàn hai lần. | Quy tắc nghiệp vụ | "Khi cổng thanh toán ... không trả lời trong 30 giây, hệ thống tự thử lại vài lần và dùng mã giao dịch để cổng không hoàn hai lần" (Mục 21) | Bổ sung ở phiên bản 1.5 theo trả lời Q-30 (P04 UC-006, UC-008). Trạng thái: Loại, thay bởi REQ-132 (quyết định của người dùng sau review cuối P04; giữ mã theo quy ước) |
+| REQ-114 | Khi cổng thanh toán báo giao dịch thất bại vào lúc đã muộn (sau thời điểm hết hạn giữ ghế hoặc sau khi khách đã huỷ giữ ghế), hệ thống chỉ ghi nhận, không hoàn tiền. | Quy tắc nghiệp vụ | "Nếu cổng báo giao dịch thất bại vào lúc đã muộn ..., hệ thống chỉ ghi nhận, không hoàn tiền vì khách chưa mất tiền" (Mục 9) | Bổ sung ở phiên bản 1.5 theo trả lời Q-31 (P04 UC-006). Trạng thái: Loại, thay bởi REQ-133 (quyết định của người dùng sau review cuối P04; giữ mã theo quy ước) |
+| REQ-115 | Khi cổng thanh toán báo thành công cho một giao dịch hệ thống không nhận ra, hoặc báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé, hệ thống không tạo vé và hoàn toàn bộ số tiền như với thanh toán đến trễ. | Quy tắc nghiệp vụ | "Nếu cổng báo thành công cho một giao dịch hệ thống không nhận ra, hoặc báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé, hệ thống không tạo vé và hoàn toàn bộ số tiền" (Mục 9) | Bổ sung ở phiên bản 1.5 theo trả lời Q-32 (P04 UC-006). Nguồn số tiền và địa chỉ email cho giao dịch không nhận ra chờ Q-48. Trạng thái: Loại, thay bởi REQ-129 và REQ-130 (quyết định của người dùng sau review cuối P04; giữ mã theo quy ước) |
+| REQ-116 | Email thông báo hoàn tiền gồm mã giao dịch, số tiền hoàn, tên phim, suất chiếu và lý do hoàn. | Dữ liệu | "Email thông báo hoàn tiền gồm mã giao dịch, số tiền hoàn, tên phim, suất chiếu và lý do hoàn" (Mục 9) | Bổ sung ở phiên bản 1.5 theo trả lời Q-33 (P04 UC-006). Kênh: dịch vụ email (REQ-80) |
+| REQ-117 | Khi hoàn tiền huỷ vé chưa hoàn tất (cổng lỗi hoặc không trả lời, hoặc nhân viên quầy không xác nhận đã hoàn tiền mặt), vé vẫn tính là đã huỷ và ghế chưa trả về trạng thái trống cho tới khi hoàn tiền xong. | Quy tắc nghiệp vụ | "Nếu hoàn tiền chưa hoàn tất, vé vẫn tính là đã huỷ và ghế chưa trả về trạng thái trống cho tới khi hoàn tiền xong" (Mục 11) | Bổ sung ở phiên bản 1.5 theo trả lời Q-34 (P04 UC-008). Áp dụng cả vé mua tại quầy (Mục 12). Trạng thái: Loại, thay bởi REQ-131 (quyết định của người dùng sau review cuối P04; giữ mã theo quy ước) |
+| REQ-118 | Vé đã được soát vào rạp không được huỷ; khi huỷ và soát xảy ra cùng lúc thì bên ghi nhận trước thành công, bên sau bị từ chối. | Quy tắc nghiệp vụ | "Vé đã được soát vào rạp không được huỷ; nếu huỷ và soát xảy ra cùng lúc thì bên ghi nhận trước thành công, bên sau bị từ chối" (Mục 11) | Bổ sung ở phiên bản 1.5 theo trả lời Q-35 (P04 UC-008, UC-009) |
+| REQ-119 | Mọi lần ghế trở về trạng thái trống (huỷ vé, hết thời gian giữ, khách huỷ giữ ghế, thanh toán thất bại) hiện trên sơ đồ ghế chậm nhất 3 giây sau khi xảy ra. | Phi chức năng | "Mọi lần ghế trở về trạng thái trống ... cũng hiện trên sơ đồ ghế chậm nhất 3 giây sau khi xảy ra" (Mục 4) | Bổ sung ở phiên bản 1.5 theo trả lời Q-37 (P04 UC-008). Cùng ngưỡng với REQ-19 |
+| REQ-120 | Nhân viên quầy tìm vé cần huỷ bằng mã đặt vé rồi chọn vé trong lần đặt đó. | Chức năng | "Nhân viên quầy tìm vé cần huỷ bằng mã đặt vé (có sẵn trên vé in) rồi chọn vé trong lần đặt đó" (Mục 12) | Bổ sung ở phiên bản 1.5 theo trả lời Q-38 (P04 UC-008). Mã đặt vé duy nhất theo REQ-106 |
+| REQ-121 | Hạn huỷ vé 2 tiếng được so với thời điểm hệ thống kiểm tra yêu cầu huỷ. | Quy tắc nghiệp vụ | "Hệ thống so hạn 2 tiếng tại thời điểm hệ thống kiểm tra yêu cầu huỷ" (Mục 11) | Bổ sung ở phiên bản 1.5 theo trả lời Q-39 (P04 UC-008). Làm rõ REQ-41, REQ-84 |
+| REQ-122 | Khi 70% giá vé không tròn đồng, số tiền hoàn được làm tròn xuống đồng gần nhất. | Quy tắc nghiệp vụ | "Khi 70% giá vé không tròn đồng, số tiền hoàn được làm tròn xuống đồng gần nhất" (Mục 11) | Bổ sung ở phiên bản 1.5 theo trả lời Q-40 (P04 UC-008). Làm rõ REQ-42, REQ-85 |
+| REQ-123 | Nhân viên soát vé chỉ chọn được suất chiếu của cụm rạp mình và chọn một lần rồi quét liên tiếp nhiều vé. | Quy tắc nghiệp vụ | "Nhân viên soát vé chỉ chọn được suất chiếu của cụm rạp mình, chọn một lần rồi quét liên tiếp nhiều vé" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-41 (P04 UC-009). Làm rõ REQ-93 |
+| REQ-124 | Khi một vé vi phạm nhiều điều kiện soát, hệ thống chỉ báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ. | Quy tắc nghiệp vụ | "Khi một vé vi phạm nhiều điều kiện, hệ thống chỉ báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-42 (P04 UC-009). Làm rõ REQ-94 |
+| REQ-125 | Hệ thống không giới hạn thời điểm soát vé so với giờ chiếu. | Quy tắc nghiệp vụ | "Hệ thống không giới hạn thời điểm soát so với giờ chiếu" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-43 (P04 UC-009) |
+| REQ-126 | Khi camera không đọc được mã QR, hệ thống không có cách nhập tay để soát vé. | Ràng buộc | "Khi camera không đọc được mã QR, không có cách nhập tay" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-44 (P04 UC-009). Có thể bổ sung sau |
+| REQ-127 | Khi soát, vé hợp lệ hiển thị toàn bộ nội dung vé trừ mã QR; vé bị từ chối chỉ hiển thị lý do. | Chức năng | "Vé hợp lệ hiển thị toàn bộ nội dung vé (trừ mã QR); vé bị từ chối chỉ hiển thị lý do" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-45 (P04 UC-009). Nội dung vé theo REQ-105 |
+| REQ-128 | Mã QR của vé không quy định định dạng; hệ thống tự xác định vé từ mã. | Ràng buộc | "Mã QR không quy định định dạng; hệ thống tự xác định vé từ mã" (Mục 13) | Bổ sung ở phiên bản 1.5 theo trả lời Q-46 (P04 UC-009). Chi tiết mã hoá để bước thiết kế quyết định |
+| REQ-129 | Khi cổng thanh toán báo thành công cho một giao dịch hệ thống không nhận ra, hệ thống ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tự hoàn tiền và không gửi email. | Quy tắc nghiệp vụ | "Nếu cổng báo thành công cho một giao dịch hệ thống không nhận ra, hệ thống ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống, không tự hoàn tiền và không gửi email" (Mục 9) | Bổ sung ở phiên bản 1.6 theo trả lời Q-48 (P04 UC-006). Thay phần giao dịch không nhận ra của REQ-115 |
+| REQ-130 | Khi cổng thanh toán báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé, hệ thống không tạo vé và hoàn toàn bộ số tiền của giao dịch đó như với thanh toán đến trễ. | Quy tắc nghiệp vụ | "Nếu cổng báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé, hệ thống không tạo vé và hoàn toàn bộ số tiền như với thanh toán đến trễ" (Mục 9) | Bổ sung ở phiên bản 1.6, tách từ phần còn lại của REQ-115 theo trả lời Q-32 (P04 UC-006) |
+| REQ-131 | Khi cổng thanh toán từ chối hoặc không trả lời yêu cầu hoàn tiền, hệ thống tự thử lại vài lần; nếu vẫn lỗi thì ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống và không gửi email cho khách. Với hoàn tiền huỷ vé qua cổng thanh toán, vé vẫn tính là đã huỷ và ghế vẫn được trả về trạng thái trống. | Quy tắc nghiệp vụ | "nếu vẫn lỗi thì ghi log lỗi để xử lý thủ công ngoài hệ thống, không gửi email cho khách" (Mục 21); "vé vẫn tính là đã huỷ, ghế vẫn được trả về trạng thái trống và khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống" (Mục 11) | Bổ sung ở phiên bản 1.6 theo quyết định thay đáp án Q-29, Q-34 (P04 UC-006, UC-008). Áp dụng cho hoàn toàn bộ (REQ-35) và hoàn 70% (REQ-43). Số lần thử lại là quyết định thiết kế |
+| REQ-132 | Khi cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây, hệ thống thử lại theo REQ-131; mọi lần thử lại của cùng một yêu cầu hoàn dùng lại cùng một khoá chống hoàn trùng, gắn với từng yêu cầu hoàn (mã giao dịch kèm mã vé với hoàn tiền huỷ vé; mã giao dịch kèm loại yêu cầu hoàn toàn bộ với hoàn toàn bộ thanh toán trễ), không chỉ mã giao dịch. | Quy tắc nghiệp vụ | "dùng khoá riêng của từng yêu cầu hoàn (mã giao dịch kèm mã vé với hoàn tiền huỷ vé) để cổng không hoàn hai lần" (Mục 21) | Bổ sung ở phiên bản 1.6 theo quyết định thay REQ-113: một giao dịch có thể có nhiều lần hoàn 70% của nhiều vé (REQ-78) |
+| REQ-133 | Khi cổng thanh toán báo giao dịch thất bại vào lúc đã muộn (sau thời điểm hết hạn giữ ghế hoặc sau khi khách đã huỷ giữ ghế), hoặc báo thất bại cho giao dịch đã có vé hoặc giao dịch hệ thống không nhận ra, hệ thống chỉ ghi nhận, không hoàn tiền. | Quy tắc nghiệp vụ | "hệ thống chỉ ghi nhận, không hoàn tiền vì khách chưa mất tiền. Hệ thống cũng chỉ ghi nhận khi cổng báo thất bại cho một giao dịch đã có vé hoặc cho một giao dịch hệ thống không nhận ra" (Mục 9) | Bổ sung ở phiên bản 1.6 theo đáp án Q-31 (vế thất bại sau thành công), thay REQ-114 |
+| REQ-134 | Khi nhân viên quầy đã thu tiền mặt của khách nhưng lần giữ ghế đã hết hạn trước khi xác nhận tới hệ thống, hệ thống từ chối xác nhận và thông báo nhân viên trả lại tiền mặt cho khách. Việc so thời điểm hết hạn với việc xác nhận đã thu tiền và chuyển ghế sang đã bán là một thao tác không chia cắt. | Quy tắc nghiệp vụ | "Nếu nhân viên quầy đã thu tiền mặt của khách nhưng lần giữ ghế đã hết hạn trước khi xác nhận tới hệ thống, hệ thống từ chối xác nhận và thông báo nhân viên trả lại tiền mặt cho khách" (Mục 12) | Bổ sung ở phiên bản 1.7 theo trả lời Q-49 (P04 UC-005). Thao tác không chia cắt giống kênh trực tuyến (REQ-22, REQ-32, REQ-47, REQ-48) |
+| REQ-135 | Từ giờ bắt đầu của suất chiếu, hệ thống ngừng bán vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Quy tắc nghiệp vụ | "Từ giờ bắt đầu của suất chiếu, hệ thống ngừng bán vé của suất chiếu đó, kể cả khi bán tại quầy" (Mục 16) | Bổ sung ở phiên bản 1.7 theo trả lời Q-50 (P04 UC-005). Đi cặp với REQ-86 (mốc mở bán) |
+| REQ-136 | Khi tạo giao dịch thanh toán, hệ thống truyền kèm mã tham chiếu của lần giữ ghế cho cổng thanh toán; cổng báo kết quả giao dịch kèm mã tham chiếu đó và số tiền đã thanh toán. Nhờ vậy giao dịch thứ hai của lần giữ ghế đã có vé được nhận ra, không tạo vé và hoàn toàn bộ số tiền cổng báo; giao dịch không có mã tham chiếu nhận ra được vẫn xử lý theo REQ-129. | Quy tắc nghiệp vụ | "Khi tạo giao dịch, hệ thống truyền kèm mã tham chiếu lần giữ ghế; cổng báo kết quả kèm mã tham chiếu đó và số tiền đã thanh toán" (Mục 9, Mục 21) | Bổ sung ở phiên bản 1.8 theo trả lời Q-51 (P04 UC-005, UC-006). Bổ sung cho REQ-111 (giao dịch hệ thống tạo lấy số tiền từ giao dịch đã lưu) và REQ-130 |
 
 ## 5. Vấn đề chất lượng của tài liệu nguồn
 
@@ -195,6 +228,34 @@ Chờ Q-nn: Không có.
 | 22 | Thiếu | REQ-49, REQ-50 | "in vé" (Mục 12); "quét mã QR trên vé" (Mục 13) | Đã xử lý: đề bài nêu máy in thông thường và camera thiết bị, không có giao tiếp riêng | Q-22 |
 | 23 | Trùng lặp | REQ-25 | "hệ thống báo cho khách" (Mục 5); "những khách còn lại nhận thông báo ghế không còn trống" (Mục 6) | Gộp vào REQ-25, không cần hỏi | Không có |
 | 24 | Trùng lặp | REQ-51 | "chưa được sử dụng" (Mục 13); "Mỗi vé chỉ được soát một lần" (Mục 13) | Gộp vào REQ-51, không cần hỏi | Không có |
+| 25 | Thiếu | REQ-30 | "tạo một mã đặt vé cho lần đặt và cho mỗi ghế một vé có mã QR riêng" (Mục 7, bản đề trước phiên bản 1.4) | Đã xử lý: đề bài bổ sung Mục 7, tạo REQ-105, REQ-106 | Q-24 |
+| 26 | Thiếu | REQ-35, REQ-36 | "sau thời điểm hết hạn giữ ghế" (Mục 9, bản đề trước phiên bản 1.4) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-109 | Q-25 |
+| 27 | Thiếu | REQ-11, REQ-12 | "Khách đăng ký tài khoản bằng email, số điện thoại và mật khẩu" (Mục 3, bản đề trước phiên bản 1.4) | Đã xử lý: đề bài bổ sung Mục 3, tạo REQ-107, REQ-108 | Q-26 |
+| 28 | Mơ hồ | REQ-35, REQ-109 | "hoàn toàn bộ số tiền cho khách qua cổng thanh toán" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-110 | Q-27 |
+| 29 | Thiếu | REQ-35, REQ-78 | "thông báo kết quả giao dịch về hệ thống (callback)" (Mục 21) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-111 | Q-28 |
+| 30 | Thiếu | REQ-35, REQ-43 | "hoàn tiền" (Mục 9, Mục 21) | Đã xử lý: đề bài bổ sung Mục 21, tạo REQ-112 | Q-29 |
+| 31 | Thiếu | REQ-35, REQ-43 | "hoàn tiền" (Mục 9, Mục 21) | Đã xử lý: đề bài bổ sung Mục 21, tạo REQ-113 | Q-30 |
+| 32 | Thiếu | REQ-109 | "sau khi khách đã huỷ giữ ghế hoặc sau khi cổng đã báo thất bại" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-114 | Q-31 |
+| 33 | Thiếu | REQ-35, REQ-109 | "giao dịch thành công" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-115 | Q-32 |
+| 34 | Thiếu | REQ-90 | "gửi email thông báo hoàn tiền cho khách" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, tạo REQ-116 | Q-33 |
+| 35 | Thiếu | REQ-43, REQ-44, REQ-85 | "hoàn 70% giá vé qua cổng thanh toán và trả ghế về trạng thái trống" (Mục 11) | Đã xử lý: đề bài bổ sung Mục 11, Mục 12, tạo REQ-117 | Q-34 |
+| 36 | Thiếu | REQ-51, REQ-40 | "chưa được sử dụng và chưa bị huỷ" (Mục 13); "huỷ từng vé" (Mục 11) | Đã xử lý: đề bài bổ sung Mục 11, tạo REQ-118 | Q-35 |
+| 37 | Thiếu | REQ-19, REQ-44 | "Sơ đồ ghế tự cập nhật" (Mục 4); "trả ghế về trạng thái trống" (Mục 11) | Đã xử lý: đề bài bổ sung Mục 4, tạo REQ-119 | Q-37 |
+| 38 | Thiếu | REQ-83 | "Vé mua tại quầy được huỷ tại quầy" (Mục 12) | Đã xử lý: đề bài bổ sung Mục 12, tạo REQ-120 | Q-38 |
+| 39 | Mơ hồ | REQ-41, REQ-84 | "trước giờ chiếu ít nhất 2 tiếng" (Mục 11, Mục 12) | Đã xử lý: đề bài bổ sung Mục 11, tạo REQ-121 | Q-39 |
+| 40 | Mơ hồ | REQ-42, REQ-85 | "hoàn 70% giá vé" (Mục 11, Mục 12) | Đã xử lý: đề bài bổ sung Mục 11, tạo REQ-122 | Q-40 |
+| 41 | Thiếu | REQ-93 | "chọn suất chiếu đang soát" (Mục 13) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-123 | Q-41 |
+| 42 | Mơ hồ | REQ-94 | "báo lý do cho nhân viên soát vé" (Mục 13) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-124 | Q-42 |
+| 43 | Thiếu | REQ-51 | "Hệ thống kiểm tra vé ..." (Mục 13) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-125 | Q-43 |
+| 44 | Thiếu | REQ-50 | "quét mã QR trên vé bằng camera" (Mục 13) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-126 | Q-44 |
+| 45 | Thiếu | REQ-94, REQ-105 | "báo lý do cho nhân viên soát vé" (Mục 13) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-127 | Q-45 |
+| 46 | Thiếu | REQ-30, REQ-50 | "mã QR riêng" (Mục 7) | Đã xử lý: đề bài bổ sung Mục 13, tạo REQ-128 | Q-46 |
+| 47 | Thiếu | REQ-111, REQ-115 | "báo thành công cho một giao dịch hệ thống không nhận ra" (Mục 9) | Đã xử lý: đề bài sửa Mục 9, tạo REQ-129, REQ-130, REQ-115 chuyển Loại | Q-48 |
+| 48 | Mơ hồ | REQ-43, REQ-44, REQ-112, REQ-113, REQ-117 | "ghế chưa trả về trạng thái trống cho tới khi hoàn tiền xong" (Mục 11); "đánh dấu để quản trị xử lý thủ công" (Mục 21) | Đã xử lý: đề bài sửa Mục 11, Mục 21 theo quyết định ghế vẫn trả về trống, khoản hoàn ghi log lỗi và xử lý thủ công ngoài hệ thống; tạo REQ-131, REQ-132; REQ-112, REQ-113, REQ-117 chuyển Loại | Q-34 (đáp án thay) |
+| 49 | Thiếu | REQ-114 | "báo thất bại sau khi đã báo thành công" (Q-31) | Đã xử lý: đề bài sửa Mục 9, tạo REQ-133, REQ-114 chuyển Loại | Q-31 |
+| 50 | Thiếu | REQ-22, REQ-32, REQ-47 | "Khách tại quầy trả tiền mặt" (Mục 12) | Đã xử lý: đề bài bổ sung Mục 12, tạo REQ-134 | Q-49 |
+| 51 | Thiếu | REQ-60, REQ-61, REQ-86 | "thời điểm mở bán" (Mục 16) | Đã xử lý: đề bài bổ sung Mục 16, tạo REQ-135 | Q-50 |
+| 52 | Thiếu | REQ-78, REQ-111, REQ-130 | "Cổng thanh toán báo kết quả giao dịch kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo lúc thanh toán"; "báo thêm một giao dịch thứ hai cho lần giữ ghế đã có vé" (Mục 9) | Đã xử lý: đề bài bổ sung Mục 9, Mục 21 (hệ thống truyền mã tham chiếu lần giữ ghế khi tạo giao dịch; cổng báo kèm mã tham chiếu và số tiền đã thanh toán), tạo REQ-136 | Q-51 |
 
 ## 6. Ma trận phủ nguồn
 
@@ -207,11 +268,12 @@ Chờ Q-nn: Không có.
 | Đoạn mở đầu, câu 7 | Cần đặt vé trực tuyến và bán tại quầy trên cùng sơ đồ ghế | Bối cảnh (mục tiêu); chức năng ở REQ-13, REQ-45, REQ-46 |
 | Mục 1 | Xem danh sách phim, thông tin phim không cần đăng nhập | REQ-05, REQ-06, REQ-07 |
 | Mục 2 | Xem lịch chiếu theo phim, theo cụm rạp; lọc | REQ-08, REQ-09, REQ-10 |
-| Mục 3 | Đăng ký; đăng nhập bằng email hoặc số điện thoại; phải đăng nhập để đặt vé | REQ-11, REQ-12, REQ-13 |
+| Mục 3 | Đăng ký; định dạng email và số điện thoại; đăng nhập bằng email hoặc số điện thoại; phải đăng nhập để đặt vé | REQ-11, REQ-107, REQ-108, REQ-12, REQ-13 |
 | Mục 4, câu 1 | Chọn suất chiếu, xem sơ đồ ghế, ba trạng thái ghế | REQ-13, REQ-14, REQ-15 |
 | Mục 4, câu 2 | Xem sơ đồ ghế không cần đăng nhập, đăng nhập trước khi xác nhận | REQ-14, REQ-13 |
 | Mục 4, câu 3-4 | Ba loại ghế; ghế đôi; cách đếm ghế đôi | REQ-16, REQ-17, REQ-87 |
 | Mục 4, câu 5 | Sơ đồ ghế tự cập nhật trong 3 giây | REQ-18, REQ-19 |
+| Mục 4, câu 6 | Mọi lần ghế trở về trống hiện trên sơ đồ ghế trong 3 giây | REQ-119 |
 | Mục 5, câu 1 | Tối đa 8 ghế mỗi lần đặt | REQ-20 |
 | Mục 5, câu 2 | Ghế đang chọn vẫn trống; giữ cả nhóm 10 phút khi xác nhận | REQ-88, REQ-21, REQ-22 |
 | Mục 5, câu 3 | Ghế đang giữ không ai khác chọn được | REQ-23 |
@@ -219,28 +281,34 @@ Chờ Q-nn: Không có.
 | Mục 5, câu 5 | Mỗi khách tối đa một lần giữ ghế chưa kết thúc | REQ-89 |
 | Mục 6, câu 1 | Một ghế chỉ bán cho một người | REQ-26 |
 | Mục 6, câu 2 | Nhiều khách cùng xác nhận một ghế, chỉ một người giữ được | REQ-27, REQ-25 |
-| Mục 7 | Thanh toán trực tuyến, chuyển đã bán, tạo mã đặt vé và mỗi ghế một vé, gửi email | REQ-28, REQ-29, REQ-30, REQ-31 |
+| Mục 7 | Thanh toán trực tuyến, chuyển đã bán, tạo mã đặt vé và mỗi ghế một vé, nội dung vé, mã đặt vé duy nhất, gửi email | REQ-28, REQ-29, REQ-30, REQ-105, REQ-106, REQ-31 |
 | Mục 8 | Giải phóng ghế khi hết hạn, khi khách huỷ, khi thanh toán thất bại | REQ-32, REQ-33, REQ-34 |
-| Mục 9 | Thanh toán báo về sau thời điểm hết hạn: không tạo vé, hoàn toàn bộ, gửi email | REQ-35, REQ-36, REQ-90 |
+| Mục 9 | Thanh toán báo về sau thời điểm hết hạn, sau khi huỷ giữ ghế hoặc sau khi báo thất bại: không tạo vé, hoàn toàn bộ, gửi email | REQ-35, REQ-36, REQ-90, REQ-109 |
+| Mục 9, câu 3-7 | Báo trùng; kết quả kèm mã giao dịch và nguồn số tiền hoàn; thất bại báo muộn; giao dịch không nhận ra hoặc lần giữ ghế đã có vé; nội dung email hoàn tiền | REQ-110, REQ-111, REQ-114, REQ-115, REQ-116, REQ-129, REQ-130, REQ-133, REQ-136 |
 | Mục 10 | Bảng giá riêng từng cụm; các yếu tố quyết định giá; cách xác định khung giờ | REQ-37, REQ-38, REQ-91 |
 | Mục 11, câu 1 | Xem lịch sử đặt vé và vé | REQ-39 |
 | Mục 11, câu 2 | Huỷ từng vé trước 2 tiếng, hoàn 70%, trả ghế | REQ-40, REQ-41, REQ-42, REQ-43, REQ-44 |
+| Mục 11, câu 3-6 | Mốc so hạn 2 tiếng; làm tròn số tiền hoàn; vé đã soát không huỷ được; hoàn tiền chưa hoàn tất | REQ-121, REQ-122, REQ-118, REQ-117, REQ-131 |
 | Mục 12, câu 1 | Bán vé tại quầy, cùng sơ đồ ghế, cùng quy tắc giữ ghế | REQ-45, REQ-46 |
 | Mục 12, câu 2 | Mỗi nhân viên quầy tối đa một lần giữ ghế chưa kết thúc | REQ-92 |
 | Mục 12, câu 3 | Khách tại quầy trả tiền mặt | REQ-47 |
 | Mục 12, câu 4 | Xác nhận thu tiền, chuyển đã bán, tạo vé, in vé bằng máy in thông thường | REQ-48, REQ-81, REQ-82, REQ-49 |
 | Mục 12, câu 5 | Huỷ vé mua tại quầy trước 2 tiếng, hoàn 70% tiền mặt, trả ghế | REQ-83, REQ-84, REQ-85, REQ-44 |
+| Mục 12, câu 6-7 | Nhân viên quầy tìm vé cần huỷ bằng mã đặt vé; các quy tắc Mục 11 áp dụng cho vé mua tại quầy | REQ-120, REQ-118, REQ-121, REQ-122 |
+| Mục 12, câu 8 | Thu tiền mặt mà lần giữ ghế đã hết hạn: từ chối xác nhận, trả lại tiền mặt; thao tác không chia cắt | REQ-134 |
 | Mục 13, câu 1 | Chọn suất chiếu đang soát, quét mã QR bằng camera | REQ-93, REQ-50 |
 | Mục 13, câu 2-3 | Điều kiện hợp lệ, đánh dấu đã sử dụng, soát một lần | REQ-51, REQ-52 |
 | Mục 13, câu 4 | Báo lý do khi vé không hợp lệ | REQ-94 |
+| Mục 13, câu 5-9 | Phạm vi chọn suất chiếu; thứ tự báo một lý do; không giới hạn thời điểm soát; không nhập tay; nội dung hiển thị; định dạng mã QR | REQ-123, REQ-124, REQ-125, REQ-126, REQ-127, REQ-128 |
 | Mục 14 | Quản lý phim, cụm rạp; định dạng phát hành; ngày khởi chiếu, ngày kết thúc chiếu; đang chiếu, sắp chiếu | REQ-53, REQ-54, REQ-55, REQ-95, REQ-96 |
 | Mục 15 | Quản lý phòng chiếu, sơ đồ ghế, ràng buộc sửa sơ đồ, bảng giá cụm | REQ-56, REQ-57, REQ-58, REQ-59 |
-| Mục 16 | Lập lịch suất chiếu, thời điểm mở bán, khoảng ngày chiếu, định dạng, giờ kết thúc, dọn phòng, ràng buộc sửa xoá | REQ-60 đến REQ-65, REQ-86, REQ-97, REQ-98 |
+| Mục 16 | Lập lịch suất chiếu, thời điểm mở bán, ngừng bán từ giờ bắt đầu, khoảng ngày chiếu, định dạng, giờ kết thúc, dọn phòng, ràng buộc sửa xoá | REQ-60 đến REQ-65, REQ-86, REQ-135, REQ-97, REQ-98 |
 | Mục 17 | Báo cáo của cụm rạp; báo cáo toàn chuỗi, so sánh cụm; cách tính doanh thu | REQ-66, REQ-67, REQ-68, REQ-69, REQ-99 |
 | Mục 18 | Quản lý tài khoản nhân viên, gán cụm, phân quyền; quy tắc gán, vai trò; đăng nhập nhân viên; tài khoản và đăng nhập quản trị viên | REQ-70, REQ-71, REQ-72, REQ-100 đến REQ-104 |
 | Mục 19 | Tải đồng thời, thời gian giữ ghế, độ trễ giải phóng | REQ-73, REQ-74, REQ-75, REQ-76 |
 | Mục 20 | Không lưu thẻ, chỉ lưu mã giao dịch | REQ-77, REQ-78 |
 | Mục 21 | API cổng thanh toán; dịch vụ email | REQ-79, REQ-80; Ngoài phạm vi (cổng thanh toán, dịch vụ email là hệ thống khác) |
+| Mục 21, câu 3 | Hoàn tiền bị từ chối hoặc không trả lời trong 30 giây: thử lại, chống hoàn hai lần, xử lý thủ công | REQ-112, REQ-113, REQ-131, REQ-132 |
 | project-profile.md, HE_THONG_NGOAI: cổng thanh toán | Sandbox, API tạo giao dịch, callback, hoàn tiền | REQ-79 |
 | project-profile.md, HE_THONG_NGOAI: dịch vụ email | SMTP | REQ-80 |
 | project-profile.md, mục 4 | Không có ràng buộc đặc thù | Không có |
@@ -271,6 +339,32 @@ Chờ Q-nn: Không có.
 | Q-20 | Đã trả lời (Nhân viên cụm thuộc đúng một cụm, quản lý chuỗi không thuộc cụm, mỗi nhân viên một vai trò), đề bài bổ sung Mục 18. Quy tắc gán cụm rạp và vai trò? | REQ-100, REQ-101 | Mục 18 |
 | Q-21 | Đã trả lời (Khách đăng nhập bằng email hoặc số điện thoại; nhân viên dùng tài khoản do quản trị viên tạo), đề bài bổ sung Mục 3, Mục 18. Cách đăng nhập? | REQ-12, REQ-102 | Mục 3, Mục 18 |
 | Q-22 | Đã trả lời (Máy in thông thường, camera thiết bị; không có giao tiếp riêng), đề bài sửa Mục 12, Mục 13. Máy in vé và thiết bị quét QR có kết nối với phần mềm không? | REQ-49, REQ-50 | Mục 12, Mục 13 |
+| Q-24 | Đã trả lời (Liệt kê thông tin cụ thể trên vé; mã đặt vé duy nhất toàn hệ thống, không quy định định dạng), đề bài bổ sung Mục 7. Ngoài mã QR, vé gồm những thông tin nào, và mã đặt vé có định dạng quy định không? | REQ-105, REQ-106 | Mục 7 |
+| Q-25 | Đã trả lời (Không tạo vé, hoàn toàn bộ tiền và báo qua email, xử lý ở UC-006 như thanh toán đến trễ), đề bài bổ sung Mục 9. Thanh toán thành công báo về sau khi khách huỷ giữ ghế hoặc sau khi cổng báo thất bại, trước thời điểm hết hạn, xử lý thế nào? | REQ-109 | Mục 9 |
+| Q-26 | Đã trả lời (Email theo định dạng chuẩn; số điện thoại Việt Nam 10 chữ số bắt đầu bằng 0), đề bài bổ sung Mục 3. Email và số điện thoại có quy định định dạng không? | REQ-107, REQ-108 | Mục 3 |
+| Q-27 | Đã trả lời (Chỉ không hoàn lại và ghi nhận lần báo trùng), đề bài bổ sung Mục 9. Khi cổng báo trùng nhiều lần cho cùng một giao dịch, hệ thống có làm gì thêm ngoài việc không hoàn tiền lần nữa không? | REQ-110 | Mục 9 |
+| Q-28 | Đã trả lời (Cổng báo kèm mã giao dịch; số tiền hoàn lấy từ giao dịch hệ thống đã tạo), đề bài bổ sung Mục 9. Cổng báo kết quả kèm những thông tin gì, và số tiền hoàn lấy từ đâu? | REQ-111 | Mục 9 |
+| Q-29 | Đã trả lời (Tự thử lại vài lần, vẫn lỗi thì đánh dấu để quản trị xử lý thủ công, không email khách), đề bài bổ sung Mục 21. Khi cổng từ chối hoàn tiền, hệ thống làm gì? | REQ-112 | Mục 21 |
+| Q-30 | Đã trả lời (Chờ 30 giây rồi thử lại theo Q-29, dùng mã giao dịch để cổng không hoàn hai lần), đề bài bổ sung Mục 21. Cổng không trả lời yêu cầu hoàn tiền thì chờ tối đa bao lâu, có thử lại không? | REQ-113 | Mục 21 |
+| Q-31 | Đã trả lời (Bỏ qua, chỉ ghi nhận), đề bài bổ sung Mục 9. Khi cổng báo giao dịch thất bại vào lúc đã muộn, hệ thống xử lý thế nào? | REQ-114 | Mục 9 |
+| Q-32 | Đã trả lời (Giao dịch thứ hai cho lần giữ ghế đã có vé: hoàn toàn bộ như thanh toán trễ; giao dịch không nhận ra: ghi log lỗi, xử lý thủ công ngoài hệ thống, theo Q-48), đề bài bổ sung Mục 9. Khi cổng báo thành công cho giao dịch hệ thống không nhận ra, hoặc thêm giao dịch thứ hai cho lần giữ ghế đã có vé, xử lý thế nào? | REQ-130, REQ-129 (REQ-115 Loại) | Mục 9 |
+| Q-33 | Đã trả lời (Mã giao dịch, số tiền hoàn, tên phim, suất chiếu và lý do hoàn), đề bài bổ sung Mục 9. Email báo hoàn tiền gồm những thông tin gì? | REQ-116 | Mục 9 |
+| Q-34 | Đã trả lời (Vé vẫn tính là đã huỷ, ghế vẫn được trả về trống, khoản hoàn ghi log lỗi và xử lý thủ công ngoài hệ thống), đề bài bổ sung Mục 11, Mục 12. Đáp án cũ (ghế chưa trả về trống cho tới khi hoàn tiền xong, REQ-117) đã bị thay bởi quyết định của người dùng sau review cuối P04. Khi hoàn tiền huỷ vé không hoàn tất, vé và ghế ở trạng thái nào? | REQ-131 (REQ-117 Loại) | Mục 11, Mục 12 |
+| Q-35 | Đã trả lời (Vé đã sử dụng không được huỷ; cùng lúc thì bên ghi nhận trước thắng), đề bài bổ sung Mục 11. Vé đã được soát còn huỷ được không? Huỷ và soát cùng lúc thì bên nào thắng? | REQ-118 | Mục 11 |
+| Q-37 | Đã trả lời (Có, cùng ngưỡng 3 giây), đề bài bổ sung Mục 4. Mọi lần ghế trở về trống có phải hiện trên sơ đồ ghế trong 3 giây không? | REQ-119 | Mục 4 |
+| Q-38 | Đã trả lời (Mã đặt vé rồi chọn vé trong đó), đề bài bổ sung Mục 12. Nhân viên quầy xác định vé cần huỷ bằng thông tin nào? | REQ-120 | Mục 12 |
+| Q-39 | Đã trả lời (Lúc hệ thống kiểm tra), đề bài bổ sung Mục 11. Mốc thời điểm huỷ so với hạn 2 tiếng là lúc gửi yêu cầu hay lúc hệ thống kiểm tra? | REQ-121 | Mục 11 |
+| Q-40 | Đã trả lời (Làm tròn xuống đồng gần nhất), đề bài bổ sung Mục 11. Khi 70% giá vé không tròn đồng thì làm tròn thế nào? | REQ-122 | Mục 11 |
+| Q-41 | Đã trả lời (Chỉ suất của cụm rạp mình, chọn một lần rồi quét liên tiếp), đề bài bổ sung Mục 13. Nhân viên soát vé chọn được những suất chiếu nào, chọn một lần hay cho từng vé? | REQ-123 | Mục 13 |
+| Q-42 | Đã trả lời (Báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ), đề bài bổ sung Mục 13. Vé vi phạm nhiều điều kiện cùng lúc thì báo một lý do hay mọi lý do? | REQ-124 | Mục 13 |
+| Q-43 | Đã trả lời (Không giới hạn), đề bài bổ sung Mục 13. Có giới hạn thời điểm soát so với giờ chiếu không? | REQ-125 | Mục 13 |
+| Q-44 | Đã trả lời (Không có nhập tay trong phạm vi này), đề bài bổ sung Mục 13. Khi camera không đọc được mã QR, có cho nhập tay không? | REQ-126 | Mục 13 |
+| Q-45 | Đã trả lời (Vé hợp lệ hiển thị toàn bộ nội dung vé trừ mã QR; vé bị từ chối chỉ hiển thị lý do), đề bài bổ sung Mục 13. Khi soát, hệ thống hiển thị những thông tin nào của vé? | REQ-127 | Mục 13 |
+| Q-46 | Đã trả lời (Không quy định định dạng; hệ thống tự xác định vé từ mã), đề bài bổ sung Mục 13. Mã QR mã hoá thông tin gì, có định dạng quy định không? | REQ-128 | Mục 13 |
+| Q-48 | Đã trả lời (Ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; không tự hoàn tiền, không gửi email), đề bài bổ sung Mục 9. Với giao dịch cổng báo thành công mà hệ thống không nhận ra (Q-32), xử lý thế nào khi hệ thống không có giao dịch do mình tạo (Q-28) và không xác định được khách? Trả lời của người dùng thu hẹp đáp án Q-32. | REQ-129 | Mục 9 |
+| Q-49 | Đã trả lời (Theo đề xuất: từ chối xác nhận, thông báo nhân viên trả lại tiền mặt cho khách; so thời điểm hết hạn và chuyển ghế sang đã bán là một thao tác không chia cắt), đề bài bổ sung Mục 12. Khi nhân viên quầy đã thu tiền mặt của khách nhưng lần giữ ghế đã hết hạn trước khi xác nhận tới hệ thống, hệ thống xử lý thế nào: từ chối xác nhận và yêu cầu nhân viên trả lại tiền mặt, hay cho phép bán nếu ghế còn trống? | REQ-134 | Mục 12 |
+| Q-50 | Đã trả lời (Theo đề xuất: ngừng bán từ giờ bắt đầu suất chiếu, áp dụng cả bán tại quầy), đề bài bổ sung Mục 16. Có ngừng bán vé khi suất chiếu đã bắt đầu (hoặc trước giờ bắt đầu một khoảng) không? | REQ-135 | Mục 16 |
+| Q-51 | Đã trả lời (Theo đề xuất: hệ thống truyền mã tham chiếu lần giữ ghế khi tạo giao dịch; cổng báo kèm mã tham chiếu đó và số tiền đã thanh toán; không có mã tham chiếu nhận ra được thì đi theo REQ-129), đề bài bổ sung Mục 9, Mục 21. Khi cổng thanh toán báo thành công cho một giao dịch thứ hai (mã giao dịch khác) của lần giữ ghế đã có vé, báo của cổng kèm những thông tin gì để hệ thống gắn giao dịch với lần giữ ghế và lấy số tiền hoàn? | REQ-136, REQ-111, REQ-129, REQ-130 | Mục 9 |
 
 ## Đề xuất sửa artifact trước
 
@@ -278,5 +372,5 @@ Không có
 
 ## Vấn đề còn mở
 
-- REQ-81 đến REQ-104 được cấp mã tiếp nối mã lớn nhất của phiên bản trước theo quy tắc giữ mã khi chạy lại, nên thứ tự mã không còn trùng thứ tự xuất hiện trong nguồn. Ma trận phủ nguồn ghi đúng vị trí của từng REQ.
-- Đề bài sau phiên bản 1.3 có 104 REQ, vượt mức tham khảo 80 REQ của bước. Phần lớn là REQ Quy tắc nghiệp vụ tách từ các ngưỡng định lượng (quy tắc tách 5 của F2), không phải do tách quá nhỏ.
+- REQ-81 đến REQ-136 được cấp mã tiếp nối mã lớn nhất của phiên bản trước theo quy tắc giữ mã khi chạy lại, nên thứ tự mã không còn trùng thứ tự xuất hiện trong nguồn. Ma trận phủ nguồn ghi đúng vị trí của từng REQ.
+- Đề bài sau phiên bản 1.8 có 136 mã REQ (5 mã ở trạng thái Loại: REQ-112, REQ-113, REQ-114, REQ-115, REQ-117), vượt mức tham khảo 80 REQ của bước. Phần lớn là REQ Quy tắc nghiệp vụ tách từ các ngưỡng định lượng (quy tắc tách 5 của F2), không phải do tách quá nhỏ.
