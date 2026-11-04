@@ -1,0 +1,486 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="S05B1" name="Hộp đen - kiểm tra phiên và vai trò (tiền điều kiện UC-005, UC-008, UC-009, UC-013, UC-014)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="560" pageHeight="600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S05B1-L1" value=":AuthFilter" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="120" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B1-L2" value="«interface»&lt;br&gt;:IF-07 IAuthenticator" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B1-F1" value="alt [phiên hợp lệ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="160" width="500" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B1-F1-D1" value="[chữ ký sai hoặc hỏng]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="240" as="sourcePoint" />
+            <mxPoint x="520" y="240" as="targetPoint" />
+            <mxPoint x="-168" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-F1-D2" value="[quá hạn]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="320" as="sourcePoint" />
+            <mxPoint x="520" y="320" as="targetPoint" />
+            <mxPoint x="-210" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-F2" value="opt [phiên hợp lệ]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="390" width="500" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B1-M1" value="1: verifySession(token)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="140" as="sourcePoint" />
+            <mxPoint x="420" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-M2" value="2: SessionClaims(subjectId, role, cinemaId,&lt;br&gt;expiresAt)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="210" as="sourcePoint" />
+            <mxPoint x="100" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-M3" value="3: SessionInvalidError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="290" as="sourcePoint" />
+            <mxPoint x="100" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-M4" value="4: SessionExpiredError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="370" as="sourcePoint" />
+            <mxPoint x="100" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-M5" value="5: checkRole(role, allowedRoles)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="440" as="sourcePoint" />
+            <mxPoint x="420" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B1-M6" value="6: Boolean" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="480" as="sourcePoint" />
+            <mxPoint x="100" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S05B2" name="Hộp đen - đăng nhập (UC-005 bước 5, luồng 5a2)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="560" pageHeight="570" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S05B2-L1" value=":AccountService" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="120" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B2-L2" value="«interface»&lt;br&gt;:IF-07 IAuthenticator" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B2-F1" value="alt [mật khẩu đúng]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="160" width="500" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="S05B2-F1-D1" value="[mật khẩu sai]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="320" as="sourcePoint" />
+            <mxPoint x="520" y="320" as="targetPoint" />
+            <mxPoint x="-194" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-F1-D2" value="[mã băm lưu trữ hỏng]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="400" as="sourcePoint" />
+            <mxPoint x="520" y="400" as="targetPoint" />
+            <mxPoint x="-171" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M1" value="1: verifyPassword(plainPassword, storedHash)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="140" as="sourcePoint" />
+            <mxPoint x="420" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M2" value="2: true" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="210" as="sourcePoint" />
+            <mxPoint x="100" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M3" value="3: issueSession(subjectId, role, cinemaId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="250" as="sourcePoint" />
+            <mxPoint x="420" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M4" value="4: IssuedSession(token, expiresAt)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="290" as="sourcePoint" />
+            <mxPoint x="100" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M5" value="5: false" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="370" as="sourcePoint" />
+            <mxPoint x="100" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05B2-M6" value="6: MalformedHashError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="450" as="sourcePoint" />
+            <mxPoint x="100" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S05W1" name="Hộp trắng - issueSession">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="720" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S05W1" value="sd issueSession" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=300;height=30;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="0" width="640" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-L1" value=":AuthenticatorManager" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-L2" value=":SessionTokenCodec" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-L3" value=":SecurityConfig" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-G1" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="135" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-G8" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="435" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W1-M1" value="1: issueSession(subjectId, role,&lt;br&gt;cinemaId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="140" as="sourcePoint" />
+            <mxPoint x="260" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M2" value="2: validate(subjectId, role)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="180" as="sourcePoint" />
+            <mxPoint x="260" y="200" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="180" />
+              <mxPoint x="300" y="200" />
+            </Array>
+            <mxPoint x="141" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M3" value="3: sessionSettings()" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="230" as="sourcePoint" />
+            <mxPoint x="580" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M4" value="4: signingKey, lifetime" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="270" as="sourcePoint" />
+            <mxPoint x="260" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M5" value="5: encode(claims,&lt;br&gt;signingKey)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="310" as="sourcePoint" />
+            <mxPoint x="420" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M6" value="6: sign(claims)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="350" as="sourcePoint" />
+            <mxPoint x="420" y="370" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="460" y="350" />
+              <mxPoint x="460" y="370" />
+            </Array>
+            <mxPoint x="98" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M7" value="7: token" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="400" as="sourcePoint" />
+            <mxPoint x="260" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W1-M8" value="8: IssuedSession(token,&lt;br&gt;expiresAt)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="440" as="sourcePoint" />
+            <mxPoint x="20" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S05W2" name="Hộp trắng - verifySession">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="560" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S05W2" value="sd verifySession" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=300;height=30;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="0" width="480" height="710" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-L1" value=":AuthenticatorManager" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-L2" value=":SessionTokenCodec" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-F1" value="alt [chữ ký sai hoặc hỏng]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="250" width="460" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-F1-D1" value="[chữ ký đúng]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="370" as="sourcePoint" />
+            <mxPoint x="490" y="370" as="targetPoint" />
+            <mxPoint x="-177" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-F2" value="alt [quá hạn]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="440" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-F2-D1" value="[còn hạn]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="40" y="570" as="sourcePoint" />
+            <mxPoint x="480" y="570" as="targetPoint" />
+            <mxPoint x="-180" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-G1" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="135" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-G5" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="335" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-G8" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="535" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-G9" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="615" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S05W2-M1" value="1: verifySession(token)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="140" as="sourcePoint" />
+            <mxPoint x="260" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M2" value="2: decode(token)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="180" as="sourcePoint" />
+            <mxPoint x="420" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M3" value="3: verifySignature(token)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="220" as="sourcePoint" />
+            <mxPoint x="420" y="240" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="460" y="220" />
+              <mxPoint x="460" y="240" />
+            </Array>
+            <mxPoint x="131" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M4" value="4:&lt;br&gt;SessionInvalidError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="300" as="sourcePoint" />
+            <mxPoint x="260" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M5" value="5: SessionInvalidError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="340" as="sourcePoint" />
+            <mxPoint x="20" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M6" value="6: SessionClaims" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="420" as="sourcePoint" />
+            <mxPoint x="260" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M7" value="7: checkExpiry(expiresAt, now)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="460" as="sourcePoint" />
+            <mxPoint x="260" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="460" />
+              <mxPoint x="300" y="480" />
+            </Array>
+            <mxPoint x="147" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M8" value="8: SessionExpiredError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="540" as="sourcePoint" />
+            <mxPoint x="20" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S05W2-M9" value="9: SessionClaims" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="620" as="sourcePoint" />
+            <mxPoint x="20" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S05C" name="Phần tử">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1460" pageHeight="920" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IF-07" value="«interface»&lt;br&gt;IAuthenticator" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="5" y="57.5" width="250" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-07-b" value="+ hashPassword() [Chờ P07]&lt;br&gt;+ verifyPassword()&lt;br&gt;+ issueSession()&lt;br&gt;+ verifySession()&lt;br&gt;+ checkRole()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-07">
+          <mxGeometry y="40" width="250" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="SS-05" value="«subsystem»&lt;br&gt;Security" style="shape=component;html=1;container=1;collapsible=0;verticalAlign=top;fillColor=none;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="0" width="1050" height="833" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-AuthenticatorManager" value="AuthenticatorManager" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="55" y="59.5" width="270" height="81" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-AuthenticatorManager-b" value="Điều phối IF-07&lt;br&gt;verifyPassword, checkRole uỷ cho&lt;br&gt;lớp 1-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-AuthenticatorManager">
+          <mxGeometry y="26" width="270" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PasswordHasher" value="PasswordHasher" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="405" y="64.5" width="250" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PasswordHasher-b" value="Băm và so mật khẩu" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-PasswordHasher">
+          <mxGeometry y="26" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionTokenCodec" value="SessionTokenCodec" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="405" y="164.5" width="250" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionTokenCodec-b" value="Claims &lt;--&gt; token có chữ ký" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SessionTokenCodec">
+          <mxGeometry y="26" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RoleAuthorizer" value="RoleAuthorizer" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="405" y="264.5" width="250" height="51" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RoleAuthorizer-b" value="Bảng vai trò được phép" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-RoleAuthorizer">
+          <mxGeometry y="26" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SecurityConfig" value="SecurityConfig" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="765" y="49.5" width="270" height="81" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SecurityConfig-b" value="Khoá ký phiên, tham số băm&lt;br&gt;thời hạn phiên (từ môi trường)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SecurityConfig">
+          <mxGeometry y="26" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-Role" value="«enumeration»&lt;br&gt;Role" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="50" y="382.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-Role-b" value="Customer, BoxOfficeClerk, TicketChecker,&lt;br&gt;CinemaManager, ChainManager,&lt;br&gt;Administrator" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-Role">
+          <mxGeometry y="40" width="300" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionClaims" value="«value»&lt;br&gt;SessionClaims" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="380" y="372.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionClaims-b" value="subjectId, role, cinemaId, expiresAt" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SessionClaims">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-IssuedSession" value="«value»&lt;br&gt;IssuedSession" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="50" y="502.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-IssuedSession-b" value="token, expiresAt" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-IssuedSession">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionInvalidError" value="«exception»&lt;br&gt;SessionInvalidError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="380" y="502.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionInvalidError-b" value="Chữ ký sai hoặc token hỏng" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SessionInvalidError">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionExpiredError" value="«exception»&lt;br&gt;SessionExpiredError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="50" y="612.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SessionExpiredError-b" value="Phiên quá hạn" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SessionExpiredError">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-MalformedHashError" value="«exception»&lt;br&gt;MalformedHashError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="380" y="612.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-MalformedHashError-b" value="Mã băm lưu trữ sai định dạng" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-MalformedHashError">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-InvalidAuthRequestError" value="«exception»&lt;br&gt;InvalidAuthRequestError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-05">
+          <mxGeometry x="50" y="712.5" width="300" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-InvalidAuthRequestError-b" value="Tham số issueSession sai" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-InvalidAuthRequestError">
+          <mxGeometry y="40" width="300" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="DC-AuthenticatorManager" target="IF-07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-02" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-AuthenticatorManager" target="DC-PasswordHasher">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-03" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-AuthenticatorManager" target="DC-SessionTokenCodec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-04" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-AuthenticatorManager" target="DC-RoleAuthorizer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-05" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-AuthenticatorManager" target="DC-SecurityConfig">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="34.5" />
+              <mxPoint x="1230" y="34.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C05-06" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-SessionTokenCodec" target="DC-SecurityConfig">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-07" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="DC-SessionClaims" target="DC-Role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-07-s" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="C05-07">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C05-07-t" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="C05-07">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S05D" name="Phụ thuộc">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="860" pageHeight="320" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PKG-11" value="PKG-11 HttpApi" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="0" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PKG-19" value="PKG-19 AccountManagement" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="160" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-07" value="IF-07 IAuthenticator" style="ellipse;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="340" y="80" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SS-05" value="«subsystem»&lt;br&gt;Security" style="shape=component;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="0" width="220" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="D05-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;" edge="1" parent="1" source="PKG-11" target="IF-07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D05-02" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;" edge="1" parent="1" source="PKG-19" target="IF-07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D05-03" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="SS-05" target="IF-07">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

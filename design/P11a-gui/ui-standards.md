@@ -1,0 +1,208 @@
+# P11a - Chuẩn hoá giao diện - Hệ thống đặt vé xem phim CineBook
+
+| Thuộc tính | Giá trị |
+|---|---|
+| Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
+| Phiên bản | 1.0 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (NEN_TANG Web app responsive, CHE_DO_GIA_DINH NGHIEM_NGAT); P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.8, UC-008 1.4, UC-009, UC-013 1.2, UC-014 1.3 (UC-006 không có màn hình); P05-glossary.md 1.1 (cột Thuật ngữ, Định nghĩa); P06-supplementary-spec.md 1.1 (NFR-01, NFR-02, NFR-08, NFR-09, NFR-10, NFR-11, NFR-13); P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014: bảng message có boundary giao diện); P08-analysis-model.md 1.1 (F3 boundary giao diện); P09-architecture.md 1.2 (F5, F7.1, F7.5, F7.6, Q-113, Q-114); P10-design-elements.md 1.1 (F3, F4); P01-actors.md; P02-usecases.md. Yêu cầu bổ sung: một ứng dụng React chung cho mọi vai trò (Q-113), dải mã tạm Q-P11A-nn (chạy song song với P11b) |
+| Phạm vi | Toàn hệ thống, các use case đã đặc tả ở P04 có tác nhân người (UC-005, UC-008, UC-009, UC-013, UC-014) và màn hình đăng nhập |
+| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-79 |
+
+Thiết bị hiển thị: web responsive, màn hình từ 360 x 640 (điện thoại) đến 1920 x 1080 (máy tính), cả chuột, bàn phím và cảm ứng; soát vé chạy trên điện thoại hoặc máy tính bảng có camera (NFR-11). Nhận diện thương hiệu: không có, bảng màu trung tính do AI chọn (quyết định thiết kế, tương phản đã tính ở UI-STT 12). Mẫu đặc tả riêng, thông tin tài liệu, mockup HTML: Không có (XUAT_HTML = Không).
+
+## a) Bảng chuẩn hoá
+
+| STT | Nhóm | Hạng mục | Quy định | Căn cứ |
+|---|---|---|---|---|
+| 01 | Display | Thiết bị và độ phân giải | Một ứng dụng web React chung cho mọi vai trò, menu và đường dẫn theo vai trò. Chạy đúng từ 360 x 640 đến 1920 x 1080, hướng dọc hoặc ngang, nhập bằng chuột, bàn phím hoặc cảm ứng. Trình duyệt: Chrome, Edge, Firefox, Safari bản ổn định mới nhất | NFR-11, Q-113, Q-78 |
+| 02 | Display | Điểm ngắt bố cục | Dưới 600 px: một cột, nút xếp dọc, bảng thành thẻ. Từ 600 đến 1023 px: một cột rộng, nút xếp ngang. Từ 1024 px: hai cột khi màn hình có vùng phụ (tóm tắt đơn, thông tin suất chiếu), nội dung rộng tối đa 1200 px, căn giữa. Không cuộn ngang toàn trang ở 320 px (trừ vùng sơ đồ ghế, UI-STT 39) | WCAG 1.4.10, NFR-11 |
+| 03 | Display | Chế độ màu | Một giao diện sáng (nền trắng, chữ tối). Không có chế độ tối. Quyết định trình bày, đủ cho phạm vi đồ án | Thiết kế: không có yêu cầu chế độ tối ở P06 |
+| 04 | Display | Phông chữ và cỡ chữ | Họ phông hệ thống: system-ui, "Segoe UI", Roboto, Arial, sans-serif. Chữ nền 16 px (1 rem), chú thích 14 px, tiêu đề màn hình 24 px đậm, đơn vị rem để phóng chữ được | WCAG 1.4.4, Material Design |
+| 05 | Screen | Bố cục vùng | Từ trên xuống: thanh đầu trang (tên ứng dụng, menu) --> tiêu đề màn hình (h1) --> vùng thông điệp --> vùng nội dung --> vùng hành động ở cuối nội dung. Vùng phụ (tóm tắt, đồng hồ) nằm cột phải từ 1024 px, nằm trên vùng nội dung dưới 1024 px | Nielsen 4, Shneiderman 1 |
+| 06 | Screen | Vị trí nút | Vùng hành động nằm cuối nội dung, căn phải. Nút chính ở ngoài cùng bên phải, nút phụ (Quay lại, Huỷ, Đóng) ngay bên trái nút chính. Dưới 600 px: nút chính nằm trên cùng, rộng toàn chiều ngang, các nút phụ xếp dưới. Nút Tìm kiếm, Lưu, OK dùng như nút chính | Material Design (một hành động chính), Nielsen 4 |
+| 07 | Screen | Thứ tự và số nút chính | Tối đa một nút chính mỗi màn hình hoặc hộp thoại. Thứ tự trái sang phải: nút phụ, nút chính. Nút phá huỷ (huỷ vé, xoá, huỷ giữ ghế) chỉ là nút chính trong hộp xác nhận (UI-STT 37), không đặt cạnh nút chính của màn hình thường | Nielsen 5, Shneiderman 5 |
+| 08 | Screen | Vị trí thông điệp | Thông điệp toàn màn hình nằm trong vùng thông điệp, ngay dưới tiêu đề màn hình, rộng bằng vùng nội dung, có biểu tượng và chữ loại thông điệp ("Lỗi", "Cảnh báo", "Thành công", "Thông tin"). Lỗi của một trường nằm ngay dưới ô nhập của trường đó. Thông điệp xác nhận mở thành hộp thoại modal | Nielsen 1, 9; WCAG 3.3.1 |
+| 09 | Screen | Tiêu đề màn hình và menu | Tiêu đề h1 ở đầu vùng nội dung, cỡ 24 px đậm. Thẻ title của trang có dạng "<Tên màn hình> - CineBook". Menu ở thanh đầu trang (UI-STT 22) | WCAG 2.4.2, 2.4.6 |
+| 10 | Screen | Định dạng chữ, số, ngày giờ, tiền | Ngày dd/MM/yyyy, giờ HH:mm 24 giờ, ngày giờ "dd/MM/yyyy HH:mm", múi giờ Việt Nam (UTC+7). Tiền là số nguyên đồng, phân cách hàng nghìn bằng dấu chấm, kèm " đ", căn phải (120.000 đ). Mã hàng ghế in hoa liền số ghế (F7). Tên phim, cụm rạp, phòng chiếu hiển thị nguyên văn dữ liệu | UC-005 Dữ liệu ra 1, 2; UC-008 Dữ liệu ra 1; Thiết kế: cụm rạp ở Việt Nam |
+| 11 | Screen | Giọng văn và thuật ngữ | Tiếng Việt có dấu. Câu ngắn, chủ động, mỗi câu một ý, viết hoa chữ đầu câu và tên riêng. Màn hình khách xưng "bạn"; màn hình nhân viên dùng câu mệnh lệnh không xưng hô. Dùng đúng thuật ngữ P05: suất chiếu, sơ đồ ghế, giữ ghế, mã đặt vé, bảng giá, mục giá, khung giờ chiếu, hạn huỷ vé, thời gian giữ ghế. Không dùng từ đồng nghĩa ("đơn", "booking") | 00-Conventions C2, P05 GL-47, GL-46, GL-28, GL-01 |
+| 12 | Screen | Phối màu | Chủ đạo #1F4E8C trên trắng (8,31:1). Chữ #212121 trên trắng (16,1:1); chữ phụ #5F5F5F trên trắng (6,39:1). Lỗi #B3261E trên trắng (6,54:1) và trên nền #FDECEA (5,72:1). Cảnh báo chữ #5C3B00 trên nền #FFF4CE (9,17:1), viền #8A5A00. Thành công #1B5E20 trên nền #E8F5E9 (7,0:1). Thông tin #0D47A1 trên nền #E3F2FD (7,56:1). Viền ô nhập và ô ghế #6B6B6B trên trắng (5,33:1). Tỉ lệ AI tính, cần đo lại bằng công cụ khi lập trình | WCAG 1.4.3, 1.4.11 |
+| 13 | Screen | Không dùng màu làm tín hiệu duy nhất | Mọi trạng thái (lỗi, cảnh báo, ghế, kết quả soát vé) có thêm biểu tượng và chữ hoặc hoạ tiết. Lỗi nhập: viền đỏ 2 px + biểu tượng + chữ thông điệp | WCAG 1.4.1, Nielsen 9 |
+| 14 | Control | Nút | Nút chính: nền #1F4E8C, chữ trắng 16 px đậm, cao 44 px, rộng tối thiểu 120 px, bo góc 4 px. Nút phụ: nền trắng, viền 2 px #1F4E8C, chữ #1F4E8C. Nút phá huỷ (chỉ trong hộp xác nhận): nền #B3261E, chữ trắng. Nút vô hiệu: nền #E0E0E0, chữ #5F5F5F, có chú thích lý do khi là bước chưa đủ điều kiện. Chữ nút là động từ kèm tân ngữ ("Xác nhận chọn ghế") | Material Design, WCAG 1.4.3 |
+| 15 | Control | Vùng bấm tối thiểu | 44 x 44 px cho mọi điều khiển bấm được (nút, liên kết trong menu, ô ghế, hàng chọn trong bảng); khoảng cách giữa hai vùng bấm tối thiểu 4 px | WCAG 2.5.8 (24 px), Apple HIG 44 pt vì có cảm ứng |
+| 16 | Control | Ô nhập | Cao 44 px, viền 1 px #6B6B6B, chữ 16 px (tránh trình duyệt di động tự phóng to). Nhãn đặt phía trên ô, không dùng placeholder thay nhãn. Trường bắt buộc có dấu * sau nhãn và chú thích đầu form "* là bắt buộc"; trường không bắt buộc ghi "(không bắt buộc)". Form một cột. Gợi ý định dạng đặt dưới nhãn, chữ phụ 14 px. Ô mật khẩu có nút "Hiện mật khẩu" | Baymard, WCAG 3.3.2 |
+| 17 | Control | Danh sách chọn, ô chọn, nút chọn | Danh sách chọn dùng phần tử select của trình duyệt (chọn 1 trong 3 mục trở lên). Nút chọn (radio) cho 2 đến 4 lựa chọn loại trừ. Ô chọn (checkbox) cho lựa chọn bật tắt. Vùng bấm gồm cả nhãn | WCAG 1.3.1, 2.5.8 |
+| 18 | Control | Bảng và danh sách | Bảng có hàng tiêu đề cố định, cột số căn phải, cột chữ căn trái, hàng xen kẽ nền #F4F6FA. Dưới 600 px mỗi hàng thành một thẻ có nhãn trường. Hàng được chọn có viền trái 4 px #1F4E8C và biểu tượng dấu chọn, không chỉ đổi màu nền. Danh sách rỗng hiện thông điệp Thông tin (MSG-74 đến MSG-76) | WCAG 1.3.1, 1.4.1 |
+| 19 | Control | Quy trình kiểm tra dữ liệu nhập | Kiểm tra ngay khi rời trường (kiểm tra bắt buộc --> định dạng --> miền giá trị trên trình duyệt), không báo lỗi khi đang gõ. Khi nhấn nút chính: kiểm lại mọi trường theo cùng thứ tự rồi gửi lên máy chủ kiểm quy tắc nghiệp vụ. Có từ hai lỗi trở lên: đưa tiêu điểm vào trường lỗi đầu tiên | Baymard, WCAG 3.3.1, Nielsen 5 |
+| 20 | Control | Hiển thị lỗi tại trường | Lỗi tại trường: viền đỏ 2 px, biểu tượng, chữ lỗi #B3261E 14 px dưới ô, gắn aria-describedby với ô. Giữ nguyên mọi giá trị đã nhập khi báo lỗi (trừ mật khẩu) | Baymard, WCAG 3.3.1, 3.3.7 |
+| 21 | Control | Thứ tự tiêu điểm | Thứ tự tab theo thứ tự đọc (trái sang phải, trên xuống dưới). Chỉ báo tiêu điểm: viền ngoài 3 px #1F4E8C lệch 2 px, luôn hiện với bàn phím. Thanh đầu trang cố định có scroll-padding-top 72 px để tiêu điểm không bị che. Khi mở hộp thoại, tiêu điểm vào điều khiển an toàn đầu tiên và bị giữ trong hộp; đóng hộp trả tiêu điểm về điều khiển đã mở | WCAG 2.4.3, 2.4.7, 2.4.11 |
+| 22 | Menu | Cấu trúc menu theo tác nhân | Thanh đầu trang chứa tên ứng dụng "CineBook" (liên kết về màn hình điều hướng của tác nhân), mục "Trang chủ" và, khi chưa đăng nhập, mục "Đăng nhập". Mọi màn hình có menu đúng một thứ tự và một vị trí. Đích của "Trang chủ": khách SCR-02, nhân viên quầy SCR-09, quản lý cụm rạp SCR-17; nhân viên soát vé không có màn hình điều hướng nên chỉ có tên ứng dụng. Các lối vào use case nằm trên màn hình điều hướng, không lặp trong menu. Menu trên màn hình đang giữ ghế (SCR-05, SCR-11) hỏi lại bằng MSG-77 trước khi rời | WCAG 3.2.3, Nielsen 4, P02 |
+| 23 | Menu | Đánh dấu mục đang chọn | Mục menu của màn hình hiện tại gạch chân 3 px #1F4E8C, đặt aria-current="page". Trên màn hình con của một use case không có mục nào được đánh dấu | WCAG 1.4.1, 4.1.2 |
+| 24 | Menu | Thu gọn trên điện thoại | Dưới 600 px menu thu thành nút có chữ "Menu" (không chỉ biểu tượng), mở thành danh sách dọc, mỗi mục cao 44 px | WCAG 2.5.8, Apple HIG |
+| 25 | Nhập từ bàn phím | Phím tắt, Enter, Esc | Không dùng phím tắt toàn cục, tránh trùng phím của hệ điều hành và trình duyệt. Enter trong form gửi form (kích hoạt nút chính); Enter trên nút kích hoạt nút đó. Esc đóng hộp thoại và pop-up khi không có thao tác đang xử lý; Esc không huỷ giữ ghế | WCAG 2.1.1, Nielsen 7 |
+| 26 | Nhập từ bàn phím | Phím trong sơ đồ ghế | Sơ đồ ghế là một lưới có một tiêu điểm: phím mũi tên di chuyển giữa các ghế, Space hoặc Enter chọn hoặc bỏ chọn ghế còn trống. Ghế đang được giữ hoặc đã bán vẫn nhận tiêu điểm nhưng không chọn được | WCAG 2.1.1, 2.5.7 |
+| 27 | Messages | Chỉ báo bận | Thao tác máy chủ kéo dài quá 0,5 giây: nút chính đổi thành chữ trạng thái kèm biểu tượng quay (ví dụ "Đang giữ ghế...") và bị vô hiệu để chống bấm hai lần. Không có nút Huỷ khi đang xử lý vì đặc tả không cho huỷ giữa chừng. Giữ ghế phải phản hồi trong 2 giây (NFR-06) | Nielsen 1, UC-005 Mục 7 STT 1 |
+| 28 | Messages | Thông báo trạng thái | Thành công và thông tin: vùng role="status" (đọc lịch sự). Lỗi và cảnh báo: role="alert". Thông điệp không tự ẩn, ở lại tới khi người dùng đóng hoặc rời màn hình | WCAG 4.1.3, 2.2.1 |
+| 29 | Error | Kết thúc use case thất bại | Lỗi nghiệp vụ làm use case kết thúc thất bại: (1) mặc định chuyển về màn hình điều hướng của tác nhân và hiện thông điệp trong vùng thông điệp; (2) màn hình là danh sách để chọn một dòng (SCR-03, SCR-07, phần chọn suất chiếu của SCR-10, SCR-13, SCR-18, SCR-19) và lỗi do dòng được chọn: ở lại màn hình, giữ nguyên danh sách, hiện thông điệp, tải lại danh sách khi thông điệp nói dữ liệu đã đổi; (3) đặc tả cho "quay lại bước n": ở lại màn hình và giữ dữ liệu đã nhập; (4) luồng 7d của UC-005 chuyển về màn hình chọn suất chiếu (SCR-03) hoặc tải lại danh sách suất chiếu tại chỗ (SCR-10) vì đặc tả yêu cầu bắt đầu lại để chọn suất chiếu | Nielsen 3, 9; P04 cột Quay lại / Kết thúc |
+| 30 | Error | Lỗi hệ thống và hệ thống ngoài | Hệ thống bận hoặc mất mạng khi gửi: giữ nguyên dữ liệu đã nhập, hiện MSG-72 hoặc MSG-73 ở vùng thông điệp kèm nút "Thử lại". Cổng thanh toán: xem UI-STT 44. Không hiện mã lỗi kỹ thuật | Nielsen 9, WCAG 3.3.3 |
+| 31 | Error | Nội dung thông điệp lỗi | Mỗi lỗi nêu điều gì sai, vì sao (khi người dùng cần biết) và làm gì tiếp. Không đổ lỗi cho người dùng. Quy tắc nghiệp vụ bị vi phạm nêu bằng ngôn ngữ nghiệp vụ, không nêu mã BR cho người dùng cuối | Nielsen 9, Baymard |
+| 32 | Help | Trợ giúp | Đặc tả không có chức năng trợ giúp nên không có trang trợ giúp. Trợ giúp theo ngữ cảnh: dòng gợi ý định dạng dưới nhãn cho trường có định dạng (ngày giờ, email, số điện thoại, giá vé). Thuật ngữ nhãn theo P05 | Nielsen 10, WCAG 3.3.2 |
+| 33 | Khả năng tiếp cận | Tương phản | Chữ thường tối thiểu 4,5:1, chữ lớn (từ 24 px, hoặc 18,66 px đậm) 3:1, viền ô nhập, biểu tượng và ô ghế 3:1 so với nền liền kề (màu ở UI-STT 12) | WCAG 1.4.3, 1.4.11 |
+| 34 | Khả năng tiếp cận | Nhãn và văn bản thay thế | Mọi ô nhập có thẻ label gắn bằng for. Biểu tượng mang nghĩa có văn bản thay thế; biểu tượng trang trí có alt rỗng. Mã QR có alt "Mã QR của vé ghế F7, mã đặt vé CB0001234". Ô ghế có aria-label "Ghế F7, ghế VIP, còn trống" | WCAG 1.1.1, 1.3.1, 3.3.2 |
+| 35 | Khả năng tiếp cận | Phóng to chữ | Phóng chữ 200% không mất nội dung hoặc chức năng; không đặt chiều cao cố định cho khối chữ; kích thước theo rem | WCAG 1.4.4, 1.4.10 |
+| 36 | Khả năng tiếp cận | Giới hạn thời gian | Thời gian giữ ghế 10 phút là quy tắc nghiệp vụ không điều chỉnh được (BR-10), nên không có nút gia hạn. Đồng hồ đếm ngược không tự động đọc từng giây; trình đọc màn hình được báo ở mốc còn 5 phút, 2 phút, 1 phút và 30 giây | WCAG 2.2.1 (ngoại lệ thiết yếu), BR-10 |
+| 37 | Xác nhận và hoàn tác | Thao tác cần xác nhận | Hộp xác nhận modal cho: huỷ vé (tài chính, không hoàn tác), huỷ giữ ghế, xoá suất chiếu, bỏ giá, xác nhận đã thu tiền mặt, xác nhận đã hoàn tiền mặt. Nút xác nhận đặt tên theo hành động ("Huỷ vé"), nút còn lại là lựa chọn an toàn ("Giữ lại vé") và nhận tiêu điểm đầu tiên. Hộp xác nhận nêu rõ hậu quả (số tiền, vé, ghế) | Shneiderman 5, WCAG 3.3.4 |
+| 38 | Xác nhận và hoàn tác | Hoàn tác | Đặc tả không có hoàn tác sau khi xác nhận, nên giao diện không thêm chức năng hoàn tác; bù lại bằng UI-STT 37. Chức năng "Huỷ yêu cầu" chỉ có ở UC-013, UC-014 (luồng *a) và UC-005 (huỷ giữ ghế) | Shneiderman 6, C1.1 |
+| 39 | Sơ đồ ghế | Ký hiệu trạng thái ghế | Mỗi ô ghế 44 x 44 px, khoảng cách 4 px, chữ là mã ghế (F7). Trống: nền trắng, viền 2 px #6B6B6B. Đang chọn (của tôi, chưa xác nhận): nền #1F4E8C, chữ trắng, biểu tượng dấu chọn. Đang được giữ (người khác): nền #BDBDBD, hoạ tiết sọc chéo, biểu tượng ổ khoá. Đã bán: nền #424242, chữ trắng, biểu tượng dấu X. Ghế đôi rộng 92 px (hai ô liền). Chú giải bốn ký hiệu luôn hiện dưới sơ đồ (biểu tượng + chữ). Dưới 600 px vùng sơ đồ cuộn ngang bên trong khung và có ghi chú "Vuốt ngang để xem hết ghế" (được miễn reflow vì là bố cục hai chiều); phía trước có thanh "MÀN HÌNH" để định hướng | UC-005 Dữ liệu ra 1 STT 2-4, WCAG 1.4.1, 1.4.10, 2.5.8 |
+| 40 | Sơ đồ ghế | Cập nhật theo thời gian thực | Ghế đổi trạng thái (giữ, bán, trống) hiện trạng thái mới trên sơ đồ trong vòng 3 giây kể từ lúc đổi (REQ-19, REQ-119). Sơ đồ nhận sự kiện qua kết nối đẩy (SSE), áp từng sự kiện lên đúng ô ghế, chỉ khi mã sự kiện lớn hơn mã đang có của ghế đó. Ô ghế vừa đổi nháy viền 1 lần trong 1 giây (không dùng hoạt ảnh lặp), không đổi kích thước hay vị trí ô khác. Trình đọc màn hình: gộp các thay đổi trong 1 giây thành một thông báo role="status" tối đa 3 ghế mỗi thông báo ("Ghế F7 vừa có người giữ") | NFR-08, NFR-09, P09 F7.5, WCAG 4.1.3, 2.3.3 |
+| 41 | Sơ đồ ghế | Kết nối và tải lại | Mở màn hình: tải ảnh chụp sơ đồ kèm con trỏ sự kiện C, rồi mở kết nối đẩy với con trỏ đó. Dải trạng thái kết nối trên sơ đồ: "Đang cập nhật trực tiếp" khi kết nối sống; "Mất kết nối, đang nối lại" (MSG-24) khi 20 giây không nhận gì (máy chủ gửi nhịp tim 15 giây) hoặc kết nối đóng. Nối lại được: tải lại ảnh chụp kèm con trỏ và hiện MSG-25. Máy chủ yêu cầu tải lại: tải lại ảnh chụp sau một độ trễ ngẫu nhiên 0 đến 3 giây. Cứ 60 giây tải lại ảnh chụp một lần làm lưới an toàn. Trong lúc mất kết nối giao diện không bảo đảm mốc 3 giây (Q-114); ghế đang chọn vẫn chọn tiếp được nhưng việc xác nhận do máy chủ quyết định | P09 F7.5, Q-114, Nielsen 1 |
+| 42 | Sơ đồ ghế | Ghế đang chọn bị người khác lấy | Ghế khách đang chọn (chưa xác nhận) mà sự kiện cho biết đã bị giữ hoặc bán: tự bỏ chọn ghế đó, hiện MSG-23 ở vùng thông điệp, không chuyển tiêu điểm khỏi điều khiển đang dùng. Khi xác nhận mà bị từ chối ở luồng 7a: giữ nguyên sơ đồ mới nhất, đánh dấu các ghế bị lấy bằng viền đỏ kèm chữ, hiện MSG-11, không chọn lại các ghế còn lại | UC-005 luồng 7a, BR-03, BR-07, BR-09 |
+| 43 | Đồng hồ đếm ngược | Hiển thị thời gian giữ ghế | Khối "Thời gian giữ ghế còn lại" ở đầu vùng phụ, chữ mm:ss 32 px đậm (10:00 đến 00:00), kèm dòng "Hết hạn lúc HH:mm:ss". Gốc đếm là thời điểm hết hạn do máy chủ trả về, trừ độ lệch đồng hồ (độ lệch = giờ máy chủ trừ giờ máy khách đo lúc nhận phản hồi), không lấy đồng hồ máy khách làm gốc. Cập nhật mỗi giây. Còn 2 phút trở xuống: nền cảnh báo + chữ "Sắp hết thời gian". Về 00:00: vô hiệu nút thanh toán hoặc xác nhận thu tiền, hiện MSG-14 (khách) hoặc MSG-29 (quầy), chuyển về màn hình điều hướng (UI-STT 29). Mốc hết hạn do máy chủ quyết định: nếu máy chủ từ chối vì đã hết hạn thì cũng hiện cùng thông điệp. Ghế được máy chủ trả về trống chậm nhất 1 phút sau hạn (REQ-76) nên sơ đồ có thể còn hiện đang giữ trong thời gian đó | BR-10, NFR-06, REQ-76, P09 F7.4, WCAG 2.2.1 |
+| 44 | Thanh toán | Thanh toán qua VNPay và trang kết quả | Trước khi chuyển sang cổng: hiện tóm tắt (suất chiếu, từng ghế và giá, tổng tiền) cạnh nút "Thanh toán qua VNPay". Không có ô nhập thẻ trong hệ thống. Bấm nút: MSG-27, chuyển trình duyệt sang địa chỉ do hệ thống ký. Trang kết quả (địa chỉ trả về) chỉ đọc trạng thái từ máy chủ, không làm đổi dữ liệu: đang chờ IPN thì hiện MSG-28 và hỏi lại trạng thái mỗi 2 giây, tối đa 60 giây; quá 60 giây hiện trạng thái "Chưa nhận được kết quả" kèm hướng dẫn kiểm tra email. Cổng từ chối hoặc khách không hoàn tất: ở lại SCR-05 hiện MSG-15, đồng hồ vẫn chạy | UC-005 bước 10, 11, 15, luồng 10a, 11a; P09 F7.6; NFR-10; Baymard |
+| 45 | Soát vé | Camera và kết quả quét | Vùng camera tỉ lệ 4:3, rộng tối thiểu 280 px, mở khi vào màn hình. Không có ô nhập tay mã QR. Sau mỗi lần quét, hiện khối kết quả lớn dưới camera (xanh + chữ "VÉ HỢP LỆ" hoặc đỏ + chữ "TỪ CHỐI" kèm lý do) và giữ tới lần quét kế tiếp, không tự ẩn. Cùng một mã QR không được đọc lại trong 3 giây để một lần đưa vé không sinh thêm kết quả "đã sử dụng" | NFR-11, NFR-13, UC-009 bước 3-6, luồng 4a-4e; Thiết kế: chống đọc lặp khung hình |
+| 46 | Đăng nhập | Biểu mẫu đăng nhập | Một màn hình đăng nhập dùng chung cho mọi vai trò (Q-113), cũng mở dạng pop-up modal khi khách chưa đăng nhập lúc xác nhận chọn ghế. Hai trường: định danh và mật khẩu; nút chính "Đăng nhập". Sai: một thông điệp chung MSG-02, không cho biết trường nào sai. Tự động điền của trình duyệt được cho phép (autocomplete="username" và "current-password"). Không có liên kết quên mật khẩu hay đăng ký vì ngoài đặc tả | NFR-01, NFR-02, NFR-03, UC-005 luồng 5a, WCAG 3.3.8 |
+| 47 | Điều hướng | Màn hình điều hướng | Màn hình điều hướng của mỗi tác nhân là danh sách thẻ lớn, mỗi thẻ là một lối vào use case (tên use case theo P02 kèm một dòng mô tả). Use case chưa có màn hình đích hiện thẻ vô hiệu kèm chữ "Chưa có". Vùng thông điệp ở đầu màn hình điều hướng hiện kết quả của use case vừa kết thúc hoặc bị từ chối | P02, P11a A2, Nielsen 1 |
+
+## b) Danh mục thông điệp
+
+Dấu {...} là giá trị lấy từ dữ liệu của màn hình. Nút ghi dạng "Tên nút --> hành động".
+
+| MSG | Loại | Nội dung hiển thị | Nút và hành động | Nguồn |
+|---|---|---|---|---|
+| MSG-01 | Thông tin | Vui lòng đăng nhập để tiếp tục đặt vé. Các ghế bạn đã chọn vẫn được giữ nguyên trên màn hình. | Đăng nhập --> kiểm tra tài khoản, quay lại bước kiểm tra đăng nhập khi xác nhận chọn ghế | UC-005 luồng 5a1 |
+| MSG-02 | Lỗi | Email, số điện thoại hoặc mật khẩu không đúng. Vui lòng kiểm tra rồi nhập lại. | Đóng --> giữ lại định danh, xoá mật khẩu, tiêu điểm vào ô mật khẩu | UC-005 luồng 5a2, Dữ liệu vào 2; NFR-01 |
+| MSG-03 | Lỗi | Vui lòng nhập {tên trường}. | Đóng --> tiêu điểm vào trường | UI-STT 19; Dữ liệu vào 2 STT 1, 2 |
+| MSG-04 | Lỗi | Email chưa đúng định dạng. Ví dụ: an.nguyen@example.com. | Đóng --> tiêu điểm vào trường | UC-005 Dữ liệu vào 2 STT 1; BR-81 |
+| MSG-05 | Lỗi | Số điện thoại gồm 10 chữ số và bắt đầu bằng 0. Ví dụ: 0912345678. | Đóng --> tiêu điểm vào trường | UC-005 Dữ liệu vào 2 STT 1; BR-82 |
+| MSG-06 | Lỗi | Suất chiếu này chưa mở bán. Vui lòng chọn suất chiếu đã mở bán. | Đóng --> ở lại danh sách suất chiếu, tải lại danh sách | UC-005 luồng 2a; BR-01 |
+| MSG-07 | Lỗi | Bạn chỉ bán được vé của các suất chiếu thuộc cụm rạp của mình. Vui lòng chọn suất chiếu của cụm rạp mình. | Đóng --> ở lại danh sách suất chiếu, tải lại danh sách | UC-005 luồng 2b; BR-02 |
+| MSG-08 | Lỗi | Suất chiếu đã bắt đầu nên không còn bán vé. Vui lòng chọn suất chiếu khác. | Đóng --> ở lại danh sách suất chiếu, tải lại danh sách | UC-005 luồng 2c; BR-45 |
+| MSG-09 | Lỗi | Bạn đang có một lần giữ ghế chưa kết thúc. Mỗi lần chỉ giữ ghế cho một lần đặt. Hãy hoàn tất hoặc huỷ lần giữ ghế đó, hoặc chờ đến khi hết thời gian giữ ghế. | Đóng --> về màn hình điều hướng | UC-005 luồng 5b, 7c; BR-04 |
+| MSG-10 | Lỗi | Mỗi lần đặt chỉ được chọn tối đa 8 ghế (ghế đôi tính là một ghế). Vui lòng bỏ bớt ghế đã chọn. | Đóng --> ở lại sơ đồ ghế, giữ các ghế đang chọn | UC-005 luồng 6a; BR-05, BR-06 |
+| MSG-11 | Lỗi | Ghế {danh sách ghế} vừa có người khác giữ hoặc mua, nên chưa giữ ghế nào cho bạn. Vui lòng chọn ghế khác. | Đóng --> ở lại sơ đồ ghế đã làm mới, ghế bị lấy đánh dấu viền đỏ | UC-005 luồng 7a; BR-07, BR-09 |
+| MSG-12 | Lỗi | Suất chiếu đã thay đổi hoặc không còn, nên chưa giữ ghế nào. Vui lòng chọn lại suất chiếu. | Chọn lại suất chiếu --> mở màn hình chọn suất chiếu (khách) hoặc tải lại danh sách suất chiếu (nhân viên quầy) | UC-005 luồng 7d; BR-54 |
+| MSG-13 | Lỗi | Chưa xác định được giá vé của một số ghế bạn chọn, nên chưa giữ ghế nào. Vui lòng thử lại sau hoặc chọn suất chiếu khác. | Đóng --> về màn hình điều hướng | UC-005 luồng 7e; BR-72 |
+| MSG-14 | Cảnh báo | Đã hết thời gian giữ ghế. Các ghế được trả lại và chưa có vé nào được tạo. Nếu bạn đã thanh toán, hệ thống sẽ hoàn toàn bộ số tiền và báo qua email. | Về trang chủ --> về màn hình điều hướng | UC-005 luồng 7b; BR-10, BR-14 |
+| MSG-15 | Lỗi | Chưa tạo được thanh toán. Ghế của bạn vẫn được giữ đến {hh:mm:ss}. Vui lòng thử thanh toán lại. | Thử lại --> tạo lại giao dịch thanh toán | UC-005 luồng 10a; BR-90 |
+| MSG-16 | Lỗi | Thanh toán không thành công. Các ghế đã được trả lại và chưa có vé nào được tạo. | Về trang chủ --> về màn hình điều hướng | UC-005 luồng 11a |
+| MSG-17 | Thành công | Đặt vé thành công. Mã đặt vé của bạn là {mã đặt vé}. Hệ thống đang gửi vé qua email cho bạn. | Về trang chủ --> về màn hình điều hướng | UC-005 bước 14, 15 |
+| MSG-18 | Xác nhận | Huỷ việc giữ ghế? Các ghế sẽ được trả lại cho người khác và bạn cần chọn ghế lại từ đầu. | Huỷ giữ ghế --> giải phóng ghế; Tiếp tục giữ ghế --> đóng hộp | UC-005 luồng *a; UI-STT 37 |
+| MSG-19 | Thành công | Đã huỷ giữ ghế. Các ghế đã được trả lại. | Đóng --> ở màn hình điều hướng | UC-005 luồng *a; UI-STT 28 |
+| MSG-20 | Lỗi | Xác nhận thu tiền đến sau thời gian giữ ghế nên chưa bán vé. Vui lòng trả lại {tổng tiền} tiền mặt đã thu cho khách. | Đã hiểu --> về màn hình điều hướng | UC-005 luồng 9a1a; BR-44 |
+| MSG-21 | Thành công | Đã bán vé. Mã đặt vé là {mã đặt vé}. Vui lòng in vé cho khách. | In vé --> mở màn hình in vé | UC-005 bước 9a4 |
+| MSG-22 | Xác nhận | Xác nhận đã thu đủ {tổng tiền} tiền mặt của khách? Sau khi xác nhận, ghế được bán và không hoàn tác. | Xác nhận đã thu tiền --> chuyển ghế sang đã bán, tạo vé; Chưa thu --> đóng hộp | UC-005 bước 9a1, 9a2; UI-STT 37 |
+| MSG-23 | Cảnh báo | Ghế {mã ghế} vừa có người khác giữ hoặc mua. Ghế này đã được bỏ khỏi các ghế bạn chọn. | Đóng --> giữ nguyên các ghế còn lại | UC-005 bước 3; UI-STT 42; BR-08 |
+| MSG-24 | Cảnh báo | Mất kết nối cập nhật trực tiếp. Sơ đồ ghế có thể chưa mới nhất. Đang nối lại... | Tải lại sơ đồ --> tải lại ảnh chụp sơ đồ ghế | UC-005 bước 3; P09 F7.5; Q-114 |
+| MSG-25 | Thông tin | Đã kết nối lại. Sơ đồ ghế đã được cập nhật. | Đóng --> đóng thông điệp | P09 F7.5 |
+| MSG-26 | Đang xử lý | Đang giữ ghế... | Không có nút | UC-005 bước 7; NFR-06 |
+| MSG-27 | Đang xử lý | Đang chuyển sang cổng thanh toán VNPay... | Không có nút | UC-005 bước 10 |
+| MSG-28 | Đang xử lý | Đang xác nhận kết quả thanh toán. Vui lòng không đóng trang này. | Không có nút | UC-005 bước 11; P09 F7.6 |
+| MSG-29 | Cảnh báo | Đã hết thời gian giữ ghế. Các ghế được trả lại và chưa có vé nào được bán. | Về trang chủ --> về màn hình điều hướng | UC-005 luồng 7b; BR-10 |
+| MSG-30 | Cảnh báo | Chưa nhận được kết quả thanh toán. Nếu thanh toán thành công, vé sẽ được gửi qua email; nếu không, số tiền sẽ được hoàn lại. | Về trang chủ --> về màn hình điều hướng | UC-005 bước 11; UC-006 (BR-14); P09 F7.6 |
+| MSG-31 | Lỗi | Mã đặt vé không tồn tại. Vui lòng kiểm tra mã in trên vé rồi nhập lại. | Đóng --> tiêu điểm vào ô mã đặt vé | UC-008 luồng 1a1a |
+| MSG-32 | Lỗi | Bạn chỉ huỷ được vé đã mua trực tuyến bằng tài khoản của mình. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 2a; BR-17 |
+| MSG-33 | Lỗi | Vé mua trực tuyến chỉ khách huỷ được trên ứng dụng. Vé tại quầy mới huỷ được ở đây. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 2b; BR-17 |
+| MSG-34 | Lỗi | Vé này được bán tại quầy của cụm rạp khác, nên bạn không huỷ được. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 2c; BR-17 |
+| MSG-35 | Lỗi | Đã quá hạn huỷ vé. Vé chỉ huỷ được trước giờ chiếu ít nhất 2 tiếng. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 3a; BR-18, BR-32 |
+| MSG-36 | Cảnh báo | Vé này đã được huỷ trước đó. Hệ thống không hoàn tiền thêm. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 4a; BR-21 |
+| MSG-37 | Lỗi | Vé đã sử dụng nên không huỷ được. | Đóng --> ở lại danh sách vé, tải lại danh sách | UC-008 luồng 4b; BR-30 |
+| MSG-38 | Xác nhận | Huỷ vé ghế {vị trí ghế}, {phim}, {ngày giờ}? Bạn được hoàn {số tiền hoàn} (70% giá vé {giá vé}) và không thể hoàn tác. | Huỷ vé --> ghi nhận vé đã huỷ, yêu cầu hoàn tiền; Giữ lại vé --> đóng hộp | UC-008 bước 1-5; BR-19, BR-31; UI-STT 37 |
+| MSG-39 | Xác nhận | Huỷ vé ghế {vị trí ghế}, mã đặt vé {mã đặt vé}? Nhân viên sẽ hoàn {số tiền hoàn} tiền mặt cho khách (70% giá vé {giá vé}) và không thể hoàn tác. | Huỷ vé --> ghi nhận vé đã huỷ; Giữ lại vé --> đóng hộp | UC-008 bước 1a3, 5a1; BR-19, BR-20, BR-31; UI-STT 37 |
+| MSG-40 | Thành công | Đã huỷ vé. Bạn được hoàn {số tiền hoàn} qua cổng thanh toán. | Về trang chủ --> về màn hình điều hướng | UC-008 bước 8; BR-19 |
+| MSG-41 | Cảnh báo | Vé đã được huỷ nhưng chưa hoàn được tiền qua cổng thanh toán. Khoản hoàn {số tiền hoàn} sẽ được xử lý thủ công. | Về trang chủ --> về màn hình điều hướng | UC-008 luồng 5c, 6b, bước 8; BR-41 |
+| MSG-42 | Xác nhận | Xác nhận đã hoàn {số tiền hoàn} tiền mặt cho khách? Không hoàn tác được. | Xác nhận đã hoàn tiền --> ghi nhận khoản hoàn, trả ghế về trống; Chưa hoàn --> đóng hộp | UC-008 bước 5a2; UI-STT 37 |
+| MSG-43 | Thành công | Đã huỷ vé và ghi nhận hoàn {số tiền hoàn} tiền mặt. | Về trang chủ --> về màn hình điều hướng | UC-008 bước 7, 8 |
+| MSG-44 | Thành công | Vé hợp lệ. Mời khách vào phòng chiếu. | Không có nút, quét vé kế tiếp | UC-009 bước 6 |
+| MSG-45 | Lỗi | Từ chối: mã QR không tương ứng vé nào của hệ thống. | Không có nút, quét vé kế tiếp | UC-009 luồng 4a |
+| MSG-46 | Lỗi | Từ chối: vé thuộc cụm rạp khác. | Không có nút, quét vé kế tiếp | UC-009 luồng 4b; BR-22 |
+| MSG-47 | Lỗi | Từ chối: vé thuộc suất chiếu khác. | Không có nút, quét vé kế tiếp | UC-009 luồng 4c; BR-23 |
+| MSG-48 | Lỗi | Từ chối: vé đã sử dụng. | Không có nút, quét vé kế tiếp | UC-009 luồng 4d; BR-24 |
+| MSG-49 | Lỗi | Từ chối: vé đã huỷ. | Không có nút, quét vé kế tiếp | UC-009 luồng 4e; BR-25 |
+| MSG-50 | Lỗi | Không mở được camera. Hãy cho phép trình duyệt dùng camera trong phần cài đặt trang, rồi tải lại trang. Hệ thống không có cách nhập mã tay. | Tải lại trang --> tải lại màn hình | NFR-11, NFR-13 |
+| MSG-51 | Lỗi | Giá vé phải là số nguyên đồng lớn hơn 0. Ví dụ: 120000. | Đóng --> tiêu điểm vào ô giá vé | UC-013 luồng 4a; BR-70 |
+| MSG-52 | Lỗi | Mục giá đã thay đổi hoặc không còn kể từ lúc bạn mở bảng giá. Vui lòng mở lại bảng giá. | Mở lại bảng giá --> tải lại bảng giá | UC-013 luồng 5a, 1a3a; BR-63 |
+| MSG-53 | Lỗi | Không bỏ được mục giá này vì cụm rạp còn suất chiếu chưa tới giờ bắt đầu đang dùng mục giá. | Đóng --> ở lại bảng giá | UC-013 luồng 1a3b; BR-64 |
+| MSG-54 | Thành công | Đã lưu giá vé: {loại phòng}, {định dạng}, {loại ghế}, {khung giờ chiếu}, {giá vé}. Giá có hiệu lực ngay. | Đóng --> ở lại bảng giá | UC-013 bước 6; BR-66 |
+| MSG-55 | Thành công | Đã bỏ mục giá {loại phòng}, {định dạng}, {loại ghế}, {khung giờ chiếu}. | Đóng --> ở lại bảng giá | UC-013 luồng 1a4 |
+| MSG-56 | Xác nhận | Bỏ mục giá {loại phòng}, {định dạng}, {loại ghế}, {khung giờ chiếu}? Không hoàn tác được. | Bỏ giá --> bỏ mục giá; Giữ lại --> đóng hộp | UC-013 luồng 1a3; UI-STT 37 |
+| MSG-57 | Thông tin | Đã huỷ yêu cầu. Không có thay đổi nào được lưu. | Đóng --> đóng thông điệp | UC-013 luồng *a; UC-014 luồng *a |
+| MSG-58 | Lỗi | Phòng chiếu đã chọn không thuộc cụm rạp của bạn. Vui lòng chọn phòng chiếu của cụm rạp mình. | Đóng --> tiêu điểm vào ô phòng chiếu | UC-014 luồng 4a; BR-46 |
+| MSG-59 | Lỗi | Định dạng đã chọn không phải định dạng phát hành của phim. Vui lòng chọn định dạng khác. | Đóng --> tiêu điểm vào ô định dạng | UC-014 luồng 5a; BR-47 |
+| MSG-60 | Lỗi | Phòng chiếu này không chiếu được định dạng đã chọn. Vui lòng chọn phòng chiếu hoặc định dạng khác. | Đóng --> tiêu điểm vào ô phòng chiếu | UC-014 luồng 5b; BR-48 |
+| MSG-61 | Lỗi | Bảng giá của cụm rạp chưa có giá cho mọi loại ghế của phòng chiếu này ở khung giờ đã chọn. Vui lòng bổ sung bảng giá rồi lập lại suất chiếu. | Đóng --> ở lại biểu mẫu | UC-014 luồng 5c, 8e; BR-69 |
+| MSG-62 | Lỗi | Ngày chiếu phải nằm trong khoảng chiếu của phim, từ {ngày khởi chiếu} đến {ngày kết thúc chiếu}. | Đóng --> tiêu điểm vào ô ngày giờ bắt đầu | UC-014 luồng 6a; BR-49 |
+| MSG-63 | Lỗi | Giờ bắt đầu phải sau thời điểm hiện tại. | Đóng --> tiêu điểm vào ô ngày giờ bắt đầu | UC-014 luồng 6b; BR-56 |
+| MSG-64 | Lỗi | Thời điểm mở bán phải trước giờ bắt đầu của suất chiếu. | Đóng --> tiêu điểm vào ô thời điểm mở bán | UC-014 luồng 6c; BR-55 |
+| MSG-65 | Lỗi | Suất chiếu này cách một suất chiếu khác trong phòng dưới 15 phút dọn phòng. Vui lòng đổi giờ bắt đầu hoặc phòng chiếu. | Đóng --> tiêu điểm vào ô ngày giờ bắt đầu | UC-014 luồng 8b; BR-51 |
+| MSG-66 | Lỗi | Suất chiếu đang có ghế được giữ hoặc có vé chưa huỷ, nên không sửa hoặc xoá được. | Đóng --> ở lại danh sách | UC-014 luồng 1a3a, 1b3a, 8a; BR-53 |
+| MSG-67 | Lỗi | Suất chiếu đã tới giờ bắt đầu nên không sửa hoặc xoá được. | Đóng --> ở lại danh sách | UC-014 luồng 1a3b, 1b3b, 8d; BR-57 |
+| MSG-68 | Lỗi | Suất chiếu đã bị người khác thay đổi hoặc không còn. Vui lòng mở lại danh sách suất chiếu. | Mở lại danh sách --> tải lại danh sách | UC-014 luồng 1b3c, 8c; BR-60 |
+| MSG-69 | Thành công | Đã lưu suất chiếu: {phim}, {định dạng}, {phòng chiếu}, {giờ bắt đầu}, {giờ kết thúc}, mở bán {thời điểm mở bán}. | Đóng --> đóng pop-up, làm mới danh sách | UC-014 bước 9 |
+| MSG-70 | Thành công | Đã xoá suất chiếu khỏi lịch chiếu. | Đóng --> làm mới danh sách | UC-014 luồng 1b4 |
+| MSG-71 | Xác nhận | Xoá suất chiếu {phim}, {phòng chiếu}, {ngày giờ}? Suất chiếu bị bỏ khỏi lịch chiếu và ngừng bán vé. Không hoàn tác được. | Xoá suất chiếu --> xoá; Giữ lại --> đóng hộp | UC-014 luồng 1b3; UI-STT 37 |
+| MSG-72 | Lỗi | Hệ thống đang bận. Dữ liệu bạn nhập được giữ nguyên, vui lòng thử lại sau ít phút. | Thử lại --> gửi lại yêu cầu | UI-STT 30; P09 F7.2 |
+| MSG-73 | Lỗi | Mất kết nối mạng. Dữ liệu bạn nhập được giữ nguyên, vui lòng kiểm tra mạng rồi thử lại. | Thử lại --> gửi lại yêu cầu | UI-STT 30 |
+| MSG-74 | Thông tin | Hiện chưa có suất chiếu nào để chọn. | Không có nút | UC-005 bước 1; UC-009 bước 1; UC-014 luồng 1a1 |
+| MSG-75 | Thông tin | Chưa có vé nào để hiển thị. | Không có nút | UC-008 bước 1, 1a2 |
+| MSG-76 | Thông tin | Bảng giá của cụm rạp chưa có mục giá nào. | Không có nút | UC-013 bước 2 |
+| MSG-77 | Cảnh báo | Bạn đang giữ ghế đến {hh:mm:ss}. Rời trang này không huỷ việc giữ ghế; ghế chỉ được trả lại khi hết thời gian giữ ghế hoặc khi bạn huỷ giữ ghế. Bạn có muốn rời trang? | Rời trang --> mở màn hình đã chọn trong menu; Ở lại --> đóng hộp, tiếp tục | UC-005 bước 7, luồng 7b, BR-04, BR-10; UI-STT 37 |
+| MSG-78 | Đang xử lý | Đang huỷ vé và hoàn tiền. Việc này có thể mất vài chục giây, vui lòng không đóng trang. | Không có nút | UC-008 bước 4-7; BR-41, BR-43 |
+| MSG-79 | Lỗi | Ngày giờ chưa đúng định dạng dd/MM/yyyy HH:mm. Ví dụ: 15/11/2026 19:30. | Đóng --> tiêu điểm vào trường | UC-014 Dữ liệu vào 1 STT 4, 5; UI-STT 10 |
+
+Thông điệp ở trên bao quát mọi thông báo, từ chối và kết quả hiển thị cho tác nhân người trong UC-005, UC-008, UC-009, UC-013, UC-014. UC-006 không có tác nhân người nên không có thông điệp giao diện.
+
+## c) Đánh giá chuẩn (F7) cho ui-standards.md
+
+| SCR | Tiêu chí | Kết quả | Bằng chứng | Cách xử lý |
+|---|---|---|---|---|
+| Chuẩn hoá | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | UI-STT 27, 28, 40, 41, 43, 44 | - |
+| Chuẩn hoá | Nielsen 2 Khớp thế giới thực | Đạt | UI-STT 10, 11 | - |
+| Chuẩn hoá | Nielsen 3 Kiểm soát và tự do | Vi phạm còn mở | Đặc tả không có hoàn tác, huỷ vé đã xác nhận (UI-STT 38) | Chấp nhận, không thêm chức năng ngoài đặc tả (F7 Lưu ý) |
+| Chuẩn hoá | Nielsen 4 Nhất quán | Đạt | UI-STT 05, 06, 22, 47 | - |
+| Chuẩn hoá | Nielsen 5 Ngăn lỗi | Đạt | UI-STT 19, 37 | - |
+| Chuẩn hoá | Nielsen 6 Nhận biết thay vì nhớ lại | Đạt | UI-STT 39, 43, 44 (tóm tắt đơn ở mọi bước) | - |
+| Chuẩn hoá | Nielsen 7 Linh hoạt, hiệu quả | Đạt | UI-STT 25, 26 | - |
+| Chuẩn hoá | Nielsen 8 Thẩm mỹ, tối giản | Đạt | UI-STT 05, 14 (một nút chính) | - |
+| Chuẩn hoá | Nielsen 9 Nhận biết, chẩn đoán, khắc phục lỗi | Đạt | UI-STT 29, 30, 31 | - |
+| Chuẩn hoá | Nielsen 10 Trợ giúp | Vi phạm còn mở | UI-STT 32: không có trang trợ giúp vì đặc tả không có | Chấp nhận, trợ giúp theo ngữ cảnh thay thế |
+| Chuẩn hoá | Shneiderman: nhất quán; khả dụng cho mọi người; phản hồi đầy đủ; có điểm kết thúc rõ; ngăn lỗi; hoàn tác; người dùng làm chủ; giảm tải trí nhớ | Đạt, trừ hoàn tác | UI-STT 05-09, 33-36, 27-28, 29, 37, 38, 47. Hoàn tác: Vi phạm còn mở (cùng Nielsen 3) | - |
+| Chuẩn hoá | WCAG 1.1.1, 1.3.1 | Đạt | UI-STT 34, 17, 18 | - |
+| Chuẩn hoá | WCAG 1.4.1 | Đạt | UI-STT 13, 39 | - |
+| Chuẩn hoá | WCAG 1.4.3, 1.4.11 | Đạt | UI-STT 12, 33 (tỉ lệ đã tính, cần đo lại) | - |
+| Chuẩn hoá | WCAG 1.4.4, 1.4.10 | Đạt | UI-STT 02, 35, 39 (sơ đồ ghế miễn reflow) | - |
+| Chuẩn hoá | WCAG 2.1.1, 2.4.3, 2.4.7, 2.4.11 | Đạt | UI-STT 21, 25, 26 | - |
+| Chuẩn hoá | WCAG 2.2.1 Giới hạn thời gian | Đạt | UI-STT 36, 43: giới hạn 10 phút là quy tắc nghiệp vụ không gia hạn được | - |
+| Chuẩn hoá | WCAG 2.4.6, 3.2.3, 3.2.4, 3.2.6 | Đạt | UI-STT 09, 22; 3.2.6 không áp dụng vì không có cơ chế trợ giúp | - |
+| Chuẩn hoá | WCAG 2.5.7 Thay thế thao tác kéo | Đạt | UI-STT 26 (không có thao tác kéo) | - |
+| Chuẩn hoá | WCAG 2.5.8 Vùng bấm | Đạt | UI-STT 15 (44 px) | - |
+| Chuẩn hoá | WCAG 3.3.1, 3.3.2, 3.3.3, 3.3.4, 3.3.7, 3.3.8 | Đạt | UI-STT 16, 19, 20, 31, 37, 46 | - |
+| Chuẩn hoá | WCAG 4.1.3 | Đạt | UI-STT 28, 40 | - |
+| Chuẩn hoá | Baymard (form, thanh toán) | Đạt | UI-STT 16, 19, 20, 44 | - |
+
+## Câu hỏi mở
+
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
+|---|---|---|---|
+| Q-119 | Khi khách tải lại trang, đóng tab hoặc không quay lại từ cổng thanh toán trong lúc còn lần giữ ghế (BR-04), khách mở lại lần giữ ghế đang chạy (để thanh toán, huỷ) và xem lại kết quả đặt vé bằng màn hình nào? (a) màn hình điều hướng của khách hiển thị lối vào "Tiếp tục thanh toán" khi có lần giữ ghế đang chạy; (b) chỉ có lịch sử đặt vé (UC-007); (c) không có, khách chờ hết hạn | SCR-02, SCR-05, SCR-06; UC-005; UC-007 | UC-005 chỉ mô tả luồng liền mạch, không nêu quay lại lần giữ ghế đang chạy; UC-007 chưa đặc tả |
+| Q-120 | Danh sách suất chiếu để khách và nhân viên quầy chọn ở UC-005 bước 1 do UC-004 (Tra cứu lịch chiếu, chưa đặc tả) hay do UC-005 cung cấp? Danh sách hiển thị những trường nào và có bộ lọc nào? | SCR-03, SCR-10; UC-004 | UC-005 bước 1 chỉ ghi "chọn một suất chiếu", không có bảng dữ liệu ra cho danh sách |
+| Q-121 | Danh sách vé khách mua trực tuyến để chọn huỷ ở UC-008 bước 1 là màn hình của UC-008 hay lấy từ UC-007 (Xem lịch sử đặt vé, chưa đặc tả)? Danh sách gồm những vé nào (mọi vé, chỉ vé chưa sử dụng và chưa huỷ, hay chỉ vé còn trong hạn huỷ)? | SCR-07; UC-007 | UC-008 bước 1 và Dữ liệu vào 1 STT 2 không nêu cách khách thấy danh sách vé |
+| Q-122 | Nhân viên đăng nhập bằng định danh nào (email, số điện thoại hay tên đăng nhập) và mật khẩu có quy định độ dài, ký tự? | SCR-01; UC-017; NFR-02 | NFR-02 chỉ nêu tài khoản do quản trị viên tạo; UC-017 chưa đặc tả; NFR-01 chỉ nêu định danh của khách |
+| Q-123 | Điểm khởi đầu của từng tác nhân: khách chưa đăng nhập mở ứng dụng vào màn hình nào (điều hướng hay đăng nhập), nhân viên mở ứng dụng vào màn hình đăng nhập, và có chức năng đăng xuất không? | Node Start của screen-transition.md; SCR-01, SCR-02; menu | Đăng nhập không là use case; P04 chỉ nêu tiền điều kiện đã đăng nhập; không nguồn nào nêu đăng xuất |
+| Q-124 | Độ dài tối đa của các trường nhập mà nguồn không nêu: mật khẩu, mã đặt vé (nhân viên quầy nhập ở UC-008 bước 1a1), giá vé (số chữ số; BR-70 không có giá trị tối đa)? | SCR-01, SCR-13, SCR-18 | UC-005 Dữ liệu vào 2 STT 2; UC-008 Dữ liệu vào 1 STT 1; UC-013 Dữ liệu vào 1 STT 5 không nêu độ dài |
+| Q-125 | Với vé mua tại quầy, vé đã được ghi nhận huỷ ở bước 4 trước khi nhân viên xác nhận hoàn tiền mặt (bước 5a2). Nếu nhân viên đóng trang hoặc mất kết nối ở màn hình hoàn tiền mặt thì ghế được trả về trống và khoản hoàn được ghi nhận khi nào, và nhân viên mở lại màn hình hoàn tiền bằng cách nào? | SCR-14, SCR-13; UC-008 | UC-008 luồng 5a và bước 7 không nêu trường hợp nhân viên không xác nhận |
+
+
+## Đề xuất sửa artifact trước
+
+| Bước | Mã phần tử | Vấn đề | Đề nghị |
+|---|---|---|---|
+| P10 | PKG-05, PKG-06, PKG-07, PKG-08 (F4), F3 | P10 chưa có phần tử View cho màn hình đăng nhập dùng chung và cho màn hình điều hướng của khách, nhân viên quầy, quản lý cụm rạp | Thêm DC-LoginView (package giao diện dùng chung hoặc PKG-05) và các View điều hướng DC-CustomerHomeView (PKG-05), DC-CounterHomeView (PKG-06), DC-CinemaAdminHomeView (PKG-08) |
+| P10 | PKG-05 (F3 dòng AC-B-BookTicketsForm) | Một boundary giao diện BookTicketsForm tách thành một View và một Store, nhưng sinh bốn màn hình (SCR-03 đến SCR-06) | Khi thiết kế P12, tách DC-BookTicketsView thành bốn component trang tương ứng SCR-03 đến SCR-06; không cần phần tử P10 mới ngoài việc đổi ghi chú |
+| P08 | AC-B-BookTicketsForm | Boundary không có trách nhiệm hiển thị đồng hồ đếm ngược thời gian giữ ghế và trang kết quả trạng thái thanh toán sau khi quay lại từ cổng | Thêm trách nhiệm showHoldCountdown (nhận thời điểm hết hạn của lần giữ ghế) và showPaymentOutcome (đọc trạng thái giao dịch) |
+
+## Vấn đề còn mở
+
+1. Nielsen 3, Nielsen 10 và Shneiderman 6 (hoàn tác) là vi phạm còn mở do phạm vi: đặc tả không có hoàn tác, trang trợ giúp. Không thêm chức năng ngoài đặc tả.
+2. Các tỉ lệ tương phản ở UI-STT 12 do AI tính, cần đo lại bằng công cụ khi lập trình.
+3. UC-001, UC-003, UC-004, UC-007, UC-010, UC-011, UC-012, UC-015, UC-016, UC-017 chưa có đặc tả P04 nên chưa có màn hình; lối vào của chúng ghi "Chưa có màn hình đích" ở màn hình điều hướng.
+4. UC-006 có tác nhân chính là cổng thanh toán nên không có màn hình; khách chỉ thấy kết quả qua email (BR-14) và qua MSG-14, MSG-30.
+5. Chưa lập mockup HTML (XUAT_HTML = Không).

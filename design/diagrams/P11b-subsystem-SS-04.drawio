@@ -1,0 +1,463 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="S04B1" name="Hộp đen - đăng ký và chạy công việc nền (UC-005 luồng 7b, 11a; UC-006 bước 4 đến 7; UC-008 bước 5, 6)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="580" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S04B1-L1" value=":ApplicationBootstrap" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="120" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-L2" value="«interface»&lt;br&gt;:IF-05 IJobScheduler" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-L3" value="«subsystem»&lt;br&gt;:Scheduler" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="120" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-L4" value="«interface»&lt;br&gt;:IF-06 IScheduledJob" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="40" width="120" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-F1" value="loop [với từng công việc trong bốn công việc nền]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="100" width="1140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-F2" value="loop [mỗi chu kỳ, đến khi stop]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="20" y="290" width="1140" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="S04B1-M1" value="1: registerJob(name, job, interval)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="150" as="sourcePoint" />
+            <mxPoint x="420" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M2" value="2: void" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="190" as="sourcePoint" />
+            <mxPoint x="100" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M3" value="3: start()" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="230" as="sourcePoint" />
+            <mxPoint x="420" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M4" value="4: void" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="270" as="sourcePoint" />
+            <mxPoint x="100" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M5" value="5: runDue(budget)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="340" as="sourcePoint" />
+            <mxPoint x="1060" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M6" value="6: JobRunResult" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1060" y="380" as="sourcePoint" />
+            <mxPoint x="740" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M7" value="7: stop(grace)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="100" y="420" as="sourcePoint" />
+            <mxPoint x="420" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04B1-M8" value="8: void" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="460" as="sourcePoint" />
+            <mxPoint x="100" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S04W1" name="Hộp trắng - start và vòng chạy một công việc">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="880" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S04W1" value="sd start" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=300;height=30;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="0" width="800" height="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-L1" value=":JobSchedulerManager" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-L2" value=":JobRegistry" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-L3" value=":JobLoop" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-L4" value="«interface»&lt;br&gt;:IF-06 IScheduledJob" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="680" y="40" width="120" height="950" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F1" value="alt [đã start]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="160" width="780" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F1-D1" value="[chưa start]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="240" as="sourcePoint" />
+            <mxPoint x="810" y="240" as="targetPoint" />
+            <mxPoint x="-341" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-F2" value="loop [với từng công việc]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="350" width="760" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F3" value="loop [mỗi interval, đến khi stop]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="460" width="780" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F4" value="alt [lượt trước chưa xong]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="540" width="760" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F4-D1" value="[rảnh]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="40" y="630" as="sourcePoint" />
+            <mxPoint x="800" y="630" as="targetPoint" />
+            <mxPoint x="-350" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-F5" value="alt [trả JobRunResult]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="740" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-F5-D1" value="[lỗi hoặc panic]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="50" y="780" as="sourcePoint" />
+            <mxPoint x="790" y="780" as="targetPoint" />
+            <mxPoint x="-308" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-G1" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="135" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-G2" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="205" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-G6" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="435" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W1-M1" value="1: start()" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="140" as="sourcePoint" />
+            <mxPoint x="260" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M2" value="2: SchedulerStateError" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="210" as="sourcePoint" />
+            <mxPoint x="20" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M3" value="3: registeredJobs()" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="290" as="sourcePoint" />
+            <mxPoint x="420" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M4" value="4: jobs" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="330" as="sourcePoint" />
+            <mxPoint x="260" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M5" value="5: run(name, job, interval)" style="endArrow=open;endFill=0;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="400" as="sourcePoint" />
+            <mxPoint x="580" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M6" value="6: void" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="440" as="sourcePoint" />
+            <mxPoint x="20" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M7" value="7: tryAcquireRunning()" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="510" as="sourcePoint" />
+            <mxPoint x="580" y="530" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="620" y="510" />
+              <mxPoint x="620" y="530" />
+            </Array>
+            <mxPoint x="121" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M8" value="8: skipCycle()" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="590" as="sourcePoint" />
+            <mxPoint x="580" y="610" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="620" y="590" />
+              <mxPoint x="620" y="610" />
+            </Array>
+            <mxPoint x="95" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M9" value="9: runDue(budget = 8&lt;br&gt;giây)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="680" as="sourcePoint" />
+            <mxPoint x="740" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M10" value="10: JobRunResult" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="750" as="sourcePoint" />
+            <mxPoint x="580" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M11" value="11: error" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="830" as="sourcePoint" />
+            <mxPoint x="580" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M12" value="12: recoverAndLog()" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="870" as="sourcePoint" />
+            <mxPoint x="580" y="890" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="620" y="870" />
+              <mxPoint x="620" y="890" />
+            </Array>
+            <mxPoint x="111" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W1-M13" value="13: releaseRunning()" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="920" as="sourcePoint" />
+            <mxPoint x="580" y="940" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="620" y="920" />
+              <mxPoint x="620" y="940" />
+            </Array>
+            <mxPoint x="115" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S04W2" name="Hộp trắng - stop">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="720" pageHeight="660" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S04W2" value="sd stop" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=0;collapsible=0;width=300;height=30;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="20" y="0" width="640" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-L1" value=":JobSchedulerManager" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-L2" value=":JobRegistry" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-L3" value=":JobLoop" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="120" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-F1" value="alt [xong trong grace]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="30" y="320" width="620" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-F1-D1" value="[quá grace]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="30" y="400" as="sourcePoint" />
+            <mxPoint x="650" y="400" as="targetPoint" />
+            <mxPoint x="-264" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-G1" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="135" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-G9" value="" style="ellipse;html=1;" vertex="1" parent="1">
+          <mxGeometry x="15" y="535" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="S04W2-M1" value="1: stop(grace)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="140" as="sourcePoint" />
+            <mxPoint x="260" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M2" value="2: runningLoops()" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="180" as="sourcePoint" />
+            <mxPoint x="420" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M3" value="3: loops" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="220" as="sourcePoint" />
+            <mxPoint x="260" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M4" value="4: requestStop()" style="endArrow=open;endFill=0;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="260" as="sourcePoint" />
+            <mxPoint x="580" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M5" value="5: awaitIdle(grace)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="300" as="sourcePoint" />
+            <mxPoint x="580" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M6" value="6: idle" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="370" as="sourcePoint" />
+            <mxPoint x="260" y="370" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M7" value="7: timeout" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="580" y="450" as="sourcePoint" />
+            <mxPoint x="260" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M8" value="8: logAbandonedJobs()" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="490" as="sourcePoint" />
+            <mxPoint x="260" y="510" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="300" y="490" />
+              <mxPoint x="300" y="510" />
+            </Array>
+            <mxPoint x="118" y="0" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S04W2-M9" value="9: void" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="540" as="sourcePoint" />
+            <mxPoint x="20" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S04C" name="Phần tử">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1790" pageHeight="400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IF-05" value="«interface»&lt;br&gt;IJobScheduler" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="5" y="62.5" width="250" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-05-b" value="+ registerJob()&lt;br&gt;+ start()&lt;br&gt;+ stop()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-05">
+          <mxGeometry y="40" width="250" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-06" value="«interface»&lt;br&gt;IScheduledJob" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1465" y="42.5" width="250" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-06-b" value="+ runDue()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-06">
+          <mxGeometry y="40" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="SS-04" value="«subsystem»&lt;br&gt;Scheduler" style="shape=component;html=1;container=1;collapsible=0;verticalAlign=top;fillColor=none;recursiveResize=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="0" width="1050" height="316" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobSchedulerManager" value="JobSchedulerManager" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-04">
+          <mxGeometry x="55" y="57" width="270" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobSchedulerManager-b" value="Điều phối IF-05&lt;br&gt;đăng ký, start, stop" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-JobSchedulerManager">
+          <mxGeometry y="26" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobRegistry" value="JobRegistry" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-04">
+          <mxGeometry x="405" y="57" width="270" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobRegistry-b" value="Danh sách công việc, vòng chạy" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-JobRegistry">
+          <mxGeometry y="26" width="250" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobLoop" value="JobLoop" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-04">
+          <mxGeometry x="765" y="57" width="270" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobLoop-b" value="Bộ đếm chu kỳ, cờ đang chạy&lt;br&gt;ngân sách 8 giây, bắt panic" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-JobLoop">
+          <mxGeometry y="26" width="250" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobRunResult" value="«value»&lt;br&gt;JobRunResult" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-04">
+          <mxGeometry x="55" y="200" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-JobRunResult-b" value="processedCount, hasMore" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-JobRunResult">
+          <mxGeometry y="40" width="270" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SchedulerStateError" value="«exception»&lt;br&gt;SchedulerStateError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-04">
+          <mxGeometry x="355" y="200" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SchedulerStateError-b" value="Đăng ký sau start,&lt;br&gt;start hai lần, tên trùng" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-SchedulerStateError">
+          <mxGeometry y="40" width="270" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="DC-JobSchedulerManager" target="IF-05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-02" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-JobSchedulerManager" target="DC-JobRegistry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-03" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=0.5;exitY=0;entryX=0.5;entryY=0;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-JobSchedulerManager" target="DC-JobLoop">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="42" />
+              <mxPoint x="1230" y="42" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C04-04" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamondThin;startFill=1;endArrow=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-JobRegistry" target="DC-JobLoop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-04-s" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="C04-04">
+          <mxGeometry x="-0.9" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-04-t" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="C04-04">
+          <mxGeometry x="0.7" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C04-05" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-JobLoop" target="IF-06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="S04D" name="Phụ thuộc">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="860" pageHeight="540" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BOOT" value="Hàm khởi động chương trình" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-05" value="IF-05 IJobScheduler" style="ellipse;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="340" y="20" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SS-04" value="«subsystem»&lt;br&gt;Scheduler" style="shape=component;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="0" width="220" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-06" value="IF-06 IScheduledJob" style="ellipse;html=1;verticalLabelPosition=bottom;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="340" y="180" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="PKG-13" value="PKG-13 SeatBooking" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="160" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PKG-14" value="PKG-14 PaymentRefund" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="280" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PKG-20" value="PKG-20 Notification" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="400" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;" edge="1" parent="1" source="BOOT" target="IF-05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-02" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="SS-04" target="IF-05">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-03" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;" edge="1" parent="1" source="SS-04" target="IF-06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-04" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="PKG-13" target="IF-06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-05" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="PKG-14" target="IF-06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="D04-06" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="PKG-20" target="IF-06">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
