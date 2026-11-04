@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P09 |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1 (Mục 2 đến 6, Câu hỏi mở); P08-analysis-model.md 1.1 (F1, F3, F4, F4b, F4c, Câu hỏi mở). Công nghệ do người dùng chốt trong yêu cầu chạy bước (xem F2.2) |
+| Phiên bản | 1.2 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1 (Mục 2 đến 6, Câu hỏi mở); P08-analysis-model.md 1.2 (F1, F3, F4, F4b, F4c, Câu hỏi mở). Công nghệ do người dùng chốt trong yêu cầu chạy bước (xem F2.2) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-115 (Q-111 đến Q-115 đã chốt theo đề xuất review, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
 
@@ -89,36 +89,37 @@ Node triển khai: Trình duyệt (khách, nhân viên) và Máy chủ ứng d�
 | PKG-02 | Application | - | Điều phối từng use case thành các thao tác không chia cắt | PKG-21, PKG-22, PKG-23, PKG-24, PKG-25, PKG-26, PKG-27, PKG-28 | UC-001 đến UC-017 |
 | PKG-03 | Services | - | Dịch vụ kỹ thuật: truy cập dữ liệu, hệ thống ngoài, sự kiện thời gian thực, hẹn giờ, bảo mật | PKG-27, PKG-28 | NFR-04 đến NFR-09, NFR-15 đến NFR-18 |
 | PKG-04 | Domain | - | Lớp miền và interface kho dữ liệu | PKG-27 | P08 F3 |
-| PKG-05 | CustomerWeb | PKG-01 | Giao diện của khách: tra cứu phim, lịch chiếu, đặt vé, huỷ vé, lịch sử đặt vé, đăng ký | - (node Trình duyệt) | ACT-01; UC-001, UC-003, UC-004, UC-005, UC-007, UC-008 |
-| PKG-06 | CounterWeb | PKG-01 | Giao diện của nhân viên quầy: bán vé, huỷ vé mua tại quầy | - (node Trình duyệt) | ACT-02; UC-005, UC-008 |
+| PKG-05 | CustomerWeb | PKG-01 | Giao diện của khách: tra cứu phim, lịch chiếu, đặt vé, huỷ vé, lịch sử đặt vé, đăng ký | PKG-29 (node Trình duyệt) | ACT-01; UC-001, UC-003, UC-004, UC-005, UC-007, UC-008 |
+| PKG-06 | CounterWeb | PKG-01 | Giao diện của nhân viên quầy: bán vé, huỷ vé mua tại quầy | PKG-29 (node Trình duyệt) | ACT-02; UC-005, UC-008 |
 | PKG-07 | CheckInWeb | PKG-01 | Giao diện soát vé trên điện thoại hoặc máy tính bảng, đọc mã QR bằng camera | - (node Trình duyệt) | ACT-03; UC-009; NFR-11, NFR-13 |
 | PKG-08 | CinemaAdminWeb | PKG-01 | Giao diện của quản lý cụm rạp: phòng chiếu, bảng giá, lịch suất chiếu, báo cáo cụm | - (node Trình duyệt) | ACT-04; UC-012, UC-013, UC-014, UC-015 |
 | PKG-09 | ChainAdminWeb | PKG-01 | Giao diện của quản lý chuỗi: phim, cụm rạp, báo cáo toàn chuỗi | - (node Trình duyệt) | ACT-05; chưa có lớp P08 (UC-010, UC-011, UC-016) |
 | PKG-10 | AccountAdminWeb | PKG-01 | Giao diện của quản trị viên: tài khoản nhân viên, cụm rạp, vai trò | - (node Trình duyệt) | ACT-06; chưa có lớp P08 (UC-017) |
 | PKG-11 | HttpApi | PKG-01 | Tiếp nhận yêu cầu REST và kết nối đẩy sơ đồ ghế của người dùng, kiểm tra đăng nhập, chuyển thành lời gọi Application | PKG-13, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-26 | NFR-06, NFR-08, NFR-09; node Máy chủ ứng dụng |
 | PKG-12 | PaymentCallbackApi | PKG-01 | Tiếp nhận callback của cổng thanh toán và chuyển cho Application | PKG-14 | ACT-07; NFR-16; node Máy chủ ứng dụng |
-| PKG-13 | SeatBooking | PKG-02 | Hiện thực giữ ghế, huỷ giữ ghế, xác nhận thu tiền mặt, hết hạn, giải phóng ghế, sơ đồ ghế và đăng ký nhận cập nhật | PKG-21, PKG-22, PKG-24, PKG-25, PKG-27, PKG-28 | UC-005; NFR-05, NFR-06, NFR-07 |
+| PKG-13 | SeatBooking | PKG-02 | Hiện thực giữ ghế, huỷ giữ ghế, xác nhận thu tiền mặt, hết hạn, giải phóng ghế, xoá seat_event cũ hơn 10 phút trong công việc hết hạn (qua IF-22), sơ đồ ghế và đăng ký nhận cập nhật | PKG-21, PKG-22, PKG-24, PKG-25, PKG-27, PKG-28 | UC-005; NFR-05, NFR-06, NFR-07 |
 | PKG-14 | PaymentRefund | PKG-02 | Xử lý báo kết quả giao dịch và hoàn tiền qua cổng, kể cả thanh toán trễ | PKG-21, PKG-22, PKG-25, PKG-27, PKG-28 | UC-005, UC-006; NFR-16, NFR-17 |
 | PKG-15 | TicketService | PKG-02 | Huỷ vé, soát vé, lịch sử đặt vé | PKG-14, PKG-21, PKG-27, PKG-28 | UC-007, UC-008, UC-009 |
 | PKG-16 | ScheduleAndPricing | PKG-02 | Quản lý bảng giá, suất chiếu, sơ đồ ghế phòng chiếu | PKG-21, PKG-27, PKG-28 | UC-012, UC-013, UC-014 |
 | PKG-17 | Catalog | PKG-02 | Tra cứu và quản lý phim, cụm rạp, lịch chiếu | PKG-21, PKG-27 | chưa có lớp P08 (UC-003, UC-004, UC-010, UC-011) |
 | PKG-18 | Reporting | PKG-02 | Báo cáo doanh thu và tỉ lệ lấp đầy | PKG-21, PKG-27, PKG-28 | chưa có lớp P08 (UC-015, UC-016) |
 | PKG-19 | AccountManagement | PKG-02 | Đăng ký khách, quản lý tài khoản nhân viên | PKG-21, PKG-26, PKG-27, PKG-28 | chưa có lớp P08 (UC-001, UC-017); NFR-01, NFR-02, NFR-03, NFR-12 |
-| PKG-20 | Notification | PKG-02 | Gửi email chứa vé và email hoàn tiền từ hàng đợi, thử lại, ghi log lỗi | PKG-21, PKG-23, PKG-25, PKG-28 | ACT-08; NFR-18, BR-89 |
-| PKG-21 | Persistence | PKG-03 | Hiện thực kho dữ liệu trên PostgreSQL: giao dịch, khoá dòng theo thứ tự hạng, ghi sự kiện đổi ghế vào bảng seat_event trong giao dịch, hàng đợi gửi, đọc sự kiện theo con trỏ cho PKG-24 | PKG-27, PKG-28 | NFR-04, NFR-05, NFR-06 |
+| PKG-20 | Notification | PKG-02 | Gửi email chứa vé và email hoàn tiền từ hàng đợi, thử lại, ghi log lỗi | PKG-21, PKG-23, PKG-25, PKG-27, PKG-28 | ACT-08; NFR-18, BR-89 |
+| PKG-21 | Persistence | PKG-03 | Hiện thực kho dữ liệu trên PostgreSQL: giao dịch, khoá dòng theo thứ tự hạng, ghi sự kiện đổi ghế vào bảng seat_event trong giao dịch, hàng đợi gửi, đọc sự kiện theo con trỏ cho PKG-24 và dọn sự kiện cũ qua IF-22 ISeatEventStore do PKG-21 định nghĩa | PKG-27, PKG-28 | NFR-04, NFR-05, NFR-06 |
 | PKG-22 | PaymentGatewayClient | PKG-03 | Che cổng thanh toán sau interface: ký URL thanh toán (không gọi mạng với VNPay), hoàn tiền, tra cứu giao dịch, kiểm tra chữ ký và dịch kết quả xử lý thành câu trả lời IPN của cổng | - | ACT-07; NFR-15, NFR-16, NFR-17 |
 | PKG-23 | EmailGatewayClient | PKG-03 | Che dịch vụ email SMTP sau interface | - | ACT-08; NFR-18 |
-| PKG-24 | SeatEventHub | PKG-03 | Đọc bảng seat_event theo con trỏ (qua PKG-21) mỗi 500 ms và phát sự kiện đổi ghế tới các kết nối đẩy của bản backend này, phát lại từ con trỏ khi nối lại | PKG-21, PKG-28 | NFR-08, NFR-09 |
-| PKG-25 | Scheduler | PKG-03 | Chạy định kỳ các công việc nền đã đăng ký, định nghĩa interface công việc cho Application hiện thực | - | NFR-07, BR-89, BR-41 |
+| PKG-24 | SeatEventHub | PKG-03 | Đọc bảng seat_event theo con trỏ (qua PKG-21) mỗi 500 ms và phát sự kiện đổi ghế tới các kết nối đẩy của bản backend này, phát lại từ con trỏ khi nối lại; interface đăng ký IF-04 theo mô hình kéo: subscribe trả luồng sự kiện, unsubscribe huỷ khi kết nối đóng, không có operation đẩy tới kết nối | PKG-21, PKG-28 | NFR-08, NFR-09 |
+| PKG-25 | Scheduler | PKG-03 | Chạy định kỳ các công việc nền đã đăng ký, định nghĩa interface công việc cho Application hiện thực; không giữ pool kết nối, pool nền thuộc PKG-21 | - | NFR-07, BR-89, BR-41 |
 | PKG-26 | Security | PKG-03 | Băm mật khẩu, cấp và kiểm tra mã phiên, kiểm tra vai trò | - | NFR-01, NFR-02, NFR-03, NFR-10 |
 | PKG-27 | CinemaOperations | PKG-04 | Lớp miền của cụm rạp, phòng chiếu, ghế, phim, suất chiếu, bảng giá, mục giá, quản lý cụm rạp, nhân viên soát vé và interface kho dữ liệu của chúng | - | P08 F3 (9 entity) |
 | PKG-28 | Ticketing | PKG-04 | Lớp miền của khách, nhân viên quầy, trạng thái ghế, lần giữ ghế, lần đặt, vé, giao dịch thanh toán, yêu cầu hoàn và interface kho dữ liệu của chúng | PKG-27 | P08 F3 (8 entity) |
+| PKG-29 | SeatMapClient | PKG-01 | Đồng bộ sơ đồ ghế phía trình duyệt dùng chung cho khách và quầy: kết nối đẩy, tải lại ảnh chụp, áp sự kiện theo từng ghế | - (node Trình duyệt) | NFR-08, NFR-09; UC-005 |
 
-Mã PKG tiếp theo cho P10: PKG-29.
+Mã PKG tiếp theo cho P10: PKG-30.
 
-Các thực thể kỹ thuật mà thiết kế dựa vào (seat_event, hàng đợi gửi, mã yêu cầu chống lặp, cột phiên bản sự kiện của trạng thái ghế) không thuộc Domain và không thêm lớp vào P08: chúng là kiểu nội bộ của PKG-21 Persistence, chỉ lộ ra ngoài qua interface do PKG-24 (đọc sự kiện, trả kiểu sự kiện đổi ghế của PKG-28) và PKG-25 (công việc đọc hàng đợi) định nghĩa.
+Các thực thể kỹ thuật mà thiết kế dựa vào (seat_event, hàng đợi gửi, mã yêu cầu chống lặp, cột phiên bản sự kiện của trạng thái ghế) không thuộc Domain và không thêm lớp vào P08: chúng là kiểu nội bộ của PKG-21 Persistence, chỉ lộ ra ngoài qua interface do PKG-21 định nghĩa (IF-22 ISeatEventStore: đọc sự kiện sau con trỏ, ảnh chụp, xoá sự kiện cũ; PKG-24 gọi qua E-44, kiểu sự kiện đổi ghế ở PKG-28) và interface do PKG-25 định nghĩa (công việc đọc hàng đợi).
 
-Ghi chú về Domain: entity của P08 gọi lẫn nhau (Showtime gọi SeatHold, Ticket, SeatStatus ở EX-13, EX-14; SeatStatus tham chiếu Showtime). Để không có vòng giữa PKG-27 và PKG-28, PKG-27 định nghĩa interface (kiểm ghế đang giữ hoặc vé chưa huỷ của suất chiếu, tạo trạng thái ghế) và PKG-28 hiện thực chúng (realization đi từ PKG-28 tới interface ở PKG-27, cùng layer, không vòng). Customer và BoxOfficeClerk (trạng thái Tạm ở P08) đặt trong PKG-28 vì cùng tham gia kiểm BR-04 với SeatHold. P12 cụ thể hoá.
+Ghi chú về Domain: entity của P08 gọi lẫn nhau (Showtime gọi SeatHold, Ticket, SeatStatus ở EX-01, EX-13, EX-14; SeatStatus tham chiếu Showtime). Để không có vòng giữa PKG-27 và PKG-28, Showtime và Auditorium chỉ giữ phần kiểm tra và chốt giá; việc tạo SeatHold, giữ, tạo và giải phóng SeatStatus, kiểm SeatHold và vé do lớp dịch vụ ở Application điều phối trong cùng giao dịch và cùng chuỗi khoá (P08 F4b), nên PKG-27 không gọi PKG-28 và không cần interface riêng cho các việc này. PKG-27 chỉ định nghĩa thêm interface giao dịch IF-08 IUnitOfWork cho Application. Customer và BoxOfficeClerk (trạng thái Tạm ở P08) đặt trong PKG-28 vì cùng tham gia kiểm BR-04 với SeatHold. P12 cụ thể hoá.
 
 Công việc nền gọi lên Application (callback ngược): PKG-25 Scheduler định nghĩa interface công việc; PKG-13, PKG-14, PKG-20 hiện thực (realization đi xuống từ Application tới Services). Việc đăng ký hiện thực vào Scheduler làm ở hàm khởi động chương trình, ngoài các package.
 
@@ -149,6 +150,7 @@ Controller của giao diện (REST controller ở PKG-11, PKG-12) khác lớp co
 |---|---|---|
 | PKG-11 --> PKG-13, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19 | Có | Presentation --> Application |
 | PKG-11 --> PKG-26 | Có | Ngoại lệ cho phép: kiểm tra mã phiên |
+| PKG-05, PKG-06 --> PKG-29 | Có | Cùng layer, một chiều; PKG-29 dùng chung cho hai tác nhân nên không gộp vào một package giao diện |
 | PKG-12 --> PKG-14 | Có | Presentation --> Application |
 | PKG-13 --> PKG-21, PKG-22, PKG-24, PKG-25, PKG-27, PKG-28 | Có | Application --> Services, Domain (nới lỏng); PKG-25 là realization đi xuống |
 | PKG-14 --> PKG-21, PKG-22, PKG-25, PKG-27, PKG-28 | Có | như trên |
@@ -158,11 +160,11 @@ Controller của giao diện (REST controller ở PKG-11, PKG-12) khác lớp co
 | PKG-17 --> PKG-21, PKG-27 | Có | như trên |
 | PKG-18 --> PKG-21, PKG-27, PKG-28 | Có | như trên |
 | PKG-19 --> PKG-21, PKG-26, PKG-27, PKG-28 | Có | như trên |
-| PKG-20 --> PKG-21, PKG-23, PKG-25, PKG-28 | Có | như trên; PKG-25 là realization đi xuống |
+| PKG-20 --> PKG-21, PKG-23, PKG-25, PKG-27, PKG-28 | Có | như trên; PKG-25 là realization đi xuống |
 | PKG-21 --> PKG-27, PKG-28 | Có | Services --> Domain (hiện thực interface kho dữ liệu) |
 | PKG-24 --> PKG-21 | Có | Cùng layer, một chiều (đọc seat_event); PKG-21 không phụ thuộc PKG-24 |
 | PKG-24 --> PKG-28 | Có | Services --> Domain (kiểu sự kiện đổi ghế) |
-| PKG-28 --> PKG-27 | Có | Cùng layer, một chiều; PKG-27 không phụ thuộc PKG-28 (dùng interface do PKG-28 hiện thực) |
+| PKG-28 --> PKG-27 | Có | Cùng layer, một chiều; PKG-27 không phụ thuộc PKG-28 (PKG-28 tham chiếu Showtime, Seat của PKG-27) |
 
 ## F7. Định hướng giao tiếp ngoài và dữ liệu
 
@@ -382,6 +384,7 @@ a) Bảng Node
 | PKG-26 | Package | Security | - | PKG-03 | |
 | PKG-27 | Package | CinemaOperations | - | PKG-04 | |
 | PKG-28 | Package | Ticketing | - | PKG-04 | |
+| PKG-29 | Package | SeatMapClient | - | PKG-01 | Trình duyệt |
 
 b) Bảng Edge. Loại Dependency (mũi tên nét đứt đầu mở). Cạnh có nhãn «realize» là realization (nét đứt, đầu tam giác rỗng) đi xuống tới interface.
 
@@ -431,8 +434,11 @@ b) Bảng Edge. Loại Dependency (mũi tên nét đứt đầu mở). Cạnh c�
 | E-42 | PKG-24 | PKG-28 | Dependency | - | |
 | E-43 | PKG-28 | PKG-27 | Dependency | - | Cùng layer, một chiều |
 | E-44 | PKG-24 | PKG-21 | Dependency | - | Cùng layer, một chiều; đọc seat_event |
+| E-45 | PKG-05 | PKG-29 | Dependency | - | Cùng layer, một chiều; đồng bộ sơ đồ ghế |
+| E-46 | PKG-06 | PKG-29 | Dependency | - | Cùng layer, một chiều; đồng bộ sơ đồ ghế |
+| E-47 | PKG-20 | PKG-27 | Dependency | - | Dựng nội dung email từ lớp miền |
 
-Không có cạnh đi lên. Ba cạnh Realization (E-12, E-17, E-38) và E-43 là các chỗ dùng interface đảo phụ thuộc (A5); E-44 là phụ thuộc một chiều cùng layer.
+Không có cạnh đi lên. Ba cạnh Realization (E-12, E-17, E-38) và E-43 là các chỗ dùng interface đảo phụ thuộc (A5); E-44, E-45, E-46 là phụ thuộc một chiều cùng layer.
 
 ## F10. Deployment diagram
 
@@ -440,14 +446,14 @@ File diagrams/P09-deployment.drawio. Hệ thống có từ hai node thực thi.
 
 | ID | Loại | Nhãn | Artifact |
 |---|---|---|---|
-| N-01 | Node | Trình duyệt web (điện thoại, máy tính bảng, máy tính) | «artifact» Gói React SPA chung cho mọi vai trò (PKG-05 đến PKG-10) |
+| N-01 | Node | Trình duyệt web (điện thoại, máy tính bảng, máy tính) | «artifact» Gói React SPA chung cho mọi vai trò (PKG-05 đến PKG-10, PKG-29) |
 | N-02 | Node | Bộ cân bằng tải và máy chủ tệp tĩnh (kết thúc HTTPS) | «artifact» Gói React SPA dạng tệp tĩnh |
 | N-03 | Node | Máy chủ ứng dụng (2 bản giống nhau trong triển khai mẫu, mở rộng 1 đến N) | «artifact» Chương trình backend Go (PKG-11 đến PKG-26 và Domain PKG-27, PKG-28) |
 | N-04 | Node | Máy chủ cơ sở dữ liệu (1 node, không nhân bản) | «artifact» PostgreSQL 15 trở lên |
 | N-05 | Node | Cổng thanh toán VNPay (hệ thống ngoài, sandbox) | - |
 | N-06 | Node | Dịch vụ email SMTP (hệ thống ngoài) | - |
 
-Hai bản backend dùng chung một PostgreSQL (Q-112). Mọi package mà một package trong artifact N-03 phụ thuộc đều có trong N-03; các package PKG-05 đến PKG-10 không phụ thuộc package nào nên chỉ cần ở N-01.
+Hai bản backend dùng chung một PostgreSQL (Q-112). Mọi package mà một package trong artifact N-03 phụ thuộc đều có trong N-03; các package PKG-05 đến PKG-10 chỉ phụ thuộc PKG-29 (cùng ở N-01) nên chỉ cần ở N-01.
 
 | ID | Nguồn | Đích | Nhãn giao thức |
 |---|---|---|---|
@@ -509,4 +515,4 @@ Không có (chế độ NGHIEM_NGAT).
 5. Sơ đồ deployment không vẽ máy tính tại quầy và thiết bị soát vé riêng vì đều là trình duyệt web ở N-01 (P01 Mục 1).
 6. Chi tiết VNPay sandbox cần kiểm trên tài liệu hiện hành khi viết mã: số lần và khoảng cách gửi lại IPN, hành vi khi RspCode khác 00 và 02, API hoàn tiền có chống hoàn trùng không, API tra cứu giao dịch hoàn; cần địa chỉ công khai cho IPN khi chạy thử (dùng công cụ tạo đường hầm). Thiết kế đã chịu được cả hai khả năng (F7.6, F7.7).
 7. Khoản hoàn ở trạng thái Cần xử lý thủ công chỉ có truy vấn vận hành, không có use case hay màn hình (BR-41: xử lý thủ công ngoài hệ thống); nếu cần màn hình thì thuộc P02.
-8. 28 package là đúng cohesion theo nhóm chức năng cho tài liệu OOAD nhưng nhiều cho mã nguồn đồ án. Khi viết mã (P3) có thể gộp thành khoảng 10 package Go (seatbooking: PKG-13, 24; payment: PKG-14, 22, 12; ticket: PKG-15; catalog: PKG-16, 17, 18; account: PKG-19, 26; notify: PKG-20, 23; store: PKG-21; jobs: PKG-25; domain: PKG-27, 28; api: PKG-11) miễn không đảo hướng phụ thuộc; bảng ánh xạ này ghi ở P10 hoặc README mã nguồn, không đổi P09.
+8. 29 package là đúng cohesion theo nhóm chức năng cho tài liệu OOAD nhưng nhiều cho mã nguồn đồ án. Khi viết mã (P3) có thể gộp thành khoảng 10 package Go (seatbooking: PKG-13, 24; payment: PKG-14, 22, 12; ticket: PKG-15; catalog: PKG-16, 17, 18; account: PKG-19, 26; notify: PKG-20, 23; store: PKG-21; jobs: PKG-25; domain: PKG-27, 28; api: PKG-11) miễn không đảo hướng phụ thuộc; bảng ánh xạ này ghi ở P10 hoặc README mã nguồn, không đổi P09.
