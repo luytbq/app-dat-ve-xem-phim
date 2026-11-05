@@ -1,0 +1,241 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P13-erd-conceptual" name="P13 ER khái niệm">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5085" pageHeight="2460" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="E-Customer" value="Customer" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3640" y="2105" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="3825" y="2110" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Customer" target="AT-Customer-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-email" value="email" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3795" y="2190" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-email-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Customer" target="AT-Customer-email"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-phoneNumber" value="phoneNumber" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3685" y="2250" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-phoneNumber-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Customer" target="AT-Customer-phoneNumber"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-passwordHash" value="passwordHash" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3505" y="2220" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Customer-passwordHash-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Customer" target="AT-Customer-passwordHash"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-BoxOfficeClerk" value="BoxOfficeClerk" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2540" y="1435" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-BoxOfficeClerk-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="2695" y="1520" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-BoxOfficeClerk-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-BoxOfficeClerk" target="AT-BoxOfficeClerk-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-SeatHold" value="SeatHold" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3520" y="1455" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="3645" y="1570" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-holdRef" value="holdRef" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3425" y="1620" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-holdRef-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-holdRef"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-requestId" value="requestId" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3335" y="1420" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-requestId-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-requestId"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-status" value="status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3605" y="1330" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-status-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-status"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-holdTime" value="holdTime" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3335" y="1320" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-holdTime-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-holdTime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-expiryTime" value="expiryTime" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3245" y="1610" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatHold-expiryTime-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="AT-SeatHold-expiryTime"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3400" y="1600" /></Array></mxGeometry></mxCell>
+        <mxCell id="E-PaymentTransaction" value="PaymentTransaction" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4280" y="1555" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="4465" y="1560" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-code" value="code" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4435" y="1670" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-code-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-code"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-amount" value="amount" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4325" y="1730" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-amount-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-amount"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-status" value="status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4145" y="1700" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-status-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-status"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-gatewayTransactionNo" value="gatewayTransactionNo" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4095" y="1630" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-gatewayTransactionNo-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-gatewayTransactionNo"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-paidAt" value="paidAt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4095" y="1520" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-paidAt-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-paidAt"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-lateReason" value="lateReason" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4145" y="1450" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-lateReason-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-lateReason"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-refundedTotal" value="refundedTotal" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4325" y="1420" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-refundedTotal-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-refundedTotal"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-duplicateReportCount" value="duplicateReportCount" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4195" y="1830" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PaymentTransaction-duplicateReportCount-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="AT-PaymentTransaction-duplicateReportCount"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-RefundRequest" value="RefundRequest" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4570" y="1115" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="4755" y="1120" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-idempotencyKey" value="idempotencyKey" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4725" y="1200" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-idempotencyKey-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-idempotencyKey"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-requestType" value="requestType" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4615" y="1260" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-requestType-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-requestType"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-refundAmount" value="refundAmount" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4435" y="1230" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-refundAmount-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-refundAmount"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-attemptCount" value="attemptCount" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4385" y="1160" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-attemptCount-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-attemptCount"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-status" value="status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4385" y="1080" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-status-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-status"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-refundResult" value="refundResult" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4515" y="980" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-RefundRequest-refundResult-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-RefundRequest" target="AT-RefundRequest-refundResult"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-CinemaManager" value="CinemaManager" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1180" y="1235" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-CinemaManager-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="1355" y="1280" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-CinemaManager-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-CinemaManager" target="AT-CinemaManager-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Cinema" value="Cinema" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1720" y="1135" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Cinema-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="1905" y="1140" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Cinema-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="AT-Cinema-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Cinema-name" value="name" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1805" y="1270" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Cinema-name-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="AT-Cinema-name"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Showtime" value="Showtime" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3250" y="955" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="3435" y="960" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-startTime" value="startTime" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3405" y="1040" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-startTime-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-startTime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-saleOpenTime" value="saleOpenTime" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3085" y="1040" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-saleOpenTime-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-saleOpenTime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-endTime" value="endTime" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3055" y="960" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-endTime-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-endTime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-lastChangedAt" value="lastChangedAt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3115" y="850" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-lastChangedAt-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-lastChangedAt"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-movieFormat" value="movieFormat" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3185" y="770" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-movieFormat-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-movieFormat"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-status" value="status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3465" y="860" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-status-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-status"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-cinemaId" value="cinemaId" style="ellipse;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1"><mxGeometry x="2875" y="1040" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Showtime-cinemaId-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="AT-Showtime-cinemaId"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Booking" value="Booking" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4050" y="1245" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="4235" y="1250" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Booking" target="AT-Booking-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-bookingCode" value="bookingCode" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4205" y="1320" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-bookingCode-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Booking" target="AT-Booking-bookingCode"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-channel" value="channel" style="ellipse;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1"><mxGeometry x="4135" y="1380" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-channel-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Booking" target="AT-Booking-channel"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-buyerId" value="buyerId" style="ellipse;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1"><mxGeometry x="3955" y="1380" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Booking-buyerId-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Booking" target="AT-Booking-buyerId"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Ticket" value="Ticket" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4000" y="795" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="4185" y="800" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="AT-Ticket-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-ticketCode" value="ticketCode" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3945" y="940" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-ticketCode-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="AT-Ticket-ticketCode"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-price" value="price" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3835" y="880" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-price-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="AT-Ticket-price"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-status" value="status" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3815" y="760" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Ticket-status-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="AT-Ticket-status"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-TicketChecker" value="TicketChecker" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1360" y="1605" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-TicketChecker-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="1545" y="1610" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-TicketChecker-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-TicketChecker" target="AT-TicketChecker-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Auditorium" value="Auditorium" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2480" y="755" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="2665" y="760" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="AT-Auditorium-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-name" value="name" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2605" y="870" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-name-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="AT-Auditorium-name"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-auditoriumType" value="auditoriumType" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2425" y="900" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-auditoriumType-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="AT-Auditorium-auditoriumType"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-supportedFormats" value="supportedFormats" style="shape=doubleEllipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2285" y="760" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Auditorium-supportedFormats-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="AT-Auditorium-supportedFormats"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-SeatStatus" value="SeatStatus" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3570" y="685" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatStatus-state" value="state" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3375" y="690" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatStatus-state-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatStatus" target="AT-SeatStatus-state"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatStatus-heldPrice" value="heldPrice" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3515" y="550" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-SeatStatus-heldPrice-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatStatus" target="AT-SeatStatus-heldPrice"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Seat" value="Seat" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2960" y="375" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="3145" y="380" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Seat" target="AT-Seat-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-rowCode" value="rowCode" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3085" y="490" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-rowCode-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Seat" target="AT-Seat-rowCode"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-seatNumber" value="seatNumber" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2905" y="520" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-seatNumber-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Seat" target="AT-Seat-seatNumber"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-seatType" value="seatType" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2765" y="380" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Seat-seatType-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Seat" target="AT-Seat-seatType"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-Movie" value="Movie" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3100" y="1425" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-id" value="id" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;" vertex="1" parent="1"><mxGeometry x="3095" y="1610" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-id-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-id"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-title" value="title" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2905" y="1430" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-title-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-title"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-releaseFormats" value="releaseFormats" style="shape=doubleEllipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2935" y="1360" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-releaseFormats-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-releaseFormats"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-durationMinutes" value="durationMinutes" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3005" y="1300" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-durationMinutes-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-durationMinutes"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-releaseDate" value="releaseDate" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2725" y="1350" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-releaseDate-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-releaseDate"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-endOfRunDate" value="endOfRunDate" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3175" y="1700" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-Movie-endOfRunDate-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Movie" target="AT-Movie-endOfRunDate"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3235" y="1600" /><mxPoint x="3235" y="1660" /></Array></mxGeometry></mxCell>
+        <mxCell id="E-PriceList" value="PriceList" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="970" y="825" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceList-entryChangeTimes" value="entryChangeTimes" style="ellipse;whiteSpace=wrap;html=1;dashed=1;" vertex="1" parent="1"><mxGeometry x="1155" y="830" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceList-entryChangeTimes-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceList" target="AT-PriceList-entryChangeTimes"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="E-PriceEntry" value="PriceEntry" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="440" y="665" width="120" height="50" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-auditoriumType" value="auditoriumType" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;dashed=1;" vertex="1" parent="1"><mxGeometry x="625" y="670" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-auditoriumType-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-auditoriumType"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-movieFormat" value="movieFormat" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;dashed=1;" vertex="1" parent="1"><mxGeometry x="525" y="800" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-movieFormat-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-movieFormat"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-seatType" value="seatType" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;dashed=1;" vertex="1" parent="1"><mxGeometry x="345" y="800" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-seatType-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-seatType"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-timeBand" value="timeBand" style="ellipse;whiteSpace=wrap;html=1;fontStyle=4;dashed=1;" vertex="1" parent="1"><mxGeometry x="275" y="740" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-timeBand-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-timeBand"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-ticketPrice" value="ticketPrice" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="245" y="670" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-ticketPrice-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-ticketPrice"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-lastChangedAt" value="lastChangedAt" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="275" y="600" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-lastChangedAt-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-lastChangedAt"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-removed" value="removed" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="345" y="540" width="130" height="40" as="geometry" /></mxCell>
+        <mxCell id="AT-PriceEntry-removed-edge" value="" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceEntry" target="AT-PriceEntry-removed"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-01" value="gồm" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2095" y="910" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-01-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="ER-01"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-01-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-01" target="E-Auditorium"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-02" value="gồm" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2695" y="500" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-02-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="ER-02"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-02-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-02" target="E-Seat"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-03" value="có" style="rhombus;double=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1345" y="960" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-03-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="ER-03"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-03-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-03" target="E-PriceList"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-04" value="gồm" style="rhombus;double=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="695" y="730" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-04-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PriceList" target="ER-04"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-04-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-04" target="E-PriceEntry"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-05" value="tổ chức" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2865" y="840" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-05-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Auditorium" target="ER-05"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-05-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-05" target="E-Showtime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-06" value="chiếu" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3145" y="1190" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-06-A" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="ER-06"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-06-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-06" target="E-Movie"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-07" value="gồm" style="rhombus;double=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3395" y="750" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-07-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="ER-07"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-07-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-07" target="E-SeatStatus"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-08" value="có tình trạng" style="rhombus;double=1;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3295" y="460" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-08-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Seat" target="ER-08"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-08-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-08" target="E-SeatStatus"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-09" value="nhận" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3395" y="1220" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-09-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Showtime" target="ER-09"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-09-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-09" target="E-SeatHold"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-10" value="giữ ghế" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3595" y="1830" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-10-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Customer" target="ER-10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-10-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-10" target="E-SeatHold"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-11" value="giữ ghế" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3025" y="1490" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-11-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-BoxOfficeClerk" target="ER-11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-11-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-11" target="E-SeatHold"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-12" value="phát sinh" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3925" y="1550" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-12-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="ER-12"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-12-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-12" target="E-PaymentTransaction"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-13" value="dẫn tới" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3825" y="1390" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-13-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="ER-13"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-13-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-13" target="E-Booking"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-14" value="gồm" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4125" y="1000" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-14-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Booking" target="ER-14"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-14-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-14" target="E-Ticket"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-15" value="đã chiếm" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3835" y="680" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-15-A" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="ER-15"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-15-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-15" target="E-SeatStatus"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-16" value="thuộc" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3645" y="860" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-16-A" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="ER-16"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-16-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-16" target="E-Showtime"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-17" value="đang giữ" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3575" y="1070" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-17-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-SeatHold" target="ER-17"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-17-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-17" target="E-SeatStatus"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-18" value="đang chiếm" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="3855" y="600" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-18-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="ER-18"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-18-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-18" target="E-SeatStatus"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-19" value="sinh ra" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4525" y="1370" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-19-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-PaymentTransaction" target="ER-19"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-19-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-19" target="E-RefundRequest"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-20" value="được hoàn bởi" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="4355" y="900" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-20-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Ticket" target="ER-20"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-20-B" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-20" target="E-RefundRequest"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-21" value="tuyển" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="2125" y="1300" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-21-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="ER-21"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-21-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-21" target="E-BoxOfficeClerk"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-22" value="tuyển" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1545" y="1370" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-22-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="ER-22"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-22-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-22" target="E-TicketChecker"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-23" value="tuyển" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1435" y="1170" width="90" height="60" as="geometry" /></mxCell>
+        <mxCell id="ER-23-A" value="1" style="endArrow=none;html=1;" edge="1" parent="1" source="E-Cinema" target="ER-23"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ER-23-B" value="N" style="endArrow=none;html=1;" edge="1" parent="1" source="ER-23" target="E-CinemaManager"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="NOTE-xor" value="{xor}" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1"><mxGeometry x="3310" y="1550" width="80" height="40" as="geometry" /></mxCell>
+        <mxCell id="NOTE-xor-A" value="" style="endArrow=none;html=1;dashed=1;" edge="1" parent="1" source="NOTE-xor" target="ER-10"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3385" y="1600" /><mxPoint x="3415" y="1670" /></Array></mxGeometry></mxCell>
+        <mxCell id="NOTE-xor-B" value="" style="endArrow=none;html=1;dashed=1;" edge="1" parent="1" source="NOTE-xor" target="ER-11"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
