@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-008 1.4 (bước 7, 8, Dữ liệu ra 1, luồng 5c, 6b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-008 1.5 (bước 7, 8, Dữ liệu ra 1, luồng 5c, 6b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-08 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -61,8 +61,8 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | Mục (Item name) | Số ký tự tối đa | Kiểu | Thuộc tính trường | Ràng buộc dữ liệu | Ghi chú | Nguồn |
 |---|---|---|---|---|---|---|
 | Vé đã huỷ | - | Chữ | Hiển thị | Mã đặt vé, phim, cụm rạp, phòng chiếu, ngày giờ bắt đầu dd/MM/yyyy HH:mm, vị trí ghế | - | UC-008 Dữ liệu ra 1 STT 1 |
-| Giá vé | Q-124 | Tiền | Hiển thị, căn phải | Giá ghi trên vé | - | UC-008 Dữ liệu ra 1 STT 2 |
-| Số tiền hoàn | Q-124 | Tiền | Hiển thị, căn phải | 70% giá vé, làm tròn xuống đồng (BR-19, BR-31) | Ví dụ 84.000 đ = 70% x 120.000 đ | UC-008 Dữ liệu ra 1 STT 3 |
+| Giá vé | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Giá ghi trên vé | - | UC-008 Dữ liệu ra 1 STT 2 |
+| Số tiền hoàn | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | 70% giá vé, làm tròn xuống đồng (BR-19, BR-31) | Ví dụ 84.000 đ = 70% x 120.000 đ | UC-008 Dữ liệu ra 1 STT 3 |
 | Hình thức hoàn tiền | - | Lựa chọn | Hiển thị | Qua cổng thanh toán (vé mua trực tuyến) | - | UC-008 Dữ liệu ra 1 STT 4; BR-20 |
 | Tình trạng hoàn tiền | - | Lựa chọn | Hiển thị | Đã hoàn, hoặc chưa hoàn được và xử lý thủ công (BR-41) | Có biểu tượng và chữ | UC-008 Dữ liệu ra 1 STT 5; GL-56 |
 

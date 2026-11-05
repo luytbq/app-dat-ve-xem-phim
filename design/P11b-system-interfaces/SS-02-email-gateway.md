@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (ACT-08); P04-uc-specs UC-005 1.8 (bước 14, BR-89), UC-006 1.5 (bước 7, BR-89); P06-supplementary-spec.md 1.1 (NFR-18); P07-uc-analysis UC-005 1.1, UC-006 (message tới EmailService); P08-analysis-model.md 1.2 (AC-B-EmailService); P09-architecture.md 1.2 (F4, F6, F7.1, F7.7); P10-design-elements.md 1.1 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (ACT-08); P04-uc-specs UC-005 1.9 (bước 14, BR-89), UC-006 1.6 (bước 7, BR-89); P06-supplementary-spec.md 1.2 (NFR-18); P07-uc-analysis UC-005 1.1, UC-006 (message tới EmailService); P08-analysis-model.md 1.2 (AC-B-EmailService); P09-architecture.md 1.3 (F4, F6, F7.1, F7.7); P10-design-elements.md 1.1 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-02 EmailGateway (IF-03) |
-| Mã Q, ASM cuối đã cấp | Ghi ở file chung (mã tạm Q-126 đến Q-131) |
+| Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 
 Nhà cung cấp SMTP chưa được chọn (project-profile.md chỉ ghi "Dịch vụ gửi email (SMTP)"), nên mọi tham số kết nối nằm ở cấu hình và các điểm cần kiểm khi viết mã ghi ở V-17 trong file chung.
 

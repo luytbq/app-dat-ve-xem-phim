@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.8 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; UC-006-refund-late-payment.md 1.5, UC-008-cancel-ticket.md 1.4, UC-014-schedule-showtimes.md 1.3, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
+| Phiên bản | 1.9 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; UC-006-refund-late-payment.md 1.6, UC-008-cancel-ticket.md 1.5, UC-014-schedule-showtimes.md 1.3, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
 | Phạm vi | UC-005 |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
 
@@ -69,7 +69,7 @@
 | 9a3 | | Hệ thống | Tạo một mã đặt vé cho lần đặt và cho mỗi ghế một vé có mã QR riêng. | |
 | 9a4 | | Hệ thống | Hiển thị mã đặt vé và các vé để in (xem Dữ liệu ra 3). | |
 | 9a5 | | Nhân viên quầy | In vé cho khách mua tại quầy. | Kết thúc use case (thành công) |
-| 10a | Cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch (BR-90) | Hệ thống | Giữ nguyên lần giữ ghế và thông báo chưa tạo được thanh toán; thời điểm hết hạn giữ ghế không đổi, tới thời điểm đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b. | Quay lại bước 9 |
+| 10a | Cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch (BR-90); với cổng chỉ nhận địa chỉ thanh toán đã ký, không có lời gọi mạng khi tạo giao dịch nên luồng này xảy ra khi hệ thống lỗi trước lúc chuyển khách sang cổng | Hệ thống | Giữ nguyên lần giữ ghế và thông báo chưa tạo được thanh toán; thời điểm hết hạn giữ ghế không đổi, tới thời điểm đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b. | Quay lại bước 9 |
 | 11a | Cổng thanh toán báo giao dịch thanh toán thất bại | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống và thông báo thanh toán không thành công. Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 | *a | Tại bất kỳ bước nào từ bước 8 đến trước bước 11, khách hoặc nhân viên quầy huỷ việc giữ ghế | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống. Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 
@@ -149,7 +149,7 @@ Dữ liệu ra 3 (bước 15, bước 9a4)
 | BR-85 | Các báo kết quả thanh toán của cổng thanh toán và mọi thao tác làm đổi trạng thái của cùng một lần giữ ghế (hết hạn, khách huỷ giữ ghế, báo thành công, báo thất bại, xác nhận đã thu tiền của nhân viên quầy) được xử lý tuần tự, khoá theo lần giữ ghế; mỗi thao tác thấy trạng thái do thao tác trước để lại. | Ràng buộc | 7, 7b, 9a1a, 11, 11a, 12, *a | REQ-160; REQ-35, REQ-36, REQ-109, REQ-110, REQ-134 (phụ) | Đã có |
 | BR-86 | Lần giữ ghế đã ở trạng thái cuối (Đã hoàn tất, Hết hạn, Đã huỷ, Thanh toán thất bại) thì trạng thái không thể thay đổi nữa; báo kết quả thanh toán đến sau được xử lý theo trạng thái cuối đó: báo thành công của giao dịch chưa xử lý được hoàn toàn bộ như thanh toán đến trễ (UC-006), báo của giao dịch đã xử lý là báo trùng, báo thất bại chỉ được ghi nhận. | Ràng buộc | 7b, 11a, *a, 12 | REQ-161; REQ-35, REQ-109, REQ-110, REQ-133 (phụ) | Đã có |
 | BR-89 | Khi dịch vụ email từ chối hoặc không phản hồi lúc gửi email chứa vé hoặc email thông báo hoàn tiền, vé và khoản hoàn giữ nguyên hiệu lực; hệ thống thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không huỷ vé và không hoàn tiền thêm. | Kích hoạt hành động | 14 | REQ-157; REQ-31, REQ-90 (phụ) | Đã có |
-| BR-90 | Khi cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch, hệ thống giữ nguyên lần giữ ghế và báo khách chưa tạo được thanh toán; khách thử lại được tới thời điểm hết hạn giữ ghế, tới lúc đó ghế được giải phóng theo UC-005 luồng 7b. | Kích hoạt hành động | 10, 10a | REQ-158; REQ-136 (phụ) | Đã có |
+| BR-90 | Khi cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch, hệ thống giữ nguyên lần giữ ghế và báo khách chưa tạo được thanh toán; khách thử lại được tới thời điểm hết hạn giữ ghế, tới lúc đó ghế được giải phóng theo UC-005 luồng 7b. Với cổng chỉ nhận địa chỉ thanh toán đã ký, quy tắc này chỉ áp dụng khi hệ thống lỗi trước lúc chuyển khách sang cổng. | Kích hoạt hành động | 10, 10a | REQ-158; REQ-136 (phụ) | Đã có |
 
 ## 7. Yêu cầu đặc biệt
 

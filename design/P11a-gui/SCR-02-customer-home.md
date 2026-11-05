@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P01-actors.md; P02-usecases.md; P04 UC-005 1.8, UC-008 1.4; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P01-actors.md; P02-usecases.md; P04 UC-005 1.9, UC-008 1.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-02 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -20,7 +20,7 @@
 | DC | Chưa có (điều hướng) |
 | Loại màn hình | Độc lập |
 | Đến từ | START-ACT-01 (E-01), SCR-01 (E-06), SCR-04 (E-16), SCR-05 (E-19); menu của mọi màn hình khách |
-| Đi tới | SCR-03 (E-10), SCR-07 (E-11), SCR-01 (E-12) |
+| Đi tới | SCR-03 (E-10), SCR-07 (E-11), SCR-01 (E-12), SCR-05 (E-32) |
 
 ## c) Hình ảnh màn hình
 
@@ -30,7 +30,8 @@
 |------------------------------------------------------|
 | Trang chủ                                              |
 | [!] Đã hết thời gian giữ ghế. ...  (vùng thông điệp)   |
-|                                                        |
+| (i) Bạn đang giữ ghế cho Phim A lúc 19:30 ngày 15/11,   |
+|     còn 08:42            [ Tiếp tục thanh toán ]       |
 | +--------------------+  +--------------------+         |
 | | Đặt vé             |  | Huỷ vé             |         |
 | | Chọn suất chiếu,   |  | Huỷ vé đã mua      |         |
@@ -45,6 +46,7 @@
 |---|---|---|---|
 | Đầu trang | Tên ứng dụng, Trang chủ (đang chọn), Đăng nhập khi chưa có phiên | Trên cùng | UI-STT 22 |
 | Thông điệp | Kết quả use case vừa kết thúc hoặc bị từ chối | Dưới tiêu đề | UI-STT 29, 47 |
+| Dải giữ ghế | MSG-80 kèm đồng hồ còn lại và nút Tiếp tục thanh toán; chỉ hiện khi có lần giữ ghế đang chạy | Dưới vùng thông điệp | UI-STT 47; Q-119 |
 | Nội dung | Thẻ lối vào use case; thẻ vô hiệu cho use case chưa có màn hình | Giữa | UI-STT 47 |
 
 Mockup HTML: Không có (XUAT_HTML = Không).
@@ -58,6 +60,8 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | 3 | Thẻ Huỷ vé | Liên kết | Nhấn | Khách đã có phiên: mở SCR-07. Chưa có phiên: mở SCR-01 dạng trang; đăng nhập xong về SCR-02, khách chọn lại Huỷ vé | UC-008 tiền điều kiện (REQ-12) |
 | 4 | Thẻ Đăng ký tài khoản, Tra cứu phim, Tra cứu lịch chiếu, Xem lịch sử đặt vé | Liên kết vô hiệu | Nhấn | Chưa có màn hình đích (UC-001, UC-003, UC-004, UC-007); thẻ hiện chữ "Chưa có" và không nhận tiêu điểm hoạt động | P02; UI-STT 47 |
 | 5 | Mục Đăng nhập (đầu trang) | Liên kết | Nhấn | Chỉ hiện khi chưa có phiên; mở SCR-01 dạng trang | UC-008 tiền điều kiện; Q-123 |
+| 6 | Dải giữ ghế | Dải thông tin | Khởi tạo | Hỏi máy chủ khách có lần giữ ghế đang chạy không (BR-04). Có: hiện MSG-80 kèm đồng hồ còn lại tính từ thời điểm hết hạn máy chủ trả về; về 00:00 thì dải biến mất và hiện MSG-14. Không có: không hiện dải | UC-005 luồng 5b, 7b, 7c; BR-04, BR-10; UI-STT 47; Q-119 |
+| 7 | Nút Tiếp tục thanh toán (trong dải) | Nút chính | Nhấn | Mở SCR-05, màn hình tự nạp lần giữ ghế đang chạy từ máy chủ | UC-005 bước 8; UI-STT 47; Q-119 |
 
 ## e) Định nghĩa thuộc tính trường
 
@@ -74,6 +78,7 @@ Không có trường nhập dữ liệu nghiệp vụ.
 | SCR | Tiêu chí | Kết quả | Bằng chứng | Cách xử lý |
 |---|---|---|---|---|
 | SCR-02 | Nielsen 1 Hiển thị trạng thái hệ thống | Vi phạm còn mở (do phạm vi) | Bốn lối vào UC-001, UC-003, UC-004, UC-007 chưa có màn hình đích | Chấp nhận, cập nhật khi các use case được đặc tả |
+| SCR-02 | Nielsen 3 Kiểm soát và tự do | Đạt | Dải Tiếp tục thanh toán cho khách mở lại lần giữ ghế đang chạy (Q-119) | - |
 | SCR-02 | Nielsen 8 Thẩm mỹ, tối giản | Đạt | Hai thẻ hoạt động, bốn thẻ vô hiệu gom một dòng | - |
 
 Các tiêu chí còn lại: Đạt theo ui-standards.md STT 05-09, 12-15, 21-24, 28-29, 33-35, 47.
@@ -98,4 +103,4 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-123.
 
 ## Vấn đề còn mở
 
-Q-119: khi có lần giữ ghế đang chạy, chưa có lối quay lại SCR-05 từ màn hình này.
+Q-119 đã trả lời theo đề xuất, chờ người dùng xác nhận.

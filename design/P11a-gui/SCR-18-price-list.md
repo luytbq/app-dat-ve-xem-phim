@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-013 1.2 (bước 1-6, luồng 1a, 4a, 5a, *a, Dữ liệu vào 1, 2, Dữ liệu ra 1, 2); P05 GL-01, GL-22, GL-33; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-013 1.2 (bước 1-6, luồng 1a, 4a, 5a, *a, Dữ liệu vào 1, 2, Dữ liệu ra 1, 2); P05 GL-01, GL-22, GL-33; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-18 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -76,16 +76,16 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | Định dạng phim | - | Lựa chọn | Chọn, bắt buộc | 2D hoặc 3D | - | UC-013 Dữ liệu vào 1 STT 2; BR-62 |
 | Loại ghế | - | Lựa chọn | Chọn, bắt buộc | Ghế thường, ghế VIP hoặc ghế đôi; giá ghế đôi là giá một vé | - | UC-013 Dữ liệu vào 1 STT 3 |
 | Khung giờ chiếu | - | Lựa chọn | Chọn, bắt buộc | Ngày thường trước 17 giờ; ngày thường từ 17 giờ; cuối tuần trước 17 giờ; cuối tuần từ 17 giờ (cuối tuần gồm Thứ Bảy, Chủ nhật) | - | UC-013 Dữ liệu vào 1 STT 4; BR-11, BR-12 |
-| Giá vé | Q-124 | Tiền | Nhập, bắt buộc, căn phải | Số nguyên đồng lớn hơn 0, không có giá trị tối đa | Nhập chữ số, bỏ dấu chấm và khoảng trắng khi gửi; ví dụ 120000 | UC-013 Dữ liệu vào 1 STT 5; BR-70; Q-124 |
+| Giá vé | 9 | Tiền | Nhập, bắt buộc, căn phải | Số nguyên đồng lớn hơn 0, tối đa 9 chữ số (dưới 1 tỉ đồng) | Nhập chữ số, bỏ dấu chấm và khoảng trắng khi gửi; ví dụ 120000 | UC-013 Dữ liệu vào 1 STT 5; BR-70; Q-124 (Thiết kế: 9 chữ số) |
 | Mục giá cần bỏ | - | Lựa chọn | Chọn, bắt buộc | Một mục giá của bảng giá cụm rạp mình | - | UC-013 Dữ liệu vào 2 STT 1; BR-61 |
-| Giá vé hiển thị trong bảng | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-013 Dữ liệu ra 1 STT 1, Dữ liệu ra 2 STT 1 |
+| Giá vé hiển thị trong bảng | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-013 Dữ liệu ra 1 STT 1, Dữ liệu ra 2 STT 1 |
 
 ## f) Kiểm tra dữ liệu nhập
 
 | Trường | Thời điểm kiểm tra | Kiểm tra | MSG khi lỗi |
 |---|---|---|---|
 | Bốn danh sách chọn | Rời trường; nhấn Lưu giá | Bắt buộc có giá trị | MSG-03 |
-| Giá vé | Rời trường; nhấn Lưu giá | Bắt buộc --> chữ số --> số nguyên lớn hơn 0 | MSG-03; MSG-51 |
+| Giá vé | Rời trường; nhấn Lưu giá | Bắt buộc --> chữ số --> số nguyên lớn hơn 0 và không quá 9 chữ số | MSG-03; MSG-51 |
 | Mục giá | Nhấn Lưu giá, Bỏ giá (hệ thống) | Chưa bị yêu cầu khác đổi --> không còn suất chiếu đang dùng khi bỏ | MSG-52; MSG-53 |
 
 ## g) Đánh giá chuẩn

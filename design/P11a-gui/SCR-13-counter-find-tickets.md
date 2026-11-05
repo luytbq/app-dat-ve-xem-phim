@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-008 1.4 (luồng 1a, 1a1-1a3, 2b, 2c, 3a, 4a, 4b, Dữ liệu vào 1, Dữ liệu ra 2); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-008 1.5 (luồng 1a, 1a1-1a3, 2b, 2c, 3a, 4a, 4b, Dữ liệu vào 1, Dữ liệu ra 2); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-13 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -57,16 +57,16 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | 3 | Nút Xem vé của mã đặt vé | Nút chính | Nhấn | Kiểm ô theo UI-STT 19, gửi mã. Không có mã: MSG-31, giữ mã đã nhập để sửa (quay lại bước 1a1). Có mã: hiện bảng các vé của lần đặt (vị trí ghế, giá vé, trạng thái vé) | UC-008 luồng 1a1, 1a1a, 1a2; MSG-03, MSG-31 |
 | 4 | Bảng vé của lần đặt | Bảng | Khởi tạo | Mỗi hàng: vị trí ghế, giá vé, trạng thái vé (chưa sử dụng, đã huỷ, đã sử dụng); hàng chưa huỷ có nút Huỷ vé | UC-008 Dữ liệu ra 2 STT 1 |
 | 5 | Nút Huỷ vé (mỗi hàng) | Nút phụ | Nhấn | Mở hộp xác nhận MSG-39 nêu số tiền mặt hoàn 70% giá vé | UC-008 luồng 1a3; BR-19, BR-20, BR-31; MSG-39 |
-| 6 | Nút Huỷ vé (hộp xác nhận) | Nút chính phá huỷ | Nhấn | Gửi yêu cầu huỷ, hiện MSG-78. Từ chối ở lại, tải lại bảng vé: vé mua trực tuyến MSG-33; vé của cụm rạp khác MSG-34; quá hạn huỷ MSG-35; vé đã huỷ MSG-36; vé đã sử dụng MSG-37. Thành công: mở SCR-14 với vé đã huỷ và số tiền mặt cần hoàn | UC-008 bước 2-4, 5a1, luồng 2b, 2c, 3a, 4a, 4b; BR-17, BR-18, BR-21, BR-30; MSG-33 đến MSG-37, MSG-78 |
+| 6 | Nút Huỷ vé (hộp xác nhận) | Nút chính phá huỷ | Nhấn | Gửi yêu cầu huỷ, hiện MSG-78 (chưa ghi nhận gì cho tới khi nhân viên xác nhận ở SCR-14). Từ chối ở lại, tải lại bảng vé: vé mua trực tuyến MSG-33; vé của cụm rạp khác MSG-34; quá hạn huỷ MSG-35; vé đã huỷ MSG-36; vé đã sử dụng MSG-37. Hợp lệ: mở SCR-14 với vé cần huỷ và số tiền mặt cần hoàn | UC-008 bước 2-4, 5a1, luồng 2b, 2c, 3a, 4a, 4b; BR-17, BR-18, BR-21, BR-30; MSG-33 đến MSG-37, MSG-78 |
 | 7 | Nút Giữ lại vé (hộp xác nhận) | Nút phụ | Nhấn | Đóng hộp, không thay đổi vé | UI-STT 37 |
 
 ## e) Định nghĩa thuộc tính trường
 
 | Mục (Item name) | Số ký tự tối đa | Kiểu | Thuộc tính trường | Ràng buộc dữ liệu | Ghi chú | Nguồn |
 |---|---|---|---|---|---|---|
-| Mã đặt vé | Q-124 | Chữ | Nhập, bắt buộc, căn trái | Trùng mã đặt vé của một lần đặt; duy nhất toàn hệ thống (BR-80) | Mã in trên vé; ví dụ CB0001234. Có thể gõ khoảng trắng đầu cuối, bỏ khi gửi | UC-008 Dữ liệu vào 1 STT 1; BR-80; Q-124 |
+| Mã đặt vé | 20 | Chữ | Nhập, bắt buộc, căn trái | Trùng mã đặt vé của một lần đặt; duy nhất toàn hệ thống (BR-80) | Mã in trên vé; ví dụ CB0001234. Có thể gõ khoảng trắng đầu cuối, bỏ khi gửi | UC-008 Dữ liệu vào 1 STT 1; BR-80; Q-124 (Thiết kế: 20 ký tự) |
 | Vị trí ghế | - | Chữ | Hiển thị | Mã hàng và số ghế | - | UC-008 Dữ liệu ra 2 STT 1 |
-| Giá vé | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-008 Dữ liệu ra 2 STT 1 |
+| Giá vé | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-008 Dữ liệu ra 2 STT 1 |
 | Trạng thái vé | - | Lựa chọn | Hiển thị | Chưa sử dụng, đã huỷ, đã sử dụng | Có chữ và biểu tượng | UC-008 Dữ liệu ra 2 STT 1 |
 | Vé cần huỷ | - | Lựa chọn | Chọn, bắt buộc | Một vé trong lần đặt, mua tại quầy của cụm rạp mình | - | UC-008 Dữ liệu vào 1 STT 2; BR-17 |
 
@@ -98,7 +98,7 @@ Không có.
 
 ## Câu hỏi mở
 
-Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-124, Q-125.
+Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-124, Q-125 (đã trả lời).
 
 ## Đề xuất sửa artifact trước
 
@@ -106,4 +106,4 @@ Không có.
 
 ## Vấn đề còn mở
 
-Độ dài mã đặt vé: Q-124.
+Không có.

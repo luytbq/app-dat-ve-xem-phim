@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-014 1.3 (bước 2-9, luồng 1a4, 4a-6c, 8a-8e, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-014 1.3 (bước 2-9, luồng 1a4, 4a-6c, 8a-8e, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-20 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 

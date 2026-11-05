@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-005 1.8 (luồng 5a, Dữ liệu vào 2), UC-008, UC-009, UC-013, UC-014 (tiền điều kiện); P06 NFR-01, NFR-02, NFR-03; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (luồng 5a, Dữ liệu vào 2), UC-008, UC-009, UC-013, UC-014 (tiền điều kiện); P06 NFR-01, NFR-02, NFR-03; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-01 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -66,8 +66,8 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 
 | Mục (Item name) | Số ký tự tối đa | Kiểu | Thuộc tính trường | Ràng buộc dữ liệu | Ghi chú | Nguồn |
 |---|---|---|---|---|---|---|
-| Email hoặc số điện thoại | 254 | Chữ | Nhập, bắt buộc, căn trái | Email theo định dạng chuẩn (BR-81) hoặc số điện thoại Việt Nam 10 chữ số bắt đầu bằng 0 (BR-82); trùng định danh một tài khoản (kiểm ở hệ thống) | Độ dài 254 là Thiết kế: độ dài tối đa địa chỉ email theo RFC 5321. Định danh của nhân viên: Q-122 | UC-005 Dữ liệu vào 2 STT 1; BR-81, BR-82; Q-122 |
-| Mật khẩu | Q-124 | Chữ | Nhập, bắt buộc, ẩn ký tự, căn trái | Khớp mật khẩu của tài khoản (kiểm ở hệ thống) | Không hiển thị mật khẩu khi chưa bấm Hiện mật khẩu | UC-005 Dữ liệu vào 2 STT 2; Q-124 |
+| Email hoặc số điện thoại | 254 | Chữ | Nhập, bắt buộc, căn trái | Email theo định dạng chuẩn (BR-81) hoặc số điện thoại Việt Nam 10 chữ số bắt đầu bằng 0 (BR-82); trùng định danh một tài khoản (kiểm ở hệ thống) | Độ dài 254 là Thiết kế: độ dài tối đa địa chỉ email theo RFC 5321. Nhân viên đăng nhập bằng email và mật khẩu như khách (Q-122) | UC-005 Dữ liệu vào 2 STT 1; BR-81, BR-82; Q-122 |
+| Mật khẩu | 64 | Chữ | Nhập, bắt buộc, ẩn ký tự, căn trái | Khớp mật khẩu của tài khoản (kiểm ở hệ thống) | Không hiển thị mật khẩu khi chưa bấm Hiện mật khẩu. Thiết kế: tối đa 64 ký tự (Q-124); mật khẩu tối thiểu 8 ký tự là quy tắc khi tạo mật khẩu (Q-122), không kiểm khi đăng nhập | UC-005 Dữ liệu vào 2 STT 2; Q-122; Q-124 |
 
 ## f) Kiểm tra dữ liệu nhập
 
@@ -98,7 +98,7 @@ Không có.
 
 ## Câu hỏi mở
 
-Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-122, Q-123, Q-124.
+Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-122, Q-123, Q-124, đã trả lời theo đề xuất review.
 
 ## Đề xuất sửa artifact trước
 
@@ -109,4 +109,4 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-122, Q-123, Q-
 
 ## Vấn đề còn mở
 
-Định danh của nhân viên và độ dài mật khẩu chưa có nguồn (Q-122, Q-124).
+Mật khẩu tối thiểu 8 ký tự được áp dụng khi UC-017 (tạo tài khoản) có đặc tả (Q-122).

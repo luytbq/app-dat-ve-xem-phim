@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1 (ACT-01 đến ACT-06); P04-uc-specs UC-005 1.8 (tiền điều kiện, bước 5, 5a2), UC-008 1.4, UC-009, UC-013, UC-014 (tiền điều kiện đã đăng nhập); P06-supplementary-spec.md 1.1 (NFR-01, NFR-02, NFR-03, NFR-10); P07-uc-analysis UC-005 1.1 (checkCustomerLoggedIn, authenticateCustomer); P09-architecture.md 1.2 (F4, F6, F7.8); P10-design-elements.md 1.1 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1 (ACT-01 đến ACT-06); P04-uc-specs UC-005 1.9 (tiền điều kiện, bước 5, 5a2), UC-008 1.5, UC-009, UC-013, UC-014 (tiền điều kiện đã đăng nhập); P06-supplementary-spec.md 1.2 (NFR-01, NFR-02, NFR-03, NFR-10); P07-uc-analysis UC-005 1.1 (checkCustomerLoggedIn, authenticateCustomer); P09-architecture.md 1.3 (F4, F6, F7.8); P10-design-elements.md 1.1 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-05 Security (IF-07) |
-| Mã Q, ASM cuối đã cấp | Ghi ở file chung (mã tạm Q-126 đến Q-131) |
+| Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 
 SS-05 là subsystem cắt ngang (A1): không message P07 nào của use case khác ngoài UC-005 gửi tới nó; chữ ký lấy từ P10 F2, cột UC ghi các use case có tiền điều kiện hoặc bước dựa vào nó. Đăng nhập không là use case (project-profile.md mục 4), nên việc đăng nhập chỉ xuất hiện như tiền điều kiện.
 
@@ -92,7 +92,7 @@ File diagrams/P11b-subsystem-SS-05.drawio, 6 trang: S05B1, S05B2 (hộp đen), S
 | 1 | Gate | :AuthenticatorManager | issueSession(subjectId, role, cinemaId) | Đồng bộ | - | IF-07; UC-005 luồng 5a2 |
 | 2 | :AuthenticatorManager | :AuthenticatorManager | validate(subjectId, role) | Tự gọi | - | subjectId không rỗng, role hợp lệ; vi phạm ném InvalidAuthRequestError |
 | 3 | :AuthenticatorManager | :SecurityConfig | sessionSettings() | Đồng bộ | - | - |
-| 4 | :SecurityConfig | :AuthenticatorManager | signingKey, lifetime | Trả về | - | Thời hạn phiên: Q-129 |
+| 4 | :SecurityConfig | :AuthenticatorManager | signingKey, lifetime | Trả về | - | Thời hạn phiên: khách 24 giờ, nhân viên 8 giờ, không tự gia hạn (Q-129) |
 | 5 | :AuthenticatorManager | :SessionTokenCodec | encode(claims, signingKey) | Đồng bộ | - | - |
 | 6 | :SessionTokenCodec | :SessionTokenCodec | sign(claims) | Tự gọi | - | Ký bằng khoá bí mật của máy chủ; thuật toán chọn khi viết mã |
 | 7 | :SessionTokenCodec | :AuthenticatorManager | token | Trả về | - | - |

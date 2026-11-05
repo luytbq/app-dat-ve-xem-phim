@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1; P04-uc-specs UC-005 1.8, UC-006 1.5, UC-008 1.4, UC-009, UC-013, UC-014 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.1 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006, UC-008 (message tới boundary hệ thống); P08-analysis-model.md 1.2; P09-architecture.md 1.2 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.1 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: mã tạm Q-126 trở đi (chạy song song với P11a, chưa gộp vào dãy Q toàn dự án) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1; P04-uc-specs UC-005 1.9, UC-006 1.6, UC-008 1.5, UC-009, UC-013, UC-014 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.2 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006, UC-008 (message tới boundary hệ thống); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.1 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
 | Phạm vi | Tất cả subsystem SS-01 đến SS-05 của P10 F2 (IF-01 đến IF-07) |
-| Mã Q, ASM cuối đã cấp | Q-131; không có ASM (NGHIEM_NGAT). Mã Q-P11B-xx cần đánh số lại vào dãy Q toàn dự án sau khi P11a và P11b cùng xong |
+| Mã Q, ASM cuối đã cấp | Q-132; không có ASM (NGHIEM_NGAT) |
 
 REST API giữa trình duyệt và máy chủ không thuộc P11b vì REST không phải subsystem của P10 F2. Phần giao tiếp trình duyệt với máy chủ mà P10 đã đặt thành subsystem là SS-03 (luồng sơ đồ ghế SSE có con trỏ sự kiện và Last-Event-ID, IF-04); điểm vào IPN của cổng thanh toán là DC-PaymentCallbackController (PKG-12) gọi IF-02 của SS-01.
 
@@ -14,11 +14,11 @@ REST API giữa trình duyệt và máy chủ không thuộc P11b vì REST khôn
 
 | SS | File | Phiên bản |
 |---|---|---|
-| SS-01 PaymentGateway | P11b-system-interfaces/SS-01-payment-gateway.md | 1.0 |
-| SS-02 EmailGateway | P11b-system-interfaces/SS-02-email-gateway.md | 1.0 |
-| SS-03 SeatEventHub | P11b-system-interfaces/SS-03-seat-event-hub.md | 1.0 |
-| SS-04 Scheduler | P11b-system-interfaces/SS-04-scheduler.md | 1.0 |
-| SS-05 Security | P11b-system-interfaces/SS-05-security.md | 1.0 |
+| SS-01 PaymentGateway | P11b-system-interfaces/SS-01-payment-gateway.md | 1.1 |
+| SS-02 EmailGateway | P11b-system-interfaces/SS-02-email-gateway.md | 1.1 |
+| SS-03 SeatEventHub | P11b-system-interfaces/SS-03-seat-event-hub.md | 1.1 |
+| SS-04 Scheduler | P11b-system-interfaces/SS-04-scheduler.md | 1.1 |
+| SS-05 Security | P11b-system-interfaces/SS-05-security.md | 1.1 |
 
 File sơ đồ: diagrams/P11b-subsystem-SS-01.drawio đến diagrams/P11b-subsystem-SS-05.drawio, mỗi file nhiều trang (hộp đen, hộp trắng, Phần tử, Phụ thuộc). Bước sau (P12, X1) đọc file này rồi file của các SS mà phạm vi dùng.
 
@@ -28,22 +28,22 @@ File sơ đồ: diagrams/P11b-subsystem-SS-01.drawio đến diagrams/P11b-subsys
 |---|---|---|---|---|---|
 | Cổng thanh toán: tạo địa chỉ thanh toán | Không có (ký cục bộ) | Không | Không tác dụng phụ; mỗi lần bấm thanh toán là bản ghi chờ mới | Không áp dụng | P09 F7.6 |
 | Cổng thanh toán: nhận IPN | Không áp dụng | Do cổng gửi lại | Dưới khoá lần giữ ghế, cờ đã xử lý, UNIQUE; câu trả lời theo kết quả | Rollback toàn bộ, trả mã tạm thời | P09 F7.6 |
-| Cổng thanh toán: hoàn tiền | 30 giây (BR-43, NFR-17) | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại (BR-41); lần thử sau luôn findRefund trước | Khoá refundKey ổn định, dòng hàng đợi unique, claim_token; cổng có loại trùng hay không: chưa xác nhận (Q-111 mục d, V-09) | findRefund; không tra cứu được thì Cần xử lý thủ công, không gửi lại tự động (Q-118) | P09 F7.7, Q-118 |
+| Cổng thanh toán: hoàn tiền | 30 giây (BR-43, NFR-17) | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại (BR-41); lần thử sau luôn findRefund trước (tổng tối đa 60 giây mỗi claim) | Khoá refundKey ổn định, dòng hàng đợi unique, claim_token (claimed_until 120 giây); cổng có loại trùng hay không: chưa xác nhận (Q-132, V-09) | findRefund; không tra cứu được thì Cần xử lý thủ công, không gửi lại tự động (Q-118) | P09 F7.7, Q-118 |
 | Dịch vụ email SMTP | 30 giây cho cả thư, kết nối 10 giây | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại; lỗi vĩnh viễn không thử lại | Message-ID theo khoá chống lặp; không bảo đảm loại trùng, chấp nhận gửi trùng hiếm | Thử lại với cùng Message-ID | P09 F7.7, BR-89 |
 | Sơ đồ ghế (SS-03) | Đọc phát lại 3 giây; độ trễ sự kiện tối đa 3 giây | Trình duyệt tự nối lại với Last-Event-ID | Trình duyệt áp theo từng ghế nên lặp và lệch thứ tự vô hại | ReloadRequired tải lại ảnh chụp | P09 F7.5 |
-| Scheduler (SS-04) | Ngân sách 8 giây mỗi lượt, chu kỳ 10 giây | Chu kỳ sau | Công việc chạy lặp an toàn | Không áp dụng | P09 F7.4 |
+| Scheduler (SS-04) | Ngân sách 8 giây mỗi lượt chỉ chặn nhận mục mới, chu kỳ 10 giây | Chu kỳ sau | Công việc chạy lặp an toàn | Không áp dụng | P09 F7.4 |
 
 ## F8. Tổng hợp toàn hệ thống
 
 | SS | IF | Số operation | UC dùng | Rủi ro chính |
 |---|---|---|---|---|
-| SS-01 | IF-01 IPaymentGateway | 3 | UC-005, UC-006, UC-008 | Hoàn tiền hai lần khi kết quả không rõ mà cổng không loại trùng theo khoá hoặc tra cứu sai (V-09, V-11, Q-127); mọi tham số VNPay chưa kiểm với tài liệu thật |
-| SS-01 | IF-02 IPaymentReportReceiver | 2 | UC-005, UC-006 | Thông báo giả hoặc trùng, đến muộn, đến đồng thời (xử lý dưới khoá ở PKG-14); số tiền lệch chưa có luồng P04 (Q-128); chính sách gửi lại IPN của cổng chưa kiểm (V-04) |
+| SS-01 | IF-01 IPaymentGateway | 3 | UC-005, UC-006, UC-008 | Hoàn tiền hai lần khi kết quả không rõ mà cổng không loại trùng theo khoá hoặc tra cứu sai (V-09, V-11, Q-132); mọi tham số VNPay chưa kiểm với tài liệu thật |
+| SS-01 | IF-02 IPaymentReportReceiver | 2 | UC-005, UC-006 | Thông báo giả hoặc trùng, đến muộn, đến đồng thời (xử lý dưới khoá ở PKG-14); số tiền lệch xử lý theo UC-006 luồng 2f (Q-128, BR-91); chính sách gửi lại IPN của cổng chưa kiểm (V-04) |
 | SS-02 | IF-03 IEmailSender | 1 | UC-005, UC-006 | Gửi trùng hiếm; hết lần thử thì khách không nhận email nhưng vé và khoản hoàn vẫn hiệu lực (BR-89); nhà cung cấp SMTP chưa chọn (V-17) |
 | SS-03 | IF-04 ISeatEventSubscription | 2 | UC-005, UC-008 | Trễ trên 3 giây khi quá tải (NFR-08, NFR-09, ca đo T3); hàng đợi đầy làm đóng kết nối; chữ ký IF-22 còn tạm |
 | SS-04 | IF-05 IJobScheduler | 3 | UC-005, UC-006, UC-008 (hạ tầng) | Mọi bản backend dừng thì ghế trả chậm hơn NFR-07 (kết quả hết hạn vẫn đúng) |
 | SS-04 | IF-06 IScheduledJob (gọi ngược) | 1 | UC-005, UC-006, UC-008 (hạ tầng) | Lượt treo quá ngân sách; lỗi công việc bị che bởi log |
-| SS-05 | IF-07 IAuthenticator | 5 (4 có chữ ký, hashPassword chờ P07) | UC-005, UC-008, UC-009, UC-013, UC-014 (tiền điều kiện) | Token không thu hồi được tới khi hết hạn; thời hạn phiên chưa chốt (Q-129); chưa có DC đăng nhập gọi verifyPassword, issueSession |
+| SS-05 | IF-07 IAuthenticator | 5 (4 có chữ ký, hashPassword chờ P07) | UC-005, UC-008, UC-009, UC-013, UC-014 (tiền điều kiện) | Token không thu hồi được tới khi hết hạn; thời hạn phiên khách 24 giờ, nhân viên 8 giờ (Q-129); chưa có DC đăng nhập gọi verifyPassword, issueSession |
 
 ## Điểm chưa kiểm với tài liệu hệ thống ngoài
 
@@ -71,16 +71,17 @@ File sơ đồ: diagrams/P11b-subsystem-SS-01.drawio đến diagrams/P11b-subsys
 
 ## Câu hỏi mở
 
-Q-131 (chạy song song với P11a); đánh số lại vào dãy Q toàn dự án khi gộp.
+Mã Q của P11b: Q-126 đến Q-132. Q-126 đến Q-131 đã trả lời theo đề xuất của review P11; Q-132 hỏi bên ngoài.
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
 |---|---|---|---|
-| Q-126 | Khi khách quay về từ trang thanh toán (địa chỉ trả về) mà hệ thống chưa nhận IPN, trang hiển thị gì, và khách chờ tối đa bao lâu trước khi được báo "chưa xác nhận được thanh toán, kiểm tra lại sau"? Lần giữ ghế vẫn chạy tới hết hạn trong lúc chờ. | UC-005 sau bước 10 và trước bước 11; địa chỉ trả về; IF-02 reportTransactionResult; SS-01 | P09 F7.6 (địa chỉ trả về chỉ đọc trạng thái); P04 UC-005 không có luồng cho khách đã quay về mà chưa có kết quả |
-| Q-127 | Hoàn tiền hết 30 giây hoặc không rõ kết quả: P04 (UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a) cho "quay lại bước 4 hoặc 5" thử lại, còn Q-118 chỉ cho gửi lại sau khi findRefund xác nhận chưa hoàn và chuyển Cần xử lý thủ công khi không tra cứu được. Xác nhận sửa P04 theo Q-118 (không gửi lại khi chưa xác nhận chưa hoàn) và dùng lịch hẹn lại 1, 5, 15 phút cho cả lần tra cứu không trả lời? | IF-01 requestRefund, findRefund; DC-RefundService; UC-006 luồng 4a đến 5b; UC-008 luồng 5b đến 6b | P04 UC-006 4a, 4b, 5a, 5b; UC-008 5b, 5c, 6a, 6b so với P10 Q-118 và P09 F7.7 |
-| Q-128 | Cổng báo thành công với chữ ký hợp lệ nhưng số tiền khác số tiền của giao dịch hoặc của lần giữ ghế (P09 trả RspCode 04 và ghi log): khoản tiền cổng đã thu được hoàn toàn bộ số cổng báo, hay chỉ ghi log để xử lý thủ công như luồng 2e? | IF-02 replyToReport (AmountMismatch); DC-PaymentReportService; UC-006 | P04 UC-006 luồng 2e chỉ nêu giao dịch không nhận ra; không luồng nào nêu số tiền lệch |
-| Q-129 | Thời hạn phiên đăng nhập của khách và của nhân viên là bao lâu, và phiên có tự gia hạn khi đang dùng không? | IF-07 issueSession, verifySession; SessionClaims.expiresAt | P06 NFR-01, NFR-02, NFR-03 chỉ nêu đăng nhập được, không nêu thời hạn phiên; P04 chỉ ghi "đang có phiên làm việc" |
-| Q-130 | UC-005 luồng 10a và BR-90 nêu "cổng từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch", nhưng với VNPay hệ thống chỉ ký địa chỉ thanh toán, không gọi mạng. Xác nhận hiểu 10a là: khách thấy lỗi ở trang của cổng hoặc địa chỉ trả về, lần giữ ghế giữ nguyên, khách bấm thanh toán lại (tạo bản ghi chờ mới), và nếu giao dịch cũ sau đó báo thành công thì UC-006 xử lý như giao dịch thứ hai? | IF-01 createPaymentTransaction; UC-005 luồng 10a; BR-90; NFR-15 | P04 UC-005 10a, BR-90, NFR-15 so với P09 F7.6 (Q-111) |
-| Q-131 | Khi email hoặc số điện thoại, hoặc mật khẩu sai ở UC-005 luồng 5a2: hệ thống báo gì, cho nhập lại bao nhiêu lần, có khoá tạm không? | IF-07 verifyPassword; UC-005 luồng 5a2 | P04 UC-005 5a2 chỉ nêu khách cung cấp thông tin rồi quay lại bước 5, không nêu trường hợp sai |
+| Q-126 | Đã trả lời (theo đề xuất review P11: trang hiện "Đang xác nhận thanh toán", hỏi lại mỗi 2 giây, tối đa 60 giây; quá 60 giây hiện MSG-30, hoặc MSG-81 kèm nút Quay lại thanh toán nếu lần giữ ghế còn Đang giữ; lần giữ ghế chạy tới hết hạn). Khi khách quay về từ trang thanh toán (địa chỉ trả về) mà hệ thống chưa nhận IPN, trang hiển thị gì, và khách chờ tối đa bao lâu trước khi được báo "chưa xác nhận được thanh toán, kiểm tra lại sau"? | UC-005 sau bước 10 và trước bước 11; địa chỉ trả về; IF-02 reportTransactionResult; SS-01 | P09 F7.6 (địa chỉ trả về chỉ đọc trạng thái); P04 UC-005 không có luồng cho khách đã quay về mà chưa có kết quả |
+| Q-127 | Đã trả lời (đồng ý: P04 UC-006 1.6 luồng 4t và UC-008 1.5 luồng 5t chỉ gửi lại sau khi tra cứu cho thấy chưa hoàn; không tra cứu được thì Cần xử lý thủ công; lịch hẹn lại 1, 5, 15 phút). Hoàn tiền hết 30 giây hoặc không rõ kết quả: P04 cho "quay lại bước 4 hoặc 5" thử lại, còn Q-118 chỉ cho gửi lại sau khi findRefund xác nhận chưa hoàn. Xác nhận sửa P04 theo Q-118? | IF-01 requestRefund, findRefund; DC-RefundService; UC-006 luồng 4a, 4t, 5a; UC-008 luồng 5b, 5t, 6a | P04 UC-006 4a, 4b, 5a, 5b; UC-008 5b, 5c, 6a, 6b so với P10 Q-118 và P09 F7.7 |
+| Q-128 | Đã trả lời (theo đề xuất review P11: không tạo vé, không hoàn tự động, ghi log để xử lý thủ công, trả RspCode 04; thêm luồng 2f và BR-91 vào UC-006 1.6). Cổng báo thành công nhưng số tiền khác số tiền của giao dịch hoặc của lần giữ ghế: hoàn toàn bộ số cổng báo, hay chỉ ghi log? | IF-02 replyToReport (AmountMismatch); DC-PaymentReportService; UC-006 | P04 UC-006 luồng 2e chỉ nêu giao dịch không nhận ra |
+| Q-129 | Đã trả lời (theo đề xuất review P11: khách 24 giờ, nhân viên 8 giờ, không tự gia hạn; hết hạn thì đăng nhập lại; quyết định thiết kế). Thời hạn phiên đăng nhập của khách và của nhân viên là bao lâu, và phiên có tự gia hạn khi đang dùng không? | IF-07 issueSession, verifySession; SessionClaims.expiresAt | P06 NFR-01, NFR-02, NFR-03 chỉ nêu đăng nhập được, không nêu thời hạn phiên |
+| Q-130 | Đã trả lời (theo đề xuất review P11 có chỉnh: luồng 10a chỉ còn khi hệ thống lỗi trước lúc chuyển sang cổng, lần giữ ghế giữ nguyên; cổng báo thất bại bằng IPN thì ghế được trả theo luồng 11a; đã ghi ở UC-005 1.9, P06 1.2, P09 1.3). UC-005 luồng 10a và BR-90 nêu "cổng từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch", nhưng với VNPay hệ thống chỉ ký địa chỉ thanh toán, không gọi mạng. Hiểu 10a như thế nào? | IF-01 createPaymentTransaction; UC-005 luồng 10a; BR-90; NFR-15 | P04 UC-005 10a, BR-90, NFR-15 so với P09 F7.6 |
+| Q-131 | Đã trả lời (theo đề xuất review P11: một thông điệp chung MSG-02, không giới hạn số lần thử, không khoá tạm trong phạm vi đồ án; khoá tài khoản thuộc UC-017 chưa đặc tả). Khi email, số điện thoại hoặc mật khẩu sai ở UC-005 luồng 5a2: hệ thống báo gì, cho nhập lại bao nhiêu lần, có khoá tạm không? | IF-07 verifyPassword; UC-005 luồng 5a2 | P04 UC-005 5a2 chỉ nêu khách cung cấp thông tin rồi quay lại bước 5, không nêu trường hợp sai |
+| Q-132 | Chưa trả lời (hỏi bên ngoài: kiểm tài liệu VNPay sandbox khi viết mã). Cổng VNPay có loại trùng yêu cầu hoàn theo mã yêu cầu không, và gửi lại cùng mã thì trả gì? Có API tra cứu trạng thái hoàn theo mã yêu cầu không? | IF-01 requestRefund (cột Idempotent), findRefund; V-09, V-11; DC-RefundService | Không có tài liệu API của cổng trong đầu vào (TAI_LIEU_GIAO_TIEP: Không có) |
 
 ## Giả định
 
@@ -95,18 +96,20 @@ Không có (chế độ NGHIEM_NGAT).
 | P10 | F2 SS-02 | Hai trách nhiệm sendTicketsEmail, sendRefundNotificationEmail được hiện thực bằng một operation sendEmail(message) | Cập nhật cột Trách nhiệm của SS-02 thành sendEmail (nội dung thư do DC-EmailOutboxJob dựng) |
 | P10 | F4 PKG-12, F3 DC-PaymentCallbackController | Chưa có điểm vào cho địa chỉ trả về (return URL) của khách sau thanh toán; P09 F7.6 yêu cầu trang này chỉ đọc trạng thái | Thêm điểm vào (DC-PaymentCallbackController hoặc controller riêng) và lớp Application đọc trạng thái giao dịch; dùng reportTransactionResult để kiểm chữ ký tham số (V-16) |
 | P10 | F2 SS-05 IF-07, F4 PKG-19 | verifyPassword và issueSession không có lớp gọi: P09 F6 chỉ cho PKG-11 kiểm phiên và PKG-19 dùng IF-07, nhưng PKG-19 chưa có DC | Thêm DC đăng nhập ở PKG-19 (chờ P07 UC-001) gọi verifyPassword, issueSession; DC-AuthFilter chỉ gọi verifySession, checkRole |
-| P09 | F7.7 (lần thử hoàn tiền) | Viết "PKG-22 tra cứu giao dịch hoàn trước mỗi lần gửi lại" nhưng PKG-22 không có trạng thái attempt_count; việc gọi findRefund trước requestRefund do DC-RefundService (PKG-14) làm | Ghi chủ thể là DC-RefundService gọi findRefund của IF-01 (P09 F7.7, phần "trước mỗi lần gửi lại") |
-| P04 | UC-005 luồng 10a, BR-90 | Với VNPay không có lệnh tạo giao dịch qua mạng nên "cổng từ chối hoặc không trả lời" không xảy ra khi tạo (Q-130) | Ghi chú biểu hiện ở trang cổng, địa chỉ trả về hoặc khách bỏ dở |
+| P09 | F7.7 (lần thử hoàn tiền) | Viết "PKG-22 tra cứu giao dịch hoàn trước mỗi lần gửi lại" nhưng PKG-22 không có trạng thái attempt_count; việc gọi findRefund trước requestRefund do DC-RefundService (PKG-14) làm | Đã sửa (P09 1.3): chủ thể là DC-RefundService gọi findRefund của IF-01; claimed_until 120 giây; ngân sách 8 giây chỉ chặn nhận dòng mới |
+| P06, P09 | NFR-15; F7.6 bước 2 | NFR-15 viết "qua API tạo giao dịch của cổng"; P09 F7.6 bước 2 viết "IPN thất bại hoặc khách không hoàn tất: giữ nguyên lần giữ ghế" | Đã sửa (P06 1.2, P09 1.3) |
+| P10 | F2 SS-01 IF-02, F3 DC-IpnAnswer | replyToReport trả (httpStatus, body) nên để lộ mã HTTP của giao thức ngoài ra interface (quy tắc A3); tham số Map của reportTransactionResult là cặp tên-giá trị nguyên văn của VNPay | Bỏ replyToReport khỏi IF-02 và để PKG-12 (DC-PaymentCallbackController) dịch ReportHandlingResult sang câu trả lời, cùng chỗ với phần dịch RspCode; hoặc đổi kết quả thành kiểu IpnAnswer không nêu mã HTTP |
+| P04 | UC-005 luồng 10a, BR-90 | Với VNPay không có lệnh tạo giao dịch qua mạng nên "cổng từ chối hoặc không trả lời" không xảy ra khi tạo (Q-130) | Đã sửa (UC-005 1.9, BR-90 trong sổ BR, P06 1.2 NFR-15, P09 1.3 F7.6): luồng 10a chỉ còn khi hệ thống lỗi trước lúc chuyển sang cổng |
 | P04 | UC-005 (giữa bước 10 và 11) | Thiếu luồng khách quay về từ cổng khi chưa có kết quả (Q-126) | Thêm luồng thay thế sau khi có câu trả lời |
-| P04 | UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a | "Quay lại bước 4 hoặc 5" ngầm gửi lại ngay; thiết kế chỉ gửi lại sau khi tra cứu cho thấy chưa hoàn, và chuyển Cần xử lý thủ công khi không tra cứu được (Q-118, Q-127) | Thêm bước tra cứu trước khi gửi lại và nêu điều kiện sang xử lý thủ công |
-| P04 | UC-006 (luồng 2e và kế bên) | Không có luồng cho thông báo thành công hợp lệ chữ ký nhưng số tiền lệch (Q-128) | Thêm luồng sau khi có câu trả lời |
+| P04 | UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a | "Quay lại bước 4 hoặc 5" ngầm gửi lại ngay; thiết kế chỉ gửi lại sau khi tra cứu cho thấy chưa hoàn, và chuyển Cần xử lý thủ công khi không tra cứu được (Q-118, Q-127) | Đã sửa (UC-006 1.6 luồng 4t, UC-008 1.5 luồng 5t, BR-41, BR-43) |
+| P04 | UC-006 (luồng 2e và kế bên) | Không có luồng cho thông báo thành công hợp lệ chữ ký nhưng số tiền lệch (Q-128) | Đã sửa (UC-006 1.6 luồng 2f, BR-91) |
 | P04 | UC-005 luồng 5a2 | Không có luồng thông tin đăng nhập sai (Q-131) | Thêm luồng sau khi có câu trả lời |
 
 ## Vấn đề còn mở
 
 1. Toàn bộ ánh xạ lời gọi ngoài của SS-01 và SS-02 (tham số, bảng mã, chuỗi ký, giao thức) dựa vào hiểu biết chưa kiểm vì không có tài liệu API trong đầu vào; danh sách V-01 đến V-17 ở trên. Chữ ký interface đã được thiết kế không phụ thuộc các điểm này.
 2. Gate 10 x 10 đặt chính giữa cạnh khung sd (theo F4 của prompt) nên toạ độ của gate lệch nửa ô so với lưới 10 của C7.3; các node còn lại là bội số của 10. Ưu tiên F4 (quy tắc riêng của bước) cho gate.
-3. replyToReport trả cặp (httpStatus, body) nên để lộ mã HTTP ra interface, trái quy tắc A3. Giữ vì P10 F2 và F3 đã chốt (DC-IpnAnswer bọc hai giá trị cơ bản) và vì PKG-12 đã là điểm vào riêng đổi theo định dạng callback của cổng; nếu muốn che hẳn, đổi thành kiểu kết quả không nêu mã HTTP và để PKG-12 dịch.
+3. replyToReport trả cặp (httpStatus, body) nên để lộ mã HTTP ra interface, trái quy tắc A3. Giữ vì P10 F2 và F3 đã chốt (DC-IpnAnswer bọc hai giá trị cơ bản) và vì PKG-12 đã là điểm vào riêng đổi theo định dạng callback của cổng; nếu muốn che hẳn, bỏ replyToReport hoặc đổi thành kiểu kết quả không nêu mã HTTP và để PKG-12 dịch; đề nghị này ghi ở bảng Đề xuất sửa artifact trước (dòng P10 F2, F3), không đổi chữ ký ở P11b.
 4. P07 UC-005 3.1.1.1 ghi cổng trả về "mã giao dịch" cho lời gọi tạo giao dịch; theo P09 F7.6 mã giao dịch do hệ thống sinh trước và cổng chỉ trả địa chỉ thanh toán đã ký. P11b theo P09, không sửa P07.
 5. Email bị máy chủ từ chối vĩnh viễn không được thử lại (kết quả không đổi theo lần thử), trong khi BR-89 ghi "thử gửi lại vài lần"; chỉ lỗi tạm thời và không rõ được thử lại. Đây là quyết định thiết kế (C1 mục 7), không đổi hành vi nghiệp vụ: vé và khoản hoàn vẫn hiệu lực, ghi log lỗi.
 6. Các operation của IF-22 (readEventsAfter, readShowtimeEvents, findEvent) là chữ ký tạm dùng trong S03W1 và S03W2; P12 chốt khi thiết kế IF-22.
@@ -114,3 +117,4 @@ Không có (chế độ NGHIEM_NGAT).
 8. SS-05: truy cập chức năng không đúng vai trò (checkRole sai) không có luồng P04; coi là lỗi truy cập hiển thị ở giao diện (P11a), không là hành vi nghiệp vụ mới.
 9. project-profile.md vẫn ghi CONG_NGHE "Chưa chốt" dù P09 F11 đã chốt Go; chữ ký dùng kiểu trung lập (String, Integer, DateTime, Duration, List, Map). P12 ánh xạ sang Go (kết quả kèm error, context cho thời gian chờ, kênh cho luồng sự kiện).
 10. File drawio: các trang tuần tự do bộ sinh đặt toạ độ theo F4 và C7.3, không chạy diakempt; các trang Phần tử và Phụ thuộc đã chạy diakempt -in-place. Trên trang Phần tử, diakempt không sắp lại được các lớp nằm trong khung subsystem (container) nên bố cục do bộ sinh xếp theo tầng phụ thuộc; có thể còn cạnh đi qua gần node.
+11. Phạm vi làm khi viết mã (P12): làm đầy đủ SS-01 và SS-03 (trọng tâm là race condition và giữ ghế); SS-04 chỉ cần một vòng lặp theo chu kỳ có ngân sách; SS-05 giữ ba operation verifyPassword, issueSession, verifySession và để checkRole là hàm thường. Kiểm V-02, V-04, V-09, V-11 trước, các V còn lại khi viết mã.

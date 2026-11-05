@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-005 1.8 (luồng 9a2-9a5, Dữ liệu ra 3); P01-actors.md (máy in nối qua máy tính tại quầy); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (luồng 9a2-9a5, Dữ liệu ra 3); P01-actors.md (máy in nối qua máy tính tại quầy); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-12 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -64,7 +64,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 |---|---|---|---|---|---|---|
 | Mã đặt vé | 20 | Chữ | Hiển thị | Duy nhất toàn hệ thống | Thiết kế: dự phòng độ dài như SCR-06 | UC-005 Dữ liệu ra 3 STT 1 |
 | Nội dung vé (phim, định dạng, cụm rạp, phòng và loại phòng, ngày giờ bắt đầu, vị trí và loại ghế) | - | Chữ | Hiển thị | Như SCR-06 | - | UC-005 Dữ liệu ra 3 STT 2 |
-| Giá vé | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-005 Dữ liệu ra 3 STT 2 |
+| Giá vé | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-005 Dữ liệu ra 3 STT 2 |
 | Mã QR | - | Chữ | Hiển thị (ảnh) | Mã QR riêng của vé | Có alt như SCR-06 | UC-005 Dữ liệu ra 3 STT 2 |
 
 ## f) Kiểm tra dữ liệu nhập

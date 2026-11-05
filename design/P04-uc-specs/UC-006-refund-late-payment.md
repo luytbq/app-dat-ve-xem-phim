@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.5 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; UC-005-book-tickets.md 1.8; _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Phiên bản | 1.6 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-91); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; UC-005-book-tickets.md 1.9; _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-006 |
-| Mã Q, ASM cuối đã cấp | Q-80 (Q-76 và Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-51 (Q-48 và Q-51 đều đã trả lời); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-80 (Q-76 và Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-51 (Q-48 và Q-51 đều đã trả lời); Q-127 và Q-128 (cấp ở P11b, đã trả lời theo đề xuất của review P11); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Thông tin chung
 
@@ -20,7 +20,7 @@
 | Sự kiện kích hoạt | Cổng thanh toán báo thanh toán thành công sau thời điểm hết hạn giữ ghế, hoặc sau khi khách đã huỷ giữ ghế hoặc cổng đã báo thất bại, hoặc báo thành công cho giao dịch hệ thống không nhận ra hoặc cho lần giữ ghế đã có vé, hoặc báo trùng một giao dịch thành công đã xử lý, hoặc báo kết quả thất bại vào lúc lần giữ ghế đã hết hạn hoặc đã bị huỷ, hoặc cho giao dịch đã có vé hoặc không nhận ra; ba trường hợp sau chỉ ghi nhận, không hoàn tiền (EV-08) |
 | Tiền điều kiện | Với giao dịch do hệ thống tạo: hệ thống đã tạo giao dịch thanh toán qua cổng thanh toán cho một lần giữ ghế và ghi nhận số tiền của giao dịch (UC-005 bước 10). Giao dịch hệ thống không nhận ra (BR-38) không có điều kiện này. |
 | Hậu điều kiện (thành công) | Không có vé nào được tạo từ giao dịch này.<br>Giao dịch được ghi nhận là thanh toán trễ và đã được hoàn toàn bộ số tiền qua cổng thanh toán.<br>Email thông báo hoàn tiền đã được gửi cho khách qua dịch vụ email. |
-| Hậu điều kiện tối thiểu | Use case này không tạo vé ở bất kỳ luồng nào; giao dịch không bị hoàn toàn bộ quá một lần (BR-37) và tổng các lần hoàn của giao dịch không vượt số tiền đã thanh toán (BR-26).<br>Khi kết thúc ở luồng 2a: lần báo trùng được ghi nhận, không có khoản hoàn mới; vé của giao dịch (nếu đã tạo ở UC-005) giữ nguyên.<br>Khi kết thúc ở luồng 2c hoặc 2d: kết quả thất bại được ghi nhận, không có khoản hoàn và không có vé nào được tạo từ giao dịch này.<br>Khi kết thúc ở luồng 2e: không có vé nào được tạo từ giao dịch này; giao dịch được ghi log lỗi để xử lý thủ công ngoài hệ thống, không có khoản hoàn và không có email (BR-38).<br>Khi kết thúc ở luồng 4b hoặc 5b: giao dịch đã được ghi nhận là thanh toán trễ (từ bước 3), chưa được hoàn tiền, khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống; không có email cho khách (BR-41). |
+| Hậu điều kiện tối thiểu | Use case này không tạo vé ở bất kỳ luồng nào; giao dịch không bị hoàn toàn bộ quá một lần (BR-37) và tổng các lần hoàn của giao dịch không vượt số tiền đã thanh toán (BR-26).<br>Khi kết thúc ở luồng 2a: lần báo trùng được ghi nhận, không có khoản hoàn mới; vé của giao dịch (nếu đã tạo ở UC-005) giữ nguyên.<br>Khi kết thúc ở luồng 2c hoặc 2d: kết quả thất bại được ghi nhận, không có khoản hoàn và không có vé nào được tạo từ giao dịch này.<br>Khi kết thúc ở luồng 2e hoặc 2f: không có vé nào được tạo từ giao dịch này; giao dịch được ghi log lỗi để xử lý thủ công ngoài hệ thống, không có khoản hoàn và không có email (BR-38).<br>Khi kết thúc ở luồng 4b hoặc 5b: giao dịch đã được ghi nhận là thanh toán trễ (từ bước 3), chưa được hoàn tiền, khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống; không có email cho khách (BR-41). Khoản hoàn chỉ được gửi lại sau khi tra cứu cho thấy chưa được hoàn (luồng 4t). |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
 | REQ | REQ-35, REQ-36, REQ-90, REQ-109 đến REQ-111, REQ-116, REQ-129 đến REQ-133, REQ-136 (theo P02 và P00 1.8); REQ-79, REQ-80 (P02 Mục 5 đã gắn UC-006); REQ-78 (tham chiếu, UC-005; lưu mã giao dịch), REQ-76 (tham chiếu, UC-005; mốc hết hạn so với thời điểm giải phóng ghế), REQ-11 (tham chiếu, UC-001; email của tài khoản khách), REQ-107 (tham chiếu, UC-001; Dữ liệu ra 1), REQ-105 (tham chiếu, UC-005; tên phim ở Dữ liệu ra 2), REQ-157 (bước 7), REQ-160, REQ-161 (bước 2, 3, Mục 8) |
@@ -46,10 +46,12 @@
 | 2c | Kết quả là thất bại và lần giữ ghế ứng với giao dịch đã hết hạn hoặc đã bị khách huỷ (BR-39) | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền (BR-39). | Kết thúc use case (thất bại) |
 | 2d | Kết quả là thất bại và không thuộc 2b, 2c: giao dịch đã có vé, giao dịch hệ thống không nhận ra, hoặc lần giữ ghế đã có báo thất bại trước đó (BR-39) | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền (BR-39). | Kết thúc use case (thất bại) |
 | 2e | Kết quả là thành công và hệ thống không nhận ra giao dịch (mã giao dịch không phải của giao dịch hệ thống đã tạo và báo của cổng không kèm mã tham chiếu lần giữ ghế nhận ra được, BR-38) | Hệ thống | Ghi log lỗi giao dịch để xử lý thủ công ngoài hệ thống; không tạo vé, không hoàn tiền, không gửi email (BR-38). | Kết thúc use case (thất bại) |
-| 4a | Cổng thanh toán không phản hồi yêu cầu hoàn tiền trong 30 giây (BR-43) và còn lượt thử lại (BR-41) | - | - | Quay lại bước 4 |
-| 4b | Cổng thanh toán không phản hồi trong 30 giây (BR-43) và đã hết lượt thử lại (BR-41) | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
-| 5a | Cổng thanh toán trả về kết quả hoàn tiền thất bại và còn lượt thử lại (BR-41) | - | - | Quay lại bước 4 |
-| 5b | Cổng thanh toán trả về kết quả hoàn tiền thất bại và đã hết lượt thử lại (BR-41) | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
+| 2f | Kết quả là thành công, hệ thống nhận ra giao dịch nhưng số tiền cổng báo khác số tiền hệ thống đã ghi nhận cho giao dịch (BR-91) | Hệ thống | Ghi log lỗi giao dịch để xử lý thủ công ngoài hệ thống; không tạo vé, không hoàn tiền, không gửi email (BR-91). | Kết thúc use case (thất bại) |
+| 4a | Cổng thanh toán không phản hồi yêu cầu hoàn tiền trong 30 giây (BR-43) | Hệ thống | Không gửi lại ngay; chuyển sang tra cứu kết quả hoàn (BR-41, BR-43). | Thực hiện bước 4t |
+| 5a | Cổng thanh toán trả về kết quả hoàn tiền thất bại | Hệ thống | Không gửi lại ngay; chuyển sang tra cứu kết quả hoàn (BR-41, BR-43). | Thực hiện bước 4t |
+| 4t | Sau 4a hoặc 5a | Hệ thống | Tra cứu cổng xem yêu cầu hoàn mang khoá chống hoàn trùng này đã được thực hiện chưa (BR-43). Kết quả: (i) đã hoàn; (ii) chưa hoàn và còn lượt thử lại (BR-41), hệ thống chờ khoảng cách giữa hai lần thử rồi gửi lại; (iii) chưa hoàn và đã hết lượt thử lại; (iv) không tra cứu được kết quả (cổng không có tra cứu hoặc tra cứu không trả lời) thì không gửi lại tự động (BR-41). | (i) tiếp tục bước 6; (ii) quay lại bước 4; (iii), (iv) như 4b |
+| 4b | Sau 4t từ 4a: chưa hoàn và đã hết lượt thử lại, hoặc không tra cứu được kết quả | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
+| 5b | Sau 4t từ 5a: chưa hoàn và đã hết lượt thử lại, hoặc không tra cứu được kết quả | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
 
 ## 4. Luồng con
 
@@ -62,7 +64,7 @@ Dữ liệu vào 1 (bước 1)
 | STT | Trường dữ liệu | Mô tả | Bắt buộc | Điều kiện hợp lệ | Ví dụ |
 |---|---|---|---|---|---|
 | 1 | Mã giao dịch | Mã do cổng thanh toán cấp cho giao dịch; hệ thống nhận ra giao dịch do mình tạo và lần giữ ghế ứng với giao dịch qua mã này (REQ-78, REQ-111) | Có | Văn bản do cổng thanh toán cấp, hệ thống không quy định định dạng | GD-0001234 |
-| 2 | Kết quả giao dịch | Kết quả cổng báo cho giao dịch | Có | Thành công hoặc thất bại; kết quả thành công được xử lý ở luồng chính, 2a, 2b hoặc 2e; kết quả thất bại ở 2b, 2c hoặc 2d | Thành công |
+| 2 | Kết quả giao dịch | Kết quả cổng báo cho giao dịch | Có | Thành công hoặc thất bại; kết quả thành công được xử lý ở luồng chính, 2a, 2b, 2e hoặc 2f; kết quả thất bại ở 2b, 2c hoặc 2d | Thành công |
 | 3 | Mã tham chiếu lần giữ ghế | Mã lần giữ ghế do hệ thống truyền cho cổng khi tạo giao dịch (UC-005 bước 10) và cổng trả lại trong báo; dùng để gắn giao dịch thứ hai (mã giao dịch khác mã đã lưu) với lần giữ ghế (BR-40, REQ-136) | Có với giao dịch thứ hai; giao dịch không kèm mã nhận ra được thì đi luồng 2e (BR-38) | Trùng mã của một lần giữ ghế của hệ thống | LG-0005678 |
 | 4 | Số tiền đã thanh toán | Số tiền cổng báo cho giao dịch thứ hai, dùng làm số tiền hoàn của giao dịch đó (BR-40, REQ-136) | Có với giao dịch thứ hai | Số nguyên dương, không lớn hơn tổng tiền của lần giữ ghế | 240.000 đ |
 
@@ -96,8 +98,9 @@ Dữ liệu ra 2 (bước 7, nội dung email)
 | BR-38 | Thanh toán thành công của một giao dịch hệ thống không nhận ra được ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tạo vé, không tự hoàn tiền và không gửi email. | Kích hoạt hành động | 2e | REQ-129 | Mới |
 | BR-39 | Kết quả thất bại mà cổng thanh toán báo vào lúc lần giữ ghế đã hết hạn hoặc đã bị khách huỷ, hoặc báo cho giao dịch đã có vé, hoặc báo cho giao dịch hệ thống không nhận ra, chỉ được ghi nhận, không hoàn tiền. | Kích hoạt hành động | 2c, 2d | REQ-133 | Mới |
 | BR-40 | Thanh toán thành công của giao dịch thứ hai (mã giao dịch khác) gắn được với lần giữ ghế đã có vé qua mã tham chiếu lần giữ ghế kèm trong báo của cổng được xử lý như thanh toán trễ: không tạo vé và hoàn toàn bộ số tiền cổng báo cho giao dịch đó. | Kích hoạt hành động | 2, 3, 4 | REQ-130, REQ-136 | Mới |
-| BR-41 | Khi cổng thanh toán từ chối hoàn tiền hoặc không trả lời, hệ thống tự thử lại yêu cầu hoàn tiền vài lần; nếu vẫn không hoàn được thì ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống và không gửi email cho khách. | Kích hoạt hành động | 4a, 4b, 5a, 5b | REQ-131 | Mới |
-| BR-43 | Cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây thì coi là không phản hồi; mọi lần thử lại của cùng một yêu cầu hoàn dùng lại khoá chống hoàn trùng của yêu cầu hoàn đó; khoá gắn với từng yêu cầu hoàn và phân biệt được với khoá của yêu cầu hoàn khác trên cùng giao dịch (mã giao dịch kèm mã vé với hoàn tiền huỷ vé; mã giao dịch kèm loại yêu cầu hoàn toàn bộ với hoàn toàn bộ thanh toán trễ). | Ràng buộc | 4, 4a, 4b, 5a | REQ-132; REQ-78 (phụ) | Mới |
+| BR-41 | Khi cổng thanh toán từ chối hoàn tiền hoặc không trả lời, hệ thống tự thử lại yêu cầu hoàn tiền vài lần, chỉ sau khi tra cứu cho thấy khoản hoàn chưa được thực hiện; không tra cứu được thì không gửi lại tự động; nếu vẫn không hoàn được thì ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống và không gửi email cho khách. | Kích hoạt hành động | 4a, 4t, 4b, 5a, 5b | REQ-131 | Mới |
+| BR-43 | Cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây thì coi là không phản hồi; mọi lần thử lại của cùng một yêu cầu hoàn dùng lại khoá chống hoàn trùng của yêu cầu hoàn đó; khoá gắn với từng yêu cầu hoàn và phân biệt được với khoá của yêu cầu hoàn khác trên cùng giao dịch (mã giao dịch kèm mã vé với hoàn tiền huỷ vé; mã giao dịch kèm loại yêu cầu hoàn toàn bộ với hoàn toàn bộ thanh toán trễ); việc tra cứu kết quả hoàn cũng dùng khoá này. | Ràng buộc | 4, 4a, 4t, 4b, 5a | REQ-132; REQ-78 (phụ) | Mới |
+| BR-91 | Thanh toán thành công mà số tiền cổng báo khác số tiền hệ thống đã ghi nhận cho giao dịch được ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tạo vé, không tự hoàn tiền và không gửi email. | Kích hoạt hành động | 2f | REQ-129 | Mới |
 | BR-85 | Các báo kết quả thanh toán của cổng thanh toán và mọi thao tác làm đổi trạng thái của cùng một lần giữ ghế (hết hạn, khách huỷ giữ ghế, báo thành công, báo thất bại, xác nhận đã thu tiền của nhân viên quầy) được xử lý tuần tự, khoá theo lần giữ ghế; mỗi thao tác thấy trạng thái do thao tác trước để lại. | Ràng buộc | 2, 3 | REQ-160; REQ-35, REQ-36, REQ-109, REQ-110, REQ-134 (phụ) | Đã có |
 | BR-86 | Lần giữ ghế đã ở trạng thái cuối (Đã hoàn tất, Hết hạn, Đã huỷ, Thanh toán thất bại) thì trạng thái không thể thay đổi nữa; báo kết quả thanh toán đến sau được xử lý theo trạng thái cuối đó: báo thành công của giao dịch chưa xử lý được hoàn toàn bộ như thanh toán đến trễ (UC-006), báo của giao dịch đã xử lý là báo trùng, báo thất bại chỉ được ghi nhận. | Ràng buộc | 2, 2a, 2c, 2d | REQ-161; REQ-35, REQ-109, REQ-110, REQ-133 (phụ) | Đã có |
 | BR-89 | Khi dịch vụ email từ chối hoặc không phản hồi lúc gửi email chứa vé hoặc email thông báo hoàn tiền, vé và khoản hoàn giữ nguyên hiệu lực; hệ thống thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không huỷ vé và không hoàn tiền thêm. | Kích hoạt hành động | 7 | REQ-157; REQ-31, REQ-90 (phụ) | Đã có |
@@ -108,6 +111,8 @@ Không có
 
 ## 8. Thông tin bổ sung
 
+- Luồng 4t: tra cứu trước khi gửi lại bảo đảm khoản hoàn không bị thực hiện hai lần khi cổng đã hoàn nhưng kết quả không về (BR-26, BR-37). Không có kết cục nghiệp vụ mới: nơi kết thúc thất bại vẫn là ghi log lỗi để xử lý thủ công (4b, 5b).
+- Luồng 2f: số tiền lệch chỉ xảy ra khi cấu hình sai hoặc báo bị giả mạo; hoàn tự động có thể hoàn nhầm nên chỉ ghi log (trả lời Q-128).
 - Luồng chính theo kịch bản của ACT-07 Cổng thanh toán báo giao dịch thành công. Các tình huống (hết hạn giữ ghế theo BR-14; khách đã huỷ giữ ghế hoặc cổng đã báo thất bại trước đó theo BR-15; giao dịch thứ hai cho lần giữ ghế đã có vé theo BR-40) chỉ khác nhau ở điều kiện nhận biết tại bước 2; các bước sau như nhau. Giao dịch hệ thống không nhận ra không đi theo luồng chính mà kết thúc ở luồng 2e (BR-38).
 - Mốc quyết định "đến trễ" theo đề bài (Mục 9) là thời điểm hệ thống nhận báo so với thời điểm hết hạn giữ ghế, không phải thời điểm ghế thực sự được giải phóng (có thể trễ tới 1 phút, REQ-76).
 - ACT-07 vừa là tác nhân chính (bước 1: cổng tự báo kết quả vào thời điểm do cổng quyết định) vừa là tác nhân phụ (bước 4, 5: hệ thống gọi hoàn tiền và nhận kết quả), nên activity diagram chỉ có một partition cho ACT-07.
@@ -117,7 +122,7 @@ Không có
 - Use case này không đổi trạng thái ghế: ghế được giải phóng bởi UC-005 (luồng 7b, 11a, *a).
 - Bước 7 chỉ gửi đi, không chờ kết quả. Khi dịch vụ email từ chối hoặc không phản hồi, khoản hoàn đã ghi nhận ở bước 6 giữ nguyên, hệ thống thử gửi lại vài lần rồi ghi log lỗi; không hoàn tiền thêm (BR-89, trả lời Q-76). Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09).
 - Trạng thái của lần giữ ghế tại bước 2 theo P05 GL-25 (Q-69): Hết hạn (BR-14), Đã huỷ hoặc Thanh toán thất bại (BR-15), Đã hoàn tất với giao dịch khác (BR-40), Đang giữ (luồng 2b, thuộc UC-005). Các báo kết quả của cùng một lần giữ ghế xử lý tuần tự (BR-85); lần giữ ghế đã ở trạng thái cuối thì không đổi nữa nên báo đến sau luôn được xử lý theo trạng thái cuối đó (BR-86, trả lời Q-79): báo thành công của giao dịch chưa xử lý đi luồng chính, báo của giao dịch đã xử lý đi luồng 2a, báo thất bại đi luồng 2c, 2d.
-- Tác nhân người không tham gia use case; khách chỉ nhận thông báo ở bước 7 (báo kết quả cho khách theo BR-15). Luồng 2a đến 2e, 4a, 4b, 5a, 5b không có tác nhân người tương tác và không có bước báo riêng cho khách; khi hoàn tiền không thành công, hệ thống không gửi email cho khách (BR-41).
+- Tác nhân người không tham gia use case; khách chỉ nhận thông báo ở bước 7 (báo kết quả cho khách theo BR-15). Luồng 2a đến 2f, 4a, 4t, 4b, 5a, 5b không có tác nhân người tương tác và không có bước báo riêng cho khách; khi hoàn tiền không thành công, hệ thống không gửi email cho khách (BR-41).
 - Mọi lần thử lại của cùng một yêu cầu hoàn dùng lại cùng khoá chống hoàn trùng. Khoá của use case này gồm mã giao dịch và loại yêu cầu hoàn toàn bộ; mỗi giao dịch thanh toán trễ chỉ có một yêu cầu hoàn toàn bộ (BR-37) nên khoá không trùng với khoá hoàn 70% từng vé của UC-008, gồm mã giao dịch và mã vé, vì một giao dịch có thể có nhiều lần hoàn 70% của nhiều vé (BR-43, BR-26).
 - Thao tác "ghi nhận giao dịch chờ hoàn tiền" ở bước 3 bảo đảm log lỗi ở luồng 4b, 5b có đủ mã giao dịch và số tiền cần hoàn. Việc xử lý thủ công khoản hoàn đã ghi log lỗi (luồng 4b, 5b) và giao dịch không nhận ra (luồng 2e) diễn ra ngoài hệ thống, nằm ngoài phạm vi, không có use case. Số lần thử lại và khoảng cách giữa hai lần thử là quyết định thiết kế (P09); đặc tả chỉ cố định thời hạn chờ 30 giây (BR-43).
 - Kết quả thất bại của cổng báo vào lúc lần giữ ghế còn hiệu lực thuộc UC-005 (EV-07). Kết quả thất bại báo vào lúc đã hết hạn hoặc đã bị khách huỷ chỉ được ghi nhận ở luồng 2c vì khách chưa mất tiền (BR-39). Kết quả thất bại báo cho giao dịch đã có vé, giao dịch hệ thống không nhận ra hoặc lần giữ ghế đã có báo thất bại trước đó cũng chỉ được ghi nhận, ở luồng 2d (BR-39).
@@ -130,11 +135,12 @@ Không có
 - KB2: Luồng chính (khách đã huỷ giữ ghế hoặc cổng đã báo thất bại trước đó, BR-15) --> không tạo vé, hoàn toàn bộ tiền, gửi email.
 - KB3: Luồng chính tới bước 1 + 2a (cổng báo trùng, kể cả giao dịch đã dùng để tạo vé) --> ghi nhận lần báo trùng, không hoàn lần nữa.
 - KB4: Luồng chính tới bước 1 + 2b (lần giữ ghế còn hiệu lực) --> không thuộc use case này, UC-005 xử lý.
-- KB5: Luồng chính tới bước 4 + 4a hoặc 5a (cổng không phản hồi hoặc từ chối hoàn tiền) --> hệ thống thử lại; nếu hết lượt (4b hoặc 5b) thì ghi log lỗi để xử lý thủ công ngoài hệ thống, không email khách.
+- KB5: Luồng chính tới bước 4 + 4a hoặc 5a (cổng không phản hồi hoặc từ chối hoàn tiền) --> tra cứu (4t): đã hoàn thì tiếp tục bước 6, chưa hoàn và còn lượt thì thử lại; chưa hoàn mà hết lượt hoặc không tra cứu được (4b hoặc 5b) thì ghi log lỗi để xử lý thủ công ngoài hệ thống, không email khách.
 - KB6: Luồng chính tới bước 1 + 2c (cổng báo thất bại muộn) --> chỉ ghi nhận, không hoàn tiền.
 - KB7: Luồng chính (giao dịch thứ hai cho lần giữ ghế đã có vé, BR-40) --> không tạo vé, hoàn toàn bộ tiền.
 - KB8: Luồng chính tới bước 1 + 2d (thất bại không thuộc 2b, 2c) --> chỉ ghi nhận, không hoàn tiền.
 - KB9: Luồng chính tới bước 1 + 2e (giao dịch thành công hệ thống không nhận ra) --> ghi log lỗi để xử lý thủ công ngoài hệ thống, không hoàn tiền, không email.
+- KB10: Luồng chính tới bước 1 + 2f (thành công nhưng số tiền lệch) --> ghi log lỗi để xử lý thủ công ngoài hệ thống, không hoàn tiền, không email.
 
 ## 9. Activity diagram
 
@@ -149,11 +155,12 @@ Bảng đối chiếu
 | 2a | A-2a, FINAL-1 |
 | 2b | FINAL-2 |
 | 2c, 2d | A-2c, A-2d, FINAL-4 |
-| 2e | A-2e, FINAL-6 |
+| 2e, 2f | A-2e, FINAL-6 |
 | 3 | A-3 |
 | 4 | M-4, A-4, D-4 |
-| 4a, 5a | M-R, D-R (nhánh [còn lượt thử lại] trở về M-4) |
-| 4b, 5b | M-R, D-R, A-RX, FINAL-3 |
+| 4a, 5a | M-R |
+| 4t | A-T, D-T, D-R (nhánh [còn lượt thử lại] trở về M-4) |
+| 4b, 5b | D-T, D-R, A-RX, FINAL-3 |
 | 5 | A-5, D-5 |
 | 6 | A-6 |
 | 7 | A-7, FINAL-5 |
@@ -167,14 +174,14 @@ Bảng Node
 | INIT | Initial | - | - | P-ACT-07 | - | x=130, y=60 (tương đối partition) |
 | A-1 | Action | Báo kết quả giao dịch thanh toán | - | P-ACT-07 | 1 | x=60, y=130 (tương đối partition) |
 | A-2 | Action | Kiểm tra giao dịch và lần giữ ghế | - | P-SYS | 2 | x=60, y=230 (tương đối partition) |
-| D-2 | Decision | - | - | P-SYS | 2a, 2b, 2c, 2d, 2e | x=130, y=320 (tương đối partition) |
+| D-2 | Decision | - | - | P-SYS | 2a, 2b, 2c, 2d, 2e, 2f | x=130, y=320 (tương đối partition) |
 | A-2a | Action | Ghi nhận lần báo trùng, không hoàn tiền lần nữa (BR-37) | - | P-SYS | 2a | x=320, y=230 (tương đối partition) |
 | FINAL-1 | ActivityFinal | - | - | P-SYS | - | x=560, y=240 (tương đối partition) |
 | FINAL-2 | ActivityFinal | - | - | P-SYS | - | x=320, y=320 (tương đối partition) |
 | A-2c | Action | Ghi nhận thất bại báo muộn, không hoàn tiền (BR-39) | - | P-SYS | 2c | x=320, y=380 (tương đối partition) |
 | FINAL-4 | ActivityFinal | - | - | P-SYS | - | x=560, y=420 (tương đối partition) |
 | A-2d | Action | Ghi nhận thất bại khác, không hoàn tiền (BR-39) | - | P-SYS | 2d | x=320, y=460 (tương đối partition) |
-| A-2e | Action | Ghi log lỗi giao dịch không nhận ra, xử lý thủ công ngoài hệ thống (BR-38) | - | P-SYS | 2e | x=320, y=560 (tương đối partition) |
+| A-2e | Action | Ghi log lỗi giao dịch không nhận ra hoặc số tiền lệch, xử lý thủ công ngoài hệ thống (BR-38, BR-91) | - | P-SYS | 2e, 2f | x=320, y=560 (tương đối partition) |
 | FINAL-6 | ActivityFinal | - | - | P-SYS | - | x=560, y=570 (tương đối partition) |
 | A-3 | Action | Ghi nhận thanh toán trễ, không tạo vé | - | P-SYS | 3 | x=60, y=420 (tương đối partition) |
 | M-4 | Merge | - | - | P-SYS | 4, 4a, 5a | x=130, y=520 (tương đối partition) |
@@ -182,11 +189,13 @@ Bảng Node
 | D-4 | Decision | - | - | P-SYS | 4a, 4b | x=130, y=680 (tương đối partition) |
 | A-5 | Action | Trả kết quả hoàn tiền | - | P-ACT-07 | 5 | x=60, y=740 (tương đối partition) |
 | D-5 | Decision | - | - | P-SYS | 5a, 5b | x=130, y=900 (tương đối partition) |
-| M-R | Merge | - | - | P-SYS | 4a, 4b, 5a, 5b | x=320, y=900 (tương đối partition) |
-| D-R | Decision | - | - | P-SYS | 4a, 4b, 5a, 5b | x=320, y=980 (tương đối partition) |
+| M-R | Merge | - | - | P-SYS | 4a, 5a | x=320, y=900 (tương đối partition) |
+| A-T | Action | Tra cứu cổng xem khoản hoàn đã thực hiện chưa, kèm khoá yêu cầu hoàn (BR-43) | - | P-SYS | 4t | x=400, y=880 (tương đối partition) |
+| D-T | Decision | - | - | P-SYS | 4t, 4b, 5b | x=470, y=980 (tương đối partition) |
+| D-R | Decision | - | - | P-SYS | 4t, 4b, 5b | x=580, y=980 (tương đối partition) |
 | A-RX | Action | Ghi log lỗi khoản hoàn, xử lý thủ công ngoài hệ thống, không email khách (BR-41) | - | P-SYS | 4b, 5b | x=250, y=1060 (tương đối partition) |
 | FINAL-3 | ActivityFinal | - | - | P-SYS | - | x=320, y=1170 (tương đối partition) |
-| A-6 | Action | Ghi nhận giao dịch đã hoàn tiền | - | P-SYS | 6 | x=60, y=990 (tương đối partition) |
+| A-6 | Action | Ghi nhận giao dịch đã hoàn tiền | - | P-SYS | 4t, 6 | x=60, y=990 (tương đối partition) |
 | A-7 | Action | Gửi email thông báo hoàn tiền | - | P-SYS | 7 | x=60, y=1090 (tương đối partition) |
 | FINAL-5 | ActivityFinal | - | - | P-SYS | - | x=130, y=1190 (tương đối partition) |
 
@@ -215,14 +224,19 @@ Bảng Edge
 | E-19 | A-5 | D-5 | ControlFlow | - | - | (150,920) |
 | E-20 | D-5 | M-R | ControlFlow | [hoàn tiền thất bại] | - | - |
 | E-21 | D-5 | A-6 | ControlFlow | [thành công] | - | - |
-| E-22 | M-R | D-R | ControlFlow | - | - | - |
-| E-23 | D-R | M-4 | ControlFlow | [còn lượt thử lại] | - | (810,1000); (810,540) |
-| E-24 | D-R | A-RX | ControlFlow | [hết lượt thử lại] | - | - |
+| E-22 | M-R | A-T | ControlFlow | - | - | - |
+| E-23 | D-R | M-4 | ControlFlow | [còn lượt thử lại] | - | (940,990); (940,560) |
+| E-24 | D-R | A-RX | ControlFlow | [hết lượt thử lại] | - | (900,1060) |
 | E-25 | A-RX | FINAL-3 | ControlFlow | - | - | - |
 | E-26 | A-6 | A-7 | ControlFlow | - | - | - |
 | E-27 | A-7 | FINAL-5 | ControlFlow | - | - | - |
+| E-28 | D-2 | A-2e | ControlFlow | [thành công, số tiền cổng báo lệch] | - | (450,385); (590,385); (590,600) |
+| E-29 | A-T | D-T | ControlFlow | - | - | - |
+| E-30 | D-T | D-R | ControlFlow | [chưa hoàn] | - | - |
+| E-31 | D-T | A-6 | ControlFlow | [đã hoàn] | - | - |
+| E-32 | D-T | A-RX | ControlFlow | [không tra cứu được] | - | (790,1060) |
 
-Partition P-ACT-07 dùng cho ACT-07 Cổng thanh toán ở cả hai vai trò (bước 1 là tác nhân chính, bước 5 là tác nhân phụ). ACT-08 Dịch vụ email không có partition vì chỉ nhận thông tin (nằm trong nhãn A-7). Luồng 2b không có hành động nên không có action; cạnh mang guard đi thẳng từ decision tới final node. Luồng 2c và 2d dùng chung FINAL-4. Luồng 4a, 5a dùng chung M-R, D-R (hợp hai nhánh lỗi rồi quyết định thử lại) và không có action riêng; cạnh E-23 đi từ D-R về M-4, merge đặt ngay trước A-4 nên A-4 chỉ có một cạnh vào. Luồng 4b, 5b dùng chung A-RX, FINAL-3.
+Partition P-ACT-07 dùng cho ACT-07 Cổng thanh toán ở cả hai vai trò (bước 1 là tác nhân chính, bước 5 là tác nhân phụ). ACT-08 Dịch vụ email không có partition vì chỉ nhận thông tin (nằm trong nhãn A-7). Luồng 2b không có hành động nên không có action; cạnh mang guard đi thẳng từ decision tới final node. Luồng 2c và 2d dùng chung FINAL-4. Luồng 4a, 5a dùng chung M-R (hợp hai nhánh lỗi) và không có action riêng, rồi đi qua A-T, D-T của luồng 4t; D-R quyết định thử lại sau khi tra cứu cho thấy chưa hoàn. Cạnh E-23 đi từ D-R về M-4, merge đặt ngay trước A-4 nên A-4 chỉ có một cạnh vào. Luồng 4b, 5b dùng chung A-RX, FINAL-3. Luồng 2e và 2f dùng chung A-2e, FINAL-6.
 
 ## Câu hỏi mở
 
@@ -249,4 +263,4 @@ Không có
 - Luồng 2b chỉ phân định ranh giới với UC-005 (EV-07), nằm trong use case vì cùng một sự kiện báo thành công của cổng có thể rơi vào một trong hai use case; cách phân loại cụ thể thuộc bước thiết kế.
 - BR-37 (đã gộp BR-16) là quy tắc suy ra từ cụm "hoàn toàn bộ số tiền" (REQ-35, REQ-109) cho tình huống báo trùng; đề bài đã bổ sung ở REQ-110 theo trả lời Q-27.
 - Ngoài phạm vi: xử lý thủ công khoản hoàn đã ghi log lỗi (luồng 4b, 5b) và giao dịch không nhận ra (luồng 2e) diễn ra ngoài hệ thống, không có use case (REQ-129, REQ-131).
-- Các cạnh E-04 đến E-09 cùng xuất phát từ D-2 và dùng chung đoạn ngang đầu; E-17 và E-20 hợp ở M-R; E-14 và E-23 hợp ở M-4; không cạnh nào cắt qua node.
+- Các cạnh E-04 đến E-09 cùng xuất phát từ D-2 và dùng chung đoạn ngang đầu; E-17 và E-20 hợp ở M-R; E-14 và E-23 hợp ở M-4; E-08 và E-28 hợp ở A-2e; không cạnh nào cắt qua node.

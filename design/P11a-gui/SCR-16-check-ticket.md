@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-009 (bước 1-7, Dữ liệu vào 1, 2, Dữ liệu ra 1-3, luồng 4a-4e); P06 NFR-11, NFR-13, NFR-14; P05 GL-48, GL-62; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-009 (bước 1-7, Dữ liệu vào 1, 2, Dữ liệu ra 1-3, luồng 4a-4e); P06 NFR-11, NFR-13, NFR-14; P05 GL-48, GL-62; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-16 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -75,7 +75,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | Mã đặt vé, tên phim, định dạng, tên cụm rạp, tên phòng và loại phòng | - | Chữ | Hiển thị | Như nội dung vé | - | UC-009 Dữ liệu ra 2 STT 1-5 |
 | Ngày giờ bắt đầu suất chiếu | 16 | Ngày giờ | Hiển thị | dd/MM/yyyy HH:mm | - | UC-009 Dữ liệu ra 2 STT 6 |
 | Vị trí ghế, loại ghế | - | Chữ | Hiển thị | Mã hàng và số ghế; ghế thường, VIP hoặc đôi | - | UC-009 Dữ liệu ra 2 STT 7-8 |
-| Giá vé | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-009 Dữ liệu ra 2 STT 9 |
+| Giá vé | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-009 Dữ liệu ra 2 STT 9 |
 | Lý do vé không hợp lệ | - | Lựa chọn | Hiển thị | Một lý do duy nhất theo thứ tự: không tương ứng vé, cụm rạp khác, suất chiếu khác, đã sử dụng, đã huỷ | - | UC-009 Dữ liệu ra 3 STT 1; BR-33 |
 
 ## f) Kiểm tra dữ liệu nhập

@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-008 1.4 (bước 1-5, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a, 3a, 4a, 4b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-008 1.5 (bước 1-5, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a, 3a, 4a, 4b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-07 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -66,7 +66,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | Phim, cụm rạp, phòng chiếu | - | Chữ | Hiển thị | Theo dữ liệu vé | - | UC-008 Dữ liệu ra 1 STT 1 |
 | Ngày giờ bắt đầu | 16 | Ngày giờ | Hiển thị | dd/MM/yyyy HH:mm | Cơ sở của hạn huỷ vé (BR-18) | UC-008 Dữ liệu ra 1 STT 1 |
 | Vị trí ghế | - | Chữ | Hiển thị | Mã hàng và số ghế | - | UC-008 Dữ liệu ra 1 STT 1, Dữ liệu ra 2 STT 1 |
-| Giá vé | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-008 Dữ liệu ra 1 STT 2 |
+| Giá vé | 15 (Thiết kế: đủ cho 999.999.999 đ) | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-008 Dữ liệu ra 1 STT 2 |
 | Trạng thái vé | - | Lựa chọn | Hiển thị | Chưa sử dụng, đã huỷ, đã sử dụng | Có chữ và biểu tượng, không chỉ màu | UC-008 Dữ liệu ra 2 STT 1; GL-60, GL-61, GL-65 |
 | Vé cần huỷ | - | Lựa chọn | Chọn, bắt buộc | Một vé trong các vé khách đã mua trực tuyến | - | UC-008 Dữ liệu vào 1 STT 2; BR-17 |
 

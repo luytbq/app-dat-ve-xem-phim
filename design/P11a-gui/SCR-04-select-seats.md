@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-005 1.8 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-04 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -106,7 +106,7 @@ Không có.
 
 ## Câu hỏi mở
 
-Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-123.
+Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-123. Q-119: MSG-09 đưa khách về SCR-02, nơi có dải Tiếp tục thanh toán mở SCR-05.
 
 ## Đề xuất sửa artifact trước
 

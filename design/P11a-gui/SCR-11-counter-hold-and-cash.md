@@ -3,8 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | ui-standards.md 1.0; screen-list.md 1.0; screen-transition.md 1.0; P04 UC-005 1.8 (bước 8, luồng 9a, 9a1, 9a1a, 9a2, 7b, *a, Dữ liệu ra 2); P05 GL-52; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 8, luồng 9a, 9a1, 9a1a, 9a2, 7b, *a, Dữ liệu ra 2); P05 GL-52; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-11 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -19,7 +19,7 @@
 | Boundary AC | AC-B-CounterBookTicketsForm (showHeldSeats, confirmCashReceived, notifyRefusal) |
 | DC | DC-CounterBookTicketsView, DC-CounterBookTicketsStore |
 | Loại màn hình | Phụ thuộc có dữ liệu (lần giữ ghế) |
-| Đến từ | SCR-10 (E-23) |
+| Đến từ | SCR-10 (E-23), SCR-09 (E-33) |
 | Đi tới | SCR-12 (E-25), SCR-09 (E-26) |
 
 ## c) Hình ảnh màn hình
@@ -56,7 +56,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 
 | STT | Điều khiển (Control) | Loại | Thao tác (Operation) | Chức năng (Function) | Nguồn |
 |---|---|---|---|---|---|
-| 1 | Màn hình | Vùng hiển thị | Khởi tạo | Hiện suất chiếu, bảng ghế đã giữ (vị trí, loại, giá vé), tổng tiền cần thu, đồng hồ đếm ngược. Cài hộp cảnh báo của trình duyệt khi đóng hoặc tải lại trang | UC-005 bước 8, Dữ liệu ra 2; BR-10, BR-13 |
+| 1 | Màn hình | Vùng hiển thị | Khởi tạo | Hiện suất chiếu, bảng ghế đã giữ (vị trí, loại, giá vé), tổng tiền cần thu, đồng hồ đếm ngược. Khi mở từ dải Tiếp tục thanh toán hoặc sau khi tải lại trang, màn hình tự nạp lần giữ ghế đang chạy từ máy chủ; không có lần giữ ghế thì mở SCR-09 kèm MSG-29. Cài hộp cảnh báo của trình duyệt khi đóng hoặc tải lại trang | UC-005 bước 8, Dữ liệu ra 2; BR-10, BR-13 |
 | 2 | Khối đồng hồ | Vùng hiển thị | Hết thời gian | Như SCR-05. Về 00:00: vô hiệu hai nút, hiện MSG-29 và mở SCR-09 | UC-005 luồng 7b; BR-10; MSG-29 |
 | 3 | Nút Xác nhận đã thu tiền mặt | Nút chính | Nhấn | Mở hộp xác nhận MSG-22 nêu tổng tiền. Xác nhận: gửi xác nhận, hiện MSG-26. Tới trước hạn: mở SCR-12 với mã đặt vé và vé. Tới sau hạn: hiện MSG-20 và mở SCR-09, nhân viên trả lại tiền mặt cho khách | UC-005 bước 9a1, 9a2, luồng 9a1a; BR-13, BR-44; MSG-20, MSG-22 |
 | 4 | Nút Huỷ giữ ghế | Nút phụ | Nhấn | Mở hộp xác nhận MSG-18. Huỷ giữ ghế: giải phóng ghế, mở SCR-09 kèm MSG-19 | UC-005 luồng *a; MSG-18, MSG-19 |
@@ -68,8 +68,8 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 |---|---|---|---|---|---|---|
 | Suất chiếu | - | Chữ | Hiển thị | Phim, định dạng, phòng chiếu, ngày giờ bắt đầu | - | UC-005 Dữ liệu ra 1 STT 1 |
 | Ghế đã giữ (vị trí, loại) | - | Chữ | Hiển thị | Mã hàng, số ghế, loại ghế | - | UC-005 Dữ liệu ra 2 STT 1 |
-| Giá vé từng ghế | Q-124 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | - | UC-005 Dữ liệu ra 2 STT 2 |
-| Tổng tiền cần thu | Q-124 | Tiền | Hiển thị, căn phải | Tổng giá vé các ghế đã giữ | Khớp tổng các dòng | UC-005 Dữ liệu ra 2 STT 3; BR-13 |
+| Giá vé từng ghế | 15 | Tiền | Hiển thị, căn phải | Số nguyên đồng, dấu chấm hàng nghìn, " đ" | Thiết kế: 15 ký tự đủ cho "999.999.999 đ" | UC-005 Dữ liệu ra 2 STT 2 |
+| Tổng tiền cần thu | 15 | Tiền | Hiển thị, căn phải | Tổng giá vé các ghế đã giữ | Thiết kế: 15 ký tự đủ cho tổng 8 ghế; khớp tổng các dòng | UC-005 Dữ liệu ra 2 STT 3; BR-13 |
 | Thời điểm hết hạn giữ ghế | 8 | Giờ | Hiển thị | HH:mm:ss | Thiết kế: giờ máy chủ đã hiệu chỉnh độ lệch | BR-10; GL-52 |
 | Thời gian còn lại | 5 | Giờ | Hiển thị, 32 px đậm | mm:ss từ 10:00 đến 00:00 | - | BR-10 |
 
@@ -84,7 +84,7 @@ Không có trường nhập dữ liệu nghiệp vụ.
 | SCR-11 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận thu tiền nêu số tiền (MSG-22) và xử lý xác nhận trễ bằng MSG-20 | - |
 | SCR-11 | WCAG 3.3.4 Ngăn lỗi tài chính | Đạt | Xác nhận trước khi chuyển ghế sang đã bán | - |
 | SCR-11 | WCAG 2.2.1 | Đạt | UI-STT 36, 43 | - |
-| SCR-11 | Nielsen 3 | Vi phạm còn mở | Rời trang thì không có lối quay lại lần giữ ghế (Q-119); không gia hạn vì BR-10 | Chờ Q-119 |
+| SCR-11 | Nielsen 3 | Đạt | Rời trang vẫn mở lại được lần giữ ghế qua dải Tiếp tục thanh toán ở SCR-09 (Q-119); không gia hạn vì BR-10 | - |
 
 Các tiêu chí còn lại: Đạt theo ui-standards.md STT 05-09, 12-15, 21, 27-31, 33-35, 37, 43.
 
@@ -98,7 +98,7 @@ Không có.
 
 ## Câu hỏi mở
 
-Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-124.
+Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119.
 
 ## Đề xuất sửa artifact trước
 
@@ -108,4 +108,4 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-124.
 
 ## Vấn đề còn mở
 
-Q-119 ảnh hưởng cả kênh quầy.
+Q-119 đã trả lời theo đề xuất, chờ người dùng xác nhận; áp dụng cả kênh quầy.

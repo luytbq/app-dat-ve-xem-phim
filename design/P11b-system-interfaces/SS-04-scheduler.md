@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1; P04-uc-specs UC-005 1.8 (luồng 7b, 11a, *a), UC-006 1.5, UC-008 1.4; P06-supplementary-spec.md 1.1 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006, UC-008; P09-architecture.md 1.2 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.1 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1; P04-uc-specs UC-005 1.9 (luồng 7b, 11a, *a), UC-006 1.6, UC-008 1.5; P06-supplementary-spec.md 1.2 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006, UC-008; P09-architecture.md 1.3 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.1 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-04 Scheduler (IF-05, IF-06) |
-| Mã Q, ASM cuối đã cấp | Ghi ở file chung (mã tạm Q-126 đến Q-131) |
+| Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 
 SS-04 không có lớp phân tích nguồn tương ứng một-một; trách nhiệm lấy từ P10 F2 và từ message P07 startWaitingForHoldExpiry, stopWaitingForHoldExpiry của AC-C-BookTicketsController (P10 F1, A1).
 
@@ -37,7 +37,7 @@ IF-05 có 3 operation, IF-06 có 1 operation. IF-06 do SS-04 định nghĩa ở 
 | IF-05 | IJobScheduler | Không có (nội bộ máy chủ) | registerJob(name: String, job: IScheduledJob, interval: Duration): void | name: String - tên công việc, duy nhất, dùng cho log<br>job: IScheduledJob - lớp hiện thực IF-06<br>interval: Duration - chu kỳ, lớn hơn 0; 10 giây cho cả bốn công việc (P09 F7.4) | - | SchedulerStateError (Kỹ thuật, lỗi lập trình: đăng ký sau start, tên trùng, chu kỳ không dương) | UC-005, UC-006, UC-008 (hạ tầng của luồng 7b, 11a và các bước hoàn tiền, gửi email) | Chưa start | Công việc nằm trong danh sách đăng ký | Đồng bộ | Không (đăng ký trùng tên báo lỗi) | Không áp dụng |
 | IF-05 | IJobScheduler | Không có (nội bộ máy chủ) | start(): void | - | - | SchedulerStateError (Kỹ thuật: đã start) | UC-005, UC-006, UC-008 | Mọi công việc đã đăng ký | Mỗi công việc chạy định kỳ ở nền trên bản backend này; trả ngay | Đồng bộ (vòng chạy nền bất đồng bộ) | Không (gọi lần hai báo lỗi) | Không áp dụng |
 | IF-05 | IJobScheduler | Không có (nội bộ máy chủ) | stop(grace: Duration): void | grace: Duration - thời gian chờ lượt đang chạy, lớn hơn 0; 10 giây (Thiết kế: ngân sách 8 giây của một lượt cộng 2 giây) | - | Không | UC-005, UC-006, UC-008 | Không | Không bắt đầu lượt mới; lượt đang chạy xong hoặc bị bỏ dở an toàn vì chạy lặp được | Đồng bộ | Có | grace (10 giây, Thiết kế như trên) |
-| IF-06 | IScheduledJob | Không có (do Application hiện thực, SS-04 gọi ngược) | runDue(budget: Duration): JobRunResult | budget: Duration - ngân sách thời gian của lượt, 8 giây (P09 F7.4) | JobRunResult: processedCount (Integer), hasMore (Boolean: còn mục đến hạn khi hết ngân sách) | Lỗi của công việc (Kỹ thuật): SS-04 bắt, ghi log, không để lọt ra ngoài | UC-005 (luồng 7b, 11a); UC-006 (bước 4 đến 7); UC-008 (bước 5, 6) | Nhiều bản backend gọi song song được | Các mục đến hạn trong ngân sách đã xử lý theo lô; chia việc giữa các bản bằng SKIP LOCKED hoặc claim (P09 F7.4, F7.7) | Đồng bộ (SS-04 chờ tới hết lượt) | Có (chạy lặp an toàn: EX-04, EX-05, claim_token) | 8 giây (P09 F7.4); lượt quá 8 giây cộng 2 giây được coi là treo: ghi log, không mở lượt mới của công việc đó tới khi lượt cũ kết thúc (Thiết kế) |
+| IF-06 | IScheduledJob | Không có (do Application hiện thực, SS-04 gọi ngược) | runDue(budget: Duration): JobRunResult | budget: Duration - ngân sách thời gian của lượt, 8 giây (P09 F7.4); chỉ chặn việc nhận mục mới, mục đã nhận được chạy xong | JobRunResult: processedCount (Integer), hasMore (Boolean: còn mục đến hạn khi hết ngân sách) | Lỗi của công việc (Kỹ thuật): SS-04 bắt, ghi log, không để lọt ra ngoài | UC-005 (luồng 7b, 11a); UC-006 (bước 4 đến 7); UC-008 (bước 5, 6) | Nhiều bản backend gọi song song được | Các mục đến hạn trong ngân sách đã xử lý theo lô; chia việc giữa các bản bằng SKIP LOCKED hoặc claim (P09 F7.4, F7.7) | Đồng bộ (SS-04 chờ tới hết lượt) | Có (chạy lặp an toàn: EX-04, EX-05, claim_token) | 8 giây (P09 F7.4); lượt quá 8 giây cộng 2 giây được coi là treo: ghi log, không mở lượt mới của công việc đó tới khi lượt cũ kết thúc (Thiết kế) |
 
 Phủ trách nhiệm: registerJob, start, stop của P10 F2; startWaitingForHoldExpiry và stopWaitingForHoldExpiry của P07 không còn là lời gọi vì hết hạn tính theo expiry_time và công việc nền chỉ quyết định khi nào ghế trống (P09 F7.4).
 
@@ -198,8 +198,8 @@ a) Bảng lỗi
 | registerJob, start | Đăng ký sau start, start hai lần, tên trùng, chu kỳ không dương | Kỹ thuật (lỗi lập trình) | Kiểm trạng thái | Không xử lý | SchedulerStateError; hàm khởi động dừng chương trình | Không có | - |
 | runDue | Công việc trả lỗi hoặc panic | Kỹ thuật | recover trong DC-JobLoop | Ghi log, nhả cờ đang chạy; chu kỳ sau chạy lại (chu kỳ 10 giây cho nhiều cơ hội trong 1 phút của NFR-07) | Không lọt ra ngoài | UC-005 luồng 7b; NFR-07 | - |
 | runDue | Lượt trước chưa xong khi tới chu kỳ mới | Kỹ thuật | Cờ đang chạy | Bỏ qua chu kỳ, không chạy chồng (P09 F7.4) | Không có | Không có | - |
-| runDue | Lượt vượt ngân sách 8 giây cộng 2 giây | Kỹ thuật | Đo thời gian lượt | Ghi log; công việc đó không mở lượt mới tới khi lượt cũ kết thúc | Không có | NFR-07 | - |
-| runDue | Bản backend chết giữa lượt | Kỹ thuật | Ngoài SS-04 | Bản khác tiếp tục; mục hàng đợi được nhận lại sau claimed_until 60 giây (P09 F7.7); quét hết hạn chia lô bằng SKIP LOCKED | Không có | UC-005 luồng 7b; UC-006, UC-008 | - |
+| runDue | Lượt vượt ngân sách 8 giây cộng 2 giây (riêng DC-RefundOutboxJob: cộng thêm tối đa 60 giây cho dòng đã claim đang gọi cổng, phần này không là lượt treo) | Kỹ thuật | Đo thời gian lượt | Ghi log; công việc đó không mở lượt mới tới khi lượt cũ kết thúc | Không có | NFR-07 | - |
+| runDue | Bản backend chết giữa lượt | Kỹ thuật | Ngoài SS-04 | Bản khác tiếp tục; mục hàng đợi được nhận lại sau claimed_until 120 giây (P09 F7.7); quét hết hạn chia lô bằng SKIP LOCKED | Không có | UC-005 luồng 7b; UC-006, UC-008 | - |
 | stop | Lượt đang chạy quá grace | Kỹ thuật | Hết grace | Ghi log lượt bị bỏ dở; an toàn vì chạy lặp được | void | Không có | - |
 | (toàn hệ thống) | Mọi bản backend đều dừng | Kỹ thuật | Ngoài SS-04 | Kết quả hết hạn vẫn đúng vì tính theo expiry_time (P09 F7.4); chỉ việc trả ghế về trống chậm hơn NFR-07 | Không có | UC-005 luồng 7b | - |
 

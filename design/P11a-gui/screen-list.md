@@ -3,10 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.8, UC-008 1.4, UC-009, UC-013 1.2, UC-014 1.3; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.1 (F3); P09-architecture.md 1.2 (F5, F7.5, F7.6); P10-design-elements.md 1.1 (F3, F4); ui-standards.md 1.0; SCR-01 đến SCR-20 |
+| Phiên bản | 1.1 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.9, UC-008 1.5, UC-009, UC-013 1.2, UC-014 1.3; P05-glossary.md 1.1; P06-supplementary-spec.md 1.2; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.1 (F3); P09-architecture.md 1.3 (F5, F7.5, F7.6); P10-design-elements.md 1.1 (F3, F4); ui-standards.md 1.1; SCR-01 đến SCR-20 |
 | Phạm vi | Toàn hệ thống: UC-005, UC-008, UC-009, UC-013, UC-014 và màn hình đăng nhập. UC-006 không có màn hình (tác nhân chính là cổng thanh toán) |
-| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-79 |
+| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-81 |
 
 Mức hợp lý: 20 màn hình; mỗi use case của một tác nhân chính có 1 đến 4 màn hình (UC-005 khách 4: SCR-03 đến SCR-06; UC-005 quầy 3: SCR-10 đến SCR-12; UC-008 khách 2: SCR-07, SCR-08; UC-008 quầy 3: SCR-13 đến SCR-15; UC-009 1: SCR-16; UC-013 1: SCR-18; UC-014 2: SCR-19, SCR-20). Boundary BookTicketsForm và CounterBookTicketsForm (một View mỗi boundary ở P10) sinh nhiều màn hình, ghi ở Đề xuất sửa artifact trước.
 
@@ -54,7 +54,7 @@ UC-006 Hoàn tiền thanh toán trễ: tác nhân chính ACT-07 Cổng thanh to�
 | SCR-01 | Baymard: nhãn trên ô nhập, giữ dữ liệu | Đạt | UI-STT 16, 20 | - |
 | SCR-02 | Nielsen 1 Hiển thị trạng thái hệ thống | Vi phạm còn mở (do phạm vi) | Bốn lối vào UC-001, UC-003, UC-004, UC-007 chưa có màn hình đích | Chấp nhận, cập nhật khi các use case được đặc tả |
 | SCR-02 | Nielsen 8 Thẩm mỹ, tối giản | Đạt | Hai thẻ hoạt động, bốn thẻ vô hiệu gom một dòng | - |
-| SCR-03 | Nielsen 7 Linh hoạt và hiệu quả | Vi phạm còn mở | Không có lọc, tìm kiếm danh sách suất chiếu (thuộc UC-004 chưa đặc tả) | Chờ Q-120 |
+| SCR-03 | Nielsen 7 Linh hoạt và hiệu quả | Vi phạm còn mở (do phạm vi) | Không có lọc, tìm kiếm danh sách suất chiếu (thuộc UC-004 chưa đặc tả) | Chấp nhận theo Q-120, thêm bộ lọc khi UC-004 được đặc tả |
 | SCR-03 | Nielsen 3 Kiểm soát và tự do | Đạt | Từ chối ở lại danh sách theo UI-STT 29(2), không đẩy khách khỏi màn hình | - |
 | SCR-04 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Dải trạng thái kết nối, MSG-26, đếm ghế đã chọn (UI-STT 40, 41) | - |
 | SCR-04 | Nielsen 5 Ngăn lỗi | Đạt | Ghế đang giữ, đã bán không chọn được; nút vô hiệu khi chưa chọn ghế | - |
@@ -64,19 +64,19 @@ UC-006 Hoàn tiền thanh toán trễ: tác nhân chính ACT-07 Cổng thanh to�
 | SCR-04 | WCAG 4.1.3 Thông điệp trạng thái | Đạt | Thay đổi ghế được gộp thành thông báo role=status (UI-STT 40) | - |
 | SCR-04 | Baymard / Nielsen 6 | Đạt | Giữ lựa chọn khi đăng nhập và khi bị từ chối ở 6a, 7a | - |
 | SCR-05 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Đồng hồ, chữ "Sắp hết thời gian", MSG-26, MSG-27 (UI-STT 43, 27) | - |
-| SCR-05 | Nielsen 3 Kiểm soát và tự do | Vi phạm còn mở | Khách tải lại hoặc rời trang rồi chưa có lối quay lại lần giữ ghế (Q-119); không gia hạn được vì BR-10 | Chờ Q-119 |
+| SCR-05 | Nielsen 3 Kiểm soát và tự do | Đạt | Khách tải lại hoặc rời trang vẫn mở lại được lần giữ ghế qua dải Tiếp tục thanh toán (Q-119); không gia hạn được vì BR-10 | Đã sửa theo Q-119 |
 | SCR-05 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận huỷ giữ ghế (MSG-18); cảnh báo khi rời trang (MSG-77) | - |
 | SCR-05 | WCAG 2.2.1 Giới hạn thời gian | Đạt | Giới hạn 10 phút là quy tắc nghiệp vụ thiết yếu, có cảnh báo ở bốn mốc (UI-STT 36) | - |
 | SCR-05 | WCAG 1.4.1 | Đạt | Trạng thái sắp hết hạn có chữ và nền, không chỉ màu | - |
 | SCR-05 | Baymard: tóm tắt đơn và tổng tiền ở bước thanh toán | Đạt | Bảng ghế, giá và tổng tiền cạnh nút thanh toán (UI-STT 44) | - |
-| SCR-06 | Nielsen 1 Hiển thị trạng thái hệ thống | Vi phạm còn mở | Khách đóng tab ở VNPay hoặc tải lại sau hạn polling thì không có màn hình xem lại kết quả (Q-119) | Chờ Q-119 |
+| SCR-06 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Khách đóng tab ở VNPay hoặc tải lại thì thấy dải Tiếp tục thanh toán ở SCR-02 khi lần giữ ghế còn chạy (Q-119); kết quả đặt vé sau đó xem qua email | Đã sửa theo Q-119 |
 | SCR-06 | Nielsen 9 | Đạt | MSG-14, MSG-16, MSG-30 nêu kết quả và việc tiếp theo (hoàn tiền, kiểm tra email) | - |
 | SCR-06 | WCAG 1.1.1 Nội dung không phải chữ | Đạt | Mã QR có văn bản thay thế nêu ghế và mã đặt vé (UI-STT 34) | - |
 | SCR-06 | WCAG 4.1.3 | Đạt | Kết quả đổi từ MSG-28 sang kết quả cuối qua vùng role=status | - |
 | SCR-07 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận nêu số tiền hoàn và không hoàn tác (UI-STT 37) | - |
 | SCR-07 | Nielsen 1 | Đạt | MSG-78 trong lúc hoàn tiền kéo dài (UI-STT 27) | - |
 | SCR-07 | WCAG 3.3.4 Ngăn lỗi tài chính | Đạt | Xác nhận trước khi huỷ vé và hoàn tiền | - |
-| SCR-07 | Nielsen 7 | Vi phạm còn mở | Không có lọc theo mã đặt vé hoặc suất chiếu (chưa có trong đặc tả) | Chờ Q-121 |
+| SCR-07 | Nielsen 7 | Vi phạm còn mở (do phạm vi) | Không có lọc theo mã đặt vé hoặc suất chiếu (chưa có trong đặc tả) | Chấp nhận theo Q-121, thêm lọc khi UC-007 được đặc tả |
 | SCR-08 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Tình trạng hoàn tiền hiện rõ cả khi chưa hoàn được (MSG-41) | - |
 | SCR-08 | Nielsen 9 | Đạt | MSG-41 nêu khoản hoàn được xử lý thủ công | - |
 | SCR-09 | Nielsen 4 Nhất quán | Đạt | Cùng bố cục thẻ với SCR-02 và SCR-17 (UI-STT 47) | - |
@@ -87,7 +87,7 @@ UC-006 Hoàn tiền thanh toán trễ: tác nhân chính ACT-07 Cổng thanh to�
 | SCR-11 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận thu tiền nêu số tiền (MSG-22) và xử lý xác nhận trễ bằng MSG-20 | - |
 | SCR-11 | WCAG 3.3.4 Ngăn lỗi tài chính | Đạt | Xác nhận trước khi chuyển ghế sang đã bán | - |
 | SCR-11 | WCAG 2.2.1 | Đạt | UI-STT 36, 43 | - |
-| SCR-11 | Nielsen 3 | Vi phạm còn mở | Rời trang thì không có lối quay lại lần giữ ghế (Q-119); không gia hạn vì BR-10 | Chờ Q-119 |
+| SCR-11 | Nielsen 3 | Đạt | Rời trang vẫn mở lại được lần giữ ghế qua dải Tiếp tục thanh toán ở SCR-09 (Q-119); không gia hạn vì BR-10 | Đã sửa theo Q-119 |
 | SCR-12 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | MSG-21 báo đã bán vé và việc cần làm tiếp | - |
 | SCR-12 | WCAG 1.1.1 | Đạt | Mã QR có văn bản thay thế (UI-STT 34) | - |
 | SCR-13 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận nêu số tiền mặt hoàn và không hoàn tác (UI-STT 37) | - |
@@ -95,7 +95,7 @@ UC-006 Hoàn tiền thanh toán trễ: tác nhân chính ACT-07 Cổng thanh to�
 | SCR-13 | Baymard: giữ dữ liệu đã nhập | Đạt | Mã đặt vé còn nguyên sau MSG-31 (UI-STT 20) | - |
 | SCR-13 | WCAG 3.3.4 | Đạt | Xác nhận trước khi huỷ vé | - |
 | SCR-14 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận nêu số tiền (MSG-42) | - |
-| SCR-14 | Nielsen 3 Kiểm soát và tự do | Vi phạm còn mở | Vé đã huỷ ở bước 4 trước khi xác nhận hoàn tiền; rời màn hình chưa có cách xử lý (Q-125) | Chờ Q-125 |
+| SCR-14 | Nielsen 3 Kiểm soát và tự do | Đạt | Huỷ vé và hoàn tiền mặt là một thao tác; rời màn hình trước khi xác nhận thì vé chưa bị huỷ (Q-125) | Đã sửa theo Q-125 |
 | SCR-14 | WCAG 3.3.4 | Đạt | Xác nhận tài chính trước khi ghi nhận hoàn tiền | - |
 | SCR-15 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | MSG-43 và tình trạng hoàn tiền hiện ngay sau xác nhận | - |
 | SCR-16 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Khối kết quả lớn có chữ, biểu tượng và màu; giữ tới lần quét kế (UI-STT 45) | - |
@@ -118,13 +118,13 @@ UC-006 Hoàn tiền thanh toán trễ: tác nhân chính ACT-07 Cổng thanh to�
 | SCR-20 | WCAG 2.4.3, 2.4.11 | Đạt | Tiêu điểm bị giữ trong hộp và trả về khi đóng (UI-STT 21) | - |
 | SCR-20 | WCAG 3.3.2 | Đạt | Gợi ý định dạng ngày giờ dưới nhãn, không dùng placeholder thay nhãn | - |
 
-Tổng hợp Shneiderman: nhất quán --> Đạt (UI-STT 05-09, 22, 47); khả dụng cho mọi người dùng --> Đạt (UI-STT 15, 33-36); phản hồi đầy đủ --> Đạt (UI-STT 27, 28, 40, 41, 43); hội thoại có điểm kết thúc rõ --> Đạt (SCR-06, SCR-08, SCR-12, SCR-15); ngăn lỗi --> Đạt (UI-STT 19, 37); hoàn tác dễ dàng --> Vi phạm còn mở (đặc tả không có hoàn tác); người dùng làm chủ --> Đạt, ngoại lệ Q-119; giảm tải trí nhớ ngắn hạn --> Đạt (UI-STT 39, 43, 44).
+Tổng hợp Shneiderman: nhất quán --> Đạt (UI-STT 05-09, 22, 47); khả dụng cho mọi người dùng --> Đạt (UI-STT 15, 33-36); phản hồi đầy đủ --> Đạt (UI-STT 27, 28, 40, 41, 43); hội thoại có điểm kết thúc rõ --> Đạt (SCR-06, SCR-08, SCR-12, SCR-15); ngăn lỗi --> Đạt (UI-STT 19, 37); hoàn tác dễ dàng --> Vi phạm còn mở (đặc tả không có hoàn tác); người dùng làm chủ --> Đạt (UI-STT 47, Q-119); giảm tải trí nhớ ngắn hạn --> Đạt (UI-STT 39, 43, 44).
 
-Số dòng Vi phạm còn mở: 0; Vi phạm đã sửa: 0; mọi vi phạm còn mở do phạm vi đặc tả hoặc câu hỏi mở (Q-119, Q-120, Q-121, Q-125) hoặc ràng buộc NFR-13.
+Số dòng Vi phạm còn mở: 5; Vi phạm đã sửa: 4. Còn mở do phạm vi đặc tả: SCR-02, SCR-03, SCR-07, SCR-17; do ràng buộc NFR-13: SCR-16. Đã sửa: SCR-05, SCR-06, SCR-11 (Q-119), SCR-14 (Q-125).
 
 ## Câu hỏi mở
 
-Xem ui-standards.md: Q-119 đến Q-125 (mã tạm, chạy song song với P11b). Câu hỏi quan trọng nhất: Q-119 (quay lại lần giữ ghế đang chạy và kết quả đặt vé).
+Xem ui-standards.md: Q-119 đến Q-125. Q-119 đã trả lời theo đề xuất, chờ người dùng xác nhận; Q-120 đến Q-125 đã trả lời.
 
 ## Đề xuất sửa artifact trước
 
@@ -138,5 +138,5 @@ Xem ui-standards.md: Q-119 đến Q-125 (mã tạm, chạy song song với P11b)
 ## Vấn đề còn mở
 
 1. Chưa lập mockup HTML (XUAT_HTML = Không).
-2. Các vi phạm còn mở trong bảng F7 chờ Q-119, Q-120, Q-121, Q-125 hoặc do phạm vi.
+2. Các vi phạm còn mở trong bảng F7 do phạm vi đặc tả (SCR-02, SCR-03, SCR-07, SCR-17) hoặc ràng buộc NFR-13 (SCR-16).
 3. Thông điệp của mọi SCR đã nằm trong danh mục MSG của ui-standards.md (mục h của mọi SCR ghi Không có), mọi ngoại lệ đã đưa vào quy định gốc; không có dòng nào để gom thêm.
