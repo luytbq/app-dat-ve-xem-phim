@@ -22,7 +22,7 @@
         <mxCell id="ST-03-T2" value="admit(showtime, selected, cinemaId) [đúng cụm rạp và đúng suất chiếu đã chọn] / trả ADMITTED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-S1" target="ST-03-S2">
           <mxGeometry relative="1" as="geometry" x="0.06"><mxPoint x="89" y="0" as="offset" /></mxGeometry>
         </mxCell>
-        <mxCell id="ST-03-T3" value="cancel()" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-S1" target="ST-03-S3">
+        <mxCell id="ST-03-T3" value="cancel() [đã qua kiểm hạn huỷ vé và kênh mua]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-S1" target="ST-03-S3">
           <mxGeometry relative="1" as="geometry" x="0.03"><mxPoint x="0" y="-11.5" as="offset" /></mxGeometry>
         </mxCell>
       </root>

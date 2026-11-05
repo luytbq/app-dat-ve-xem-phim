@@ -31,7 +31,7 @@
         <mxCell id="SQ-01-N1" value="CheckNoActiveSeatHold (BR-04); Expire lần giữ ghế cũ đã quá hạn; CheckSaleOpen, CheckUnchangedSince, CheckSeatSelection" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="320" y="1112" width="420" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-N2" value="QuoteSeatPrices; NewSeatHold(now); SeatStatus.HoldFor(holdId, price) từng ghế" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-01-N2" value="QuoteSeatPrices; NewSeatHold(now); SeatStatus.ReleaseHold(mã cũ) cho ghế trùng lần giữ ghế cũ vừa hết hạn; HoldFor(holdId, price) từng ghế" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="320" y="1566" width="420" height="40" as="geometry" />
         </mxCell>
         <mxCell id="SQ-01-F3" value="alt ghế đang bị khoá hoặc không Trống" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
@@ -97,7 +97,7 @@
             <mxPoint x="780" y="372" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M6" value="6: Acquire(1, cinemaId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M6" value="6: Acquire(1, cinemaId, S)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="780" y="416" as="sourcePoint" />
             <mxPoint x="1220" y="416" as="targetPoint" />
@@ -115,7 +115,7 @@
             <mxPoint x="780" y="504" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M9" value="9: Acquire(2, auditoriumId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M9" value="9: Acquire(2, auditoriumId, S)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="780" y="548" as="sourcePoint" />
             <mxPoint x="1220" y="548" as="targetPoint" />
@@ -133,7 +133,7 @@
             <mxPoint x="780" y="636" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M12" value="12: Acquire(3, showtimeId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M12" value="12: Acquire(3, showtimeId, S)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="780" y="680" as="sourcePoint" />
             <mxPoint x="1220" y="680" as="targetPoint" />
@@ -151,7 +151,7 @@
             <mxPoint x="1000" y="768" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M15" value="15: Acquire(4, holderId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M15" value="15: Acquire(4, holderId, X)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1000" y="812" as="sourcePoint" />
             <mxPoint x="1220" y="812" as="targetPoint" />
@@ -169,7 +169,7 @@
             <mxPoint x="1000" y="900" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M18" value="18: Acquire(5, holdId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M18" value="18: Acquire(5, holdId, X)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1000" y="944" as="sourcePoint" />
             <mxPoint x="1220" y="944" as="targetPoint" />
@@ -205,7 +205,7 @@
             <mxPoint x="1000" y="1308" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-01-M24" value="24: Acquire(6, key) cho từng ghế, tăng dần" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-01-M24" value="24: Acquire(6, key, X) cho từng ghế, tăng dần" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1000" y="1352" as="sourcePoint" />
             <mxPoint x="1220" y="1352" as="targetPoint" />
@@ -270,6 +270,9 @@
             <mxPoint x="340" y="1966" as="sourcePoint" />
             <mxPoint x="120" y="1966" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-01-N3" value="Lỗi không ghi gì: ShowtimeChangedError, HolderBusyError, SeatSelectionError, ShowtimeNotOpenError, HoldNotActiveError(requestId đã kết thúc): ROLLBACK. 40P01: rollback rồi chạy lại fn, tối đa 2 lần, hết lần thì SystemBusyError" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="2010" width="700" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

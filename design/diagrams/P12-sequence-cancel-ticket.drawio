@@ -1,50 +1,47 @@
 <mxfile host="app.diagrams.net">
-  <diagram id="SQ-04" name="Huỷ vé trực tuyến EX-07, EX-09, EX-06 (UC-008)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1680" math="0" shadow="0">
+  <diagram id="SQ-04" name="Huỷ vé một giao dịch EX-06, EX-07, EX-09 (UC-008)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1520" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="SQ-04-L1" value=":TicketController (PKG-11, tham chiếu)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="40" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L2" value=":CancelTicketService" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="260" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="260" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L3" value=":RefundService" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="480" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="480" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L4" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="700" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="700" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L5" value=":PgTicketingStore (IF-18, IF-19, IF-20, IF-21)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="920" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="920" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L6" value=":PgCinemaOperationsStore (IF-11) + :PgOutboxStore (IF-23)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="1140" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="1140" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L7" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
-          <mxGeometry x="1360" y="40" width="160" height="1560" as="geometry" />
+          <mxGeometry x="1360" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-N1" value="Booking.CheckCancellationChannel; Showtime.CheckCancellationDeadline(now); Ticket.Cancel()" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
-          <mxGeometry x="320" y="496" width="420" height="40" as="geometry" />
+        <mxCell id="SQ-04-N1" value="Booking.CheckCancellationChannel; Showtime.CheckCancellationDeadline(now); Ticket.Cancel(); SeatStatus.ReleaseTicket(ticketId): chỉ đổi khi currentTicket khớp" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="712" width="420" height="56" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-F1" value="tx A: ghi nhận huỷ vé" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="14" y="236" width="1532" height="404" as="geometry" />
+        <mxCell id="SQ-04-F1" value="tx: ghi nhận huỷ, trả ghế, tạo yêu cầu hoàn (một giao dịch, Q-133)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="14" y="236" width="1532" height="914" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-N2" value="CheckRefundWithin(amount); NewTicketRefund" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
-          <mxGeometry x="540" y="850" width="420" height="40" as="geometry" />
+          <mxGeometry x="540" y="916" width="420" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-F2" value="tx C: tạo yêu cầu hoàn, không lồng tx A" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="14" y="722" width="1532" height="360" as="geometry" />
+        <mxCell id="SQ-04-N3" value="Lỗi (TicketStateError, ChannelMismatchError, CancelDeadlineError, RefundLimitError): ROLLBACK trọn, không ghi gì. 40P01: rollback rồi chạy lại cả giao dịch, tối đa 2 lần" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="1214" width="700" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-N3" value="SeatStatus.ReleaseTicket(ticketId): chỉ đổi khi currentTicket khớp" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
-          <mxGeometry x="320" y="1292" width="420" height="40" as="geometry" />
+        <mxCell id="SQ-04-N4" value="EX-10 (gọi cổng, 30 giây) chạy ở RefundOutboxJob sau commit, ngoài sơ đồ này" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1284" width="1040" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-F3" value="tx B: trả ghế, không lồng tx A và C" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="14" y="1120" width="1532" height="316" as="geometry" />
-        </mxCell>
-        <mxCell id="SQ-04-N4" value="EX-10 (gọi cổng, 30 giây) chạy ở RefundOutboxJob sau commit tx C, ngoài sơ đồ này" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
-          <mxGeometry x="480" y="1488" width="1040" height="50" as="geometry" />
+        <mxCell id="SQ-04-N5" value="Nhánh tiền mặt (ConfirmCashRefund): cùng khuôn nhưng bỏ hạng 7 (M7 đến M9) và hàng đợi (M15 đến M18); sau Ticket.Cancel và ReleaseTicket thì Insert RefundRequest TICKET_CASH đã REFUNDED [hạng 9, dòng mới]; không gọi cổng, không email" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1348" width="1260" height="56" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-M1" value="1: CancelOnlineTicket(ctx, ticketId, customer)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
@@ -52,142 +49,118 @@
             <mxPoint x="340" y="170" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M2" value="2: Do(UserTx(&quot;CancelTicket&quot;), fn) [EX-07]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M2" value="2: Do(UserTx(&quot;CancelTicket&quot;), fn)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="340" y="214" as="sourcePoint" />
             <mxPoint x="780" y="214" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M3" value="3: LockTicketByID [hạng 8 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M3" value="3: FindByTicket [không khoá: lần đặt, vé, kênh, người mua]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="340" y="284" as="sourcePoint" />
             <mxPoint x="1000" y="284" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M4" value="4: SELECT ticket FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M4" value="4: FindByID suất chiếu [không khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1000" y="328" as="sourcePoint" />
-            <mxPoint x="1440" y="328" as="targetPoint" />
+            <mxPoint x="340" y="328" as="sourcePoint" />
+            <mxPoint x="1220" y="328" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M5" value="5: FindByTicket [không khoá: kênh, người mua]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M5" value="5: LockByKey ghế [hạng 6 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="340" y="372" as="sourcePoint" />
             <mxPoint x="1000" y="372" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M6" value="6: FindByID suất chiếu [không khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M6" value="6: SELECT seat_status FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="416" as="sourcePoint" />
-            <mxPoint x="1220" y="416" as="targetPoint" />
+            <mxPoint x="1000" y="416" as="sourcePoint" />
+            <mxPoint x="1440" y="416" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M7" value="7: tx.Now() [sau khi có khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M7" value="7: LockPaymentOfTicket(tx, ticketId) [hạng 7 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="340" y="460" as="sourcePoint" />
-            <mxPoint x="780" y="460" as="targetPoint" />
+            <mxPoint x="560" y="460" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M8" value="8: UpdateTicketStatus" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M8" value="8: FindTicketedByHold [không khoá]; LockByID giao dịch [hạng 7 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="558" as="sourcePoint" />
-            <mxPoint x="1000" y="558" as="targetPoint" />
+            <mxPoint x="560" y="504" as="sourcePoint" />
+            <mxPoint x="1000" y="504" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M9" value="9: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M9" value="9: SELECT payment_transaction FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="780" y="602" as="sourcePoint" />
-            <mxPoint x="1440" y="602" as="targetPoint" />
+            <mxPoint x="1000" y="548" as="sourcePoint" />
+            <mxPoint x="1440" y="548" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M10" value="10: RequestTicketRefund(ctx, ticketId, amount) [EX-09]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M10" value="10: LockTicketByID [hạng 8 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="656" as="sourcePoint" />
-            <mxPoint x="560" y="656" as="targetPoint" />
+            <mxPoint x="340" y="592" as="sourcePoint" />
+            <mxPoint x="1000" y="592" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M11" value="11: Do(UserTx(&quot;RefundTicket&quot;), fn)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M11" value="11: SELECT ticket FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="560" y="700" as="sourcePoint" />
-            <mxPoint x="780" y="700" as="targetPoint" />
+            <mxPoint x="1000" y="636" as="sourcePoint" />
+            <mxPoint x="1440" y="636" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M12" value="12: LockByID giao dịch [hạng 7 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M12" value="12: tx.Now() [sau khi có khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="560" y="770" as="sourcePoint" />
-            <mxPoint x="1000" y="770" as="targetPoint" />
+            <mxPoint x="340" y="680" as="sourcePoint" />
+            <mxPoint x="780" y="680" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M13" value="13: SELECT payment_transaction FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M13" value="13: UpdateTicketStatus" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1000" y="814" as="sourcePoint" />
-            <mxPoint x="1440" y="814" as="targetPoint" />
+            <mxPoint x="340" y="790" as="sourcePoint" />
+            <mxPoint x="1000" y="790" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M14" value="14: AddRefunded: UPDATE refunded_total = refunded_total + amount WHERE tổng &lt;= đã thanh toán" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M14" value="14: SaveChanges(ghế) [UPDATE theo khoá chính; INSERT seat_event]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="560" y="912" as="sourcePoint" />
-            <mxPoint x="1000" y="912" as="targetPoint" />
+            <mxPoint x="340" y="834" as="sourcePoint" />
+            <mxPoint x="1000" y="834" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M15" value="15: Insert RefundRequest [hạng 9, dòng mới, unique idempotencyKey]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M15" value="15: RequestTicketRefund(ctx, tx, txn, ticket, amount)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="560" y="956" as="sourcePoint" />
-            <mxPoint x="1000" y="956" as="targetPoint" />
+            <mxPoint x="340" y="878" as="sourcePoint" />
+            <mxPoint x="560" y="878" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M16" value="16: Enqueue(REFUND_GATEWAY) [cùng giao dịch]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M16" value="16: AddRefunded: UPDATE refunded_total = refunded_total + amount WHERE tổng &lt;= đã thanh toán" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="560" y="1000" as="sourcePoint" />
-            <mxPoint x="1220" y="1000" as="targetPoint" />
+            <mxPoint x="560" y="984" as="sourcePoint" />
+            <mxPoint x="1000" y="984" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M17" value="17: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M17" value="17: Insert RefundRequest [hạng 9, dòng mới, unique idempotencyKey]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="780" y="1044" as="sourcePoint" />
-            <mxPoint x="1440" y="1044" as="targetPoint" />
+            <mxPoint x="560" y="1028" as="sourcePoint" />
+            <mxPoint x="1000" y="1028" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M18" value="18: Do(UserTx(&quot;ReleaseSeat&quot;), fn) [EX-06]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M18" value="18: Enqueue(REFUND_GATEWAY) [cùng giao dịch]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="1098" as="sourcePoint" />
-            <mxPoint x="780" y="1098" as="targetPoint" />
+            <mxPoint x="560" y="1072" as="sourcePoint" />
+            <mxPoint x="1220" y="1072" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M19" value="19: LockByKey [hạng 6 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M19" value="19: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="1168" as="sourcePoint" />
-            <mxPoint x="1000" y="1168" as="targetPoint" />
+            <mxPoint x="780" y="1116" as="sourcePoint" />
+            <mxPoint x="1440" y="1116" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-04-M20" value="20: SELECT seat_status FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-04-M20" value="20: CancelResult(refundAmount, refundStatus = NEW)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1000" y="1212" as="sourcePoint" />
-            <mxPoint x="1440" y="1212" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SQ-04-M21" value="21: LockTicketShared [hạng 8 S]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="1256" as="sourcePoint" />
-            <mxPoint x="1000" y="1256" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SQ-04-M22" value="22: SaveChanges(ghế) [UPDATE theo khoá chính; INSERT seat_event]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="1354" as="sourcePoint" />
-            <mxPoint x="1000" y="1354" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SQ-04-M23" value="23: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="780" y="1398" as="sourcePoint" />
-            <mxPoint x="1440" y="1398" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SQ-04-M24" value="24: CancelResult(refundAmount, refundStatus = NEW)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="1452" as="sourcePoint" />
-            <mxPoint x="120" y="1452" as="targetPoint" />
+            <mxPoint x="340" y="1180" as="sourcePoint" />
+            <mxPoint x="120" y="1180" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>

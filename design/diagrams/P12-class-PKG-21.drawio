@@ -17,7 +17,7 @@
           <mxGeometry y="90" width="440" height="56" as="geometry" />
         </mxCell>
         <mxCell id="DC-PgTx" value="«service»&lt;br&gt;&lt;b&gt;PgTx&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="490" y="39" width="340" height="162" as="geometry" />
+          <mxGeometry x="454" y="39" width="412" height="162" as="geometry" />
         </mxCell>
         <mxCell id="DC-PgTx-attr" value="- raw: pgx.Tx&lt;br&gt;- now: time.Time[0..1]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTx">
           <mxGeometry y="40" width="240" height="40" as="geometry" />
@@ -29,16 +29,16 @@
           <mxGeometry y="90" width="240" height="56" as="geometry" />
         </mxCell>
         <mxCell id="DC-LockOrderGuard" value="«utility»&lt;br&gt;&lt;b&gt;LockOrderGuard&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="840" y="39" width="340" height="162" as="geometry" />
+          <mxGeometry x="884" y="39" width="412" height="162" as="geometry" />
         </mxCell>
         <mxCell id="DC-LockOrderGuard-attr" value="- maxRank: LockRank = 0&lt;br&gt;- maxKey: LockKey&lt;br&gt;- violated: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
-          <mxGeometry y="40" width="340" height="56" as="geometry" />
+          <mxGeometry y="40" width="412" height="56" as="geometry" />
         </mxCell>
         <mxCell id="DC-LockOrderGuard-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-LockOrderGuard">
-          <mxGeometry y="96" width="340" height="10" as="geometry" />
+          <mxGeometry y="96" width="412" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-LockOrderGuard-ops" value="+ Acquire(rank LockRank, key LockKey) error&lt;br&gt;+ AcquireAll(rank LockRank, keys []LockKey) error&lt;br&gt;+ Violated() bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
-          <mxGeometry y="106" width="340" height="56" as="geometry" />
+        <mxCell id="DC-LockOrderGuard-ops" value="+ Acquire(rank LockRank, key LockKey, exclusive bool) error&lt;br&gt;+ AcquireAll(rank LockRank, keys []LockKey, exclusive bool) error&lt;br&gt;+ Violated() bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
+          <mxGeometry y="106" width="412" height="56" as="geometry" />
         </mxCell>
         <mxCell id="DC-ConnectionPools" value="«utility»&lt;br&gt;&lt;b&gt;ConnectionPools&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="1290" y="37" width="460" height="146" as="geometry" />
@@ -68,13 +68,13 @@
           <mxGeometry x="0" y="255" width="760" height="150" as="geometry" />
         </mxCell>
         <mxCell id="DC-PgTicketingStore-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTicketingStore">
-          <mxGeometry y="40" width="670" height="12" as="geometry" />
+          <mxGeometry y="40" width="723" height="12" as="geometry" />
         </mxCell>
         <mxCell id="DC-PgTicketingStore-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgTicketingStore">
-          <mxGeometry y="52" width="670" height="10" as="geometry" />
+          <mxGeometry y="52" width="723" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-PgTicketingStore-ops" value="- lockRows(ctx Ctx, tx Tx, rank LockRank, keys []LockKey, sql string, args ...any) (pgx.Rows, error)&lt;br&gt;&lt;u&gt;- mapPgError(err error) error&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTicketingStore">
-          <mxGeometry y="62" width="670" height="40" as="geometry" />
+        <mxCell id="DC-PgTicketingStore-ops" value="- lockRows(ctx Ctx, tx Tx, rank LockRank, keys []LockKey, exclusive bool, sql string, args ...any) (pgx.Rows, error)&lt;br&gt;&lt;u&gt;- mapPgError(err error) error&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTicketingStore">
+          <mxGeometry y="62" width="723" height="40" as="geometry" />
         </mxCell>
         <mxCell id="DC-PgCinemaOperationsStore" value="«service»&lt;br&gt;&lt;b&gt;PgCinemaOperationsStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="770" y="287" width="640" height="86" as="geometry" />
@@ -140,7 +140,7 @@
           <mxGeometry x="1600" y="465" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="IF-25" value="«interface»&lt;br&gt;&lt;b&gt;Tx&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="1790" y="465" width="220" height="50" as="geometry" />
+          <mxGeometry x="1840" y="465" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="IF-16" value="«interface»&lt;br&gt;&lt;b&gt;IHolderRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="2160" y="465" width="220" height="50" as="geometry" />
