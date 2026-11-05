@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.6; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-91); P05-glossary.md 1.1; UC-005-book-tickets.md 1.8 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-36 gộp vào Q-30); không có ASM (NGHIEM_NGAT) |
@@ -32,7 +32,7 @@
 | 1 | Khách | Chọn vé cần huỷ trong các vé mua trực tuyến của mình và yêu cầu huỷ vé (xem Dữ liệu vào 1). |
 | 2 | Hệ thống | Kiểm tra tác nhân được huỷ vé theo kênh mua vé: khách với vé mua trực tuyến của mình, nhân viên quầy với vé mua tại quầy của cụm rạp mình (BR-17). |
 | 3 | Hệ thống | Kiểm tra thời điểm hệ thống thực hiện bước kiểm tra này cách giờ bắt đầu suất chiếu của vé ít nhất 2 tiếng (BR-18, BR-32). |
-| 4 | Hệ thống | Kiểm tra vé chưa huỷ và chưa sử dụng, rồi ghi nhận vé đã huỷ, thành một thao tác không chia cắt (BR-21, BR-30). |
+| 4 | Hệ thống | Kiểm tra vé chưa huỷ và chưa sử dụng, rồi ghi nhận vé đã huỷ, thành một thao tác không chia cắt (BR-21, BR-30). Với vé mua tại quầy, việc ghi nhận vé đã huỷ này, xác nhận hoàn tiền mặt ở bước 5a2 và trả ghế ở bước 7 là một thao tác không chia cắt (Q-125). |
 | 5 | Hệ thống | Yêu cầu cổng thanh toán hoàn 70% giá vé của vé đã huỷ, làm tròn xuống đồng, kèm mã giao dịch và mã vé làm khoá chống hoàn trùng của yêu cầu hoàn (BR-19, BR-20, BR-26, BR-31, BR-43). |
 | 6 | Cổng thanh toán | Báo hoàn tiền thành công. |
 | 7 | Hệ thống | Ghi nhận khoản hoàn của vé kèm tình trạng hoàn tiền (đã hoàn, hoặc chưa hoàn được và đã ghi log lỗi) và trả ghế của vé về trạng thái trống để người khác chọn được (BR-42). |
@@ -121,11 +121,11 @@ Dữ liệu ra 2 (bước 1a2)
 - Bước 4 gộp việc kiểm tra vé chưa huỷ, chưa sử dụng và việc ghi nhận vé đã huỷ thành một thao tác không chia cắt. Lý do: BR-21 đòi hỏi mỗi vé chỉ được hoàn tiền một lần; nếu kiểm tra và ghi nhận là hai bước tách rời, hai yêu cầu huỷ cùng một vé (hai tab của cùng một khách, hoặc hai nhân viên quầy) có thể cùng thấy vé chưa huỷ rồi cùng hoàn tiền. Yêu cầu tới sau gặp vé đã huỷ và kết thúc ở luồng 4a. Cơ chế bảo đảm điều này thuộc bước thiết kế (P07, P09).
 - Kiểm tra và ghi trạng thái vé ở bước 4 của use case này và ở UC-009 bước 4, 5 phải loại trừ lẫn nhau trên cùng một vé; một vé không thể đồng thời ở trạng thái đã huỷ và đã sử dụng. Khi hai việc xảy ra cùng lúc, bên ghi nhận trước thắng và bên sau bị từ chối (BR-30): nếu việc soát được ghi nhận trước thì huỷ kết thúc ở luồng 4b; nếu việc huỷ được ghi nhận trước thì UC-009 báo lý do vé đã huỷ ở luồng 4e.
 - Điều kiện chưa huỷ (luồng 4a) được kiểm trước điều kiện chưa sử dụng (luồng 4b). Vé đã huỷ không bao giờ đồng thời đã sử dụng.
-- Vé mua tại quầy được ghi nhận huỷ ở bước 4 trước khi nhân viên quầy hoàn tiền mặt (bước 5a2). Việc hoàn tiền mặt tại quầy luôn thực hiện được, nên use case không có luồng hoàn tiền mặt không thành công; chỉ hoàn qua cổng thanh toán mới có thể không thành công (luồng 5c, 6b).
+- Với vé mua tại quầy, việc ghi nhận huỷ (bước 4), xác nhận hoàn tiền mặt (bước 5a2) và trả ghế (bước 7) là một thao tác không chia cắt (trả lời Q-125): nhân viên quầy luôn hoàn được tiền mặt nên không có trạng thái vé đã huỷ mà chưa hoàn tiền mặt, và ghế trả về trống khi huỷ. Trên activity diagram thể hiện bằng ghi chú N-4q không có cạnh. Việc hoàn tiền mặt tại quầy luôn thực hiện được, nên use case không có luồng hoàn tiền mặt không thành công; chỉ hoàn qua cổng thanh toán mới có thể không thành công (luồng 5c, 6b).
 - Tình trạng hoàn tiền ghi ở bước 7 phân biệt khoản đã hoàn với khoản chưa hoàn được và đã ghi log lỗi. Doanh thu (REQ-99) chỉ trừ khoản có tình trạng đã hoàn, theo đề bài Mục 17 ("phần tiền đã hoàn cho khách"); khoản chưa hoàn được không trừ cho tới khi được xử lý thủ công ngoài hệ thống.
 - Ghế trả về trống ở bước 7 có thể rơi sau giờ bắt đầu suất chiếu khi việc thử lại hoàn tiền kéo dài qua giờ đó (bước 3 chỉ bảo đảm lúc kiểm tra còn cách giờ bắt đầu ít nhất 2 tiếng). Ghế đó không bán lại được vì UC-005 bước 2 từ chối bán từ giờ bắt đầu suất chiếu (BR-45); use case này không kiểm thêm điều kiện nào ở bước 7.
 - Do BR-17, một vé chỉ có đúng một kênh huỷ (khách trực tuyến hoặc nhân viên quầy), nên tình huống khách và nhân viên quầy cùng huỷ một vé không xảy ra trọn vẹn: yêu cầu của tác nhân sai kênh bị từ chối ở luồng 2a hoặc 2b. Tình huống huỷ đồng thời có thể xảy ra giữa hai yêu cầu cùng kênh.
-- Vé được ghi nhận huỷ ở bước 4, trước khi hoàn tiền (bước 5, 6). Ghế vẫn ở trạng thái đã bán cho tới bước 7. Khi hoàn tiền không hoàn tất, hệ thống tự thử lại theo BR-41 rồi ghi log lỗi khoản hoàn (luồng 5c, 6b) và vẫn trả ghế về trống ở bước 7 (BR-42); khoản hoàn được xử lý thủ công ngoài hệ thống, nằm ngoài phạm vi, không có use case. Vì mọi đường đi đều qua bước 7 nên không có trạng thái vé đã huỷ mà ghế không bao giờ trống. Mỗi yêu cầu hoàn dùng khoá chống hoàn trùng gồm mã giao dịch và mã vé vì một giao dịch có thể có nhiều lần hoàn 70% của nhiều vé (BR-43, BR-26). Số lần thử lại và khoảng cách giữa hai lần thử là quyết định thiết kế (P09); đặc tả chỉ cố định thời hạn chờ 30 giây (BR-43).
+- Với vé mua trực tuyến, vé được ghi nhận huỷ ở bước 4, trước khi hoàn tiền (bước 5, 6). Ghế vẫn ở trạng thái đã bán cho tới bước 7. Khi hoàn tiền không hoàn tất, hệ thống tự thử lại theo BR-41 rồi ghi log lỗi khoản hoàn (luồng 5c, 6b) và vẫn trả ghế về trống ở bước 7 (BR-42); khoản hoàn được xử lý thủ công ngoài hệ thống, nằm ngoài phạm vi, không có use case. Vì mọi đường đi đều qua bước 7 nên không có trạng thái vé đã huỷ mà ghế không bao giờ trống. Mỗi yêu cầu hoàn dùng khoá chống hoàn trùng gồm mã giao dịch và mã vé vì một giao dịch có thể có nhiều lần hoàn 70% của nhiều vé (BR-43, BR-26). Số lần thử lại và khoảng cách giữa hai lần thử là quyết định thiết kế (P09); đặc tả chỉ cố định thời hạn chờ 30 giây (BR-43).
 - Bước 7 là bước duy nhất làm ghế trở về trống; sau bước 7 ghế được xử lý như mọi ghế trống (chọn, giữ, mua theo UC-005) và hiện trên sơ đồ ghế của người đang xem chậm nhất 3 giây (REQ-119, Mục 7).
 - Mỗi lần huỷ một vé (huỷ từng vé, REQ-40). Ghế đôi là một ghế (REQ-87) nên một vé ghế đôi trả đúng một ghế về trống.
 - Hạn huỷ vé: giờ bắt đầu suất chiếu trừ 2 tiếng (BR-18). Ví dụ: suất chiếu 19:30 ngày 15/11/2026 --> hạn huỷ vé 17:30 cùng ngày (19:30 - 2:00); huỷ lúc 17:30 còn được (đúng 2 tiếng là "ít nhất 2 tiếng"), huỷ lúc 17:31 bị từ chối ở luồng 3a. Mốc thời điểm huỷ là thời điểm hệ thống kiểm tra ở bước 3 (BR-32), không phải lúc tác nhân gửi yêu cầu.
@@ -160,7 +160,7 @@ Bảng đối chiếu
 | 2a, 2b, 2c | A-2a, A-2b, A-2c, FINAL-1 |
 | 3 | A-3, D-3 |
 | 3a | A-3a, FINAL-2 |
-| 4 | A-4, D-4 |
+| 4 | A-4, D-4, N-4q |
 | 4a | A-4a, FINAL-3 |
 | 4b | A-4b, FINAL-4 |
 | 5 | D-5, M-5, A-5 |
@@ -202,6 +202,7 @@ Bảng Node
 | FINAL-2 | ActivityFinal | - | - | P-SYS | - | x=520, y=900 (tương đối partition) |
 | A-4 | Action | Kiểm tra vé chưa huỷ, chưa dùng; ghi nhận huỷ | - | P-SYS | 4 | x=60, y=980 (tương đối partition) |
 | D-4 | Decision | - | - | P-SYS | 4a, 4b | x=130, y=1070 (tương đối partition) |
+| N-4q | Note | 4: Vé quầy: ghi nhận huỷ, hoàn tiền mặt (5a2) và trả ghế (7) là một thao tác không chia cắt, không có trạng thái đã huỷ chờ hoàn tiền mặt (Q-125) | - | P-ACT-01-02 | 4, 5a2 | x=300, y=1000, w=240, h=90 (tương đối partition) |
 | A-4a | Action | Thông báo vé đã huỷ (BR-21) | - | P-SYS | 4a | x=300, y=1020 (tương đối partition) |
 | FINAL-3 | ActivityFinal | - | - | P-SYS | - | x=520, y=1030 (tương đối partition) |
 | A-4b | Action | Từ chối: vé đã sử dụng (BR-30) | - | P-SYS | 4b | x=300, y=1110 (tương đối partition) |
@@ -288,6 +289,7 @@ Partition P-ACT-01-02 dùng chung cho ACT-01 Khách và ACT-02 Nhân viên quầ
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
 |---|---|---|---|
+| Q-125 | Đã trả lời (quyết định của người dùng: nhân viên quầy luôn hoàn được tiền mặt nên hoàn tiền mặt và xác nhận nằm cùng thao tác huỷ tại quầy; không có trạng thái đã huỷ chờ hoàn tiền mặt; ghế trả về trống khi huỷ). Với vé mua tại quầy, nếu vé đã được ghi nhận huỷ ở bước 4 trước khi nhân viên xác nhận hoàn tiền mặt thì ghế trả về trống và khoản hoàn được ghi nhận khi nào? | Bước 4, 5a2, 7 | Luồng 5a và bước 7 không nêu trường hợp nhân viên không xác nhận |
 | Q-34 | Đã trả lời (Vé vẫn tính là đã huỷ, ghế vẫn trả về trống, khoản hoàn ghi log lỗi và xử lý thủ công ngoài hệ thống; đáp án cũ "ghế chưa trả về trống cho tới khi hoàn tiền xong" đã bị thay theo quyết định sau review cuối; trường hợp nhân viên quầy không hoàn được tiền mặt bị bỏ vì không xảy ra), đề bài bổ sung Mục 11, Mục 12. Khi hoàn tiền của UC-008 không hoàn tất (cổng thanh toán báo thất bại hoặc không phản hồi ở bước 6; vé đã được ghi nhận huỷ ở bước 4, ghế vẫn đã bán), vé và ghế ở trạng thái nào: vé trở lại hiệu lực và ghế giữ nguyên, hay vé vẫn huỷ và ghế trả về trống? Chính sách thử lại và báo cho ai theo Q-29, thời hạn chờ theo Q-30. | Luồng 5c, 6b; Hậu điều kiện tối thiểu; thứ tự bước 4 đến 7 | Mục 11 chỉ nêu "hoàn 70% giá vé qua cổng thanh toán và trả ghế về trạng thái trống", không nêu hoàn tiền không hoàn tất |
 | Q-35 | Đã trả lời (Vé đã sử dụng không được huỷ; cùng lúc thì bên ghi nhận trước thắng), đề bài bổ sung Mục 11. Vé đã sử dụng (đã soát) mà vẫn còn trước hạn huỷ 2 tiếng có được huỷ không, và khi một vé vừa được huỷ vừa được soát cùng lúc (UC-009) thì bên nào được ưu tiên? (Vé đã sử dụng không được huỷ, bên ghi nhận trước thắng / Được huỷ như vé chưa dùng / Phương án khác) | Luồng 4a, 4b; bước 4; UC-009 luồng 4d, 4e; BR-21, BR-24, BR-25 | Mục 11 chỉ nêu hạn 2 tiếng; Mục 13 nêu vé có trạng thái "đã sử dụng" và "bị huỷ" nhưng không nêu mối quan hệ với việc huỷ vé |
 | Q-36 | Gộp vào Q-30 | - | - |

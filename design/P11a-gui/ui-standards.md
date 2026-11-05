@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (NEN_TANG Web app responsive, CHE_DO_GIA_DINH NGHIEM_NGAT); P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.9, UC-008 1.5, UC-009, UC-013 1.2, UC-014 1.3 (UC-006 không có màn hình); P05-glossary.md 1.1 (cột Thuật ngữ, Định nghĩa); P06-supplementary-spec.md 1.2 (NFR-01, NFR-02, NFR-08, NFR-09, NFR-10, NFR-11, NFR-13); P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014: bảng message có boundary giao diện); P08-analysis-model.md 1.1 (F3 boundary giao diện); P09-architecture.md 1.3 (F5, F7.1, F7.5, F7.6, Q-113, Q-114); P10-design-elements.md 1.1 (F3, F4); P01-actors.md; P02-usecases.md. Yêu cầu bổ sung: một ứng dụng React chung cho mọi vai trò (Q-113) |
 | Phạm vi | Toàn hệ thống, các use case đã đặc tả ở P04 có tác nhân người (UC-005, UC-008, UC-009, UC-013, UC-014) và màn hình đăng nhập |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-81 |
@@ -200,8 +200,8 @@ Thông điệp ở trên bao quát mọi thông báo, từ chối và kết qu�
 | P10 | PKG-05, PKG-06, PKG-07, PKG-08 (F4), F3 | P10 chưa có phần tử View cho màn hình đăng nhập dùng chung và cho màn hình điều hướng của khách, nhân viên quầy, quản lý cụm rạp | Thêm DC-LoginView (package giao diện dùng chung hoặc PKG-05) và các View điều hướng DC-CustomerHomeView (PKG-05), DC-CounterHomeView (PKG-06), DC-CinemaAdminHomeView (PKG-08) |
 | P10 | PKG-05 (F3 dòng AC-B-BookTicketsForm) | Một boundary giao diện BookTicketsForm tách thành một View và một Store, nhưng sinh bốn màn hình (SCR-03 đến SCR-06) | Khi thiết kế P12, tách DC-BookTicketsView thành bốn component trang tương ứng SCR-03 đến SCR-06; không cần phần tử P10 mới ngoài việc đổi ghi chú |
 | P08 | AC-B-BookTicketsForm | Boundary không có trách nhiệm hiển thị đồng hồ đếm ngược thời gian giữ ghế và trang kết quả trạng thái thanh toán sau khi quay lại từ cổng | Thêm trách nhiệm showHoldCountdown (nhận thời điểm hết hạn của lần giữ ghế) và showPaymentOutcome (đọc trạng thái giao dịch) |
-| P04 | UC-005 | Thiếu luồng khách hoặc nhân viên mở lại lần giữ ghế đang chạy (Q-119) và luồng khách quay về từ cổng khi chưa có kết quả, thanh toán lại (Q-126) | Thêm luồng thay thế sau khi người dùng xác nhận Q-119 |
-| P04 | UC-008 | Bước 4 ghi nhận huỷ trước bước 5a2 xác nhận hoàn tiền mặt, trong khi Q-125 chốt hoàn tiền mặt và huỷ là một thao tác | Ghi bước 4 và 5a2 của kênh quầy là một thao tác không chia cắt |
+| P04 | UC-005 | Thiếu luồng khách hoặc nhân viên mở lại lần giữ ghế đang chạy (Q-119) và luồng khách quay về từ cổng khi chưa có kết quả, thanh toán lại (Q-126) | Thêm luồng thay thế sau khi người dùng xác nhận Q-119 Đã áp dụng (UC-005 1.10, luồng 1a và 10b). |
+| P04 | UC-008 | Bước 4 ghi nhận huỷ trước bước 5a2 xác nhận hoàn tiền mặt, trong khi Q-125 chốt hoàn tiền mặt và huỷ là một thao tác | Ghi bước 4 và 5a2 của kênh quầy là một thao tác không chia cắt Đã áp dụng (UC-008 1.6, bước 4 và Section 8). |
 | P08 | AC-B-BookTicketsForm | Chưa có trách nhiệm đọc lần giữ ghế đang chạy của người dùng (dải Tiếp tục thanh toán) | Thêm loadRunningHold cho boundary đặt vé khách và quầy |
 
 ## Vấn đề còn mở

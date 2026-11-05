@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.9 |
+| Phiên bản | 1.10 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; UC-006-refund-late-payment.md 1.6, UC-008-cancel-ticket.md 1.5, UC-014-schedule-showtimes.md 1.3, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
 | Phạm vi | UC-005 |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
@@ -49,12 +49,14 @@
 
 | STT | Điều kiện | Thực hiện bởi | Hành động | Quay lại / Kết thúc |
 |---|---|---|---|---|
+| 1a | Tác nhân đang có một lần giữ ghế ở trạng thái Đang giữ (BR-04), do đã tải lại trang, đóng tab hoặc không quay lại từ cổng thanh toán | Hệ thống | Hiển thị lối Tiếp tục thanh toán kèm thời gian giữ ghế còn lại. Khi tác nhân chọn tiếp tục, nạp lại các ghế đã giữ, giá vé từng ghế đã chốt, tổng tiền và thời điểm hết hạn giữ ghế (không đổi); không giữ ghế mới (Q-119). | Quay lại bước 8 |
 | 2a | Suất chiếu chưa tới thời điểm mở bán (BR-01) | Hệ thống | Từ chối bán vé và thông báo suất chiếu chưa mở bán (BR-01). | Kết thúc use case (thất bại) |
 | 2b | Suất chiếu đã mở bán, tác nhân là nhân viên quầy và suất chiếu không thuộc cụm rạp của nhân viên quầy (BR-02) | Hệ thống | Từ chối bán vé và thông báo quy tắc bị vi phạm (BR-02). | Kết thúc use case (thất bại) |
 | 2c | Suất chiếu đã tới giờ bắt đầu, kể cả đã kết thúc (BR-45), và không thuộc 2b | Hệ thống | Từ chối bán vé và thông báo suất chiếu đã bắt đầu (BR-45). | Kết thúc use case (thất bại) |
 | 5a | Tác nhân là khách và khách chưa đăng nhập | - | Khách đăng nhập | - |
 | 5a1 | | Hệ thống | Yêu cầu khách đăng nhập, giữ nguyên các ghế khách đã chọn (các ghế vẫn ở trạng thái trống, BR-03). | |
 | 5a2 | | Khách | Cung cấp email hoặc số điện thoại cùng mật khẩu (xem Dữ liệu vào 2). | Quay lại bước 5 |
+| 5a2a | Email, số điện thoại hoặc mật khẩu không đúng | Hệ thống | Thông báo thông tin đăng nhập không đúng, không nêu trường nào sai; giữ nguyên các ghế đã chọn; không giới hạn số lần thử và không khoá tạm (Q-131). | Quay lại bước 5a2 |
 | 5b | Khách đã đăng nhập (hoặc tác nhân là nhân viên quầy) và tác nhân đang có một lần giữ ghế chưa kết thúc (BR-04) | Hệ thống | Từ chối giữ ghế và thông báo quy tắc bị vi phạm (BR-04). | Kết thúc use case (thất bại) |
 | 6a | Số ghế đã chọn vượt quá số ghế tối đa của một lần giữ ghế (BR-05, BR-06) | Hệ thống | Từ chối giữ ghế và thông báo số ghế tối đa (BR-05). | Quay lại bước 4 |
 | 7a | Tác nhân không có lần giữ ghế chưa kết thúc (không thuộc 7c), suất chiếu còn tồn tại và chưa bị sửa (không thuộc 7d) và có ít nhất một ghế đã chọn không còn trống (đã bị người khác giữ hoặc mua trước, kể cả khi người khác xác nhận chọn cùng ghế ngay trước đó, BR-09); kiểm trước 7e | Hệ thống | Thông báo các ghế không còn trống và không giữ ghế nào (BR-07). | Quay lại bước 3 |
@@ -70,6 +72,7 @@
 | 9a4 | | Hệ thống | Hiển thị mã đặt vé và các vé để in (xem Dữ liệu ra 3). | |
 | 9a5 | | Nhân viên quầy | In vé cho khách mua tại quầy. | Kết thúc use case (thành công) |
 | 10a | Cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch (BR-90); với cổng chỉ nhận địa chỉ thanh toán đã ký, không có lời gọi mạng khi tạo giao dịch nên luồng này xảy ra khi hệ thống lỗi trước lúc chuyển khách sang cổng | Hệ thống | Giữ nguyên lần giữ ghế và thông báo chưa tạo được thanh toán; thời điểm hết hạn giữ ghế không đổi, tới thời điểm đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b. | Quay lại bước 9 |
+| 10b | Khách quay về từ cổng thanh toán khi hệ thống chưa nhận kết quả giao dịch và lần giữ ghế còn Đang giữ | Hệ thống | Hiển thị đang xác nhận thanh toán và hỏi lại trạng thái giao dịch mỗi 2 giây, tối đa 60 giây. Nhận được kết quả trong thời gian đó thì xử lý như bước 11 (thành công --> bước 12, thất bại --> luồng 11a). Quá 60 giây chưa có kết quả thì báo chưa xác nhận được thanh toán, kiểm tra lại sau, và cho khách quay lại thanh toán; thời điểm hết hạn giữ ghế không đổi, tới đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b (Q-126). | Quay lại bước 9 |
 | 11a | Cổng thanh toán báo giao dịch thanh toán thất bại | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống và thông báo thanh toán không thành công. Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 | *a | Tại bất kỳ bước nào từ bước 8 đến trước bước 11, khách hoặc nhân viên quầy huỷ việc giữ ghế | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống. Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 
@@ -170,6 +173,9 @@ Dữ liệu ra 3 (bước 15, bước 9a4)
 - Lần giữ ghế ở trạng thái Đang giữ từ bước 7 cho tới khi kết thúc ở đúng một trong bốn trạng thái cuối: Đã hoàn tất (bước 12 hoặc 9a2, có vé), Hết hạn (luồng 7b, 9a1a), Đã huỷ (luồng *a), Thanh toán thất bại (luồng 11a) (P05 GL-25, Q-69).
 - Các báo kết quả thanh toán, việc hết hạn, việc huỷ giữ ghế và việc xác nhận đã thu tiền của cùng một lần giữ ghế được xử lý tuần tự theo lần giữ ghế (BR-85, trả lời Q-79); lần giữ ghế đã ở trạng thái cuối thì không đổi nữa (BR-86). Báo thành công của cổng tới sau khi lần giữ ghế đã Hết hạn, Đã huỷ hoặc Thanh toán thất bại không thuộc use case này mà được UC-006 hoàn toàn bộ (BR-14, BR-15); báo thành công của giao dịch khác tới sau khi lần giữ ghế Đã hoàn tất cũng vậy (BR-40); báo thất bại tới sau trạng thái cuối chỉ được ghi nhận (BR-39); báo trùng của giao dịch đã tạo vé là báo trùng (BR-37).
 - Luồng 10a (trả lời Q-77) nằm trong vùng ngắt IR-7 nên thời điểm hết hạn giữ ghế không đổi khi khách thử lại. Mức chờ 30 giây mượn từ BR-43. Trên activity diagram luồng 10a là ghi chú N-10a không có cạnh, giống N-*a. Nếu cổng đã tạo giao dịch ở lần trước mà hệ thống không nhận được trả lời, lần thử lại tạo giao dịch mới cho cùng lần giữ ghế; giao dịch báo thành công trước được xử lý ở bước 11, 12, giao dịch báo thành công sau được nhận ra qua mã tham chiếu lần giữ ghế và hoàn toàn bộ ở UC-006 (BR-40, BR-85).
+- Luồng 1a (trả lời Q-119): lần giữ ghế đang chạy vẫn tồn tại khi tác nhân tải lại trang, đóng tab hoặc không quay lại từ cổng, và BR-04 chặn giữ ghế mới trong lúc đó. Tác nhân mở lại lần giữ ghế để thanh toán hoặc huỷ (luồng *a) bằng lối Tiếp tục thanh toán, không cần giữ ghế lại; thời điểm hết hạn giữ ghế không đổi. Kết quả đặt vé sau khi đóng tab xem qua email; lịch sử đặt vé thuộc UC-007. Trên activity diagram luồng 1a là ghi chú N-1a không có cạnh.
+- Luồng 5a2a (trả lời Q-131) dùng một thông báo chung cho mọi trường hợp sai thông tin đăng nhập để không lộ tài khoản nào tồn tại; khoá tài khoản thuộc UC-017. Trên activity diagram là ghi chú N-5a2a không có cạnh.
+- Luồng 10b (trả lời Q-126) nằm trong vùng ngắt IR-7 nên thời điểm hết hạn giữ ghế không đổi. Trang quay về chỉ đọc trạng thái giao dịch, không tự tạo vé; vé chỉ tạo ở bước 12 khi cổng báo thành công. Mức 2 giây và 60 giây là giá trị nghiệp vụ của Q-126. Trên activity diagram là ghi chú N-10b không có cạnh.
 - Việc xác nhận đã thu tiền ở 9a1 và chuyển ghế sang đã bán ở 9a2 là một thao tác không chia cắt với việc hết hạn giữ ghế; xác nhận tới sau thời điểm hết hạn bị từ chối theo luồng 9a1a: ghế không được chuyển sang đã bán, nhân viên quầy được thông báo trả lại tiền mặt đã thu cho khách (BR-44, trả lời Q-49). Trên activity diagram, thao tác so thời điểm này là decision D-9a1 đặt ngay sau A-9a1.
 - Bước 7 kiểm suất chiếu còn tồn tại và chưa bị sửa trong cùng thao tác không chia cắt với việc kiểm ghế và giữ ghế (BR-54, trả lời Q-56). Lý do: ghế khách đang chọn chưa giữ (BR-03) nên REQ-65 của UC-014 (không sửa, xoá suất chiếu đang có ghế được giữ hoặc có vé đã bán chưa bị huỷ) không chặn việc quản lý cụm rạp sửa hoặc xoá suất chiếu trong lúc khách xem sơ đồ ghế; nếu kiểm suất chiếu và giữ ghế tách rời, ghế có thể được giữ cho một suất chiếu vừa bị xoá, hoặc sau khi UC-014 đã kiểm BR-53 và sửa suất chiếu. Bước 7 và việc kiểm BR-53 rồi sửa hoặc xoá ở UC-014 (bước 8, 1b3) loại trừ nhau trên cùng suất chiếu: bên ghi nhận trước thành công, bên sau bị từ chối. "Đã bị sửa" hiểu là mọi thay đổi suất chiếu kể từ lúc bước 3 hiển thị sơ đồ ghế, vì sơ đồ đã hiển thị có thể không còn khớp phòng, giờ mới; luồng 7a quay lại bước 3 nên sơ đồ được hiển thị lại. Luồng 7c kiểm trước 7d, 7d trước 7a.
 - Bước 2 kiểm tra thời điểm mở bán, giờ bắt đầu suất chiếu (BR-45) và cụm rạp. Hệ thống ngừng bán từ giờ bắt đầu suất chiếu, kể cả khi bán tại quầy (trả lời Q-50). Việc kiểm tra chỉ ở bước 2, khi bắt đầu một lần đặt: lần giữ ghế đã tạo trước giờ bắt đầu vẫn được hoàn tất theo luồng chính, 9a, 7b hoặc 11a. Ghế trở về trống sau giờ bắt đầu (kể cả từ UC-008 bước 7) không bán lại được vì bước 2 từ chối.
@@ -208,11 +214,13 @@ Bảng đối chiếu
 |---|---|
 | 1 | A-1 |
 | 2 | A-2, D-2 |
+| 1a | N-1a |
 | 2a, 2b, 2c | A-2a, A-2b, A-2c, FINAL-1 |
 | 3 | M-3, A-3 |
 | 4 | M-4, A-4 |
 | 5 | M-5, A-5, D-5 |
 | 5a1, 5a2 | A-5a1, A-5a2 |
+| 5a2a | N-5a2a |
 | 5b | A-5b, FINAL-2 |
 | 6 | A-6, D-6 |
 | 6a | A-6a |
@@ -228,6 +236,7 @@ Bảng đối chiếu
 | 9a1a | D-9a1, A-9a1a, FINAL-8 |
 | 10 | A-10 |
 | 10a | N-10a |
+| 10b | N-10b |
 | 11 | A-11, D-11 |
 | 11a | A-11a, FINAL-4 |
 | 12 | A-12 |
@@ -243,6 +252,7 @@ Bảng Node
 | P-ACT-01-02 | Partition | Khách / Nhân viên quầy | - | - | - | x=0, w=560 |
 | P-SYS | Partition | Hệ thống | - | - | - | x=560, w=760 |
 | P-ACT-07 | Partition | Cổng thanh toán | - | - | - | x=1320, w=300 |
+| N-1a | Note | 1a: Tác nhân đang có lần giữ ghế chạy (tải lại trang, đóng tab hoặc không quay lại từ cổng): hệ thống hiện lối Tiếp tục thanh toán, nạp lại ghế đã giữ, giá và hạn giữ ghế, tiếp tục từ bước 8 | - | P-ACT-01-02 | 1a | x=300, y=45, w=240, h=100 (tương đối partition) |
 | INIT | Initial | - | - | P-ACT-01-02 | - | x=130, y=60 (tương đối partition) |
 | A-1 | Action | Chọn suất chiếu cần mua vé | - | P-ACT-01-02 | 1 | x=60, y=130 (tương đối partition) |
 | A-2 | Action | Kiểm tra mở bán, giờ bắt đầu và cụm rạp | - | P-SYS | 2 | x=60, y=230 (tương đối partition) |
@@ -257,6 +267,7 @@ Bảng Node
 | A-4 | Action | Chọn ghế và xác nhận chọn ghế | - | P-ACT-01-02 | 4 | x=60, y=660 (tương đối partition) |
 | A-5a2 | Action | Cung cấp thông tin đăng nhập | - | P-ACT-01-02 | 5a2 | x=300, y=760 (tương đối partition) |
 | M-5 | Merge | - | - | P-SYS | 5a2 | x=130, y=760 (tương đối partition) |
+| N-5a2a | Note | 5a2a: Thông tin đăng nhập sai: thông báo chung, không nêu trường sai, không giới hạn số lần thử, không khoá tạm; khách nhập lại (Q-131) | - | P-ACT-01-02 | 5a2a | x=300, y=840, w=240, h=80 (tương đối partition) |
 | A-5 | Action | Kiểm tra đăng nhập và lần giữ ghế | - | P-SYS | 5 | x=60, y=830 (tương đối partition) |
 | D-5 | Decision | - | - | P-SYS | 5a, 5b | x=130, y=920 (tương đối partition) |
 | A-5a1 | Action | Yêu cầu khách đăng nhập | - | P-SYS | 5a1 | x=320, y=910 (tương đối partition) |
@@ -281,6 +292,7 @@ Bảng Node
 | A-9a1 | Action | Thu tiền mặt, xác nhận đã thu (BR-13) | - | P-ACT-01-02 | 9a1 | x=300, y=1660 (tương đối partition) |
 | A-10 | Action | Tạo giao dịch thanh toán | - | P-SYS | 10 | x=60, y=1760 (tương đối partition) |
 | N-10a | Note | 10a: Cổng từ chối hoặc không trả lời yêu cầu tạo giao dịch trong 30 giây: giữ nguyên lần giữ ghế, báo chưa tạo được thanh toán, khách thử lại từ bước 9 | - | P-SYS | 10a | x=60, y=1835, w=240, h=90 (tương đối partition) |
+| N-10b | Note | 10b: Khách quay về từ cổng khi chưa có kết quả: hiện đang xác nhận, hỏi lại mỗi 2 giây tối đa 60 giây; quá 60 giây báo chưa xác nhận được, khách quay lại thanh toán từ bước 9; hạn giữ ghế không đổi (Q-126) | - | P-SYS | 10b | x=320, y=1600, w=240, h=100 (tương đối partition) |
 | T-7 | AcceptTimeEvent | Sau 10 phút kể từ bước 7 (BR-10) | - | P-SYS | 7b | x=540, y=1840 (tương đối partition) |
 | A-11 | Action | Báo kết quả giao dịch | - | P-ACT-07 | 11 | x=60, y=1860 (tương đối partition) |
 | D-11 | Decision | - | - | P-SYS | 11a | x=130, y=1980 (tương đối partition) |
@@ -301,7 +313,7 @@ Bảng Node
 | FINAL-5 | ActivityFinal | - | - | P-SYS | - | x=130, y=2470 (tương đối partition) |
 | A-9a5 | Action | In vé | - | P-ACT-01-02 | 9a5 | x=300, y=2470 (tương đối partition) |
 | FINAL-6 | ActivityFinal | - | - | P-ACT-01-02 | - | x=370, y=2570 (tương đối partition) |
-| IR-7 | InterruptibleRegion | - | - | - | 7b | Gồm A-8, D-9, A-9, A-9a1, A-10, A-11, T-7, N-10a; x=40, y=1460, w=1560, h=480 (tuyệt đối) |
+| IR-7 | InterruptibleRegion | - | - | - | 7b | Gồm A-8, D-9, A-9, A-9a1, A-10, A-11, T-7, N-10a, N-10b; x=40, y=1460, w=1560, h=480 (tuyệt đối) |
 
 Bảng Edge
 
@@ -383,6 +395,9 @@ Partition P-ACT-01-02 dùng chung cho ACT-01 Khách và ACT-02 Nhân viên quầ
 | Q-76 | Đã trả lời (Theo đề xuất: vé giữ nguyên hiệu lực, thử gửi lại vài lần, vẫn lỗi thì ghi log lỗi, không huỷ vé, không hoàn tiền thêm), đề bài bổ sung Mục 21. Khi dịch vụ email từ chối hoặc không phản hồi lúc gửi email chứa vé thì hệ thống xử lý thế nào? | Bước 14; BR-89; P06 NFR-18 | Mục 7, Mục 21 nêu gửi email nhưng không nêu trường hợp gửi không thành công |
 | Q-77 | Đã trả lời (Theo đề xuất: giữ nguyên lần giữ ghế, báo khách chưa tạo được thanh toán, khách thử lại tới hết thời gian giữ ghế, mỗi lần chờ cổng tối đa 30 giây), đề bài bổ sung Mục 21. Khi cổng thanh toán từ chối hoặc không trả lời yêu cầu tạo giao dịch thì hệ thống xử lý thế nào? | Bước 10, luồng 10a; BR-90; P06 NFR-15 | Mục 21 chỉ nêu cách xử lý khi cổng từ chối hoặc không trả lời yêu cầu hoàn tiền |
 | Q-79 | Đã trả lời (Báo kết quả thanh toán và mọi thao tác đổi trạng thái của cùng một lần giữ ghế xử lý tuần tự theo lần giữ ghế; lần giữ ghế đã ở trạng thái cuối thì không đổi, báo đến sau xử lý theo trạng thái cuối), đề bài bổ sung Mục 9. Hai báo thành công của cùng một giao dịch đến đồng thời, hoặc kết quả đến đúng lúc hết hạn, xử lý thế nào? | Bước 11, 12; BR-85, BR-86; UC-006 bước 2, 3 | Mục 9 không nêu xử lý đồng thời và trạng thái cuối của lần giữ ghế |
+| Q-119 | Đã trả lời (khách mở lại lần giữ ghế đang chạy bằng lối Tiếp tục thanh toán; không thêm màn hình; kết quả sau khi đóng tab xem qua email, lịch sử đặt vé chờ UC-007). Khi khách hoặc nhân viên quầy tải lại trang, đóng tab hoặc không quay lại từ cổng trong lúc còn lần giữ ghế (BR-04), mở lại lần giữ ghế đang chạy để thanh toán hoặc huỷ bằng cách nào? | Luồng 1a; BR-04 | UC-005 chỉ mô tả luồng liền mạch, không nêu quay lại lần giữ ghế đang chạy |
+| Q-126 | Đã trả lời (trang hiện đang xác nhận thanh toán, hỏi lại mỗi 2 giây, tối đa 60 giây; quá 60 giây báo chưa xác nhận được và cho quay lại thanh toán nếu lần giữ ghế còn Đang giữ; lần giữ ghế chạy tới hết hạn). Khi khách quay về từ cổng mà hệ thống chưa nhận kết quả, trang hiện gì và khách chờ tối đa bao lâu? | Luồng 10b | UC-005 không có luồng cho khách đã quay về mà chưa có kết quả |
+| Q-131 | Đã trả lời (một thông báo chung, không giới hạn số lần thử, không khoá tạm trong phạm vi đồ án; khoá tài khoản thuộc UC-017 chưa đặc tả). Khi email, số điện thoại hoặc mật khẩu sai ở luồng 5a2, hệ thống báo gì, cho nhập lại bao nhiêu lần, có khoá tạm không? | Luồng 5a2a | Luồng 5a2 chỉ nêu khách cung cấp thông tin rồi quay lại bước 5, không nêu trường hợp sai |
 
 ## Đề xuất sửa artifact trước
 

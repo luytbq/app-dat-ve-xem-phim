@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1; P04-uc-specs UC-005 1.9, UC-006 1.6, UC-008 1.5, UC-009, UC-013, UC-014 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.2 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006, UC-008 (message tới boundary hệ thống); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.1 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
 | Phạm vi | Tất cả subsystem SS-01 đến SS-05 của P10 F2 (IF-01 đến IF-07) |
 | Mã Q, ASM cuối đã cấp | Q-132; không có ASM (NGHIEM_NGAT) |
@@ -91,19 +91,19 @@ Không có (chế độ NGHIEM_NGAT).
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P10 | F2 SS-01 IF-02 (reportTransactionResult) | Trách nhiệm ghi "kiểm chữ ký và số tiền" nhưng SS-01 không đọc cơ sở dữ liệu nên không so được số tiền với bản ghi | Ghi "kiểm chữ ký, giải mã số tiền; DC-PaymentReportService so số tiền với bản ghi" |
+| P10 | F2 SS-01 IF-02 (reportTransactionResult) | Trách nhiệm ghi "kiểm chữ ký và số tiền" nhưng SS-01 không đọc cơ sở dữ liệu nên không so được số tiền với bản ghi | Ghi "kiểm chữ ký, giải mã số tiền; DC-PaymentReportService so số tiền với bản ghi" Đã áp dụng (P10 1.2). |
 | P10 | F3, F4 (PKG-22, PKG-23, PKG-24, PKG-25, PKG-26), F5 | Thiếu các kiểu, ngoại lệ trong chữ ký interface và các lớp bên trong subsystem do P11b cấp mã (mục F5 của từng file SS) | Thêm vào F3 và F4: DC-RefundLookup, DC-ReportHandlingResult, bốn ngoại lệ của SS-01; DC-EmailAttachment, DC-EmailSendResult, DC-InvalidEmailMessageError; DC-SeatEventSubscription, DC-SeatStreamItem, DC-SeatHubUnavailableError; DC-JobRunResult, DC-SchedulerStateError; DC-Role, DC-SessionClaims, DC-IssuedSession và ba ngoại lệ của SS-05; thêm nhãn visibility ở F5 |
-| P10 | F2 SS-02 | Hai trách nhiệm sendTicketsEmail, sendRefundNotificationEmail được hiện thực bằng một operation sendEmail(message) | Cập nhật cột Trách nhiệm của SS-02 thành sendEmail (nội dung thư do DC-EmailOutboxJob dựng) |
+| P10 | F2 SS-02 | Hai trách nhiệm sendTicketsEmail, sendRefundNotificationEmail được hiện thực bằng một operation sendEmail(message) | Cập nhật cột Trách nhiệm của SS-02 thành sendEmail (nội dung thư do DC-EmailOutboxJob dựng) Đã áp dụng (P10 1.2). |
 | P10 | F4 PKG-12, F3 DC-PaymentCallbackController | Chưa có điểm vào cho địa chỉ trả về (return URL) của khách sau thanh toán; P09 F7.6 yêu cầu trang này chỉ đọc trạng thái | Thêm điểm vào (DC-PaymentCallbackController hoặc controller riêng) và lớp Application đọc trạng thái giao dịch; dùng reportTransactionResult để kiểm chữ ký tham số (V-16) |
 | P10 | F2 SS-05 IF-07, F4 PKG-19 | verifyPassword và issueSession không có lớp gọi: P09 F6 chỉ cho PKG-11 kiểm phiên và PKG-19 dùng IF-07, nhưng PKG-19 chưa có DC | Thêm DC đăng nhập ở PKG-19 (chờ P07 UC-001) gọi verifyPassword, issueSession; DC-AuthFilter chỉ gọi verifySession, checkRole |
 | P09 | F7.7 (lần thử hoàn tiền) | Viết "PKG-22 tra cứu giao dịch hoàn trước mỗi lần gửi lại" nhưng PKG-22 không có trạng thái attempt_count; việc gọi findRefund trước requestRefund do DC-RefundService (PKG-14) làm | Đã sửa (P09 1.3): chủ thể là DC-RefundService gọi findRefund của IF-01; claimed_until 120 giây; ngân sách 8 giây chỉ chặn nhận dòng mới |
 | P06, P09 | NFR-15; F7.6 bước 2 | NFR-15 viết "qua API tạo giao dịch của cổng"; P09 F7.6 bước 2 viết "IPN thất bại hoặc khách không hoàn tất: giữ nguyên lần giữ ghế" | Đã sửa (P06 1.2, P09 1.3) |
-| P10 | F2 SS-01 IF-02, F3 DC-IpnAnswer | replyToReport trả (httpStatus, body) nên để lộ mã HTTP của giao thức ngoài ra interface (quy tắc A3); tham số Map của reportTransactionResult là cặp tên-giá trị nguyên văn của VNPay | Bỏ replyToReport khỏi IF-02 và để PKG-12 (DC-PaymentCallbackController) dịch ReportHandlingResult sang câu trả lời, cùng chỗ với phần dịch RspCode; hoặc đổi kết quả thành kiểu IpnAnswer không nêu mã HTTP |
+| P10 | F2 SS-01 IF-02, F3 DC-IpnAnswer | replyToReport trả (httpStatus, body) nên để lộ mã HTTP của giao thức ngoài ra interface (quy tắc A3); tham số Map của reportTransactionResult là cặp tên-giá trị nguyên văn của VNPay | Bỏ replyToReport khỏi IF-02 và để PKG-12 (DC-PaymentCallbackController) dịch ReportHandlingResult sang câu trả lời, cùng chỗ với phần dịch RspCode; hoặc đổi kết quả thành kiểu IpnAnswer không nêu mã HTTP Đã áp dụng ở P10 1.2 (bỏ replyToReport khỏi IF-02, DC-IpnAnswer thành kết quả không nêu mã HTTP, PKG-12 dịch sang câu trả lời); chữ ký SS-01 ở P11b chưa đổi theo. |
 | P04 | UC-005 luồng 10a, BR-90 | Với VNPay không có lệnh tạo giao dịch qua mạng nên "cổng từ chối hoặc không trả lời" không xảy ra khi tạo (Q-130) | Đã sửa (UC-005 1.9, BR-90 trong sổ BR, P06 1.2 NFR-15, P09 1.3 F7.6): luồng 10a chỉ còn khi hệ thống lỗi trước lúc chuyển sang cổng |
-| P04 | UC-005 (giữa bước 10 và 11) | Thiếu luồng khách quay về từ cổng khi chưa có kết quả (Q-126) | Thêm luồng thay thế sau khi có câu trả lời |
+| P04 | UC-005 (giữa bước 10 và 11) | Thiếu luồng khách quay về từ cổng khi chưa có kết quả (Q-126) | Thêm luồng thay thế sau khi có câu trả lời Đã áp dụng (UC-005 1.10, luồng 10b). |
 | P04 | UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a | "Quay lại bước 4 hoặc 5" ngầm gửi lại ngay; thiết kế chỉ gửi lại sau khi tra cứu cho thấy chưa hoàn, và chuyển Cần xử lý thủ công khi không tra cứu được (Q-118, Q-127) | Đã sửa (UC-006 1.6 luồng 4t, UC-008 1.5 luồng 5t, BR-41, BR-43) |
 | P04 | UC-006 (luồng 2e và kế bên) | Không có luồng cho thông báo thành công hợp lệ chữ ký nhưng số tiền lệch (Q-128) | Đã sửa (UC-006 1.6 luồng 2f, BR-91) |
-| P04 | UC-005 luồng 5a2 | Không có luồng thông tin đăng nhập sai (Q-131) | Thêm luồng sau khi có câu trả lời |
+| P04 | UC-005 luồng 5a2 | Không có luồng thông tin đăng nhập sai (Q-131) | Thêm luồng sau khi có câu trả lời Đã áp dụng (UC-005 1.10, luồng 5a2a). |
 
 ## Vấn đề còn mở
 

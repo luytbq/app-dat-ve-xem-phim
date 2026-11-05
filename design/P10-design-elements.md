@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P10 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, vẫn ghi CONG_NGHE "Chưa chốt", xem Vấn đề còn mở 1); P01-actors.md 1.1 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P03-usecase-model.md (bảng quan hệ, không có dòng extend); P05-glossary.md 1.1 (tra tên thuật ngữ); P06-supplementary-spec.md 1.1 (NFR về thay thế, bảo mật, giao tiếp ngoài); P08-analysis-model.md 1.1 (F3, F4, F4b, Câu hỏi mở, Giả định); P09-architecture.md 1.1 (F3 đến F8, F11, Câu hỏi mở, Vấn đề còn mở 8) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-118 (Q-116 đến Q-118 đã trả lời theo đề xuất review, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
@@ -32,8 +32,8 @@ Không có boundary giao diện thiết bị trong P08: máy in là chức năng
 
 | SS | Tên | Interface (IF) | Trách nhiệm | Che giấu phần tử nào | AC nguồn | ACT liên quan | PKG chứa |
 |---|---|---|---|---|---|---|---|
-| SS-01 | PaymentGateway | IF-01 IPaymentGateway<br>IF-02 IPaymentReportReceiver | // createPaymentTransaction: ký URL thanh toán chứa mã giao dịch và mã tham chiếu lần giữ ghế, không gọi mạng (UC-005)<br>// requestRefund: gửi hoàn tiền kèm khoá chống hoàn trùng, chờ 30 giây (UC-006, UC-008, BR-43, NFR-17)<br>// findRefund: tra cứu giao dịch hoàn trước khi gửi lại (cơ chế P09 F7.7); không tra cứu được kết quả hoàn thì bên gọi chuyển Cần xử lý thủ công, không gửi lại tự động (Q-118)<br>// reportTransactionResult: kiểm chữ ký và số tiền của thông báo, dịch thành kết quả (UC-005, UC-006, NFR-16)<br>// replyToReport: dựng câu trả lời cho cổng từ kết quả xử lý (P09 F7.6) | Bộ ký URL thanh toán theo chuẩn của cổng; bộ kiểm chữ ký thông báo; máy khách REST hoàn tiền và tra cứu giao dịch hoàn có thời gian chờ 30 giây; bộ dịch mã kết quả và mã trả lời; cấu hình môi trường sandbox | AC-B-PaymentGateway | ACT-07 | PKG-22 |
-| SS-02 | EmailGateway | IF-03 IEmailSender | // sendTicketsEmail: gửi email chứa vé (UC-005)<br>// sendRefundNotificationEmail: gửi email thông báo hoàn tiền (UC-006); Message-ID lấy từ khoá chống lặp (P09 F7.7) | Máy khách SMTP; bộ dựng thư MIME; cấu hình TLS; thời gian chờ 30 giây | AC-B-EmailService | ACT-08 | PKG-23 |
+| SS-01 | PaymentGateway | IF-01 IPaymentGateway<br>IF-02 IPaymentReportReceiver | // createPaymentTransaction: ký URL thanh toán chứa mã giao dịch và mã tham chiếu lần giữ ghế, không gọi mạng (UC-005)<br>// requestRefund: gửi hoàn tiền kèm khoá chống hoàn trùng, chờ 30 giây (UC-006, UC-008, BR-43, NFR-17)<br>// findRefund: tra cứu giao dịch hoàn trước khi gửi lại (cơ chế P09 F7.7); không tra cứu được kết quả hoàn thì bên gọi chuyển Cần xử lý thủ công, không gửi lại tự động (Q-118)<br>// reportTransactionResult: kiểm chữ ký, giải mã số tiền của thông báo, dịch thành kết quả; DC-PaymentReportService so số tiền với bản ghi (UC-005, UC-006, NFR-16) | Bộ ký URL thanh toán theo chuẩn của cổng; bộ kiểm chữ ký thông báo; máy khách REST hoàn tiền và tra cứu giao dịch hoàn có thời gian chờ 30 giây; bộ dịch mã kết quả; cấu hình môi trường sandbox | AC-B-PaymentGateway | ACT-07 | PKG-22 |
+| SS-02 | EmailGateway | IF-03 IEmailSender | // sendEmail: gửi một thư đã dựng sẵn (email chứa vé của UC-005, email thông báo hoàn tiền của UC-006); nội dung thư do DC-EmailOutboxJob dựng; Message-ID lấy từ khoá chống lặp (P09 F7.7) | Máy khách SMTP; bộ dựng thư MIME; cấu hình TLS; thời gian chờ 30 giây | AC-B-EmailService | ACT-08 | PKG-23 |
 | SS-03 | SeatEventHub | IF-04 ISeatEventSubscription | // subscribe: đăng ký nhận sự kiện đổi ghế của một suất chiếu từ một con trỏ, trả luồng sự kiện phát lại rồi trực tiếp; bên gọi đọc luồng (mô hình kéo, P09 F7.5, REQ-119, NFR-08, NFR-09)<br>// unsubscribe: huỷ đăng ký khi kết nối đóng | Bộ đọc seat_event mỗi 500 ms qua IF-22; tập mã đã phát 10 giây gần nhất; mốc W với cửa sổ chồng 5 giây; bộ phát lại từ con trỏ; danh sách kết nối theo suất chiếu; hàng đợi 256 sự kiện mỗi kết nối, đầy thì đóng kết nối | Cơ chế: P09 F7.5; updateSeatMap của AC-B-BookTicketsForm và AC-B-CounterBookTicketsForm thành luồng sự kiện do IF-04 trả, DC-SeatMapStreamController ghi ra kết nối, DC-SeatMapReducer áp dụng phía trình duyệt | ACT-01, ACT-02 | PKG-24 |
 | SS-04 | Scheduler | IF-05 IJobScheduler | // registerJob: đăng ký công việc và chu kỳ (hàm khởi động chương trình gọi)<br>// start: bắt đầu chạy định kỳ trên mọi bản backend<br>// stop: dừng khi tắt chương trình; mỗi công việc không chạy chồng và có ngân sách 8 giây mỗi lượt (P09 F7.4) | Vòng lặp chu kỳ; cờ đang chạy của từng công việc; bộ ngắt công việc theo ngân sách 8 giây mỗi lượt (pool kết nối nền 5 kết nối thuộc DC-ConnectionPools ở PKG-21, Scheduler không dùng trực tiếp) | Cơ chế: P09 F7.4, F7.7; AC-C-BookTicketsController.startWaitingForHoldExpiry | ACT-01, ACT-02, ACT-07, ACT-08 (gián tiếp) | PKG-25 |
 | SS-05 | Security | IF-07 IAuthenticator | // hashPassword, verifyPassword: băm và kiểm mật khẩu (AC-E-Customer.authenticateCustomer, NFR-01 đến NFR-03)<br>// issueSession, verifySession: cấp và kiểm mã phiên tự kiểm chứng được (AC-C-BookTicketsController.checkCustomerLoggedIn, P09 F7.8)<br>// checkRole: kiểm vai trò được phép (P09 F4) | Bộ băm mật khẩu; bộ ký và kiểm mã phiên; bảng vai trò theo tác nhân | Cơ chế: P09 F4 (PKG-26); NFR-10 | ACT-01 đến ACT-06 | PKG-26 |
@@ -48,7 +48,7 @@ IF-06 là interface gọi ngược duy nhất: Scheduler ở Services gọi lên
 
 | Hệ thống ngoài | Điểm vào | Đường đi | Cần interface gọi ngược |
 |---|---|---|---|
-| ACT-07 Cổng thanh toán (IPN) | DC-PaymentCallbackController (PKG-12) | Cổng --> DC-PaymentCallbackController --> DC-PaymentReportService (PKG-14), trong đó gọi IF-02 để kiểm chữ ký và dựng câu trả lời; DC-IpnAnswer trả ngược lên điểm vào | Không: mọi lời gọi đi xuống (Presentation --> Application --> Services); SS-01 không tự gọi lên |
+| ACT-07 Cổng thanh toán (IPN) | DC-PaymentCallbackController (PKG-12) | Cổng --> DC-PaymentCallbackController --> DC-PaymentReportService (PKG-14), trong đó gọi IF-02 để kiểm chữ ký; DC-IpnAnswer trả ngược lên điểm vào, DC-PaymentCallbackController dịch sang câu trả lời của cổng | Không: mọi lời gọi đi xuống (Presentation --> Application --> Services); SS-01 không tự gọi lên |
 | Trình duyệt (kết nối đẩy sơ đồ ghế) | DC-SeatMapStreamController (PKG-11) | Trình duyệt --> DC-SeatMapStreamController --> DC-SeatMapService --> IF-04; IF-04 trả luồng DC-SeatChangeEvent cho DC-SeatMapService, DC-SeatMapService dịch thành khung SSE dạng văn bản (id sự kiện, dữ liệu) rồi trả luồng khung lên; DC-SeatMapStreamController chỉ đọc khung và ghi ra kết nối, không chạm kiểu của Domain | Không: bên gọi giữ luồng, không có đăng ký bộ nhận ở layer cao hơn |
 
 ## F3. Bảng ánh xạ lớp phân tích sang phần tử thiết kế
@@ -104,7 +104,7 @@ Phần tử thiết kế mới do cơ chế kiến trúc (không từ một dòn
 | DC-PaymentCallbackController | PaymentCallbackController | PKG-12 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.1, F7.6 (điểm vào IPN, không đăng nhập); AC-B-PaymentGateway.reportTransactionResult; NFR-16 |
 | DC-SeatMapService | SeatMapService | PKG-13 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Cơ chế: P09 F7.5 điểm 4 (ảnh chụp kèm con trỏ, đăng ký nhận cập nhật); AC-E-Showtime.provideSeatMap; REQ-119. Dịch DC-SeatChangeEvent từ IF-04 thành khung SSE dạng văn bản trước khi trả cho PKG-11 |
 | DC-SeatReleaseJob | SeatReleaseJob | PKG-13 | Công việc nền (hẹn giờ) | AC-E-SeatHold.releaseHeldSeats; P09 F7.4 bước 2; EX-05; NFR-07 |
-| DC-IpnAnswer | IpnAnswer | PKG-14 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.6 (Presentation không biết định dạng trả lời của cổng; mang mã HTTP và nội dung trả lời; IF-02 replyToReport trả hai giá trị này bằng kiểu cơ bản, DC-IpnAnswer bọc lại; gộp từ DC-ReportReply) |
+| DC-IpnAnswer | IpnAnswer | PKG-14 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.6 (kết quả xử lý thông báo do DC-PaymentReportService trả cho PKG-12, không nêu mã HTTP; DC-PaymentCallbackController dịch kết quả sang câu trả lời của cổng, cùng chỗ với phần dịch mã trả lời; gộp từ DC-ReportReply) |
 | DC-EmailOutboxJob | EmailOutboxJob | PKG-20 | Giao tiếp ngoài (email, hàng đợi gửi) | Cơ chế: P09 F7.7 (hàng đợi email, thử lại 1, 5, 15 phút); AC-B-EmailService; BR-89, BR-41; dựng cả nội dung email vé và email hoàn tiền (gộp từ DC-EmailComposer; REQ-105, REQ-116) |
 | DC-PgUnitOfWork | PgUnitOfWork | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Cơ chế: P09 F7.2, F7.3 (READ COMMITTED, lock_timeout 1 giây, giao dịch ghi ghế tối đa 4 giây, thử lại 2 lần với 40P01 và 55P03, thời điểm CSDL một lần mỗi giao dịch; 55P03 do NOWAIT của ghế ở EX-01 không thử lại) |
 | DC-LockOrderGuard | LockOrderGuard | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Cơ chế: P08 F4b (thứ tự khoá 9 hạng), P09 F7.3; quy tắc kiểm ở F3a |
@@ -150,7 +150,7 @@ Mã giữ nguyên theo quy ước, không cấp lại. Không phần tử nào t
 | DC-SeatEventCleanupJob | Gộp | DC-HoldExpiryJob | Cùng chu kỳ 10 giây, cùng bảng seat_event; dọn là bước cuối của lượt chạy |
 | DC-PaymentLinkRequest | Loại | Tham số thường của IF-01 createPaymentTransaction | Kiểu giá trị chỉ có ba trường |
 | DC-RefundCommand | Loại | Tham số thường của IF-01 requestRefund | Kiểu giá trị chỉ có ba trường |
-| DC-ReportReply | Gộp | DC-IpnAnswer (PKG-14) | IF-02 replyToReport trả mã HTTP và nội dung bằng kiểu cơ bản; để PKG-12 không phải phụ thuộc PKG-22 thì chỉ giữ DC-IpnAnswer |
+| DC-ReportReply | Gộp | DC-IpnAnswer (PKG-14) | IF-02 không dựng câu trả lời cho cổng; kết quả xử lý thông báo đi qua DC-IpnAnswer để PKG-12 không phải phụ thuộc PKG-22 |
 | DC-QrCameraScanner | Loại | Thư viện đọc QR có sẵn, gọi từ DC-CheckTicketView | Không có hành vi riêng cần thiết kế |
 | IF-09 ISeatOccupancyGuard | Loại | DC-ScheduleShowtimesService gọi IF-17, IF-20 | Q-117 áp cho EX-13, EX-14: dịch vụ điều phối, thứ tự khoá hiện trong một lớp |
 | IF-10 ISeatStatusInitializer | Loại | DC-ScheduleShowtimesService gọi IF-18 | Như trên |
@@ -513,7 +513,7 @@ Trang SS-01 PaymentGateway
 | DC-RefundService | Class | RefundService | - | - | Lớp thiết kế PKG-14 |
 | DC-PaymentReportService | Class | PaymentReportService | - | - | Lớp thiết kế PKG-14 |
 | IF-01 | Interface | «interface»<br>IPaymentGateway | «interface» | - | Trách nhiệm: // createPaymentTransaction: ký URL thanh toán có mã giao dịch và mã tham chiếu lần giữ ghế, không gọi mạng; // requestRefund: gửi hoàn tiền kèm khoá chống hoàn trùng, chờ 30 giây; // findRefund: tra cứu giao dịch hoàn trước khi gửi lại; không tra cứu được thì bên gọi chuyển Cần xử lý thủ công |
-| IF-02 | Interface | «interface»<br>IPaymentReportReceiver | «interface» | - | Trách nhiệm: // reportTransactionResult: kiểm chữ ký và số tiền, dịch thông báo của cổng thành kết quả; // replyToReport: dựng câu trả lời cho cổng từ kết quả xử lý |
+| IF-02 | Interface | «interface»<br>IPaymentReportReceiver | «interface» | - | Trách nhiệm: // reportTransactionResult: kiểm chữ ký, giải mã số tiền, dịch thông báo của cổng thành kết quả; DC-PaymentReportService so số tiền với bản ghi |
 
 | ID | Nguồn | Đích | Loại quan hệ | Nhãn | Ghi chú |
 |---|---|---|---|---|---|
@@ -529,7 +529,7 @@ Trang SS-02 EmailGateway
 |---|---|---|---|---|---|
 | SS-02 | Subsystem | «subsystem»<br>EmailGateway | «subsystem» | - | Chỉ interface là public |
 | DC-EmailOutboxJob | Class | EmailOutboxJob | - | - | Lớp thiết kế PKG-20 |
-| IF-03 | Interface | «interface»<br>IEmailSender | «interface» | - | Trách nhiệm: // sendTicketsEmail: gửi email chứa vé; // sendRefundNotificationEmail: gửi email thông báo hoàn tiền |
+| IF-03 | Interface | «interface»<br>IEmailSender | «interface» | - | Trách nhiệm: // sendEmail: gửi một thư đã dựng sẵn; nội dung thư do DC-EmailOutboxJob dựng |
 
 | ID | Nguồn | Đích | Loại quan hệ | Nhãn | Ghi chú |
 |---|---|---|---|---|---|
