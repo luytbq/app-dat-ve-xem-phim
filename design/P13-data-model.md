@@ -3,14 +3,15 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P13 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (CONG_NGHE vẫn ghi "Chưa chốt", Vấn đề còn mở 1); P12-class-design.md 1.1 (F1, F1b, F5, F6, F7, Câu hỏi mở, Giả định, Vấn đề còn mở); P08-analysis-model.md 1.2 (F3, F4, F4b, F4c: thuộc tính và quan hệ của các lớp ngoài phạm vi P12); P09-architecture.md 1.3 (F7.2 đến F7.8); P05-glossary.md 1.1 (miền giá trị loại phòng, loại ghế, định dạng); P04-uc-specs/_BR-register.md; P06-supplementary-spec.md 1.2 (NFR-04 đến NFR-10, khối lượng); UC-005, UC-013 của P04 (chỉ miền giá trị và bước dùng dữ liệu) |
-| Phạm vi | Toàn hệ thống: 21 bảng. Trọng tâm là lõi giữ ghế, thanh toán, huỷ vé, soát vé (10 bảng từ P12 cộng seat_event, outbox); 9 bảng danh mục và tài khoản nhân viên chỉ có cột tối thiểu vì UC-010, UC-011, UC-012, UC-017 chưa có đặc tả (Q-136, Q-137) |
-| Mã Q, ASM cuối đã cấp | Q-138; không có ASM (NGHIEM_NGAT) |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Xử lý review R13D-01 đến R13D-07 (design/_review-P13.md); Q-136 đến Q-138 đã trả lời theo đề xuất của review: thêm cột tài khoản cho ba bảng nhân viên, cột danh mục cho cinema và movie, giữ toàn bộ dữ liệu lịch sử; thêm C-22; ghi rõ hệ quả của fk_ticket_seat_status lên việc đổi phòng (C-19); DDL đã chạy thật trên PostgreSQL 16 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (CONG_NGHE vẫn ghi "Chưa chốt", Vấn đề còn mở 1); P12-class-design.md 1.1 (F1, F1b, F5, F6, F7, Câu hỏi mở, Giả định, Vấn đề còn mở); P08-analysis-model.md 1.2 (F3, F4, F4b, F4c: thuộc tính và quan hệ của các lớp ngoài phạm vi P12); P09-architecture.md 1.3 (F7.2 đến F7.8); P05-glossary.md 1.1 (miền giá trị loại phòng, loại ghế, định dạng); P04-uc-specs/_BR-register.md; P06-supplementary-spec.md 1.2 (NFR-04 đến NFR-10, khối lượng); UC-005, UC-013 của P04 (chỉ miền giá trị và bước dùng dữ liệu); design/_review-P13.md |
+| Phạm vi | Toàn hệ thống: 21 bảng. Trọng tâm là lõi giữ ghế, thanh toán, huỷ vé, soát vé (10 bảng từ P12 cộng seat_event, outbox); 9 bảng danh mục và tài khoản nhân viên chỉ có cột tối thiểu cộng các cột đã chốt ở Q-136, Q-137 vì UC-010, UC-011, UC-012, UC-017 chưa có đặc tả |
+| Mã Q, ASM cuối đã cấp | Q-138 (Q-136 đến Q-138 đã trả lời, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
 
 Trọng tâm: biến các lớp persistent của P12 thành lược đồ PostgreSQL mà bản thân CSDL đã chặn được các trạng thái sai do race condition, kể cả khi lớp dịch vụ quên khoá. Khoá hàng ở ứng dụng (9 hạng của P08 F4b, P09 F7.3) quyết định ai chờ ai; lược đồ này là lớp thứ hai, gồm sáu nhóm lưới an toàn: (1) mỗi ghế của một suất chiếu có đúng một dòng seat_status với tối đa một liên kết hiện tại, liên kết ghép với lần giữ ghế hoặc vé cùng suất chiếu, cùng ràng buộc CHECK khớp trạng thái; (2) unique từng phần cho vé chưa huỷ mỗi ghế và lần giữ ghế đang giữ mỗi người; (3) EXCLUDE chặn hai suất chiếu chồng giờ cùng phòng; (4) trigger chặn rời khỏi trạng thái cuối, đi sai đồ thị chuyển và ghi đè liên kết hiện tại của ghế; (5) unique cho mã giao dịch, khoá chống hoàn trùng, một lần đặt mỗi lần giữ ghế; (6) bảng seat_event và outbox với chỉ mục phục vụ phát sự kiện, dọn hết hạn và claim. F4.5 ánh xạ từng EX-01 đến EX-15 sang câu lệnh khoá trên bảng cụ thể; F6.4 liệt kê mọi lưới an toàn kèm kẻ thù mà nó chặn.
 
-Kết quả: 21 bảng, 108 cột, 45 ràng buộc CHECK có tên, 1 ràng buộc EXCLUDE, 21 chỉ mục ngoài khoá chính, 6 trigger, 25 khoá ngoại. Mô hình khái niệm có 17 thực thể và 23 mối quan hệ.
+Kết quả: 21 bảng, 124 cột, 51 ràng buộc CHECK có tên, 1 ràng buộc EXCLUDE, 21 chỉ mục ngoài khoá chính, 7 trigger, 24 khoá ngoại. Mô hình khái niệm có 17 thực thể và 23 mối quan hệ.
 
 ## F1. Quyết định loại CSDL
 
@@ -27,7 +28,7 @@ Kết quả: 21 bảng, 108 cột, 45 ràng buộc CHECK có tên, 1 ràng buộ
 | Enumeration | VARCHAR kèm CHECK; không có bảng danh mục vì tập giá trị cố định và không ai thêm giá trị | P13 F2 lỗi thường gặp |
 | Xoá dữ liệu | Không xoá cứng bản ghi nghiệp vụ: mọi khoá ngoại ON DELETE RESTRICT; xoá suất chiếu là xoá mềm (status DELETED, BR-58). CASCADE chỉ cho composition PriceList - PriceEntry và hai bảng thuộc tính đa trị | BR-58, P13 F4.2 |
 | Bảng cơ chế | seat_event và outbox không khai báo khoá ngoại để không sinh khoá ngầm lên dòng cha | P09 F7.3 |
-| Khối lượng (NFR-04) | 15 cụm rạp, 4 đến 12 phòng mỗi cụm, 50 đến 400 ghế mỗi phòng, khoảng 500 suất chiếu mỗi ngày: seat_status tối đa 200.000 dòng mỗi ngày (500 suất x 400 ghế), khoảng 73 triệu dòng mỗi năm nếu giữ hết; seat_event chỉ giữ 10 phút; seat_hold, ticket, payment_transaction tăng theo lượng bán. Thời gian lưu chờ Q-138 | P06 NFR-04, NFR-05; P09 F7.5 điểm 6 |
+| Khối lượng (NFR-04) | 15 cụm rạp, 4 đến 12 phòng mỗi cụm, 50 đến 400 ghế mỗi phòng, khoảng 500 suất chiếu mỗi ngày: seat_status tối đa 200.000 dòng mỗi ngày (500 suất x 400 ghế), khoảng 73 triệu dòng mỗi năm nếu giữ hết; seat_event chỉ giữ 10 phút; seat_hold, ticket, payment_transaction tăng theo lượng bán. Giữ toàn bộ, không phân vùng, không dọn (Q-138 đã trả lời; hướng lưu trữ cho sản phẩm thật ở Vấn đề còn mở 4) | P06 NFR-04, NFR-05; P09 F7.5 điểm 6 |
 | Phạm vi dữ liệu mỗi loại | Chỉ có một loại (quan hệ); không dùng JSON cho dữ liệu nghiệp vụ, trừ cột items của seat_event là tải trọng của một sự kiện (F5.3) | P13 F1 lỗi thường gặp |
 
 ## F2. Bảng lớp persistent và chiến lược ánh xạ
@@ -43,15 +44,15 @@ Lớp persistent là lớp có Persistent = Có ở P12 F1 (10 lớp), cộng 7 
 | DC-Booking | Có | E-Booking | TBL-05 | Một lớp - một bảng | /channel và /buyerId là thuộc tính dẫn xuất nên không lưu |
 | DC-Ticket | Có | E-Ticket | TBL-06 | Một lớp - một bảng | ST-03; mã QR dựng từ ticket_code nên không lưu |
 | DC-Customer | Có | E-Customer | TBL-07 | Một lớp - một bảng | Tạm, chờ P07 UC-001 |
-| DC-BoxOfficeClerk | Có | E-BoxOfficeClerk | TBL-08 | Một lớp - một bảng | Tạm, chờ P07 UC-017 (Q-136) |
+| DC-BoxOfficeClerk | Có | E-BoxOfficeClerk | TBL-08 | Một lớp - một bảng | Q-136 đã trả lời: thêm email, password_hash, full_name, active; thuộc tính khác chờ P07 UC-017 |
 | DC-Showtime | Có | E-Showtime | TBL-09 | Một lớp - một bảng | /cinemaId là dẫn xuất (join qua phòng chiếu) nên không lưu |
 | DC-PriceList | Có | E-PriceList | TBL-10 | Một lớp - một bảng, chỉ có khoá | Cần một dòng làm đích khoá hạng 1; chia khoá với Cinema (R-40 là 1 - 1) |
-| DC-TicketChecker | Có | E-TicketChecker | TBL-11 | Một lớp - một bảng | P08 AC-E-TicketChecker, tạm (Q-136) |
-| DC-CinemaManager | Có | E-CinemaManager | TBL-12 | Một lớp - một bảng | P08 AC-E-CinemaManager, tạm (Q-136) |
-| DC-Cinema | Có | E-Cinema | TBL-13 | Một lớp - một bảng | P08 AC-E-Cinema, tạm (Q-137) |
-| DC-Auditorium | Có | E-Auditorium | TBL-14 | Một lớp - một bảng; supportedFormats sang TBL-19 | P08 AC-E-Auditorium, tạm (Q-137) |
+| DC-TicketChecker | Có | E-TicketChecker | TBL-11 | Một lớp - một bảng | P08 AC-E-TicketChecker; cột tài khoản theo Q-136 |
+| DC-CinemaManager | Có | E-CinemaManager | TBL-12 | Một lớp - một bảng | P08 AC-E-CinemaManager; cột tài khoản theo Q-136 |
+| DC-Cinema | Có | E-Cinema | TBL-13 | Một lớp - một bảng | P08 AC-E-Cinema; cột address theo Q-137 |
+| DC-Auditorium | Có | E-Auditorium | TBL-14 | Một lớp - một bảng; supportedFormats sang TBL-19 | P08 AC-E-Auditorium, tạm (Q-137 không thêm cột; sức chứa đếm từ bảng seat) |
 | DC-Seat | Có | E-Seat | TBL-15 | Một lớp - một bảng | P08 AC-E-Seat; seatPosition thành hai cột row_code và seat_number |
-| DC-Movie | Có | E-Movie | TBL-16 | Một lớp - một bảng; releaseFormats sang TBL-18 | P08 AC-E-Movie, tạm (Q-137) |
+| DC-Movie | Có | E-Movie | TBL-16 | Một lớp - một bảng; releaseFormats sang TBL-18 | P08 AC-E-Movie; cột genre, age_rating, description theo Q-137 |
 | DC-PriceEntry | Có | E-PriceEntry | TBL-17 | Một lớp - một bảng, bộ phận của composition R-41 | Khoá chính ghép chính là ràng buộc BR-62 |
 | DC-Movie.releaseFormats | Thuộc tính đa trị của lớp persistent | - | TBL-18 | Bảng thuộc tính đa trị | 1NF: định dạng 2D, 3D là tập giá trị đơn (BR-47) |
 | DC-Auditorium.supportedFormats | Thuộc tính đa trị của lớp persistent | - | TBL-19 | Bảng thuộc tính đa trị | 1NF (BR-48) |
@@ -74,20 +75,20 @@ Cây kế thừa persistent: không có (P12 không có generalization), nên F4
 | E | Tên thực thể | Mô tả | Định danh | Thuộc tính (định danh gạch chân trong sơ đồ) | Thực thể yếu | Nguồn DC |
 |---|---|---|---|---|---|---|
 | E-Customer | Khách | Tài khoản khách đặt vé trực tuyến | id | id (định danh); email; phoneNumber; passwordHash | Không | DC-Customer |
-| E-BoxOfficeClerk | Nhân viên quầy | Nhân viên bán vé và huỷ vé tại quầy của một cụm rạp | id | id (định danh) | Không | DC-BoxOfficeClerk |
+| E-BoxOfficeClerk | Nhân viên quầy | Nhân viên bán vé và huỷ vé tại quầy của một cụm rạp | id | id (định danh); email; passwordHash; fullName; active | Không | DC-BoxOfficeClerk |
 | E-SeatHold | Lần giữ ghế | Việc giữ tạm một nhóm ghế của một suất chiếu cho một người giữ trong 10 phút | id | id (định danh); holdRef; requestId; status; holdTime; expiryTime | Không | DC-SeatHold |
 | E-PaymentTransaction | Giao dịch thanh toán | Một lần khách thanh toán qua cổng cho một lần giữ ghế | id | id (định danh); code; amount; status; gatewayTransactionNo; paidAt; lateReason; refundedTotal; duplicateReportCount | Không | DC-PaymentTransaction |
 | E-RefundRequest | Yêu cầu hoàn tiền | Yêu cầu hoàn toàn bộ, hoàn một vé qua cổng hoặc hoàn một vé bằng tiền mặt | id | id (định danh); idempotencyKey; requestType; refundAmount; attemptCount; status; refundResult | Không | DC-RefundRequest |
-| E-CinemaManager | Quản lý cụm rạp | Nhân viên quản lý bảng giá và lịch chiếu của một cụm rạp | id | id (định danh) | Không | DC-CinemaManager |
-| E-Cinema | Cụm rạp | Cụm rạp của chuỗi, gồm nhiều phòng chiếu | id | id (định danh); name | Không | DC-Cinema |
+| E-CinemaManager | Quản lý cụm rạp | Nhân viên quản lý bảng giá và lịch chiếu của một cụm rạp | id | id (định danh); email; passwordHash; fullName; active | Không | DC-CinemaManager |
+| E-Cinema | Cụm rạp | Cụm rạp của chuỗi, gồm nhiều phòng chiếu | id | id (định danh); name; address | Không | DC-Cinema |
 | E-Showtime | Suất chiếu | Một lượt trình chiếu một phim trong một phòng chiếu | id | id (định danh); startTime; saleOpenTime; endTime; lastChangedAt; movieFormat; status; cinemaId (dẫn xuất, không lưu) | Không | DC-Showtime |
 | E-Booking | Lần đặt | Lần đặt vé phát sinh từ một lần giữ ghế đã hoàn tất | id | id (định danh); bookingCode; channel (dẫn xuất, không lưu); buyerId (dẫn xuất, không lưu) | Không | DC-Booking |
 | E-Ticket | Vé | Vé của đúng một ghế trong một suất chiếu | id | id (định danh); ticketCode; price; status | Không | DC-Ticket |
-| E-TicketChecker | Nhân viên soát vé | Nhân viên soát vé của một cụm rạp | id | id (định danh) | Không | DC-TicketChecker |
+| E-TicketChecker | Nhân viên soát vé | Nhân viên soát vé của một cụm rạp | id | id (định danh); email; passwordHash; fullName; active | Không | DC-TicketChecker |
 | E-Auditorium | Phòng chiếu | Phòng chiếu của một cụm rạp | id | id (định danh); name; auditoriumType; supportedFormats (đa trị) | Không | DC-Auditorium |
 | E-SeatStatus | Trạng thái ghế | Tình trạng của một ghế trong một suất chiếu | định danh bởi Showtime và Seat | state; heldPrice | Có | DC-SeatStatus |
 | E-Seat | Ghế | Vị trí ngồi trong một phòng chiếu | id | id (định danh); rowCode; seatNumber; seatType | Không | DC-Seat |
-| E-Movie | Phim | Phim của chuỗi | id | id (định danh); title; releaseFormats (đa trị); durationMinutes; releaseDate; endOfRunDate | Không | DC-Movie |
+| E-Movie | Phim | Phim của chuỗi | id | id (định danh); title; releaseFormats (đa trị); durationMinutes; releaseDate; endOfRunDate; genre; ageRating; description | Không | DC-Movie |
 | E-PriceList | Bảng giá | Bảng giá riêng của một cụm rạp | định danh bởi Cinema | entryChangeTimes (dẫn xuất, không lưu) | Có | DC-PriceList |
 | E-PriceEntry | Mục giá | Giá vé của một tổ hợp loại phòng, định dạng, loại ghế, khung giờ | định danh bởi PriceList và bốn yếu tố tổ hợp | auditoriumType (định danh riêng phần); movieFormat (định danh riêng phần); seatType (định danh riêng phần); timeBand (định danh riêng phần); ticketPrice; lastChangedAt; removed | Có | DC-PriceEntry |
 
@@ -134,15 +135,15 @@ R-47 (SeatHold 0..* - SeatStatus 1..8, lịch sử) không có mối quan hệ r
 | TBL-05 | booking | booking(PK: id, booking_code, FK: seat_hold_id) | (booking_code); (seat_hold_id) | E-Booking / DC-Booking |
 | TBL-06 | ticket | ticket(PK: id, FK: booking_id, FK: showtime_id, FK: seat_id, ticket_code, price, status) | (ticket_code); (showtime_id, seat_id) WHERE status <> 'CANCELLED' | E-Ticket / DC-Ticket |
 | TBL-07 | customer | customer(PK: id, email, phone_number, password_hash) | (email); (phone_number) | E-Customer / DC-Customer |
-| TBL-08 | box_office_clerk | box_office_clerk(PK: id, FK: cinema_id) | Không có | E-BoxOfficeClerk / DC-BoxOfficeClerk |
+| TBL-08 | box_office_clerk | box_office_clerk(PK: id, FK: cinema_id, email, password_hash, full_name, active) | (email) | E-BoxOfficeClerk / DC-BoxOfficeClerk |
 | TBL-09 | showtime | showtime(PK: id, FK: auditorium_id, FK: movie_id, start_time, sale_open_time, end_time, last_changed_at, movie_format, status) | Không có | E-Showtime / DC-Showtime |
 | TBL-10 | price_list | price_list(PK: FK: cinema_id) | Không có | E-PriceList / DC-PriceList |
-| TBL-11 | ticket_checker | ticket_checker(PK: id, FK: cinema_id) | Không có | E-TicketChecker / DC-TicketChecker |
-| TBL-12 | cinema_manager | cinema_manager(PK: id, FK: cinema_id) | Không có | E-CinemaManager / DC-CinemaManager |
-| TBL-13 | cinema | cinema(PK: id, name) | Không có | E-Cinema / DC-Cinema |
+| TBL-11 | ticket_checker | ticket_checker(PK: id, FK: cinema_id, email, password_hash, full_name, active) | (email) | E-TicketChecker / DC-TicketChecker |
+| TBL-12 | cinema_manager | cinema_manager(PK: id, FK: cinema_id, email, password_hash, full_name, active) | (email) | E-CinemaManager / DC-CinemaManager |
+| TBL-13 | cinema | cinema(PK: id, name, address) | Không có | E-Cinema / DC-Cinema |
 | TBL-14 | auditorium | auditorium(PK: id, FK: cinema_id, name, auditorium_type) | Không có | E-Auditorium / DC-Auditorium |
 | TBL-15 | seat | seat(PK: id, FK: auditorium_id, row_code, seat_number, seat_type) | (auditorium_id, row_code, seat_number) | E-Seat / DC-Seat |
-| TBL-16 | movie | movie(PK: id, title, duration_minutes, release_date, end_of_run_date) | Không có | E-Movie / DC-Movie |
+| TBL-16 | movie | movie(PK: id, title, duration_minutes, release_date, end_of_run_date, genre, age_rating, description) | Không có | E-Movie / DC-Movie |
 | TBL-17 | price_entry | price_entry(PK: FK: cinema_id, PK: auditorium_type, PK: movie_format, PK: seat_type, PK: time_band, ticket_price, last_changed_at, removed) | Không có | E-PriceEntry / DC-PriceEntry |
 | TBL-18 | movie_format | movie_format(PK: FK: movie_id, PK: movie_format) | Không có | thuộc tính đa trị E-Movie.releaseFormats / DC-Movie (releaseFormats) |
 | TBL-19 | auditorium_format | auditorium_format(PK: FK: auditorium_id, PK: movie_format) | Không có | thuộc tính đa trị E-Auditorium.supportedFormats / DC-Auditorium (supportedFormats) |
@@ -206,9 +207,10 @@ Không có cây kế thừa persistent (P12 không có generalization). Customer
 | C-16 | Định dạng suất chiếu thuộc định dạng phát hành của phim và định dạng chiếu được của phòng; ngày chiếu trong khoảng chiếu của phim; giờ kết thúc bằng giờ bắt đầu cộng thời lượng | showtime, movie_format, auditorium_format, movie | BR-47, BR-48, BR-49, BR-50 | Ứng dụng khi lập hoặc sửa suất chiếu; không FK vì BR-84 (F4.2) |
 | C-17 | Bảng giá phủ mọi loại ghế của phòng khi lập hoặc sửa suất chiếu; không bỏ mục giá khi còn suất chiếu chưa chiếu đang dùng | price_entry, showtime, seat | BR-59, BR-64, BR-68, BR-69, BR-72 | Ứng dụng dưới khoá hạng 1 và 2 (EX-11, EX-12, EX-13) |
 | C-18 | Nhân viên chỉ thao tác trên suất chiếu, vé của cụm rạp mình | box_office_clerk, ticket_checker, cinema_manager, showtime | BR-02, BR-22, BR-34, BR-46, BR-61 | Ứng dụng (so cinema_id của nhân viên với cụm rạp của suất chiếu qua phòng chiếu) |
-| C-19 | Chỉ sửa hoặc xoá suất chiếu khi không có lần giữ ghế đang giữ hoặc vé chưa huỷ | showtime, seat_hold, ticket | BR-53, BR-54, BR-57 | Ứng dụng dưới khoá hạng 3, 5, 8 (EX-13, EX-14) |
+| C-19 | Chỉ sửa hoặc xoá suất chiếu khi không có lần giữ ghế đang giữ hoặc vé chưa huỷ. Riêng đổi phòng phải thay toàn bộ seat_status của suất chiếu (mã ghế khác theo phòng), mà fk_ticket_seat_status (RESTRICT) chặn xoá dòng seat_status còn vé tham chiếu, kể cả vé đã huỷ; vì vậy CSDL chỉ cho đổi phòng khi suất chiếu chưa từng có vé (kể cả đã huỷ). Suất chiếu từng có vé thì xoá mềm (EX-14) rồi lập suất mới, dữ liệu cũ vẫn giữ (BR-58) | showtime, seat_status, seat_hold, ticket | BR-53, BR-54, BR-57, BR-58 | Ứng dụng dưới khoá hạng 3, 5, 8 (EX-13, EX-14); với đổi phòng, ứng dụng kiểm không có ticket nào của suất chiếu (mọi trạng thái) trước khi xoá seat_status, và fk_ticket_seat_status là lưới an toàn (23503). Mâu thuẫn với BR-53 ghi ở Đề xuất sửa artifact trước |
 | C-20 | Thời điểm mở bán trước giờ bắt đầu; giờ kết thúc sau giờ bắt đầu | showtime | BR-55, BR-50 | CHECK ck_showtime_sale_before_start, ck_showtime_end_after_start |
 | C-21 | Thời hạn giữ ghế đúng 10 phút | seat_hold | BR-10 | CHECK ck_seat_hold_expiry |
+| C-22 | Ghế của seat_status thuộc phòng chiếu của suất chiếu | seat_status, seat, showtime | R-44, R-45 | Ứng dụng: EX-13 và EX-15 tạo seat_status bằng INSERT ... SELECT từ các ghế của phòng của suất chiếu, không nhận danh sách ghế từ bên ngoài. Không thêm cột auditorium_id vào seat_status để khoá ghép kiểm: bảng này lớn nhất hệ thống (F1), thêm cột và khoá ghép chỉ để chặn đường ghi sai ngoài ứng dụng là không đáng |
 
 Đối chiếu P12 F3: các operation ghi cột trạng thái (SeatHold.Expire, Complete, Cancel, FailPayment; SeatStatus.HoldFor, MarkSold, ReleaseHold, ReleaseTicket; Ticket.Admit, Cancel; PaymentTransaction.MarkTicketed, MarkLatePayment, RecordFailure; RefundRequest.BeginAttempt, RecordResult, MarkManualRequired) đều chỉ đi theo các cung của ST-01 đến ST-05, nên trigger của C-07 không mâu thuẫn với P12. Một mâu thuẫn nhỏ về tên cột (amount ở P12 so với paid_amount ở P09 F7.3 EX-09) ghi ở Đề xuất sửa artifact trước.
 
@@ -219,7 +221,7 @@ Yêu cầu với tầng truy cập dữ liệu để các CHECK không làm hỏ
 
 ### F4.5. Ánh xạ EX-01 đến EX-15 sang câu lệnh khoá
 
-Quy ước theo P09 F7.3: S là SELECT ... FOR SHARE; X là SELECT ... FOR NO KEY UPDATE (không dùng FOR UPDATE để không xung đột với khoá ngầm FOR KEY SHARE của khoá ngoại); nhiều dòng cùng hạng thì SELECT ... ORDER BY <khoá chính> FOR NO KEY UPDATE, câu khoá chỉ lọc theo khoá, không lọc theo trạng thái nghiệp vụ. Không UPDATE cột thuộc chỉ mục unique đầy đủ (id, các khoá ghép, mã duy nhất); các chỉ mục unique từng phần của lược đồ này không tính là khoá nên UPDATE status không nâng khoá. Chín hạng: 1 price_list, 2 auditorium, 3 showtime, 4 customer hoặc box_office_clerk, 5 seat_hold, 6 seat_status, 7 payment_transaction, 8 ticket, 9 refund_request. Bảng chỉ ghi các dòng bị khoá theo thứ tự hạng; hạng ghi "mới" là dòng tạo trong thao tác nên không cần khoá. Huỷ vé trực tuyến là một giao dịch gộp EX-06, EX-07, EX-09 (Q-133, P12).
+Quy ước theo P09 F7.3: S là SELECT ... FOR SHARE; X là SELECT ... FOR NO KEY UPDATE (không dùng FOR UPDATE để không xung đột với khoá ngầm FOR KEY SHARE của khoá ngoại); nhiều dòng cùng hạng thì SELECT ... ORDER BY <khoá chính> FOR NO KEY UPDATE (ngoại lệ: quét hết hạn EX-04 sắp theo expiry_time để dùng ix_seat_hold_expiry; chấp nhận được vì SKIP LOCKED không bao giờ chờ khoá nên thứ tự lấy khoá không tạo chu trình chờ; thao tác kế tiếp ở hạng 6 vẫn ORDER BY showtime_id, seat_id), câu khoá chỉ lọc theo khoá, không lọc theo trạng thái nghiệp vụ. Không UPDATE cột thuộc chỉ mục unique đầy đủ (id, các khoá ghép, mã duy nhất); các chỉ mục unique từng phần của lược đồ này không tính là khoá nên UPDATE status không nâng khoá. Chín hạng: 1 price_list, 2 auditorium, 3 showtime, 4 customer hoặc box_office_clerk, 5 seat_hold, 6 seat_status, 7 payment_transaction, 8 ticket, 9 refund_request. Bảng chỉ ghi các dòng bị khoá theo thứ tự hạng; hạng ghi "mới" là dòng tạo trong thao tác nên không cần khoá. Huỷ vé trực tuyến là một giao dịch gộp EX-06, EX-07, EX-09 (Q-133, P12).
 
 | EX | Chuỗi khoá theo hạng (hạng: bảng - câu lệnh) | Câu ghi sau khoá | Lưới an toàn nếu bên gọi quên khoá hoặc sai thứ tự |
 |---|---|---|---|
@@ -235,9 +237,11 @@ Quy ước theo P09 F7.3: S là SELECT ... FOR SHARE; X là SELECT ... FOR NO KE
 | EX-10 | Ba giao dịch ngắn. GD1: claim outbox (không thuộc hạng) rồi 9: refund_request WHERE id - X. GD2: gọi cổng, ngoài giao dịch. GD3: 9: refund_request WHERE id - X rồi UPDATE outbox WHERE id AND claim_token = ? | GD1: UPDATE refund_request SET status = 'IN_FLIGHT', attempt_count = attempt_count + 1 WHERE status IN ('NEW', 'WAITING_RETRY', 'IN_FLIGHT'). GD3: UPDATE refund_request SET status, refund_result; UPDATE outbox SET status = 'SUCCEEDED'; INSERT outbox EMAIL_REFUND khi hoàn thành công. Hoàn tiền mặt nằm trong giao dịch huỷ vé gộp (không có hạng 7) | ck_refund_request_attempts, ck_refund_request_attempt_status, trg_refund_request_status, trg_outbox_status, ck_outbox_claim_pair, uq_outbox_idempotency_key |
 | EX-11 | 1: price_list WHERE cinema_id - X; sau khoá đọc price_entry theo khoá chính, so last_changed_at | UPDATE price_entry SET ticket_price, last_changed_at, removed = FALSE WHERE khoá chính AND last_changed_at = mốc lúc hiển thị; chưa có thì INSERT | Khoá chính ghép của price_entry (BR-62); ck_price_entry_price |
 | EX-12 | 1: price_list - X; 2: auditorium WHERE cinema_id = ? ORDER BY id - S; 3: showtime WHERE auditorium_id IN (phòng của cụm) AND status = 'IN_SCHEDULE' ORDER BY id - S | UPDATE price_entry SET removed = TRUE, last_changed_at WHERE khoá chính AND last_changed_at = mốc lúc hiển thị | Khoá hạng 1 X loại trừ EX-01 (S) và EX-13 (S) |
-| EX-13 | 1: price_list - S; 2: auditorium WHERE id IN (một hoặc hai phòng) ORDER BY id - X; 3: showtime WHERE id - X (khi sửa); 5: seat_hold WHERE showtime_id = ? AND status = 'ACTIVE' ORDER BY id - S; 6: seat_status WHERE showtime_id = ? ORDER BY showtime_id, seat_id - X (khi đổi phòng; lập mới thì INSERT); 8: ticket WHERE showtime_id = ? AND status <> 'CANCELLED' ORDER BY id - S | INSERT hoặc UPDATE showtime kèm last_changed_at; INSERT seat_status Trống cho từng ghế của phòng khi lập mới | ex_showtime_auditorium_overlap, uq_ticket_active_seat, ck_showtime_sale_before_start, ck_showtime_end_after_start |
+| EX-13 | 1: price_list - S; 2: auditorium WHERE id IN (một hoặc hai phòng) ORDER BY id - X; 3: showtime WHERE id - X (khi sửa); 5: seat_hold WHERE showtime_id = ? AND status = 'ACTIVE' ORDER BY id - S; 6: seat_status WHERE showtime_id = ? ORDER BY showtime_id, seat_id - X (khi đổi phòng, chỉ khi suất chiếu chưa từng có vé, C-19; lập mới thì INSERT); 8: ticket WHERE showtime_id = ? ORDER BY id - S (mọi trạng thái, để biết suất chiếu có từng có vé không) | INSERT hoặc UPDATE showtime kèm last_changed_at; INSERT seat_status Trống cho từng ghế của phòng khi lập mới | ex_showtime_auditorium_overlap, uq_ticket_active_seat, ck_showtime_sale_before_start, ck_showtime_end_after_start |
 | EX-14 | 3: showtime WHERE id - X; 5: seat_hold WHERE showtime_id = ? AND status = 'ACTIVE' - S; 8: ticket WHERE showtime_id = ? AND status <> 'CANCELLED' - S | UPDATE showtime SET status = 'DELETED', last_changed_at WHERE id = ? AND status = 'IN_SCHEDULE' | ck_showtime_status; không xoá cứng nên seat_status, seat_hold, ticket còn nguyên (BR-58) |
 | EX-15 | 1: price_list - S; 2: auditorium WHERE id - X; 3: showtime WHERE auditorium_id = ? - S; 6: seat_status WHERE showtime_id IN (suất chiếu chưa mở bán của phòng) ORDER BY showtime_id, seat_id - X | UPDATE seat, INSERT hoặc UPDATE seat_status của suất chiếu chưa mở bán | ix_seat_status_seat; uq_seat_position |
+
+Ba chỗ F4.5 khác P08 F4b đều theo P09 F7.3, F7.4: EX-01 khoá showtime hạng 3 bằng S (P09 thu hẹp từ X của P08); EX-05 khoá seat_hold hạng 5 bằng X trên đường quét (P08 ghi S) vì sau đó trả ghế; EX-06 và EX-10 không ghi khoá S ticket hạng 8 vì thao tác nằm trong giao dịch huỷ vé gộp đã có khoá X ticket (EX-07).
 
 Mẫu câu lệnh cho ba chuỗi nóng nhất (giao dịch READ COMMITTED; tham số $n là minh hoạ):
 
@@ -304,15 +308,15 @@ Ký hiệu FD theo tên cột; căn cứ là BR và ngữ nghĩa trong cột Ph�
 | booking | id; booking_code; seat_hold_id | id --> booking_code, seat_hold_id; booking_code --> id; seat_hold_id --> id (R-51) | Đạt | Đạt | Đạt | Đạt | Đạt |
 | ticket | id; ticket_code | id --> mọi cột; ticket_code --> id; (showtime_id, seat_id) không là khoá vì ghế bán lại được (BR-42) | Đạt | Đạt | Đạt (price là giá lịch sử, một sự kiện khác với giá hiện hành, BR-67) | Đạt | Đạt |
 | customer | id; email; phone_number | id --> mọi cột; email --> id; phone_number --> id | Đạt | Đạt | Đạt | Đạt | Đạt |
-| box_office_clerk | id | id --> cinema_id (BR-78) | Đạt | Đạt | Đạt | Đạt | Đạt |
+| box_office_clerk | id; email | id --> mọi cột; email --> id (BR-78) | Đạt | Đạt | Đạt | Đạt | Đạt |
 | showtime | id | id --> mọi cột; end_time không suy từ start_time vì thời lượng phim có thể đổi (BR-50, BR-84) | Đạt | Đạt | Đạt | Đạt | Đạt |
 | price_list | cinema_id | Không có thuộc tính không khoá | Đạt | Đạt | Đạt | Đạt | Đạt |
-| ticket_checker | id | id --> cinema_id | Đạt | Đạt | Đạt | Đạt | Đạt |
-| cinema_manager | id | id --> cinema_id | Đạt | Đạt | Đạt | Đạt | Đạt |
-| cinema | id | id --> name | Đạt | Đạt | Đạt | Đạt | Đạt |
+| ticket_checker | id; email | id --> mọi cột; email --> id | Đạt | Đạt | Đạt | Đạt | Đạt |
+| cinema_manager | id; email | id --> mọi cột; email --> id | Đạt | Đạt | Đạt | Đạt | Đạt |
+| cinema | id | id --> name, address | Đạt | Đạt | Đạt | Đạt | Đạt |
 | auditorium | id | id --> cinema_id, name, auditorium_type | Đạt | Đạt | Đạt | Đạt | Đạt |
 | seat | id; (auditorium_id, row_code, seat_number) | id --> mọi cột; (auditorium_id, row_code, seat_number) --> id, seat_type | Đạt | Đạt | Đạt | Đạt (hai khoá ứng viên không chồng lấn) | Đạt |
-| movie | id | id --> title, duration_minutes, release_date, end_of_run_date | Đạt | Đạt | Đạt | Đạt | Đạt |
+| movie | id | id --> title, duration_minutes, release_date, end_of_run_date, genre, age_rating, description | Đạt | Đạt | Đạt | Đạt | Đạt |
 | price_entry | (cinema_id, auditorium_type, movie_format, seat_type, time_band) | khoá --> ticket_price, last_changed_at, removed (BR-62) | Đạt | Đạt (mọi cột phụ thuộc cả khoá ghép) | Đạt | Đạt | Đạt |
 | movie_format | (movie_id, movie_format) | Toàn khoá | Đạt (tách từ thuộc tính đa trị) | Đạt | Đạt | Đạt | Đạt |
 | auditorium_format | (auditorium_id, movie_format) | Toàn khoá | Đạt (tách từ thuộc tính đa trị) | Đạt | Đạt | Đạt | Đạt |
@@ -394,8 +398,12 @@ Ký hiệu FD theo tên cột; căn cứ là BR và ngữ nghĩa trong cột Ph�
 | TBL-07 | customer | email | VARCHAR(254) | UQ | NOT NULL |  | DC-Customer.email |  | Thiết kế: 254 ký tự theo RFC 5321; lưu chữ thường (ck_customer_email_lower); định dạng email chuẩn (BR-81) |
 | TBL-07 | customer | phone_number | VARCHAR(10) | UQ | NOT NULL |  | DC-Customer.phoneNumber |  | Số Việt Nam 10 chữ số bắt đầu bằng 0 (BR-82) |
 | TBL-07 | customer | password_hash | VARCHAR(255) |  | NOT NULL |  | DC-Customer.passwordHash |  | Mã băm một chiều (NFR-02); Thiết kế: 255 ký tự đủ cho bcrypt và argon2; không lưu mật khẩu rõ |
-| TBL-08 | box_office_clerk | id | BIGINT | PK | NOT NULL | identity | DC-BoxOfficeClerk.id |  | Định danh; khoá hạng 4. Thuộc tính tài khoản chờ Q-136 |
+| TBL-08 | box_office_clerk | id | BIGINT | PK | NOT NULL | identity | DC-BoxOfficeClerk.id |  | Định danh; khoá hạng 4 |
 | TBL-08 | box_office_clerk | cinema_id | BIGINT | FK | NOT NULL |  | R-57 | TBL-13.id, RESTRICT, NO ACTION (fk_box_office_clerk_cinema) | Cụm rạp mà nhân viên thuộc về, đúng một (BR-78) |
+| TBL-08 | box_office_clerk | email | VARCHAR(254) | UQ | NOT NULL |  | Thiết kế: Q-136 |  | Đăng nhập; lưu chữ thường (ck_box_office_clerk_email_lower), định dạng email tối thiểu (ck_box_office_clerk_email_format) như customer.email |
+| TBL-08 | box_office_clerk | password_hash | VARCHAR(255) |  | NOT NULL |  | Thiết kế: Q-136 |  | Mã băm một chiều (NFR-02), không lưu mật khẩu rõ |
+| TBL-08 | box_office_clerk | full_name | VARCHAR(100) |  | NOT NULL |  | Thiết kế: Q-136 |  | Họ tên nhân viên; Thiết kế: 100 ký tự |
+| TBL-08 | box_office_clerk | active | BOOLEAN |  | NOT NULL | TRUE | Thiết kế: Q-136 |  | Nhân viên nghỉ việc thì đặt FALSE, không xoá, vì lần giữ ghế và vé cũ còn trỏ tới (ON DELETE RESTRICT) |
 | TBL-09 | showtime | id | BIGINT | PK | NOT NULL | identity | DC-Showtime.id |  | Định danh gán khi lưu; khoá hạng 3 |
 | TBL-09 | showtime | auditorium_id | BIGINT | FK | NOT NULL |  | R-42 | TBL-14.id, RESTRICT, NO ACTION (fk_showtime_auditorium) | Phòng chiếu; cụm rạp suy ra qua phòng chiếu (DC-Showtime./cinemaId không lưu) |
 | TBL-09 | showtime | movie_id | BIGINT | FK | NOT NULL |  | R-43 | TBL-16.id, RESTRICT, NO ACTION (fk_showtime_movie) | Phim của suất chiếu |
@@ -406,12 +414,21 @@ Ký hiệu FD theo tên cột; căn cứ là BR và ngữ nghĩa trong cột Ph�
 | TBL-09 | showtime | movie_format | VARCHAR(2) |  | NOT NULL |  | DC-Showtime.movieFormat |  | 2D hoặc 3D (GL-05) |
 | TBL-09 | showtime | status | VARCHAR(12) |  | NOT NULL | IN_SCHEDULE | DC-Showtime.status |  | IN_SCHEDULE, DELETED (xoá mềm, BR-58) |
 | TBL-10 | price_list | cinema_id | BIGINT | PK, FK | NOT NULL |  | R-40 | TBL-13.id, RESTRICT, NO ACTION (fk_price_list_cinema) | Mỗi cụm rạp đúng một bảng giá (GL-01); là khoá khoá hạng 1 |
-| TBL-11 | ticket_checker | id | BIGINT | PK | NOT NULL | identity | AC-E-TicketChecker (P08) |  | Định danh. Thuộc tính tài khoản chờ Q-136 |
+| TBL-11 | ticket_checker | id | BIGINT | PK | NOT NULL | identity | AC-E-TicketChecker (P08) |  | Định danh |
 | TBL-11 | ticket_checker | cinema_id | BIGINT | FK | NOT NULL |  | R-58 | TBL-13.id, RESTRICT, NO ACTION (fk_ticket_checker_cinema) | Cụm rạp mà nhân viên thuộc về, đúng một (BR-78) |
-| TBL-12 | cinema_manager | id | BIGINT | PK | NOT NULL | identity | AC-E-CinemaManager (P08) |  | Định danh. Thuộc tính tài khoản chờ Q-136 |
+| TBL-11 | ticket_checker | email | VARCHAR(254) | UQ | NOT NULL |  | Thiết kế: Q-136 |  | Đăng nhập; lưu chữ thường (ck_ticket_checker_email_lower), định dạng email tối thiểu (ck_ticket_checker_email_format) như customer.email |
+| TBL-11 | ticket_checker | password_hash | VARCHAR(255) |  | NOT NULL |  | Thiết kế: Q-136 |  | Mã băm một chiều (NFR-02), không lưu mật khẩu rõ |
+| TBL-11 | ticket_checker | full_name | VARCHAR(100) |  | NOT NULL |  | Thiết kế: Q-136 |  | Họ tên nhân viên; Thiết kế: 100 ký tự |
+| TBL-11 | ticket_checker | active | BOOLEAN |  | NOT NULL | TRUE | Thiết kế: Q-136 |  | Nhân viên nghỉ việc thì đặt FALSE, không xoá, vì lần giữ ghế và vé cũ còn trỏ tới (ON DELETE RESTRICT) |
+| TBL-12 | cinema_manager | id | BIGINT | PK | NOT NULL | identity | AC-E-CinemaManager (P08) |  | Định danh |
 | TBL-12 | cinema_manager | cinema_id | BIGINT | FK | NOT NULL |  | R-59 | TBL-13.id, RESTRICT, NO ACTION (fk_cinema_manager_cinema) | Cụm rạp mà quản lý thuộc về, đúng một (BR-78) |
+| TBL-12 | cinema_manager | email | VARCHAR(254) | UQ | NOT NULL |  | Thiết kế: Q-136 |  | Đăng nhập; lưu chữ thường (ck_cinema_manager_email_lower), định dạng email tối thiểu (ck_cinema_manager_email_format) như customer.email |
+| TBL-12 | cinema_manager | password_hash | VARCHAR(255) |  | NOT NULL |  | Thiết kế: Q-136 |  | Mã băm một chiều (NFR-02), không lưu mật khẩu rõ |
+| TBL-12 | cinema_manager | full_name | VARCHAR(100) |  | NOT NULL |  | Thiết kế: Q-136 |  | Họ tên nhân viên; Thiết kế: 100 ký tự |
+| TBL-12 | cinema_manager | active | BOOLEAN |  | NOT NULL | TRUE | Thiết kế: Q-136 |  | Nhân viên nghỉ việc thì đặt FALSE, không xoá, vì lần giữ ghế và vé cũ còn trỏ tới (ON DELETE RESTRICT) |
 | TBL-13 | cinema | id | BIGINT | PK | NOT NULL | identity | AC-E-Cinema (P08) |  | Định danh |
-| TBL-13 | cinema | name | VARCHAR(100) |  | NOT NULL |  | DC-ShowtimeInfo.cinemaName (P12 F1b) |  | Thiết kế: 100 ký tự cho tên cụm rạp. Thuộc tính khác chờ Q-137 |
+| TBL-13 | cinema | name | VARCHAR(100) |  | NOT NULL |  | DC-ShowtimeInfo.cinemaName (P12 F1b) |  | Thiết kế: 100 ký tự cho tên cụm rạp |
+| TBL-13 | cinema | address | VARCHAR(255) |  | NULL |  | Thiết kế: Q-137 |  | Địa chỉ cụm rạp; NULL vì chưa có UC bắt buộc nhập |
 | TBL-14 | auditorium | id | BIGINT | PK | NOT NULL | identity | AC-E-Auditorium (P08) |  | Định danh; khoá hạng 2 |
 | TBL-14 | auditorium | cinema_id | BIGINT | FK | NOT NULL |  | R-38 | TBL-13.id, RESTRICT, NO ACTION (fk_auditorium_cinema) | Cụm rạp chứa phòng chiếu |
 | TBL-14 | auditorium | name | VARCHAR(50) |  | NOT NULL |  | AC-E-Auditorium.name |  | Thiết kế: 50 ký tự cho tên phòng |
@@ -426,6 +443,9 @@ Ký hiệu FD theo tên cột; căn cứ là BR và ngữ nghĩa trong cột Ph�
 | TBL-16 | movie | duration_minutes | INTEGER |  | NOT NULL |  | AC-E-Movie.duration |  | Thời lượng, phút; lớn hơn 0 (BR-50) |
 | TBL-16 | movie | release_date | DATE |  | NOT NULL |  | AC-E-Movie.releaseDate |  | Ngày khởi chiếu (BR-76) |
 | TBL-16 | movie | end_of_run_date | DATE |  | NOT NULL |  | AC-E-Movie.endOfRunDate |  | Ngày kết thúc chiếu, không trước ngày khởi chiếu (BR-49) |
+| TBL-16 | movie | genre | VARCHAR(50) |  | NULL |  | Thiết kế: Q-137 |  | Thể loại, một giá trị; NULL vì chưa có UC bắt buộc nhập |
+| TBL-16 | movie | age_rating | VARCHAR(10) |  | NULL |  | Thiết kế: Q-137 |  | Độ tuổi được xem (ví dụ P, T13); không CHECK vì tập giá trị chưa chốt |
+| TBL-16 | movie | description | TEXT |  | NULL |  | Thiết kế: Q-137 |  | Mô tả phim, độ dài không giới hạn |
 | TBL-17 | price_entry | cinema_id | BIGINT | PK, FK | NOT NULL |  | R-41 | TBL-10.cinema_id, CASCADE, NO ACTION (fk_price_entry_price_list) | Bảng giá chứa mục giá (composition); khoá chính ghép pk_price_entry |
 | TBL-17 | price_entry | auditorium_type | VARCHAR(10) | PK | NOT NULL |  | AC-E-PriceEntry.auditoriumType |  | STANDARD, 4DX, IMAX; khoá chính ghép pk_price_entry |
 | TBL-17 | price_entry | movie_format | VARCHAR(2) | PK | NOT NULL |  | AC-E-PriceEntry.movieFormat |  | 2D, 3D; khoá chính ghép pk_price_entry |
@@ -484,11 +504,17 @@ Ràng buộc CHECK nhiều cột, EXCLUDE và khoá phụ trợ của khoá ngo�
 | TBL-07 | ck_customer_email_format | email ~ '^[^@[:space:]]+@[^@[:space:]]+$' | BR-81 (lưới an toàn tối thiểu; kiểm đầy đủ ở ứng dụng) |
 | TBL-07 | ck_customer_email_lower | email = lower(email) | Thiết kế: UNIQUE không phân biệt hoa thường |
 | TBL-07 | ck_customer_phone_format | phone_number ~ '^0[0-9]{9}$' | BR-82 |
+| TBL-08 | ck_box_office_clerk_email_format | email ~ '^[^@[:space:]]+@[^@[:space:]]+$' | BR-81 (lưới an toàn tối thiểu như customer; Q-136) |
+| TBL-08 | ck_box_office_clerk_email_lower | email = lower(email) | Thiết kế: UNIQUE không phân biệt hoa thường |
 | TBL-09 | ck_showtime_status | status IN ('IN_SCHEDULE', 'DELETED') | DC-ShowtimeStatus |
 | TBL-09 | ck_showtime_format | movie_format IN ('2D', '3D') | GL-05 |
 | TBL-09 | ck_showtime_sale_before_start | sale_open_time < start_time | BR-55 |
 | TBL-09 | ck_showtime_end_after_start | end_time > start_time | BR-50 |
 | TBL-09 | ex_showtime_auditorium_overlap | EXCLUDE USING gist (auditorium_id WITH =, showtime_busy_range(start_time, end_time) WITH &&) WHERE (status = 'IN_SCHEDULE') | BR-51, BR-52: hai suất chiếu chưa xoá trong cùng một phòng không chồng giờ và cách nhau ít nhất 15 phút dọn phòng |
+| TBL-11 | ck_ticket_checker_email_format | email ~ '^[^@[:space:]]+@[^@[:space:]]+$' | BR-81 (lưới an toàn tối thiểu như customer; Q-136) |
+| TBL-11 | ck_ticket_checker_email_lower | email = lower(email) | Thiết kế: UNIQUE không phân biệt hoa thường |
+| TBL-12 | ck_cinema_manager_email_format | email ~ '^[^@[:space:]]+@[^@[:space:]]+$' | BR-81 (lưới an toàn tối thiểu như customer; Q-136) |
+| TBL-12 | ck_cinema_manager_email_lower | email = lower(email) | Thiết kế: UNIQUE không phân biệt hoa thường |
 | TBL-14 | ck_auditorium_type | auditorium_type IN ('STANDARD', '4DX', 'IMAX') | GL-27 |
 | TBL-15 | ck_seat_type | seat_type IN ('STANDARD', 'VIP', 'COUPLE') | GL-26 |
 | TBL-15 | ck_seat_number | seat_number > 0 | Thiết kế |
@@ -518,6 +544,7 @@ ON UPDATE của mọi khoá ngoại là NO ACTION (mặc định) vì không có
 | Integer / Long | INTEGER / BIGINT |
 | Decimal (tiền) | BIGINT đồng, vì P12 chốt DC-Money là int64 đồng và BR-70 là số nguyên đồng; không dùng FLOAT hoặc REAL |
 | Boolean | BOOLEAN |
+| Văn bản dài không giới hạn | TEXT (chỉ movie.description) |
 | Date / DateTime | DATE / TIMESTAMPTZ |
 | Enumeration | VARCHAR(n) kèm CHECK tập giá trị |
 | Định danh thay thế | BIGINT GENERATED BY DEFAULT AS IDENTITY |
@@ -551,6 +578,8 @@ ON UPDATE của mọi khoá ngoại là NO ACTION (mặc định) vì không có
 | TBL-21 | ix_outbox_due | kind, next_attempt_at WHERE status = 'PENDING' | thường, từng phần | Claim: chọn tối đa 20 dòng đến hạn theo kind, ORDER BY next_attempt_at, FOR NO KEY UPDATE SKIP LOCKED (P09 F7.7 bước 1) |
 
 Chỉ mục có chủ ý không tạo: showtime.movie_id (chưa có truy vấn lọc theo phim vì UC-003 chưa có đặc tả; xoá phim không có); các cột cinema_id của box_office_clerk, ticket_checker, cinema_manager (chỉ tra theo id nhân viên; không xoá cụm rạp); seat_hold.customer_id và box_office_clerk_id ngoài chỉ mục từng phần (không xoá khách); payment_transaction.gateway_transaction_no ngoài chỉ mục unique từng phần. Mỗi chỉ mục mất chi phí ghi nên bảng nóng seat_status chỉ có ba chỉ mục phụ, seat_event hai.
+
+Chi phí biết trước, chấp nhận: ix_seat_status_current_hold phủ mọi ghế đang HELD chứ không chỉ ghế của lần giữ đã kết thúc, nên quét EX-05 mỗi phút duyệt toàn bộ ghế đang giữ; tập này nhỏ (tối đa vài nghìn dòng ở giờ cao điểm). Chỉ xem lại nếu kiểm thử tải (P09 F7.9) cho thấy quét chậm. Dòng outbox đã SUCCEEDED hoặc EXHAUSTED không có chỉ mục và không có công việc dọn (Q-138: giữ toàn bộ); ix_outbox_due chỉ phủ PENDING nên bảng phình dần không ảnh hưởng truy vấn nóng. Sản phẩm thật dọn theo Vấn đề còn mở 4.
 
 ### F6.4. Lưới an toàn chống race condition ở mức CSDL
 
@@ -597,15 +626,15 @@ Node:
 | TBL-05 | Table | booking | «table» | - | 3 cột; DC-Booking |
 | TBL-06 | Table | ticket | «table» | - | 7 cột; DC-Ticket |
 | TBL-07 | Table | customer | «table» | - | 4 cột; DC-Customer |
-| TBL-08 | Table | box_office_clerk | «table» | - | 2 cột; DC-BoxOfficeClerk |
+| TBL-08 | Table | box_office_clerk | «table» | - | 6 cột; DC-BoxOfficeClerk |
 | TBL-09 | Table | showtime | «table» | - | 9 cột; DC-Showtime |
 | TBL-10 | Table | price_list | «table» | - | 1 cột; DC-PriceList |
-| TBL-11 | Table | ticket_checker | «table» | - | 2 cột; DC-TicketChecker |
-| TBL-12 | Table | cinema_manager | «table» | - | 2 cột; DC-CinemaManager |
-| TBL-13 | Table | cinema | «table» | - | 2 cột; DC-Cinema |
+| TBL-11 | Table | ticket_checker | «table» | - | 6 cột; DC-TicketChecker |
+| TBL-12 | Table | cinema_manager | «table» | - | 6 cột; DC-CinemaManager |
+| TBL-13 | Table | cinema | «table» | - | 3 cột; DC-Cinema |
 | TBL-14 | Table | auditorium | «table» | - | 4 cột; DC-Auditorium |
 | TBL-15 | Table | seat | «table» | - | 5 cột; DC-Seat |
-| TBL-16 | Table | movie | «table» | - | 5 cột; DC-Movie |
+| TBL-16 | Table | movie | «table» | - | 8 cột; DC-Movie |
 | TBL-17 | Table | price_entry | «table» | - | 8 cột; DC-PriceEntry |
 | TBL-18 | Table | movie_format | «table» | - | 2 cột; DC-Movie (releaseFormats) |
 | TBL-19 | Table | auditorium_format | «table» | - | 2 cột; DC-Auditorium (supportedFormats) |
@@ -650,20 +679,20 @@ Node thực thể và mối quan hệ:
 | ID | Loại | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
 | E-Customer | Thực thể | Customer | - | - | 4 thuộc tính vẽ |
-| E-BoxOfficeClerk | Thực thể | BoxOfficeClerk | - | - | 1 thuộc tính vẽ |
+| E-BoxOfficeClerk | Thực thể | BoxOfficeClerk | - | - | 5 thuộc tính vẽ |
 | E-SeatHold | Thực thể | SeatHold | - | - | 6 thuộc tính vẽ |
 | E-PaymentTransaction | Thực thể | PaymentTransaction | - | - | 9 thuộc tính vẽ |
 | E-RefundRequest | Thực thể | RefundRequest | - | - | 7 thuộc tính vẽ |
-| E-CinemaManager | Thực thể | CinemaManager | - | - | 1 thuộc tính vẽ |
-| E-Cinema | Thực thể | Cinema | - | - | 2 thuộc tính vẽ |
+| E-CinemaManager | Thực thể | CinemaManager | - | - | 5 thuộc tính vẽ |
+| E-Cinema | Thực thể | Cinema | - | - | 3 thuộc tính vẽ |
 | E-Showtime | Thực thể | Showtime | - | - | 8 thuộc tính vẽ |
 | E-Booking | Thực thể | Booking | - | - | 4 thuộc tính vẽ |
 | E-Ticket | Thực thể | Ticket | - | - | 4 thuộc tính vẽ |
-| E-TicketChecker | Thực thể | TicketChecker | - | - | 1 thuộc tính vẽ |
+| E-TicketChecker | Thực thể | TicketChecker | - | - | 5 thuộc tính vẽ |
 | E-Auditorium | Thực thể | Auditorium | - | - | 4 thuộc tính vẽ |
 | E-SeatStatus | Thực thể yếu | SeatStatus | - | - | 2 thuộc tính vẽ |
 | E-Seat | Thực thể | Seat | - | - | 4 thuộc tính vẽ |
-| E-Movie | Thực thể | Movie | - | - | 6 thuộc tính vẽ |
+| E-Movie | Thực thể | Movie | - | - | 9 thuộc tính vẽ |
 | E-PriceList | Thực thể yếu | PriceList | - | - | 1 thuộc tính vẽ |
 | E-PriceEntry | Thực thể yếu | PriceEntry | - | - | 7 thuộc tính vẽ |
 | ER-01 | Mối quan hệ | gồm | - | - | R-38 |
@@ -700,6 +729,10 @@ Node thuộc tính:
 | AT-Customer-phoneNumber | đơn | E-Customer |
 | AT-Customer-passwordHash | đơn | E-Customer |
 | AT-BoxOfficeClerk-id | định danh | E-BoxOfficeClerk |
+| AT-BoxOfficeClerk-email | đơn | E-BoxOfficeClerk |
+| AT-BoxOfficeClerk-passwordHash | đơn | E-BoxOfficeClerk |
+| AT-BoxOfficeClerk-fullName | đơn | E-BoxOfficeClerk |
+| AT-BoxOfficeClerk-active | đơn | E-BoxOfficeClerk |
 | AT-SeatHold-id | định danh | E-SeatHold |
 | AT-SeatHold-holdRef | đơn | E-SeatHold |
 | AT-SeatHold-requestId | đơn | E-SeatHold |
@@ -723,8 +756,13 @@ Node thuộc tính:
 | AT-RefundRequest-status | đơn | E-RefundRequest |
 | AT-RefundRequest-refundResult | đơn | E-RefundRequest |
 | AT-CinemaManager-id | định danh | E-CinemaManager |
+| AT-CinemaManager-email | đơn | E-CinemaManager |
+| AT-CinemaManager-passwordHash | đơn | E-CinemaManager |
+| AT-CinemaManager-fullName | đơn | E-CinemaManager |
+| AT-CinemaManager-active | đơn | E-CinemaManager |
 | AT-Cinema-id | định danh | E-Cinema |
 | AT-Cinema-name | đơn | E-Cinema |
+| AT-Cinema-address | đơn | E-Cinema |
 | AT-Showtime-id | định danh | E-Showtime |
 | AT-Showtime-startTime | đơn | E-Showtime |
 | AT-Showtime-saleOpenTime | đơn | E-Showtime |
@@ -742,6 +780,10 @@ Node thuộc tính:
 | AT-Ticket-price | đơn | E-Ticket |
 | AT-Ticket-status | đơn | E-Ticket |
 | AT-TicketChecker-id | định danh | E-TicketChecker |
+| AT-TicketChecker-email | đơn | E-TicketChecker |
+| AT-TicketChecker-passwordHash | đơn | E-TicketChecker |
+| AT-TicketChecker-fullName | đơn | E-TicketChecker |
+| AT-TicketChecker-active | đơn | E-TicketChecker |
 | AT-Auditorium-id | định danh | E-Auditorium |
 | AT-Auditorium-name | đơn | E-Auditorium |
 | AT-Auditorium-auditoriumType | đơn | E-Auditorium |
@@ -758,6 +800,9 @@ Node thuộc tính:
 | AT-Movie-durationMinutes | đơn | E-Movie |
 | AT-Movie-releaseDate | đơn | E-Movie |
 | AT-Movie-endOfRunDate | đơn | E-Movie |
+| AT-Movie-genre | đơn | E-Movie |
+| AT-Movie-ageRating | đơn | E-Movie |
+| AT-Movie-description | đơn | E-Movie |
 | AT-PriceList-entryChangeTimes | dẫn xuất | E-PriceList |
 | AT-PriceEntry-auditoriumType | định danh riêng phần | E-PriceEntry |
 | AT-PriceEntry-movieFormat | định danh riêng phần | E-PriceEntry |
@@ -839,6 +884,7 @@ AS $$ SELECT tstzrange(start_time, end_time + interval '15 minutes', '[)') $$;
 CREATE TABLE cinema (
   id BIGINT GENERATED BY DEFAULT AS IDENTITY,
   name VARCHAR(100) NOT NULL,
+  address VARCHAR(255),
   CONSTRAINT pk_cinema PRIMARY KEY (id)
 );
 
@@ -849,6 +895,9 @@ CREATE TABLE movie (
   duration_minutes INTEGER NOT NULL,
   release_date DATE NOT NULL,
   end_of_run_date DATE NOT NULL,
+  genre VARCHAR(50),
+  age_rating VARCHAR(10),
+  description TEXT,
   CONSTRAINT pk_movie PRIMARY KEY (id),
   CONSTRAINT ck_movie_duration CHECK (duration_minutes > 0),
   CONSTRAINT ck_movie_run_period CHECK (end_of_run_date >= release_date)
@@ -971,7 +1020,14 @@ CREATE TABLE customer (
 CREATE TABLE box_office_clerk (
   id BIGINT GENERATED BY DEFAULT AS IDENTITY,
   cinema_id BIGINT NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  full_name VARCHAR(100) NOT NULL,
+  active BOOLEAN DEFAULT TRUE NOT NULL,
   CONSTRAINT pk_box_office_clerk PRIMARY KEY (id),
+  CONSTRAINT uq_box_office_clerk_email UNIQUE (email),
+  CONSTRAINT ck_box_office_clerk_email_format CHECK (email ~ '^[^@[:space:]]+@[^@[:space:]]+$'),
+  CONSTRAINT ck_box_office_clerk_email_lower CHECK (email = lower(email)),
   CONSTRAINT fk_box_office_clerk_cinema FOREIGN KEY (cinema_id)
     REFERENCES cinema (id) ON DELETE RESTRICT
 );
@@ -980,7 +1036,14 @@ CREATE TABLE box_office_clerk (
 CREATE TABLE ticket_checker (
   id BIGINT GENERATED BY DEFAULT AS IDENTITY,
   cinema_id BIGINT NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  full_name VARCHAR(100) NOT NULL,
+  active BOOLEAN DEFAULT TRUE NOT NULL,
   CONSTRAINT pk_ticket_checker PRIMARY KEY (id),
+  CONSTRAINT uq_ticket_checker_email UNIQUE (email),
+  CONSTRAINT ck_ticket_checker_email_format CHECK (email ~ '^[^@[:space:]]+@[^@[:space:]]+$'),
+  CONSTRAINT ck_ticket_checker_email_lower CHECK (email = lower(email)),
   CONSTRAINT fk_ticket_checker_cinema FOREIGN KEY (cinema_id)
     REFERENCES cinema (id) ON DELETE RESTRICT
 );
@@ -989,7 +1052,14 @@ CREATE TABLE ticket_checker (
 CREATE TABLE cinema_manager (
   id BIGINT GENERATED BY DEFAULT AS IDENTITY,
   cinema_id BIGINT NOT NULL,
+  email VARCHAR(254) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  full_name VARCHAR(100) NOT NULL,
+  active BOOLEAN DEFAULT TRUE NOT NULL,
   CONSTRAINT pk_cinema_manager PRIMARY KEY (id),
+  CONSTRAINT uq_cinema_manager_email UNIQUE (email),
+  CONSTRAINT ck_cinema_manager_email_format CHECK (email ~ '^[^@[:space:]]+@[^@[:space:]]+$'),
+  CONSTRAINT ck_cinema_manager_email_lower CHECK (email = lower(email)),
   CONSTRAINT fk_cinema_manager_cinema FOREIGN KEY (cinema_id)
     REFERENCES cinema (id) ON DELETE RESTRICT
 );
@@ -1262,11 +1332,11 @@ CREATE TRIGGER trg_outbox_status BEFORE UPDATE OF status ON outbox
 
 ## Câu hỏi mở
 
-| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
-|---|---|---|---|
-| Q-136 | Tài khoản nhân viên (UC-017) gồm những thuộc tính nào (tên đăng nhập hoặc email, mật khẩu băm, họ tên, trạng thái) và lưu thành ba bảng theo ba lớp P08 (box_office_clerk, ticket_checker, cinema_manager) hay một bảng nhân viên có cột vai trò (BR-79: mỗi nhân viên đúng một vai trò)? Khi nhân viên nghỉ việc, tài khoản bị xoá hay chỉ khoá, trong khi lần giữ ghế cũ vẫn trỏ tới nhân viên quầy (ON DELETE RESTRICT)? | TBL-08, TBL-11, TBL-12, fk_seat_hold_box_office_clerk, ck_seat_hold_one_holder | P08 F3 AC-E-BoxOfficeClerk, AC-E-TicketChecker, AC-E-CinemaManager "Tạm (chờ P07 của UC-017)"; BR-78, BR-79; P12 F7 chỉ có thuộc tính id |
-| Q-137 | Các danh mục UC-010, UC-011, UC-012 có thêm thuộc tính nào ngoài phần các UC đã phân tích dùng: phim (thể loại, độ tuổi được xem, mô tả, trailer), cụm rạp (địa chỉ), phòng chiếu (sức chứa có lưu riêng hay đếm từ ghế) và sơ đồ ghế (có ghế vật lý không dùng, lối đi)? | TBL-13, TBL-14, TBL-15, TBL-16, TBL-18, TBL-19 | P05 GL-37, GL-40; P08 F3 các lớp Tạm (chờ P07 của UC-010, UC-011, UC-012) |
-| Q-138 | Dữ liệu lịch sử của suất chiếu đã chiếu (seat_status, seat_hold, ticket, payment_transaction, refund_request, outbox đã xong) phải lưu bao lâu trước khi lưu trữ hoặc xoá? Mỗi ngày phát sinh tối đa khoảng 200.000 dòng seat_status (NFR-04) nên khoảng 73 triệu dòng mỗi năm nếu giữ hết | Quyết định phân vùng bảng theo ngày chiếu hoặc công việc dọn; F1 mục khối lượng; chỉ mục của seat_status | P06 không có yêu cầu về thời gian lưu dữ liệu; BR-58 chỉ yêu cầu giữ dữ liệu suất chiếu đã xoá cho vé, hoàn tiền, báo cáo |
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Trạng thái | Trả lời |
+|---|---|---|---|---|---|
+| Q-136 | Tài khoản nhân viên (UC-017) gồm những thuộc tính nào (tên đăng nhập hoặc email, mật khẩu băm, họ tên, trạng thái) và lưu thành ba bảng theo ba lớp P08 (box_office_clerk, ticket_checker, cinema_manager) hay một bảng nhân viên có cột vai trò (BR-79: mỗi nhân viên đúng một vai trò)? Khi nhân viên nghỉ việc, tài khoản bị xoá hay chỉ khoá, trong khi lần giữ ghế cũ vẫn trỏ tới nhân viên quầy (ON DELETE RESTRICT)? | TBL-08, TBL-11, TBL-12, fk_seat_hold_box_office_clerk, ck_seat_hold_one_holder | P08 F3 AC-E-BoxOfficeClerk, AC-E-TicketChecker, AC-E-CinemaManager "Tạm (chờ P07 của UC-017)"; BR-78, BR-79; P12 F7 chỉ có thuộc tính id | Đã trả lời | Giữ ba bảng theo P08/P12 (BR-79 mỗi nhân viên đúng một vai trò nên không cần bảng chung). Mỗi bảng thêm bốn cột: email duy nhất, password_hash, full_name, active. Nghỉ việc thì đặt active = false, không xoá, vì lần giữ ghế và vé cũ còn trỏ tới nhân viên (ON DELETE RESTRICT) |
+| Q-137 | Các danh mục UC-010, UC-011, UC-012 có thêm thuộc tính nào ngoài phần các UC đã phân tích dùng: phim (thể loại, độ tuổi được xem, mô tả, trailer), cụm rạp (địa chỉ), phòng chiếu (sức chứa có lưu riêng hay đếm từ ghế) và sơ đồ ghế (có ghế vật lý không dùng, lối đi)? | TBL-13, TBL-14, TBL-15, TBL-16, TBL-18, TBL-19 | P05 GL-37, GL-40; P08 F3 các lớp Tạm (chờ P07 của UC-010, UC-011, UC-012) | Đã trả lời | movie thêm genre, age_rating, description; cinema thêm address; tất cả NULL được. Không thêm ghế vật lý không dùng, lối đi biểu diễn bằng khoảng trống số ghế; sức chứa đếm từ bảng seat, không lưu cột riêng |
+| Q-138 | Dữ liệu lịch sử của suất chiếu đã chiếu (seat_status, seat_hold, ticket, payment_transaction, refund_request, outbox đã xong) phải lưu bao lâu trước khi lưu trữ hoặc xoá? Mỗi ngày phát sinh tối đa khoảng 200.000 dòng seat_status (NFR-04) nên khoảng 73 triệu dòng mỗi năm nếu giữ hết | Quyết định phân vùng bảng theo ngày chiếu hoặc công việc dọn; F1 mục khối lượng; chỉ mục của seat_status | P06 không có yêu cầu về thời gian lưu dữ liệu; BR-58 chỉ yêu cầu giữ dữ liệu suất chiếu đã xoá cho vé, hoàn tiền, báo cáo | Đã trả lời | Đồ án giữ toàn bộ dữ liệu lịch sử, không phân vùng, không dọn. Sản phẩm thật: lưu trữ seat_status và seat_hold của suất chiếu cũ hơn 90 ngày, giữ ticket, payment_transaction, refund_request lâu hơn theo yêu cầu kế toán, dọn outbox đã xong sau 30 ngày (Vấn đề còn mở 4) |
 
 ## Giả định
 
@@ -1281,14 +1351,17 @@ Không có (chế độ NGHIEM_NGAT).
 | P12 | Lượt PKG-27 (DC-PriceList.entries, DC-PriceEntry) | R-41 nói bỏ mục giá là bỏ khỏi bảng giá, trong khi P08 F3 yêu cầu PriceList nhớ mốc thay đổi "kể cả tổ hợp đã bỏ" (BR-63) | Thêm thuộc tính removed (Boolean, mặc định false) cho DC-PriceEntry; "bỏ" là đặt removed = true và giữ mốc thay đổi. P13 đã lưu price_entry.removed |
 | P12 | F7 DC-Ticket | Vé không có thuộc tính showtime và seat, trong khi khoá ghép (showtimeId, seatId) của R-54 là danh tính ghế của vé | Ghi trong F7 hoặc F5 rằng Ticket giữ SeatKey; P13 ánh xạ thành ticket.showtime_id và ticket.seat_id |
 | P12 | F7 DC-SeatStatus | Cột event_seq P12 coi là cột kỹ thuật ngoài thuộc tính miền; P13 mặc định 0 và NOT NULL cho ghế chưa có sự kiện | Không cần sửa; ghi nhận để EX-13 (tạo SeatStatus Trống) ghi event_seq cùng sự kiện tạo ghế hoặc để 0 |
+| P04 | UC-014, BR-53 | BR-53 và C-19 chỉ cấm sửa suất chiếu khi còn lần giữ ghế đang giữ hoặc vé chưa huỷ, nhưng đổi phòng thay toàn bộ seat_status và bị fk_ticket_seat_status chặn khi suất chiếu từng có vé đã huỷ | Bổ sung: đổi phòng chỉ cho phép khi suất chiếu chưa từng có vé (kể cả đã huỷ); nếu không thì xoá suất chiếu cũ và lập suất mới (BR-58 giữ dữ liệu). P12 DC-Showtime.Update (đổi phòng) cần kiểm điều kiện này |
+| P12 | Vấn đề còn mở 9 (state machine Showtime) | Chưa có cung chuyển trạng thái cho Showtime nên CSDL không chặn DELETED --> IN_SCHEDULE, trái BR-58 | Chốt Showtime: IN_SCHEDULE --> DELETED một chiều; khi đó P13 thêm cung vào fn_enforce_status_transition và trigger trg_showtime_status |
 
 ## Vấn đề còn mở
 
 1. Hồ sơ dự án còn ghi CONG_NGHE "Chưa chốt"; P13 dùng PostgreSQL 15 trở lên theo P09 F11 (lặp lại Vấn đề còn mở 7 của P12). Cập nhật hồ sơ là việc ngoài P13.
-2. Script DDL chưa chạy thử: máy chạy bước này không có psql hay postgres và Docker daemon không chạy nên chưa kiểm cú pháp. Điểm cần chạy thử đầu tiên: hàm showtime_busy_range được khai báo IMMUTABLE để dùng trong EXCLUDE (cộng khoảng phút cố định vào TIMESTAMPTZ); biểu thức CHECK dùng toán tử regex và num_nonnulls; trigger fn_enforce_status_transition (CASE theo bảng và trạng thái cũ); FK ghép có thành phần NULL (MATCH SIMPLE bỏ qua khi current_hold_id hoặc current_ticket_id NULL). Cần chạy nguyên script rồi chạy bộ ca đo đồng thời T1 đến T5 của P09 F7.9, đặc biệt khẳng định không có 40P01.
-3. Bảng danh mục và nhân viên (TBL-08, TBL-11 đến TBL-16, TBL-18, TBL-19) chỉ có cột tối thiểu vì UC-010, UC-011, UC-012, UC-017 chưa có đặc tả (Q-136, Q-137). Khi các UC có P07 và P12 của PKG-27 hoàn tất, chạy lại P13 theo nhóm package và bổ sung cột; mã TBL đã cấp không đổi.
-4. Khối lượng seat_status tối đa khoảng 73 triệu dòng mỗi năm (F1, Q-138). Đồ án chấp nhận một bảng không phân vùng với khoá chính (showtime_id, seat_id); nếu Q-138 yêu cầu lưu nhiều năm thì cần phân vùng theo ngày chiếu hoặc lưu trữ, việc này đổi khoá chính và FK ghép.
+2. Script DDL đã chạy thật trên PostgreSQL 16 (0 lỗi, 21 bảng) cùng bộ ca thử ràng buộc; kết quả trong design/_review-P13.md. Còn lại cần chạy: bộ ca đo đồng thời T1 đến T5 của P09 F7.9, đặc biệt khẳng định không có 40P01. Các điểm đã khẳng định khi chạy thử: hàm showtime_busy_range được khai báo IMMUTABLE để dùng trong EXCLUDE (cộng khoảng phút cố định vào TIMESTAMPTZ); biểu thức CHECK dùng toán tử regex và num_nonnulls; trigger fn_enforce_status_transition (CASE theo bảng và trạng thái cũ); FK ghép có thành phần NULL (MATCH SIMPLE bỏ qua khi current_hold_id hoặc current_ticket_id NULL). 
+3. Bảng danh mục và nhân viên (TBL-08, TBL-11 đến TBL-16, TBL-18, TBL-19) chỉ có cột tối thiểu cộng các cột chốt ở Q-136, Q-137 vì UC-010, UC-011, UC-012, UC-017 chưa có đặc tả. Khi các UC có P07 và P12 của PKG-27 hoàn tất, chạy lại P13 theo nhóm package và bổ sung cột; mã TBL đã cấp không đổi.
+4. Khối lượng seat_status tối đa khoảng 73 triệu dòng mỗi năm (F1, Q-138). Đồ án giữ toàn bộ dữ liệu trong một bảng không phân vùng với khoá chính (showtime_id, seat_id) (Q-138). Sản phẩm thật lưu trữ seat_status và seat_hold của suất chiếu cũ hơn 90 ngày sang bảng lưu trữ, giữ ticket, payment_transaction, refund_request lâu hơn theo yêu cầu kế toán, và dọn outbox đã xong sau 30 ngày; phân vùng chỉ cần khi có số liệu thật vì đổi khoá chính và FK ghép.
 5. Chuỗi khoá EX-01 theo P09 (Showtime lấy S) chứ không theo P08 F4b (X); nếu ca đo T1 buộc chuyển hạng 1 đến 3 sang khoá tư vấn (pg_advisory_xact_lock) thì F4.5 đổi ba hạng đầu của EX-01, EX-11 đến EX-15, lược đồ không đổi.
 6. Bảy trigger (sáu trigger đổi trạng thái và trg_seat_status_link) chạy cho mỗi UPDATE cột liên quan của các bảng nóng; chi phí là một hàm PL/pgSQL ngắn mỗi dòng. Chưa đo; ca đo T1 nên chạy cả bản có và không có trigger để biết chi phí.
 7. showtime không có FK ép BR-47, BR-48 (F4.2) và ticket.price, seat_status.held_price không có ràng buộc khớp bảng giá; các quy tắc này nằm ở ứng dụng nên cần ca kiểm thử riêng ở X2.
 8. DC-PaymentTransaction.gatewayTransactionNo có unique từng phần (Thiết kế, không từ BR); cần xác nhận mã giao dịch của cổng VNPay sandbox là duy nhất cho mỗi giao dịch (P09 Vấn đề còn mở 6).
+9. showtime.status chuyển DELETED --> IN_SCHEDULE chưa bị trigger chặn (BR-58 coi xoá là ngừng bán, dữ liệu giữ lại) vì state machine Showtime chưa chốt (P12 Vấn đề còn mở 9). Khi chốt, thêm cung IN_SCHEDULE --> DELETED vào fn_enforce_status_transition và trigger trg_showtime_status; hiện chỉ ex_showtime_auditorium_overlap chặn khôi phục gây chồng giờ.
