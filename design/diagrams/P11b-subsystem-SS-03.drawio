@@ -85,7 +85,7 @@
         <mxCell id="S03W1-L5" value="«interface»&lt;br&gt;:IF-22 ISeatEventStore" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=60;" vertex="1" parent="1">
           <mxGeometry x="840" y="40" width="120" height="1050" as="geometry" />
         </mxCell>
-        <mxCell id="S03W1-F1" value="alt [afterEventId rỗng]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+        <mxCell id="S03W1-F1" value="alt [afterEventId bằng 0]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
           <mxGeometry x="30" y="260" width="940" height="750" as="geometry" />
         </mxCell>
         <mxCell id="S03W1-F1-D1" value="[có con trỏ]" style="endArrow=none;dashed=1;html=1;verticalAlign=top;" edge="1" parent="1">
@@ -154,7 +154,7 @@
             <mxPoint x="740" y="390" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S03W1-M6" value="6: findEvent(&lt;br&gt;afterEventId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="S03W1-M6" value="6: FindEvent(&lt;br&gt;afterEventId)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="740" y="430" as="sourcePoint" />
             <mxPoint x="900" y="430" as="targetPoint" />
@@ -172,7 +172,7 @@
             <mxPoint x="580" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S03W1-M9" value="9:&lt;br&gt;readShowtimeEvents(&lt;br&gt;showtimeId,&lt;br&gt;afterEventId,&lt;br&gt;notBefore)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="S03W1-M9" value="9:&lt;br&gt;ReadShowtimeEvents(&lt;br&gt;showtimeId,&lt;br&gt;afterEventId,&lt;br&gt;notBefore,&lt;br&gt;window)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="740" y="630" as="sourcePoint" />
             <mxPoint x="900" y="630" as="targetPoint" />
@@ -258,7 +258,7 @@
         <mxCell id="S03W2-F2" value="opt [hàng đợi đầy (256)]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
           <mxGeometry x="40" y="430" width="920" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="S03W2-M1" value="1: readEventsAfter(&lt;br&gt;watermark)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="S03W2-M1" value="1: ReadEventsAfter(&lt;br&gt;watermark)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="260" y="140" as="sourcePoint" />
             <mxPoint x="420" y="140" as="targetPoint" />
@@ -312,13 +312,13 @@
             <mxPoint x="580" y="520" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S03W2-M10" value="10: advanceWatermark(events, databaseNow trừ&lt;br&gt;5 giây)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="S03W2-M10" value="10: advanceWatermark(events, databaseNow trừ&lt;br&gt;10 giây)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="260" y="560" as="sourcePoint" />
             <mxPoint x="580" y="560" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S03W2-M11" value="11: forgetOlderThan(10 giây)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="S03W2-M11" value="11: forgetOlderThan(20 giây)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="260" y="600" as="sourcePoint" />
             <mxPoint x="580" y="600" as="targetPoint" />
@@ -333,16 +333,16 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="IF-04" value="«interface»&lt;br&gt;ISeatEventSubscription" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="5" y="52.5" width="270" height="95" as="geometry" />
+          <mxGeometry x="5" y="35" width="270" height="130" as="geometry" />
         </mxCell>
         <mxCell id="IF-04-b" value="+ subscribe()&lt;br&gt;+ unsubscribe()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-04">
           <mxGeometry y="40" width="270" height="40" as="geometry" />
         </mxCell>
         <mxCell id="IF-22" value="«interface»&lt;br&gt;ISeatEventStore" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1465" y="172.5" width="270" height="95" as="geometry" />
+          <mxGeometry x="1465" y="175" width="270" height="130" as="geometry" />
         </mxCell>
-        <mxCell id="IF-22-b" value="+ readEventsAfter()&lt;br&gt;+ readShowtimeEvents()&lt;br&gt;+ findEvent()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-22">
-          <mxGeometry y="40" width="270" height="55" as="geometry" />
+        <mxCell id="IF-22-b" value="+ ReadEventsAfter()&lt;br&gt;+ ReadShowtimeEvents()&lt;br&gt;+ FindEvent()&lt;br&gt;+ Snapshot()&lt;br&gt;+ DeleteOlderThan()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-22">
+          <mxGeometry y="40" width="270" height="90" as="geometry" />
         </mxCell>
         <mxCell id="SS-03" value="«subsystem»&lt;br&gt;SeatEventHub" style="shape=component;html=1;container=1;collapsible=0;verticalAlign=top;fillColor=none;recursiveResize=0;" vertex="1" parent="1">
           <mxGeometry x="330" y="0" width="1050" height="638" as="geometry" />
@@ -380,7 +380,7 @@
         <mxCell id="DC-EmittedEventTracker" value="EmittedEventTracker" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-03">
           <mxGeometry x="405" y="277" width="270" height="66" as="geometry" />
         </mxCell>
-        <mxCell id="DC-EmittedEventTracker-b" value="Tập mã đã phát 10 giây&lt;br&gt;mốc W cửa sổ chồng 5 giây" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-EmittedEventTracker">
+        <mxCell id="DC-EmittedEventTracker-b" value="Tập mã đã phát 20 giây&lt;br&gt;mốc W cửa sổ chồng 10 giây" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-EmittedEventTracker">
           <mxGeometry y="26" width="250" height="40" as="geometry" />
         </mxCell>
         <mxCell id="DC-SeatEventSubscription" value="«value»&lt;br&gt;SeatEventSubscription" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-03">
@@ -449,12 +449,7 @@
         </mxCell>
         <mxCell id="C03-09" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=1;exitDx=0;exitDy=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventPoller" target="IF-22">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="510" y="258" />
-              <mxPoint x="1460" y="258" />
-              <mxPoint x="1460" y="282.5" />
-              <mxPoint x="1600" y="282.5" />
-            </Array>
+            <Array as="points"><mxPoint x="510" y="258" /><mxPoint x="1460" y="258" /><mxPoint x="1460" y="320" /><mxPoint x="1600" y="320" /></Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="C03-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="DC-SeatReplayReader" target="IF-22">

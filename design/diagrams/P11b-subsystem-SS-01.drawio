@@ -106,18 +106,6 @@
             <mxPoint x="100" y="370" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="S01B2-M5" value="5: replyToReport(result)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="100" y="410" as="sourcePoint" />
-            <mxPoint x="420" y="410" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="S01B2-M6" value="6: (httpStatus, body)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="420" y="450" as="sourcePoint" />
-            <mxPoint x="100" y="450" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
@@ -838,11 +826,11 @@
         <mxCell id="IF-02" value="«interface»&lt;br&gt;IPaymentReportReceiver" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="5" y="192.5" width="250" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="IF-02-b" value="+ reportTransactionResult()&lt;br&gt;+ replyToReport()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-02">
+        <mxCell id="IF-02-b" value="+ reportTransactionResult()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="IF-02">
           <mxGeometry y="40" width="250" height="40" as="geometry" />
         </mxCell>
         <mxCell id="SS-01" value="«subsystem»&lt;br&gt;PaymentGateway" style="shape=component;html=1;container=1;collapsible=0;verticalAlign=top;fillColor=none;recursiveResize=0;" vertex="1" parent="1">
-          <mxGeometry x="330" y="0" width="1020" height="773" as="geometry" />
+          <mxGeometry x="330" y="0" width="1020" height="728" as="geometry" />
         </mxCell>
         <mxCell id="DC-PaymentGatewayManager" value="PaymentGatewayManager" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
           <mxGeometry x="50" y="57" width="260" height="66" as="geometry" />
@@ -853,7 +841,7 @@
         <mxCell id="DC-PaymentReportReceiver" value="PaymentReportReceiver" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
           <mxGeometry x="50" y="177" width="260" height="66" as="geometry" />
         </mxCell>
-        <mxCell id="DC-PaymentReportReceiver-b" value="Điều phối IF-02&lt;br&gt;replyToReport ánh xạ 1-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-PaymentReportReceiver">
+        <mxCell id="DC-PaymentReportReceiver-b" value="Điều phối IF-02" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-PaymentReportReceiver">
           <mxGeometry y="26" width="260" height="40" as="geometry" />
         </mxCell>
         <mxCell id="DC-VnpayUrlBuilder" value="VnpayUrlBuilder" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
@@ -904,32 +892,26 @@
         <mxCell id="DC-RefundLookup-b" value="status: Refunded, NotRefunded,&lt;br&gt;NotSupported, Unreachable" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-RefundLookup">
           <mxGeometry y="40" width="280" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="DC-ReportHandlingResult" value="«enumeration»&lt;br&gt;ReportHandlingResult" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
-          <mxGeometry x="50" y="525" width="280" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="DC-ReportHandlingResult-b" value="Processed, DuplicateReport,&lt;br&gt;InvalidSignature, AmountMismatch,&lt;br&gt;UnknownTransaction, TemporaryFailure,&lt;br&gt;MalformedReport" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-ReportHandlingResult">
-          <mxGeometry y="40" width="280" height="70" as="geometry" />
-        </mxCell>
         <mxCell id="DC-InvalidGatewayRequestError" value="«exception»&lt;br&gt;InvalidGatewayRequestError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
-          <mxGeometry x="360" y="517.5" width="280" height="65" as="geometry" />
+          <mxGeometry x="360" y="527.5" width="280" height="65" as="geometry" />
         </mxCell>
         <mxCell id="DC-InvalidGatewayRequestError-b" value="Tham số bên gọi sai" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-InvalidGatewayRequestError">
           <mxGeometry y="40" width="280" height="25" as="geometry" />
         </mxCell>
         <mxCell id="DC-GatewayConfigurationError" value="«exception»&lt;br&gt;GatewayConfigurationError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
-          <mxGeometry x="670" y="517.5" width="280" height="65" as="geometry" />
+          <mxGeometry x="670" y="527.5" width="280" height="65" as="geometry" />
         </mxCell>
         <mxCell id="DC-GatewayConfigurationError-b" value="Thiếu hoặc sai cấu hình" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-GatewayConfigurationError">
           <mxGeometry y="40" width="280" height="25" as="geometry" />
         </mxCell>
         <mxCell id="DC-InvalidSignatureError" value="«exception»&lt;br&gt;InvalidSignatureError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
-          <mxGeometry x="50" y="667.5" width="280" height="65" as="geometry" />
+          <mxGeometry x="50" y="627.5" width="280" height="65" as="geometry" />
         </mxCell>
         <mxCell id="DC-InvalidSignatureError-b" value="Chữ ký thông báo sai" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-InvalidSignatureError">
           <mxGeometry y="40" width="280" height="25" as="geometry" />
         </mxCell>
         <mxCell id="DC-MalformedReportError" value="«exception»&lt;br&gt;MalformedReportError" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="SS-01">
-          <mxGeometry x="360" y="667.5" width="280" height="65" as="geometry" />
+          <mxGeometry x="360" y="627.5" width="280" height="65" as="geometry" />
         </mxCell>
         <mxCell id="DC-MalformedReportError-b" value="Thông báo thiếu hoặc sai dữ liệu" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;overflow=hidden;html=1;whiteSpace=wrap;" vertex="1" parent="DC-MalformedReportError">
           <mxGeometry y="40" width="280" height="25" as="geometry" />

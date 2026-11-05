@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (ACT-01, ACT-02); P04-uc-specs UC-005 1.9, UC-008 1.5; P06-supplementary-spec.md 1.2 (NFR-08, NFR-09); P07-uc-analysis UC-005 1.1, UC-008 (message updateSeatMap); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7.2, F7.5); P10-design-elements.md 1.1 (F2, F4, F5, F3 interface IF-22); TAI_LIEU_GIAO_TIEP: Không có (luồng SSE do P09 F7.5 mô tả) |
 | Phạm vi | SS-03 SeatEventHub (IF-04) |
 | Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
@@ -33,13 +33,13 @@ Trong thiết kế, P07 gửi updateSeatMap từ control tới màn hình đư�
 |---|---|---|---|---|---|
 | IF-04 | ISeatEventSubscription | Đăng ký nhận sự kiện đổi ghế của một suất chiếu từ một con trỏ theo mô hình kéo, và huỷ đăng ký | SS-03 | DC-SeatMapService (PKG-13) | PKG-24 |
 
-IF-04 có 2 operation. SS-03 dùng IF-22 ISeatEventStore do PKG-21 định nghĩa (Q-116); operation của IF-22 do P12 chốt, tên dùng ở đây là chữ ký tạm.
+IF-04 có 2 operation. SS-03 dùng IF-22 ISeatEventStore do PKG-21 định nghĩa (Q-116); tên operation của IF-22 dùng ở đây là tên P12 đã chốt (ReadEventsAfter, ReadShowtimeEvents, FindEvent; Snapshot và DeleteOlderThan không vẽ trong sequence của SS-03).
 
 ## F3. Operation
 
 | IF | Tên | Hệ thống/thiết bị | Operation | Tham số vào | Kết quả | Lỗi / ngoại lệ | UC | Tiền điều kiện | Hậu điều kiện | Đồng bộ | Idempotent | Timeout |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| IF-04 | ISeatEventSubscription | Trình duyệt người xem (qua DC-SeatMapStreamController) | subscribe(showtimeId: String, afterEventId: Integer): SeatEventSubscription | showtimeId: String - mã suất chiếu<br>afterEventId: Integer - con trỏ: mã sự kiện lớn nhất bên gọi đã thấy (từ ảnh chụp sơ đồ ghế hoặc Last-Event-ID); rỗng nghĩa là chỉ nhận sự kiện từ lúc đăng ký | SeatEventSubscription: subscriptionId (String), items (luồng SeatStreamItem do bên gọi đọc: Event mang SeatChangeEvent, ReloadRequired khi con trỏ cũ hơn thời gian giữ 10 phút, Closed kèm lý do SlowConsumer, Unsubscribed hoặc Shutdown) | SeatHubUnavailableError (Kỹ thuật tạm thời: bộ phát chưa chạy, đang tắt hoặc đọc phát lại lỗi) | UC-005 (bước 3); UC-008 (bước 7) | Bộ phát đã khởi động cùng chương trình; bên gọi đã tải ảnh chụp sơ đồ ghế kèm con trỏ nếu muốn không bỏ sót | Đăng ký đã nằm trong danh sách trước khi đọc phát lại; sự kiện từ con trỏ được phát lại rồi chuyển sang trực tiếp; bên gọi chịu được sự kiện lặp và lệch thứ tự giữa các ghế (áp theo từng ghế, P09 F7.5 điểm 5) | Đồng bộ trả handle ngay; luồng items bất đồng bộ | Không (mỗi lần gọi tạo đăng ký mới); gọi lại với cùng con trỏ an toàn | Không áp dụng cho việc trả handle; đọc phát lại tối đa 3 giây (Thiết kế: bằng statement_timeout, P09 F7.2); độ trễ sự kiện tới bên gọi tối đa 3 giây tính từ commit (NFR-08, NFR-09; P09 F7.5) |
+| IF-04 | ISeatEventSubscription | Trình duyệt người xem (qua DC-SeatMapStreamController) | subscribe(showtimeId: Integer, afterEventId: Integer): SeatEventSubscription | showtimeId: Integer - mã suất chiếu (định danh số để khoá theo thứ tự số, P09 F7.3)<br>afterEventId: Integer - con trỏ: mã sự kiện lớn nhất bên gọi đã thấy (từ ảnh chụp sơ đồ ghế hoặc Last-Event-ID); 0 nghĩa là chỉ nhận sự kiện từ lúc đăng ký | SeatEventSubscription: subscriptionId (String), items (luồng SeatStreamItem do bên gọi đọc: Event mang SeatChangeEvent, ReloadRequired khi con trỏ cũ hơn thời gian giữ 10 phút, Closed kèm lý do SlowConsumer, Unsubscribed hoặc Shutdown) | SeatHubUnavailableError (Kỹ thuật tạm thời: bộ phát chưa chạy, đang tắt hoặc đọc phát lại lỗi) | UC-005 (bước 3); UC-008 (bước 7) | Bộ phát đã khởi động cùng chương trình; bên gọi đã tải ảnh chụp sơ đồ ghế kèm con trỏ nếu muốn không bỏ sót | Đăng ký đã nằm trong danh sách trước khi đọc phát lại; sự kiện từ con trỏ được phát lại rồi chuyển sang trực tiếp; bên gọi chịu được sự kiện lặp và lệch thứ tự giữa các ghế (áp theo từng ghế, P09 F7.5 điểm 5) | Đồng bộ trả handle ngay; luồng items bất đồng bộ | Không (mỗi lần gọi tạo đăng ký mới); gọi lại với cùng con trỏ an toàn | Không áp dụng cho việc trả handle; đọc phát lại tối đa 3 giây (Thiết kế: bằng statement_timeout, P09 F7.2); độ trễ sự kiện tới bên gọi tối đa 3 giây tính từ commit (NFR-08, NFR-09; P09 F7.5) |
 | IF-04 | ISeatEventSubscription | Trình duyệt người xem | unsubscribe(subscriptionId: String): void | subscriptionId: String - mã do subscribe trả | - | Không | UC-005 (bước 3); UC-008 (bước 7): khi kết nối đóng | Không | Đăng ký đã gỡ khỏi danh sách, hàng đợi đóng với lý do Unsubscribed | Đồng bộ | Có (gọi lần hai không có tác dụng) | Không áp dụng |
 
 Phủ trách nhiệm: updateSeatMap của hai boundary đặt vé --> subscribe và luồng items; kết nối đóng --> unsubscribe (P10 F2).
@@ -79,7 +79,7 @@ File diagrams/P11b-subsystem-SS-03.drawio, 5 trang: S03B1 (hộp đen), S03W1 (h
 | S03W1-G1 | Gate | subscribe | - | S03W1 | Gate của message 1 |
 | S03W1-G13 | Gate | trả về SeatHubUnavailableError | - | S03W1 | Gate của message 13 |
 | S03W1-G17 | Gate | trả về SeatEventSubscription | - | S03W1 | Gate của message 17 |
-| S03W1-F1 | Fragment | alt [afterEventId rỗng] | - | S03W1 | Operand tiếp: [có con trỏ] |
+| S03W1-F1 | Fragment | alt [afterEventId bằng 0] | - | S03W1 | Operand tiếp: [có con trỏ] |
 | S03W1-F2 | Fragment | alt [dòng con trỏ đã bị xoá (cũ hơn 10 phút)] | - | S03W1 | Operand tiếp: [còn dòng con trỏ] |
 | S03W1-F3 | Fragment | alt [đọc lỗi hoặc quá 3 giây] | - | S03W1 | Operand tiếp: [đọc được] |
 
@@ -88,12 +88,12 @@ File diagrams/P11b-subsystem-SS-03.drawio, 5 trang: S03B1 (hộp đen), S03W1 (h
 | 1 | Gate | :SeatEventHubManager | subscribe(showtimeId, afterEventId) | Đồng bộ | - | IF-04; UC-005 bước 3 |
 | 2 | :SeatEventHubManager | :SubscriberRegistry | register(showtimeId) | Đồng bộ | - | Đăng ký trước khi đọc phát lại để không hở sự kiện |
 | 3 | :SubscriberRegistry | :SeatEventHubManager | subscriber(subscriptionId, queue) | Trả về | - | Trạng thái đang phát lại: sự kiện trực tiếp được giữ tạm |
-| 4 | :SeatEventHubManager | :SubscriberRegistry | startLive(subscriptionId) | Đồng bộ | S03W1-F1 [afterEventId rỗng] | Chỉ nhận sự kiện từ lúc đăng ký |
+| 4 | :SeatEventHubManager | :SubscriberRegistry | startLive(subscriptionId) | Đồng bộ | S03W1-F1 [afterEventId bằng 0] | Chỉ nhận sự kiện từ lúc đăng ký |
 | 5 | :SeatEventHubManager | :SeatReplayReader | replay(showtimeId, afterEventId, queue) | Đồng bộ | S03W1-F1 [có con trỏ] | P09 F7.5 điểm 4 |
-| 6 | :SeatReplayReader | :IF-22 ISeatEventStore | findEvent(afterEventId) | Đồng bộ | S03W1-F1 [có con trỏ] | Tên tạm |
+| 6 | :SeatReplayReader | :IF-22 ISeatEventStore | FindEvent(afterEventId) | Đồng bộ | S03W1-F1 [có con trỏ] | Tên chốt ở P12 |
 | 7 | :IF-22 ISeatEventStore | :SeatReplayReader | event hoặc không có | Trả về | S03W1-F1 [có con trỏ] | - |
 | 8 | :SeatReplayReader | :SubscriberQueue | offer(SeatStreamItem(ReloadRequired)) | Đồng bộ | S03W1-F2 [dòng con trỏ đã bị xoá (cũ hơn 10 phút)] | Trình duyệt tải lại ảnh chụp sau độ trễ ngẫu nhiên 0 đến 3 giây |
-| 9 | :SeatReplayReader | :IF-22 ISeatEventStore | readShowtimeEvents(showtimeId, afterEventId, notBefore) | Đồng bộ | S03W1-F2 [còn dòng con trỏ] | notBefore là createdAt của con trỏ trừ 5 giây; tên tạm; hạn 3 giây theo statement_timeout |
+| 9 | :SeatReplayReader | :IF-22 ISeatEventStore | ReadShowtimeEvents(showtimeId, afterEventId, notBefore, window) | Đồng bộ | S03W1-F2 [còn dòng con trỏ] | notBefore là createdAt của con trỏ trừ cửa sổ chồng 10 giây (tham số window); tên chốt ở P12; hạn 3 giây theo statement_timeout |
 | 10 | :IF-22 ISeatEventStore | :SeatReplayReader | StorageError | Trả về | S03W1-F3 [đọc lỗi hoặc quá 3 giây] | - |
 | 11 | :SeatReplayReader | :SeatEventHubManager | StorageError | Trả về | S03W1-F3 [đọc lỗi hoặc quá 3 giây] | - |
 | 12 | :SeatEventHubManager | :SubscriberRegistry | remove(subscriptionId) | Đồng bộ | S03W1-F3 [đọc lỗi hoặc quá 3 giây] | Dọn đăng ký đã tạo |
@@ -118,7 +118,7 @@ File diagrams/P11b-subsystem-SS-03.drawio, 5 trang: S03B1 (hộp đen), S03W1 (h
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | :SeatEventPoller | :IF-22 ISeatEventStore | readEventsAfter(watermark) | Đồng bộ | - | P09 F7.5 điểm 3; mỗi lần quét khoảng 5 giây gần nhất |
+| 1 | :SeatEventPoller | :IF-22 ISeatEventStore | ReadEventsAfter(watermark) | Đồng bộ | - | P09 F7.5 điểm 3; mỗi lần quét khoảng 10 giây gần nhất |
 | 2 | :IF-22 ISeatEventStore | :SeatEventPoller | events, databaseNow | Trả về | - | Thời điểm cơ sở dữ liệu đi kèm để tính mốc |
 | 3 | :SeatEventPoller | :EmittedEventTracker | isEmitted(eventId) | Đồng bộ | S03W2-F1 [mỗi sự kiện, theo mã tăng dần] | - |
 | 4 | :EmittedEventTracker | :SeatEventPoller | false | Trả về | S03W2-F1 [mỗi sự kiện, theo mã tăng dần] | Đã phát thì bỏ qua |
@@ -127,8 +127,8 @@ File diagrams/P11b-subsystem-SS-03.drawio, 5 trang: S03B1 (hộp đen), S03W1 (h
 | 7 | :SeatEventPoller | :SubscriberQueue | offer(SeatStreamItem(Event)) | Đồng bộ | S03W2-F1 [mỗi sự kiện, theo mã tăng dần] | Không chặn |
 | 8 | :SubscriberQueue | :SubscriberRegistry | closeAndRemove(SlowConsumer) | Đồng bộ | S03W2-F2 [hàng đợi đầy (256)] | Đóng kết nối để trình duyệt nối lại và tải lại ảnh chụp |
 | 9 | :SeatEventPoller | :EmittedEventTracker | markEmitted(eventId) | Đồng bộ | S03W2-F1 [mỗi sự kiện, theo mã tăng dần] | - |
-| 10 | :SeatEventPoller | :EmittedEventTracker | advanceWatermark(events, databaseNow trừ 5 giây) | Đồng bộ | - | Mốc W là mã lớn nhất trong các dòng đã phát cũ hơn 5 giây |
-| 11 | :SeatEventPoller | :EmittedEventTracker | forgetOlderThan(10 giây) | Đồng bộ | - | - |
+| 10 | :SeatEventPoller | :EmittedEventTracker | advanceWatermark(events, databaseNow trừ 10 giây) | Đồng bộ | - | Mốc W là mã lớn nhất trong các dòng đã phát cũ hơn 10 giây |
+| 11 | :SeatEventPoller | :EmittedEventTracker | forgetOlderThan(20 giây) | Đồng bộ | - | - |
 
 ## F5. Phần tử của subsystem
 
@@ -141,19 +141,19 @@ a) Bảng phần tử
 | DC-SeatReplayReader | SeatReplayReader | Giao tiếp ngoài | Đọc sự kiện của một suất chiếu từ con trỏ qua IF-22 và đẩy vào hàng đợi; phát hiện con trỏ đã bị xoá để yêu cầu tải lại | package-private | - |
 | DC-SubscriberRegistry | SubscriberRegistry | Lưu trữ trong subsystem | Giữ danh sách đăng ký theo suất chiếu và trạng thái đang phát lại hay trực tiếp; đóng và gỡ đăng ký | package-private | - |
 | DC-SubscriberQueue | SubscriberQueue | Lưu trữ trong subsystem | Hàng đợi giới hạn 256 sự kiện mỗi kết nối; đầy thì đóng với lý do SlowConsumer | package-private | - |
-| DC-EmittedEventTracker | EmittedEventTracker | Lưu trữ trong subsystem | Giữ tập mã sự kiện đã phát trong 10 giây gần nhất và mốc W (mã lớn nhất trong các dòng đã phát cũ hơn 5 giây) | package-private | - |
+| DC-EmittedEventTracker | EmittedEventTracker | Lưu trữ trong subsystem | Giữ tập mã sự kiện đã phát trong 20 giây gần nhất và mốc W (mã lớn nhất trong các dòng đã phát cũ hơn 10 giây) | package-private | - |
 | DC-SeatEventSubscription | SeatEventSubscription | Kiểu dữ liệu | subscriptionId (String), items (luồng SeatStreamItem, bên gọi đọc); dùng trong chữ ký if-04 | public | - |
 | DC-SeatStreamItem | SeatStreamItem | Kiểu dữ liệu | kind (Event / ReloadRequired / Closed), event (SeatChangeEvent, có khi kind là Event), closeReason (SlowConsumer / Unsubscribed / Shutdown, có khi kind là Closed); dùng trong chữ ký if-04 | public | - |
 | DC-SeatHubUnavailableError | SeatHubUnavailableError | Ngoại lệ | Bộ phát chưa chạy, đang tắt hoặc đọc phát lại lỗi; dùng trong chữ ký if-04 | public | - |
 
-Kiểu DC-SeatChangeEvent thuộc PKG-28 (P10 F4); SS-03 dùng trực tiếp vì Domain là layer thấp nhất (P09 A4). Cơ chế ghi nhật ký và cấu hình (Thiết kế: chu kỳ 500 ms, cửa sổ chồng 5 giây, tập mã đã phát 10 giây, hàng đợi 256 là hằng của subsystem theo P09 F7.5, đọc từ cấu hình khi khởi động để chỉnh sau ca đo T3; log mỗi lần đóng kết nối kèm lý do, không log từng sự kiện).
+Kiểu DC-SeatChangeEvent thuộc PKG-28 (P10 F4); SS-03 dùng trực tiếp vì Domain là layer thấp nhất (P09 A4). Cơ chế ghi nhật ký và cấu hình (Thiết kế: chu kỳ 500 ms, cửa sổ chồng 10 giây, tập mã đã phát 20 giây, hàng đợi 256 là hằng của subsystem theo P09 F7.5, đọc từ cấu hình khi khởi động để chỉnh sau ca đo T3; log mỗi lần đóng kết nối kèm lý do, không log từng sự kiện).
 
 b) Class diagram phần tử (trang "Phần tử")
 
 | ID | Loại (Class / Interface / Subsystem / Package) | Nhãn | Stereotype | Thuộc về (SS) | Ghi chú |
 |---|---|---|---|---|---|
 | IF-04 | Interface | ISeatEventSubscription | «interface» | - | PKG-24 |
-| IF-22 | Interface | ISeatEventStore | «interface» | - | PKG-21 định nghĩa; tên operation tạm |
+| IF-22 | Interface | ISeatEventStore | «interface» | - | PKG-21 định nghĩa; operation: ReadEventsAfter, ReadShowtimeEvents, FindEvent, Snapshot, DeleteOlderThan (tên chốt ở P12) |
 | SS-03 | Subsystem | SeatEventHub | - | - | Chỉ interface là public |
 | DC-SeatEventHubManager | Class | SeatEventHubManager | - | SS-03 | Hiện thực IF-04 |
 | DC-SeatEventPoller | Class | SeatEventPoller | - | SS-03 | Điều phối nền |
@@ -220,11 +220,11 @@ a) Bảng lỗi
 | subscribe | Con trỏ cũ hơn thời gian giữ (dòng bị xoá sau 10 phút) | Nghiệp vụ (dữ liệu quá hạn) | findEvent không thấy dòng | Đặt ReloadRequired vào hàng đợi, vẫn chuyển sang trực tiếp | Item ReloadRequired; trình duyệt tải lại ảnh chụp sau độ trễ ngẫu nhiên 0 đến 3 giây | UC-005 bước 3 (sơ đồ ghế được tải lại) | - |
 | (nội bộ) vòng đọc 500 ms | IF-22 lỗi khi đọc sau mốc W | Kỹ thuật tạm thời | StorageError | Ghi log, giữ nguyên mốc W, thử lại ở lượt 500 ms kế; không phát gì sai | Không lộ ra (không có operation) | NFR-08, NFR-09 (độ trễ tăng cho tới khi đọc lại được) | - |
 | (nội bộ) vòng đọc 500 ms | Hàng đợi một kết nối đầy 256 sự kiện | Kỹ thuật (người nhận chậm) | offer thất bại | Đóng đăng ký với lý do SlowConsumer, gỡ khỏi danh sách | Item Closed(SlowConsumer); trình duyệt nối lại và tải lại ảnh chụp | Không có | - |
-| (nội bộ) vòng đọc 500 ms | Dòng mã nhỏ commit sau dòng mã lớn | Kỹ thuật | Mốc W và cửa sổ chồng 5 giây | Giữ tập mã đã phát 10 giây, bỏ trùng; mốc W chỉ tiến qua dòng đã cũ hơn 5 giây | Không có; trình duyệt áp theo từng ghế nên phát lặp, lệch thứ tự đều vô hại | Không có | - |
+| (nội bộ) vòng đọc 500 ms | Dòng mã nhỏ commit sau dòng mã lớn | Kỹ thuật | Mốc W và cửa sổ chồng 10 giây | Giữ tập mã đã phát 20 giây, bỏ trùng; mốc W chỉ tiến qua dòng đã cũ hơn 10 giây | Không có; trình duyệt áp theo từng ghế nên phát lặp, lệch thứ tự đều vô hại | Không có | - |
 | unsubscribe | Mã đăng ký không tồn tại hoặc đã gỡ | Kỹ thuật | Tra danh sách | Bỏ qua | Không lỗi (idempotent) | Không có | - |
 | (nội bộ) tắt chương trình | Bản backend dừng | Kỹ thuật | Tín hiệu tắt | Đóng mọi đăng ký với lý do Shutdown | Item Closed(Shutdown); trình duyệt nối lại bản khác với Last-Event-ID | Không có | Q-114 |
 
-Cách bảo đảm không bỏ sót và không phát nhầm. Sự kiện nằm trong bảng seat_event bền nên không mất khi kết nối đứt hay bản backend khởi động lại; đăng ký được đặt trước khi đọc phát lại nên không có khe hở giữa ảnh chụp và luồng trực tiếp; phát lại lấy các dòng có mã lớn hơn con trỏ hoặc created_at không sớm hơn created_at của dòng con trỏ trừ 5 giây để bù dòng commit muộn; trình duyệt chỉ áp sự kiện khi mã lớn hơn event_seq đang có của ghế (P09 F7.5). Mỗi bản backend tự đọc và tự phát cho kết nối của mình, không có kênh giữa các bản (P09 F7.8).
+Cách bảo đảm không bỏ sót và không phát nhầm. Sự kiện nằm trong bảng seat_event bền nên không mất khi kết nối đứt hay bản backend khởi động lại; đăng ký được đặt trước khi đọc phát lại nên không có khe hở giữa ảnh chụp và luồng trực tiếp; phát lại lấy các dòng có mã lớn hơn con trỏ hoặc created_at không sớm hơn created_at của dòng con trỏ trừ 10 giây để bù dòng commit muộn; trình duyệt chỉ áp sự kiện khi mã lớn hơn event_seq đang có của ghế (P09 F7.5). Mỗi bản backend tự đọc và tự phát cho kết nối của mình, không có kênh giữa các bản (P09 F7.8).
 
 b) Điểm kiểm tra
 

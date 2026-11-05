@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-008-cancel-ticket.md 1.4; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.1 (sổ đăng ký AC); P07-uc-analysis/UC-006-refund-late-payment-analysis.md 1.1 (AC-E-RefundRequest); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-91 đến Q-94 |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-94; không có ASM (NGHIEM_NGAT) |
@@ -631,6 +631,7 @@ Không có (chế độ NGHIEM_NGAT).
 ## Vấn đề còn mở
 
 - Thao tác không chia cắt ở bước 4 là trách nhiệm cancelTicket của Ticket. Nó phải loại trừ với việc soát cùng một vé ở UC-009 bước 4, 5 (BR-30) và với yêu cầu huỷ khác của cùng vé (BR-21); phân tích chỉ chỉ ra ranh giới của thao tác, đơn vị loại trừ nằm trong bảng cuối mục 4 của UC-005, cơ chế chọn ở P09.
+- Ở thiết kế (Q-133), ghi nhận huỷ (bước 4), tạo yêu cầu hoàn (phần ghi của bước 5) và trả ghế (bước 7) thuộc cùng một thao tác không chia cắt, khoá theo thứ tự ghế, giao dịch thanh toán, vé rồi chèn yêu cầu hoàn; thứ tự message giữa các bước đó trong SD1 đến SD6 không còn là rủi ro mất dấu khoản hoàn. Chỉ cuộc gọi cổng hoàn tiền (phần gọi của bước 5) nằm ngoài thao tác, qua hàng đợi sau khi commit.
 - Bước 7 là bước duy nhất làm ghế về trống, và mọi đường đi (thành công, 5c, 6b, 5a2) đều qua bước 7: SD1, SD4, SD5, SD6 cùng kết thúc ở // releaseTicketSeat. Ghế trả về trống sau giờ bắt đầu suất chiếu không bán lại được ở UC-005 (BR-45); UC-008 không kiểm thêm. Bước 7 và 8 chạy được trên suất chiếu Đã xoá (BR-58, UC-014).
 - Số lớp là 12 (4 boundary, 1 control, 7 entity), trong đó 3 lớp là lớp mới của UC-008 (CancelTicketForm, CounterCancelTicketForm, CancelTicketController), 9 lớp tái dùng (8 từ UC-005, RefundRequest từ UC-006). Control có 7 trách nhiệm, trong đó 4 là message tự gọi theo A2 hoặc ghi log; lượt thử lại tính trên RefundRequest, số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09).
 - Lớp tái dùng được bổ sung trách nhiệm: PaymentGateway (// requestRefund, kết quả trả về theo lời gọi), BookTicketsForm (// updateSeatMap), Ticket, Booking, SeatHold, Showtime, PaymentTransaction (// prepareRefundRequest, // recordRefundedAmount, cùng trách nhiệm với UC-006), SeatStatus, RefundRequest (thêm // provideRefundInfo và liên kết tới vé, R-UC008-13). Trách nhiệm // releaseSoldSeat khác // releaseSeat của UC-005 ở điều kiện (ghế đã bán, không phải đang giữ). Quan hệ mới Ticket - SeatStatus (R-UC008-11) và Ticket - RefundRequest (R-UC008-13). Khoản hoàn của vé nằm ở RefundRequest, không còn ở thuộc tính của Ticket.

@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.9, UC-008 1.5, UC-009, UC-013 1.2, UC-014 1.3; P05-glossary.md 1.1; P06-supplementary-spec.md 1.2; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.1 (F3); P09-architecture.md 1.3 (F5, F7.5, F7.6); P10-design-elements.md 1.1 (F3, F4); ui-standards.md 1.1; SCR-01 đến SCR-20 |
 | Phạm vi | Toàn hệ thống: UC-005, UC-008, UC-009, UC-013, UC-014 và màn hình đăng nhập. UC-006 không có màn hình (tác nhân chính là cổng thanh toán) |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-81 |
@@ -130,10 +130,10 @@ Xem ui-standards.md: Q-119 đến Q-125. Q-119 đã trả lời theo đề xuấ
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P10 | F4 (PKG-05, PKG-06, PKG-08) | Chưa có View cho màn hình đăng nhập và màn hình điều hướng của khách, nhân viên quầy, quản lý cụm rạp | Thêm DC-LoginView, DC-CustomerHomeView (PKG-05), DC-CounterHomeView (PKG-06), DC-CinemaAdminHomeView (PKG-08) |
-| P10 | F3 (AC-B-BookTicketsForm, AC-B-CounterBookTicketsForm) | Mỗi boundary một View nhưng sinh nhiều màn hình (SCR-03 đến SCR-06, SCR-10 đến SCR-12) | Ghi ở P12: tách View thành các component trang tương ứng |
-| P08, P10 | Boundary giao diện của UC-001 Đăng ký tài khoản | UC-001 là use case trước phiên, P08 và P10 chưa có boundary giao diện nên chưa có màn hình | Thêm boundary khi UC-001 có P07; thêm lối vào ở SCR-02 |
-| P08 | AC-B-BookTicketsForm, AC-B-CounterBookTicketsForm | Thiếu trách nhiệm hiển thị thời điểm hết hạn giữ ghế và đọc trạng thái giao dịch ở trang kết quả (xem ui-standards.md) | Thêm showHoldCountdown, showPaymentOutcome |
+| P10 | F4 (PKG-05, PKG-06, PKG-08) | Chưa có View cho màn hình đăng nhập và màn hình điều hướng của khách, nhân viên quầy, quản lý cụm rạp | Thêm DC-LoginView, DC-CustomerHomeView (PKG-05), DC-CounterHomeView (PKG-06), DC-CinemaAdminHomeView (PKG-08) (Đã áp dụng: P10 1.3) |
+| P10 | F3 (AC-B-BookTicketsForm, AC-B-CounterBookTicketsForm) | Mỗi boundary một View nhưng sinh nhiều màn hình (SCR-03 đến SCR-06, SCR-10 đến SCR-12) | Ghi ở P12: tách View thành các component trang tương ứng (Việc của P12, chưa có nội dung để sửa ở P10) |
+| P08, P10 | Boundary giao diện của UC-001 Đăng ký tài khoản | UC-001 là use case trước phiên, P08 và P10 chưa có boundary giao diện nên chưa có màn hình | Thêm boundary khi UC-001 có P07; thêm lối vào ở SCR-02 (Chờ UC-001) |
+| P08 | AC-B-BookTicketsForm, AC-B-CounterBookTicketsForm | Thiếu trách nhiệm hiển thị thời điểm hết hạn giữ ghế và đọc trạng thái giao dịch ở trang kết quả (xem ui-standards.md) | Thêm showHoldCountdown, showPaymentOutcome (Đã áp dụng: P08 1.3; showPaymentOutcome chỉ ở BookTicketsForm vì nhân viên quầy thu tiền mặt) |
 
 ## Vấn đề còn mở
 

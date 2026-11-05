@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P10 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, vẫn ghi CONG_NGHE "Chưa chốt", xem Vấn đề còn mở 1); P01-actors.md 1.1 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P03-usecase-model.md (bảng quan hệ, không có dòng extend); P05-glossary.md 1.1 (tra tên thuật ngữ); P06-supplementary-spec.md 1.1 (NFR về thay thế, bảo mật, giao tiếp ngoài); P08-analysis-model.md 1.1 (F3, F4, F4b, Câu hỏi mở, Giả định); P09-architecture.md 1.1 (F3 đến F8, F11, Câu hỏi mở, Vấn đề còn mở 8) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-118 (Q-116 đến Q-118 đã trả lời theo đề xuất review, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
@@ -18,7 +18,7 @@ Kết quả: 90 phần tử thiết kế gồm 5 subsystem, 21 interface (IF-09,
 |---|---|---|---|
 | AC-B-PaymentGateway | Hệ thống ngoài; Có thể thay thế (đổi cổng thanh toán, NFR-15 đến NFR-17); Bảo mật (chữ ký, số tiền) | Subsystem | SS-01. Che giao thức ký URL, kiểm chữ ký thông báo, máy khách hoàn tiền, định dạng trả lời của cổng. Interface tách hai vai trò (IF-01 gọi ra, IF-02 nhận thông báo). Nếu không là subsystem thì DC-PaymentReportService và DC-RefundService phụ thuộc trực tiếp vào giao thức của VNPay |
 | AC-B-EmailService | Hệ thống ngoài; Có thể thay thế (đổi nhà cung cấp SMTP, NFR-18) | Subsystem | SS-02. Dù chỉ gửi một chiều, việc gửi có thời gian chờ 30 giây, thử lại, Message-ID chống lặp (P09 F7.7, BR-89) nên không phải "một thông điệp một chiều rất đơn giản" |
-| - (PKG-24 của P09) | Dịch vụ phức tạp dùng chung (đọc seat_event định kỳ, cửa sổ chồng 5 giây, phát lại từ con trỏ, hàng đợi từng kết nối); Che giấu được bên trong | Subsystem | SS-03. Phục vụ UC-005 (đã có P07, trách nhiệm updateSeatMap của hai boundary đặt vé) và UC-008 (ghế trả về trống). Interface chỉ gồm đăng ký, huỷ đăng ký, chuyển sự kiện nên Application không biết cơ chế bảng sự kiện |
+| - (PKG-24 của P09) | Dịch vụ phức tạp dùng chung (đọc seat_event định kỳ, cửa sổ chồng 10 giây, phát lại từ con trỏ, hàng đợi từng kết nối); Che giấu được bên trong | Subsystem | SS-03. Phục vụ UC-005 (đã có P07, trách nhiệm updateSeatMap của hai boundary đặt vé) và UC-008 (ghế trả về trống). Interface chỉ gồm đăng ký, huỷ đăng ký, chuyển sự kiện nên Application không biết cơ chế bảng sự kiện |
 | - (PKG-25 của P09) | Dịch vụ phức tạp dùng chung (chạy định kỳ, chống chạy chồng, ngân sách thời gian, pool riêng); Che giấu được bên trong | Subsystem | SS-04. Phục vụ UC-005 (hết hạn, giải phóng ghế) và UC-006, UC-008 (hoàn tiền), đều đã có P07. Thoả A1: package hạ tầng không có lớp phân tích nguồn và có use case đã có P07 |
 | - (PKG-26 của P09) | Bảo mật (giới hạn truy cập); Dịch vụ dùng chung | Subsystem | SS-05. UC-005 đã có P07 và dùng checkCustomerLoggedIn, authenticateCustomer; băm mật khẩu và mã phiên (NFR-01 đến NFR-03, NFR-10) cần che sau một interface duy nhất |
 | - (PKG-21 của P09) | Không | Không | A1: phần hiện thực interface kho dữ liệu không thành subsystem; ghi ở bảng phần tử thiết kế mới do cơ chế (F3). Interface kho nằm ở Domain (P09 F5) |
@@ -34,7 +34,7 @@ Không có boundary giao diện thiết bị trong P08: máy in là chức năng
 |---|---|---|---|---|---|---|---|
 | SS-01 | PaymentGateway | IF-01 IPaymentGateway<br>IF-02 IPaymentReportReceiver | // createPaymentTransaction: ký URL thanh toán chứa mã giao dịch và mã tham chiếu lần giữ ghế, không gọi mạng (UC-005)<br>// requestRefund: gửi hoàn tiền kèm khoá chống hoàn trùng, chờ 30 giây (UC-006, UC-008, BR-43, NFR-17)<br>// findRefund: tra cứu giao dịch hoàn trước khi gửi lại (cơ chế P09 F7.7); không tra cứu được kết quả hoàn thì bên gọi chuyển Cần xử lý thủ công, không gửi lại tự động (Q-118)<br>// reportTransactionResult: kiểm chữ ký, giải mã số tiền của thông báo, dịch thành kết quả; DC-PaymentReportService so số tiền với bản ghi (UC-005, UC-006, NFR-16) | Bộ ký URL thanh toán theo chuẩn của cổng; bộ kiểm chữ ký thông báo; máy khách REST hoàn tiền và tra cứu giao dịch hoàn có thời gian chờ 30 giây; bộ dịch mã kết quả; cấu hình môi trường sandbox | AC-B-PaymentGateway | ACT-07 | PKG-22 |
 | SS-02 | EmailGateway | IF-03 IEmailSender | // sendEmail: gửi một thư đã dựng sẵn (email chứa vé của UC-005, email thông báo hoàn tiền của UC-006); nội dung thư do DC-EmailOutboxJob dựng; Message-ID lấy từ khoá chống lặp (P09 F7.7) | Máy khách SMTP; bộ dựng thư MIME; cấu hình TLS; thời gian chờ 30 giây | AC-B-EmailService | ACT-08 | PKG-23 |
-| SS-03 | SeatEventHub | IF-04 ISeatEventSubscription | // subscribe: đăng ký nhận sự kiện đổi ghế của một suất chiếu từ một con trỏ, trả luồng sự kiện phát lại rồi trực tiếp; bên gọi đọc luồng (mô hình kéo, P09 F7.5, REQ-119, NFR-08, NFR-09)<br>// unsubscribe: huỷ đăng ký khi kết nối đóng | Bộ đọc seat_event mỗi 500 ms qua IF-22; tập mã đã phát 10 giây gần nhất; mốc W với cửa sổ chồng 5 giây; bộ phát lại từ con trỏ; danh sách kết nối theo suất chiếu; hàng đợi 256 sự kiện mỗi kết nối, đầy thì đóng kết nối | Cơ chế: P09 F7.5; updateSeatMap của AC-B-BookTicketsForm và AC-B-CounterBookTicketsForm thành luồng sự kiện do IF-04 trả, DC-SeatMapStreamController ghi ra kết nối, DC-SeatMapReducer áp dụng phía trình duyệt | ACT-01, ACT-02 | PKG-24 |
+| SS-03 | SeatEventHub | IF-04 ISeatEventSubscription | // subscribe: đăng ký nhận sự kiện đổi ghế của một suất chiếu từ một con trỏ, trả luồng sự kiện phát lại rồi trực tiếp; bên gọi đọc luồng (mô hình kéo, P09 F7.5, REQ-119, NFR-08, NFR-09)<br>// unsubscribe: huỷ đăng ký khi kết nối đóng | Bộ đọc seat_event mỗi 500 ms qua IF-22; tập mã đã phát 20 giây gần nhất; mốc W với cửa sổ chồng 10 giây; bộ phát lại từ con trỏ; danh sách kết nối theo suất chiếu; hàng đợi 256 sự kiện mỗi kết nối, đầy thì đóng kết nối | Cơ chế: P09 F7.5; updateSeatMap của AC-B-BookTicketsForm và AC-B-CounterBookTicketsForm thành luồng sự kiện do IF-04 trả, DC-SeatMapStreamController ghi ra kết nối, DC-SeatMapReducer áp dụng phía trình duyệt | ACT-01, ACT-02 | PKG-24 |
 | SS-04 | Scheduler | IF-05 IJobScheduler | // registerJob: đăng ký công việc và chu kỳ (hàm khởi động chương trình gọi)<br>// start: bắt đầu chạy định kỳ trên mọi bản backend<br>// stop: dừng khi tắt chương trình; mỗi công việc không chạy chồng và có ngân sách 8 giây mỗi lượt (P09 F7.4) | Vòng lặp chu kỳ; cờ đang chạy của từng công việc; bộ ngắt công việc theo ngân sách 8 giây mỗi lượt (pool kết nối nền 5 kết nối thuộc DC-ConnectionPools ở PKG-21, Scheduler không dùng trực tiếp) | Cơ chế: P09 F7.4, F7.7; AC-C-BookTicketsController.startWaitingForHoldExpiry | ACT-01, ACT-02, ACT-07, ACT-08 (gián tiếp) | PKG-25 |
 | SS-05 | Security | IF-07 IAuthenticator | // hashPassword, verifyPassword: băm và kiểm mật khẩu (AC-E-Customer.authenticateCustomer, NFR-01 đến NFR-03)<br>// issueSession, verifySession: cấp và kiểm mã phiên tự kiểm chứng được (AC-C-BookTicketsController.checkCustomerLoggedIn, P09 F7.8)<br>// checkRole: kiểm vai trò được phép (P09 F4) | Bộ băm mật khẩu; bộ ký và kiểm mã phiên; bảng vai trò theo tác nhân | Cơ chế: P09 F4 (PKG-26); NFR-10 | ACT-01 đến ACT-06 | PKG-26 |
 
@@ -65,7 +65,7 @@ IF-06 là interface gọi ngược duy nhất: Scheduler ở Services gọi lên
 | AC-B-ManagePriceListForm | Tách thành nhiều lớp | DC-ManagePriceListView<br>DC-ManagePriceListStore | PKG-08 | Bảng ánh xạ P09 F5: boundary người dùng thành component React (View) và kho trạng thái Flux (Store); phần tiếp nhận yêu cầu là REST controller ở PKG-11 (xem bảng cơ chế) |
 | AC-B-ScheduleShowtimesForm | Tách thành nhiều lớp | DC-ScheduleShowtimesView<br>DC-ScheduleShowtimesStore | PKG-08 | Bảng ánh xạ P09 F5: boundary người dùng thành component React (View) và kho trạng thái Flux (Store); phần tiếp nhận yêu cầu là REST controller ở PKG-11 (xem bảng cơ chế) |
 | AC-C-BookTicketsController | Tách thành nhiều lớp | DC-BookTicketsService<br>DC-HoldExpiryJob | PKG-13 | Control thành lớp dịch vụ ứng dụng (P09 F5), đổi tên Controller thành Service vì Controller đã là REST controller ở PKG-11. Ba trách nhiệm chờ hết hạn (startWaitingForHoldExpiry, stopWaitingForHoldExpiry, handleHoldExpired) không giữ bộ đếm giờ trong control (P09 A7, F7.4): hết hạn là cột expiry_time và công việc nền DC-HoldExpiryJob quét theo lô; cùng lượt chạy, DC-HoldExpiryJob xoá seat_event cũ hơn 10 phút theo lô (P09 F7.5 điểm 6, gộp từ DC-SeatEventCleanupJob) |
-| AC-C-PaymentReportController | Tách thành nhiều lớp | DC-PaymentReportService<br>DC-RefundService<br>DC-RefundOutboxJob | PKG-14 | Đổi tên Controller thành Service như trên. handlePaymentReport và logUnrecognizedTransaction (EX-02) thuộc DC-PaymentReportService. Bốn trách nhiệm hoàn tiền (startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure) lặp với AC-C-CancelTicketController nên gom vào DC-RefundService theo Q-106; việc chờ 30 giây và thử lại chạy qua hàng đợi gửi do DC-RefundOutboxJob (P09 F7.7) |
+| AC-C-PaymentReportController | Tách thành nhiều lớp | DC-PaymentReportService<br>DC-RefundService<br>DC-RefundOutboxJob | PKG-14 | Đổi tên Controller thành Service như trên. handlePaymentReport và logUnrecognizedTransaction (EX-02) thuộc DC-PaymentReportService. Bốn trách nhiệm hoàn tiền (startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure) lặp với AC-C-CancelTicketController nên gom vào DC-RefundService theo Q-106; việc chờ 30 giây và thử lại chạy qua hàng đợi gửi do DC-RefundOutboxJob (P09 F7.7). DC-PaymentReportService cũng đọc trạng thái giao dịch cho địa chỉ trả về và trang kết quả (ResolveReturnedPayment, QueryPaymentStatus), không đổi dữ liệu |
 | AC-C-CancelTicketController | Tách thành nhiều lớp | DC-CancelTicketService<br>DC-RefundService | PKG-15; PKG-14 | Đổi tên Controller thành Service. Bốn trách nhiệm hoàn tiền chuyển sang DC-RefundService dùng chung (Q-106, ở dòng trên); phần còn lại (requestCancellation, findBookingTickets, confirmCashRefund) ở DC-CancelTicketService |
 | AC-C-CheckTicketController | Lớp thiết kế (DC) | DC-CheckTicketService | PKG-15 | Một trừu tượng; đổi tên Controller thành Service (tránh trùng REST controller) |
 | AC-C-ManagePriceListController | Lớp thiết kế (DC) | DC-ManagePriceListService | PKG-16 | Một trừu tượng; đổi tên Controller thành Service (tránh trùng REST controller) |
@@ -101,7 +101,7 @@ Phần tử thiết kế mới do cơ chế kiến trúc (không từ một dòn
 | DC-SeatMapStreamController | SeatMapStreamController | PKG-11 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Cơ chế: P09 F7.5 (SSE, nhịp tim 15 giây, giới hạn 10 kết nối mỗi IP, id sự kiện); NFR-08, NFR-09 |
 | DC-TicketController | TicketController | PKG-11 | Giao diện REST (Presentation phía máy chủ) | Cơ chế: P09 F5; AC-B-CancelTicketForm, AC-B-CounterCancelTicketForm, AC-B-CheckTicketForm (UC-008, UC-009) |
 | DC-PricingScheduleController | PricingScheduleController | PKG-11 | Giao diện REST (Presentation phía máy chủ) | Cơ chế: P09 F5; AC-B-ManagePriceListForm, AC-B-ScheduleShowtimesForm (UC-013, UC-014) |
-| DC-PaymentCallbackController | PaymentCallbackController | PKG-12 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.1, F7.6 (điểm vào IPN, không đăng nhập); AC-B-PaymentGateway.reportTransactionResult; NFR-16 |
+| DC-PaymentCallbackController | PaymentCallbackController | PKG-12 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.1, F7.6 (ba đường vào công khai, không đăng nhập: HandleIpn nhận IPN, HandleReturn nhận khách quay về từ cổng chỉ để đọc trạng thái, HandlePaymentStatus cho trang kết quả hỏi lại trạng thái, Q-126); AC-B-PaymentGateway.reportTransactionResult dùng để kiểm chữ ký tham số của địa chỉ trả về; NFR-16 |
 | DC-SeatMapService | SeatMapService | PKG-13 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Cơ chế: P09 F7.5 điểm 4 (ảnh chụp kèm con trỏ, đăng ký nhận cập nhật); AC-E-Showtime.provideSeatMap; REQ-119. Dịch DC-SeatChangeEvent từ IF-04 thành khung SSE dạng văn bản trước khi trả cho PKG-11 |
 | DC-SeatReleaseJob | SeatReleaseJob | PKG-13 | Công việc nền (hẹn giờ) | AC-E-SeatHold.releaseHeldSeats; P09 F7.4 bước 2; EX-05; NFR-07 |
 | DC-IpnAnswer | IpnAnswer | PKG-14 | Giao tiếp ngoài (cổng thanh toán) | Cơ chế: P09 F7.6 (kết quả xử lý thông báo do DC-PaymentReportService trả cho PKG-12, không nêu mã HTTP; DC-PaymentCallbackController dịch kết quả sang câu trả lời của cổng, cùng chỗ với phần dịch mã trả lời; gộp từ DC-ReportReply) |
@@ -139,6 +139,88 @@ Phần tử thiết kế mới do cơ chế kiến trúc (không từ một dòn
 | IF-20 | IBookingRepository | PKG-28 | Persistence | Cơ chế: P09 F5: DC-Booking, DC-Ticket (hạng khoá 8) |
 | IF-21 | IRefundRequestRepository | PKG-28 | Persistence | Cơ chế: P09 F5: DC-RefundRequest (hạng khoá 9) |
 | DC-SeatChangeEvent | SeatChangeEvent | PKG-28 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Cơ chế: P09 F4 (kiểu sự kiện đổi ghế do IF-04 trả cho DC-SeatMapService, không ra khỏi Application; PKG-11 chỉ nhận khung SSE dạng văn bản); P09 F7.5 |
+| DC-LoginView | LoginView | PKG-05 | Giao diện người dùng (React) | Thiết kế: SCR-01 Đăng nhập (P11a): tiền điều kiện của UC-005, UC-008, UC-009, UC-013, UC-014; dùng chung cho các vai trò, đặt ở PKG-05; chỉ điều hướng, không có trách nhiệm AC |
+| DC-CustomerHomeView | CustomerHomeView | PKG-05 | Giao diện người dùng (React) | Thiết kế: SCR-02 Trang chủ khách (P11a): lối vào Đặt vé và Huỷ vé; chỉ điều hướng, không có trách nhiệm AC |
+| DC-CounterHomeView | CounterHomeView | PKG-06 | Giao diện người dùng (React) | Thiết kế: SCR-09 Trang chủ quầy (P11a): lối vào Bán vé và Huỷ vé tại quầy; chỉ điều hướng, không có trách nhiệm AC |
+| DC-CinemaAdminHomeView | CinemaAdminHomeView | PKG-08 | Giao diện người dùng (React) | Thiết kế: SCR-17 Trang chủ quản lý cụm rạp (P11a): lối vào Bảng giá và Suất chiếu; chỉ điều hướng, không có trách nhiệm AC |
+| DC-HoldSeatsRequest | HoldSeatsRequest | PKG-13 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): showtimeId, seatIds ([]SeatId), holder (HolderRef), requestId (string, UUID của trình duyệt), displayedAt (time.Time, lastChangedAt lúc hiển thị sơ đồ ghế) |
+| DC-HoldResult | HoldResult | PKG-13 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): holdId, holdRef, expiryTime, seats (seatId, label, seatType, price), total (Money), replayed (bool: true khi trả lại lần giữ ghế cùng requestId) |
+| DC-PaymentStart | PaymentStart | PKG-13 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): transactionCode (string), paymentUrl (string) |
+| DC-SseFrame | SseFrame | PKG-13 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): id (string, mã sự kiện), event (string: seat, reload), data (string JSON); PKG-11 chỉ ghi ra kết nối |
+| DC-SseStream | SseStream | PKG-13 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): frames (<-chan SseFrame), close (func()); đóng thì gọi IF-04.Unsubscribe |
+| DC-IpnOutcome | IpnOutcome | PKG-14 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): PROCESSED, DUPLICATE, INVALID_SIGNATURE, AMOUNT_MISMATCH, UNKNOWN_TRANSACTION, TEMPORARY_FAILURE, MALFORMED (thay DC-ReportHandlingResult của P11b) |
+| DC-PaymentStatusView | PaymentStatusView | PKG-14 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): holdRef, holdStatus (HoldStatus), paymentStatus (PaymentStatus của giao dịch mới nhất, rỗng nếu chưa có), bookingCode (rỗng nếu chưa có vé) |
+| DC-CancelResult | CancelResult | PKG-15 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): ticketId, refundAmount (Money), refundType (TICKET_GATEWAY hoặc TICKET_CASH), refundStatus (RefundStatus lúc trả lời) |
+| DC-AdmitResult | AdmitResult | PKG-15 | Kiểu dữ liệu của lớp dịch vụ (Application) | Thiết kế (P12 F1b): outcome (AdmitOutcome), bookingCode, seatLabel, seatType (rỗng nếu không ADMITTED) |
+| DC-PgTx | PgTx | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): Giữ giao dịch pgx đang mở, bộ kiểm thứ tự khoá và thời điểm CSDL đã lấy của một giao dịch |
+| DC-LockRank | LockRank | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): PRICE_LIST=1, AUDITORIUM=2, SHOWTIME=3, HOLDER=4, SEAT_HOLD=5, SEAT_STATUS=6, PAYMENT_TRANSACTION=7, TICKET=8, REFUND_REQUEST=9 (9 hạng của P08 F4b) |
+| DC-LockKey | LockKey | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): major (int64), minor (int64): khoá một dòng; SeatStatus dùng (mã suất chiếu, mã ghế), các hạng khác dùng (mã, 0) |
+| DC-LockOrderViolationError | LockOrderViolationError | PKG-21 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): Lời gọi khoá có hạng nhỏ hơn hạng lớn nhất đã lấy, hoặc cùng hạng mã nhỏ hơn; lỗi lập trình, không thử lại, giao dịch rollback |
+| DC-OutboxKind | OutboxKind | PKG-21 | Persistence (hàng đợi gửi) | Thiết kế (P12 F1b): REFUND_GATEWAY, EMAIL_TICKET, EMAIL_REFUND |
+| DC-OutboxStatus | OutboxStatus | PKG-21 | Persistence (hàng đợi gửi) | Thiết kế (P12 F1b): PENDING (chờ), SUCCEEDED (thành công), EXHAUSTED (hết lần thử) |
+| DC-OutboxEntry | OutboxEntry | PKG-21 | Persistence (hàng đợi gửi) | Thiết kế (P12 F1b): id, kind, sourceId (mã bản ghi nguồn), status, attemptCount, nextAttemptAt, claimToken, claimedUntil, idempotencyKey, lastError (P09 F7.7) |
+| DC-ClaimLostError | ClaimLostError | PKG-21 | Persistence (hàng đợi gửi) | Thiết kế (P12 F1b): claim_token không còn là của bên ghi kết quả (claim hết hạn và bị bản backend khác nhận) |
+| DC-RefundLookup | RefundLookup | PKG-22 | Giao tiếp ngoài (cổng thanh toán) | Thiết kế (P12 F1b): status (REFUNDED, NOT_REFUNDED, NOT_SUPPORTED, UNREACHABLE), refundedAmount (int64, đồng) (P11b F5) |
+| DC-InvalidGatewayRequestError | InvalidGatewayRequestError | PKG-22 | Giao tiếp ngoài (cổng thanh toán) | Thiết kế (P12 F1b): Tham số của bên gọi vi phạm tiền điều kiện (P11b F5) |
+| DC-GatewayConfigurationError | GatewayConfigurationError | PKG-22 | Giao tiếp ngoài (cổng thanh toán) | Thiết kế (P12 F1b): Thiếu hoặc sai cấu hình bắt buộc của cổng (P11b F5) |
+| DC-InvalidSignatureError | InvalidSignatureError | PKG-22 | Giao tiếp ngoài (cổng thanh toán) | Thiết kế (P12 F1b): Chữ ký của thông báo không khớp (P11b F5) |
+| DC-MalformedReportError | MalformedReportError | PKG-22 | Giao tiếp ngoài (cổng thanh toán) | Thiết kế (P12 F1b): Thông báo thiếu tham số bắt buộc hoặc số tiền không là số (P11b F5) |
+| DC-EmailAttachment | EmailAttachment | PKG-23 | Giao tiếp ngoài (email, hàng đợi gửi) | P11b SS-02 F5: Phần đính kèm của thư: name, mimeType, content, inline (true cho ảnh mã QR trong thân thư); dùng trong DC-EmailMessage |
+| DC-EmailSendResult | EmailSendResult | PKG-23 | Giao tiếp ngoài (email, hàng đợi gửi) | P11b SS-02 F5: status (Accepted / Rejected / TemporaryFailure), maybeDelivered, detail (mô tả ngắn cho log); dùng trong chữ ký IF-03 |
+| DC-InvalidEmailMessageError | InvalidEmailMessageError | PKG-23 | Giao tiếp ngoài (email, hàng đợi gửi) | P11b SS-02 F5: Địa chỉ nhận sai định dạng, tiêu đề hoặc khoá chống lặp rỗng; dùng trong chữ ký IF-03 |
+| DC-SeatEventSubscription | SeatEventSubscription | PKG-24 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Thiết kế (P12 F1b): subscriptionId (string), items (<-chan SeatStreamItem, bên gọi đọc) (P11b F5) |
+| DC-SeatStreamItem | SeatStreamItem | PKG-24 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Thiết kế (P12 F1b): kind (EVENT, RELOAD_REQUIRED, CLOSED), event (SeatChangeEvent, có khi EVENT), closeReason (SLOW_CONSUMER, UNSUBSCRIBED, SHUTDOWN, có khi CLOSED) (P11b F5) |
+| DC-SeatHubUnavailableError | SeatHubUnavailableError | PKG-24 | Cập nhật sơ đồ ghế thời gian thực (SSE) | Thiết kế (P12 F1b): Bộ phát chưa chạy, đang tắt hoặc đọc phát lại lỗi (P11b F5) |
+| DC-JobRunResult | JobRunResult | PKG-25 | Công việc nền (hẹn giờ) | Thiết kế (P12 F1b): processedCount (int), hasMore (bool: còn việc đến hạn khi hết ngân sách) (P11b F5) |
+| DC-SchedulerStateError | SchedulerStateError | PKG-25 | Công việc nền (hẹn giờ) | Thiết kế (P12 F1b): Đăng ký sau Start, Start hai lần, tên công việc trùng hoặc chu kỳ không dương (P11b F5) |
+| DC-Role | Role | PKG-26 | Bảo mật | Thiết kế (P12 F1b): CUSTOMER, BOX_OFFICE_CLERK, TICKET_CHECKER, CINEMA_MANAGER, CHAIN_MANAGER, ADMINISTRATOR (P11b SS-05 F5) |
+| DC-SessionClaims | SessionClaims | PKG-26 | Bảo mật | Thiết kế (P12 F1b): subjectId (string), role (Role), cinemaId (string, rỗng với khách, quản lý chuỗi, quản trị viên), expiresAt (time.Time) (P11b SS-05 F5); tầng gọi dựng DC-ActorContext từ giá trị này |
+| DC-IssuedSession | IssuedSession | PKG-26 | Bảo mật | Thiết kế (P12 F1b): token (string), expiresAt (time.Time) (P11b SS-05 F5) |
+| DC-SessionInvalidError | SessionInvalidError | PKG-26 | Bảo mật | P11b SS-05 F5: Token sai chữ ký hoặc sai định dạng; dùng trong chữ ký IF-07 |
+| DC-SessionExpiredError | SessionExpiredError | PKG-26 | Bảo mật | P11b SS-05 F5: Token đúng chữ ký nhưng quá hạn; dùng trong chữ ký IF-07 |
+| DC-MalformedHashError | MalformedHashError | PKG-26 | Bảo mật | P11b SS-05 F5: Mã băm lưu trữ sai định dạng; dùng trong chữ ký IF-07 |
+| DC-InvalidAuthRequestError | InvalidAuthRequestError | PKG-26 | Bảo mật | P11b SS-05 F5: subjectId rỗng hoặc role không hợp lệ khi cấp phiên; dùng trong chữ ký IF-07 |
+| IF-24 | ICodeGenerator | PKG-27 | Sinh mã tham chiếu | Thiết kế (P12 F1b): Sinh mã tham chiếu cho lần giữ ghế, giao dịch, lần đặt và vé |
+| IF-25 | Tx | PKG-27 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): Đại diện một giao dịch đang mở, truyền vào mọi operation của interface kho để chúng dùng cùng một kết nối |
+| DC-RandomCodeGenerator | RandomCodeGenerator | PKG-27 | Sinh mã tham chiếu | Thiết kế (P12 F1b): Sinh mã ngẫu nhiên bằng crypto/rand cho các mã tham chiếu |
+| DC-Money | Money | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): int64 đồng (VND), không âm. Operation: Add, Sub, Percent(p int) làm tròn xuống đồng (BR-31), GreaterThan; đổi sang int64(m) khi gọi IF-01, IF-02 (PKG-22 không phụ thuộc Domain) |
+| DC-CinemaIds | CinemaIds | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): Nhóm kiểu định danh int64: ShowtimeId, AuditoriumId, SeatId, CinemaId (Thiết kế: kiểu số để khoá theo thứ tự số tăng dần, P09 F7.3) |
+| DC-ShowtimeStatus | ShowtimeStatus | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): IN_SCHEDULE (Trong lịch chiếu), DELETED (Đã xoá) |
+| DC-PriceQuery | PriceQuery | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): auditoriumType, movieFormat, startTime, seatType (khoá tra mục giá, BR-11, BR-12) |
+| DC-ShowtimeRouting | ShowtimeRouting | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): auditoriumId, cinemaId: mã cần khoá trước khi khoá suất chiếu, đọc không khoá (P08 F4b quy tắc 7) |
+| DC-ShowtimeInfo | ShowtimeInfo | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): movieTitle, movieFormat, cinemaName, auditoriumName, startTime, endTime (dữ liệu hiển thị, đọc join) |
+| DC-TxOptions | TxOptions | PKG-27 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): name, pool (USER / BACKGROUND), lockTimeout, maxDuration; hàm dựng UserTx(name), BackgroundTx(name) (Thiết kế: lockTimeout 1 giây, maxDuration 4 giây, P09 F7.3) |
+| DC-NotFoundError | NotFoundError | PKG-27 | Persistence | Thiết kế (P12 F1b): Không tìm thấy dòng theo khoá |
+| DC-SystemBusyError | SystemBusyError | PKG-27 | Đồng thời (giao dịch, khoá theo hạng) | Thiết kế (P12 F1b): Hết thời gian chờ khoá hoặc deadlock sau 2 lần thử lại (hệ thống bận) |
+| DC-ShowtimeNotOpenError | ShowtimeNotOpenError | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): Chưa tới thời điểm mở bán hoặc đã tới giờ bắt đầu, hoặc suất chiếu Đã xoá (BR-01, BR-45) |
+| DC-ShowtimeChangedError | ShowtimeChangedError | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): Suất chiếu đã sửa hoặc xoá kể từ lúc hiển thị sơ đồ ghế (BR-54) |
+| DC-SeatSelectionError | SeatSelectionError | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): reason: EMPTY, TOO_MANY (quá 8 ghế, BR-05), NOT_IN_AUDITORIUM, DUPLICATE |
+| DC-CancelDeadlineError | CancelDeadlineError | PKG-27 | Kiểu dữ liệu và ngoại lệ của miền (cụm rạp) | Thiết kế (P12 F1b): Thời điểm kiểm tra cách giờ bắt đầu chưa tới 2 tiếng (BR-18, BR-32) |
+| DC-TicketingIds | TicketingIds | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Nhóm kiểu định danh int64: SeatHoldId, BookingId, TicketId, PaymentTransactionId, RefundRequestId, CustomerId, BoxOfficeClerkId, EventId (mã seat_event). Gán khi lưu |
+| DC-HolderKind | HolderKind | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): CUSTOMER, CLERK (khách, nhân viên quầy: người giữ ghế) |
+| DC-HolderRef | HolderRef | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): kind (HolderKind), id (int64); so sánh bằng theo cả hai trường; hiện thực {xor} của R-48, R-49 |
+| DC-ActorKind | ActorKind | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): CUSTOMER, CLERK, CHECKER (khách, nhân viên quầy, nhân viên soát vé) |
+| DC-ActorContext | ActorContext | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): kind (ActorKind), id (int64), cinemaId (CinemaId, 0 với khách); lấy từ SessionClaims của IF-07 do tầng gọi dựng. Hàm AsHolder() trả HolderRef khi kind là CUSTOMER hoặc CLERK |
+| DC-SeatKey | SeatKey | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): showtimeId (ShowtimeId), seatId (SeatId): định danh ghép của SeatStatus và khoá khoá dòng hạng 6 |
+| DC-SeatState | SeatState | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): AVAILABLE (Trống), HELD (Đang được giữ), SOLD (Đã bán) |
+| DC-HoldStatus | HoldStatus | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): ACTIVE (Đang giữ), COMPLETED (Đã hoàn tất), EXPIRED (Hết hạn), CANCELLED (Đã huỷ), PAYMENT_FAILED (Thanh toán thất bại) |
+| DC-TicketStatus | TicketStatus | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): UNUSED (Chưa sử dụng), USED (Đã sử dụng), CANCELLED (Đã huỷ) |
+| DC-PaymentStatus | PaymentStatus | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): PENDING (Chưa xử lý), FAILED (thất bại đã ghi nhận), TICKETED (Đã tạo vé), LATE_PAYMENT (Đã ghi nhận thanh toán trễ) |
+| DC-RefundStatus | RefundStatus | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): NEW (Mới), IN_FLIGHT (Đang chờ kết quả), WAITING_RETRY (Chờ gửi lại), REFUNDED (Đã hoàn), MANUAL_REQUIRED (Cần xử lý thủ công) |
+| DC-RefundType | RefundType | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): FULL (hoàn toàn bộ), TICKET_GATEWAY (hoàn một vé qua cổng), TICKET_CASH (hoàn một vé bằng tiền mặt) |
+| DC-AttemptResult | AttemptResult | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): SUCCEEDED, REJECTED, UNKNOWN: kết quả một lần gửi hoàn tiền, kiểu của Domain để DC-RefundRequest không phụ thuộc DC-RefundOutcome ở PKG-22 |
+| DC-AdmitOutcome | AdmitOutcome | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): ADMITTED, WRONG_CINEMA, WRONG_SHOWTIME, ALREADY_USED, CANCELLED (đúng thứ tự BR-33) |
+| DC-SeatSnapshot | SeatSnapshot | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): showtimeId, showtimeChangedAt (lastChangedAt của suất chiếu, để quay lại gửi displayedAt ở BR-54), cursor (EventId lớn nhất đã thấy), cursorCreatedAt, seats (danh sách seatId, state, eventSeq của ghế) |
+| DC-BookingView | BookingView | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): bookingCode, tickets (ticketCode, seatLabel, seatType, price, status, refundAmount, refundStatus) dùng hiển thị và gửi |
+| DC-HolderBusyError | HolderBusyError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Người giữ ghế còn lần giữ ghế chưa kết thúc (BR-04) |
+| DC-SeatUnavailableError | SeatUnavailableError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): reason: NOT_AVAILABLE (ghế không Trống), LOCKED_BY_OTHER (55P03 của NOWAIT, ghế vừa có người chọn), NOT_FOUND |
+| DC-HoldNotActiveError | HoldNotActiveError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Lần giữ ghế không còn Đang giữ hoặc đã quá hạn; mang status hiện tại (BR-86) |
+| DC-LinkMismatchError | LinkMismatchError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Liên kết hiện tại của ghế không khớp lần giữ ghế hoặc vé đang xử lý (R-63, R-64) |
+| DC-TicketStateError | TicketStateError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Vé không ở trạng thái cho phép thao tác (đã huỷ, đã sử dụng); mang status (BR-21, BR-30) |
+| DC-ChannelMismatchError | ChannelMismatchError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Tác nhân huỷ không phải bên đã mua theo kênh (BR-17) |
+| DC-PaymentStateError | PaymentStateError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Giao dịch thanh toán không ở trạng thái cho phép chuyển (lỗi lập trình nếu xảy ra dưới khoá) |
+| DC-RefundLimitError | RefundLimitError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Tổng hoàn vượt số tiền đã thanh toán (BR-26) |
+| DC-RefundStateError | RefundStateError | PKG-28 | Kiểu dữ liệu và ngoại lệ của miền (đặt vé) | Thiết kế (P12 F1b): Yêu cầu hoàn không ở trạng thái cho phép chuyển |
 
 ### Phần tử bị gộp hoặc loại
 
@@ -151,6 +233,7 @@ Mã giữ nguyên theo quy ước, không cấp lại. Không phần tử nào t
 | DC-PaymentLinkRequest | Loại | Tham số thường của IF-01 createPaymentTransaction | Kiểu giá trị chỉ có ba trường |
 | DC-RefundCommand | Loại | Tham số thường của IF-01 requestRefund | Kiểu giá trị chỉ có ba trường |
 | DC-ReportReply | Gộp | DC-IpnAnswer (PKG-14) | IF-02 không dựng câu trả lời cho cổng; kết quả xử lý thông báo đi qua DC-IpnAnswer để PKG-12 không phải phụ thuộc PKG-22 |
+| DC-ReportHandlingResult | Gộp | DC-IpnOutcome (PKG-14) | IF-02 không còn replyToReport; kết quả xử lý thông báo là DC-IpnOutcome, PKG-12 dịch sang câu trả lời của cổng (P12 F1b) |
 | DC-QrCameraScanner | Loại | Thư viện đọc QR có sẵn, gọi từ DC-CheckTicketView | Không có hành vi riêng cần thiết kế |
 | IF-09 ISeatOccupancyGuard | Loại | DC-ScheduleShowtimesService gọi IF-17, IF-20 | Q-117 áp cho EX-13, EX-14: dịch vụ điều phối, thứ tự khoá hiện trong một lớp |
 | IF-10 ISeatStatusInitializer | Loại | DC-ScheduleShowtimesService gọi IF-18 | Như trên |
@@ -163,15 +246,15 @@ Mỗi dòng nêu lớp dịch vụ mở giao dịch (qua IF-08) và chuỗi kho�
 
 | EX | Lớp mở giao dịch (IF-08) | Chuỗi khoá (hạng, interface, chế độ) | Phần tử thực hiện phần kiểm và ghi | Ngữ nghĩa giữ nguyên |
 |---|---|---|---|---|
-| EX-01 | DC-BookTicketsService | 1 IF-12 PriceList S --> 2 IF-13 Auditorium S --> 3 IF-11 Showtime S (S theo P09 Vấn đề còn mở 3; P08 F4b ghi X) --> 4 IF-16 người giữ ghế X --> 5 IF-17 SeatHold cũ X (nếu có) --> 6 IF-18 SeatStatus X NOWAIT, ORDER BY (mã suất chiếu, mã ghế), không lọc trạng thái | DC-Showtime (mở bán, suất chiếu chưa đổi, giới hạn ghế, chốt giá qua DC-PriceList); DC-Customer hoặc DC-BoxOfficeClerk (BR-04); DC-SeatHold (tạo, expiry_time = thời điểm CSDL + 10 phút, mã yêu cầu); DC-SeatStatus (giữ ghế, current_hold_id, event_seq) | Tất cả hoặc không ghế nào; ghế đang bị khoá thì từ chối ngay (55P03 do NOWAIT, DC-PgUnitOfWork không thử lại); mã yêu cầu làm xác nhận lặp an toàn; không NOTIFY |
-| EX-02 | DC-PaymentReportService | Tra không khoá mã SeatHold --> 5 IF-17 SeatHold X --> 6 IF-18 SeatStatus của lần giữ ghế X --> 7 IF-19 PaymentTransaction X; tạo mới Booking, Ticket (IF-20), RefundRequest (IF-21), dòng hàng đợi (IF-23) | DC-SeatHold, DC-PaymentTransaction, DC-Booking, DC-Ticket, DC-RefundService ở chế độ (a): lập yêu cầu hoàn của thanh toán trễ trong giao dịch đang mở của DC-PaymentReportService, không mở giao dịch mới | Báo trùng, báo muộn, báo song song tuần tự hoá theo khoá SeatHold; thời điểm CSDL lấy một lần sau khoá; câu trả lời cho cổng do IF-02 dựng |
-| EX-03 | DC-BookTicketsService | 5 IF-17 SeatHold X --> 6 IF-18 SeatStatus X; tạo Booking, Ticket (IF-20); dòng hàng đợi email vé (IF-23) | DC-SeatHold, DC-SeatStatus, DC-Booking, DC-Ticket | Xác nhận thu tiền mặt đến sau hết hạn bị từ chối (BR-44) |
-| EX-04 | DC-BookTicketsService (huỷ giữ ghế); DC-HoldExpiryJob (quét theo lô); DC-PaymentReportService (báo thất bại, trong giao dịch EX-02) | 5 IF-17 SeatHold X; quét: SKIP LOCKED, lô 200 | DC-SeatHold (một trạng thái cuối; quá expiry_time thì chuyển Hết hạn trước) | Hết hạn là sự thật tính theo thời điểm CSDL, công việc nền chỉ quyết định khi nào ghế trống (P09 F7.4) |
-| EX-05 | DC-SeatReleaseJob (quét theo lô); DC-BookTicketsService (huỷ giữ ghế, giao dịch riêng sau EX-04) | 5 IF-17 SeatHold S (quét: X SKIP LOCKED, khoá cả lô, mã tăng dần) --> 6 IF-18 SeatStatus X của cả lô ORDER BY (mã suất chiếu, mã ghế), rồi UPDATE theo khoá chính đã khoá | DC-SeatHold, DC-SeatStatus (điều kiện current_hold_id) | Chạy lặp an toàn, không trả nhầm ghế đã giữ lại hoặc đã bán (R-63, X-18). Giao dịch thanh toán thất bại (EX-04 trong EX-02) do DC-SeatReleaseJob giải phóng ghế ở lượt quét kế tiếp, DC-PaymentReportService không gọi giải phóng nên không có cạnh PKG-14 --> PKG-13; NFR-07 chỉ đòi chậm nhất 1 phút sau hết hạn |
-| EX-06 | DC-CancelTicketService (giao dịch riêng) | 6 IF-18 SeatStatus X --> 8 IF-20 Ticket S | DC-SeatStatus (điều kiện current_ticket_id) | Không lồng EX-07, EX-09 (quy tắc 4); chạy được trên suất chiếu Đã xoá |
-| EX-07 | DC-CancelTicketService | 8 IF-20 Ticket X | DC-Ticket | Một lần huỷ (X-14, X-15) |
+| EX-01 | DC-BookTicketsService | 1 IF-12 PriceList S --> 2 IF-13 Auditorium S --> 3 IF-11 Showtime S (S theo P09 Vấn đề còn mở 3; P08 F4b ghi X) --> 4 IF-16 người giữ ghế X --> 5 IF-17 SeatHold cũ X (nếu có) --> 6 IF-18 SeatStatus X NOWAIT, ORDER BY (mã suất chiếu, mã ghế), không lọc trạng thái | DC-Showtime (mở bán, suất chiếu chưa đổi, giới hạn ghế, chốt giá qua DC-PriceList); DC-Customer hoặc DC-BoxOfficeClerk (BR-04); DC-SeatHold (tạo, expiry_time = thời điểm CSDL + 10 phút, mã yêu cầu); DC-SeatStatus (giữ ghế, current_hold_id, event_seq); DC-SeatStatus.ReleaseHold cho ghế còn trỏ tới lần giữ ghế cũ của chính người giữ ghế vừa chuyển Hết hạn ở bước 5, trong cùng giao dịch (Q-134) | Tất cả hoặc không ghế nào; ghế đang bị khoá thì từ chối ngay (55P03 do NOWAIT, DC-PgUnitOfWork không thử lại); mã yêu cầu làm xác nhận lặp an toàn; không NOTIFY; ghế của lần giữ ghế cũ vừa hết hạn được trả và giữ lại trong cùng giao dịch, không phải chờ DC-SeatReleaseJob |
+| EX-02 | DC-PaymentReportService | Tra không khoá mã SeatHold --> 5 IF-17 SeatHold X --> 6 IF-18 SeatStatus của lần giữ ghế X --> 7 IF-19 PaymentTransaction X; tạo mới Booking, Ticket (IF-20), RefundRequest (IF-21), dòng hàng đợi (IF-23) | DC-SeatHold, DC-PaymentTransaction, DC-Booking, DC-Ticket, DC-RefundService ở chế độ (a): lập yêu cầu hoàn của thanh toán trễ trong giao dịch đang mở của DC-PaymentReportService, không mở giao dịch mới; DC-SeatStatus.ReleaseHold từng ghế đã khoá hạng 6 khi báo thất bại (lần giữ ghế Đang giữ, giao dịch báo là giao dịch tạo sau cùng) và khi lần giữ ghế chuyển Hết hạn ở nhánh thanh toán trễ, trong cùng giao dịch (Q-134) | Báo trùng, báo muộn, báo song song tuần tự hoá theo khoá SeatHold; thời điểm CSDL lấy một lần sau khoá; câu trả lời cho cổng do IF-02 dựng; báo thất bại của giao dịch cũ khi đã có giao dịch mới hơn chỉ ghi nhận, không đổi lần giữ ghế; ghế liên kết vỡ lúc bán thì xử lý như thanh toán trễ (Q-84) |
+| EX-03 | DC-BookTicketsService | 5 IF-17 SeatHold X --> 6 IF-18 SeatStatus X; tạo Booking, Ticket (IF-20) | DC-SeatHold, DC-SeatStatus (kể cả ReleaseHold khi quá hạn, Q-134), DC-Booking, DC-Ticket | Xác nhận thu tiền mặt đến sau hết hạn bị từ chối (BR-44) và ghế được trả ngay trong cùng giao dịch; không xếp email vé vì người giữ ghế là nhân viên quầy (P04 UC-005 luồng 9a) |
+| EX-04 | DC-BookTicketsService (huỷ giữ ghế, gộp EX-05 trong một giao dịch, Q-134); DC-HoldExpiryJob (quét theo lô); DC-PaymentReportService (báo thất bại, trong giao dịch EX-02) | Huỷ giữ ghế: 5 IF-17 SeatHold X --> 6 IF-18 SeatStatus X; quét: 5 IF-17 SeatHold X, SKIP LOCKED, lô 200 | DC-SeatHold (một trạng thái cuối; quá expiry_time thì chuyển Hết hạn trước); huỷ giữ ghế còn gọi DC-SeatStatus.ReleaseHold trong cùng giao dịch | Hết hạn là sự thật tính theo thời điểm CSDL, công việc nền chỉ quyết định khi nào ghế trống (P09 F7.4) |
+| EX-05 | DC-SeatReleaseJob (quét theo lô, lưới an toàn cho ghế còn sót) | 5 IF-17 SeatHold X SKIP LOCKED, khoá cả lô, mã tăng dần --> 6 IF-18 SeatStatus X của cả lô ORDER BY (mã suất chiếu, mã ghế), rồi UPDATE theo khoá chính đã khoá | DC-SeatHold, DC-SeatStatus (điều kiện current_hold_id) | Chạy lặp an toàn, không trả nhầm ghế đã giữ lại hoặc đã bán (R-63, X-18). Ghế của lần giữ ghế kết thúc trong giao dịch người dùng (EX-01 đến EX-04: hết hạn do thao tác, huỷ giữ ghế, báo thất bại) đã được trả ngay trong giao dịch đó (Q-134); DC-SeatReleaseJob chỉ trả ghế còn sót, chủ yếu của lần giữ ghế do DC-HoldExpiryJob chuyển Hết hạn và của tiến trình chết giữa chừng, chậm nhất 1 phút sau hết hạn (NFR-07) |
+| EX-06 | DC-CancelTicketService: một giao dịch gộp EX-06, EX-07, EX-09 (Q-133) | 6 IF-18 SeatStatus X --> 7 IF-19 PaymentTransaction X (bỏ với vé mua tại quầy) --> 8 IF-20 Ticket X; rồi tạo RefundRequest (IF-21, hạng 9, dòng mới) và dòng hàng đợi hoàn tiền (IF-23) | DC-SeatStatus (điều kiện current_ticket_id), DC-Ticket, DC-Booking, DC-RefundService (chế độ b) | Ghi nhận huỷ, trả ghế và tạo yêu cầu hoàn cùng một commit; huỷ tại quầy gộp EX-06, EX-07 và ghi khoản hoàn tiền mặt đã hoàn; chạy được trên suất chiếu Đã xoá; chỉ cuộc gọi cổng (EX-10) nằm ngoài giao dịch |
+| EX-07 | DC-CancelTicketService (thuộc giao dịch gộp của EX-06) | 8 IF-20 Ticket X | DC-Ticket | Một lần huỷ (X-14, X-15) |
 | EX-08 | DC-CheckTicketService | 8 IF-20 Ticket X | DC-Ticket, DC-Showtime (thứ tự kiểm BR-33) | Một lần soát thành công |
-| EX-09 | DC-RefundService: chế độ (b) mở giao dịch riêng khi do DC-CancelTicketService gọi (UC-008); chế độ (a) dùng giao dịch đang mở của DC-PaymentReportService khi gọi từ EX-02 (UC-006) | 7 IF-19 PaymentTransaction X; tạo RefundRequest (IF-21); dòng hàng đợi hoàn tiền (IF-23) | DC-PaymentTransaction (cộng refunded_total trong câu UPDATE), DC-RefundRequest | Tổng đã hoàn không mất cập nhật, không vượt số đã thanh toán (X-16) |
+| EX-09 | DC-RefundService: chế độ (b) dùng giao dịch đang mở của DC-CancelTicketService (UC-008, Q-133); chế độ (a) dùng giao dịch đang mở của DC-PaymentReportService khi gọi từ EX-02 (UC-006); không chế độ nào mở giao dịch mới | 7 IF-19 PaymentTransaction X; tạo RefundRequest (IF-21); dòng hàng đợi hoàn tiền (IF-23) | DC-PaymentTransaction (cộng refunded_total trong câu UPDATE), DC-RefundRequest | Tổng đã hoàn không mất cập nhật, không vượt số đã thanh toán (X-16) |
 | EX-10 | DC-RefundService (ba giao dịch ngắn), do DC-RefundOutboxJob gọi | 8 IF-20 Ticket S (chỉ hoàn tiền mặt) --> 9 IF-21 RefundRequest X; sau đó dòng hàng đợi IF-23 (không thuộc 9 hạng): ghi kết quả có điều kiện claim_token | DC-RefundRequest; IF-01 gọi cổng ngoài giao dịch, chờ 30 giây, cùng khoá chống hoàn trùng | Không giữ khoá khi chờ cổng; hết lần thử, hoặc không tra cứu được kết quả hoàn qua findRefund (Q-118), thì Cần xử lý thủ công; email hoàn chỉ xếp hàng sau hoàn thành công |
 | EX-11 | DC-ManagePriceListService | 1 IF-12 PriceList X | DC-PriceList, DC-PriceEntry | Bên sau thấy mốc đã đổi và bị từ chối (X-05) |
 | EX-12 | DC-ManagePriceListService | 1 IF-12 PriceList X --> 2 IF-13 Auditorium S tăng dần --> 3 IF-11 Showtime S | DC-PriceList (qua IF-11 kiểm suất chiếu đang dùng mục giá) | PriceList X chặn mọi EX-01, EX-13 trong lúc kiểm |
@@ -189,8 +272,8 @@ Quy tắc áp dụng cho P12:
   - Chỉ tính các lời gọi khoá dòng (kể cả NOWAIT, SKIP LOCKED); thiết kế không dùng khoá tư vấn. P12 chi tiết hoá.
 - Mọi giao dịch đổi trạng thái ghế ghi seat_event trong cùng giao dịch, sau khi đã khoá ghế; không gọi NOTIFY. Việc ghi do các Pg Store gọi DC-SeatEventWriter bên trong cùng thao tác cập nhật SeatStatus, lớp dịch vụ không gọi trực tiếp.
 - Lời gọi ra ngoài (IF-01, IF-03) nằm ngoài giao dịch và không giữ khoá; dòng hàng đợi (IF-23) được claim bằng giao dịch riêng, commit ngay.
-- EX-06, EX-07, EX-09, EX-10 là bốn giao dịch độc lập của UC-008, DC-CancelTicketService không lồng chúng (P08 F4b quy tắc 4); EX-05 sau EX-04 là giao dịch riêng. DC-RefundService có hai chế độ: (a) UC-006 trong EX-02, nhận giao dịch đang mở của DC-PaymentReportService và không mở giao dịch mới; (b) UC-008, DC-CancelTicketService gọi và DC-RefundService mở giao dịch riêng (EX-09).
-- Quét theo lô (EX-04, EX-05): một giao dịch mỗi lô (P09 F7.4). Khoá toàn bộ SeatHold của lô trước (SKIP LOCKED, mã tăng dần), rồi toàn bộ SeatStatus của lô theo (mã suất chiếu, mã ghế) tăng dần; không xử lý từng lần giữ ghế xen kẽ hạng 5 và hạng 6.
+- EX-06, EX-07, EX-09 là một giao dịch của UC-008 (Q-133, khoá hạng 6, 7, 8 rồi chèn hạng 9); chỉ EX-10 (gọi cổng) nằm ngoài giao dịch qua hàng đợi, nên quy tắc "không lồng" của P08 F4b không còn áp dụng cho chuỗi này. EX-01 đến EX-04 trả ghế ngay trong giao dịch kết thúc lần giữ ghế (Q-134); EX-05 chỉ là job quét theo lô. DC-RefundService có hai chế độ: (a) UC-006 trong EX-02, nhận giao dịch đang mở của DC-PaymentReportService; (b) UC-008, nhận giao dịch đang mở của DC-CancelTicketService; cả hai không mở giao dịch mới.
+- Quét theo lô (EX-04 của job hết hạn, EX-05): một giao dịch mỗi lô (P09 F7.4). Khoá toàn bộ SeatHold của lô trước (SKIP LOCKED, mã tăng dần), rồi toàn bộ SeatStatus của lô theo (mã suất chiếu, mã ghế) tăng dần; không xử lý từng lần giữ ghế xen kẽ hạng 5 và hạng 6.
 - Thứ tự gọi bắt buộc trong EX-13: kiểm SeatHold (IF-17, hạng 5) --> tạo hoặc giải phóng SeatStatus (IF-18, hạng 6) --> kiểm Ticket (IF-20, hạng 8). Kiểm từ chối thì rollback cả giao dịch.
 
 ## F4. Bảng package
@@ -199,31 +282,31 @@ Bảng tiếp nối P09 F4 (PKG-05 đến PKG-28) và thêm PKG-29. Layer PKG-01
 
 | PKG | Tên | Layer (PKG) | Trách nhiệm | Phần tử chứa (DC, SS, IF) | Tiêu chí nhóm | Phụ thuộc vào (PKG) |
 |---|---|---|---|---|---|---|
-| PKG-05 | CustomerWeb | PKG-01 | Giao diện React của khách: đặt vé, huỷ vé (kho trạng thái và component) | DC-BookTicketsView<br>DC-BookTicketsStore<br>DC-CancelTicketView<br>DC-CancelTicketStore | Cùng tác nhân ACT-01; View trình bày SeatStatus, SeatHold, Ticket của khách; hai form dùng chung boundary (R-19) | PKG-29 |
-| PKG-06 | CounterWeb | PKG-01 | Giao diện React của nhân viên quầy: bán vé, huỷ vé tại quầy | DC-CounterBookTicketsView<br>DC-CounterBookTicketsStore<br>DC-CounterCancelTicketView<br>DC-CounterCancelTicketStore | Cùng tác nhân ACT-02; tách khỏi PKG-05 theo quy tắc tác nhân (A3) | PKG-29 |
+| PKG-05 | CustomerWeb | PKG-01 | Giao diện React của khách: đặt vé, huỷ vé (kho trạng thái và component) | DC-BookTicketsView<br>DC-BookTicketsStore<br>DC-CancelTicketView<br>DC-CancelTicketStore<br>DC-LoginView<br>DC-CustomerHomeView | Cùng tác nhân ACT-01; View trình bày SeatStatus, SeatHold, Ticket của khách; hai form dùng chung boundary (R-19) | PKG-29 |
+| PKG-06 | CounterWeb | PKG-01 | Giao diện React của nhân viên quầy: bán vé, huỷ vé tại quầy | DC-CounterBookTicketsView<br>DC-CounterBookTicketsStore<br>DC-CounterCancelTicketView<br>DC-CounterCancelTicketStore<br>DC-CounterHomeView | Cùng tác nhân ACT-02; tách khỏi PKG-05 theo quy tắc tác nhân (A3) | PKG-29 |
 | PKG-07 | CheckInWeb | PKG-01 | Giao diện React soát vé, đọc mã QR bằng camera | DC-CheckTicketView<br>DC-CheckTicketStore | Cùng tác nhân ACT-03; camera là kênh nhập của giao diện này, đọc mã QR bằng thư viện có sẵn (P09 F5) | - |
-| PKG-08 | CinemaAdminWeb | PKG-01 | Giao diện React của quản lý cụm rạp: bảng giá, lịch suất chiếu | DC-ManagePriceListView<br>DC-ManagePriceListStore<br>DC-ScheduleShowtimesView<br>DC-ScheduleShowtimesStore | Cùng tác nhân ACT-04; hai form cùng chỉnh dữ liệu cấu hình của cụm rạp (PriceList, Showtime) | - |
+| PKG-08 | CinemaAdminWeb | PKG-01 | Giao diện React của quản lý cụm rạp: bảng giá, lịch suất chiếu | DC-ManagePriceListView<br>DC-ManagePriceListStore<br>DC-ScheduleShowtimesView<br>DC-ScheduleShowtimesStore<br>DC-CinemaAdminHomeView | Cùng tác nhân ACT-04; hai form cùng chỉnh dữ liệu cấu hình của cụm rạp (PriceList, Showtime) | - |
 | PKG-09 | ChainAdminWeb | PKG-01 | Giữ chỗ cho giao diện quản lý chuỗi (UC-010, UC-011, UC-016 chưa có lớp P08) | (giữ chỗ, chưa có phần tử) | Cùng tác nhân ACT-05; giữ chỗ theo F1 | - |
 | PKG-10 | AccountAdminWeb | PKG-01 | Giữ chỗ cho giao diện quản trị viên (UC-017 chưa có lớp P08) | (giữ chỗ, chưa có phần tử) | Cùng tác nhân ACT-06; giữ chỗ theo F1 | - |
 | PKG-11 | HttpApi | PKG-01 | REST controller, kết nối đẩy sơ đồ ghế, bộ lọc kiểm tra mã phiên và vai trò | DC-AuthFilter<br>DC-BookingController<br>DC-SeatMapStreamController<br>DC-TicketController<br>DC-PricingScheduleController | Phần tiếp nhận yêu cầu theo nhóm chức năng (P09 F5); chung một lý do thay đổi là hợp đồng REST với trình duyệt | PKG-13, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-26 |
-| PKG-12 | PaymentCallbackApi | PKG-01 | Điểm vào IPN của cổng thanh toán | DC-PaymentCallbackController | Tách khỏi PKG-11 vì không đăng nhập, xác thực bằng chữ ký cổng và đổi theo định dạng callback của cổng (lý do thay đổi riêng) | PKG-14 |
+| PKG-12 | PaymentCallbackApi | PKG-01 | Điểm vào công khai của cổng thanh toán: IPN, địa chỉ trả về của khách, hỏi lại trạng thái thanh toán | DC-PaymentCallbackController | Tách khỏi PKG-11 vì không đăng nhập, xác thực bằng chữ ký cổng và đổi theo định dạng callback của cổng (lý do thay đổi riêng); đường hỏi trạng thái đặt ở đây để không thêm cạnh PKG-11 --> PKG-14 | PKG-14 |
 | PKG-29 | SeatMapClient | PKG-01 | Đồng bộ sơ đồ ghế phía trình duyệt: kết nối SSE, tải lại ảnh chụp, áp sự kiện theo từng ghế | DC-SeatMapSyncClient<br>DC-SeatMapReducer | Dùng chung bởi PKG-05 và PKG-06 (hai tác nhân) nên không đặt vào một trong hai (A3); cùng một quy tắc áp sự kiện (CCP) | - |
-| PKG-13 | SeatBooking | PKG-02 | Giữ ghế, huỷ giữ ghế, xác nhận thu tiền mặt, bắt đầu thanh toán, giải phóng ghế, sơ đồ ghế, công việc hết hạn (kèm dọn seat_event) | DC-BookTicketsService<br>DC-SeatMapService<br>DC-HoldExpiryJob<br>DC-SeatReleaseJob | Cùng UC-005 và cùng chuỗi trạng thái SeatHold/SeatStatus; thay đổi cơ chế hết hạn kéo theo cả giữ ghế và giải phóng | PKG-21, PKG-22, PKG-24, PKG-25, PKG-27, PKG-28 |
-| PKG-14 | PaymentRefund | PKG-02 | Xử lý IPN (kể cả thanh toán trễ) và vòng đời hoàn tiền | DC-PaymentReportService<br>DC-IpnAnswer<br>DC-RefundService<br>DC-RefundOutboxJob | Cùng giao dịch PaymentTransaction và RefundRequest (UC-005, UC-006, UC-008); hoàn tiền dùng chung (Q-106) | PKG-21, PKG-22, PKG-25, PKG-27, PKG-28 |
-| PKG-15 | TicketService | PKG-02 | Huỷ vé, soát vé | DC-CancelTicketService<br>DC-CheckTicketService | Cùng thực thể Ticket (UC-008, UC-009); cùng khoá hạng 8 | PKG-14, PKG-21, PKG-27, PKG-28 |
+| PKG-13 | SeatBooking | PKG-02 | Giữ ghế, huỷ giữ ghế, xác nhận thu tiền mặt, bắt đầu thanh toán, giải phóng ghế, sơ đồ ghế, công việc hết hạn (kèm dọn seat_event) | DC-BookTicketsService<br>DC-SeatMapService<br>DC-HoldExpiryJob<br>DC-SeatReleaseJob<br>DC-HoldSeatsRequest<br>DC-HoldResult<br>DC-PaymentStart<br>DC-SseFrame<br>DC-SseStream | Cùng UC-005 và cùng chuỗi trạng thái SeatHold/SeatStatus; thay đổi cơ chế hết hạn kéo theo cả giữ ghế và giải phóng | PKG-21, PKG-22, PKG-24, PKG-25, PKG-27, PKG-28 |
+| PKG-14 | PaymentRefund | PKG-02 | Xử lý IPN (kể cả thanh toán trễ), đọc trạng thái giao dịch cho trang kết quả và vòng đời hoàn tiền | DC-PaymentReportService<br>DC-IpnAnswer<br>DC-RefundService<br>DC-RefundOutboxJob<br>DC-IpnOutcome<br>DC-PaymentStatusView | Cùng giao dịch PaymentTransaction và RefundRequest (UC-005, UC-006, UC-008); hoàn tiền dùng chung (Q-106) | PKG-21, PKG-22, PKG-25, PKG-27, PKG-28 |
+| PKG-15 | TicketService | PKG-02 | Huỷ vé, soát vé | DC-CancelTicketService<br>DC-CheckTicketService<br>DC-CancelResult<br>DC-AdmitResult | Cùng thực thể Ticket (UC-008, UC-009); cùng khoá hạng 8 | PKG-14, PKG-21, PKG-27, PKG-28 |
 | PKG-16 | ScheduleAndPricing | PKG-02 | Quản lý bảng giá và lịch suất chiếu | DC-ManagePriceListService<br>DC-ScheduleShowtimesService | Cùng tác nhân ACT-04; cùng khoá PriceList, Auditorium, Showtime (EX-11 đến EX-15) | PKG-21, PKG-27, PKG-28 |
 | PKG-17 | Catalog | PKG-02 | Giữ chỗ cho tra cứu và quản lý phim, cụm rạp, lịch chiếu | (giữ chỗ, chưa có phần tử) | Giữ chỗ theo F1 (UC-003, UC-004, UC-010, UC-011 chưa có lớp P08) | PKG-21, PKG-27 |
 | PKG-18 | Reporting | PKG-02 | Giữ chỗ cho báo cáo doanh thu và tỉ lệ lấp đầy | (giữ chỗ, chưa có phần tử) | Giữ chỗ theo F1 (UC-015, UC-016 chưa có lớp P08) | PKG-21, PKG-27, PKG-28 |
 | PKG-19 | AccountManagement | PKG-02 | Giữ chỗ cho đăng ký khách và quản lý tài khoản nhân viên | (giữ chỗ, chưa có phần tử) | Giữ chỗ theo F1 (UC-001, UC-017 chưa có lớp P08) | PKG-21, PKG-26, PKG-27, PKG-28 |
 | PKG-20 | Notification | PKG-02 | Lấy dòng hàng đợi email, dựng nội dung email vé và email hoàn tiền, gửi qua IF-03 | DC-EmailOutboxJob | Cùng một việc: hàng đợi email (BR-89, NFR-18) | PKG-21, PKG-23, PKG-25, PKG-27, PKG-28 |
-| PKG-21 | Persistence | PKG-03 | Giao dịch, khoá dòng theo hạng, SQL, seat_event, hàng đợi gửi | DC-PgUnitOfWork<br>DC-LockOrderGuard<br>DC-ConnectionPools<br>DC-PgCinemaOperationsStore<br>DC-PgTicketingStore<br>DC-PgSeatEventStore<br>DC-PgOutboxStore<br>DC-SeatEventWriter<br>IF-22<br>IF-23 | Một công nghệ PostgreSQL; cùng lý do thay đổi là lược đồ và SQL; chỉ liệt kê phần tử, chi tiết P12 | PKG-27, PKG-28 |
-| PKG-22 | PaymentGatewayClient | PKG-03 | Subsystem cổng thanh toán SS-01 | SS-01<br>IF-01<br>IF-02<br>DC-PaymentReport<br>DC-RefundOutcome | Một subsystem, thay cổng chỉ đổi gói này (NFR-15 đến NFR-17) | - |
-| PKG-23 | EmailGatewayClient | PKG-03 | Subsystem dịch vụ email SS-02 | SS-02<br>IF-03<br>DC-EmailMessage | Một subsystem (NFR-18) | - |
-| PKG-24 | SeatEventHub | PKG-03 | Subsystem phát sự kiện đổi ghế SS-03 | SS-03<br>IF-04 | Một subsystem (NFR-08, NFR-09) | PKG-21, PKG-28 |
-| PKG-25 | Scheduler | PKG-03 | Subsystem hẹn giờ SS-04 và interface công việc IF-06 | SS-04<br>IF-05<br>IF-06 | Một subsystem (NFR-07) | - |
-| PKG-26 | Security | PKG-03 | Subsystem bảo mật SS-05 | SS-05<br>IF-07 | Một subsystem (NFR-01 đến NFR-03, NFR-10) | - |
-| PKG-27 | CinemaOperations | PKG-04 | Lớp miền cụm rạp, phòng chiếu, suất chiếu, bảng giá; interface kho; interface giao dịch | DC-Cinema<br>DC-Auditorium<br>DC-Seat<br>DC-Movie<br>DC-Showtime<br>DC-PriceList<br>DC-PriceEntry<br>DC-CinemaManager<br>DC-TicketChecker<br>IF-08<br>IF-11<br>IF-12<br>IF-13<br>IF-14<br>IF-15 | Quan hệ giữa các lớp (R-38 đến R-43, R-60 đến R-62) và cùng khoá PriceList, Auditorium, Showtime | - |
-| PKG-28 | Ticketing | PKG-04 | Lớp miền giữ ghế, thanh toán, hoàn tiền, đặt vé, vé; interface kho; kiểu sự kiện đổi ghế | DC-Customer<br>DC-BoxOfficeClerk<br>DC-SeatStatus<br>DC-SeatHold<br>DC-PaymentTransaction<br>DC-RefundRequest<br>DC-Booking<br>DC-Ticket<br>IF-16<br>IF-17<br>IF-18<br>IF-19<br>IF-20<br>IF-21<br>DC-SeatChangeEvent | Quan hệ giữa các lớp (R-46 đến R-56, R-63, R-64) và cùng khoá hạng 4 đến 9 | PKG-27 |
+| PKG-21 | Persistence | PKG-03 | Giao dịch, khoá dòng theo hạng, SQL, seat_event, hàng đợi gửi | DC-PgUnitOfWork<br>DC-LockOrderGuard<br>DC-ConnectionPools<br>DC-PgCinemaOperationsStore<br>DC-PgTicketingStore<br>DC-PgSeatEventStore<br>DC-PgOutboxStore<br>DC-SeatEventWriter<br>IF-22<br>IF-23<br>DC-PgTx<br>DC-LockRank<br>DC-LockKey<br>DC-LockOrderViolationError<br>DC-OutboxKind<br>DC-OutboxStatus<br>DC-OutboxEntry<br>DC-ClaimLostError | Một công nghệ PostgreSQL; cùng lý do thay đổi là lược đồ và SQL; chỉ liệt kê phần tử, chi tiết P12 | PKG-27, PKG-28 |
+| PKG-22 | PaymentGatewayClient | PKG-03 | Subsystem cổng thanh toán SS-01 | SS-01<br>IF-01<br>IF-02<br>DC-PaymentReport<br>DC-RefundOutcome<br>DC-RefundLookup<br>DC-InvalidGatewayRequestError<br>DC-GatewayConfigurationError<br>DC-InvalidSignatureError<br>DC-MalformedReportError | Một subsystem, thay cổng chỉ đổi gói này (NFR-15 đến NFR-17) | - |
+| PKG-23 | EmailGatewayClient | PKG-03 | Subsystem dịch vụ email SS-02 | SS-02<br>IF-03<br>DC-EmailMessage<br>DC-EmailAttachment<br>DC-EmailSendResult<br>DC-InvalidEmailMessageError | Một subsystem (NFR-18) | - |
+| PKG-24 | SeatEventHub | PKG-03 | Subsystem phát sự kiện đổi ghế SS-03 | SS-03<br>IF-04<br>DC-SeatEventSubscription<br>DC-SeatStreamItem<br>DC-SeatHubUnavailableError | Một subsystem (NFR-08, NFR-09) | PKG-21, PKG-27, PKG-28 |
+| PKG-25 | Scheduler | PKG-03 | Subsystem hẹn giờ SS-04 và interface công việc IF-06 | SS-04<br>IF-05<br>IF-06<br>DC-JobRunResult<br>DC-SchedulerStateError | Một subsystem (NFR-07) | - |
+| PKG-26 | Security | PKG-03 | Subsystem bảo mật SS-05 | SS-05<br>IF-07<br>DC-Role<br>DC-SessionClaims<br>DC-IssuedSession<br>DC-SessionInvalidError<br>DC-SessionExpiredError<br>DC-MalformedHashError<br>DC-InvalidAuthRequestError | Một subsystem (NFR-01 đến NFR-03, NFR-10) | - |
+| PKG-27 | CinemaOperations | PKG-04 | Lớp miền cụm rạp, phòng chiếu, suất chiếu, bảng giá; interface kho; interface giao dịch | DC-Cinema<br>DC-Auditorium<br>DC-Seat<br>DC-Movie<br>DC-Showtime<br>DC-PriceList<br>DC-PriceEntry<br>DC-CinemaManager<br>DC-TicketChecker<br>IF-08<br>IF-11<br>IF-12<br>IF-13<br>IF-14<br>IF-15<br>IF-24<br>IF-25<br>DC-RandomCodeGenerator<br>DC-Money<br>DC-CinemaIds<br>DC-ShowtimeStatus<br>DC-PriceQuery<br>DC-ShowtimeRouting<br>DC-ShowtimeInfo<br>DC-TxOptions<br>DC-NotFoundError<br>DC-SystemBusyError<br>DC-ShowtimeNotOpenError<br>DC-ShowtimeChangedError<br>DC-SeatSelectionError<br>DC-CancelDeadlineError | Quan hệ giữa các lớp (R-38 đến R-43, R-60 đến R-62) và cùng khoá PriceList, Auditorium, Showtime | - |
+| PKG-28 | Ticketing | PKG-04 | Lớp miền giữ ghế, thanh toán, hoàn tiền, đặt vé, vé; interface kho; kiểu sự kiện đổi ghế | DC-Customer<br>DC-BoxOfficeClerk<br>DC-SeatStatus<br>DC-SeatHold<br>DC-PaymentTransaction<br>DC-RefundRequest<br>DC-Booking<br>DC-Ticket<br>IF-16<br>IF-17<br>IF-18<br>IF-19<br>IF-20<br>IF-21<br>DC-SeatChangeEvent<br>DC-TicketingIds<br>DC-HolderKind<br>DC-HolderRef<br>DC-ActorKind<br>DC-ActorContext<br>DC-SeatKey<br>DC-SeatState<br>DC-HoldStatus<br>DC-TicketStatus<br>DC-PaymentStatus<br>DC-RefundStatus<br>DC-RefundType<br>DC-AttemptResult<br>DC-AdmitOutcome<br>DC-SeatSnapshot<br>DC-BookingView<br>DC-HolderBusyError<br>DC-SeatUnavailableError<br>DC-HoldNotActiveError<br>DC-LinkMismatchError<br>DC-TicketStateError<br>DC-ChannelMismatchError<br>DC-PaymentStateError<br>DC-RefundLimitError<br>DC-RefundStateError | Quan hệ giữa các lớp (R-46 đến R-56, R-63, R-64) và cùng khoá hạng 4 đến 9 | PKG-27 |
 
 Chia nhỏ bên trong PKG-27 và PKG-28 (P09 F4 yêu cầu P10 chia nhỏ): mỗi package gồm các nhóm trong cùng package, không thành package riêng vì P09 F4, F5 đã đặt interface kho ở Domain cùng package với lớp miền, và tách ra sẽ thêm cạnh phụ thuộc tới package mới cho mọi package Application. PKG-27: nhóm thực thể (9 lớp DC), nhóm interface kho (IF-11 đến IF-15), cơ chế giao dịch (IF-08); 15 phần tử. PKG-28: nhóm thực thể (8 lớp DC), nhóm interface kho (IF-16 đến IF-21), kiểu sự kiện (DC-SeatChangeEvent); 15 phần tử, đúng mức 15 (Vấn đề còn mở 2).
 
@@ -238,16 +321,20 @@ Ba nhãn đặc biệt: "chỉ vỏ ứng dụng React", "chỉ hàm khởi đ�
 | PKG-05 | DC-BookTicketsStore | package-private | - |
 | PKG-05 | DC-CancelTicketView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-05 | DC-CancelTicketStore | package-private | - |
+| PKG-05 | DC-CustomerHomeView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
+| PKG-05 | DC-LoginView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-06 | DC-CounterBookTicketsView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-06 | DC-CounterBookTicketsStore | package-private | - |
 | PKG-06 | DC-CounterCancelTicketView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-06 | DC-CounterCancelTicketStore | package-private | - |
+| PKG-06 | DC-CounterHomeView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-07 | DC-CheckTicketView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-07 | DC-CheckTicketStore | package-private | - |
 | PKG-08 | DC-ManagePriceListView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-08 | DC-ManagePriceListStore | package-private | - |
 | PKG-08 | DC-ScheduleShowtimesView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-08 | DC-ScheduleShowtimesStore | package-private | - |
+| PKG-08 | DC-CinemaAdminHomeView | public (chỉ vỏ ứng dụng React, ngoài mô hình package) | - |
 | PKG-11 | DC-AuthFilter | package-private | - |
 | PKG-11 | DC-BookingController | public (chỉ hàm khởi động chương trình đăng ký đường dẫn) | - |
 | PKG-11 | DC-SeatMapStreamController | public (chỉ hàm khởi động chương trình đăng ký đường dẫn) | - |
@@ -260,12 +347,21 @@ Ba nhãn đặc biệt: "chỉ vỏ ứng dụng React", "chỉ hàm khởi đ�
 | PKG-13 | DC-SeatMapService | public | PKG-11 |
 | PKG-13 | DC-HoldExpiryJob | public (chỉ hàm khởi động chương trình) | - |
 | PKG-13 | DC-SeatReleaseJob | public (chỉ hàm khởi động chương trình) | - |
+| PKG-13 | DC-HoldSeatsRequest | public | - |
+| PKG-13 | DC-HoldResult | public | - |
+| PKG-13 | DC-PaymentStart | public | - |
+| PKG-13 | DC-SseFrame | public | - |
+| PKG-13 | DC-SseStream | public | - |
 | PKG-14 | DC-PaymentReportService | public | PKG-12 |
 | PKG-14 | DC-IpnAnswer | public | PKG-12 |
 | PKG-14 | DC-RefundService | public | PKG-15 |
 | PKG-14 | DC-RefundOutboxJob | public (chỉ hàm khởi động chương trình) | - |
+| PKG-14 | DC-IpnOutcome | public | - |
+| PKG-14 | DC-PaymentStatusView | public | - |
 | PKG-15 | DC-CancelTicketService | public | PKG-11 |
 | PKG-15 | DC-CheckTicketService | public | PKG-11 |
+| PKG-15 | DC-CancelResult | public | - |
+| PKG-15 | DC-AdmitResult | public | - |
 | PKG-16 | DC-ManagePriceListService | public | PKG-11 |
 | PKG-16 | DC-ScheduleShowtimesService | public | PKG-11 |
 | PKG-20 | DC-EmailOutboxJob | public (chỉ hàm khởi động chương trình) | - |
@@ -279,21 +375,49 @@ Ba nhãn đặc biệt: "chỉ vỏ ứng dụng React", "chỉ hàm khởi đ�
 | PKG-21 | DC-SeatEventWriter | package-private | - |
 | PKG-21 | IF-22 | public | PKG-13, PKG-24 |
 | PKG-21 | IF-23 | public | PKG-13, PKG-14, PKG-20 |
+| PKG-21 | DC-PgTx | package-private | - |
+| PKG-21 | DC-LockRank | package-private | - |
+| PKG-21 | DC-LockKey | package-private | - |
+| PKG-21 | DC-LockOrderViolationError | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-19 |
+| PKG-21 | DC-OutboxKind | public | PKG-13, PKG-14, PKG-20 |
+| PKG-21 | DC-OutboxStatus | public | - |
+| PKG-21 | DC-OutboxEntry | public | PKG-13, PKG-14, PKG-20 |
+| PKG-21 | DC-ClaimLostError | public | PKG-13, PKG-14, PKG-20 |
 | PKG-22 | SS-01 | package-private (chỉ interface của subsystem là public) | - |
 | PKG-22 | IF-01 | public | PKG-13, PKG-14 |
 | PKG-22 | IF-02 | public | PKG-14 |
 | PKG-22 | DC-PaymentReport | public | PKG-14 |
 | PKG-22 | DC-RefundOutcome | public | PKG-14 |
+| PKG-22 | DC-RefundLookup | public | PKG-13, PKG-14 |
+| PKG-22 | DC-InvalidGatewayRequestError | public | PKG-13, PKG-14 |
+| PKG-22 | DC-GatewayConfigurationError | public | PKG-13, PKG-14 |
+| PKG-22 | DC-InvalidSignatureError | public | PKG-14 |
+| PKG-22 | DC-MalformedReportError | public | PKG-14 |
 | PKG-23 | SS-02 | package-private (chỉ interface của subsystem là public) | - |
 | PKG-23 | IF-03 | public | PKG-20 |
 | PKG-23 | DC-EmailMessage | public | PKG-20 |
+| PKG-23 | DC-EmailAttachment | public | theo P12 F1b |
+| PKG-23 | DC-EmailSendResult | public | theo P12 F1b |
+| PKG-23 | DC-InvalidEmailMessageError | public | theo P12 F1b |
 | PKG-24 | SS-03 | package-private (chỉ interface của subsystem là public) | - |
 | PKG-24 | IF-04 | public | PKG-13 |
+| PKG-24 | DC-SeatEventSubscription | public | PKG-13 |
+| PKG-24 | DC-SeatStreamItem | public | PKG-13 |
+| PKG-24 | DC-SeatHubUnavailableError | public | PKG-13 |
 | PKG-25 | SS-04 | package-private (chỉ interface của subsystem là public) | - |
 | PKG-25 | IF-05 | public (chỉ hàm khởi động chương trình) | - |
 | PKG-25 | IF-06 | public | PKG-13, PKG-14, PKG-20 |
+| PKG-25 | DC-JobRunResult | public | PKG-13, PKG-14, PKG-20 |
+| PKG-25 | DC-SchedulerStateError | public | - |
 | PKG-26 | SS-05 | package-private (chỉ interface của subsystem là public) | - |
 | PKG-26 | IF-07 | public | PKG-11, PKG-19 |
+| PKG-26 | DC-Role | public | PKG-11, PKG-19 |
+| PKG-26 | DC-SessionClaims | public | PKG-11, PKG-19 |
+| PKG-26 | DC-IssuedSession | public | PKG-11, PKG-19 |
+| PKG-26 | DC-SessionInvalidError | public | theo P12 F1b |
+| PKG-26 | DC-SessionExpiredError | public | theo P12 F1b |
+| PKG-26 | DC-MalformedHashError | public | theo P12 F1b |
+| PKG-26 | DC-InvalidAuthRequestError | public | theo P12 F1b |
 | PKG-27 | DC-Cinema | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
 | PKG-27 | DC-Auditorium | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
 | PKG-27 | DC-Seat | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
@@ -309,6 +433,22 @@ Ba nhãn đặc biệt: "chỉ vỏ ứng dụng React", "chỉ hàm khởi đ�
 | PKG-27 | IF-13 | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
 | PKG-27 | IF-14 | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
 | PKG-27 | IF-15 | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
+| PKG-27 | IF-24 | public | theo P12 F1b |
+| PKG-27 | IF-25 | public | theo P12 F1b |
+| PKG-27 | DC-RandomCodeGenerator | public (chỉ hàm khởi động chương trình) | - |
+| PKG-27 | DC-Money | public | PKG-13, PKG-14, PKG-28 |
+| PKG-27 | DC-CinemaIds | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-24, PKG-28 |
+| PKG-27 | DC-ShowtimeStatus | public | - |
+| PKG-27 | DC-PriceQuery | public | - |
+| PKG-27 | DC-ShowtimeRouting | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
+| PKG-27 | DC-ShowtimeInfo | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
+| PKG-27 | DC-TxOptions | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-19, PKG-21 |
+| PKG-27 | DC-NotFoundError | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-17, PKG-18, PKG-19, PKG-20, PKG-21, PKG-28 |
+| PKG-27 | DC-SystemBusyError | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-19, PKG-21 |
+| PKG-27 | DC-ShowtimeNotOpenError | public | - |
+| PKG-27 | DC-ShowtimeChangedError | public | - |
+| PKG-27 | DC-SeatSelectionError | public | - |
+| PKG-27 | DC-CancelDeadlineError | public | - |
 | PKG-28 | DC-Customer | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
 | PKG-28 | DC-BoxOfficeClerk | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
 | PKG-28 | DC-SeatStatus | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
@@ -324,6 +464,31 @@ Ba nhãn đặc biệt: "chỉ vỏ ứng dụng React", "chỉ hàm khởi đ�
 | PKG-28 | IF-20 | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
 | PKG-28 | IF-21 | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
 | PKG-28 | DC-SeatChangeEvent | public | PKG-13, PKG-21, PKG-24 |
+| PKG-28 | DC-TicketingIds | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21, PKG-24 |
+| PKG-28 | DC-HolderKind | public | - |
+| PKG-28 | DC-HolderRef | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
+| PKG-28 | DC-ActorKind | public | - |
+| PKG-28 | DC-ActorContext | public | PKG-15 |
+| PKG-28 | DC-SeatKey | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
+| PKG-28 | DC-SeatState | public | - |
+| PKG-28 | DC-HoldStatus | public | - |
+| PKG-28 | DC-TicketStatus | public | - |
+| PKG-28 | DC-PaymentStatus | public | - |
+| PKG-28 | DC-RefundStatus | public | - |
+| PKG-28 | DC-RefundType | public | - |
+| PKG-28 | DC-AttemptResult | public | - |
+| PKG-28 | DC-AdmitOutcome | public | - |
+| PKG-28 | DC-SeatSnapshot | public | PKG-13, PKG-21, PKG-24 |
+| PKG-28 | DC-BookingView | public | PKG-13, PKG-15 |
+| PKG-28 | DC-HolderBusyError | public | - |
+| PKG-28 | DC-SeatUnavailableError | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
+| PKG-28 | DC-HoldNotActiveError | public | - |
+| PKG-28 | DC-LinkMismatchError | public | - |
+| PKG-28 | DC-TicketStateError | public | - |
+| PKG-28 | DC-ChannelMismatchError | public | - |
+| PKG-28 | DC-PaymentStateError | public | - |
+| PKG-28 | DC-RefundLimitError | public | PKG-13, PKG-14, PKG-15, PKG-16, PKG-18, PKG-19, PKG-20, PKG-21 |
+| PKG-28 | DC-RefundStateError | public | - |
 
 ## F6. Kiểm tra coupling giữa package
 
@@ -340,7 +505,7 @@ P09 chọn layered nới lỏng nên cột Nhảy layer ghi "Không áp dụng".
 | PKG-11 --> PKG-18 | Giữ chỗ theo P09 F6, chưa có lớp | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-11 --> PKG-19 | Giữ chỗ theo P09 F6, chưa có lớp | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-11 --> PKG-26 (qua IF-07) | DC-AuthFilter gọi IF-07 (ngoại lệ cho phép của P09 F6) | Không | Không | Không áp dụng | Không | Hợp lệ |
-| PKG-12 --> PKG-14 | DC-PaymentCallbackController gọi DC-PaymentReportService, nhận DC-IpnAnswer (P07 UC-005 bước 11, UC-006 bước 2) | Không | Không | Không áp dụng | Không | Hợp lệ |
+| PKG-12 --> PKG-14 | DC-PaymentCallbackController gọi DC-PaymentReportService (HandleIpn nhận DC-IpnAnswer, ResolveReturnedPayment, QueryPaymentStatus; P07 UC-005 bước 11, UC-006 bước 2) | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-13 --> PKG-22 (qua IF-01) | DC-BookTicketsService gọi IF-01 để ký URL thanh toán (P07 UC-005 bước 10) | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-13 --> PKG-24 (qua IF-04) | DC-SeatMapService gọi IF-04 để đăng ký nhận cập nhật | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-13 --> PKG-21 | Mở giao dịch qua IF-08, đọc ảnh chụp và dọn sự kiện qua IF-22 | Không | Không | Không áp dụng | Không | Hợp lệ |
@@ -377,9 +542,10 @@ P09 chọn layered nới lỏng nên cột Nhảy layer ghi "Không áp dụng".
 | PKG-21 --> PKG-28 | DC-PgTicketingStore hiện thực IF-16 đến IF-21; DC-SeatEventWriter dùng DC-SeatChangeEvent | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-24 --> PKG-21 | Hub đọc seat_event qua IF-22 (cùng layer, một chiều; PKG-21 không phụ thuộc PKG-24) | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-24 --> PKG-28 | Hub phát DC-SeatChangeEvent | Không | Không | Không áp dụng | Không | Hợp lệ |
+| PKG-24 --> PKG-27 | IF-04 và DC-SeatChangeEvent dùng kiểu ShowtimeId của DC-CinemaIds (cùng layer Services --> Domain, hợp lệ theo P09 F6) | Không | Không | Không áp dụng | Không | Hợp lệ |
 | PKG-28 --> PKG-27 | DC-SeatStatus, DC-Ticket tham chiếu DC-Showtime, DC-Seat (cùng layer, một chiều; PKG-27 không phụ thuộc PKG-28) | Không | Không | Không áp dụng | Không | Hợp lệ |
 
-So với P09 F6, P10 thêm ba cạnh (PKG-05 --> PKG-29, PKG-06 --> PKG-29, PKG-20 --> PKG-27) và đổi cạnh tới PKG-22, PKG-23, PKG-24, PKG-26 thành phụ thuộc interface; không cạnh P09 nào bị bỏ. Các phụ thuộc kiểu "cùng layer, một chiều" gồm PKG-15 --> PKG-14, PKG-24 --> PKG-21, PKG-28 --> PKG-27, PKG-05 --> PKG-29, PKG-06 --> PKG-29 đều không có chiều ngược.
+So với P09 F6, P10 thêm bốn cạnh (PKG-05 --> PKG-29, PKG-06 --> PKG-29, PKG-20 --> PKG-27, PKG-24 --> PKG-27) và đổi cạnh tới PKG-22, PKG-23, PKG-24, PKG-26 thành phụ thuộc interface; không cạnh P09 nào bị bỏ. Các phụ thuộc kiểu "cùng layer, một chiều" gồm PKG-15 --> PKG-14, PKG-24 --> PKG-21, PKG-24 --> PKG-27, PKG-28 --> PKG-27, PKG-05 --> PKG-29, PKG-06 --> PKG-29 đều không có chiều ngược.
 
 
 ## F7. Package diagram thiết kế
@@ -496,6 +662,7 @@ b) Bảng Edge
 | D-57 | SS-05 | IF-07 | Realization | «realize» | - |
 | D-58 | SS-04 | IF-06 | Dependency | - | Gọi công việc đến hạn |
 | D-59 | PKG-20 | PKG-27 | Dependency | - | Dựng nội dung email từ suất chiếu, phòng, phim |
+| D-60 | PKG-24 | PKG-27 | Dependency | - | Kiểu ShowtimeId trong chữ ký IF-04 và DC-SeatChangeEvent |
 
 Không có cạnh đi lên. Cạnh có đích là IF-nn (D-09, D-11, D-12, D-19, D-20, D-38, D-42) thể hiện phụ thuộc vào interface của subsystem, không vào subsystem. Cạnh D-16, D-17, D-24, D-44 là realization đi xuống từ lớp ở Application tới IF-06; D-52 đến D-57 là realization của subsystem tới interface của nó; D-58 là phụ thuộc của SS-04 vào IF-06 (Scheduler gọi công việc đến hạn). Mã D-18, D-50, D-51 không dùng lại (phần tử đã gộp hoặc loại).
 
@@ -629,7 +796,7 @@ Không có (chế độ NGHIEM_NGAT).
 ## Vấn đề còn mở
 
 1. Hồ sơ chưa cập nhật theo P09: project-profile.md mục 3 vẫn ghi CONG_NGHE "Chưa chốt" và NEN_TANG chưa theo khối F11. P10 dùng công nghệ ở P09 F11. Q-111 đến Q-115 giữ trạng thái đã trả lời ghi ở P09 và không còn chặn việc chọn công nghệ.
-2. Hai package PKG-27, PKG-28 có 15 phần tử mỗi package, đúng mức hợp lý 15 (sau khi bỏ IF-09, IF-10 và hai lớp hiện thực); đã kiểm khả năng tách (F4) và giữ nguyên vì tách interface kho khỏi lớp miền làm thêm cạnh phụ thuộc cho mọi package Application mà không giảm coupling giữa hai package miền. Presentation có 9 package (P09 đã sát ngưỡng 8 với 8 package); PKG-29 là lý do thứ chín, chấp nhận vì dùng chung bởi hai tác nhân. PKG-12 chỉ có 1 phần tử, chấp nhận vì lý do thay đổi riêng (định dạng callback của cổng, không đăng nhập).
+2. Hai package PKG-27, PKG-28 có 15 phần tử mỗi package, đúng mức hợp lý 15 (sau khi bỏ IF-09, IF-10 và hai lớp hiện thực); đã kiểm khả năng tách (F4) và giữ nguyên vì tách interface kho khỏi lớp miền làm thêm cạnh phụ thuộc cho mọi package Application mà không giảm coupling giữa hai package miền. Presentation có 9 package (P09 đã sát ngưỡng 8 với 8 package); PKG-29 là lý do thứ chín, chấp nhận vì dùng chung bởi hai tác nhân. PKG-12 chỉ có 1 phần tử, chấp nhận vì lý do thay đổi riêng (định dạng callback của cổng, không đăng nhập). Con số 15 tính phần tử có hành vi; kiểu giá trị, enumeration và ngoại lệ thêm theo P12 và P11b (F3) không tính vào mức này.
 3. Năm package giữ chỗ không có phần tử: PKG-09, PKG-10, PKG-17, PKG-18, PKG-19 (UC-001, UC-003, UC-004, UC-007, UC-010, UC-011, UC-015, UC-016, UC-017 chưa có P07). Chạy lại P10 khi các use case này có P07; chưa tạo subsystem nào cho chúng. Các cạnh phụ thuộc của chúng giữ theo P09 F6.
 4. Tám lớp Tạm (AC-E-Customer, AC-E-BoxOfficeClerk, AC-E-TicketChecker, AC-E-CinemaManager, AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, AC-E-Movie) ánh xạ 1-1 tạm, chờ P07 của UC-001, UC-010, UC-011, UC-012, UC-017; Q-108 đã chốt giữ ba entity nhân viên riêng nên P10 không tạo lớp cha Staff.
 5. EX-15 (sửa sơ đồ ghế, UC-012) chưa có lớp dịch vụ sở hữu; chuỗi khoá đã nêu ở F3a. Khi UC-012 có P07, thêm lớp dịch vụ vào PKG-16 và đối chiếu lại DC-Auditorium.
