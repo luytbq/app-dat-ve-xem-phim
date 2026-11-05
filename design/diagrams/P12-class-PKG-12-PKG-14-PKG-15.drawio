@@ -1,0 +1,207 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P12-class-PKG-12-PKG-14-PKG-15" name="P12 Lớp PKG-12 PKG-14 PKG-15">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DC-PaymentReportService" value="«service»&lt;br&gt;&lt;b&gt;PaymentReportService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-5" y="45" width="710" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportService-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentReportService">
+          <mxGeometry y="40" width="620" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PaymentReportService">
+          <mxGeometry y="52" width="620" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportService-ops" value="+ HandleIpn(ctx Ctx, params map[string]string) IpnAnswer&lt;br&gt;+ ResolveReturnedPayment(params map[string]string) (string, bool)&lt;br&gt;+ QueryPaymentStatus(ctx Ctx, holdRef string) (PaymentStatusView, bool, error)&lt;br&gt;- decide(r PaymentReport, hold *SeatHold, txn *PaymentTransaction, now time.Time) settlement&lt;br&gt;- logUnrecognized(r PaymentReport)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentReportService">
+          <mxGeometry y="62" width="620" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundService" value="«service»&lt;br&gt;&lt;b&gt;RefundService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="725" y="47" width="470" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundService-attr" value="&lt;u&gt;- retryDelays: []time.Duration[3] = 1m, 5m, 15m {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-RefundService">
+          <mxGeometry y="40" width="470" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-RefundService">
+          <mxGeometry y="64" width="470" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundService-ops" value="+ CreateFullRefund(ctx Ctx, tx Tx, txn *PaymentTransaction) error&lt;br&gt;+ RequestTicketRefund(ctx Ctx, ticketId TicketId, amount Money) error&lt;br&gt;+ ProcessRefund(ctx Ctx, e OutboxEntry) error&lt;br&gt;&lt;u&gt;- toAttempt(o RefundOutcome) AttemptResult&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-RefundService">
+          <mxGeometry y="74" width="470" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundOutboxJob" value="«service»&lt;br&gt;&lt;b&gt;RefundOutboxJob&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="43" width="420" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundOutboxJob-attr" value="&lt;u&gt;- claimLimit: int = 20 {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;- workers: int = 5 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-RefundOutboxJob">
+          <mxGeometry y="40" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundOutboxJob-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-RefundOutboxJob">
+          <mxGeometry y="80" width="420" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundOutboxJob-ops" value="+ RunDue(ctx Ctx, budget time.Duration) (JobRunResult, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-RefundOutboxJob">
+          <mxGeometry y="90" width="420" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CancelTicketService" value="«service»&lt;br&gt;&lt;b&gt;CancelTicketService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1705" y="45" width="710" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CancelTicketService-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-CancelTicketService">
+          <mxGeometry y="40" width="650" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CancelTicketService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-CancelTicketService">
+          <mxGeometry y="52" width="650" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CancelTicketService-ops" value="+ FindBooking(ctx Ctx, bookingCode string, actor ActorContext) (BookingView, error)&lt;br&gt;+ CancelOnlineTicket(ctx Ctx, ticketId TicketId, customer ActorContext) (CancelResult, error)&lt;br&gt;+ ConfirmCashRefund(ctx Ctx, ticketId TicketId, clerk ActorContext) (CancelResult, error)&lt;br&gt;- cancelRecord(ctx Ctx, ticketId TicketId, actor ActorContext, cash bool) (*Ticket, Money, error)&lt;br&gt;- releaseSeat(ctx Ctx, t *Ticket) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-CancelTicketService">
+          <mxGeometry y="62" width="650" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CheckTicketService" value="«service»&lt;br&gt;&lt;b&gt;CheckTicketService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="245" width="710" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CheckTicketService-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-CheckTicketService">
+          <mxGeometry y="40" width="710" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CheckTicketService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-CheckTicketService">
+          <mxGeometry y="52" width="710" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-CheckTicketService-ops" value="+ StartChecking(ctx Ctx, showtimeId ShowtimeId, checker ActorContext) (ShowtimeInfo, error)&lt;br&gt;+ CheckTicket(ctx Ctx, ticketCode string, showtimeId ShowtimeId, checker ActorContext) (AdmitResult, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-CheckTicketService">
+          <mxGeometry y="62" width="710" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentCallbackController" value="«boundary»&lt;br&gt;&lt;b&gt;PaymentCallbackController&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="267" width="420" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentCallbackController-attr" value="- resultPageUrl: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentCallbackController">
+          <mxGeometry y="40" width="420" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentCallbackController-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PaymentCallbackController">
+          <mxGeometry y="64" width="420" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentCallbackController-ops" value="+ HandleIpn(w http.ResponseWriter, r *http.Request)&lt;br&gt;+ HandleReturn(w http.ResponseWriter, r *http.Request)&lt;br&gt;+ HandlePaymentStatus(w http.ResponseWriter, r *http.Request)&lt;br&gt;- writeIpnAnswer(w http.ResponseWriter, a IpnAnswer)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentCallbackController">
+          <mxGeometry y="74" width="420" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-08" value="«interface»&lt;br&gt;&lt;b&gt;IUnitOfWork&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="275" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-02" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentReportReceiver&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1570" y="275" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-17" value="«interface»&lt;br&gt;&lt;b&gt;ISeatHoldRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1850" y="275" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-18" value="«interface»&lt;br&gt;&lt;b&gt;ISeatStatusRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2130" y="275" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-19" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentTransactionRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-20" value="«interface»&lt;br&gt;&lt;b&gt;IBookingRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-23" value="«interface»&lt;br&gt;&lt;b&gt;IOutboxStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-01" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentGateway&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-21" value="«interface»&lt;br&gt;&lt;b&gt;IRefundRequestRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-11" value="«interface»&lt;br&gt;&lt;b&gt;IShowtimeRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-06" value="«interface»&lt;br&gt;&lt;b&gt;IScheduledJob&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="495" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-85" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="350" y="30" /><mxPoint x="1240" y="30" /><mxPoint x="1240" y="340" /><mxPoint x="1400" y="340" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-86" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-02">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-20" y="120" /><mxPoint x="-20" y="34" /><mxPoint x="1680" y="34" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-87" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-17">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="350" y="33" /><mxPoint x="1695" y="33" /><mxPoint x="1695" y="260" /><mxPoint x="1960" y="260" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-88" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-18">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="350" y="210" /><mxPoint x="2115" y="210" /><mxPoint x="2115" y="300" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-89" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-19">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-20" y="120" /><mxPoint x="-20" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-90" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-20">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="350" y="210" /><mxPoint x="35" y="210" /><mxPoint x="35" y="485" /><mxPoint x="305" y="485" /><mxPoint x="305" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-91" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportService" target="IF-23">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-10" y="120" /><mxPoint x="-10" y="555" /><mxPoint x="585" y="555" /><mxPoint x="585" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-92" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PaymentReportService" target="DC-RefundService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-93" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1210" y="120" /><mxPoint x="1210" y="257" /><mxPoint x="1275" y="257" /><mxPoint x="1275" y="300" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-94" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-01">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="32" /><mxPoint x="720" y="32" /><mxPoint x="720" y="235" /><mxPoint x="800" y="235" /><mxPoint x="800" y="480" /><mxPoint x="990" y="480" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-95" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-19">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="208" /><mxPoint x="765" y="208" /><mxPoint x="765" y="423" /><mxPoint x="275" y="423" /><mxPoint x="275" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-96" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-20">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="35" /><mxPoint x="717.5" y="35" /><mxPoint x="717.5" y="221.5" /><mxPoint x="782.5" y="221.5" /><mxPoint x="782.5" y="485" /><mxPoint x="555" y="485" /><mxPoint x="555" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-97" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-21">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="208" /><mxPoint x="1270" y="208" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-98" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-23">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1210" y="120" /><mxPoint x="1210" y="81" /><mxPoint x="1225" y="81" /><mxPoint x="1225" y="246" /><mxPoint x="1260" y="246" /><mxPoint x="1260" y="485" /><mxPoint x="1110" y="485" /><mxPoint x="1110" y="555" /><mxPoint x="835" y="555" /><mxPoint x="835" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-99" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundOutboxJob" target="IF-23">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1242.5" y="100" /><mxPoint x="1242.5" y="482.5" /><mxPoint x="1130" y="482.5" /><mxPoint x="1130" y="560" /><mxPoint x="710" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-100" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-RefundOutboxJob" target="DC-RefundService">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-101" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CancelTicketService" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1690" y="120" /><mxPoint x="1690" y="183.5" /><mxPoint x="1525" y="183.5" /><mxPoint x="1525" y="300" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-102" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CancelTicketService" target="IF-11">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2060" y="30" /><mxPoint x="1685" y="30" /><mxPoint x="1685" y="167" /><mxPoint x="1550" y="167" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-103" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-CancelTicketService" target="IF-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-104" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-CancelTicketService" target="IF-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-105" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CancelTicketService" target="IF-21">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2060" y="265" /><mxPoint x="2080" y="265" /><mxPoint x="2080" y="560" /><mxPoint x="1270" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-106" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CancelTicketService" target="DC-RefundService">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1690" y="120" /><mxPoint x="1690" y="32" /><mxPoint x="960" y="32" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-107" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CheckTicketService" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="400" y="240" /><mxPoint x="1400" y="240" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-108" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-CheckTicketService" target="IF-11">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="770" y="320" /><mxPoint x="770" y="451.5" /><mxPoint x="1425" y="451.5" /><mxPoint x="1425" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-109" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-CheckTicketService" target="IF-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-110" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentCallbackController" target="DC-PaymentReportService">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="795" y="340" /><mxPoint x="795" y="222.5" /><mxPoint x="350" y="222.5" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-113" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundOutboxJob" target="IF-06">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1460" y="172" /><mxPoint x="1520" y="172" /><mxPoint x="1520" y="485" /><mxPoint x="1705" y="485" /><mxPoint x="1705" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-18" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-01">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="960" y="235" /><mxPoint x="1280" y="235" /><mxPoint x="1280" y="480" /><mxPoint x="1115" y="480" /><mxPoint x="1115" y="520" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-18-s" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-18">
+          <mxGeometry x="-0.9" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+        <mxCell id="R-18-d" value="gateway 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-18">
+          <mxGeometry x="0.8" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

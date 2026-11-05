@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-01" name="ST-01 Lần giữ ghế">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-01-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="389.25" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-S1" value="&lt;b&gt;Đang giữ&lt;/b&gt;&lt;br&gt;entry / đặt expiryTime = holdTime + 10 phút" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="325.25" y="165" width="168" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-S2" value="&lt;b&gt;Đã hoàn tất&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="349.25" y="355" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-S3" value="&lt;b&gt;Hết hạn&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="173" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-S4" value="&lt;b&gt;Đã huỷ&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="493.25" y="355" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-S5" value="&lt;b&gt;Thanh toán thất bại&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="631.85" y="173" width="152" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-01-T1" value="create(holder, showtimeId, requestId, holdRef, now) [cả nhóm ghế giữ được] / expiryTime = now + HoldDuration" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-01-I" target="ST-01-S1">
+          <mxGeometry relative="1" as="geometry" x="0.05"><mxPoint x="91.12" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-01-T2" value="complete(now) [now &lt; expiryTime] / bán ghế, tạo lần đặt và vé (do DC-PaymentReportService, DC-BookTicketsService điều phối)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-01-S1" target="ST-01-S2">
+          <mxGeometry relative="1" as="geometry" x="-0.16"><mxPoint x="91.25" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-01-T3" value="expire(now) [now &gt;= expiryTime]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-01-S1" target="ST-01-S3">
+          <mxGeometry relative="1" as="geometry" x="0.02"><mxPoint x="0" y="-19" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-01-T4" value="cancel(now) [now &lt; expiryTime]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-01-S1" target="ST-01-S4">
+          <mxGeometry relative="1" as="geometry" x="-0.86"><mxPoint x="-62.86" y="0" as="offset" /><Array as="points"><mxPoint x="367.25" y="343" /><mxPoint x="553.25" y="343" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-01-T5" value="failPayment(now) [now &lt; expiryTime]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-01-S1" target="ST-01-S5">
+          <mxGeometry relative="1" as="geometry" x="0.01"><mxPoint x="0" y="-19" as="offset" /></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

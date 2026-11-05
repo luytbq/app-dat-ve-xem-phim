@@ -1,0 +1,46 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-05" name="ST-05 Giao dịch thanh toán">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-05-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="170" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-S1" value="&lt;b&gt;Chưa xử lý&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-S3" value="&lt;b&gt;Đã tạo vé&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="440" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-S4" value="&lt;b&gt;Đã ghi nhận thanh toán trễ&lt;/b&gt;&lt;br&gt;entry / ghi lateReason" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="420" y="440" width="220" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-S2" value="&lt;b&gt;Đã ghi nhận thất bại&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="760" y="440" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-T1" value="create(hold, code, amount) / số tiền ghi lúc tạo" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-I" target="ST-05-S1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-T2" value="reportSuccess(gatewayNo, paidAt) [lần giữ ghế Đang giữ và now &lt; expiryTime] / bán ghế, tạo vé" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S1" target="ST-05-S3">
+          <mxGeometry relative="1" as="geometry" x="-0.2" />
+        </mxCell>
+        <mxCell id="ST-05-T3" value="reportSuccess(gatewayNo, paidAt) [lần giữ ghế không còn hiệu lực] / tạo yêu cầu hoàn toàn bộ" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S1" target="ST-05-S4">
+          <mxGeometry relative="1" as="geometry" x="0.1" />
+        </mxCell>
+        <mxCell id="ST-05-T4" value="reportFailure() / ghi nhận" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S1" target="ST-05-S2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-T5" value="reportSuccess(gatewayNo, paidAt) / tạo yêu cầu hoàn toàn bộ" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S2" target="ST-05-S4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-T6" value="reportSuccess(gatewayNo, paidAt) / duplicateReportCount++" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S3" target="ST-05-S3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-05-T7" value="reportSuccess(gatewayNo, paidAt) / duplicateReportCount++" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-05-S4" target="ST-05-S4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

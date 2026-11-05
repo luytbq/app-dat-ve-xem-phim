@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-03" name="ST-03 Vé">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-03-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-03-S1" value="&lt;b&gt;Chưa sử dụng&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="120" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-03-S2" value="&lt;b&gt;Đã sử dụng&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-03-S3" value="&lt;b&gt;Đã huỷ&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="266.64" y="120" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-03-T1" value="create(key, price, code) / cùng giao dịch bán ghế" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-I" target="ST-03-S1">
+          <mxGeometry relative="1" as="geometry" x="0.1"><mxPoint x="83.92" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-03-T2" value="admit(showtime, selected, cinemaId) [đúng cụm rạp và đúng suất chiếu đã chọn] / trả ADMITTED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-S1" target="ST-03-S2">
+          <mxGeometry relative="1" as="geometry" x="0.06"><mxPoint x="89" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-03-T3" value="cancel()" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-03-S1" target="ST-03-S3">
+          <mxGeometry relative="1" as="geometry" x="0.03"><mxPoint x="0" y="-11.5" as="offset" /></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

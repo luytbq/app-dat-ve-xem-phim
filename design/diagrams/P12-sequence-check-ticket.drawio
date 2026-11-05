@@ -1,0 +1,106 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="SQ-05" name="Soát vé EX-08 (UC-009)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="930" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SQ-05-L1" value=":TicketController (PKG-11, tham chiếu)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-L2" value=":CheckTicketService" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-L3" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-L4" value=":PgTicketingStore (IF-20)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-L5" value=":PgCinemaOperationsStore (IF-11)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="920" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-L6" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="160" height="810" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-N1" value="Ticket.Admit(showtime, selected, cinemaId): cụm rạp, suất chiếu, đã sử dụng, đã huỷ (BR-33)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="452" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-N2" value="không ghi gì" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="640" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-F2" value="alt kết quả Admit" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="24" y="492" width="1292" height="204" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-F2-G0" value="[ADMITTED: vé chuyển Đã sử dụng]" style="text;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="32" y="514" width="1276" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-F2-D1" value="" style="endArrow=none;dashed=1;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="24" y="612" as="sourcePoint" />
+            <mxPoint x="1316" y="612" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-F2-G1" value="[WRONG_CINEMA, WRONG_SHOWTIME, ALREADY_USED, CANCELLED]" style="text;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="32" y="616" width="1276" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-F1" value="tx: lock_timeout 1 s; hai nhân viên quét cùng vé: người sau chờ khoá hạng 8" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="14" y="236" width="1312" height="514" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-05-M1" value="1: CheckTicket(ctx, ticketCode, showtimeId, checker)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="170" as="sourcePoint" />
+            <mxPoint x="340" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M2" value="2: Do(UserTx(&quot;CheckTicket&quot;), fn)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="214" as="sourcePoint" />
+            <mxPoint x="560" y="214" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M3" value="3: BEGIN; SET LOCAL lock_timeout" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="284" as="sourcePoint" />
+            <mxPoint x="1220" y="284" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M4" value="4: LockTicketByCode [hạng 8 X]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="328" as="sourcePoint" />
+            <mxPoint x="780" y="328" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M5" value="5: SELECT ticket WHERE ticket_code FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="372" as="sourcePoint" />
+            <mxPoint x="1220" y="372" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M6" value="6: FindByID suất chiếu [không khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="416" as="sourcePoint" />
+            <mxPoint x="1000" y="416" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M7" value="7: UpdateTicketStatus(USED)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="564" as="sourcePoint" />
+            <mxPoint x="780" y="564" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M8" value="8: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="712" as="sourcePoint" />
+            <mxPoint x="1220" y="712" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-05-M9" value="9: AdmitResult(outcome, bookingCode, seatLabel, seatType)" style="endArrow=open;dashed=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="766" as="sourcePoint" />
+            <mxPoint x="120" y="766" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

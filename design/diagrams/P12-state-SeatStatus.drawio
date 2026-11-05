@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-02" name="ST-02 Trạng thái ghế">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-02-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="170" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-S1" value="&lt;b&gt;Trống&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="125" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-S2" value="&lt;b&gt;Đang được giữ&lt;/b&gt;&lt;br&gt;entry / currentHold = holdId; heldPrice = giá đã chốt" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="216" width="220" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-S3" value="&lt;b&gt;Đã bán&lt;/b&gt;&lt;br&gt;entry / currentTicket = ticketId" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="346" width="220" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-T1" value="create(key)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-02-I" target="ST-02-S1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-T2" value="holdFor(holdId, price) [state = AVAILABLE] / currentHold = holdId; heldPrice = price" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-02-S1" target="ST-02-S2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-T3" value="markSold(holdId, ticketId) [currentHold = holdId] / currentHold = nil; currentTicket = ticketId" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-02-S2" target="ST-02-S3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-T4" value="releaseHold(holdId) [currentHold = holdId] / currentHold = nil; heldPrice = nil" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-02-S2" target="ST-02-S1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-02-T5" value="releaseTicket(ticketId) [currentTicket = ticketId] / currentTicket = nil; heldPrice = nil" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-02-S3" target="ST-02-S1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="315" y="390" /><mxPoint x="315" y="150" /></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

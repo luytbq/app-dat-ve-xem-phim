@@ -1,0 +1,244 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P12-class-PKG-21" name="P12 Lớp PKG-21 Persistence">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DC-PgUnitOfWork" value="«service»&lt;br&gt;&lt;b&gt;PgUnitOfWork&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="37" width="440" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgUnitOfWork-attr" value="&lt;u&gt;- maxRetries: int = 2 {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;- retryBackoff: time.Duration = 20 * time.Millisecond {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgUnitOfWork">
+          <mxGeometry y="40" width="440" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgUnitOfWork-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgUnitOfWork">
+          <mxGeometry y="80" width="440" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgUnitOfWork-ops" value="+ Do(ctx Ctx, opts TxOptions, fn func(tx Tx) error) error&lt;br&gt;- runOnce(ctx Ctx, opts TxOptions, fn func(tx Tx) error) error&lt;br&gt;&lt;u&gt;- isRetryable(err error) bool&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgUnitOfWork">
+          <mxGeometry y="90" width="440" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTx" value="«service»&lt;br&gt;&lt;b&gt;PgTx&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="490" y="39" width="340" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTx-attr" value="- raw: pgx.Tx&lt;br&gt;- now: time.Time[0..1]" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTx">
+          <mxGeometry y="40" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTx-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgTx">
+          <mxGeometry y="80" width="240" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTx-ops" value="+ Now(ctx Ctx) (time.Time, error)&lt;br&gt;~ guard() *LockOrderGuard&lt;br&gt;~ conn() pgx.Tx" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTx">
+          <mxGeometry y="90" width="240" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-LockOrderGuard" value="«utility»&lt;br&gt;&lt;b&gt;LockOrderGuard&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="840" y="39" width="340" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-LockOrderGuard-attr" value="- maxRank: LockRank = 0&lt;br&gt;- maxKey: LockKey&lt;br&gt;- violated: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
+          <mxGeometry y="40" width="340" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-LockOrderGuard-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-LockOrderGuard">
+          <mxGeometry y="96" width="340" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-LockOrderGuard-ops" value="+ Acquire(rank LockRank, key LockKey) error&lt;br&gt;+ AcquireAll(rank LockRank, keys []LockKey) error&lt;br&gt;+ Violated() bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
+          <mxGeometry y="106" width="340" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-ConnectionPools" value="«utility»&lt;br&gt;&lt;b&gt;ConnectionPools&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="37" width="460" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-ConnectionPools-attr" value="- userPool: pgxpool.Pool {size = 20}&lt;br&gt;- backgroundPool: pgxpool.Pool {size = 5}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-ConnectionPools">
+          <mxGeometry y="40" width="460" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-ConnectionPools-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-ConnectionPools">
+          <mxGeometry y="80" width="460" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-ConnectionPools-ops" value="&lt;u&gt;+ NewConnectionPools(ctx Ctx, dsn string) (*ConnectionPools, error)&lt;/u&gt;&lt;br&gt;~ For(pool PoolKind) *pgxpool.Pool&lt;br&gt;+ Close()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-ConnectionPools">
+          <mxGeometry y="90" width="460" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventWriter" value="«utility»&lt;br&gt;&lt;b&gt;SeatEventWriter&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1855" y="37" width="610" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventWriter-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventWriter">
+          <mxGeometry y="40" width="610" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventWriter-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatEventWriter">
+          <mxGeometry y="52" width="610" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventWriter-ops" value="~ Append(ctx Ctx, tx *PgTx, showtimeId ShowtimeId, items []SeatChangeItem) (EventId, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventWriter">
+          <mxGeometry y="62" width="610" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTicketingStore" value="«service»&lt;br&gt;&lt;b&gt;PgTicketingStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="0" y="255" width="760" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTicketingStore-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTicketingStore">
+          <mxGeometry y="40" width="670" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTicketingStore-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgTicketingStore">
+          <mxGeometry y="52" width="670" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgTicketingStore-ops" value="- lockRows(ctx Ctx, tx Tx, rank LockRank, keys []LockKey, sql string, args ...any) (pgx.Rows, error)&lt;br&gt;&lt;u&gt;- mapPgError(err error) error&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgTicketingStore">
+          <mxGeometry y="62" width="670" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgCinemaOperationsStore" value="«service»&lt;br&gt;&lt;b&gt;PgCinemaOperationsStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="770" y="287" width="640" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgCinemaOperationsStore-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgCinemaOperationsStore">
+          <mxGeometry y="40" width="640" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgCinemaOperationsStore-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgCinemaOperationsStore">
+          <mxGeometry y="52" width="640" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgCinemaOperationsStore-ops" value="- lockRow(ctx Ctx, tx Tx, rank LockRank, key LockKey, sql string, args ...any) (pgx.Row, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgCinemaOperationsStore">
+          <mxGeometry y="62" width="640" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgSeatEventStore" value="«service»&lt;br&gt;&lt;b&gt;PgSeatEventStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1515" y="293" width="230" height="74" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgSeatEventStore-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgSeatEventStore">
+          <mxGeometry y="40" width="230" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgSeatEventStore-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgSeatEventStore">
+          <mxGeometry y="52" width="230" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgSeatEventStore-ops" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgSeatEventStore">
+          <mxGeometry y="62" width="230" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgOutboxStore" value="«service»&lt;br&gt;&lt;b&gt;PgOutboxStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1855" y="287" width="410" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgOutboxStore-attr" value="&lt;u&gt;- claimWindow: time.Duration = 120 * time.Second {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgOutboxStore">
+          <mxGeometry y="40" width="410" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgOutboxStore-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PgOutboxStore">
+          <mxGeometry y="64" width="410" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PgOutboxStore-ops" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PgOutboxStore">
+          <mxGeometry y="74" width="410" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22" value="«interface»&lt;br&gt;&lt;b&gt;ISeatEventStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="465" width="760" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-22">
+          <mxGeometry y="40" width="760" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-22">
+          <mxGeometry y="52" width="760" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22-ops" value="+ ReadEventsAfter(ctx Ctx, mark EventId, limit int) ([]SeatChangeEvent, error)&lt;br&gt;+ ReadShowtimeEvents(ctx Ctx, showtimeId ShowtimeId, cursor EventId, window time.Duration) ([]SeatChangeEvent, bool, error)&lt;br&gt;+ FindEvent(ctx Ctx, id EventId) (*SeatChangeEvent, error)&lt;br&gt;+ Snapshot(ctx Ctx, showtimeId ShowtimeId) (SeatSnapshot, error)&lt;br&gt;+ DeleteOlderThan(ctx Ctx, age time.Duration, limit int) (int, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-22">
+          <mxGeometry y="62" width="760" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-23" value="«interface»&lt;br&gt;&lt;b&gt;IOutboxStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="465" width="760" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-23-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-23">
+          <mxGeometry y="40" width="590" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-23-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-23">
+          <mxGeometry y="52" width="590" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-23-ops" value="+ Enqueue(ctx Ctx, tx Tx, e OutboxEntry) error&lt;br&gt;+ Claim(ctx Ctx, kind OutboxKind, limit int) ([]OutboxEntry, error)&lt;br&gt;+ MarkSucceeded(ctx Ctx, tx Tx, e OutboxEntry) error&lt;br&gt;+ Reschedule(ctx Ctx, tx Tx, e OutboxEntry, delay time.Duration, lastError string) error&lt;br&gt;+ MarkExhausted(ctx Ctx, tx Tx, e OutboxEntry, lastError string) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-23">
+          <mxGeometry y="62" width="590" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-08" value="«interface»&lt;br&gt;&lt;b&gt;IUnitOfWork&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="465" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-25" value="«interface»&lt;br&gt;&lt;b&gt;Tx&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1790" y="465" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-16" value="«interface»&lt;br&gt;&lt;b&gt;IHolderRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="465" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-17" value="«interface»&lt;br&gt;&lt;b&gt;ISeatHoldRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2440" y="465" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-18" value="«interface»&lt;br&gt;&lt;b&gt;ISeatStatusRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-19" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentTransactionRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-20" value="«interface»&lt;br&gt;&lt;b&gt;IBookingRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-21" value="«interface»&lt;br&gt;&lt;b&gt;IRefundRequestRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-11" value="«interface»&lt;br&gt;&lt;b&gt;IShowtimeRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-12" value="«interface»&lt;br&gt;&lt;b&gt;IPriceListRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1490" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-13" value="«interface»&lt;br&gt;&lt;b&gt;ICinemaRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1810" y="695" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-139" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgUnitOfWork" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="260" y="198" /><mxPoint x="1492.5" y="198" /><mxPoint x="1492.5" y="450" /><mxPoint x="1710" y="450" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-140" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTx" target="IF-25">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="660" y="490" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-142" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgSeatEventStore" target="IF-22">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1500" y="330" /><mxPoint x="1500" y="452.5" /><mxPoint x="420" y="452.5" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-143" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="DC-PgOutboxStore" target="IF-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-144" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-16">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="240" /><mxPoint x="1780" y="240" /><mxPoint x="1780" y="450" /><mxPoint x="2270" y="450" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-145" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-17">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="455" /><mxPoint x="2425" y="455" /><mxPoint x="2425" y="490" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-146" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-18">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-15" y="330" /><mxPoint x="-15" y="720" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-147" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-19">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-5" y="330" /><mxPoint x="-5" y="685" /><mxPoint x="305" y="685" /><mxPoint x="305" y="720" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-148" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-20">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="420" /><mxPoint x="810" y="420" /><mxPoint x="810" y="680" /><mxPoint x="710" y="680" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-149" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-21">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="240" /><mxPoint x="-10" y="240" /><mxPoint x="-10" y="652.5" /><mxPoint x="865" y="652.5" /><mxPoint x="865" y="720" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-150" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="IF-11">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1425" y="330" /><mxPoint x="1425" y="435" /><mxPoint x="1590" y="435" /><mxPoint x="1590" y="685" /><mxPoint x="1445" y="685" /><mxPoint x="1445" y="720" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-151" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="IF-12">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="388" /><mxPoint x="1830" y="388" /><mxPoint x="1830" y="680" /><mxPoint x="1600" y="680" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-152" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="IF-13">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1480" y="330" /><mxPoint x="1480" y="415" /><mxPoint x="1920" y="415" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-153" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PgUnitOfWork" target="DC-ConnectionPools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-154" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="DC-ConnectionPools">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="193" /><mxPoint x="1285" y="193" /><mxPoint x="1285" y="22" /><mxPoint x="1520" y="22" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-155" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="DC-ConnectionPools">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="272" /><mxPoint x="1520" y="272" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-156" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgSeatEventStore" target="DC-ConnectionPools">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1760" y="330" /><mxPoint x="1760" y="110" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-157" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PgOutboxStore" target="DC-ConnectionPools">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-158" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="DC-SeatEventWriter">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="410" /><mxPoint x="990" y="410" /><mxPoint x="990" y="383" /><mxPoint x="1420" y="383" /><mxPoint x="1420" y="277" /><mxPoint x="1840" y="277" /><mxPoint x="1840" y="80" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-159" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;startArrow=diamondThin;startFill=1;" edge="1" parent="1" source="DC-PgTx" target="DC-LockOrderGuard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-159-s" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-159">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+        <mxCell id="R-159-d" value="guard 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-159">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

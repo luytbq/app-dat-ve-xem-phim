@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-04" name="ST-04 Yêu cầu hoàn tiền">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-04-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="166" y="40" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-C1" value="requestType = TICKET_CASH?" style="rhombus;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="104" y="110" width="164" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-S4" value="&lt;b&gt;Đã hoàn&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="514.2" y="519" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-S1" value="&lt;b&gt;Mới&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="126" y="226" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-S2" value="&lt;b&gt;Đang chờ kết quả&lt;/b&gt;&lt;br&gt;entry / attemptCount++&lt;br&gt;do / chờ cổng tối đa 30 giây (ngoài giao dịch CSDL)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="85" y="325" width="202" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-S3" value="&lt;b&gt;Chờ gửi lại&lt;/b&gt;&lt;br&gt;do / hẹn lại sau 1, 5, 15 phút (hàng đợi gửi)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="101" y="511" width="170" height="66" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-S5" value="&lt;b&gt;Cần xử lý thủ công&lt;/b&gt;&lt;br&gt;entry / ghi log lỗi khoản hoàn" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1">
+          <mxGeometry x="80" y="671" width="212" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ST-04-T1" value="create(requestType, amount)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-I" target="ST-04-C1">
+          <mxGeometry relative="1" as="geometry" x="-0.03"><mxPoint x="97.88" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T2" value=" [requestType = TICKET_CASH]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-C1" target="ST-04-S4">
+          <mxGeometry relative="1" as="geometry" x="-0.83"><Array as="points"><mxPoint x="574.2" y="153" /></Array><mxPoint x="0" y="-19" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T3" value=" [else]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-C1" target="ST-04-S1">
+          <mxGeometry relative="1" as="geometry" x="-0.03"><mxPoint x="26.37" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T4" value="beginAttempt()" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S1" target="ST-04-S2">
+          <mxGeometry relative="1" as="geometry" x="-0.41"><mxPoint x="55.28" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T5" value="beginAttempt() [findRefund cho biết NOT_REFUNDED]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S3" target="ST-04-S2">
+          <mxGeometry relative="1" as="geometry" x="-0.76"><Array as="points"><mxPoint x="502.2" y="544" /><mxPoint x="502.2" y="313" /><mxPoint x="186" y="313" /></Array><mxPoint x="0" y="-19" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T6" value="recordResult(SUCCEEDED) / xếp email hoàn tiền (trong cùng giao dịch ghi kết quả)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S2" target="ST-04-S4">
+          <mxGeometry relative="1" as="geometry" x="-0.57"><Array as="points"><mxPoint x="574.2" y="365" /></Array><mxPoint x="0" y="-26.5" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T7" value="recordResult(REJECTED hoặc UNKNOWN) [attemptCount &lt; MaxAttempts] / hẹn lại" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S2" target="ST-04-S3">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="96.68" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T8" value="recordResult(REJECTED hoặc UNKNOWN) [attemptCount &gt;= MaxAttempts] / ghi log lỗi" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S2" target="ST-04-S5">
+          <mxGeometry relative="1" as="geometry" x="-0.92"><Array as="points"><mxPoint x="135.5" y="487" /><mxPoint x="490.2" y="487" /><mxPoint x="490.2" y="659" /><mxPoint x="186" y="659" /></Array><mxPoint x="-87.71" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T9" value="markManualRequired(reason) [không tra cứu được kết quả hoàn] / ghi log lỗi" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S2" target="ST-04-S5">
+          <mxGeometry relative="1" as="geometry" x="-0.54"><Array as="points"><mxPoint x="236.5" y="499" /><mxPoint x="490.2" y="499" /><mxPoint x="490.2" y="659" /><mxPoint x="186" y="659" /></Array><mxPoint x="0" y="-64.5" as="offset" /></mxGeometry>
+        </mxCell>
+        <mxCell id="ST-04-T10" value="markManualRequired(reason) [findRefund trả NOT_SUPPORTED hoặc UNREACHABLE] / ghi log lỗi" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-04-S3" target="ST-04-S5">
+          <mxGeometry relative="1" as="geometry" x="-0.21"><mxPoint x="93.03" y="0" as="offset" /></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

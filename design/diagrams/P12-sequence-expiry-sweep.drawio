@@ -1,0 +1,154 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="SQ-03" name="Dọn hết hạn và giải phóng ghế EX-04, EX-05 (UC-005)">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1354" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="SQ-03-L1" value=":JobLoop (SS-04)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L2" value=":HoldExpiryJob (IF-06)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="260" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L3" value=":SeatReleaseJob (IF-06)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="480" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L4" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L5" value=":PgTicketingStore (IF-17, IF-18)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="920" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L6" value=":PgSeatEventStore (IF-22)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-L7" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="1360" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-N1" value="SeatHold.Expire(now) từng dòng" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="434" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-F2" value="tx (pool nền 5 kết nối): một giao dịch mỗi lô" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="262" width="1512" height="316" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-F1" value="loop đến khi lô ít hơn 200 hoặc hết budget" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="14" y="192" width="1532" height="396" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-N2" value="SeatStatus.ReleaseHold(holdId): chỉ đổi khi currentHold còn khớp" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="540" y="956" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-F4" value="tx: khoá cả lô hạng 5 rồi cả lô hạng 6, không xen kẽ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="740" width="1512" height="404" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-F3" value="loop đến khi lô ít hơn 200 hoặc hết budget" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="14" y="670" width="1532" height="484" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-N3" value="Hai bản backend quét chồng hoặc một ghế vừa được giữ lại cho lần giữ ghế khác: SKIP LOCKED chia lô, điều kiện current_hold_id không khớp nên không đổi gì" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1162" width="1260" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="SQ-03-M1" value="1: RunDue(ctx, 8 s) [mỗi 10 giây, không chạy chồng]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="170" as="sourcePoint" />
+            <mxPoint x="340" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M2" value="2: Do(BackgroundTx(&quot;ExpireBatch&quot;), fn)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="240" as="sourcePoint" />
+            <mxPoint x="780" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M3" value="3: LockExpiredBatch(200) [hạng 5 X, SKIP LOCKED, mã tăng dần]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="310" as="sourcePoint" />
+            <mxPoint x="1000" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M4" value="4: chọn mã ứng viên expiry_time đã qua; SELECT ... ORDER BY id FOR NO KEY UPDATE SKIP LOCKED" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="354" as="sourcePoint" />
+            <mxPoint x="1440" y="354" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M5" value="5: tx.Now() [sau khi có khoá]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="398" as="sourcePoint" />
+            <mxPoint x="780" y="398" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M6" value="6: UpdateStatus (chỉ khi còn Đang giữ)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="496" as="sourcePoint" />
+            <mxPoint x="1000" y="496" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M7" value="7: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="540" as="sourcePoint" />
+            <mxPoint x="1440" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M8" value="8: DeleteOlderThan(10 phút, 200) [dọn seat_event]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="604" as="sourcePoint" />
+            <mxPoint x="1220" y="604" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M9" value="9: RunDue(ctx, 8 s)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="648" as="sourcePoint" />
+            <mxPoint x="560" y="648" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M10" value="10: Do(BackgroundTx(&quot;ReleaseBatch&quot;), fn)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="718" as="sourcePoint" />
+            <mxPoint x="780" y="718" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M11" value="11: LockReleasableBatch(200) [hạng 5 X, SKIP LOCKED]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="788" as="sourcePoint" />
+            <mxPoint x="1000" y="788" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M12" value="12: SELECT lần giữ ghế ở trạng thái cuối khác COMPLETED còn ghế trỏ tới" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="832" as="sourcePoint" />
+            <mxPoint x="1440" y="832" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M13" value="13: LockByHolds(holdIds) [hạng 6 X, ORDER BY suất chiếu, ghế]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="876" as="sourcePoint" />
+            <mxPoint x="1000" y="876" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M14" value="14: SELECT seat_status WHERE current_hold_id IN (...) FOR NO KEY UPDATE" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="920" as="sourcePoint" />
+            <mxPoint x="1440" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M15" value="15: SaveChanges(ghế đã đổi)" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="1018" as="sourcePoint" />
+            <mxPoint x="1000" y="1018" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M16" value="16: UPDATE seat_status theo khoá chính của các ghế đã khoá; INSERT seat_event mỗi suất chiếu" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1000" y="1062" as="sourcePoint" />
+            <mxPoint x="1440" y="1062" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="SQ-03-M17" value="17: COMMIT" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="780" y="1106" as="sourcePoint" />
+            <mxPoint x="1440" y="1106" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

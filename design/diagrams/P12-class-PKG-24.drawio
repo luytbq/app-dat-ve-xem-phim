@@ -1,0 +1,133 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P12-class-PKG-24" name="P12 Lớp PKG-24 SeatEventHub">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IF-04" value="«interface»&lt;br&gt;&lt;b&gt;ISeatEventSubscription&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="39" width="640" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-04-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-04">
+          <mxGeometry y="40" width="640" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-04-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-04">
+          <mxGeometry y="52" width="640" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-04-ops" value="+ Subscribe(ctx Ctx, showtimeId ShowtimeId, afterEventId EventId) (SeatEventSubscription, error)&lt;br&gt;+ Unsubscribe(subscriptionId string)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-04">
+          <mxGeometry y="62" width="640" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventHubManager" value="«service»&lt;br&gt;&lt;b&gt;SeatEventHubManager&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="29" width="640" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventHubManager-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventHubManager">
+          <mxGeometry y="40" width="640" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventHubManager-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatEventHubManager">
+          <mxGeometry y="52" width="640" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventHubManager-ops" value="+ Subscribe(ctx Ctx, showtimeId ShowtimeId, afterEventId EventId) (SeatEventSubscription, error)&lt;br&gt;+ Unsubscribe(subscriptionId string)&lt;br&gt;+ Start(ctx Ctx) error&lt;br&gt;+ Stop()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventHubManager">
+          <mxGeometry y="62" width="640" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventPoller" value="«service»&lt;br&gt;&lt;b&gt;SeatEventPoller&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1445" y="45" width="410" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventPoller-attr" value="&lt;u&gt;- period: time.Duration = 500 * time.Millisecond {readOnly}&lt;/u&gt;&lt;br&gt;- now: func() time.Time = time.Now" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventPoller">
+          <mxGeometry y="40" width="410" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventPoller-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatEventPoller">
+          <mxGeometry y="80" width="410" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatEventPoller-ops" value="~ Run(ctx Ctx)&lt;br&gt;- pollOnce(ctx Ctx) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatEventPoller">
+          <mxGeometry y="90" width="410" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReplayReader" value="«service»&lt;br&gt;&lt;b&gt;SeatReplayReader&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1915" y="41" width="550" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReplayReader-attr" value="&lt;u&gt;- overlap: time.Duration = 5 * time.Second {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatReplayReader">
+          <mxGeometry y="40" width="550" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReplayReader-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatReplayReader">
+          <mxGeometry y="64" width="550" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReplayReader-ops" value="~ Replay(ctx Ctx, q *SubscriberQueue, showtimeId ShowtimeId, cursor EventId) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatReplayReader">
+          <mxGeometry y="74" width="550" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberRegistry" value="«utility»&lt;br&gt;&lt;b&gt;SubscriberRegistry&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="257" width="380" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberRegistry-attr" value="- byShowtime: map[ShowtimeId]map[string]SubscriberQueue" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SubscriberRegistry">
+          <mxGeometry y="40" width="380" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberRegistry-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SubscriberRegistry">
+          <mxGeometry y="64" width="380" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberRegistry-ops" value="~ Add(showtimeId ShowtimeId) (string, *SubscriberQueue)&lt;br&gt;~ Remove(subscriptionId string)&lt;br&gt;~ QueuesOf(showtimeId ShowtimeId) []*SubscriberQueue&lt;br&gt;~ CloseAll(reason CloseReason)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SubscriberRegistry">
+          <mxGeometry y="74" width="380" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberQueue" value="«utility»&lt;br&gt;&lt;b&gt;SubscriberQueue&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="257" width="290" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberQueue-attr" value="- items: chan SeatStreamItem {cap = 256}&lt;br&gt;- closed: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SubscriberQueue">
+          <mxGeometry y="40" width="290" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberQueue-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SubscriberQueue">
+          <mxGeometry y="80" width="290" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SubscriberQueue-ops" value="~ Offer(item SeatStreamItem) bool&lt;br&gt;~ Items() &lt;-chan SeatStreamItem&lt;br&gt;~ Close(reason CloseReason)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SubscriberQueue">
+          <mxGeometry y="90" width="290" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-EmittedEventTracker" value="«utility»&lt;br&gt;&lt;b&gt;EmittedEventTracker&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="830" y="249" width="300" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-EmittedEventTracker-attr" value="- emitted: map[EventId]time.Time&lt;br&gt;- mark: EventId = 0" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-EmittedEventTracker">
+          <mxGeometry y="40" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-EmittedEventTracker-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-EmittedEventTracker">
+          <mxGeometry y="80" width="300" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-EmittedEventTracker-ops" value="~ WasEmitted(id EventId) bool&lt;br&gt;~ Record(e SeatChangeEvent, now time.Time)&lt;br&gt;~ AdvanceMark(now time.Time)&lt;br&gt;~ Mark() EventId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-EmittedEventTracker">
+          <mxGeometry y="90" width="300" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22" value="«interface»&lt;br&gt;&lt;b&gt;ISeatEventStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="255" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-126" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="DC-SeatEventHubManager" target="IF-04">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-127" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventHubManager" target="DC-SubscriberRegistry">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="725" y="110" /><mxPoint x="725" y="242" /><mxPoint x="230" y="242" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-128" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventHubManager" target="DC-SeatReplayReader">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1060" y="14" /><mxPoint x="1900" y="14" /><mxPoint x="1900" y="90" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-129" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-SeatEventHubManager" target="DC-SeatEventPoller">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-130" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventPoller" target="DC-SubscriberRegistry">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1650" y="19" /><mxPoint x="690" y="19" /><mxPoint x="690" y="247" /><mxPoint x="425" y="247" /><mxPoint x="425" y="418" /><mxPoint x="230" y="418" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-131" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventPoller" target="DC-EmittedEventTracker">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1650" y="330" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-132" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatEventPoller" target="IF-22">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1430" y="110" /><mxPoint x="1430" y="240" /><mxPoint x="1300" y="240" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-133" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatReplayReader" target="IF-22">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2190" y="280" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-134" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;startArrow=diamondThin;startFill=1;" edge="1" parent="1" source="DC-SubscriberRegistry" target="DC-SubscriberQueue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-134-s" value="1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-134">
+          <mxGeometry x="-0.8" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+        <mxCell id="R-134-d" value="queues 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-134">
+          <mxGeometry x="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,168 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P12-class-PKG-22" name="P12 Lớp PKG-22 PaymentGatewayClient">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="IF-01" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentGateway&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="41" width="760" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-01-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-01">
+          <mxGeometry y="40" width="760" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-01-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-01">
+          <mxGeometry y="52" width="760" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-01-ops" value="+ CreatePaymentTransaction(transactionId string, holdReference string, amount int64, expiresAt time.Time, customerAddress string) (string, error)&lt;br&gt;+ RequestRefund(ctx Ctx, refundKey string, transactionId string, paidAt time.Time, originalAmount int64, refundAmount int64) (RefundOutcome, error)&lt;br&gt;+ FindRefund(ctx Ctx, refundKey string, transactionId string, paidAt time.Time) (RefundLookup, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-01">
+          <mxGeometry y="62" width="760" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-02" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentReportReceiver&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="865" y="37" width="530" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-02-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-02">
+          <mxGeometry y="40" width="530" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-02-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-02">
+          <mxGeometry y="52" width="530" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-02-ops" value="+ ReportTransactionResult(parameters map[string]string) (PaymentReport, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-02">
+          <mxGeometry y="62" width="530" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentGatewayManager" value="«service»&lt;br&gt;&lt;b&gt;PaymentGatewayManager&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="41" width="760" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentGatewayManager-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentGatewayManager">
+          <mxGeometry y="40" width="760" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentGatewayManager-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PaymentGatewayManager">
+          <mxGeometry y="52" width="760" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentGatewayManager-ops" value="+ CreatePaymentTransaction(transactionId string, holdReference string, amount int64, expiresAt time.Time, customerAddress string) (string, error)&lt;br&gt;+ RequestRefund(ctx Ctx, refundKey string, transactionId string, paidAt time.Time, originalAmount int64, refundAmount int64) (RefundOutcome, error)&lt;br&gt;+ FindRefund(ctx Ctx, refundKey string, transactionId string, paidAt time.Time) (RefundLookup, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentGatewayManager">
+          <mxGeometry y="62" width="760" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportReceiver" value="«service»&lt;br&gt;&lt;b&gt;PaymentReportReceiver&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="247" width="530" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportReceiver-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentReportReceiver">
+          <mxGeometry y="40" width="530" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportReceiver-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-PaymentReportReceiver">
+          <mxGeometry y="52" width="530" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-PaymentReportReceiver-ops" value="+ ReportTransactionResult(parameters map[string]string) (PaymentReport, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentReportReceiver">
+          <mxGeometry y="62" width="530" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayUrlBuilder" value="«utility»&lt;br&gt;&lt;b&gt;VnpayUrlBuilder&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="241" width="760" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayUrlBuilder-attr" value="- now: func() time.Time = time.Now" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayUrlBuilder">
+          <mxGeometry y="40" width="760" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayUrlBuilder-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-VnpayUrlBuilder">
+          <mxGeometry y="64" width="760" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayUrlBuilder-ops" value="~ BuildPaymentURL(transactionId string, holdReference string, amount int64, expiresAt time.Time, customerAddress string) (string, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayUrlBuilder">
+          <mxGeometry y="74" width="760" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayRefundClient" value="«service»&lt;br&gt;&lt;b&gt;VnpayRefundClient&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="211" width="760" height="178" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayRefundClient-attr" value="- httpClient: http.Client {timeout = 30s}&lt;br&gt;- now: func() time.Time = time.Now" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayRefundClient">
+          <mxGeometry y="40" width="760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayRefundClient-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-VnpayRefundClient">
+          <mxGeometry y="80" width="760" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayRefundClient-ops" value="~ Refund(ctx Ctx, refundKey string, transactionId string, paidAt time.Time, originalAmount int64, refundAmount int64) (RefundOutcome, error)&lt;br&gt;~ Query(ctx Ctx, refundKey string, transactionId string, paidAt time.Time) (RefundLookup, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayRefundClient">
+          <mxGeometry y="90" width="760" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpaySigner" value="«utility»&lt;br&gt;&lt;b&gt;VnpaySigner&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="449" width="390" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpaySigner-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpaySigner">
+          <mxGeometry y="40" width="390" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpaySigner-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-VnpaySigner">
+          <mxGeometry y="52" width="390" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpaySigner-ops" value="~ Sign(params map[string]string) string&lt;br&gt;~ Verify(params map[string]string, signature string) bool" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpaySigner">
+          <mxGeometry y="62" width="390" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayReportDecoder" value="«utility»&lt;br&gt;&lt;b&gt;VnpayReportDecoder&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="495" y="457" width="390" height="86" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayReportDecoder-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayReportDecoder">
+          <mxGeometry y="40" width="390" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayReportDecoder-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-VnpayReportDecoder">
+          <mxGeometry y="52" width="390" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-VnpayReportDecoder-ops" value="~ Decode(params map[string]string) (PaymentReport, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-VnpayReportDecoder">
+          <mxGeometry y="62" width="390" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-GatewayConfig" value="«utility»&lt;br&gt;&lt;b&gt;GatewayConfig&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="940" y="451" width="320" height="178" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-GatewayConfig-attr" value="- merchantCode: string&lt;br&gt;- hashSecret: string {secret}&lt;br&gt;- paymentPageUrl: string&lt;br&gt;- apiUrl: string&lt;br&gt;- returnUrl: string&lt;br&gt;- supportsRefundLookup: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-GatewayConfig">
+          <mxGeometry y="40" width="320" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-GatewayConfig-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-GatewayConfig">
+          <mxGeometry y="144" width="320" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-GatewayConfig-ops" value="&lt;u&gt;+ LoadGatewayConfig() (*GatewayConfig, error)&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-GatewayConfig">
+          <mxGeometry y="154" width="320" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-RefundService" value="«service»&lt;br&gt;&lt;b&gt;RefundService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="445" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-114" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentGatewayManager" target="IF-01">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1435" y="100" /><mxPoint x="1435" y="133" /><mxPoint x="815" y="133" /><mxPoint x="815" y="100" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-115" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportReceiver" target="IF-02">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="590" y="290" /><mxPoint x="590" y="169" /><mxPoint x="850" y="169" /><mxPoint x="850" y="80" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-116" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PaymentGatewayManager" target="DC-VnpayUrlBuilder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-117" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PaymentGatewayManager" target="DC-VnpayRefundClient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-118" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentGatewayManager" target="DC-GatewayConfig">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1830" y="26" /><mxPoint x="1405" y="26" /><mxPoint x="1405" y="436" /><mxPoint x="1100" y="436" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-119" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-VnpayUrlBuilder" target="DC-VnpaySigner">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-120" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-VnpayUrlBuilder" target="DC-GatewayConfig">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-121" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-VnpayRefundClient" target="DC-VnpaySigner">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1435" y="300" /><mxPoint x="1435" y="394" /><mxPoint x="450" y="394" /><mxPoint x="450" y="500" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-122" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-VnpayRefundClient" target="DC-GatewayConfig">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1830" y="540" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-123" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-PaymentReportReceiver" target="DC-VnpaySigner">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-124" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PaymentReportReceiver" target="DC-VnpayReportDecoder">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="310" y="348" /><mxPoint x="480" y="348" /><mxPoint x="480" y="500" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-125" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-VnpaySigner" target="DC-GatewayConfig">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="240" y="566" /><mxPoint x="925" y="566" /><mxPoint x="925" y="540" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-18" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-RefundService" target="IF-01">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1305" y="470" /><mxPoint x="1305" y="349" /><mxPoint x="585" y="349" /><mxPoint x="585" y="174" /><mxPoint x="420" y="174" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-18-s" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-18">
+          <mxGeometry x="-0.9" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+        <mxCell id="R-18-d" value="gateway 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-18">
+          <mxGeometry x="0.9" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

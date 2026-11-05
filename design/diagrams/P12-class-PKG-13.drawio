@@ -1,0 +1,166 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="P12-class-PKG-13" name="P12 Lớp PKG-13 SeatBooking">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DC-BookTicketsService" value="«service»&lt;br&gt;&lt;b&gt;BookTicketsService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="39" width="680" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-BookTicketsService-attr" value="&lt;u&gt;- maxSeats: int = 8 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-BookTicketsService">
+          <mxGeometry y="40" width="680" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-BookTicketsService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-BookTicketsService">
+          <mxGeometry y="64" width="680" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-BookTicketsService-ops" value="+ HoldSeats(ctx Ctx, req HoldSeatsRequest) (HoldResult, error)&lt;br&gt;+ GetHold(ctx Ctx, holdId SeatHoldId, by HolderRef) (HoldResult, error)&lt;br&gt;+ CancelHold(ctx Ctx, holdId SeatHoldId, by HolderRef) error&lt;br&gt;+ StartOnlinePayment(ctx Ctx, holdId SeatHoldId, by HolderRef, clientIp string) (PaymentStart, error)&lt;br&gt;+ ConfirmCashReceived(ctx Ctx, holdId SeatHoldId, clerk HolderRef) (BookingView, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-BookTicketsService">
+          <mxGeometry y="74" width="680" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatMapService" value="«service»&lt;br&gt;&lt;b&gt;SeatMapService&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="785" y="39" width="570" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatMapService-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatMapService">
+          <mxGeometry y="40" width="570" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatMapService-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatMapService">
+          <mxGeometry y="52" width="570" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatMapService-ops" value="+ GetSnapshot(ctx Ctx, showtimeId ShowtimeId) (SeatSnapshot, error)&lt;br&gt;+ OpenStream(ctx Ctx, showtimeId ShowtimeId, afterEventId EventId) (SseStream, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatMapService">
+          <mxGeometry y="62" width="570" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldExpiryJob" value="«service»&lt;br&gt;&lt;b&gt;HoldExpiryJob&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="37" width="420" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldExpiryJob-attr" value="&lt;u&gt;- batchSize: int = 200 {readOnly}&lt;/u&gt;&lt;br&gt;&lt;u&gt;- eventRetention: time.Duration = 10 * time.Minute {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-HoldExpiryJob">
+          <mxGeometry y="40" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldExpiryJob-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-HoldExpiryJob">
+          <mxGeometry y="80" width="420" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldExpiryJob-ops" value="+ RunDue(ctx Ctx, budget time.Duration) (JobRunResult, error)&lt;br&gt;- expireBatch(ctx Ctx) (int, error)&lt;br&gt;- cleanupEvents(ctx Ctx) (int, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-HoldExpiryJob">
+          <mxGeometry y="90" width="420" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReleaseJob" value="«service»&lt;br&gt;&lt;b&gt;SeatReleaseJob&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1890" y="45" width="420" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReleaseJob-attr" value="&lt;u&gt;- batchSize: int = 200 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatReleaseJob">
+          <mxGeometry y="40" width="420" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReleaseJob-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-SeatReleaseJob">
+          <mxGeometry y="64" width="420" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-SeatReleaseJob-ops" value="+ RunDue(ctx Ctx, budget time.Duration) (JobRunResult, error)&lt;br&gt;~ releaseSeatsOf(ctx Ctx, holdId SeatHoldId) error&lt;br&gt;- releaseBatch(ctx Ctx) (int, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatReleaseJob">
+          <mxGeometry y="74" width="420" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-08" value="«interface»&lt;br&gt;&lt;b&gt;IUnitOfWork&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2370" y="45" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-11" value="«interface»&lt;br&gt;&lt;b&gt;IShowtimeRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-12" value="«interface»&lt;br&gt;&lt;b&gt;IPriceListRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-13" value="«interface»&lt;br&gt;&lt;b&gt;ICinemaRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-16" value="«interface»&lt;br&gt;&lt;b&gt;IHolderRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-17" value="«interface»&lt;br&gt;&lt;b&gt;ISeatHoldRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-18" value="«interface»&lt;br&gt;&lt;b&gt;ISeatStatusRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-19" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentTransactionRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1720" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-20" value="«interface»&lt;br&gt;&lt;b&gt;IBookingRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2000" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-24" value="«interface»&lt;br&gt;&lt;b&gt;ICodeGenerator&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="285" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-01" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentGateway&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="415" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-22" value="«interface»&lt;br&gt;&lt;b&gt;ISeatEventStore&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="415" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-04" value="«interface»&lt;br&gt;&lt;b&gt;ISeatEventSubscription&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="415" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-06" value="«interface»&lt;br&gt;&lt;b&gt;IScheduledJob&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="415" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-65" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="24" /><mxPoint x="2480" y="24" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-66" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-67" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-68" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-69" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-16">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="216" /><mxPoint x="865" y="216" /><mxPoint x="865" y="310" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-70" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-17">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="25" y="120" /><mxPoint x="25" y="350" /><mxPoint x="1270" y="350" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-71" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-18">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="216" /><mxPoint x="310" y="216" /><mxPoint x="310" y="475" /><mxPoint x="1550" y="475" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-72" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-19">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="735" y="120" /><mxPoint x="735" y="211" /><mxPoint x="1150" y="211" /><mxPoint x="1150" y="345" /><mxPoint x="1830" y="345" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-73" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-20">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="380" y="28" /><mxPoint x="1880" y="28" /><mxPoint x="1880" y="270" /><mxPoint x="2110" y="270" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-74" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-24">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="735" y="120" /><mxPoint x="735" y="27" /><mxPoint x="2360" y="27" /><mxPoint x="2360" y="270" /><mxPoint x="2390" y="270" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-75" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="IF-01">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="27.5" y="120" /><mxPoint x="27.5" y="440" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-76" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BookTicketsService" target="DC-SeatReleaseJob">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="775" y="120" /><mxPoint x="775" y="25.5" /><mxPoint x="2100" y="25.5" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-77" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatMapService" target="IF-22">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="780" y="90" /><mxPoint x="780" y="275" /><mxPoint x="555" y="275" /><mxPoint x="555" y="440" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-78" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatMapService" target="IF-04">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1070" y="156" /><mxPoint x="870" y="156" /><mxPoint x="870" y="440" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-79" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-HoldExpiryJob" target="IF-08">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1845" y="110" /><mxPoint x="1845" y="35" /><mxPoint x="2365" y="35" /><mxPoint x="2365" y="110" /><mxPoint x="2480" y="110" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-80" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-HoldExpiryJob" target="IF-17">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1395" y="110" /><mxPoint x="1395" y="310" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-81" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-HoldExpiryJob" target="IF-22">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1620" y="198" /><mxPoint x="1110" y="198" /><mxPoint x="1110" y="400" /><mxPoint x="430" y="400" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-82" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="DC-SeatReleaseJob" target="IF-08">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-83" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatReleaseJob" target="IF-17">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2100" y="190" /><mxPoint x="1840" y="190" /><mxPoint x="1840" y="270" /><mxPoint x="1270" y="270" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-84" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatReleaseJob" target="IF-18">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2325" y="110" /><mxPoint x="2325" y="275" /><mxPoint x="1675" y="275" /><mxPoint x="1675" y="310" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-111" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-HoldExpiryJob" target="IF-06">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1390" y="110" /><mxPoint x="1390" y="440" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-112" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatReleaseJob" target="IF-06">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1875" y="110" /><mxPoint x="1875" y="243" /><mxPoint x="1112.5" y="243" /><mxPoint x="1112.5" y="372.5" /><mxPoint x="990" y="372.5" /></Array></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
