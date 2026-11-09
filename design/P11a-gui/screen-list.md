@@ -5,7 +5,7 @@
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
 | Phiên bản | 1.3 |
 | Thay đổi 1.3 | Cập nhật dải MSG đã cấp đến MSG-83 và dải luồng 8a-8f của SCR-20; đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.8; P04-uc-specs UC-005 1.11, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4; P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.4 (F3); P09-architecture.md 1.5 (F5, F7.5, F7.6); P10-design-elements.md 1.4 (F3, F4); ui-standards.md 1.3; SCR-01 đến SCR-20 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.8; P04-uc-specs UC-005 1.11, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4; P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.5 (F3); P09-architecture.md 1.5 (F5, F7.5, F7.6); P10-design-elements.md 1.4 (F3, F4); ui-standards.md 1.3; SCR-01 đến SCR-20 |
 | Phạm vi | Toàn hệ thống: UC-005, UC-008, UC-009, UC-013, UC-014 và màn hình đăng nhập. UC-006 không có màn hình (tác nhân chính là cổng thanh toán) |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-83 |
 

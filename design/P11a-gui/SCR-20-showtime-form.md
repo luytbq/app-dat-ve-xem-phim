@@ -5,7 +5,7 @@
 | Bước | P11a (giai đoạn 2) |
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | Thêm luồng 8f và MSG-83: không đổi phòng của suất chiếu đã từng có vé (RF-02); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-014 1.4 (bước 2-9, luồng 1a4, 4a-6c, 8a-8f, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.4 (F3); P10-design-elements.md 1.4 (F3, F4) |
+| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-014 1.4 (bước 2-9, luồng 1a4, 4a-6c, 8a-8f, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.5 (F3); P10-design-elements.md 1.4 (F3, F4) |
 | Phạm vi | SCR-20 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 

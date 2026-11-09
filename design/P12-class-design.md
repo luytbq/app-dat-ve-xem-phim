@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P12 |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Ánh xạ // checkRoomChangeAllowed sang DC-Showtime, tách khỏi applyChanges để thống nhất với P07 và P08 |
 | Thay đổi 1.3 | ProcessRefund có hàng rào ExtendClaim, claim từng dòng, email hoàn tiền chỉ cho hoàn toàn bộ (RF-01, RF-03); TxOptions có hạn tổng cho HoldSeats (RF-05); seat_event ghi sau cùng (RF-12); BEING_RELEASED (RF-17); RecordFailure không lưu gatewayTransactionNo (RF-13); kiểm BR-92 cho lượt PKG-27 (RF-02); đóng Vấn đề còn mở 7 (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, CONG_NGHE đã chốt theo P09 F11); P05-glossary.md 1.1 (tên thuật ngữ); P06-supplementary-spec.md 1.3 (BR, NFR); P08-analysis-model.md 1.4 (F3, F4, F4b, F4c, Câu hỏi mở, Đề xuất sửa); P09-architecture.md 1.5 (F3 đến F7); P10-design-elements.md 1.4 (F1 đến F5, Đề xuất sửa, Vấn đề còn mở); P11b-system-interfaces.md 1.4 và SS-01 1.3, SS-03 1.2, SS-04 1.2, SS-05 1.1 (F2, F3, F5, Đề xuất sửa, Vấn đề còn mở 11). P07 và P04 không được đính kèm theo yêu cầu người dùng (Vấn đề còn mở 2) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, CONG_NGHE đã chốt theo P09 F11); P05-glossary.md 1.1 (tên thuật ngữ); P06-supplementary-spec.md 1.3 (BR, NFR); P08-analysis-model.md 1.5 (F3, F4, F4b, F4c, Câu hỏi mở, Đề xuất sửa); P09-architecture.md 1.5 (F3 đến F7); P10-design-elements.md 1.4 (F1 đến F5, Đề xuất sửa, Vấn đề còn mở); P11b-system-interfaces.md 1.4 và SS-01 1.3, SS-03 1.2, SS-04 1.2, SS-05 1.1 (F2, F3, F5, Đề xuất sửa, Vấn đề còn mở 11). P07 và P04 không được đính kèm theo yêu cầu người dùng (Vấn đề còn mở 2) |
 | Phạm vi | Lõi giữ ghế, thanh toán, huỷ vé, soát vé: PKG-12, PKG-13, PKG-14, PKG-15, PKG-21, PKG-22 (SS-01), PKG-24 (SS-03), PKG-25 (SS-04), PKG-26 (chỉ IF-07), PKG-28 và phần PKG-27 mà các UC-005, UC-008, UC-009 dùng (mục 0.1) |
 | Mã Q, ASM cuối đã cấp | Q-135; không có ASM (NGHIEM_NGAT) |
 
@@ -832,7 +833,7 @@ P07 không được đính kèm trong lần chạy này theo yêu cầu người
 | UC-005, UC-008, UC-009 | P08 | AC-C-BookTicketsController | DC-Showtime | // checkBelongsToCinema | DC-Showtime.BelongsToCinema(cinemaId CinemaId) bool |
 | UC-008 | P08 | AC-C-CancelTicketController | DC-Showtime | // checkCancellationDeadline | DC-Showtime.CheckCancellationDeadline(now time.Time) error |
 | UC-006, UC-009, UC-014 | P08 | AC-C-CheckTicketController | DC-Showtime | // provideShowtimeInfo | IF-11.FindInfo(ctx Ctx, id ShowtimeId) (ShowtimeInfo, error) và DC-Showtime.LastChangedAt(). Khác lớp nhận: dữ liệu hiển thị là mô hình đọc join |
-| UC-013, UC-014 | P08 | AC-E-Showtime | DC-Showtime | // checkUsesPriceEntry, // createShowtime, // checkSaleOpenBeforeStart, // calculateEndTime, // checkNotStarted, // checkNoActiveHoldOrSoldTicket, // applyChanges, // removeFromSchedule, // markDeleted | Lượt sau (PKG-27 và PKG-16). Khi thiết kế applyChanges: đổi phòng phải bị từ chối nếu suất chiếu từng có vé, kể cả vé đã huỷ (BR-92, P13 C-19), kiểm dưới khoá Ticket S hạng 8 và báo lỗi nghiệp vụ trước khi chạm khoá ngoại fk_ticket_seat_status |
+| UC-013, UC-014 | P08 | AC-E-Showtime | DC-Showtime | // checkUsesPriceEntry, // createShowtime, // checkSaleOpenBeforeStart, // calculateEndTime, // checkNotStarted, // checkNoActiveHoldOrSoldTicket, // checkRoomChangeAllowed, // applyChanges, // removeFromSchedule, // markDeleted | Lượt sau (PKG-27 và PKG-16). // checkRoomChangeAllowed là operation riêng của DC-Showtime, gọi trước applyChanges: đổi phòng phải bị từ chối nếu suất chiếu từng có vé, kể cả vé đã huỷ (BR-92, P13 C-19), kiểm dưới khoá Ticket S hạng 8 và báo lỗi nghiệp vụ trước khi chạm khoá ngoại fk_ticket_seat_status |
 | UC-005 | P08 | AC-E-Showtime | DC-PriceList | // determineSeatPrice | DC-PriceList.DetermineSeatPrice(q PriceQuery) (Money, error) |
 | UC-013, UC-014 | P08 | AC-E-PriceList | DC-PriceList | // providePriceEntries, // checkTicketPriceValid, // savePriceEntry, // checkEntryUnchangedSinceDisplayed, // findOrCreatePriceEntry, // removePriceEntry, // deletePriceEntry, // determineTimeBand, // checkCoversShowtime | Lượt sau (PKG-27 và PKG-16) |
 | UC-005 | P08 | AC-E-SeatStatus | DC-SeatMapService | // provideSeatStatus | DC-SeatMapService.GetSnapshot (SeatSnapshot.seats). Khác lớp nhận: ảnh chụp một câu SQL qua IF-22.Snapshot |

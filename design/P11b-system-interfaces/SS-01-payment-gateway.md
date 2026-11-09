@@ -5,7 +5,7 @@
 | Bước | P11b |
 | Phiên bản | 1.3 |
 | Thay đổi 1.3 | Hoàn tiền: claim từng dòng, hàng rào claim_token, thời gian xử lý tối đa 80 giây, rủi ro tiến trình bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (ACT-07); P04-uc-specs UC-005 1.11, UC-006 1.7, UC-008 1.7 (luồng thay thế, ngoại lệ có bước của cổng thanh toán); P06-supplementary-spec.md 1.3 (NFR-10, NFR-15, NFR-16, NFR-17); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới PaymentGateway); P08-analysis-model.md 1.4 (AC-B-PaymentGateway); P09-architecture.md 1.5 (F4, F6, F7.1, F7.6, F7.7, F11); P10-design-elements.md 1.4 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (ACT-07); P04-uc-specs UC-005 1.11, UC-006 1.7, UC-008 1.7 (luồng thay thế, ngoại lệ có bước của cổng thanh toán); P06-supplementary-spec.md 1.3 (NFR-10, NFR-15, NFR-16, NFR-17); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới PaymentGateway); P08-analysis-model.md 1.5 (AC-B-PaymentGateway); P09-architecture.md 1.5 (F4, F6, F7.1, F7.6, F7.7, F11); P10-design-elements.md 1.4 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-01 PaymentGateway (IF-01, IF-02) |
 | Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 

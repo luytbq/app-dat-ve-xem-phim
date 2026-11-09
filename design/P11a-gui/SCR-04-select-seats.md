@@ -5,7 +5,7 @@
 | Bước | P11a (giai đoạn 2) |
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | Thêm MSG-82 vào nhánh từ chối của nút Xác nhận chọn ghế (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-005 1.11 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.4 (F3); P10-design-elements.md 1.4 (F3, F4) |
+| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-005 1.11 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.5 (F3); P10-design-elements.md 1.4 (F3, F4) |
 | Phạm vi | SCR-04 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 

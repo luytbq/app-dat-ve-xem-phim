@@ -5,7 +5,7 @@
 | Bước | P10 |
 | Phiên bản | 1.4 |
 | Thay đổi 1.4 | EX-10 chỉ khoá RefundRequest X, email hoàn chỉ với hoàn toàn bộ (RF-03, RF-09); TxOptions có hạn tổng (RF-05); lý do BEING_RELEASED (RF-17); đóng Vấn đề còn mở 1 (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, CONG_NGHE đã chốt theo P09 F11); P01-actors.md 1.2 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P03-usecase-model.md 1.1 (bảng quan hệ, không có dòng extend); P05-glossary.md 1.1 (tra tên thuật ngữ); P06-supplementary-spec.md 1.3 (NFR về thay thế, bảo mật, giao tiếp ngoài); P08-analysis-model.md 1.4 (F3, F4, F4b, Câu hỏi mở, Giả định); P09-architecture.md 1.5 (F3 đến F8, F11, Câu hỏi mở, Vấn đề còn mở 8) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, CONG_NGHE đã chốt theo P09 F11); P01-actors.md 1.2 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P03-usecase-model.md 1.1 (bảng quan hệ, không có dòng extend); P05-glossary.md 1.1 (tra tên thuật ngữ); P06-supplementary-spec.md 1.3 (NFR về thay thế, bảo mật, giao tiếp ngoài); P08-analysis-model.md 1.5 (F3, F4, F4b, Câu hỏi mở, Giả định); P09-architecture.md 1.5 (F3 đến F8, F11, Câu hỏi mở, Vấn đề còn mở 8) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-118 (Q-116 đến Q-118 đã trả lời theo đề xuất review, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
 

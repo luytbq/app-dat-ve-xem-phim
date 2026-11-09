@@ -5,7 +5,7 @@
 | Bước | P09 |
 | Phiên bản | 1.5 |
 | Thay đổi 1.5 | F7.7: claim từng dòng, hàng rào claim_token ở giao dịch 1, hạn lời gọi cổng theo claimed_until, ca T5b, attemptCount của RefundRequest quyết định hết lượt (RF-01, RF-08); hạn tổng 1,8 giây cho giữ ghế (RF-05); cửa sổ chồng 10 giây và seat_event là câu ghi cuối (RF-07, RF-12); email hoàn tiền chỉ cho hoàn toàn bộ (RF-03); EX-10 bỏ hoàn tiền mặt (RF-09); EX-13 đổi phòng theo BR-92 (RF-02); thông điệp ghế đang được trả (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3 (Mục 2 đến 6, Câu hỏi mở); P08-analysis-model.md 1.4 (F1, F3, F4, F4b, F4c, Câu hỏi mở). Công nghệ do người dùng chốt trong yêu cầu chạy bước (xem F2.2) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (Mục 1, 2); P02-usecases.md 1.8 (Mục 4); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3 (Mục 2 đến 6, Câu hỏi mở); P08-analysis-model.md 1.5 (F1, F3, F4, F4b, F4c, Câu hỏi mở). Công nghệ do người dùng chốt trong yêu cầu chạy bước (xem F2.2) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-115 (Q-111 đến Q-115 đã chốt theo đề xuất review, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
 
