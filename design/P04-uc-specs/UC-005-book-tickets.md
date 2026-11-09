@@ -3,11 +3,12 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.11 |
+| Phiên bản | 1.12 |
+| Thay đổi 1.12 | Cấp Q-139 (đã trả lời) làm nguồn gốc của BR-93 và dẫn mã Q ở luồng 11a |
 | Thay đổi 1.11 | Thêm điều kiện giao dịch tạo sau cùng vào luồng 11a và BR-93 (review cuối RF-04); ghi rõ ngừng bán là ngừng nhận lần giữ ghế mới (RF-16); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-006-refund-late-payment.md 1.7, UC-008-cancel-ticket.md 1.7, UC-014-schedule-showtimes.md 1.4, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
 | Phạm vi | UC-005 |
-| Mã Q, ASM cuối đã cấp | Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-139 (cấp cho BR-93, đã trả lời); Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Thông tin chung
 
@@ -74,7 +75,7 @@
 | 9a5 | | Nhân viên quầy | In vé cho khách mua tại quầy. | Kết thúc use case (thành công) |
 | 10a | Cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch (BR-90); với cổng chỉ nhận địa chỉ thanh toán đã ký, không có lời gọi mạng khi tạo giao dịch nên luồng này xảy ra khi hệ thống lỗi trước lúc chuyển khách sang cổng | Hệ thống | Giữ nguyên lần giữ ghế và thông báo chưa tạo được thanh toán; thời điểm hết hạn giữ ghế không đổi, tới thời điểm đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b. | Quay lại bước 9 |
 | 10b | Khách quay về từ cổng thanh toán khi hệ thống chưa nhận kết quả giao dịch và lần giữ ghế còn Đang giữ | Hệ thống | Hiển thị đang xác nhận thanh toán và hỏi lại trạng thái giao dịch mỗi 2 giây, tối đa 60 giây. Nhận được kết quả trong thời gian đó thì xử lý như bước 11 (thành công --> bước 12, thất bại --> luồng 11a). Quá 60 giây chưa có kết quả thì báo chưa xác nhận được thanh toán, kiểm tra lại sau, và cho khách quay lại thanh toán; thời điểm hết hạn giữ ghế không đổi, tới đó mà chưa có thanh toán thành công thì kết thúc ở luồng 7b (Q-126). | Quay lại bước 9 |
-| 11a | Cổng thanh toán báo giao dịch thanh toán thất bại, và giao dịch đó là giao dịch tạo sau cùng của lần giữ ghế (BR-93) | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống và thông báo thanh toán không thành công. Nếu khách đã tạo giao dịch thanh toán mới hơn cho lần giữ ghế thì báo thất bại của giao dịch cũ chỉ được ghi nhận, lần giữ ghế và ghế giữ nguyên (BR-93). Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
+| 11a | Cổng thanh toán báo giao dịch thanh toán thất bại, và giao dịch đó là giao dịch tạo sau cùng của lần giữ ghế (BR-93, Q-139) | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống và thông báo thanh toán không thành công. Nếu khách đã tạo giao dịch thanh toán mới hơn cho lần giữ ghế thì báo thất bại của giao dịch cũ chỉ được ghi nhận, lần giữ ghế và ghế giữ nguyên (BR-93, Q-139). Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 | *a | Tại bất kỳ bước nào từ bước 8 đến trước bước 11, khách hoặc nhân viên quầy huỷ việc giữ ghế | Hệ thống | Giải phóng các ghế đang giữ về trạng thái trống. Giao dịch thành công mà cổng thanh toán báo về sau đó không tạo vé và được xử lý ở UC-006 (BR-15). | Kết thúc use case (thất bại) |
 
 ## 4. Luồng con
@@ -400,6 +401,7 @@ Partition P-ACT-01-02 dùng chung cho ACT-01 Khách và ACT-02 Nhân viên quầ
 | Q-119 | Đã trả lời (khách mở lại lần giữ ghế đang chạy bằng lối Tiếp tục thanh toán; không thêm màn hình; kết quả sau khi đóng tab xem qua email, lịch sử đặt vé chờ UC-007). Khi khách hoặc nhân viên quầy tải lại trang, đóng tab hoặc không quay lại từ cổng trong lúc còn lần giữ ghế (BR-04), mở lại lần giữ ghế đang chạy để thanh toán hoặc huỷ bằng cách nào? | Luồng 1a; BR-04 | UC-005 chỉ mô tả luồng liền mạch, không nêu quay lại lần giữ ghế đang chạy |
 | Q-126 | Đã trả lời (trang hiện đang xác nhận thanh toán, hỏi lại mỗi 2 giây, tối đa 60 giây; quá 60 giây báo chưa xác nhận được và cho quay lại thanh toán nếu lần giữ ghế còn Đang giữ; lần giữ ghế chạy tới hết hạn). Khi khách quay về từ cổng mà hệ thống chưa nhận kết quả, trang hiện gì và khách chờ tối đa bao lâu? | Luồng 10b | UC-005 không có luồng cho khách đã quay về mà chưa có kết quả |
 | Q-131 | Đã trả lời (một thông báo chung, không giới hạn số lần thử, không khoá tạm trong phạm vi đồ án; khoá tài khoản thuộc UC-017 chưa đặc tả). Khi email, số điện thoại hoặc mật khẩu sai ở luồng 5a2, hệ thống báo gì, cho nhập lại bao nhiêu lần, có khoá tạm không? | Luồng 5a2a | Luồng 5a2 chỉ nêu khách cung cấp thông tin rồi quay lại bước 5, không nêu trường hợp sai |
+| Q-139 | Đã trả lời (Theo BR-93: chỉ giao dịch tạo sau cùng của lần giữ ghế mới làm lần giữ ghế chuyển sang Thanh toán thất bại và giải phóng ghế; báo thất bại của giao dịch cũ khi khách đã có giao dịch mới hơn chỉ được ghi nhận, lần giữ ghế và ghế giữ nguyên), nguồn review P12 R12-05 và review cuối RF-04. Khi cổng báo thanh toán thất bại của một giao dịch cũ mà khách đã có giao dịch thanh toán mới hơn cho cùng lần giữ ghế thì hệ thống xử lý thế nào? | Luồng 11a; BR-93; BR-39, BR-86, BR-90 | Đề bài Mục 8 nói chung "cổng thanh toán báo thất bại thì giải phóng ghế", Mục 21 cho thử lại thanh toán nhưng không nêu báo thất bại của giao dịch cũ |
 
 ## Đề xuất sửa artifact trước
 
