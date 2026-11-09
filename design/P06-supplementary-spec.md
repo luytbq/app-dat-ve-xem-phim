@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P06 |
-| Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md; P02-usecases.md (Mục 4, Mục 5); P04-uc-specs/UC-005 1.9, UC-006 1.6, UC-008 1.5, UC-009 1.4, UC-013 1.2, UC-014 1.3; P04-uc-specs/_BR-register.md; P05-glossary.md 1.1; _review-P05-P06.md |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Thêm BR-92, BR-93 và cập nhật ma trận truy vết; đồng bộ BR-41, BR-45 với P04 (RF-14, RF-16); ghi công nghệ đã chốt ở P09 F11 (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8 (Mục 4, Mục 5); P04-uc-specs/UC-005 1.11, UC-006 1.7, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; _review-P05-P06.md |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-74 đến Q-80 đều đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -41,7 +42,7 @@ Tài liệu này gom yêu cầu chức năng dùng chung, yêu cầu phi chức 
 | NFR-13 | + Ràng buộc thiết kế / Không tương ứng trực tiếp | Chức năng soát vé không có cách nhập tay để soát vé khi camera không đọc được mã QR. | Kiểm tra chức năng soát vé: không tồn tại cách nhập tay để soát vé; mức đạt: không có | UC-009 | REQ-126 |
 | NFR-14 | + Ràng buộc thiết kế / Không tương ứng trực tiếp | Mã QR của vé không có định dạng quy định; hệ thống tự xác định vé từ mã QR. | Kiểm thử tích hợp: quét mã QR của một vé do UC-005 tạo, hệ thống xác định đúng vé từ mã; mức đạt: xác định đúng vé | UC-005, UC-009 | REQ-128 |
 
-Hồ sơ dự án ghi CONG_NGHE là "Chưa chốt" nên không có ràng buộc công nghệ nào được tạo từ trường đó.
+Lúc phân tích hồ sơ dự án ghi CONG_NGHE là "Chưa chốt" nên không có ràng buộc công nghệ nào được tạo từ trường đó (công nghệ được chốt sau ở P09 F11).
 
 ## 5. Giao tiếp ngoài
 
@@ -54,7 +55,7 @@ Hồ sơ dự án ghi CONG_NGHE là "Chưa chốt" nên không có ràng buộc 
 
 ## 6. Quy tắc nghiệp vụ
 
-Danh sách chính thức gồm 91 BR (BR-01 đến BR-91): 83 Hiệu lực, 3 Gộp (BR-16, BR-59, BR-75), 5 Loại. BR-74 đến BR-84 cấp mới ở P06 1.0; BR-85 đến BR-90 cấp ở P06 1.1 sau review P05, P06; BR-91 cấp ở UC-006 1.6.
+Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 Gộp (BR-16, BR-59, BR-75), 5 Loại. BR-74 đến BR-84 cấp mới ở P06 1.0; BR-85 đến BR-90 cấp ở P06 1.1 sau review P05, P06; BR-91 cấp ở UC-006 1.6; BR-92 cấp ở UC-014 1.4; BR-93 cấp ở UC-005 1.11.
 
 | BR | Quy tắc | Loại | Áp dụng cho UC | REQ | Trạng thái | Ghi chú |
 |---|---|---|---|---|---|---|
@@ -98,11 +99,11 @@ Danh sách chính thức gồm 91 BR (BR-01 đến BR-91): 83 Hiệu lực, 3 G�
 | BR-38 | Thanh toán thành công của một giao dịch hệ thống không nhận ra được ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tạo vé, không tự hoàn tiền và không gửi email. | Kích hoạt hành động | UC-006 | REQ-129 | Hiệu lực | Trả lời Q-48; thu hẹp đáp án Q-32 |
 | BR-39 | Kết quả thất bại mà cổng thanh toán báo vào lúc lần giữ ghế đã hết hạn hoặc đã bị khách huỷ, hoặc báo cho giao dịch đã có vé, hoặc báo cho giao dịch hệ thống không nhận ra, chỉ được ghi nhận, không hoàn tiền. | Kích hoạt hành động | UC-006 | REQ-133 | Hiệu lực | Khách chưa mất tiền nên không có gì để hoàn |
 | BR-40 | Thanh toán thành công của giao dịch thứ hai (mã giao dịch khác) gắn được với lần giữ ghế đã có vé qua mã tham chiếu lần giữ ghế kèm trong báo của cổng được xử lý như thanh toán trễ: không tạo vé và hoàn toàn bộ số tiền cổng báo cho giao dịch đó. | Kích hoạt hành động | UC-006 | REQ-130, REQ-136 | Hiệu lực | Phần còn lại của đáp án Q-32. Giao dịch thứ hai có mã giao dịch khác giao dịch đầu nên chỉ gắn được với lần giữ ghế qua mã tham chiếu lần giữ ghế kèm trong báo của cổng cùng số tiền đã thanh toán (trả lời Q-51); không có mã tham chiếu nhận ra được thì áp dụng BR-38 |
-| BR-41 | Khi cổng thanh toán từ chối hoàn tiền hoặc không trả lời, hệ thống tự thử lại yêu cầu hoàn tiền vài lần; nếu vẫn không hoàn được thì ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống và không gửi email cho khách. | Kích hoạt hành động | UC-006, UC-008 | REQ-131 | Hiệu lực | Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09). Việc xử lý thủ công nằm ngoài hệ thống, không có use case |
+| BR-41 | Khi cổng thanh toán từ chối hoàn tiền hoặc không trả lời, hệ thống tự thử lại yêu cầu hoàn tiền vài lần, chỉ sau khi tra cứu cho thấy khoản hoàn chưa được thực hiện; không tra cứu được thì không gửi lại tự động; nếu vẫn không hoàn được thì ghi log lỗi khoản hoàn để xử lý thủ công ngoài hệ thống và không gửi email cho khách. | Kích hoạt hành động | UC-006, UC-008 | REQ-131 | Hiệu lực | Trả lời Q-127. Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09). Việc xử lý thủ công nằm ngoài hệ thống, không có use case |
 | BR-42 | Ghế của vé bị huỷ được trả về trạng thái trống sau khi vé được ghi nhận đã huỷ, kể cả khi hoàn tiền qua cổng thanh toán không thành công và khoản hoàn đã được ghi log lỗi. | Ràng buộc | UC-008, UC-006 | REQ-131; REQ-44 (phụ) | Hiệu lực | Hoàn tiền mặt tại quầy luôn hoàn được nên không có đường hoàn tiền mặt không thành công; không còn trạng thái vé đã huỷ mà ghế chưa trống. UC-006 theo P02 Mục 5 (REQ-131) |
 | BR-43 | Cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây thì coi là không phản hồi; mọi lần thử lại của cùng một yêu cầu hoàn dùng lại khoá chống hoàn trùng của yêu cầu hoàn đó; khoá gắn với từng yêu cầu hoàn và phân biệt được với khoá của yêu cầu hoàn khác trên cùng giao dịch (mã giao dịch kèm mã vé với hoàn tiền huỷ vé; mã giao dịch kèm loại yêu cầu hoàn toàn bộ với hoàn toàn bộ thanh toán trễ); việc tra cứu kết quả hoàn cũng dùng khoá này. | Ràng buộc | UC-006, UC-008 | REQ-132; REQ-78 (phụ) | Hiệu lực | Cùng BR-41 |
 | BR-44 | Xác nhận đã thu tiền mặt của nhân viên quầy tới sau thời điểm hết hạn giữ ghế bị từ chối và nhân viên quầy được thông báo trả lại tiền mặt cho khách; việc so thời điểm hết hạn với việc xác nhận đã thu tiền và chuyển ghế sang đã bán là một thao tác không chia cắt. | Kích hoạt hành động | UC-005 | REQ-134; REQ-22, REQ-32, REQ-47, REQ-48 (phụ) | Hiệu lực | Trả lời Q-49. Giống thao tác không chia cắt của kênh trực tuyến (UC-005 bước 11, 12) |
-| BR-45 | Từ giờ bắt đầu của suất chiếu, không ai được bắt đầu đặt hoặc mua vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | UC-005, UC-014 | REQ-135; REQ-61, REQ-86 (phụ) | Hiệu lực | Trả lời Q-50. Kiểm ở bước 2; lần giữ ghế đã tạo trước giờ bắt đầu vẫn được hoàn tất. Ghế trả về trống sau giờ bắt đầu (UC-008 bước 7) không được bán lại |
+| BR-45 | Từ giờ bắt đầu của suất chiếu, không ai được bắt đầu đặt hoặc mua vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | UC-005, UC-014 | REQ-135; REQ-61, REQ-86 (phụ) | Hiệu lực | Trả lời Q-50. Kiểm ở bước 2; ngừng bán là ngừng nhận lần giữ ghế mới, còn lần giữ ghế đã tạo trước giờ bắt đầu vẫn được hoàn tất theo BR-10 (tối đa 10 phút) nên vé vẫn có thể được tạo sau giờ bắt đầu, không trái đề bài Mục 16. Ghế trả về trống sau giờ bắt đầu (UC-008 bước 7) không được bán lại |
 | BR-46 | Quản lý cụm rạp chỉ lập, sửa, xoá suất chiếu của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | UC-014 | REQ-60; REQ-100 (phụ) | Hiệu lực | - |
 | BR-47 | Định dạng của suất chiếu phải là một định dạng phát hành của phim. | Ràng buộc | UC-014 | REQ-62; REQ-55 (phụ) | Hiệu lực | - |
 | BR-48 | Phòng chiếu của suất chiếu phải chiếu được định dạng của suất chiếu. | Ràng buộc | UC-014 | REQ-63; REQ-57 (phụ) | Hiệu lực | - |
@@ -149,6 +150,8 @@ Danh sách chính thức gồm 91 BR (BR-01 đến BR-91): 83 Hiệu lực, 3 G�
 | BR-89 | Khi dịch vụ email từ chối hoặc không phản hồi lúc gửi email chứa vé hoặc email thông báo hoàn tiền, vé và khoản hoàn giữ nguyên hiệu lực; hệ thống thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không huỷ vé và không hoàn tiền thêm. | Kích hoạt hành động | UC-005, UC-006 | REQ-157; REQ-31, REQ-90 (phụ) | Hiệu lực | Trả lời Q-76. Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09); cùng cách xử lý BR-41. Khách vẫn thấy vé trên màn hình và trong lịch sử đặt vé (UC-007) |
 | BR-90 | Khi cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch, hệ thống giữ nguyên lần giữ ghế và báo khách chưa tạo được thanh toán; khách thử lại được tới thời điểm hết hạn giữ ghế, tới lúc đó ghế được giải phóng theo UC-005 luồng 7b. Với cổng chỉ nhận địa chỉ thanh toán đã ký, quy tắc này chỉ áp dụng khi hệ thống lỗi trước lúc chuyển khách sang cổng. | Kích hoạt hành động | UC-005 | REQ-158; REQ-136 (phụ) | Hiệu lực | Trả lời Q-77. Mức 30 giây mượn từ BR-43. Thời điểm hết hạn giữ ghế không đổi khi khách thử lại. Nếu cổng đã tạo giao dịch ở lần trước thì giao dịch báo thành công thứ hai được nhận ra qua mã tham chiếu lần giữ ghế (BR-40) |
 | BR-91 | Thanh toán thành công mà số tiền cổng báo khác số tiền hệ thống đã ghi nhận cho giao dịch được ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tạo vé, không tự hoàn tiền và không gửi email. | Kích hoạt hành động | UC-006 | REQ-129 | Hiệu lực | Cùng cách xử lý BR-38; cấp ở UC-006 1.6 |
+| BR-92 | Không được đổi phòng chiếu của suất chiếu đã từng có vé, kể cả khi mọi vé của suất chiếu đó đã huỷ; muốn đổi phòng thì xoá suất chiếu đó theo các quy tắc xoá suất chiếu (BR-53, BR-57, BR-58) rồi lập suất chiếu mới. | Ràng buộc | UC-014 | REQ-65, REQ-141 | Hiệu lực | Chặt hơn BR-53, chủ dự án đã chốt (R13D-01, phương án A); cấp ở UC-014 1.4 |
+| BR-93 | Báo thanh toán thất bại của một giao dịch chỉ làm lần giữ ghế chuyển sang Thanh toán thất bại và giải phóng ghế khi giao dịch đó là giao dịch tạo sau cùng của lần giữ ghế; báo thất bại của giao dịch cũ khi khách đã có giao dịch thanh toán mới hơn chỉ được ghi nhận, lần giữ ghế và ghế giữ nguyên. | Ràng buộc | UC-005 | REQ-133; REQ-136 (phụ) | Hiệu lực | Làm rõ BR-39 và BR-86; cấp ở UC-005 1.11 |
 
 ## 7. Ma trận truy vết
 
@@ -179,7 +182,7 @@ Bảng REQ --> NFR / BR:
 | REQ-62 | Quy tắc nghiệp vụ | BR-47 | Không có |
 | REQ-63 | Quy tắc nghiệp vụ | BR-48 | Không có |
 | REQ-64 | Quy tắc nghiệp vụ | BR-51, BR-52 | Không có |
-| REQ-65 | Quy tắc nghiệp vụ | BR-53, BR-54 | Không có |
+| REQ-65 | Quy tắc nghiệp vụ | BR-53, BR-54, BR-92 | Không có |
 | REQ-73 | Phi chức năng | NFR-04 | Chuyển P06 theo P02 Mục 5 |
 | REQ-74 | Phi chức năng | NFR-05 | Yêu cầu đặc biệt UC-005 dòng 3 |
 | REQ-75 | Phi chức năng | NFR-06 | Yêu cầu đặc biệt UC-005 dòng 1 |
@@ -225,15 +228,15 @@ Bảng REQ --> NFR / BR:
 | REQ-130 | Quy tắc nghiệp vụ | BR-40 | Không có |
 | REQ-131 | Quy tắc nghiệp vụ | BR-41, BR-42 | Không có |
 | REQ-132 | Quy tắc nghiệp vụ | BR-43 | Không có |
-| REQ-133 | Quy tắc nghiệp vụ | BR-39 | Không có |
+| REQ-133 | Quy tắc nghiệp vụ | BR-39, BR-93 | Không có |
 | REQ-134 | Quy tắc nghiệp vụ | BR-44 | Không có |
 | REQ-135 | Quy tắc nghiệp vụ | BR-45 | Căn cứ phụ của BR-55 |
-| REQ-136 | Quy tắc nghiệp vụ | BR-40 | Không có |
+| REQ-136 | Quy tắc nghiệp vụ | BR-40, BR-93 | Không có |
 | REQ-137 | Quy tắc nghiệp vụ | BR-55 | Không có |
 | REQ-138 | Quy tắc nghiệp vụ | BR-56 | Không có |
 | REQ-139 | Quy tắc nghiệp vụ | BR-57 | Không có |
 | REQ-140 | Quy tắc nghiệp vụ | BR-58 | Không có |
-| REQ-141 | Quy tắc nghiệp vụ | BR-53 | Không có |
+| REQ-141 | Quy tắc nghiệp vụ | BR-53, BR-92 | Không có |
 | REQ-142 | Quy tắc nghiệp vụ | BR-54 | Không có |
 | REQ-143 | Quy tắc nghiệp vụ | BR-60 | Không có |
 | REQ-144 | Quy tắc nghiệp vụ | BR-84 | Không có |
@@ -262,7 +265,7 @@ Bảng UC --> NFR / BR (BR chỉ tính trạng thái Hiệu lực; NFR toàn h�
 | UC-002 Đăng nhập (Loại) | - | - |
 | UC-003 Tra cứu phim | - | BR-76 |
 | UC-004 Tra cứu lịch chiếu | - | - |
-| UC-005 Đặt vé | NFR-01, NFR-02, NFR-05, NFR-06, NFR-07, NFR-08, NFR-09, NFR-14, NFR-15, NFR-16, NFR-18 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06, BR-07, BR-08, BR-09, BR-10, BR-11, BR-12, BR-13, BR-14, BR-15, BR-37, BR-44, BR-45, BR-54, BR-61, BR-62, BR-65, BR-66, BR-67, BR-71, BR-72, BR-74, BR-80, BR-85, BR-86, BR-89, BR-90 |
+| UC-005 Đặt vé | NFR-01, NFR-02, NFR-05, NFR-06, NFR-07, NFR-08, NFR-09, NFR-14, NFR-15, NFR-16, NFR-18 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06, BR-07, BR-08, BR-09, BR-10, BR-11, BR-12, BR-13, BR-14, BR-15, BR-37, BR-44, BR-45, BR-54, BR-61, BR-62, BR-65, BR-66, BR-67, BR-71, BR-72, BR-74, BR-80, BR-85, BR-86, BR-89, BR-90, BR-93 |
 | UC-006 Hoàn tiền thanh toán trễ | NFR-16, NFR-17, NFR-18 | BR-14, BR-15, BR-26, BR-37, BR-38, BR-39, BR-40, BR-41, BR-42, BR-43, BR-85, BR-86, BR-89, BR-91 |
 | UC-007 Xem lịch sử đặt vé | NFR-01 | - |
 | UC-008 Huỷ vé | NFR-01, NFR-02, NFR-09, NFR-17 | BR-11, BR-17, BR-18, BR-19, BR-20, BR-21, BR-26, BR-30, BR-31, BR-32, BR-41, BR-42, BR-43 |
@@ -271,7 +274,7 @@ Bảng UC --> NFR / BR (BR chỉ tính trạng thái Hiệu lực; NFR toàn h�
 | UC-011 Quản lý cụm rạp | NFR-02 | - |
 | UC-012 Quản lý phòng chiếu | NFR-02 | BR-06, BR-73, BR-87 |
 | UC-013 Quản lý bảng giá | NFR-02 | BR-11, BR-12, BR-61, BR-62, BR-63, BR-64, BR-65, BR-66, BR-67, BR-68, BR-69, BR-70, BR-71, BR-72, BR-73 |
-| UC-014 Lập lịch suất chiếu | NFR-02 | BR-01, BR-12, BR-45, BR-46, BR-47, BR-48, BR-49, BR-50, BR-51, BR-52, BR-53, BR-54, BR-55, BR-56, BR-57, BR-58, BR-60, BR-64, BR-68, BR-69, BR-73, BR-84 |
+| UC-014 Lập lịch suất chiếu | NFR-02 | BR-01, BR-12, BR-45, BR-46, BR-47, BR-48, BR-49, BR-50, BR-51, BR-52, BR-53, BR-54, BR-55, BR-56, BR-57, BR-58, BR-60, BR-64, BR-68, BR-69, BR-73, BR-84, BR-92 |
 | UC-015 Xem báo cáo cụm rạp | NFR-02 | BR-06, BR-77, BR-88 |
 | UC-016 Xem báo cáo toàn chuỗi | NFR-02 | BR-06, BR-77, BR-88 |
 | UC-017 Quản lý tài khoản nhân viên | NFR-03, NFR-12 | BR-78, BR-79 |

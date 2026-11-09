@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P03 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 4: đăng nhập không là use case); P00-problem-brief.md 1.3; P01-actors.md 1.1; P02-usecases.md 1.2; yeu-cau-dat-ve.md. P02R 1.0: UCR-01, UCR-02 đã áp dụng ở P02 1.2 |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 4: đăng nhập không là use case); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; yeu-cau-dat-ve.md. P02R 1.0: UCR-01, UCR-02 đã áp dụng ở P02 1.2 |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-23; không có ASM (NGHIEM_NGAT) |
 

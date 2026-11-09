@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-014 1.3 (bước 2-9, luồng 1a4, 4a-6c, 8a-8e, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Thêm luồng 8f và MSG-83: không đổi phòng của suất chiếu đã từng có vé (RF-02); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-014 1.4 (bước 2-9, luồng 1a4, 4a-6c, 8a-8f, *a, Dữ liệu vào 1, Dữ liệu ra 1, 2); P05 GL-14, GL-15, GL-53; P08-analysis-model.md 1.4 (F3); P10-design-elements.md 1.4 (F3, F4) |
 | Phạm vi | SCR-20 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -14,7 +15,7 @@
 |---|---|
 | SCR | SCR-20 |
 | UC | UC-014 |
-| Bước UC | 2, 3, 4, 5, 6, 7, 8, 9; luồng 1a4, 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8e, *a |
+| Bước UC | 2, 3, 4, 5, 6, 7, 8, 9; luồng 1a4, 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8f, *a |
 | Tác nhân | ACT-04 Quản lý cụm rạp |
 | Boundary AC | AC-B-ScheduleShowtimesForm (showAuditoriumsAndMovies, submitShowtimeInfo, showShowtimeForEdit, showSavedShowtime, notifyRefusal, cancelRequest, showRequestCancelled) |
 | DC | DC-ScheduleShowtimesView |
@@ -28,7 +29,7 @@
 +------------------------------------------------------+
 | Lập suất chiếu mới                          [ Đóng ]    |
 |------------------------------------------------------|
-| (vùng thông điệp: MSG-58 đến MSG-65, MSG-66 đến MSG-69, MSG-79) |
+| (vùng thông điệp: MSG-58 đến MSG-65, MSG-66 đến MSG-69, MSG-79, MSG-83) |
 | Phim *                  [ Phim A (2D, 3D, 120 phút)   v ] |
 |   Chiếu từ 01/11/2026 đến 30/11/2026                    |
 | Định dạng *             [ 3D v ]                        |
@@ -43,7 +44,7 @@
 | Vùng | Nội dung | Vị trí | Ghi chú |
 |---|---|---|---|
 | Tiêu đề | h2 trong hộp: "Lập suất chiếu mới" hoặc "Sửa suất chiếu"; nút Đóng | Đầu hộp | UI-STT 09, 21 |
-| Thông điệp | MSG-58 đến MSG-69, MSG-79 | Dưới tiêu đề hộp | UI-STT 08 |
+| Thông điệp | MSG-58 đến MSG-69, MSG-79, MSG-83 | Dưới tiêu đề hộp | UI-STT 08 |
 | Nội dung | Năm trường nhập, dòng khoảng chiếu của phim, dòng giờ kết thúc | Giữa hộp | UC-014 Dữ liệu vào 1 |
 | Hành động | Huỷ yêu cầu, Lưu suất chiếu | Cuối hộp, căn phải | UI-STT 06 |
 
@@ -58,7 +59,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | 3 | Danh sách Định dạng | Danh sách chọn | Chọn | Chọn 2D hoặc 3D | UC-014 Dữ liệu vào 1 STT 2 |
 | 4 | Danh sách Phòng chiếu | Danh sách chọn | Chọn | Chọn phòng chiếu của cụm rạp | UC-014 Dữ liệu vào 1 STT 3; BR-46 |
 | 5 | Ô Ngày giờ bắt đầu, Thời điểm mở bán | Ô nhập | Rời trường | Kiểm bắt buộc (MSG-03), rồi định dạng dd/MM/yyyy HH:mm (MSG-79) | UC-014 Dữ liệu vào 1 STT 4, 5; MSG-03, MSG-79 |
-| 6 | Nút Lưu suất chiếu | Nút chính | Nhấn | Kiểm các trường theo UI-STT 19, gửi. Hệ thống từ chối ở lại hộp, giữ dữ liệu: phòng không thuộc cụm MSG-58; định dạng không phải định dạng phát hành MSG-59; phòng không chiếu được định dạng MSG-60; bảng giá thiếu giá MSG-61; ngoài khoảng chiếu MSG-62; giờ bắt đầu không sau hiện tại MSG-63; mở bán không trước giờ bắt đầu MSG-64; cách suất khác dưới 15 phút MSG-65. Khi sửa: có ghế giữ hoặc vé MSG-66, đã tới giờ MSG-67, suất đã đổi hoặc không còn MSG-68 rồi đóng hộp. Thành công: MSG-69, hiện suất đã lưu kèm giờ kết thúc, đóng hộp, làm mới SCR-19 | UC-014 bước 4-9, luồng 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8e; BR-46 đến BR-57, BR-60, BR-69; MSG-58 đến MSG-69 |
+| 6 | Nút Lưu suất chiếu | Nút chính | Nhấn | Kiểm các trường theo UI-STT 19, gửi. Hệ thống từ chối ở lại hộp, giữ dữ liệu: phòng không thuộc cụm MSG-58; định dạng không phải định dạng phát hành MSG-59; phòng không chiếu được định dạng MSG-60; bảng giá thiếu giá MSG-61; ngoài khoảng chiếu MSG-62; giờ bắt đầu không sau hiện tại MSG-63; mở bán không trước giờ bắt đầu MSG-64; cách suất khác dưới 15 phút MSG-65. Khi sửa: có ghế giữ hoặc vé MSG-66, đổi phòng của suất chiếu đã từng có vé MSG-83, đã tới giờ MSG-67, suất đã đổi hoặc không còn MSG-68 rồi đóng hộp. Thành công: MSG-69, hiện suất đã lưu kèm giờ kết thúc, đóng hộp, làm mới SCR-19 | UC-014 bước 4-9, luồng 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8f; BR-46 đến BR-57, BR-60, BR-69, BR-92; MSG-58 đến MSG-69, MSG-83 |
 | 7 | Nút Huỷ yêu cầu | Nút phụ | Nhấn | Đóng hộp không lưu, về SCR-19 và hiện MSG-57 | UC-014 luồng *a; MSG-57 |
 | 8 | Nút Đóng | Nút phụ | Nhấn | Như Huỷ yêu cầu | UC-014 luồng *a |
 

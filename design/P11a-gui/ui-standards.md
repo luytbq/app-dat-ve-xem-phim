@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (NEN_TANG Web app responsive, CHE_DO_GIA_DINH NGHIEM_NGAT); P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.9, UC-008 1.5, UC-009, UC-013 1.2, UC-014 1.3 (UC-006 không có màn hình); P05-glossary.md 1.1 (cột Thuật ngữ, Định nghĩa); P06-supplementary-spec.md 1.2 (NFR-01, NFR-02, NFR-08, NFR-09, NFR-10, NFR-11, NFR-13); P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014: bảng message có boundary giao diện); P08-analysis-model.md 1.1 (F3 boundary giao diện); P09-architecture.md 1.3 (F5, F7.1, F7.5, F7.6, Q-113, Q-114); P10-design-elements.md 1.1 (F3, F4); P01-actors.md; P02-usecases.md. Yêu cầu bổ sung: một ứng dụng React chung cho mọi vai trò (Q-113) |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Thêm MSG-82 (ghế đang được trả về trống, RF-17) và MSG-83 (không đổi phòng của suất chiếu đã từng có vé, RF-02); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (NEN_TANG Web app responsive, CHE_DO_GIA_DINH NGHIEM_NGAT); P01-actors.md 1.2; P02-usecases.md 1.8; P04-uc-specs UC-005 1.11, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4 (UC-006 không có màn hình); P05-glossary.md 1.1 (cột Thuật ngữ, Định nghĩa); P06-supplementary-spec.md 1.3 (NFR-01, NFR-02, NFR-08, NFR-09, NFR-10, NFR-11, NFR-13); P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014: bảng message có boundary giao diện); P08-analysis-model.md 1.4 (F3 boundary giao diện); P09-architecture.md 1.5 (F5, F7.1, F7.5, F7.6, Q-113, Q-114); P10-design-elements.md 1.4 (F3, F4); P01-actors.md; P02-usecases.md. Yêu cầu bổ sung: một ứng dụng React chung cho mọi vai trò (Q-113) |
 | Phạm vi | Toàn hệ thống, các use case đã đặc tả ở P04 có tác nhân người (UC-005, UC-008, UC-009, UC-013, UC-014) và màn hình đăng nhập |
-| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-81 |
+| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-83 |
 
 Thiết bị hiển thị: web responsive, màn hình từ 360 x 640 (điện thoại) đến 1920 x 1080 (máy tính), cả chuột, bàn phím và cảm ứng; soát vé chạy trên điện thoại hoặc máy tính bảng có camera (NFR-11). Nhận diện thương hiệu: không có, bảng màu trung tính do AI chọn (quyết định thiết kế, tương phản đã tính ở UI-STT 12). Mẫu đặc tả riêng, thông tin tài liệu, mockup HTML: Không có (XUAT_HTML = Không).
 
@@ -149,6 +150,8 @@ Dấu {...} là giá trị lấy từ dữ liệu của màn hình. Nút ghi d�
 | MSG-79 | Lỗi | Ngày giờ chưa đúng định dạng dd/MM/yyyy HH:mm. Ví dụ: 15/11/2026 19:30. | Đóng --> tiêu điểm vào trường | UC-014 Dữ liệu vào 1 STT 4, 5; UI-STT 10 |
 | MSG-80 | Thông tin | Bạn đang giữ ghế cho {tên phim} lúc {ngày giờ chiếu}, còn {mm:ss}. | Tiếp tục thanh toán --> mở SCR-05 với lần giữ ghế đang chạy (quầy: SCR-11) | UC-005 luồng 5b, 7c; BR-04, BR-10; Q-119 |
 | MSG-81 | Cảnh báo | Chưa nhận được kết quả thanh toán. Ghế của bạn vẫn được giữ đến {hh:mm:ss}. Nếu bạn đã thanh toán, vé sẽ được gửi qua email; nếu chưa, bạn có thể quay lại thanh toán. | Quay lại thanh toán --> mở SCR-05; Về trang chủ --> về màn hình điều hướng | UC-005 bước 11, luồng 7b; BR-90; P09 F7.6; Q-126 |
+| MSG-82 | Lỗi | Ghế {danh sách ghế} đang được trả về trống, nên chưa giữ ghế nào cho bạn. Vui lòng thử lại sau vài giây. | Đóng --> ở lại sơ đồ ghế đã làm mới | UC-005 luồng 7a; BR-07, BR-08; P09 F7.3 EX-01 |
+| MSG-83 | Lỗi | Suất chiếu này đã từng có vé (kể cả vé đã huỷ) nên không đổi được phòng chiếu. Muốn đổi phòng, hãy xoá suất chiếu rồi lập suất chiếu mới. | Đóng --> ở lại hộp sửa, giữ dữ liệu đã nhập | UC-014 luồng 8f; BR-92 |
 
 Thông điệp ở trên bao quát mọi thông báo, từ chối và kết quả hiển thị cho tác nhân người trong UC-005, UC-008, UC-009, UC-013, UC-014. UC-006 không có tác nhân người nên không có thông điệp giao diện.
 

@@ -24,7 +24,7 @@
 | Trường | Giá trị |
 |---|---|
 | NEN_TANG | Web app responsive |
-| CONG_NGHE | Chưa chốt |
+| CONG_NGHE | Back-end Go (net/http, pgx), front-end React (SPA), PostgreSQL 15 trở lên; cổng thanh toán VNPay sandbox; không Redis, không hàng đợi tin nhắn ngoài |
 | HE_THONG_NGOAI | Cổng thanh toán trực tuyến (môi trường sandbox, API tạo giao dịch, callback kết quả, hoàn tiền); Dịch vụ gửi email (SMTP) |
 
 ## 4. Ràng buộc đặc thù của dự án

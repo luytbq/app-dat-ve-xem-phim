@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.1; P02-usecases.md 1.8; P04-uc-specs UC-005 1.9, UC-008 1.5, UC-009, UC-013 1.2, UC-014 1.3; P05-glossary.md 1.1; P06-supplementary-spec.md 1.2; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.1 (F3); P09-architecture.md 1.3 (F5, F7.5, F7.6); P10-design-elements.md 1.1 (F3, F4); ui-standards.md 1.1; SCR-01 đến SCR-20 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Cập nhật dải MSG đã cấp đến MSG-83 và dải luồng 8a-8f của SCR-20; đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.8; P04-uc-specs UC-005 1.11, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4; P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; P07-uc-analysis (UC-005, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.4 (F3); P09-architecture.md 1.5 (F5, F7.5, F7.6); P10-design-elements.md 1.4 (F3, F4); ui-standards.md 1.3; SCR-01 đến SCR-20 |
 | Phạm vi | Toàn hệ thống: UC-005, UC-008, UC-009, UC-013, UC-014 và màn hình đăng nhập. UC-006 không có màn hình (tác nhân chính là cổng thanh toán) |
-| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-81 |
+| Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT). MSG đã cấp: MSG-01 đến MSG-83 |
 
 Mức hợp lý: 20 màn hình; mỗi use case của một tác nhân chính có 1 đến 4 màn hình (UC-005 khách 4: SCR-03 đến SCR-06; UC-005 quầy 3: SCR-10 đến SCR-12; UC-008 khách 2: SCR-07, SCR-08; UC-008 quầy 3: SCR-13 đến SCR-15; UC-009 1: SCR-16; UC-013 1: SCR-18; UC-014 2: SCR-19, SCR-20). Boundary BookTicketsForm và CounterBookTicketsForm (một View mỗi boundary ở P10) sinh nhiều màn hình, ghi ở Đề xuất sửa artifact trước.
 
@@ -33,7 +34,7 @@ Mức hợp lý: 20 màn hình; mỗi use case của một tác nhân chính có
 | SCR-17 | Trang chủ quản lý cụm rạp (Cinema manager home) | Điều hướng: SCR-18, SCR-19 | UC-013, UC-014 (lối vào) | ACT-04 Quản lý cụm rạp | Độc lập | Chưa có (điều hướng) | Chọn lối vào Quản lý bảng giá hoặc Lập lịch suất chiếu | UC-013 bước 1; UC-014 bước 1 |
 | SCR-18 | Bảng giá cụm rạp (Cinema price list) | AC-B-ManagePriceListForm | UC-013 | ACT-04 Quản lý cụm rạp | Độc lập | DC-ManagePriceListView | Xem bảng giá, đặt giá, bỏ giá | 1, 2, 3, 4, 5, 6; luồng 1a, 1a1-1a4, 4a, 5a, *a |
 | SCR-19 | Danh sách suất chiếu (Showtime list) | AC-B-ScheduleShowtimesForm | UC-014 | ACT-04 Quản lý cụm rạp | Độc lập | DC-ScheduleShowtimesView | Xem danh sách suất chiếu, chọn lập, sửa, xoá | 1, 1a1-1a3, 1b1-1b4; luồng 1a3a, 1a3b, 1b3a, 1b3b, 1b3c |
-| SCR-20 | Lập hoặc sửa suất chiếu (Create or edit showtime) | AC-B-ScheduleShowtimesForm | UC-014 | ACT-04 Quản lý cụm rạp | Con phụ thuộc | DC-ScheduleShowtimesView | Nhập thông tin suất chiếu để lập hoặc sửa | 2, 3, 4, 5, 6, 7, 8, 9; luồng 1a4, 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8e, *a |
+| SCR-20 | Lập hoặc sửa suất chiếu (Create or edit showtime) | AC-B-ScheduleShowtimesForm | UC-014 | ACT-04 Quản lý cụm rạp | Con phụ thuộc | DC-ScheduleShowtimesView | Nhập thông tin suất chiếu để lập hoặc sửa | 2, 3, 4, 5, 6, 7, 8, 9; luồng 1a4, 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a-8f, *a |
 
 ## Boundary không có màn hình
 

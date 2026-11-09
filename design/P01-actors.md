@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P01 |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.3; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-23); P01-actors.md 1.0 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.11; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-23); P01-actors.md 1.1 (bản trước) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-23; không có ASM (NGHIEM_NGAT) |
 

@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.3 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.1; P04-uc-specs UC-005 1.9, UC-006 1.6, UC-008 1.5, UC-009, UC-013, UC-014 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.2 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006, UC-008 (message tới boundary hệ thống); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.1 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Ghi project-profile.md đã cập nhật CONG_NGHE (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.2; P04-uc-specs UC-005 1.11, UC-006 1.7, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.3 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới boundary hệ thống); P08-analysis-model.md 1.4; P09-architecture.md 1.5 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.4 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
 | Phạm vi | Tất cả subsystem SS-01 đến SS-05 của P10 F2 (IF-01 đến IF-07) |
 | Mã Q, ASM cuối đã cấp | Q-132; không có ASM (NGHIEM_NGAT) |
 
@@ -28,7 +29,7 @@ File sơ đồ: diagrams/P11b-subsystem-SS-01.drawio đến diagrams/P11b-subsys
 |---|---|---|---|---|---|
 | Cổng thanh toán: tạo địa chỉ thanh toán | Không có (ký cục bộ) | Không | Không tác dụng phụ; mỗi lần bấm thanh toán là bản ghi chờ mới | Không áp dụng | P09 F7.6 |
 | Cổng thanh toán: nhận IPN | Không áp dụng | Do cổng gửi lại | Dưới khoá lần giữ ghế, cờ đã xử lý, UNIQUE; câu trả lời theo kết quả | Rollback toàn bộ, trả mã tạm thời | P09 F7.6 |
-| Cổng thanh toán: hoàn tiền | 30 giây (BR-43, NFR-17) | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại (BR-41); lần thử sau luôn findRefund trước (tổng tối đa 60 giây mỗi claim) | Khoá refundKey ổn định, dòng hàng đợi unique, claim_token (claimed_until 120 giây); cổng có loại trùng hay không: chưa xác nhận (Q-132, V-09) | findRefund; không tra cứu được thì Cần xử lý thủ công, không gửi lại tự động (Q-118) | P09 F7.7, Q-118 |
+| Cổng thanh toán: hoàn tiền | 30 giây (BR-43, NFR-17) | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại (BR-41); lần thử sau luôn findRefund trước (hai lời gọi tối đa 60 giây, cả dòng tối đa 80 giây mỗi claim) | Khoá refundKey ổn định, dòng hàng đợi unique, claim_token (claim từng dòng, claimed_until 120 giây, hàng rào ở giao dịch 1); cổng có loại trùng hay không: chưa xác nhận (Q-132, V-09) | findRefund; không tra cứu được thì Cần xử lý thủ công, không gửi lại tự động (Q-118) | P09 F7.7, Q-118 |
 | Dịch vụ email SMTP | 30 giây cho cả thư, kết nối 10 giây | Qua hàng đợi: sau 1, 5, 15 phút, tối đa 3 lần thử lại; lỗi vĩnh viễn không thử lại | Message-ID theo khoá chống lặp; không bảo đảm loại trùng, chấp nhận gửi trùng hiếm | Thử lại với cùng Message-ID | P09 F7.7, BR-89 |
 | Sơ đồ ghế (SS-03) | Đọc phát lại 3 giây; độ trễ sự kiện tối đa 3 giây | Trình duyệt tự nối lại với Last-Event-ID | Trình duyệt áp theo từng ghế nên lặp và lệch thứ tự vô hại | ReloadRequired tải lại ảnh chụp | P09 F7.5 |
 | Scheduler (SS-04) | Ngân sách 8 giây mỗi lượt chỉ chặn nhận mục mới, chu kỳ 10 giây | Chu kỳ sau | Công việc chạy lặp an toàn | Không áp dụng | P09 F7.4 |
@@ -115,6 +116,6 @@ Không có (chế độ NGHIEM_NGAT).
 6. Tên operation của IF-22 đã chốt ở P12: ReadEventsAfter, ReadShowtimeEvents (thêm tham số window), FindEvent; P12 thêm Snapshot và DeleteOlderThan cho ảnh chụp sơ đồ ghế và dọn seat_event.
 7. SS-05: mã phiên tự kiểm chứng nên không thu hồi được; tài khoản bị khoá hoặc đổi vai trò vẫn dùng được tới khi token hết hạn. Chờ P07 UC-017 để chốt nghiệp vụ khoá tài khoản; hashPassword chờ P07 UC-001, UC-017.
 8. SS-05: truy cập chức năng không đúng vai trò (checkRole sai) không có luồng P04; coi là lỗi truy cập hiển thị ở giao diện (P11a), không là hành vi nghiệp vụ mới.
-9. project-profile.md vẫn ghi CONG_NGHE "Chưa chốt" dù P09 F11 đã chốt Go; chữ ký dùng kiểu trung lập (String, Integer, DateTime, Duration, List, Map). P12 ánh xạ sang Go (kết quả kèm error, context cho thời gian chờ, kênh cho luồng sự kiện). Định danh suất chiếu của IF-04 là số, con trỏ rỗng viết thành 0; tiền là số nguyên đồng (đã phản ánh ở chữ ký).
+9. project-profile.md mục 3 đã cập nhật CONG_NGHE theo P09 F11 (Go); chữ ký dùng kiểu trung lập (String, Integer, DateTime, Duration, List, Map). P12 ánh xạ sang Go (kết quả kèm error, context cho thời gian chờ, kênh cho luồng sự kiện). Định danh suất chiếu của IF-04 là số, con trỏ rỗng viết thành 0; tiền là số nguyên đồng (đã phản ánh ở chữ ký).
 10. File drawio: các trang tuần tự do bộ sinh đặt toạ độ theo F4 và C7.3, không chạy diakempt; các trang Phần tử và Phụ thuộc đã chạy diakempt -in-place. Trên trang Phần tử, diakempt không sắp lại được các lớp nằm trong khung subsystem (container) nên bố cục do bộ sinh xếp theo tầng phụ thuộc; có thể còn cạnh đi qua gần node.
 11. Phạm vi làm khi viết mã (P12): làm đầy đủ SS-01 và SS-03 (trọng tâm là race condition và giữ ghế); SS-04 chỉ cần một vòng lặp theo chu kỳ có ngân sách; SS-05 giữ ba operation verifyPassword, issueSession, verifySession và để checkRole là hàm thường. Kiểm V-02, V-04, V-09, V-11 trước, các V còn lại khi viết mã.

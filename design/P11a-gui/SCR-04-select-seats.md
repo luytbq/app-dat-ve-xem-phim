@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Thêm MSG-82 vào nhánh từ chối của nút Xác nhận chọn ghế (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-005 1.11 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.4 (F3); P10-design-elements.md 1.4 (F3, F4) |
 | Phạm vi | SCR-04 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -45,7 +46,7 @@
 | Vùng | Nội dung | Vị trí | Ghi chú |
 |---|---|---|---|
 | Tiêu đề | h1 "Chọn ghế"; dòng thông tin suất chiếu | Đầu nội dung | UC-005 Dữ liệu ra 1 STT 1 |
-| Thông điệp | MSG-10, MSG-11, MSG-12, MSG-23, MSG-24, MSG-25 | Dưới tiêu đề | UI-STT 08, 40, 41 |
+| Thông điệp | MSG-10, MSG-11, MSG-12, MSG-23, MSG-24, MSG-25, MSG-82 | Dưới tiêu đề | UI-STT 08, 40, 41 |
 | Trạng thái kết nối | Dải "Đang cập nhật trực tiếp" hoặc MSG-24 | Trên sơ đồ | UI-STT 41 |
 | Sơ đồ ghế | Lưới ghế theo hàng và số ghế, thanh MÀN HÌNH | Giữa | UI-STT 39; cuộn ngang dưới 600 px |
 | Chú giải | Bốn ký hiệu trạng thái | Dưới sơ đồ | UI-STT 39 |
@@ -63,7 +64,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | 4 | Dải trạng thái kết nối | Vùng hiển thị | Nhận kết quả (mất, nối lại kết nối) | Mất kết nối: hiện MSG-24 kèm nút Tải lại sơ đồ. Nối lại được: tải lại ảnh chụp kèm con trỏ, hiện MSG-25. Máy chủ yêu cầu tải lại: tải lại ảnh chụp sau độ trễ ngẫu nhiên 0 đến 3 giây | P09 F7.5; Q-114; MSG-24, MSG-25 |
 | 5 | Ô ghế trống | Nút chọn (trong lưới) | Chọn | Bật hoặc tắt trạng thái đang chọn; ghế vẫn trống trên hệ thống cho tới khi xác nhận. Cập nhật đếm ghế đã chọn | UC-005 bước 4, BR-03; Dữ liệu vào 1 STT 1 |
 | 6 | Ô ghế đang được giữ, đã bán | Nút chọn vô hiệu (trong lưới) | Chọn | Không chọn được; trình đọc màn hình đọc trạng thái ghế | UC-005 bước 3, BR-08; WCAG 1.1.1 |
-| 7 | Nút Xác nhận chọn ghế | Nút chính | Nhấn | Vô hiệu khi chưa chọn ghế nào (chú thích "Chọn ít nhất 1 ghế"). Gửi danh sách ghế; hiện MSG-26. Chưa đăng nhập: mở SCR-01 pop-up (MSG-01); đăng nhập xong tự gửi lại. Đã đăng nhập, hệ thống từ chối: đang có lần giữ ghế chưa kết thúc MSG-09 --> SCR-02; vượt 8 ghế MSG-10 ở lại, giữ ghế đã chọn; có ghế không còn trống MSG-11 ở lại, sơ đồ mới nhất, ghế bị lấy viền đỏ; suất chiếu đã đổi hoặc không còn MSG-12 --> SCR-03; thiếu giá MSG-13 --> SCR-02. Thành công: mở SCR-05 với lần giữ ghế | UC-005 bước 4-7, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e; BR-04, BR-05, BR-07, BR-09, BR-54, BR-72; MSG-01, MSG-09 đến MSG-13, MSG-26 |
+| 7 | Nút Xác nhận chọn ghế | Nút chính | Nhấn | Vô hiệu khi chưa chọn ghế nào (chú thích "Chọn ít nhất 1 ghế"). Gửi danh sách ghế; hiện MSG-26. Chưa đăng nhập: mở SCR-01 pop-up (MSG-01); đăng nhập xong tự gửi lại. Đã đăng nhập, hệ thống từ chối: đang có lần giữ ghế chưa kết thúc MSG-09 --> SCR-02; vượt 8 ghế MSG-10 ở lại, giữ ghế đã chọn; có ghế không còn trống MSG-11 ở lại, sơ đồ mới nhất, ghế bị lấy viền đỏ; ghế đang được trả về trống MSG-82 ở lại, sơ đồ mới nhất; suất chiếu đã đổi hoặc không còn MSG-12 --> SCR-03; thiếu giá MSG-13 --> SCR-02. Thành công: mở SCR-05 với lần giữ ghế | UC-005 bước 4-7, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e; BR-04, BR-05, BR-07, BR-09, BR-54, BR-72; MSG-01, MSG-09 đến MSG-13, MSG-26, MSG-82 |
 | 8 | Vùng đếm ghế đã chọn | Vùng hiển thị | Chọn | Cập nhật "Đã chọn: ... - n ghế (tối đa 8)"; ghế đôi đếm là một ghế | UC-005 Dữ liệu vào 1 STT 1; BR-05, BR-06 |
 
 ## e) Định nghĩa thuộc tính trường

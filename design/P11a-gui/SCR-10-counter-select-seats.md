@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 1-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a-2c, 5b, 6a, 7a, 7c, 7d, 7e); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Thêm MSG-82 vào nhánh từ chối của nút Xác nhận chọn ghế (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | ui-standards.md 1.3; screen-list.md 1.3; screen-transition.md 1.1; P04 UC-005 1.11 (bước 1-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a-2c, 5b, 6a, 7a, 7c, 7d, 7e); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 1.4 (F3); P10-design-elements.md 1.4 (F3, F4) |
 | Phạm vi | SCR-10 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -45,7 +46,7 @@
 | Vùng | Nội dung | Vị trí | Ghi chú |
 |---|---|---|---|
 | Tiêu đề | h1 "Chọn suất và ghế" | Đầu nội dung | UI-STT 09 |
-| Thông điệp | MSG-07, MSG-08, MSG-10, MSG-11, MSG-12, MSG-23 đến MSG-25, MSG-74 | Dưới tiêu đề | UI-STT 08 |
+| Thông điệp | MSG-07, MSG-08, MSG-10, MSG-11, MSG-12, MSG-23 đến MSG-25, MSG-74, MSG-82 | Dưới tiêu đề | UI-STT 08 |
 | Chọn suất | Danh sách chọn suất chiếu | Đầu nội dung | UC-005 bước 1 |
 | Sơ đồ ghế | Giống SCR-04 (dải kết nối, lưới, chú giải) | Giữa | UI-STT 39-41 |
 | Hành động | Đếm ghế, nút chính Xác nhận chọn ghế | Cuối, căn phải | UI-STT 06 |
@@ -62,7 +63,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | 4 | Dải trạng thái kết nối | Vùng hiển thị | Nhận kết quả (mất, nối lại kết nối) | Như SCR-04: MSG-24, MSG-25, tải lại ảnh chụp kèm con trỏ | P09 F7.5; MSG-24, MSG-25 |
 | 5 | Ô ghế trống | Nút chọn (trong lưới) | Chọn | Bật hoặc tắt đang chọn; ghế vẫn trống cho tới khi xác nhận | UC-005 bước 4, BR-03 |
 | 6 | Ô ghế đang được giữ, đã bán | Nút chọn vô hiệu (trong lưới) | Chọn | Không chọn được | UC-005 bước 3, BR-08 |
-| 7 | Nút Xác nhận chọn ghế | Nút chính | Nhấn | Vô hiệu khi chưa chọn ghế. Gửi danh sách ghế, hiện MSG-26. Nhân viên đã đăng nhập (tiền điều kiện) nên không có bước đăng nhập. Từ chối: đang có lần giữ ghế chưa kết thúc MSG-09 --> SCR-09; vượt 8 ghế MSG-10 ở lại; có ghế không còn trống MSG-11 ở lại; suất chiếu đã đổi MSG-12 ở lại, tải lại danh sách suất chiếu; thiếu giá MSG-13 --> SCR-09. Thành công: mở SCR-11 | UC-005 bước 4-7, luồng 5b, 6a, 7a, 7c, 7d, 7e; BR-04, BR-05, BR-07, BR-09, BR-54, BR-72; MSG-09 đến MSG-13, MSG-26 |
+| 7 | Nút Xác nhận chọn ghế | Nút chính | Nhấn | Vô hiệu khi chưa chọn ghế. Gửi danh sách ghế, hiện MSG-26. Nhân viên đã đăng nhập (tiền điều kiện) nên không có bước đăng nhập. Từ chối: đang có lần giữ ghế chưa kết thúc MSG-09 --> SCR-09; vượt 8 ghế MSG-10 ở lại; có ghế không còn trống MSG-11 ở lại; ghế đang được trả về trống MSG-82 ở lại; suất chiếu đã đổi MSG-12 ở lại, tải lại danh sách suất chiếu; thiếu giá MSG-13 --> SCR-09. Thành công: mở SCR-11 | UC-005 bước 4-7, luồng 5b, 6a, 7a, 7c, 7d, 7e; BR-04, BR-05, BR-07, BR-09, BR-54, BR-72; MSG-09 đến MSG-13, MSG-26, MSG-82 |
 | 8 | Vùng đếm ghế đã chọn | Vùng hiển thị | Chọn | Cập nhật "Đã chọn: ... - n ghế (tối đa 8)"; ghế đôi đếm một ghế | UC-005 Dữ liệu vào 1 STT 1; BR-05, BR-06 |
 
 ## e) Định nghĩa thuộc tính trường

@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1; P04-uc-specs UC-005 1.9 (luồng 7b, 11a, *a), UC-006 1.6, UC-008 1.5; P06-supplementary-spec.md 1.2 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006, UC-008; P09-architecture.md 1.3 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.1 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | runDue: dòng hoàn tiền xử lý tối đa 80 giây, hàng rào claim_token, xử lý bản bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2; P04-uc-specs UC-005 1.11 (luồng 7b, 11a, *a), UC-006 1.7, UC-008 1.7; P06-supplementary-spec.md 1.3 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006 1.1, UC-008 1.2; P09-architecture.md 1.5 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.4 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-04 Scheduler (IF-05, IF-06) |
 | Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 
@@ -198,12 +199,12 @@ a) Bảng lỗi
 | registerJob, start | Đăng ký sau start, start hai lần, tên trùng, chu kỳ không dương | Kỹ thuật (lỗi lập trình) | Kiểm trạng thái | Không xử lý | SchedulerStateError; hàm khởi động dừng chương trình | Không có | - |
 | runDue | Công việc trả lỗi hoặc panic | Kỹ thuật | recover trong DC-JobLoop | Ghi log, nhả cờ đang chạy; chu kỳ sau chạy lại (chu kỳ 10 giây cho nhiều cơ hội trong 1 phút của NFR-07) | Không lọt ra ngoài | UC-005 luồng 7b; NFR-07 | - |
 | runDue | Lượt trước chưa xong khi tới chu kỳ mới | Kỹ thuật | Cờ đang chạy | Bỏ qua chu kỳ, không chạy chồng (P09 F7.4) | Không có | Không có | - |
-| runDue | Lượt vượt ngân sách 8 giây cộng 2 giây (riêng DC-RefundOutboxJob: cộng thêm tối đa 60 giây cho dòng đã claim đang gọi cổng, phần này không là lượt treo) | Kỹ thuật | Đo thời gian lượt | Ghi log; công việc đó không mở lượt mới tới khi lượt cũ kết thúc | Không có | NFR-07 | - |
-| runDue | Bản backend chết giữa lượt | Kỹ thuật | Ngoài SS-04 | Bản khác tiếp tục; mục hàng đợi được nhận lại sau claimed_until 120 giây (P09 F7.7); quét hết hạn chia lô bằng SKIP LOCKED | Không có | UC-005 luồng 7b; UC-006, UC-008 | - |
+| runDue | Lượt vượt ngân sách 8 giây cộng 2 giây (riêng DC-RefundOutboxJob: cộng thêm tối đa 80 giây cho dòng đã claim đang gọi cổng, phần này không là lượt treo) | Kỹ thuật | Đo thời gian lượt | Ghi log; công việc đó không mở lượt mới tới khi lượt cũ kết thúc | Không có | NFR-07 | - |
+| runDue | Bản backend chết giữa lượt | Kỹ thuật | Ngoài SS-04 | Bản khác tiếp tục; mục hàng đợi được nhận lại sau claimed_until 120 giây (P09 F7.7); bản bị tạm dừng quá hạn đó khi tỉnh dậy bị ClaimLostError ở hàng rào giao dịch 1 hoặc ở bước ghi kết quả, không đè kết quả của bản nhận lại; quét hết hạn chia lô bằng SKIP LOCKED | Không có | UC-005 luồng 7b; UC-006, UC-008 | - |
 | stop | Lượt đang chạy quá grace | Kỹ thuật | Hết grace | Ghi log lượt bị bỏ dở; an toàn vì chạy lặp được | void | Không có | - |
 | (toàn hệ thống) | Mọi bản backend đều dừng | Kỹ thuật | Ngoài SS-04 | Kết quả hết hạn vẫn đúng vì tính theo expiry_time (P09 F7.4); chỉ việc trả ghế về trống chậm hơn NFR-07 | Không có | UC-005 luồng 7b | - |
 
-Cách bảo đảm không chạy chồng và không bỏ sót. Trong một bản backend, DC-JobLoop giữ cờ đang chạy cho từng công việc nên không chạy chồng; giữa các bản backend, từng công việc tự chia việc (SKIP LOCKED cho quét hết hạn và giải phóng ghế, claim_token cho hàng đợi), không cần bầu chủ (P09 F7.8). SS-04 không có trạng thái nghiệp vụ nên mất một bản backend không làm mất việc.
+Cách bảo đảm không chạy chồng và không bỏ sót. Trong một bản backend, DC-JobLoop giữ cờ đang chạy cho từng công việc nên không chạy chồng; giữa các bản backend, từng công việc tự chia việc (SKIP LOCKED cho quét hết hạn và giải phóng ghế, claim_token cho hàng đợi: mỗi luồng claim đúng một dòng ngay trước khi xử lý, và với hoàn tiền giao dịch 1 của ProcessRefund gia hạn claimed_until có điều kiện claim_token trước lời gọi cổng, P09 F7.7), không cần bầu chủ (P09 F7.8). SS-04 không có trạng thái nghiệp vụ nên mất một bản backend không làm mất việc.
 
 b) Điểm kiểm tra
 
