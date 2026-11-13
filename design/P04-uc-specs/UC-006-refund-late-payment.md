@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.8 |
+| Phiên bản | 1.9 |
+| Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-2e, M-6, M-RX trước A-2e, A-6, A-RX để mỗi action chỉ có một cạnh vào (E-33 đến E-35); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-005-book-tickets.md 1.11; _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-005-book-tickets.md 1.13; _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-76 và Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-51 (Q-48 và Q-51 đều đã trả lời); Q-127 và Q-128 (cấp ở P11b, đã trả lời theo đề xuất của review P11); không có ASM (NGHIEM_NGAT) |
 
@@ -130,6 +131,13 @@ Không có
 - Kết quả thất bại của cổng báo vào lúc lần giữ ghế còn hiệu lực thuộc UC-005 (EV-07). Kết quả thất bại báo vào lúc đã hết hạn hoặc đã bị khách huỷ chỉ được ghi nhận ở luồng 2c vì khách chưa mất tiền (BR-39). Kết quả thất bại báo cho giao dịch đã có vé, giao dịch hệ thống không nhận ra hoặc lần giữ ghế đã có báo thất bại trước đó cũng chỉ được ghi nhận, ở luồng 2d (BR-39).
 - Giao dịch thứ hai (BR-40) có mã giao dịch khác mã của giao dịch đầu nên hệ thống chỉ gắn được nó với lần giữ ghế đã có vé qua mã tham chiếu lần giữ ghế kèm trong báo của cổng, và lấy số tiền hoàn từ báo của cổng; hệ thống truyền mã tham chiếu này cho cổng khi tạo giao dịch (UC-005 bước 10, trả lời Q-51). Nếu báo của cổng không kèm mã tham chiếu nhận ra được thì giao dịch không phân biệt được với giao dịch hệ thống không nhận ra và kết thúc ở luồng 2e.
 - Với giao dịch hệ thống không nhận ra (BR-38), hệ thống không có giao dịch do mình tạo để lấy số tiền và không xác định được khách để gửi email, nên không tự hoàn tiền và không gửi email; hệ thống chỉ ghi log lỗi để xử lý thủ công ngoài hệ thống (luồng 2e, trả lời Q-48).
+
+Thao tác nguyên tử:
+
+| Thao tác | Bước | Tài nguyên | Bất biến giữ được | Loại trừ với | Kết cục bên thua | Căn cứ |
+|---|---|---|---|---|---|---|
+| Ghi nhận thanh toán trễ chờ hoàn tiền | 2, 3 | Giao dịch thanh toán; lần giữ ghế ứng với giao dịch | Mỗi giao dịch thành công chỉ được xử lý một lần, hoặc tạo vé ở UC-005 hoặc hoàn toàn bộ ở đây; không có vé mà giao dịch lại được hoàn toàn bộ. Kiểm tra chưa xử lý, kiểm trạng thái lần giữ ghế và ghi nhận là một thao tác cùng UC-005 bước 11, 12. Mốc đến trễ là thời điểm nhận báo so với thời điểm hết hạn, không phải lúc ghế được giải phóng | Chính nó (hai báo cùng giao dịch); UC-005 bước 11, 12, 11a, 9a2 và luồng 7b, *a (cùng lần giữ ghế) | Báo đến trước được xử lý; báo đến sau thấy giao dịch đã xử lý thì là báo trùng (luồng 2a), không tạo vé và không hoàn thêm. Báo thành công đến trước hết hạn: UC-005 tạo vé, báo của giao dịch khác sau đó là thanh toán trễ (BR-40). Báo thành công đến sau hết hạn, sau huỷ giữ ghế hoặc sau báo thất bại: thanh toán trễ, hoàn toàn bộ. Báo thất bại đến sau trạng thái cuối chỉ được ghi nhận (luồng 2c, 2d) | BR-14, BR-15, BR-37, BR-39, BR-40, BR-85, BR-86, REQ-160, REQ-161 |
+| Hoàn toàn bộ qua cổng và ghi nhận khoản đã hoàn | 4, 5, 6 | Yêu cầu hoàn toàn bộ của giao dịch; tổng số tiền đã hoàn của giao dịch | Mỗi yêu cầu hoàn chỉ được thực hiện một lần, mọi lần thử lại dùng lại cùng khoá chống hoàn trùng; tổng số tiền đã hoàn của giao dịch không vượt số tiền đã thanh toán. Kiểm tổng đã hoàn ở bước 4 và cộng khoản hoàn ở bước 6 phải cùng một thao tác hoặc kiểm lại lúc cộng | Chính nó (lần thử lại, tra cứu kết quả); UC-008 bước 5, 7 (hoàn 70% vé trên cùng giao dịch, nếu có) | Lần thử sau tra cứu thấy đã hoàn thì sang bước 6, không gửi lại. Hai khoản hoàn của cùng giao dịch đều được cộng đủ, không mất cập nhật; các luồng đã đặc tả không tạo khoản hoàn làm tổng vượt số tiền đã thanh toán. Trạng thái dở dang là giao dịch đã ghi nhận chờ hoàn mà chưa hoàn xong: lối ra là thử lại có tra cứu (luồng 4t), hết lượt hoặc không tra cứu được thì ghi log lỗi để xử lý thủ công ngoài hệ thống (luồng 4b, 5b) | BR-26, BR-41, BR-43, REQ-131, REQ-132 |
 
 ## 8a. Kịch bản chính
 

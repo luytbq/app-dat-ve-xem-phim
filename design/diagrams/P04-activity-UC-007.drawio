@@ -1,0 +1,31 @@
+<mxfile><diagram id="UC-007" name="UC-007"><mxGraphModel><root>
+<mxCell id="0" /><mxCell id="1" parent="0" />
+<mxCell id="P-ACT-01" value="Khách" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="280" height="1000" as="geometry" /></mxCell>
+<mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="280" y="0" width="590" height="1000" as="geometry" /></mxCell>
+<mxCell id="INIT" value="" style="ellipse;html=1;fillColor=#000000;" vertex="1" parent="P-ACT-01"><mxGeometry x="130" y="60" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="A-1" value="Yêu cầu xem lịch sử đặt vé" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-01"><mxGeometry x="60" y="130" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="A-2" value="Hiển thị các lần đặt vé của khách" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="230" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="D-2" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="340" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="A-2a" value="Thông báo chưa có lần đặt vé nào" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="250" y="330" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="FINAL-2" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="510" y="340" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="M-3" value="" style="rhombus;html=1;" vertex="1" parent="P-ACT-01"><mxGeometry x="130" y="430" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="A-3" value="Chọn một lần đặt vé" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-01"><mxGeometry x="60" y="500" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="A-4" value="Kiểm tra lần đặt thuộc khách" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="600" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="D-4" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="710" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="A-4a" value="Từ chối: lần đặt không thuộc khách (BR-94)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="250" y="700" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="A-5" value="Hiển thị các vé của lần đặt" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="800" width="180" height="60" as="geometry" /></mxCell>
+<mxCell id="FINAL-1" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="910" width="40" height="40" as="geometry" /></mxCell>
+<mxCell id="E-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="INIT" target="A-1"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="E-02" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="A-1" target="A-2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="150" y="260" /></Array></mxGeometry></mxCell>
+<mxCell id="E-03" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-2" target="D-2"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="E-04" value="[khách chưa có lần đặt vé]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="D-2" target="A-2a"><mxGeometry x="0.8" relative="1" as="geometry" /></mxCell>
+<mxCell id="E-05" value="[khách có lần đặt vé]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=1;entryY=0.5;" edge="1" parent="1" source="D-2" target="M-3"><mxGeometry x="0.6" relative="1" as="geometry"><Array as="points"><mxPoint x="430" y="450" /></Array></mxGeometry></mxCell>
+<mxCell id="E-06" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="A-2a" target="FINAL-2"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="E-07" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="M-3" target="A-3"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="E-08" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="A-3" target="A-4"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="150" y="630" /></Array></mxGeometry></mxCell>
+<mxCell id="E-09" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-4" target="D-4"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="E-10" value="[lần đặt không thuộc khách]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="D-4" target="A-4a"><mxGeometry x="0.9" relative="1" as="geometry" /></mxCell>
+<mxCell id="E-11" value="[lần đặt thuộc khách]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-4" target="A-5"><mxGeometry x="0.7" relative="1" as="geometry" /></mxCell>
+<mxCell id="E-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;entryX=1;entryY=0.5;" edge="1" parent="1" source="A-4a" target="M-3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="620" y="450" /></Array></mxGeometry></mxCell>
+<mxCell id="E-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-5" target="FINAL-1"><mxGeometry relative="1" as="geometry" /></mxCell>
+</root></mxGraphModel></diagram></mxfile>

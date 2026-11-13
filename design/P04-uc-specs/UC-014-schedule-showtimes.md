@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.4 | Thêm BR-92 và luồng 8f: không đổi phòng của suất chiếu đã từng có vé, kể cả vé đã huỷ (quyết định R13D-01 phương án A, review cuối RF-02); cập nhật activity diagram (A-8f, FINAL-11, E-63, E-64); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11, UC-008-cancel-ticket.md 1.8, UC-013-manage-price-list.md 1.2 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.13, UC-008-cancel-ticket.md 1.9, UC-013-manage-price-list.md 1.3 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
 | Phạm vi | UC-014 |
 | Mã Q, ASM cuối đã cấp | Q-67 (cấp ở UC-013); Q-52 đến Q-61 đã trả lời; không có ASM (NGHIEM_NGAT) |
 
@@ -166,6 +167,13 @@ Không có
 - Giá vé của suất chiếu tính theo bảng giá của cụm rạp (UC-013) từ loại phòng, định dạng, loại ghế và khung giờ của giờ bắt đầu (BR-11, BR-12); UC-014 chỉ kiểm bảng giá có đủ giá (BR-69), không tính giá.
 - Không có bước hẹn hoặc huỷ mốc (F4.2 mục 17): thời điểm mở bán (BR-01) và giờ bắt đầu (BR-45) được UC-005 so với thời điểm hiện tại mỗi khi có yêu cầu đặt vé, không có use case do tác nhân thời gian kích hoạt dùng chúng làm mốc.
 - Bước sinh theo quy tắc của prompt: bước 9 và bước 1b4 (báo kết quả cho quản lý cụm rạp, Target 5a); hành động "Từ chối ... và thông báo quy tắc bị vi phạm" ở luồng 1a3a, 1a3b, 1b3a, 1b3b, 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a, 8b, 8d, 8e, 8f theo F5.7; luồng 8c, 1b3c là từ chối vì suất chiếu đã thay đổi, người dùng không sửa được tại chỗ; điểm quay lại bước 3 ở luồng 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8b, 8e theo F5.7 vì quản lý cụm rạp sửa được dữ liệu vi phạm (với 5c, 8e: chọn phòng, định dạng hoặc giờ khác, hoặc bổ sung giá ở UC-013 rồi lập lại). Luồng 8c, 1b3c kết thúc thất bại vì quản lý cụm rạp phải mở lại suất chiếu hiện hành mới biết thông tin mới.
+
+Thao tác nguyên tử:
+
+| Thao tác | Bước | Tài nguyên | Bất biến giữ được | Loại trừ với | Kết cục bên thua | Căn cứ |
+|---|---|---|---|---|---|---|
+| Kiểm và lưu suất chiếu (lập hoặc sửa) | 8 | Lịch các suất chiếu của phòng chiếu; suất chiếu đang sửa; bảng giá của cụm rạp; ghế đang giữ và vé của suất chiếu đang sửa | Hai suất chiếu trong một phòng cách nhau ít nhất 15 phút dọn phòng; suất chiếu có ghế đang giữ còn hiệu lực hoặc vé chưa huỷ không bị sửa; yêu cầu sau không ghi đè thay đổi trước; bảng giá còn đủ giá cho suất chiếu đã lưu; không đổi phòng của suất chiếu đã từng có vé. Mọi kiểm tra và việc lưu là một thao tác | Chính nó (cùng phòng chiếu hoặc cùng suất chiếu); xoá suất chiếu (luồng 1b3); UC-005 bước 7 (giữ ghế) và bước 12, 9a2 (bán ghế, tạo vé); UC-008 bước 4 (huỷ vé); UC-013 bước 5 và luồng 1a3 (bỏ giá); UC-012 (chưa đặc tả; sửa sơ đồ ghế của phòng chiếu) | Hai yêu cầu cùng phòng làm vi phạm khoảng cách: chỉ một yêu cầu được lưu, bên sau bị từ chối (luồng 8b). Cùng suất chiếu: bên sau thấy suất chiếu đã đổi và bị từ chối (luồng 8c). Giữ ghế ghi nhận trước thì sửa bị từ chối theo BR-53 (luồng 8a); sửa ghi nhận trước thì giữ ghế bị từ chối (UC-005 luồng 7d). Bán ghế, tạo vé: sửa thấy lần giữ ghế còn Đang giữ hoặc vé đã tạo, không thấy trạng thái dở dang. Huỷ vé ghi nhận trước thì sửa thấy vé đã huỷ. Bỏ giá ghi nhận trước thì lưu bị từ chối vì thiếu giá (luồng 8e); lưu ghi nhận trước thì bỏ giá bị từ chối (UC-013 luồng 1a3b). Ghế đã quá thời điểm hết hạn mà chưa giải phóng không chặn sửa (BR-53), ghế đó vẫn được giải phóng theo UC-005 luồng 7b | BR-51, BR-52, BR-53, BR-54, BR-57, BR-60, BR-68, BR-69, BR-92, REQ-64, REQ-65 |
+| Kiểm và xoá suất chiếu khỏi lịch chiếu | 1b3 | Suất chiếu; ghế đang giữ và vé của suất chiếu | Suất chiếu có ghế đang giữ còn hiệu lực hoặc vé chưa huỷ không bị xoá; yêu cầu sau không ghi đè thay đổi trước; dữ liệu suất chiếu được giữ lại. Kiểm tra và xoá là một thao tác | Chính nó và sửa suất chiếu (cùng suất chiếu); UC-005 bước 7 (giữ ghế) và bước 12, 9a2 (bán ghế, tạo vé); UC-008 bước 4 (huỷ vé) | Bên sau thấy suất chiếu đã đổi hoặc không còn và bị từ chối (luồng 1b3c, 8c). Giữ ghế ghi nhận trước thì xoá bị từ chối theo BR-53 (luồng 1b3a); xoá ghi nhận trước thì giữ ghế bị từ chối (UC-005 luồng 7d). Sau khi xoá, việc giải phóng ghế đã hết hạn (UC-005 luồng 7b) và trả ghế của vé đã huỷ (UC-008 bước 7) vẫn chạy được nhờ dữ liệu suất chiếu được giữ lại | BR-53, BR-54, BR-57, BR-58, BR-60, REQ-65 |
 
 ## 8a. Kịch bản chính
 

@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.8 |
+| Phiên bản | 1.9 |
+| Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (3 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-6c trước A-6c để A-6c chỉ có một cạnh vào (E-57); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.13 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-36 gộp vào Q-30); không có ASM (NGHIEM_NGAT) |
 
@@ -137,6 +138,14 @@ Dữ liệu ra 2 (bước 1a2)
 - Nguồn không nêu bước xác nhận của tác nhân trước khi huỷ; đặc tả không thêm bước này.
 - UC-008 không tạo, đổi hay làm mất hiệu lực mốc nào của use case do tác nhân thời gian kích hoạt (EV-06 chỉ gắn với giữ ghế của UC-005).
 - Bước thông báo kết quả cho tác nhân ở luồng 1a1a, 2a, 2b, 2c, 3a, 4a, 4b và hành động "Từ chối ... và thông báo quy tắc bị vi phạm" ở luồng 2a, 2b, 2c, 3a, 4b sinh theo Target 5a và F5.7. Luồng 5b, 5t, 6a thử lại hoặc tra cứu nên không thông báo cho tác nhân; luồng 5c, 6b nhập lại luồng chính và tình trạng hoàn tiền được báo ở bước 8.
+
+Thao tác nguyên tử:
+
+| Thao tác | Bước | Tài nguyên | Bất biến giữ được | Loại trừ với | Kết cục bên thua | Căn cứ |
+|---|---|---|---|---|---|---|
+| Kiểm vé chưa huỷ, chưa sử dụng và ghi nhận vé đã huỷ; với vé mua tại quầy gộp thêm xác nhận hoàn tiền mặt và trả ghế | 4 (và 5a2, 7 với vé mua tại quầy) | Vé; với vé mua tại quầy thêm ghế của vé | Mỗi vé chỉ được huỷ và hoàn tiền một lần; vé không đồng thời đã huỷ và đã sử dụng. Với vé mua tại quầy không có trạng thái vé đã huỷ mà chưa hoàn tiền mặt hoặc ghế chưa trống | Chính nó (hai yêu cầu huỷ cùng một vé, cùng kênh); UC-009 bước 4, 5; UC-014 bước 8 và luồng 1b3 (kiểm vé chưa huỷ) | Huỷ sau huỷ: bên sau thấy vé đã huỷ, không hoàn thêm (luồng 4a). Soát ghi nhận trước thì huỷ bị từ chối vì vé đã sử dụng (luồng 4b); huỷ ghi nhận trước thì soát báo vé đã huỷ (UC-009 luồng 4e). Với UC-014: sửa, xoá thấy vé chưa huỷ hoặc vé đã huỷ, không thấy trạng thái dở dang | BR-17, BR-21, BR-30, BR-53, BR-85 (Q-125) |
+| Trả ghế của vé mua trực tuyến đã huỷ về trống | 7 | Ghế của vé; suất chiếu | Vé đã huỷ thì ghế không kẹt ở đã bán: mọi đường đi, kể cả khi hoàn tiền không thành công (luồng 5c, 6b), đều qua bước 7; ghế đã bán lại hoặc đã giữ lại cho người khác không bị trả nhầm về trống | Chính nó (lặp lại); UC-005 bước 7 và luồng 7b, 11a, *a (cùng ghế); UC-014 bước 8 và luồng 1b3 (sửa, xoá suất chiếu); UC-012 (chưa đặc tả; sửa sơ đồ ghế) | Lần chạy sau thấy ghế đã trống hoặc không còn thuộc vé này thì không đổi gì. Giữ ghế ghi nhận trước lúc ghế về trống thì thấy ghế còn đã bán và bị từ chối (UC-005 luồng 7a). Trạng thái dở dang là vé đã huỷ mà ghế chưa trống trong lúc chờ hoàn tiền: lối ra là bước 7 của chính use case này; UC-014 không sửa, xoá suất chiếu khi còn vé chưa huỷ, còn khi vé đã huỷ thì suất chiếu vẫn giữ dữ liệu để bước này chạy được (BR-58) | BR-42, BR-45, BR-53, BR-58, REQ-119 |
+| Hoàn 70% qua cổng và ghi nhận khoản hoàn của vé | 5, 6, 7 | Yêu cầu hoàn của vé; tổng số tiền đã hoàn của giao dịch thanh toán | Mỗi yêu cầu hoàn chỉ được thực hiện một lần, mọi lần thử lại dùng lại cùng khoá chống hoàn trùng (mã giao dịch kèm mã vé); tổng số tiền đã hoàn của giao dịch không vượt số tiền đã thanh toán. Kiểm tổng đã hoàn ở bước 5 và cộng khoản hoàn ở bước 7 phải cùng một thao tác hoặc kiểm lại lúc cộng | Chính nó (hai vé của cùng giao dịch huỷ đồng thời; lần thử lại); UC-006 bước 4, 6 (cùng giao dịch, nếu có) | Hai khoản hoàn của cùng giao dịch đều được cộng đủ, không mất cập nhật; lần thử sau tra cứu thấy đã hoàn thì sang bước 7, không gửi lại. Hoàn không thành công thì ghi log lỗi để xử lý thủ công ngoài hệ thống và ghế vẫn được trả (luồng 5c, 6b) | BR-19, BR-26, BR-31, BR-41, BR-43 |
 
 ## 8a. Kịch bản chính
 

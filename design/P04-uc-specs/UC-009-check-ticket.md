@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (1 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.5 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.8 (điểm nối huỷ và soát) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.13 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.9 (điểm nối huỷ và soát) |
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
 
@@ -127,6 +128,12 @@ Không có
 - Không có use case nào do tác nhân thời gian kích hoạt dùng dữ liệu của use case này làm mốc, nên không có bước hẹn hoặc huỷ mốc (F4.2 mục 17).
 - Nguồn không giới hạn thời điểm soát so với giờ bắt đầu của suất chiếu (REQ-125, BR-83), nên bước 4 không có điều kiện về thời điểm quét. Khi camera không đọc được mã QR thì không có cách nhập tay (REQ-126), nên không có luồng thay thế tại bước 3; có thể bổ sung nếu nguồn nêu sau này.
 - Mã QR không quy định nội dung và định dạng; hệ thống tự xác định vé từ mã (REQ-128), chi tiết mã hoá để bước thiết kế quyết định.
+
+Thao tác nguyên tử:
+
+| Thao tác | Bước | Tài nguyên | Bất biến giữ được | Loại trừ với | Kết cục bên thua | Căn cứ |
+|---|---|---|---|---|---|---|
+| Kiểm vé hợp lệ và đánh dấu vé đã sử dụng | 4, 5 | Vé | Mỗi vé chỉ được soát thành công một lần; vé không đồng thời đã huỷ và đã sử dụng. Kiểm các điều kiện và đánh dấu đã sử dụng là một thao tác | Chính nó (hai nhân viên soát vé cùng quét một vé); UC-008 bước 4. UC-014 không phải đối thủ vì vé chưa huỷ chặn sửa, xoá suất chiếu (BR-53) | Soát sau soát: bên sau nhận lý do vé đã sử dụng (luồng 4d). Soát ghi nhận trước thì huỷ bị từ chối (UC-008 luồng 4b); huỷ ghi nhận trước thì soát nhận lý do vé đã huỷ (luồng 4e). Khi vé vi phạm nhiều điều kiện chỉ báo một lý do theo thứ tự cụm rạp, suất chiếu, đã sử dụng, đã huỷ | BR-24, BR-25, BR-30, BR-33 |
 
 ## 8a. Kịch bản chính
 

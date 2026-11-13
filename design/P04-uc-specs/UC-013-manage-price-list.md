@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; UC-005-book-tickets.md 1.8, UC-014-schedule-showtimes.md 1.3 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; _BR-register.md (đã gộp BR-01 đến BR-90); P05-glossary.md 1.1; UC-005-book-tickets.md 1.13, UC-014-schedule-showtimes.md 1.5 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
 | Phạm vi | UC-013 |
 | Mã Q, ASM cuối đã cấp | Q-67 (Q-61 đến Q-67 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -125,6 +126,13 @@ Không có
 - Danh sách loại phòng lấy từ REQ-02 (UC-012), định dạng từ REQ-55 (UC-010); bảng giá không phụ thuộc cụm rạp có phòng thuộc loại đó hay không (trả lời Q-63, BR-70).
 - Bước sinh theo quy tắc của prompt: bước 6 và bước 1a4 (báo kết quả cho quản lý cụm rạp); hành động "Từ chối ... và thông báo" ở luồng 1a3a, 1a3b, 4a, 5a; điểm quay lại bước 3 ở luồng 4a vì quản lý cụm rạp sửa được giá vé vi phạm. Luồng 5a, 1a3a kết thúc thất bại vì quản lý cụm rạp phải mở lại bảng giá hiện hành mới biết thông tin mới; luồng 1a3b kết thúc thất bại vì quản lý cụm rạp không sửa được điều kiện ngay trong use case.
 - Không có bước hẹn hoặc huỷ mốc (F4.2 mục 17): thay đổi bảng giá có hiệu lực ngay (BR-66, trả lời Q-66), không có ngày hiệu lực hẹn trước.
+
+Thao tác nguyên tử:
+
+| Thao tác | Bước | Tài nguyên | Bất biến giữ được | Loại trừ với | Kết cục bên thua | Căn cứ |
+|---|---|---|---|---|---|---|
+| Kiểm mục giá chưa bị đổi và đặt giá hoặc đổi giá | 5 | Mục giá của tổ hợp trong bảng giá của cụm rạp | Mỗi tổ hợp loại phòng, định dạng, loại ghế, khung giờ có tối đa một mục giá; yêu cầu sau không ghi đè thay đổi trước; thay đổi có hiệu lực ngay | Chính nó (hai quản lý hoặc hai phiên làm việc, cùng tổ hợp); bỏ giá (luồng 1a3); UC-005 bước 7 (chốt giá) | Yêu cầu sau thấy mục giá đã đổi, tạo hoặc bỏ thì bị từ chối, không ghi đè (luồng 5a). Với UC-005: đặt giá ghi nhận trước thì lần giữ ghế dùng giá mới, ghi nhận sau thì không ảnh hưởng lần giữ ghế đã chốt giá | BR-62, BR-63, BR-65, BR-66, BR-71 |
+| Kiểm mục giá chưa bị đổi, không suất chiếu đang dùng, rồi bỏ mục giá | 1a3 | Mục giá của tổ hợp; các suất chiếu chưa tới giờ bắt đầu của cụm rạp | Không bỏ mục giá mà suất chiếu chưa tới giờ bắt đầu còn dùng; yêu cầu sau không ghi đè thay đổi trước. Kiểm và bỏ là một thao tác | Chính nó và đặt giá (cùng tổ hợp); UC-014 bước 5 và bước 8 (lập, sửa suất chiếu kiểm đủ giá); UC-005 bước 7 (chốt giá); UC-012 (chưa đặc tả; BR-73) | Với UC-014: lưu suất chiếu ghi nhận trước thì bỏ giá bị từ chối (luồng 1a3b); bỏ giá ghi nhận trước thì lập, sửa suất chiếu bị từ chối vì thiếu giá (UC-014 luồng 8e). Với đặt giá hoặc bỏ giá khác: bên sau thấy mục giá đã đổi và bị từ chối (luồng 1a3a). Với UC-005: bỏ giá không xen vào lúc đang chốt giá; bỏ giá ghi nhận trước thì giữ ghế thiếu giá bị từ chối (UC-005 luồng 7e) | BR-63, BR-64, BR-68, BR-69, BR-71, BR-72 |
 
 ## 8a. Kịch bản chính
 
