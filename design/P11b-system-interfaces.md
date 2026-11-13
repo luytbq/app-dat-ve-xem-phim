@@ -5,7 +5,7 @@
 | Bước | P11b |
 | Phiên bản | 1.4 |
 | Thay đổi 1.4 | Ghi project-profile.md đã cập nhật CONG_NGHE (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.2; P04-uc-specs UC-005 1.11, UC-006 1.7, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.3 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới boundary hệ thống); P08-analysis-model.md 1.5; P09-architecture.md 1.5 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.4 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3, 4); P01-actors.md 1.2; P04-uc-specs UC-005 1.11, UC-006 1.8, UC-008 1.8, UC-009 1.5, UC-013 1.2, UC-014 1.4 (luồng thay thế, ngoại lệ, tiền điều kiện); P06-supplementary-spec.md 1.3 (NFR-01 đến NFR-03, NFR-07 đến NFR-10, NFR-15 đến NFR-18); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới boundary hệ thống); P08-analysis-model.md 1.5; P09-architecture.md 1.6 (F4, F6, F7, F11, Vấn đề còn mở 6); P10-design-elements.md 1.4 (F2, F4, F5, Q-116 đến Q-118); TAI_LIEU_GIAO_TIEP: Không có; CHINH_SACH_LOI: Không có (suy từ NFR và P09 F7 theo C1 mục 7); YEU_CAU_BO_SUNG: Không có |
 | Phạm vi | Tất cả subsystem SS-01 đến SS-05 của P10 F2 (IF-01 đến IF-07) |
 | Mã Q, ASM cuối đã cấp | Q-132; không có ASM (NGHIEM_NGAT) |
 

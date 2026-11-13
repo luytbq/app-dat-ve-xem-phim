@@ -5,7 +5,7 @@
 | Bước | P11b |
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | runDue: dòng hoàn tiền xử lý tối đa 80 giây, hàng rào claim_token, xử lý bản bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2; P04-uc-specs UC-005 1.11 (luồng 7b, 11a, *a), UC-006 1.7, UC-008 1.7; P06-supplementary-spec.md 1.3 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006 1.1, UC-008 1.2; P09-architecture.md 1.5 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.4 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2; P04-uc-specs UC-005 1.11 (luồng 7b, 11a, *a), UC-006 1.8, UC-008 1.8; P06-supplementary-spec.md 1.3 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006 1.1, UC-008 1.2; P09-architecture.md 1.6 (F4, F6, F7.4, F7.7); P10-design-elements.md 1.4 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-04 Scheduler (IF-05, IF-06) |
 | Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 

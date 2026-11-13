@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.7 |
+| Phiên bản | 1.8 |
+| Thay đổi 1.8 | Activity diagram: thêm Merge M-6c trước A-6c để A-6c chỉ có một cạnh vào (E-57); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
@@ -169,7 +170,7 @@ Bảng đối chiếu
 | 5b, 6a | M-R |
 | 5b | D-5w |
 | 5t | A-5t, D-5t, D-R (nhánh [còn lượt thử lại] trở về M-5) |
-| 5c, 6b | D-5t, D-R, A-6c |
+| 5c, 6b | D-5t, D-R, M-6c, A-6c |
 | 6 | A-6, D-6 |
 | 7 | M-7, A-7 |
 | 8 | A-8, FINAL-7 |
@@ -220,6 +221,7 @@ Bảng Node
 | A-5t | Action | Tra cứu cổng xem khoản hoàn đã thực hiện chưa, kèm khoá yêu cầu hoàn (BR-43) | - | P-SYS | 5t | x=340, y=1560 (tương đối partition) |
 | D-5t | Decision | - | - | P-SYS | 5t, 5c, 6b | x=520, y=1580 (tương đối partition) |
 | D-R | Decision | - | - | P-SYS | 5t, 5c, 6b | x=520, y=1480 (tương đối partition) |
+| M-6c | Merge | - | - | P-SYS | 5c, 6b | x=570, y=1590 (tương đối partition) |
 | A-6c | Action | Ghi log lỗi khoản hoàn, xử lý thủ công ngoài hệ thống, không email khách (BR-41, BR-42) | - | P-SYS | 5c, 6b | x=500, y=1660 (tương đối partition) |
 | M-7 | Merge | - | - | P-SYS | 7 | x=130, y=1760 (tương đối partition) |
 | A-7 | Action | Ghi nhận khoản hoàn kèm tình trạng, trả ghế của vé về trạng thái trống (BR-42) | - | P-SYS | 7 | x=60, y=1830 (tương đối partition) |
@@ -273,7 +275,7 @@ Bảng Edge
 | E-45 | D-6 | M-7 | ControlFlow | [thành công] | - | - |
 | E-46 | M-R | A-5t | ControlFlow | - | - | - |
 | E-47 | D-R | M-5 | ControlFlow | [còn lượt thử lại] | - | (1100,1280) |
-| E-48 | D-R | A-6c | ControlFlow | [hết lượt thử lại] | - | (1150,1500) |
+| E-48 | D-R | M-6c | ControlFlow | [hết lượt thử lại] | - | (1150,1500) |
 | E-49 | A-6c | M-7 | ControlFlow | - | - | (1060,1790) |
 | E-50 | M-7 | A-7 | ControlFlow | - | - | - |
 | E-51 | A-7 | A-8 | ControlFlow | - | - | - |
@@ -281,9 +283,10 @@ Bảng Edge
 | E-53 | A-5t | D-5t | ControlFlow | - | - | - |
 | E-54 | D-5t | D-R | ControlFlow | [chưa hoàn] | - | - |
 | E-55 | D-5t | M-7 | ControlFlow | [đã hoàn] | - | (1260,1600); (1260,1780) |
-| E-56 | D-5t | A-6c | ControlFlow | [không tra cứu được] | - | - |
+| E-56 | D-5t | M-6c | ControlFlow | [không tra cứu được] | - | - |
+| E-57 | M-6c | A-6c | ControlFlow | - | - | - |
 
-Partition P-ACT-01-02 dùng chung cho ACT-01 Khách và ACT-02 Nhân viên quầy (F10.4); A-1 chỉ khách thực hiện, A-1a1, A-1a3, A-5a2 chỉ nhân viên quầy thực hiện. D-1 đặt trong partition của tác nhân vì tác nhân chọn kịch bản chọn vé. D-5 đặt trong partition hệ thống vì hệ thống phân biệt tác nhân theo kênh mua vé (BR-20), không phải tác nhân tự chọn. D-5w đặt sau A-5 vì thời hạn chờ 30 giây bắt đầu từ bước 5. Merge M-2 đứng trước A-2 và M-5 đứng trước A-5 để mỗi action chỉ có một cạnh vào; cạnh E-47 quay lại M-5. Luồng 5b, 6a dùng chung M-R, D-R với 5c, 6b và không có action riêng; luồng 5c, 6b và 5a nhập lại luồng chính ở M-7. Mã cạnh E-34, E-35, E-37, E-38 không dùng. ACT-08 không tham gia use case này nên không có partition.
+Partition P-ACT-01-02 dùng chung cho ACT-01 Khách và ACT-02 Nhân viên quầy (F10.4); A-1 chỉ khách thực hiện, A-1a1, A-1a3, A-5a2 chỉ nhân viên quầy thực hiện. D-1 đặt trong partition của tác nhân vì tác nhân chọn kịch bản chọn vé. D-5 đặt trong partition hệ thống vì hệ thống phân biệt tác nhân theo kênh mua vé (BR-20), không phải tác nhân tự chọn. D-5w đặt sau A-5 vì thời hạn chờ 30 giây bắt đầu từ bước 5. Merge M-2 đứng trước A-2, M-5 đứng trước A-5 và M-6c đứng trước A-6c để mỗi action chỉ có một cạnh vào; cạnh E-47 quay lại M-5. Luồng 5b, 6a dùng chung M-R, D-R với 5c, 6b và không có action riêng; luồng 5c, 6b và 5a nhập lại luồng chính ở M-7. Mã cạnh E-34, E-35, E-37, E-38 không dùng. ACT-08 không tham gia use case này nên không có partition.
 
 
 ## Câu hỏi mở

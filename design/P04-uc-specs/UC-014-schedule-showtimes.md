@@ -5,7 +5,7 @@
 | Bước | P04 |
 | Phiên bản | 1.4 |
 | Thay đổi 1.4 | Thêm BR-92 và luồng 8f: không đổi phòng của suất chiếu đã từng có vé, kể cả vé đã huỷ (quyết định R13D-01 phương án A, review cuối RF-02); cập nhật activity diagram (A-8f, FINAL-11, E-63, E-64); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11, UC-008-cancel-ticket.md 1.7, UC-013-manage-price-list.md 1.2 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.11, UC-008-cancel-ticket.md 1.8, UC-013-manage-price-list.md 1.2 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
 | Phạm vi | UC-014 |
 | Mã Q, ASM cuối đã cấp | Q-67 (cấp ở UC-013); Q-52 đến Q-61 đã trả lời; không có ASM (NGHIEM_NGAT) |
 

@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.7 |
+| Phiên bản | 1.8 |
+| Thay đổi 1.8 | Activity diagram: thêm Merge M-2e, M-6, M-RX trước A-2e, A-6, A-RX để mỗi action chỉ có một cạnh vào (E-33 đến E-35); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-005-book-tickets.md 1.11; _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-006 |
@@ -156,14 +157,14 @@ Bảng đối chiếu
 | 2a | A-2a, FINAL-1 |
 | 2b | FINAL-2 |
 | 2c, 2d | A-2c, A-2d, FINAL-4 |
-| 2e, 2f | A-2e, FINAL-6 |
+| 2e, 2f | M-2e, A-2e, FINAL-6 |
 | 3 | A-3 |
 | 4 | M-4, A-4, D-4 |
 | 4a, 5a | M-R |
 | 4t | A-T, D-T, D-R (nhánh [còn lượt thử lại] trở về M-4) |
-| 4b, 5b | D-T, D-R, A-RX, FINAL-3 |
+| 4b, 5b | D-T, D-R, M-RX, A-RX, FINAL-3 |
 | 5 | A-5, D-5 |
-| 6 | A-6 |
+| 6 | M-6, A-6 |
 | 7 | A-7, FINAL-5 |
 
 Bảng Node
@@ -184,6 +185,7 @@ Bảng Node
 | A-2d | Action | Ghi nhận thất bại khác, không hoàn tiền (BR-39) | - | P-SYS | 2d | x=320, y=460 (tương đối partition) |
 | A-2e | Action | Ghi log lỗi giao dịch không nhận ra hoặc số tiền lệch, xử lý thủ công ngoài hệ thống (BR-38, BR-91) | - | P-SYS | 2e, 2f | x=320, y=560 (tương đối partition) |
 | FINAL-6 | ActivityFinal | - | - | P-SYS | - | x=560, y=570 (tương đối partition) |
+| M-2e | Merge | - | - | P-SYS | 2e, 2f | x=520, y=600 (tương đối partition) |
 | A-3 | Action | Ghi nhận thanh toán trễ, không tạo vé | - | P-SYS | 3 | x=60, y=420 (tương đối partition) |
 | M-4 | Merge | - | - | P-SYS | 4, 4a, 5a | x=130, y=520 (tương đối partition) |
 | A-4 | Action | Yêu cầu cổng hoàn toàn bộ tiền kèm khoá yêu cầu hoàn | - | P-SYS | 4 | x=60, y=590 (tương đối partition) |
@@ -196,6 +198,8 @@ Bảng Node
 | D-R | Decision | - | - | P-SYS | 4t, 4b, 5b | x=580, y=980 (tương đối partition) |
 | A-RX | Action | Ghi log lỗi khoản hoàn, xử lý thủ công ngoài hệ thống, không email khách (BR-41) | - | P-SYS | 4b, 5b | x=250, y=1060 (tương đối partition) |
 | FINAL-3 | ActivityFinal | - | - | P-SYS | - | x=320, y=1170 (tương đối partition) |
+| M-6 | Merge | - | - | P-SYS | 4t, 6 | x=260, y=960 (tương đối partition) |
+| M-RX | Merge | - | - | P-SYS | 4b, 5b | x=460, y=1040 (tương đối partition) |
 | A-6 | Action | Ghi nhận giao dịch đã hoàn tiền | - | P-SYS | 4t, 6 | x=60, y=990 (tương đối partition) |
 | A-7 | Action | Gửi email thông báo hoàn tiền | - | P-SYS | 7 | x=60, y=1090 (tương đối partition) |
 | FINAL-5 | ActivityFinal | - | - | P-SYS | - | x=130, y=1190 (tương đối partition) |
@@ -211,7 +215,7 @@ Bảng Edge
 | E-05 | D-2 | FINAL-2 | ControlFlow | [giữ ghế còn hiệu lực, chưa có vé] | - | - |
 | E-06 | D-2 | A-2c | ControlFlow | [thất bại, giữ ghế hết hạn hoặc bị huỷ] | - | (550,340); (550,410) |
 | E-07 | D-2 | A-2d | ControlFlow | [thất bại khác] | - | (550,340); (550,490) |
-| E-08 | D-2 | A-2e | ControlFlow | [thành công, không nhận ra, không gắn được lần giữ ghế] | - | (520,340); (520,590) |
+| E-08 | D-2 | M-2e | ControlFlow | [thành công, không nhận ra, không gắn được lần giữ ghế] | - | (520,340); (520,590) |
 | E-09 | D-2 | A-3 | ControlFlow | [thành công, cần hoàn toàn bộ] | - | - |
 | E-10 | A-2a | FINAL-1 | ControlFlow | - | - | - |
 | E-11 | A-2c | FINAL-4 | ControlFlow | - | - | - |
@@ -224,18 +228,21 @@ Bảng Edge
 | E-18 | D-4 | A-5 | ControlFlow | [có kết quả trong 30 giây] | - | (450,770) |
 | E-19 | A-5 | D-5 | ControlFlow | - | - | (150,920) |
 | E-20 | D-5 | M-R | ControlFlow | [hoàn tiền thất bại] | - | - |
-| E-21 | D-5 | A-6 | ControlFlow | [thành công] | - | - |
+| E-21 | D-5 | M-6 | ControlFlow | [thành công] | - | - |
 | E-22 | M-R | A-T | ControlFlow | - | - | - |
 | E-23 | D-R | M-4 | ControlFlow | [còn lượt thử lại] | - | (940,990); (940,560) |
-| E-24 | D-R | A-RX | ControlFlow | [hết lượt thử lại] | - | (900,1060) |
+| E-24 | D-R | M-RX | ControlFlow | [hết lượt thử lại] | - | (900,1060) |
 | E-25 | A-RX | FINAL-3 | ControlFlow | - | - | - |
 | E-26 | A-6 | A-7 | ControlFlow | - | - | - |
 | E-27 | A-7 | FINAL-5 | ControlFlow | - | - | - |
-| E-28 | D-2 | A-2e | ControlFlow | [thành công, số tiền cổng báo lệch] | - | (450,385); (590,385); (590,600) |
+| E-28 | D-2 | M-2e | ControlFlow | [thành công, số tiền cổng báo lệch] | - | (450,385); (590,385); (590,600) |
 | E-29 | A-T | D-T | ControlFlow | - | - | - |
 | E-30 | D-T | D-R | ControlFlow | [chưa hoàn] | - | - |
-| E-31 | D-T | A-6 | ControlFlow | [đã hoàn] | - | - |
-| E-32 | D-T | A-RX | ControlFlow | [không tra cứu được] | - | (790,1060) |
+| E-31 | D-T | M-6 | ControlFlow | [đã hoàn] | - | - |
+| E-32 | D-T | M-RX | ControlFlow | [không tra cứu được] | - | (790,1060) |
+| E-33 | M-2e | A-2e | ControlFlow | - | - | - |
+| E-34 | M-6 | A-6 | ControlFlow | - | - | - |
+| E-35 | M-RX | A-RX | ControlFlow | - | - | - |
 
 Partition P-ACT-07 dùng cho ACT-07 Cổng thanh toán ở cả hai vai trò (bước 1 là tác nhân chính, bước 5 là tác nhân phụ). ACT-08 Dịch vụ email không có partition vì chỉ nhận thông tin (nằm trong nhãn A-7). Luồng 2b không có hành động nên không có action; cạnh mang guard đi thẳng từ decision tới final node. Luồng 2c và 2d dùng chung FINAL-4. Luồng 4a, 5a dùng chung M-R (hợp hai nhánh lỗi) và không có action riêng, rồi đi qua A-T, D-T của luồng 4t; D-R quyết định thử lại sau khi tra cứu cho thấy chưa hoàn. Cạnh E-23 đi từ D-R về M-4, merge đặt ngay trước A-4 nên A-4 chỉ có một cạnh vào. Luồng 4b, 5b dùng chung A-RX, FINAL-3. Luồng 2e và 2f dùng chung A-2e, FINAL-6.
 
@@ -264,4 +271,4 @@ Không có
 - Luồng 2b chỉ phân định ranh giới với UC-005 (EV-07), nằm trong use case vì cùng một sự kiện báo thành công của cổng có thể rơi vào một trong hai use case; cách phân loại cụ thể thuộc bước thiết kế.
 - BR-37 (đã gộp BR-16) là quy tắc suy ra từ cụm "hoàn toàn bộ số tiền" (REQ-35, REQ-109) cho tình huống báo trùng; đề bài đã bổ sung ở REQ-110 theo trả lời Q-27.
 - Ngoài phạm vi: xử lý thủ công khoản hoàn đã ghi log lỗi (luồng 4b, 5b) và giao dịch không nhận ra (luồng 2e) diễn ra ngoài hệ thống, không có use case (REQ-129, REQ-131).
-- Các cạnh E-04 đến E-09 cùng xuất phát từ D-2 và dùng chung đoạn ngang đầu; E-17 và E-20 hợp ở M-R; E-14 và E-23 hợp ở M-4; E-08 và E-28 hợp ở A-2e; không cạnh nào cắt qua node.
+- Các cạnh E-04 đến E-09 cùng xuất phát từ D-2 và dùng chung đoạn ngang đầu; E-17 và E-20 hợp ở M-R; E-14 và E-23 hợp ở M-4; E-08 và E-28 hợp ở M-2e; E-21 và E-31 hợp ở M-6; E-24 và E-32 hợp ở M-RX; không cạnh nào cắt qua node.

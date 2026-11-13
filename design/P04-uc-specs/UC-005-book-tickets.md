@@ -6,7 +6,7 @@
 | Phiên bản | 1.12 |
 | Thay đổi 1.12 | Cấp Q-139 (đã trả lời) làm nguồn gốc của BR-93 và dẫn mã Q ở luồng 11a |
 | Thay đổi 1.11 | Thêm điều kiện giao dịch tạo sau cùng vào luồng 11a và BR-93 (review cuối RF-04); ghi rõ ngừng bán là ngừng nhận lần giữ ghế mới (RF-16); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-006-refund-late-payment.md 1.7, UC-008-cancel-ticket.md 1.7, UC-014-schedule-showtimes.md 1.4, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P02R-review.md 1.0; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-006-refund-late-payment.md 1.8, UC-008-cancel-ticket.md 1.8, UC-014-schedule-showtimes.md 1.4, UC-013-manage-price-list.md 1.2 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
 | Phạm vi | UC-005 |
 | Mã Q, ASM cuối đã cấp | Q-139 (cấp cho BR-93, đã trả lời); Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
 

@@ -5,7 +5,7 @@
 | Bước | P06 |
 | Phiên bản | 1.3 |
 | Thay đổi 1.3 | Thêm BR-92, BR-93 và cập nhật ma trận truy vết; đồng bộ BR-41, BR-45 với P04 (RF-14, RF-16); ghi công nghệ đã chốt ở P09 F11 (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8 (Mục 4, Mục 5); P04-uc-specs/UC-005 1.11, UC-006 1.7, UC-008 1.7, UC-009 1.5, UC-013 1.2, UC-014 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; _review-P05-P06.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8 (Mục 4, Mục 5); P04-uc-specs/UC-005 1.11, UC-006 1.8, UC-008 1.8, UC-009 1.5, UC-013 1.2, UC-014 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; _review-P05-P06.md |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-74 đến Q-80 đều đã trả lời); không có ASM (NGHIEM_NGAT) |
 
