@@ -61,11 +61,11 @@
         <mxCell id="DC-Booking-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-Booking">
           <mxGeometry y="112" width="470" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Booking-ops" value="&lt;u&gt;+ NewBooking(hold *SeatHold, code string, tickets []*Ticket) *Booking&lt;/u&gt;&lt;br&gt;+ CheckCancellationChannel(actor ActorContext) error&lt;br&gt;+ Code() string&lt;br&gt;+ Tickets() []*Ticket&lt;br&gt;+ ID() BookingId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
+        <mxCell id="DC-Booking-ops" value="&lt;u&gt;+ NewBooking(hold *SeatHold, code string, seats []*SeatStatus, ticketCodes []string) *Booking&lt;/u&gt;&lt;br&gt;+ CheckCancellationChannel(actor ActorContext) error&lt;br&gt;+ Code() string&lt;br&gt;+ Tickets() []*Ticket&lt;br&gt;+ ID() BookingId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
           <mxGeometry y="122" width="470" height="88" as="geometry" />
         </mxCell>
         <mxCell id="DC-Ticket" value="«entity»&lt;br&gt;&lt;b&gt;Ticket&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="45" y="499" width="750" height="482" as="geometry" />
+          <mxGeometry x="45" y="499" width="750" height="489" as="geometry" />
         </mxCell>
         <mxCell id="DC-Ticket-attr" value="- id: TicketId {id}&lt;br&gt;- ticketCode: string {unique}&lt;br&gt;- price: Money {&gt; 0}&lt;br&gt;- status: TicketStatus = UNUSED&lt;br&gt;&lt;u&gt;+ RefundPercent: int = 70 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
           <mxGeometry y="40" width="540" height="88" as="geometry" />
@@ -73,8 +73,8 @@
         <mxCell id="DC-Ticket-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-Ticket">
           <mxGeometry y="128" width="540" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Ticket-ops" value="&lt;u&gt;+ NewTicket(key SeatKey, price Money, code string) *Ticket&lt;/u&gt;&lt;br&gt;+ Cancel() error&lt;br&gt;+ Admit(showtime *Showtime, selected ShowtimeId, cinemaId CinemaId) AdmitOutcome&lt;br&gt;+ RefundAmount() Money&lt;br&gt;+ IsCancelled() bool&lt;br&gt;+ ID() TicketId&lt;br&gt;+ Code() string&lt;br&gt;+ Price() Money&lt;br&gt;+ Status() TicketStatus&lt;br&gt;+ Key() SeatKey" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
-          <mxGeometry y="138" width="540" height="168" as="geometry" />
+        <mxCell id="DC-Ticket-ops" value="&lt;u&gt;~ newTicket(key SeatKey, price Money, code string) *Ticket&lt;/u&gt;&lt;br&gt;+ Cancel() error&lt;br&gt;+ Admit(showtime *Showtime, selected ShowtimeId, cinemaId CinemaId) AdmitOutcome&lt;br&gt;+ RefundAmount() Money&lt;br&gt;+ IsCancelled() bool&lt;br&gt;+ ID() TicketId&lt;br&gt;+ Code() string&lt;br&gt;+ Price() Money&lt;br&gt;+ Status() TicketStatus&lt;br&gt;+ Key() SeatKey" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
+          <mxGeometry y="138" width="540" height="175" as="geometry" />
         </mxCell>
         <mxCell id="DC-Customer" value="«entity»&lt;br&gt;&lt;b&gt;Customer&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="1530" y="21" width="460" height="178" as="geometry" />
@@ -113,7 +113,7 @@
           <mxGeometry y="62" width="440" height="40" as="geometry" />
         </mxCell>
         <mxCell id="IF-17" value="«interface»&lt;br&gt;&lt;b&gt;ISeatHoldRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="540" y="924" width="670" height="180" as="geometry" />
+          <mxGeometry x="540" y="924" width="670" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IF-17-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-17">
           <mxGeometry y="40" width="670" height="12" as="geometry" />
@@ -121,11 +121,11 @@
         <mxCell id="IF-17-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-17">
           <mxGeometry y="52" width="670" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="IF-17-ops" value="+ LockUnfinishedOrByRequest(ctx Ctx, tx Tx, holder HolderRef, requestId string) ([]*SeatHold, error)&lt;br&gt;+ LockByID(ctx Ctx, tx Tx, id SeatHoldId) (*SeatHold, error)&lt;br&gt;+ LockExpiredBatch(ctx Ctx, tx Tx, limit int) ([]*SeatHold, error)&lt;br&gt;+ LockReleasableBatch(ctx Ctx, tx Tx, limit int) ([]*SeatHold, error)&lt;br&gt;+ FindIDByRef(ctx Ctx, holdRef string) (SeatHoldId, error)&lt;br&gt;+ Insert(ctx Ctx, tx Tx, h *SeatHold) error&lt;br&gt;+ UpdateStatus(ctx Ctx, tx Tx, h *SeatHold) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-17">
-          <mxGeometry y="62" width="670" height="118" as="geometry" />
+        <mxCell id="IF-17-ops" value="+ LockUnfinishedOrByRequest(ctx Ctx, tx Tx, holder HolderRef, requestId string) ([]*SeatHold, error)&lt;br&gt;+ LockByID(ctx Ctx, tx Tx, id SeatHoldId) (*SeatHold, error)&lt;br&gt;+ FindIDByRef(ctx Ctx, holdRef string) (SeatHoldId, error)&lt;br&gt;+ Insert(ctx Ctx, tx Tx, h *SeatHold) error&lt;br&gt;+ UpdateStatus(ctx Ctx, tx Tx, h *SeatHold) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-17">
+          <mxGeometry y="62" width="670" height="88" as="geometry" />
         </mxCell>
         <mxCell id="IF-18" value="«interface»&lt;br&gt;&lt;b&gt;ISeatStatusRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1270" y="924" width="620" height="182" as="geometry" />
+          <mxGeometry x="1270" y="924" width="620" height="184" as="geometry" />
         </mxCell>
         <mxCell id="IF-18-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-18">
           <mxGeometry y="40" width="620" height="12" as="geometry" />
@@ -133,8 +133,8 @@
         <mxCell id="IF-18-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-18">
           <mxGeometry y="52" width="620" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="IF-18-ops" value="+ LockForHold(ctx Ctx, tx Tx, showtimeId ShowtimeId, seatIds []SeatId) ([]*SeatStatus, error)&lt;br&gt;+ LockByHold(ctx Ctx, tx Tx, holdId SeatHoldId) ([]*SeatStatus, error)&lt;br&gt;+ LockByHolds(ctx Ctx, tx Tx, holdIds []SeatHoldId) ([]*SeatStatus, error)&lt;br&gt;+ LockByKey(ctx Ctx, tx Tx, key SeatKey) (*SeatStatus, error)&lt;br&gt;+ FindByHold(ctx Ctx, tx Tx, holdId SeatHoldId) ([]*SeatStatus, error)&lt;br&gt;+ FindBeingReleased(ctx Ctx, showtimeId ShowtimeId, seatIds []SeatId) (bool, error)&lt;br&gt;+ SaveChanges(ctx Ctx, tx Tx, changed []*SeatStatus) error&lt;br&gt;+ InsertAll(ctx Ctx, tx Tx, all []*SeatStatus) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-18">
-          <mxGeometry y="62" width="620" height="120" as="geometry" />
+        <mxCell id="IF-18-ops" value="+ LockForHold(ctx Ctx, tx Tx, showtimeId ShowtimeId, seatIds []SeatId) ([]*SeatStatus, error)&lt;br&gt;+ LockByHold(ctx Ctx, tx Tx, holdId SeatHoldId) ([]*SeatStatus, error)&lt;br&gt;+ LockByKey(ctx Ctx, tx Tx, key SeatKey) (*SeatStatus, error)&lt;br&gt;+ FindByHold(ctx Ctx, tx Tx, holdId SeatHoldId) ([]*SeatStatus, error)&lt;br&gt;+ FindBeingReleased(ctx Ctx, showtimeId ShowtimeId, seatIds []SeatId) (bool, error)&lt;br&gt;+ SaveChanges(ctx Ctx, tx Tx, changed []*SeatStatus) error&lt;br&gt;+ InsertAll(ctx Ctx, tx Tx, all []*SeatStatus) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-18">
+          <mxGeometry y="62" width="620" height="122" as="geometry" />
         </mxCell>
         <mxCell id="IF-19" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentTransactionRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="1950" y="924" width="570" height="216" as="geometry" />
@@ -149,7 +149,7 @@
           <mxGeometry y="62" width="570" height="154" as="geometry" />
         </mxCell>
         <mxCell id="IF-20" value="«interface»&lt;br&gt;&lt;b&gt;IBookingRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="40" y="1202" width="460" height="198" as="geometry" />
+          <mxGeometry x="40" y="1202" width="460" height="132" as="geometry" />
         </mxCell>
         <mxCell id="IF-20-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-20">
           <mxGeometry y="40" width="460" height="12" as="geometry" />
@@ -157,8 +157,8 @@
         <mxCell id="IF-20-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-20">
           <mxGeometry y="52" width="460" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="IF-20-ops" value="+ InsertWithTickets(ctx Ctx, tx Tx, b *Booking) error&lt;br&gt;+ LockTicketByID(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ LockTicketByCode(ctx Ctx, tx Tx, code string) (*Ticket, error)&lt;br&gt;+ LockTicketShared(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ UpdateTicketStatus(ctx Ctx, tx Tx, t *Ticket) error&lt;br&gt;+ FindByCode(ctx Ctx, tx Tx, bookingCode string) (*Booking, error)&lt;br&gt;+ FindByTicket(ctx Ctx, tx Tx, ticketId TicketId) (*Booking, error)&lt;br&gt;+ FindByHold(ctx Ctx, tx Tx, holdId SeatHoldId) (*Booking, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-20">
-          <mxGeometry y="62" width="460" height="136" as="geometry" />
+        <mxCell id="IF-20-ops" value="+ InsertWithTickets(ctx Ctx, tx Tx, b *Booking) error&lt;br&gt;+ FindByCode(ctx Ctx, tx Tx, bookingCode string) (*Booking, error)&lt;br&gt;+ FindByTicket(ctx Ctx, tx Tx, ticketId TicketId) (*Booking, error)&lt;br&gt;+ FindByHold(ctx Ctx, tx Tx, holdId SeatHoldId) (*Booking, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-20">
+          <mxGeometry y="62" width="460" height="70" as="geometry" />
         </mxCell>
         <mxCell id="IF-21" value="«interface»&lt;br&gt;&lt;b&gt;IRefundRequestRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="560" y="1202" width="680" height="150" as="geometry" />
@@ -342,6 +342,42 @@
         <mxCell id="R-64-d" value="soldSeat 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-64">
           <mxGeometry x="0.4" relative="1" as="geometry">
             </mxGeometry>
+        </mxCell>
+              <mxCell id="DC-HoldSettlement" value="«utility»&lt;br&gt;&lt;b&gt;HoldSettlement&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1500" width="844" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldSettlement-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-HoldSettlement">
+          <mxGeometry y="40" width="844" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldSettlement-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-HoldSettlement">
+          <mxGeometry y="52" width="844" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="DC-HoldSettlement-ops" value="+ End(now time.Time, hold *SeatHold, reason HoldEndReason, seats []*SeatStatus) (HoldEndOutcome, error)&lt;br&gt;+ Sell(now time.Time, hold *SeatHold, seats []*SeatStatus, bookingCode string, ticketCodes []string) (*Booking, error)&lt;br&gt;+ FinishSale(hold *SeatHold, booking *Booking, seats []*SeatStatus) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-HoldSettlement">
+          <mxGeometry y="62" width="844" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-26" value="«interface»&lt;br&gt;&lt;b&gt;IHoldSweepRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="1500" width="540" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-26-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-26">
+          <mxGeometry y="40" width="540" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-26-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-26">
+          <mxGeometry y="52" width="540" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-26-ops" value="+ LockExpiredBatch(ctx Ctx, tx Tx, limit int) ([]*SeatHold, error)&lt;br&gt;+ LockReleasableBatch(ctx Ctx, tx Tx, limit int) ([]*SeatHold, error)&lt;br&gt;+ LockByHolds(ctx Ctx, tx Tx, holdIds []SeatHoldId) ([]*SeatStatus, error)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-26">
+          <mxGeometry y="62" width="540" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-27" value="«interface»&lt;br&gt;&lt;b&gt;ITicketLockRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="1500" width="471" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-27-attr" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-27">
+          <mxGeometry y="40" width="471" height="12" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-27-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="IF-27">
+          <mxGeometry y="52" width="471" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-27-ops" value="+ LockTicketByID(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ LockTicketByCode(ctx Ctx, tx Tx, code string) (*Ticket, error)&lt;br&gt;+ LockTicketShared(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ UpdateTicketStatus(ctx Ctx, tx Tx, t *Ticket) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-27">
+          <mxGeometry y="62" width="471" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

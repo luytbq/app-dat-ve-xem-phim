@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Đồng bộ X3 lần 2 (design/_sync-log.md): kiểm số tiền thông báo chỉ với báo thành công chưa xử lý (Q-146) |
 | Thay đổi 1.3 | Hoàn tiền: claim từng dòng, hàng rào claim_token, thời gian xử lý tối đa 80 giây, rủi ro tiến trình bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (ACT-07); P04-uc-specs UC-005 1.11, UC-006 1.8, UC-008 1.8 (luồng thay thế, ngoại lệ có bước của cổng thanh toán); P06-supplementary-spec.md 1.3 (NFR-10, NFR-15, NFR-16, NFR-17); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới PaymentGateway); P08-analysis-model.md 1.5 (AC-B-PaymentGateway); P09-architecture.md 1.6 (F4, F6, F7.1, F7.6, F7.7, F11); P10-design-elements.md 1.4 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-01 PaymentGateway (IF-01, IF-02) |
@@ -331,7 +332,7 @@ a) Bảng lỗi
 | createPaymentTransaction | Cổng từ chối hoặc không trả lời yêu cầu tạo giao dịch (NFR-15, BR-90) | Không xảy ra như lời gọi mạng: VNPay không có lệnh tạo giao dịch qua mạng. Luồng 10a chỉ còn khi hệ thống lỗi trước lúc chuyển sang cổng (hai dòng trên) | - | Không thử lại; lần giữ ghế giữ nguyên tới hết hạn; mỗi lần khách bấm thanh toán là một bản ghi chờ mới (P09 F7.6). Cổng báo thất bại bằng IPN: lần giữ ghế sang Thanh toán thất bại và ghế được trả (bảng thời điểm IPN, luồng 11a). Khách bấm huỷ ở cổng hoặc đóng tab mà chưa có IPN không là thất bại: lần giữ ghế chạy tới hết hạn (luồng 7b) | - | UC-005 luồng 10a, 11a, 7b | Q-126, Q-130 |
 | reportTransactionResult | Chữ ký sai hoặc thiếu | Nghiệp vụ | verifySignature | Không ghi gì | InvalidSignatureError; DC-PaymentReportService trả DC-IpnOutcome INVALID_SIGNATURE | Không có luồng P04: thông báo giả không là sự kiện nghiệp vụ | - |
 | reportTransactionResult | Thiếu tham số bắt buộc, số tiền không là số | Nghiệp vụ | decode | Không ghi gì | MalformedReportError; DC-IpnOutcome MALFORMED | Như trên | V-04 |
-| (PKG-14 sau reportTransactionResult) | Số tiền của thông báo khác bản ghi (DC-PaymentReportService phát hiện) | Nghiệp vụ | So sánh ở PKG-14 sau reportTransactionResult | Không tạo vé, ghi log, không hoàn tự động | DC-IpnOutcome AMOUNT_MISMATCH | UC-006 luồng 2f (BR-91): ghi log, xử lý thủ công ngoài hệ thống | Q-128 |
+| (PKG-14 sau reportTransactionResult) | Số tiền của thông báo thành công chưa xử lý khác bản ghi (DC-PaymentReportService phát hiện; báo thất bại và báo trùng không kiểm số tiền, Q-146) | Nghiệp vụ | So sánh ở PKG-14 sau reportTransactionResult | Không tạo vé, ghi log, không hoàn tự động | DC-IpnOutcome AMOUNT_MISMATCH | UC-006 luồng 2f (BR-91): ghi log, xử lý thủ công ngoài hệ thống | Q-128 |
 | (PKG-14 sau reportTransactionResult) | IPN trùng với báo đã xử lý | Nghiệp vụ | Cờ đã xử lý dưới khoá lần giữ ghế X ở PKG-14 | Không tạo vé, không hoàn thêm | DC-IpnOutcome DUPLICATE | UC-006 luồng 2a | - |
 | (PKG-14 sau reportTransactionResult) | Lỗi tạm thời cơ sở dữ liệu hoặc hết thời gian chờ khoá ở PKG-14 | Kỹ thuật tạm thời | Giao dịch rollback hoàn toàn | Không xử lý trong SS-01 | DC-IpnOutcome TEMPORARY_FAILURE; cổng có thể gửi lại, an toàn vì giao dịch đã rollback | UC-006 không có luồng riêng | V-04 |
 | requestRefund | Hết 30 giây hoặc mất kết nối sau khi gửi | Không rõ kết quả | Hết thời gian chờ | Không thử lại trong subsystem | RefundOutcome(Unknown) | UC-006 luồng 4a, 4b; UC-008 luồng 5b, 5c | Q-127 |

@@ -18,6 +18,7 @@
 | NGON_NGU_TEN_PHAN_TU | Tiếng Anh, PascalCase cho lớp, camelCase cho thuộc tính và phương thức, snake_case cho bảng và cột |
 | HAU_TO_TEN_LOP | Mặc định |
 | MUC_CHI_TIET | DAY_DU |
+| TRANH_CHAP_TAI_NGUYEN | Có: ghế theo suất chiếu (giữ ghế, bán ghế), giao dịch thanh toán, yêu cầu hoàn tiền |
 
 ## 3. Bối cảnh kỹ thuật
 

@@ -16,7 +16,7 @@
         <mxCell id="SQ-03-L4" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="700" y="40" width="160" height="1234" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-03-L5" value=":PgTicketingStore (IF-17, IF-18)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-03-L5" value=":PgTicketingStore (IF-17, IF-18, IF-26)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="920" y="40" width="160" height="1234" as="geometry" />
         </mxCell>
         <mxCell id="SQ-03-L6" value=":PgSeatEventStore (IF-22)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">

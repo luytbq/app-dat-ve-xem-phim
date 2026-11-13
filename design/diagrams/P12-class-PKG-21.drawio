@@ -29,7 +29,7 @@
           <mxGeometry y="90" width="240" height="56" as="geometry" />
         </mxCell>
         <mxCell id="DC-LockOrderGuard" value="«utility»&lt;br&gt;&lt;b&gt;LockOrderGuard&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="454" y="431" width="412" height="162" as="geometry" />
+          <mxGeometry x="454" y="429" width="412" height="162" as="geometry" />
         </mxCell>
         <mxCell id="DC-LockOrderGuard-attr" value="- maxRank: LockRank = 0&lt;br&gt;- maxKey: LockKey&lt;br&gt;- violated: bool = false" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-LockOrderGuard">
           <mxGeometry y="40" width="412" height="56" as="geometry" />
@@ -140,7 +140,7 @@
           <mxGeometry x="4160" y="37" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="IF-25" value="«interface»&lt;br&gt;&lt;b&gt;Tx&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="550" y="39" width="220" height="50" as="geometry" />
+          <mxGeometry x="550" y="35" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="IF-16" value="«interface»&lt;br&gt;&lt;b&gt;IHolderRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="1940" y="37" width="220" height="50" as="geometry" />
@@ -234,9 +234,20 @@
             </mxGeometry>
         </mxCell>
         <mxCell id="R-159-d" value="guard 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-159">
-          <mxGeometry x="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
+          <mxGeometry x="0.8" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+              <mxCell id="IF-26" value="«interface»&lt;br&gt;&lt;b&gt;IHoldSweepRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="900" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-27" value="«interface»&lt;br&gt;&lt;b&gt;ITicketLockRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="900" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-189" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="R-190" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-27">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

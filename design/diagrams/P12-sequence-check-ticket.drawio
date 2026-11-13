@@ -13,7 +13,7 @@
         <mxCell id="SQ-05-L3" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="480" y="40" width="160" height="810" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-05-L4" value=":PgTicketingStore (IF-20)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-05-L4" value=":PgTicketingStore (IF-27)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="700" y="40" width="160" height="810" as="geometry" />
         </mxCell>
         <mxCell id="SQ-05-L5" value=":PgCinemaOperationsStore (IF-11)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">

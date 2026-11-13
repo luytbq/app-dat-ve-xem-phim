@@ -113,3 +113,145 @@ Chỉ sửa dòng Đầu vào đã dùng (không đổi nội dung, không nâng
 - Chạy lại P13 sau khi quyết SY-28 (RV-07); P13-schema.sql hiện không đổi.
 
 Khoảng trống trong dải mã do gộp lô: không có (không có file pending). Mã SY cấp SY-01 đến SY-36; không cấp Q hay ASM mới (Q cuối vẫn Q-154).
+
+## Lần 2 - Cần người quyết của lần 1 (SY-04, SY-11, SY-13 đến SY-33, SY-36) và Q-140 đến Q-154
+
+### Cần người quyết
+
+Không còn mục nào. Chủ dự án chốt tất cả theo đề xuất ghi ở lần 1 (_sync-log.md, X1, X2). Các mục chốt "để sau khi có mã Project 3" ghi loại Chờ ở bảng dưới.
+
+### Bảng đồng bộ
+
+| SY | Nguồn (file, mục) | Đích (bước, mã phần tử) | Loại | Nội dung | Kết quả hoặc lý do |
+|---|---|---|---|---|---|
+| SY-04 | X2 dòng 4; CQ-3, Q-145 | P12 F3 HoldSeats | Áp dụng | Thứ tự báo lỗi theo P04: CheckSaleOpen, BR-04, số ghế, 7d, 7a, 7e | Đã áp, P12 1.6: kiểm nhanh số ghế ở bước 1 chỉ ghi nhớ selectionFlaw, ném sau BR-04; không đổi P04 |
+| SY-11 | X2 dòng 11; CQ-1 | P12 F3 HoldSeats, HandleIpn, ProcessRefund | Áp dụng | Giảm V(G) bằng cách tách theo giai đoạn | Đã áp qua SY-22 cho HoldSeats và HandleIpn (dãy kết thúc và bán ghế chuyển sang DC-HoldSettlement); ProcessRefund (V(G) 13) giữ nguyên vì ba giao dịch đã là ba giai đoạn rõ |
+| SY-13 | X2 dòng 13; CQ-4, Q-146 | P12 F3 HandleIpn bước 3, 4; P09 F7.6; P11b SS-01 | Áp dụng | Kiểm số tiền (BR-91) chỉ với báo thành công chưa xử lý | Đã áp, P12 1.6, P09 1.7, SS-01 1.4. BR-91 vốn chỉ nêu thanh toán thành công nên sổ BR và P04 UC-006 không đổi |
+| SY-14 | X2 dòng 14; CQ-2 | P12 F3 HoldSeats, F1b DC-HoldSeatsRequest | Áp dụng | Kiểm BR-02 ở HoldSeats (phương án a) | Đã áp, P12 1.6: nhân viên quầy thì Showtime.BelongsToCinema(req.holderCinemaId), sai thì ChannelMismatchError (UC-005 2b). Thêm trường holderCinemaId vào DC-HoldSeatsRequest vì HolderRef không mang cụm rạp (lệch nhỏ so với đề xuất gốc, xem Ghi chú) |
+| SY-15 | X2 dòng 15; CQ-5, Q-152 | P12 F2 CheckSeatSelection, DC-Showtime | Áp dụng | Thứ tự lý do EMPTY, TOO_MANY, DUPLICATE, NOT_IN_AUDITORIUM; hằng 8 một nơi | Đã áp, P12 1.6: DC-Showtime.MaxSeatsPerHold thay maxSeats của DC-BookTicketsService |
+| SY-16 | X2 dòng 16; CQ-1 | P12 F3, TC của PKG-13, PKG-14 | Áp dụng | Chạy lại X2 cho PKG-13, PKG-14 vì RV-01 được áp | Đã ghi ở mục Cần chạy lại X2; X2 chưa chạy lại |
+| SY-17 | X2 dòng 17; CQ-9 | P12 IF-17, IF-18, IF-20, IF-22, IF-23, DC-PgTicketingStore | Áp dụng | Cập nhật bản giả theo RV-06 | Phần RV-06 đã áp (IF-26, IF-27); cập nhật bản giả nằm ở X2 chạy lại. Phần RV-05, RV-12 chờ (SY-26, SY-33) |
+| SY-18 | X2 dòng 18; CQ-9 | P12 cancelInTx, DC-Customer, DC-BoxOfficeClerk, hàm dựng | Áp dụng | Chạy lại X2 theo RV-09 | Phần RV-09 đã áp; chạy lại X2 cho F2.33. Phần RV-08, RV-11 chờ (SY-29, SY-32) |
+| SY-19 | X2 dòng 19; CQ-7, CQ-9 | P09, P10, P12 chữ ký công khai, writeIpnAnswer, cleanupEvents | Chờ | Chạy lại X2 nếu áp RV-02, RV-04 | RV-02, RV-04 để sau Project 3 (SY-23, SY-25); phần RV-03 đã áp theo SY-24 nhưng không đổi TC |
+| SY-20 | X2 dòng 20; CQ-8 | Hồ sơ dự án, P09 F7 | Áp dụng | Bật TRANH_CHAP_TAI_NGUYEN, thêm Bảng hỏng | Đã áp: hồ sơ thêm trường; P09 1.7 thêm F7.10 Bảng hỏng; F4.5 của X2 đối chiếu bảng này khi chạy lại |
+| SY-21 | X2 dòng 21; CQ-6 | P13 ck_seat_hold_expiry, ck_refund_request_attempts | Không áp | Cập nhật ca tích hợp cuối nếu áp RV-07 | RV-07 không đổi CHECK (Q-140 giữ hằng cố định) nên ca tích hợp cuối giữ nguyên |
+| SY-22 | X1 RV-01; CQ-1 | P10; P12 (DC-BookTicketsService, DC-PaymentReportService, DC-SeatHold, DC-Booking, DC-Ticket) | Áp dụng | Extract Class DC-HoldSettlement | Đã áp, P12 1.6, P10 1.5. Xem mục RV-01 bên dưới |
+| SY-23 | X1 RV-02; CQ-9 | P12 chữ ký công khai PKG-13, PKG-15 | Chờ | DTO ở chữ ký công khai | Chủ dự án chốt để sau khi có mã Project 3 và thiết kế PKG-11 |
+| SY-24 | X1 RV-03; CQ-7, Q-141 | P09 F3, P10 F2, F3 (PKG-22), P12 F10 | Áp dụng | Sửa câu cam kết đổi cổng | Đã áp, P09 1.7, P10 1.5, P12 1.6: "đổi cổng sửa PKG-22, bảng RspCode ở PKG-12 và phần đọc tham số ở PKG-14"; thiết kế không đổi |
+| SY-25 | X1 RV-04; CQ-9, Q-148 | P10, P12 DC-HoldExpiryJob | Chờ | Khôi phục DC-SeatEventCleanupJob | Để sau Project 3; Q-148 xử lý bằng cleanupEvents ngữ cảnh riêng 2 giây (P12 1.6) |
+| SY-26 | X1 RV-05; CQ-9 | P10, P12 DC-PgTicketingStore | Chờ | Tách store theo bên gọi | Để sau Project 3: cần thân SQL của 39 operation |
+| SY-27 | X1 RV-06; CQ-9 | P12 IF-17, IF-18, IF-20 | Áp dụng | Tách interface theo bên gọi | Đã áp, P12 1.6, P10 1.5: IF-26 IHoldSweepRepository (LockExpiredBatch, LockReleasableBatch, LockByHolds) và IF-27 ITicketLockRepository (LockTicketByID, LockTicketByCode, LockTicketShared, UpdateTicketStatus); IF-20 còn bốn operation đọc và thêm lần đặt |
+| SY-28 | X1 RV-07; CQ-6, Q-140 | P13 F5.3 seat_hold.expiry_time | Áp dụng | Giữ CHECK, sửa câu lý do | Đã áp, P13 1.5; P13-schema.sql không đổi |
+| SY-29 | X1 RV-08; CQ-9 | P08, P12 CheckNoActiveSeatHold | Chờ | Gộp hai hàm | Để sau Project 3 (Cần xác nhận khi có thân method) |
+| SY-30 | X1 RV-09; CQ-9 | P12 cancelInTx, LockPaymentOfTicket | Áp dụng | Tách nhánh trực tuyến và tiền mặt | Đã áp, P12 1.6: cancelOnlineInTx, cancelCashInTx, cancelAndReleaseSeat; lockPaymentOfTicket thuộc DC-CancelTicketService (thêm IF-19), DC-RefundService bỏ IF-20; sequence SQ-04 khớp |
+| SY-31 | X1 RV-10; CQ-9 | P11b, P12 IF-01 và các lớp VNPay | Chờ | Gom tham số thành kiểu chung | Để sau Project 3 |
+| SY-32 | X1 RV-11; CQ-9 | P12 hàm dựng | Chờ | Truyền mã thay entity | Để sau Project 3 (Cần xác nhận) |
+| SY-33 | X1 RV-12; CQ-9 | P10, P12 IF-22, IF-23 | Chờ | Chuyển interface sang PKG-28 | Để sau Project 3 (Cần xác nhận) |
+| SY-36 | X1 RV-15; CQ-8 | Hồ sơ dự án, P09 F7, P12 F3 | Áp dụng | Bật mô-đun đồng thời, Bảng hỏng, Nếu dừng tại đây | Đã áp: hồ sơ, P09 1.7 F7.10, P12 1.6 (StartOnlinePayment một dòng, ProcessRefund hai dòng) |
+
+### Câu hỏi Q-140 đến Q-154
+
+Cả 15 câu đã đánh dấu "Đã trả lời" kèm nội dung chốt: Q-140, Q-141 ở X1 (1.2); Q-142 đến Q-154 ở X2 (1.2). Q-142 và Q-149 đã áp ở lần 1 và đề xuất khớp nên chỉ đánh dấu. Không câu nào đổi quy tắc nghiệp vụ: Q-140 giữ hằng cố định, Q-146 chỉ làm rõ BR-91 (vốn chỉ nêu thanh toán thành công) với BR-37 và BR-39, Q-151 và Q-153 là tham số kỹ thuật không có trong đề bài. Không cấp BR mới (BR lớn nhất vẫn BR-93), sổ BR, UC, P06 và yeu-cau-dat-ve.md không đổi.
+
+| Q | Chốt | Nơi áp |
+|---|---|---|
+| Q-140 | Hằng cố định, giữ CHECK | P13 1.5 F5.3 |
+| Q-141 | Không cần thay cổng, sửa câu cam kết | P09 1.7 F3, P10 1.5, P12 1.6 F10 |
+| Q-142 | Entity thuần, service gọi Expire trước | P12 F3 (đã áp lần 1), nay End và Sell gọi Expire |
+| Q-143 | CalculateTotal chỉ cộng ghế HELD thuộc lần giữ ghế, rỗng trả 0 | P12 1.6 F2 |
+| Q-144 | Tiền điều kiện, không kiểm | P12 1.6 mục 0.3 |
+| Q-145 | Thứ tự theo P04 | P12 1.6 F3 HoldSeats |
+| Q-146 | Chỉ báo thành công chưa xử lý | P12 1.6 F3, P09 1.7 F7.6, SS-01 1.4 |
+| Q-147 | NotFoundError | P12 1.6 F2, F3 |
+| Q-148 | cleanupEvents ngữ cảnh riêng 2 giây | P12 1.6 F2, F3 |
+| Q-149 | Ngưỡng 15 giây | Đã áp lần 1 (P12 F3, P09 F7.7), khớp |
+| Q-150 | Trả nil kèm log cảnh báo | P12 1.6 F2, F3 |
+| Q-151 | Asia/Ho_Chi_Minh | P12 1.6 F2 DetermineSeatPrice |
+| Q-152 | Thứ tự EMPTY, TOO_MANY, DUPLICATE, NOT_IN_AUDITORIUM | P12 1.6 F2 |
+| Q-153 | Quản trị viên 8 giờ | P12 1.6 F2 IssueSession |
+| Q-154 | now >= expiresAt, đồng hồ tiêm vào | P12 1.6 F2 VerifySession |
+
+### RV-01: DC-HoldSettlement
+
+- Lớp mới DC-HoldSettlement («utility», PKG-28, không trạng thái, không I/O, không khoá, không gọi kho) cùng kiểu DC-HoldEndReason (EXPIRY, CANCEL, PAYMENT_FAILURE) và DC-HoldEndOutcome (holdChanged, expired, released). Ba operation: End (Expire, Cancel hoặc FailPayment, rồi ReleaseHold từng ghế), Sell (kiểm ghế, Complete, NewBooking tự tạo vé), FinishSale (MarkSold sau khi InsertWithTickets gán mã vé).
+- Bốn operation đổi: HoldSeats (End(EXPIRY) ở bước (f) khi chưa có ghế khoá, lần hai ở (g) để trả ghế), CancelHold (End(CANCEL)), ConfirmCashReceived (End(EXPIRY), Sell, FinishSale), HandleIpn (End(EXPIRY), Sell, FinishSale, End(PAYMENT_FAILURE)); StartOnlinePayment dùng End(EXPIRY, nil). DC-Booking.NewBooking nhận ghế và mã vé rồi tự tạo vé; DC-Ticket.NewTicket thành newTicket nội bộ PKG-28. DC-SeatHold.Complete, Cancel, FailPayment chỉ còn DC-HoldSettlement gọi (ngoại lệ DC-HoldExpiryJob.expireBatch gọi Expire theo lô).
+- Giữ nguyên thứ tự khoá hạng 5, 6, 8 (P09 F7.3) và ranh giới giao dịch: HoldSettlement không khoá, mọi lời gọi khoá, UpdateStatus, SaveChanges, InsertWithTickets vẫn ở service.
+- trg_seat_status_link: HoldSeats (g) vẫn ghi Trống bằng SaveChanges riêng cho ghế của lần giữ ghế cũ (End trả các ghế đó về AVAILABLE) trước khi HoldFor gán lần giữ ghế mới và SaveChanges lần hai, nên không có UPDATE nào đổi liên kết từ lần giữ ghế này sang lần giữ ghế khác; P13-schema.sql không đổi.
+- Tài liệu và sơ đồ đổi: P12 (F1, F1b, F2, F3, F3b SQ-01 đến SQ-05, F4, F5, F6, F8, F9, F10), P10 (F3, F3a EX-01 đến EX-08, EX-13, EX-14, F4, F5, F6), sơ đồ P12-class-PKG-28, PKG-13, PKG-12-PKG-14-PKG-15, PKG-21, PKG-27 và P12-sequence-hold-seats, handle-ipn, expiry-sweep, cancel-ticket, check-ticket. P13 không đổi nội dung nghiệp vụ: ánh xạ bảng và SQL mẫu không đổi.
+
+### Ghi chú khi áp dụng (lệch hoặc làm rõ so với đề xuất gốc)
+
+1. FinishSale là operation thứ ba: Sell không đánh dấu ghế đã bán được vì mã vé do IF-20.InsertWithTickets gán sau; tách FinishSale giữ đúng thứ tự Insert rồi MarkSold rồi SaveChanges.
+2. End là lặp an toàn: EXPIRY gọi trên lần giữ ghế đã Hết hạn thì chỉ trả các ghế còn trỏ tới nó. Cần cho HoldSeats (g), vì (e) và (f) đã chuyển Hết hạn trước khi khoá ghế. Hệ quả nhỏ: HandleIpn và ConfirmCashReceived gặp lần giữ ghế đã được job chuyển Hết hạn mà ghế chưa trả thì trả ghế luôn trong giao dịch đang giữ khoá hạng 6 (Q-134), không còn chờ DC-SeatReleaseJob.
+3. SY-14: HoldSeatsRequest thêm holderCinemaId (tầng gọi lấy từ ActorContext của phiên). Thứ tự báo lỗi cho nhân viên quầy sai cụm rạp trên suất chiếu chưa mở bán: 2b đứng trước 2a và 2c (P04 chỉ định 2a rồi 2b rồi 2c nhưng CheckSaleOpen gộp 2a và 2c).
+4. SY-27: một interface IF-26 cho cả ba operation của hai job nền (X1 ghi "tách thao tác chỉ dành cho hai job nền").
+5. PKG-28 có 18 phần tử (P10) vượt mức 15; ghi ở P10 Vấn đề còn mở 2 và P12 F9, giữ nguyên vì tách package thêm cạnh phụ thuộc.
+6. Hồ sơ bật TRANH_CHAP_TAI_NGUYEN nên check_artifacts.py sinh 6 cảnh báo K14 (UC-005, 006, 008, 009, 013, 014 chưa có bảng Thao tác nguyên tử M1). Đó là việc chạy lại P04, không thuộc X3 (không thêm yêu cầu mới).
+7. Chưa đổi: sổ BR, P04, P06, P07, P08, P11b chính, yeu-cau-dat-ve.md, P13-schema.sql.
+
+### Lỗi hình thức (check_artifacts.py)
+
+check_artifacts.py: trước lượt 2: 0 LOI, 111 CANH_BAO; sau (đã đồng bộ dòng Đầu vào đã dùng): 0 LOI, 117 CANH_BAO. Tăng 6 cảnh báo K14 do bật TRANH_CHAP_TAI_NGUYEN (ghi chú 6); K09 mới do đổi phiên bản đã xử lý. Cảnh báo còn lại có sẵn từ lần 1 (K09 lệch phiên bản ở file chưa đổi nội dung, K10, K11, K18, K03).
+
+### Kiểm PostgreSQL
+
+P13-schema.sql không đổi (Q-140 giữ CHECK, RV-01 không chạm schema) nên không chạy lại PostgreSQL 16; kết quả 5/5 ca trigger của lần 1 vẫn là kết quả hiện hành. Không khởi động docker hay colima.
+
+### File đã sửa và phiên bản mới
+
+| File | Phiên bản |
+|---|---|
+| design/P12-class-design.md | 1.6 |
+| design/P10-design-elements.md | 1.5 |
+| design/P09-architecture.md | 1.7 |
+| design/P13-data-model.md | 1.5 |
+| design/X1-design-review.md | 1.2 |
+| design/X2-unit-tests.md | 1.2 (chỉ đánh dấu Q, trạng thái đề xuất, dòng Đầu vào đã dùng) |
+| design/P11b-system-interfaces/SS-01-payment-gateway.md | 1.4 |
+| design/project-profile.md | thêm trường TRANH_CHAP_TAI_NGUYEN (hồ sơ không có số phiên bản) |
+| design/diagrams/P12-class-PKG-28.drawio, P12-class-PKG-13.drawio, P12-class-PKG-12-PKG-14-PKG-15.drawio, P12-class-PKG-21.drawio, P12-class-PKG-27.drawio | XML parse được, bố cục đã căn chỉnh tự động theo kiểu sơ đồ lớp (PKG-28 giữ bố cục cũ vì kết quả tự động kém hơn, ba hộp mới đặt ở hàng dưới) |
+| design/diagrams/P12-sequence-hold-seats.drawio, P12-sequence-handle-ipn.drawio, P12-sequence-expiry-sweep.drawio, P12-sequence-cancel-ticket.drawio, P12-sequence-check-ticket.drawio | Sửa nhãn và ghi chú, giữ toạ độ do bộ sinh đặt |
+
+Chỉ sửa dòng Đầu vào đã dùng (không đổi nội dung): P11b-system-interfaces.md, P07-uc-analysis/UC-014-schedule-showtimes-analysis.md.
+
+### Bước cần rà lại
+
+- P04: bảng Thao tác nguyên tử (M1) cho UC-005, UC-006, UC-008, UC-009, UC-013, UC-014 do hồ sơ bật TRANH_CHAP_TAI_NGUYEN (cảnh báo K14); P06 M2, P07 M3, P08 M4 theo 00-Concurrency.md nếu muốn đủ mô-đun.
+- X2: chạy lại theo danh sách dưới; thêm mục F2 cho DC-HoldSettlement (End, Sell, FinishSale) và chuyển các TC kiểm Expire, ReleaseHold, Complete, MarkSold, NewTicket, NewBooking trong bốn operation sang lớp mới; F4.5 đối chiếu Bảng hỏng P09 F7.10.
+- X1: rà F5, F6, F9 cho R-184 đến R-196, IF-26, IF-27 và PKG-28 vượt mức 15.
+- P11b: SS-01 1.4 đổi một ô; P11b chính chỉ đồng bộ dòng Đầu vào đã dùng.
+- P13: không đổi nội dung, không cần chạy lại.
+
+### Cần chạy lại X2
+
+Tổng 279 TC (215 do lượt này, 64 còn lại từ lần 1) trên 22 operation, cộng một lớp mới chưa có TC (DC-HoldSettlement). Cột TC ghi toàn bộ TC của operation; TC trực tiếp lệch kết quả mong đợi hoặc bản giả là các ca có nhánh Expire, ReleaseHold, Complete, MarkSold, NewTicket, NewBooking, AMOUNT_MISMATCH, NotFoundError, thứ tự lỗi và khoá vé.
+
+| Operation | Lớp đã đổi | Thay đổi so với thiết kế X2 đã dùng | TC (số ca: mã) | EC |
+|---|---|---|---|---|
+| DC-BookTicketsService.HoldSeats | DC-BookTicketsService, DC-HoldSettlement (mới), DC-HoldSeatsRequest, DC-Showtime | BR-02 kiểm ở HoldSeats (ChannelMismatchError, holderCinemaId), thứ tự báo lỗi mới (Q-145), selectionFlaw ném sau BR-04, End(EXPIRY) thay Expire và ReleaseHold, MaxSeatsPerHold thay maxSeats | 40: TC-174 đến TC-206, TC-363 đến TC-369 | EC-90 đến EC-111 |
+| DC-BookTicketsService.CancelHold | DC-BookTicketsService, DC-HoldSettlement | Expire, Cancel, ReleaseHold đi qua DC-HoldSettlement.End(CANCEL) | 9: TC-216 đến TC-224 | EC-112 đến EC-116 |
+| DC-BookTicketsService.StartOnlinePayment | DC-BookTicketsService, DC-HoldSettlement | by khác người giữ ghế trả NotFoundError (Q-147); quá hạn đi qua End(EXPIRY, nil) | 7: TC-232 đến TC-238 | EC-122 đến EC-127 |
+| DC-BookTicketsService.ConfirmCashReceived | DC-BookTicketsService, DC-HoldSettlement, DC-Booking, DC-Ticket | End(EXPIRY) rồi Sell và FinishSale thay Complete, NewTicket, NewBooking, MarkSold; clerk khác người giữ ghế trả NotFoundError (Q-147) | 7: TC-225 đến TC-231 | EC-117 đến EC-121 |
+| DC-PaymentReportService.HandleIpn | DC-PaymentReportService, DC-HoldSettlement, DC-Booking, DC-Ticket | End(EXPIRY), Sell, FinishSale, End(PAYMENT_FAILURE) thay Expire, ReleaseHold, Complete, FailPayment, NewTicket, NewBooking, MarkSold; kiểm số tiền chỉ với báo thành công chưa xử lý (Q-146); LinkMismatchError của Sell thay phép kiểm IsHeldBy tại chỗ | 32: TC-239 đến TC-266, TC-370 đến TC-373 | EC-128 đến EC-136 |
+| DC-SeatHold.CalculateTotal | DC-SeatHold | Q-143 đã trả lời: ghế HELD khác lần giữ ghế bị bỏ qua, danh sách rỗng trả 0; các TC chờ Q-143 chuyển thành ca chính thức | 5: TC-025 đến TC-029 | EC-13 đến EC-15 |
+| DC-Showtime.CheckSeatSelection | DC-Showtime | Thứ tự lý do EMPTY, TOO_MANY, DUPLICATE, NOT_IN_AUDITORIUM (Q-152); hằng DC-Showtime.MaxSeatsPerHold | 8: TC-152 đến TC-159 | EC-74 đến EC-79 |
+| DC-PriceList.DetermineSeatPrice | DC-PriceList | Múi giờ Asia/Ho_Chi_Minh khi xác định khung giờ và ngày trong tuần (Q-151) | 10: TC-164 đến TC-173 | EC-84 đến EC-89 |
+| DC-HoldExpiryJob.RunDue (expireBatch, cleanupEvents) | DC-HoldExpiryJob, IF-26 | LockExpiredBatch thuộc IF-26 (bản giả đổi); cleanupEvents chạy ngữ cảnh riêng 2 giây (Q-148) | 12: TC-267 đến TC-277, TC-375 | EC-137 đến EC-141 |
+| DC-SeatReleaseJob.RunDue (releaseBatch) | DC-SeatReleaseJob, IF-26 | LockReleasableBatch, LockByHolds thuộc IF-26; không còn dùng IF-17 (bản giả đổi) | 10: TC-278 đến TC-286, TC-374 | EC-142 đến EC-145 |
+| DC-CancelTicketService.CancelOnlineTicket, ConfirmCashRefund (thân chung cancelInTx) | DC-CancelTicketService, DC-RefundService, IF-27, IF-19 | cancelInTx tách thành cancelOnlineInTx, cancelCashInTx, cancelAndReleaseSeat; lockPaymentOfTicket chuyển từ DC-RefundService; IF-27 thay IF-20 cho khoá vé; thêm IF-19 vào bản giả; ConfirmCashRefund kiểm cụm rạp (UC-008 2c) còn lệch từ lần 1 | 23: TC-287 đến TC-307, TC-377 đến TC-378 | EC-146 đến EC-152 |
+| DC-CheckTicketService.CheckTicket | DC-CheckTicketService, IF-27 | LockTicketByCode, UpdateTicketStatus thuộc IF-27 (bản giả đổi) | 10: TC-308 đến TC-316, TC-376 | EC-153 đến EC-155 |
+| DC-RefundService.CreateFullRefund, RequestTicketRefund | DC-RefundService | DC-RefundService không còn IF-20 và LockPaymentOfTicket (bản giả đổi) | 7: TC-317 đến TC-322, TC-379 | EC-156 đến EC-158 |
+| DC-RefundService.ProcessRefund | DC-RefundService | Bỏ lượt trả nil kèm log cảnh báo (Q-150); ngưỡng 15 giây (Q-149) còn lệch từ lần 1 (EC-170, TC-340) | 25: TC-323 đến TC-345, TC-380 đến TC-381 | EC-159 đến EC-171 |
+| IF-07.VerifyPassword, IssueSession, VerifySession | IF-07 | Phiên quản trị viên 8 giờ (Q-153); hết hạn khi now >= expiresAt, đồng hồ tiêm vào (Q-154) | 10: TC-353 đến TC-362 | EC-179 đến EC-185 |
+
+Còn lại từ lần 1, chưa xử lý trong X2:
+
+| Operation | Lớp đã đổi | Thay đổi | TC | EC |
+|---|---|---|---|---|
+| DC-SeatHold.Complete, Cancel, FailPayment | DC-SeatHold | Còn từ lần 1 (Q-142 đã trả lời): hàng F6.2 và F3 khớp nhau, TC at-expiry của F2.3 và replay hết hạn của F2.25 hết chờ | 12: TC-010 đến TC-021 | F2.3 |
+| DC-PaymentTransaction.MarkTicketed, MarkLatePayment, RecordFailure, RecordDuplicate; CheckRefundWithin, RecordRefunded | DC-PaymentTransaction | Còn từ lần 1 (SY-01): dùng getter GatewayTransactionNo, LateReason, DuplicateReportCount, RefundedTotal | 24: TC-046 đến TC-069 | F2.8, F2.9 |
+| DC-RefundRequest.NewFullRefund, NewTicketRefund, NewCashRefund, BeginAttempt, RecordResult, MarkManualRequired | DC-RefundRequest | Còn từ lần 1 (SY-02, SY-09): dùng getter RequestType, RefundResult; nhánh BeginAttempt không tới được | 28: TC-070 đến TC-097 | F2.10 đến F2.13 |
+
+### Mã cấp mới
+
+R-184 đến R-196 (13 quan hệ; R-83, R-96, R-109, R-165, R-167 đã bỏ, tổng 149); DC-HoldSettlement, DC-HoldEndReason, DC-HoldEndOutcome, IF-26, IF-27. Không cấp SY mới (SY cuối vẫn SY-36), không cấp Q hay ASM mới (Q cuối vẫn Q-154). Không có file pending nên không có khoảng trống do gộp lô.

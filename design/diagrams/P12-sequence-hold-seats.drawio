@@ -28,10 +28,10 @@
         <mxCell id="SQ-01-L8" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="1580" y="40" width="160" height="2010" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-N1" value="CheckNoActiveSeatHold (BR-04); Expire lần giữ ghế cũ đã quá hạn; CheckSaleOpen, CheckUnchangedSince, CheckSeatSelection" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-01-N1" value="BelongsToCinema (nhân viên quầy, BR-02); CheckSaleOpen; HoldSettlement.End(EXPIRY) lần giữ ghế cũ đã quá hạn, hoặc CheckNoActiveSeatHold (BR-04); số ghế; CheckUnchangedSince, CheckSeatSelection" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="320" y="1098.5" width="420" height="63" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-N2" value="QuoteSeatPrices; NewSeatHold(now); SeatStatus.ReleaseHold(mã cũ) rồi SaveChanges cho ghế trùng lần giữ ghế cũ vừa hết hạn; HoldFor(holdId, price) từng ghế" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-01-N2" value="QuoteSeatPrices; NewSeatHold(now); HoldSettlement.End(EXPIRY, các ghế vừa khoá) rồi SaveChanges để ghi Trống cho ghế trùng lần giữ ghế cũ vừa hết hạn; HoldFor(holdId, price) từng ghế" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="320" y="1588.5" width="420" height="63" as="geometry" />
         </mxCell>
         <mxCell id="SQ-01-F3" value="alt ghế đang bị khoá hoặc không Trống" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;" vertex="1" parent="1">

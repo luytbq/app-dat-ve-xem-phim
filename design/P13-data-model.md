@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P13 |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Đồng bộ X3 lần 2 (design/_sync-log.md): lý do lưu cột seat_hold.expiry_time khớp Q-140 (hằng BR-10 cố định, giữ CHECK ck_seat_hold_expiry và ck_refund_request_attempts); dải R-nn của Dependency tới R-196; P13-schema.sql không đổi |
 | Thay đổi 1.4 | Đồng bộ X3 (design/_sync-log.md): EX-01 và SQL mẫu thêm UPDATE trả Trống riêng cho ghế chọn lại của lần giữ ghế cũ, khớp P12 F3 HoldSeats (g) và IF-18.SaveChanges; cập nhật dải R-nn của Dependency; P13-schema.sql không đổi, đã chạy lại bộ ca trigger trên PostgreSQL 16 |
 | Thay đổi 1.1 | Xử lý review R13D-01 đến R13D-07 (design/_review-P13.md); Q-136 đến Q-138 đã trả lời theo đề xuất của review: thêm cột tài khoản cho ba bảng nhân viên, cột danh mục cho cinema và movie, giữ toàn bộ dữ liệu lịch sử; thêm C-22; ghi rõ hệ quả của fk_ticket_seat_status lên việc đổi phòng (C-19); DDL đã chạy thật trên PostgreSQL 16 |
 | Thay đổi 1.2 | Đối chiếu Đề xuất sửa artifact trước với P12 1.2 và P09: ghi trạng thái từng dòng (Chờ P12, Không cần sửa, Chưa áp dụng) |
 | Thay đổi 1.3 | Xử lý review cuối (design/_review-final.md): C-19 và F4.5 EX-13 theo BR-92, R13D-01 đánh dấu Đã áp dụng (RF-02); SQL claim từng dòng và hàng rào claim_token (RF-01); seat_event ghi sau cùng bằng nextval (RF-12); lý do ngoại lệ lọc status của EX-13, EX-14 và thứ tự đọc vé trước khoá hạng 6 (RF-11); gateway_transaction_no chỉ ghi khi báo thành công (RF-13); email hoàn tiền chỉ cho FULL (RF-03); đóng Vấn đề còn mở 1 (RF-15); P13-schema.sql không đổi; đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (CONG_NGHE đã chốt theo P09 F11); P12-class-design.md 1.5 (F1, F1b, F5, F6, F7, Câu hỏi mở, Giả định, Vấn đề còn mở); P08-analysis-model.md 1.5 (F3, F4, F4b, F4c: thuộc tính và quan hệ của các lớp ngoài phạm vi P12); P09-architecture.md 1.6 (F7.2 đến F7.8); P05-glossary.md 1.1 (miền giá trị loại phòng, loại ghế, định dạng); P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P06-supplementary-spec.md 1.3 (NFR-04 đến NFR-10, khối lượng); UC-005 1.11, UC-013 1.2, UC-014 1.4 của P04 (chỉ miền giá trị và bước dùng dữ liệu); design/_review-P13.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (CONG_NGHE đã chốt theo P09 F11); P12-class-design.md 1.6 (F1, F1b, F5, F6, F7, Câu hỏi mở, Giả định, Vấn đề còn mở); P08-analysis-model.md 1.5 (F3, F4, F4b, F4c: thuộc tính và quan hệ của các lớp ngoài phạm vi P12); P09-architecture.md 1.7 (F7.2 đến F7.8); P05-glossary.md 1.1 (miền giá trị loại phòng, loại ghế, định dạng); P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P06-supplementary-spec.md 1.3 (NFR-04 đến NFR-10, khối lượng); UC-005 1.11, UC-013 1.2, UC-014 1.4 của P04 (chỉ miền giá trị và bước dùng dữ liệu); design/_review-P13.md |
 | Phạm vi | Toàn hệ thống: 21 bảng. Trọng tâm là lõi giữ ghế, thanh toán, huỷ vé, soát vé (10 bảng từ P12 cộng seat_event, outbox); 9 bảng danh mục và tài khoản nhân viên chỉ có cột tối thiểu cộng các cột đã chốt ở Q-136, Q-137 vì UC-010, UC-011, UC-012, UC-017 chưa có đặc tả |
 | Mã Q, ASM cuối đã cấp | Q-138 (Q-136 đến Q-138 đã trả lời, không cấp Q mới); không có ASM (NGHIEM_NGAT) |
 
@@ -123,7 +124,7 @@ Cây kế thừa persistent: không có (P12 không có generalization), nên F4
 | ER-22 | tuyển | E-Cinema | E-TicketChecker | 1:N | A tuỳ chọn, B bắt buộc | - | R-58 |
 | ER-23 | tuyển | E-Cinema | E-CinemaManager | 1:N | A tuỳ chọn, B bắt buộc | - | R-59 |
 
-R-47 (SeatHold 0..* - SeatStatus 1..8, lịch sử) không có mối quan hệ riêng: P12 hiện thực khi Đang giữ bằng R-63 (ER-17). Dependency trong P12 (R-60 đến R-62, R-160 đến R-183) và association tiêm phụ thuộc giữa lớp service, interface không phải mối quan hệ dữ liệu nên không vào mô hình ER.
+R-47 (SeatHold 0..* - SeatStatus 1..8, lịch sử) không có mối quan hệ riêng: P12 hiện thực khi Đang giữ bằng R-63 (ER-17). Dependency trong P12 (R-60 đến R-62, R-160 đến R-196) và association tiêm phụ thuộc giữa lớp service, interface không phải mối quan hệ dữ liệu nên không vào mô hình ER.
 
 ## F4. Mô hình logic (CSDL quan hệ)
 
@@ -347,7 +348,7 @@ Ký hiệu FD theo tên cột; căn cứ là BR và ngữ nghĩa trong cột Ph�
 
 | TBL.cột | Dạng phi chuẩn hoá | Lý do (NFR / BR, số liệu) | Cơ chế giữ nhất quán |
 |---|---|---|---|
-| seat_hold.expiry_time | Cột dẫn xuất lưu sẵn từ hold_time cộng 10 phút | Công việc nền quét hết hạn theo chỉ mục từng phần trên expiry_time (NFR-07: ghế trả về trong 1 phút; 4.000 lần giữ ghế hết hạn cùng giây, P09 F7.4); đổi BR-10 không đổi hạn của lần giữ ghế đã tạo | CHECK ck_seat_hold_expiry; cả hai cột do ứng dụng ghi một lần lúc INSERT từ cùng một giá trị đồng hồ CSDL và bất biến (trigger chặn sửa trạng thái cuối) |
+| seat_hold.expiry_time | Cột dẫn xuất lưu sẵn từ hold_time cộng 10 phút | Công việc nền quét hết hạn theo chỉ mục từng phần trên expiry_time (NFR-07: ghế trả về trong 1 phút; 4.000 lần giữ ghế hết hạn cùng giây, P09 F7.4); BR-10 là hằng cố định của hệ thống (Q-140): đổi giá trị là phát hành lại kèm di trú dữ liệu và ràng buộc, không cấu hình được lúc chạy | CHECK ck_seat_hold_expiry; cả hai cột do ứng dụng ghi một lần lúc INSERT từ cùng một giá trị đồng hồ CSDL và bất biến (trigger chặn sửa trạng thái cuối) |
 | seat_status.state | Trạng thái dẫn xuất từ mẫu NULL của current_hold_id và current_ticket_id | Ảnh chụp sơ đồ ghế đọc trạng thái trong một câu SQL cho 400 ghế (NFR-08) và ST-02 có thuộc tính state | CHECK ck_seat_status_state_link bắt buộc state khớp hai liên kết và held_price; trigger trg_seat_status_state chặn chuyển trạng thái sai |
 | seat_status.held_price, ticket.price | Giá vé sao chép từ bảng giá tại thời điểm chốt | Giá lịch sử, không phải dư thừa: bảng giá đổi sau đó không đổi giá đã chốt (BR-65, BR-67) | Chỉ ghi lúc chốt (EX-01) và lúc bán (EX-02, EX-03); không có đường cập nhật theo bảng giá |
 | seat_status.event_seq | Cột kỹ thuật lưu mã seat_event gần nhất của ghế | Trình duyệt chỉ áp sự kiện có mã lớn hơn event_seq của ghế (P09 F7.5 điểm 5) và ảnh chụp trả kèm mã | Ghi trong cùng câu UPDATE đổi ghế, sau khi INSERT seat_event nhận mã |

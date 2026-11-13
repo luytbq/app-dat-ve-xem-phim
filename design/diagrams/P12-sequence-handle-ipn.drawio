@@ -28,16 +28,16 @@
         <mxCell id="SQ-02-L8" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="1580" y="40" width="160" height="1912" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-02-N1" value="so số tiền với giao dịch (BR-91), hoặc với tổng giá ghế khi giao dịch tạo từ báo; Expire nếu quá hạn, đổi thì ReleaseHold ghế; decide(report, hold, txn, now)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-02-N1" value="so số tiền với giao dịch (BR-91), hoặc với tổng giá ghế khi giao dịch tạo từ báo, chỉ với báo thành công chưa xử lý; HoldSettlement.End(EXPIRY): quá hạn thì Hết hạn và trả ghế; decide(report, hold, txn, now)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="540" y="1028" width="420" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-02-N2" value="kiểm mọi ghế IsHeldBy(hold), sai thì chuyển LATE (HOLD_LINK_BROKEN, log nghiêm trọng); NewTicket từng ghế; NewBooking; SeatStatus.MarkSold; hold.Complete; txn.MarkTicketed" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-02-N2" value="HoldSettlement.Sell (kiểm mọi ghế IsHeldBy(hold), sai thì chuyển LATE với HOLD_LINK_BROKEN, log nghiêm trọng; Complete; NewBooking tạo vé); FinishSale (MarkSold); txn.MarkTicketed" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="540" y="1132" width="420" height="40" as="geometry" />
         </mxCell>
         <mxCell id="SQ-02-N3" value="txn.MarkLatePayment(reason)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="540" y="1314" width="420" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-02-N4" value="txn.RecordFailure; chỉ khi txn là giao dịch mới nhất của lần giữ ghế và Đang giữ: hold.FailPayment, ReleaseHold từng ghế đã khoá, SaveChanges" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-02-N4" value="txn.RecordFailure; chỉ khi txn là giao dịch mới nhất của lần giữ ghế và Đang giữ: HoldSettlement.End(PAYMENT_FAILURE) (FailPayment và trả ghế đã khoá), SaveChanges" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="540" y="1496" width="420" height="40" as="geometry" />
         </mxCell>
         <mxCell id="SQ-02-N5" value="txn.RecordDuplicate (không tạo vé, không hoàn thêm)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
