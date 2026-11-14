@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đầu lô); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; UC-008-cancel-ticket.md 1.9 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.5 (suất chiếu đã xoá); dải mã đã được cấp: Q-175 đến Q-194, BR-114 đến BR-133 |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Chốt Q-181 đến Q-187: thêm luồng 1a (kỳ báo cáo không hợp lệ), điều kiện của bước 2, 3, 4, kỳ báo cáo ở Dữ liệu vào 1, BR-115 đến BR-119 |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.9 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.6 (suất chiếu đã xoá) |
 | Phạm vi | UC-015 |
-| Mã Q, ASM cuối đã cấp | Q-187 (Q-181 đến Q-184, Q-186, Q-187 cấp ở UC-015); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-187 (Q-181 đến Q-184, Q-186, Q-187 cấp ở UC-015, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Thông tin chung
 
@@ -23,22 +24,23 @@
 | Hậu điều kiện tối thiểu | Không có luồng kết thúc thất bại; mọi luồng đều không lưu thay đổi dữ liệu nào. |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
-| REQ | REQ-66, REQ-67, REQ-99 (theo P02); REQ-87 (P02 Mục 5 đã gắn UC-015); REQ-153 (Dữ liệu ra 1, bước 4); REQ-102 (tiền điều kiện; P02 Mục 5 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-57, REQ-56 (tham chiếu, UC-012; sức chứa, phòng chiếu của cụm rạp); REQ-61 (tham chiếu, UC-014; suất chiếu); REQ-30 (tham chiếu, UC-005; mỗi ghế một vé); REQ-140 (tham chiếu, UC-014; suất chiếu đã xoá); REQ-131 (tham chiếu, UC-008; tình trạng hoàn tiền); REQ-35 (tham chiếu, UC-006; Q-187) |
+| REQ | REQ-66, REQ-67, REQ-99 (theo P02); REQ-87 (P02 Mục 5 đã gắn UC-015); REQ-153 (Dữ liệu ra 1, bước 4); REQ-102 (tiền điều kiện; P02 Mục 5 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-57, REQ-56 (tham chiếu, UC-012; sức chứa, phòng chiếu của cụm rạp); REQ-61 (tham chiếu, UC-014; suất chiếu); REQ-30 (tham chiếu, UC-005; mỗi ghế một vé); REQ-140 (tham chiếu, UC-014; suất chiếu đã xoá); REQ-131 (tham chiếu, UC-008; tình trạng hoàn tiền); REQ-35 (tham chiếu, UC-006; Q-187); REQ-58 (căn cứ phụ của BR dẫn ở Mục 6) |
 
 ## 2. Luồng sự kiện chính
 
 | STT | Thực hiện bởi | Hành động |
 |---|---|---|
 | 1 | Quản lý cụm rạp | Yêu cầu xem báo cáo của cụm rạp mình, chọn cách xem (theo ngày, theo phim hoặc theo suất chiếu) và kỳ báo cáo (xem Dữ liệu vào 1). |
-| 2 | Hệ thống | Xác định các suất chiếu của cụm rạp của quản lý cụm rạp thuộc kỳ báo cáo (BR-114; suất chiếu đã xoá trong tổng sức chứa: chưa quy định, Q-183; suất chiếu chưa tới giờ bắt đầu: chưa quy định, Q-184). |
-| 3 | Hệ thống | Tính doanh thu của từng nhóm theo cách xem đã chọn, bằng tiền vé đã bán trừ phần tiền đã hoàn cho khách (BR-77; ngày dùng để xếp doanh thu vào nhóm theo ngày: chưa quy định, Q-182; khoản hoàn toàn bộ của thanh toán đến trễ: chưa quy định, Q-187). |
-| 4 | Hệ thống | Tính tỉ lệ lấp đầy của từng nhóm theo cách xem đã chọn, từ số ghế của vé đã bán chưa huỷ và sức chứa của các phòng chiếu, ghế đôi tính một ghế (BR-88, BR-06; sức chứa của phòng chiếu đã sửa sơ đồ ghế sau khi suất chiếu kết thúc: chưa quy định, Q-186). |
+| 2 | Hệ thống | Xác định các suất chiếu của cụm rạp của quản lý cụm rạp thuộc kỳ báo cáo (BR-114): suất chiếu có ngày chiếu nằm trong kỳ báo cáo, kể cả suất chiếu chưa tới giờ bắt đầu (BR-117, Q-184), không kể suất chiếu đã xoá (BR-116, Q-183). |
+| 3 | Hệ thống | Tính doanh thu của từng nhóm theo cách xem đã chọn, bằng tiền vé đã bán trừ phần tiền đã hoàn cho khách (BR-77); cả tiền vé và phần đã hoàn xếp vào ngày chiếu của suất chiếu có vé đó (BR-115, Q-182); khoản hoàn toàn bộ của thanh toán đến trễ không được trừ (BR-119, Q-187). |
+| 4 | Hệ thống | Tính tỉ lệ lấp đầy của từng nhóm theo cách xem đã chọn, từ số ghế của vé đã bán chưa huỷ và sức chứa của các phòng chiếu, ghế đôi tính một ghế (BR-88, BR-06); sức chứa của mỗi suất chiếu là sức chứa lúc suất chiếu diễn ra (BR-118, Q-186). |
 | 5 | Hệ thống | Hiển thị báo cáo gồm doanh thu và tỉ lệ lấp đầy của từng nhóm (xem Dữ liệu ra 1). |
 
 ## 3. Luồng sự kiện thay thế và ngoại lệ
 
 | STT | Điều kiện | Thực hiện bởi | Hành động | Quay lại / Kết thúc |
 |---|---|---|---|---|
+| 1a | Kỳ báo cáo thiếu từ ngày hoặc đến ngày, hoặc từ ngày sau đến ngày (Q-181) | Hệ thống | Từ chối xem báo cáo và thông báo kỳ báo cáo không hợp lệ. | Quay lại bước 1 |
 | 2a | Không xác định được suất chiếu nào của cụm rạp thuộc kỳ báo cáo | Hệ thống | Thông báo cụm rạp không có suất chiếu trong kỳ báo cáo. | Kết thúc use case (thành công) |
 
 ## 4. Luồng con
@@ -52,7 +54,8 @@ Dữ liệu vào 1 (bước 1)
 | STT | Trường dữ liệu | Mô tả | Bắt buộc | Điều kiện hợp lệ | Ví dụ |
 |---|---|---|---|---|---|
 | 1 | Cách xem báo cáo | Cách nhóm báo cáo (REQ-66, REQ-67) | Có | Một trong theo ngày, theo phim, theo suất chiếu | Theo phim |
-| 2 | Kỳ báo cáo | Khoảng thời gian báo cáo tính trên (BR-88) | Chưa quy định (Q-181) | Chưa quy định (Q-181) | Chưa quy định (Q-181) |
+| 2 | Từ ngày | Ngày đầu của kỳ báo cáo, tính trên khoảng ngày từ ngày đến ngày (BR-88, Q-181) | Có | Ngày chiếu của suất chiếu nằm trong kỳ gồm cả ngày đầu; từ ngày không sau đến ngày | 01/11/2026 |
+| 3 | Đến ngày | Ngày cuối của kỳ báo cáo (BR-88, Q-181) | Có | Gồm cả ngày cuối; không trước từ ngày | 30/11/2026 |
 
 Dữ liệu ra 1 (bước 5)
 
@@ -67,6 +70,11 @@ Dữ liệu ra 1 (bước 5)
 | BR | Quy tắc | Loại | Bước áp dụng | REQ | Trong sổ BR |
 |---|---|---|---|---|---|
 | BR-114 | Quản lý cụm rạp chỉ xem báo cáo của cụm rạp mình. | Ràng buộc | 2, Dữ liệu ra 1 | REQ-66, REQ-67; REQ-100 (phụ) | Mới |
+| BR-115 | Doanh thu theo ngày xếp cả tiền vé đã bán và phần tiền đã hoàn của một vé vào ngày chiếu của suất chiếu có vé đó. | Tính toán | 3, Dữ liệu ra 1 | REQ-99; REQ-66 (phụ); Q-182 | Mới |
+| BR-116 | Suất chiếu đã xoá không được tính vào tổng sức chứa của tỉ lệ lấp đầy. | Tính toán | 2, 4 | REQ-153; REQ-140 (phụ); Q-183 | Mới |
+| BR-117 | Mọi suất chiếu có ngày chiếu trong kỳ báo cáo được tính vào doanh thu và tỉ lệ lấp đầy, kể cả suất chiếu chưa tới giờ bắt đầu, theo dữ liệu tại lúc xem. | Tính toán | 2, 3, 4 | REQ-99, REQ-153; Q-184 | Mới |
+| BR-118 | Suất chiếu đã kết thúc hoặc đã xoá giữ sơ đồ ghế, loại ghế và sức chứa lúc suất chiếu mở bán; sửa sơ đồ ghế của phòng chiếu sau đó không đổi vé, sức chứa và tỉ lệ lấp đầy của các suất chiếu đó; suất chiếu chưa mở bán dùng sơ đồ mới. | Ràng buộc | 4 | REQ-153, REQ-58 (phụ); Q-186, Q-210 | Mới |
+| BR-119 | Khoản hoàn toàn bộ của giao dịch thanh toán đến trễ (UC-006) không được trừ vào doanh thu, vì giao dịch đó không tạo vé nên chưa nằm trong tiền vé đã bán. | Tính toán | 3 | REQ-99, REQ-35 (phụ); Q-187 | Mới |
 | BR-77 | Doanh thu gồm tiền vé đã bán trừ phần tiền đã hoàn cho khách. | Tính toán | 3, Dữ liệu ra 1 | REQ-99 | Đã có |
 | BR-88 | Tỉ lệ lấp đầy của một suất chiếu bằng số ghế của vé đã bán chưa huỷ chia cho sức chứa của phòng chiếu; tỉ lệ lấp đầy theo ngày hoặc theo phim bằng tổng số ghế của vé đã bán chưa huỷ chia cho tổng sức chứa của các suất chiếu trong ngày hoặc của phim trong kỳ báo cáo; ghế đang được giữ không được tính. | Tính toán | 4, Dữ liệu ra 1 | REQ-153; REQ-67, REQ-87 (phụ) | Đã có |
 | BR-06 | Ghế đôi được tính là một ghế khi đếm số ghế của một lần giữ ghế, sức chứa phòng và tỉ lệ lấp đầy. | Suy luận | 4, Dữ liệu ra 1 | REQ-87 | Đã có |
@@ -80,7 +88,7 @@ Không có
 - Báo cáo cộng cả vé mua trực tuyến và vé mua tại quầy (cùng là vé của suất chiếu, P05 GL-59, GL-63, GL-64). Suất chiếu của cụm rạp là suất chiếu của các phòng chiếu thuộc cụm rạp (REQ-56, REQ-61).
 - Doanh thu theo BR-77: tiền vé đã bán là giá ghi trên vé (BR-67); vé đã huỷ vẫn nằm trong tiền vé đã bán và phần đã hoàn của vé đó được trừ. Chỉ khoản hoàn có tình trạng hoàn tiền là đã hoàn mới được trừ; khoản hoàn chưa hoàn được và đã ghi log lỗi chưa được trừ cho tới khi được xử lý thủ công ngoài hệ thống (UC-008 Mục 8, P05 GL-04, GL-56). Vé mua tại quầy huỷ có tiền mặt hoàn luôn thành công nên luôn được trừ (UC-008 Mục 8).
 - Tỉ lệ lấp đầy theo BR-88: vé đã sử dụng vẫn là vé đã bán chưa huỷ; ghế đang được giữ chưa tính vì có thể hết hạn (BR-88 ghi chú). Tử số tính theo số ghế, mỗi vé một ghế (REQ-30), ghế đôi một ghế (BR-06, BR-74).
-- Một suất chiếu thuộc kỳ báo cáo khi ngày chiếu của suất nằm trong kỳ, theo cách BR-88 viết "các suất chiếu trong ngày" và "các suất chiếu trong kỳ báo cáo". Việc suất chiếu đã xoá và suất chiếu chưa tới giờ bắt đầu có tính hay không chờ Q-183, Q-184. Suất chiếu đã xoá giữ lại dữ liệu cho báo cáo (REQ-140, BR-58) nên phần tiền vé của suất đó, nếu có vé đã huỷ, vẫn thuộc doanh thu.
+- Một suất chiếu thuộc kỳ báo cáo khi ngày chiếu của suất nằm trong kỳ, theo cách BR-88 viết "các suất chiếu trong ngày" và "các suất chiếu trong kỳ báo cáo". Suất chiếu chưa tới giờ bắt đầu được tính (BR-117). Suất chiếu đã xoá không được tính vào tổng sức chứa (BR-116); dữ liệu của suất đó vẫn được giữ cho báo cáo (REQ-140, BR-58) nên phần tiền vé của suất đó, nếu có vé đã huỷ, vẫn thuộc doanh thu.
 - Báo cáo tính từ dữ liệu có tại thời điểm hệ thống xử lý bước 3 và bước 4; nguồn không nêu việc chốt báo cáo theo ngày.
 - Use case do tác nhân người kích hoạt, không có use case nào do tác nhân thời gian kích hoạt dùng dữ liệu của use case này làm mốc, nên không có bước hẹn hoặc huỷ mốc (F4.2 mục 17).
 - Không có trao đổi với hệ thống ngoài.
@@ -108,6 +116,7 @@ Bảng đối chiếu
 |---|---|
 | 1 | A-1 |
 | 2 | A-2, D-2 |
+| 1a | N-1a |
 | 2a | A-2a, FINAL-1 |
 | 3 | A-3 |
 | 4 | A-4 |
@@ -121,6 +130,7 @@ Bảng Node
 | P-SYS | Partition | Hệ thống | - | - | - | x=300, w=520 |
 | INIT | Initial | - | - | P-ACT-04 | - | x=130, y=60 (tương đối partition) |
 | A-1 | Action | Yêu cầu xem báo cáo, chọn cách xem và kỳ | - | P-ACT-04 | 1 | x=60, y=130 (tương đối partition) |
+| N-1a | Note | 1a: Kỳ báo cáo không hợp lệ (thiếu ngày, từ ngày sau đến ngày): từ chối, thông báo, quay lại bước 1 (Q-181) | - | P-SYS | 1a | x=300, y=120, w=200, h=80 (tương đối partition) |
 | A-2 | Action | Xác định suất chiếu của cụm rạp trong kỳ | - | P-SYS | 2 | x=60, y=230 (tương đối partition) |
 | D-2 | Decision | - | - | P-SYS | 2a | x=130, y=320 (tương đối partition) |
 | A-2a | Action | Thông báo không có suất chiếu trong kỳ | - | P-SYS | 2a | x=320, y=310 (tương đối partition) |
@@ -148,14 +158,14 @@ Hai partition: ACT-04 Quản lý cụm rạp và hệ thống (P-SYS); luồng 2
 
 ## Câu hỏi mở
 
-| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
-|---|---|---|---|---|---|
-| Q-181 | Kỳ báo cáo do quản lý chọn theo hình thức nào: một khoảng ngày (từ ngày, đến ngày), một ngày, hay tháng, tuần? | Dữ liệu vào 1 dòng 2; bước 1, 2; luồng "kỳ báo cáo không hợp lệ" chưa có; UC-016 dùng lại đáp án | Mục 17 nêu báo cáo "theo ngày, theo phim và theo suất chiếu" và công thức dùng "kỳ báo cáo", không nêu quản lý chọn kỳ thế nào | Bên nghiệp vụ | Khoảng ngày gồm từ ngày và đến ngày, bắt buộc, hai ngày đầu và cuối thuộc kỳ; từ ngày không sau đến ngày |
-| Q-182 | Khi xem báo cáo doanh thu theo ngày, doanh thu của một vé thuộc ngày nào: ngày chiếu của suất chiếu, ngày bán vé, hay ngày hoàn tiền của phần đã hoàn? | Bước 3; Dữ liệu ra 1 | Mục 17 nêu "doanh thu gồm tiền vé đã bán trừ phần tiền đã hoàn" và "theo ngày", không nêu mốc ngày của tiền bán và tiền hoàn | Bên nghiệp vụ | Ngày chiếu của suất chiếu: cả tiền vé và phần đã hoàn đều xếp vào ngày chiếu của suất chiếu có vé đó (cùng cách BR-88 xếp suất chiếu vào ngày) |
-| Q-183 | Suất chiếu đã xoá (đã bỏ khỏi lịch chiếu, BR-58) có được tính vào tổng sức chứa của tỉ lệ lấp đầy không? | Bước 2, 4 | Mục 17 nêu tổng sức chứa "của các suất chiếu trong kỳ báo cáo"; Mục 16 nêu xoá suất chiếu là bỏ khỏi lịch chiếu nhưng giữ dữ liệu cho báo cáo | Bên nghiệp vụ | Không tính vì suất chiếu đã bị bỏ khỏi lịch chiếu và ngừng bán vé |
-| Q-184 | Suất chiếu chưa tới giờ bắt đầu trong kỳ báo cáo có được tính vào doanh thu và tỉ lệ lấp đầy không? | Bước 2, 3, 4 | Mục 17 nêu "các suất chiếu trong kỳ báo cáo", không nêu suất chưa diễn ra | Bên nghiệp vụ | Có tính mọi suất chiếu có ngày chiếu trong kỳ, kể cả chưa diễn ra, theo dữ liệu tại lúc xem |
-| Q-186 | Sức chứa dùng cho suất chiếu đã kết thúc khi phòng chiếu sau đó được sửa sơ đồ ghế là sức chứa hiện tại của phòng hay sức chứa lúc suất chiếu diễn ra? | Bước 4 | Mục 15 cho sửa sơ đồ ghế của phòng khi không có suất chiếu đã mở bán mà chưa kết thúc; Mục 17 dùng "sức chứa của phòng chiếu" không nêu thời điểm | Bên nghiệp vụ | Sức chứa lúc suất chiếu diễn ra, lưu cùng suất chiếu, để báo cáo của kỳ cũ không đổi khi phòng chiếu đổi sơ đồ ghế |
-| Q-187 | Khoản hoàn toàn bộ của thanh toán đến trễ (UC-006) có được trừ vào doanh thu không? | Bước 3 | Mục 17 nêu "trừ phần tiền đã hoàn cho khách"; Mục 9 nêu hoàn toàn bộ cho giao dịch không tạo vé | Bên nghiệp vụ | Không trừ vì giao dịch đó không tạo vé nên chưa nằm trong tiền vé đã bán |
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
+|---|---|---|---|
+| Q-181 | Đã trả lời (Theo đề xuất: Khoảng ngày gồm từ ngày và đến ngày, bắt buộc, hai ngày đầu và cuối thuộc kỳ; từ ngày không sau đến ngày). Kỳ báo cáo do quản lý chọn theo hình thức nào: một khoảng ngày (từ ngày, đến ngày), một ngày, hay tháng, tuần? | Dữ liệu vào 1 dòng 2; bước 1, 2; luồng "kỳ báo cáo không hợp lệ" chưa có; UC-016 dùng lại đáp án | Mục 17 nêu báo cáo "theo ngày, theo phim và theo suất chiếu" và công thức dùng "kỳ báo cáo", không nêu quản lý chọn kỳ thế nào |
+| Q-182 | Đã trả lời (Theo đề xuất: Ngày chiếu của suất chiếu: cả tiền vé và phần đã hoàn đều xếp vào ngày chiếu của suất chiếu có vé đó (cùng cách BR-88 xếp suất chiếu vào ngày)). Khi xem báo cáo doanh thu theo ngày, doanh thu của một vé thuộc ngày nào: ngày chiếu của suất chiếu, ngày bán vé, hay ngày hoàn tiền của phần đã hoàn? | Bước 3; Dữ liệu ra 1 | Mục 17 nêu "doanh thu gồm tiền vé đã bán trừ phần tiền đã hoàn" và "theo ngày", không nêu mốc ngày của tiền bán và tiền hoàn |
+| Q-183 | Đã trả lời (Theo đề xuất: Không tính vì suất chiếu đã bị bỏ khỏi lịch chiếu và ngừng bán vé). Suất chiếu đã xoá (đã bỏ khỏi lịch chiếu, BR-58) có được tính vào tổng sức chứa của tỉ lệ lấp đầy không? | Bước 2, 4 | Mục 17 nêu tổng sức chứa "của các suất chiếu trong kỳ báo cáo"; Mục 16 nêu xoá suất chiếu là bỏ khỏi lịch chiếu nhưng giữ dữ liệu cho báo cáo |
+| Q-184 | Đã trả lời (Theo đề xuất: Có tính mọi suất chiếu có ngày chiếu trong kỳ, kể cả chưa diễn ra, theo dữ liệu tại lúc xem). Suất chiếu chưa tới giờ bắt đầu trong kỳ báo cáo có được tính vào doanh thu và tỉ lệ lấp đầy không? | Bước 2, 3, 4 | Mục 17 nêu "các suất chiếu trong kỳ báo cáo", không nêu suất chưa diễn ra |
+| Q-186 | Đã trả lời (Theo đề xuất: Sức chứa lúc suất chiếu diễn ra, lưu cùng suất chiếu, để báo cáo của kỳ cũ không đổi khi phòng chiếu đổi sơ đồ ghế). Sức chứa dùng cho suất chiếu đã kết thúc khi phòng chiếu sau đó được sửa sơ đồ ghế là sức chứa hiện tại của phòng hay sức chứa lúc suất chiếu diễn ra? | Bước 4 | Mục 15 cho sửa sơ đồ ghế của phòng khi không có suất chiếu đã mở bán mà chưa kết thúc; Mục 17 dùng "sức chứa của phòng chiếu" không nêu thời điểm |
+| Q-187 | Đã trả lời (Theo đề xuất: Không trừ vì giao dịch đó không tạo vé nên chưa nằm trong tiền vé đã bán). Khoản hoàn toàn bộ của thanh toán đến trễ (UC-006) có được trừ vào doanh thu không? | Bước 3 | Mục 17 nêu "trừ phần tiền đã hoàn cho khách"; Mục 9 nêu hoàn toàn bộ cho giao dịch không tạo vé |
 
 ## Giả định
 
@@ -163,15 +173,9 @@ Không áp dụng (CHE_DO_GIA_DINH là NGHIEM_NGAT).
 
 ## Đề xuất sửa artifact trước
 
-| Bước | Mã phần tử | Vấn đề | Đề nghị |
-|---|---|---|---|
-| P02 | Bảng 4b dòng UC-015 và UC-016, Mục 5 | REQ-153 (công thức tỉ lệ lấp đầy, Dữ liệu ra 1 và bước 4) chưa được P02 gắn cho use case nào | Thêm REQ-153 vào cột REQ của UC-015 và UC-016 ở bảng 4b và vào Mục 5 (REQ-153 --> UC-015, UC-016) |
-| P06 | Bảng UC --> NFR / BR, dòng UC-015 | Dòng UC-015 chưa có BR-114 | Thêm BR-114 vào dòng UC-015 sau khi X3 gộp file pending vào sổ BR |
-| P05 | GL-04, GL-55 | Cột Ghi chú còn ghi "Chưa có đặc tả P04: UC-015, UC-016"; thuật ngữ Kỳ báo cáo (BR-88, UC-015) chưa có trong từ điển | Chạy lại P05 sau khi X3 gộp đặc tả; thêm thuật ngữ Kỳ báo cáo với định nghĩa theo đáp án Q-181 |
+Không có
 
 ## Vấn đề còn mở
 
-- Q-181 chưa trả lời: Dữ liệu vào 1 dòng 2 ghi "Chưa quy định". Đáp án làm thêm điều kiện hợp lệ của kỳ báo cáo và luồng thay thế tại bước 1 cho kỳ báo cáo không hợp lệ (từ ngày sau đến ngày nếu là khoảng ngày); luồng chính không đổi.
-- Q-182, Q-183, Q-184, Q-186, Q-187 chưa trả lời: các điều kiện ghi "chưa quy định" ở bước 2, 3, 4 làm thay đổi tập suất chiếu, ngày xếp doanh thu, mẫu số hoặc khoản trừ của công thức BR-77, BR-88; luồng chính và luồng thay thế không rẽ nhánh theo các đáp án này.
 - Luồng chính có 5 bước, trong khoảng 3-15.
 - Kiểm công thức: tỉ lệ lấp đầy của một suất chiếu có sức chứa 50 ghế và 30 vé đã bán chưa huỷ (mỗi vé một ghế, ghế đôi tính một ghế) bằng 30 / 50 = 60%; doanh thu của vé giá 100.000 đ đã huỷ và hoàn 70% (70.000 đ) bằng 100.000 - 70.000 = 30.000 đ (BR-19, BR-77).

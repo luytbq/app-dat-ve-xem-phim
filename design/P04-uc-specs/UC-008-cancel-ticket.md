@@ -7,7 +7,7 @@
 | Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (3 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-6c trước A-6c để A-6c chỉ có một cạnh vào (E-57); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; UC-005-book-tickets.md 1.13 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.14 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-36 gộp vào Q-30); không có ASM (NGHIEM_NGAT) |
 

@@ -21,4 +21,5 @@
 <mxCell id="E-07" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-3" target="A-4"><mxGeometry relative="1" as="geometry" /></mxCell>
 <mxCell id="E-08" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-4" target="A-5"><mxGeometry relative="1" as="geometry" /></mxCell>
 <mxCell id="E-09" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-5" target="FINAL-2"><mxGeometry relative="1" as="geometry" /></mxCell>
+<mxCell id="N-1a" value="1a: Kỳ báo cáo không hợp lệ (thiếu ngày, từ ngày sau đến ngày): từ chối, thông báo, quay lại bước 1 (Q-181)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="300" y="120" width="200" height="80" as="geometry" /></mxCell>
 </root></mxGraphModel></diagram></mxfile>

@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P06 |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Thêm BR-94 đến BR-147 (28 BR) và cập nhật ghi chú, cột UC áp dụng của BR-06, BR-45, BR-58, BR-69, BR-73, BR-74, BR-76, BR-77, BR-81, BR-82, BR-84, BR-87, BR-88; cập nhật ma trận truy vết theo bảy đặc tả P04 mới |
 | Thay đổi 1.3 | Thêm BR-92, BR-93 và cập nhật ma trận truy vết; đồng bộ BR-41, BR-45 với P04 (RF-14, RF-16); ghi công nghệ đã chốt ở P09 F11 (RF-15); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8 (Mục 4, Mục 5); P04-uc-specs/UC-005 1.11, UC-006 1.8, UC-008 1.8, UC-009 1.5, UC-013 1.2, UC-014 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-93); P05-glossary.md 1.1; _review-P05-P06.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9 (Mục 4, Mục 5); P04-uc-specs/UC-005 1.14, UC-006 1.9, UC-008 1.9, UC-009 1.6, UC-013 1.4, UC-014 1.6, UC-001 1.1, UC-003 1.1, UC-004 1.1, UC-007 1.1, UC-010 1.1, UC-011 1.1, UC-012 1.1, UC-015 1.1, UC-016 1.1, UC-017 1.1; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; _review-P05-P06.md |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-74 đến Q-80 đều đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -55,7 +56,7 @@ Lúc phân tích hồ sơ dự án ghi CONG_NGHE là "Chưa chốt" nên không 
 
 ## 6. Quy tắc nghiệp vụ
 
-Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 Gộp (BR-16, BR-59, BR-75), 5 Loại. BR-74 đến BR-84 cấp mới ở P06 1.0; BR-85 đến BR-90 cấp ở P06 1.1 sau review P05, P06; BR-91 cấp ở UC-006 1.6; BR-92 cấp ở UC-014 1.4; BR-93 cấp ở UC-005 1.11.
+Danh sách chính thức gồm 121 BR (BR-01 đến BR-93 và 28 BR cấp từ BR-94 đến BR-147): 113 Hiệu lực, 3 Gộp (BR-16, BR-59, BR-75), 5 Loại. BR-74 đến BR-84 cấp mới ở P06 1.0; BR-85 đến BR-90 cấp ở P06 1.1 sau review P05, P06; BR-91 cấp ở UC-006 1.6; BR-92 cấp ở UC-014 1.4; BR-93 cấp ở UC-005 1.11; BR-94 đến BR-147 cấp ở P04 (UC-001, UC-007, UC-017, UC-015, UC-010, UC-011, UC-012).
 
 | BR | Quy tắc | Loại | Áp dụng cho UC | REQ | Trạng thái | Ghi chú |
 |---|---|---|---|---|---|---|
@@ -64,7 +65,7 @@ Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 G�
 | BR-03 | Ghế tác nhân đang chọn trên sơ đồ vẫn ở trạng thái trống cho tới khi tác nhân xác nhận chọn ghế. | Sự kiện | UC-005 | REQ-88 | Hiệu lực | - |
 | BR-04 | Tại một thời điểm, mỗi khách và mỗi nhân viên quầy có tối đa một lần giữ ghế chưa kết thúc. | Ràng buộc | UC-005 | REQ-89, REQ-92 | Hiệu lực | Lần giữ ghế kết thúc tại thời điểm hết hạn, khi khách hoặc nhân viên quầy huỷ giữ ghế, khi cổng báo thất bại hoặc khi ghế chuyển sang đã bán, không đợi ghế thực sự được giải phóng (REQ-76). Việc kiểm tra và tạo lần giữ ghế mới là một thao tác không chia cắt |
 | BR-05 | Nhóm ghế của một lần giữ ghế (các ghế tác nhân chọn cho một lần đặt vé) gồm tối đa 8 ghế; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | UC-005 | REQ-20, REQ-46 | Hiệu lực | - |
-| BR-06 | Ghế đôi được tính là một ghế khi đếm số ghế của một lần giữ ghế, sức chứa phòng và tỉ lệ lấp đầy. | Suy luận | UC-005, UC-012, UC-015, UC-016 | REQ-87; REQ-17 (phụ) | Hiệu lực | Dự kiến dùng lại ở UC-012, UC-015, UC-016. UC-012, UC-015, UC-016 theo P02 Mục 5 (REQ-87) |
+| BR-06 | Ghế đôi được tính là một ghế khi đếm số ghế của một lần giữ ghế, sức chứa phòng và tỉ lệ lấp đầy. | Suy luận | UC-005, UC-012, UC-015, UC-016 | REQ-87; REQ-17 (phụ) | Hiệu lực | UC-012, UC-015, UC-016 dùng lại (REQ-87). UC-012 dùng cho sức chứa của phòng chiếu |
 | BR-07 | Việc giữ ghế chỉ thành công khi tất cả các ghế được chọn đều còn trống; nếu có ghế không còn trống thì không ghế nào được giữ. | Ràng buộc | UC-005 | REQ-24, REQ-46 | Hiệu lực | - |
 | BR-08 | Ghế đang được giữ cho một người thì không người nào khác được chọn ghế đó. | Ràng buộc | UC-005 | REQ-23 | Hiệu lực | - |
 | BR-09 | Một ghế của một suất chiếu chỉ được bán cho đúng một người; khi nhiều người cùng lúc xác nhận chọn cùng một ghế, chỉ một người giữ được ghế đó. | Ràng buộc | UC-005 | REQ-26, REQ-27 | Hiệu lực | - |
@@ -103,7 +104,7 @@ Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 G�
 | BR-42 | Ghế của vé bị huỷ được trả về trạng thái trống sau khi vé được ghi nhận đã huỷ, kể cả khi hoàn tiền qua cổng thanh toán không thành công và khoản hoàn đã được ghi log lỗi. | Ràng buộc | UC-008, UC-006 | REQ-131; REQ-44 (phụ) | Hiệu lực | Hoàn tiền mặt tại quầy luôn hoàn được nên không có đường hoàn tiền mặt không thành công; không còn trạng thái vé đã huỷ mà ghế chưa trống. UC-006 theo P02 Mục 5 (REQ-131) |
 | BR-43 | Cổng thanh toán không trả lời yêu cầu hoàn tiền trong 30 giây thì coi là không phản hồi; mọi lần thử lại của cùng một yêu cầu hoàn dùng lại khoá chống hoàn trùng của yêu cầu hoàn đó; khoá gắn với từng yêu cầu hoàn và phân biệt được với khoá của yêu cầu hoàn khác trên cùng giao dịch (mã giao dịch kèm mã vé với hoàn tiền huỷ vé; mã giao dịch kèm loại yêu cầu hoàn toàn bộ với hoàn toàn bộ thanh toán trễ); việc tra cứu kết quả hoàn cũng dùng khoá này. | Ràng buộc | UC-006, UC-008 | REQ-132; REQ-78 (phụ) | Hiệu lực | Cùng BR-41 |
 | BR-44 | Xác nhận đã thu tiền mặt của nhân viên quầy tới sau thời điểm hết hạn giữ ghế bị từ chối và nhân viên quầy được thông báo trả lại tiền mặt cho khách; việc so thời điểm hết hạn với việc xác nhận đã thu tiền và chuyển ghế sang đã bán là một thao tác không chia cắt. | Kích hoạt hành động | UC-005 | REQ-134; REQ-22, REQ-32, REQ-47, REQ-48 (phụ) | Hiệu lực | Trả lời Q-49. Giống thao tác không chia cắt của kênh trực tuyến (UC-005 bước 11, 12) |
-| BR-45 | Từ giờ bắt đầu của suất chiếu, không ai được bắt đầu đặt hoặc mua vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | UC-005, UC-014 | REQ-135; REQ-61, REQ-86 (phụ) | Hiệu lực | Trả lời Q-50. Kiểm ở bước 2; ngừng bán là ngừng nhận lần giữ ghế mới, còn lần giữ ghế đã tạo trước giờ bắt đầu vẫn được hoàn tất theo BR-10 (tối đa 10 phút) nên vé vẫn có thể được tạo sau giờ bắt đầu, không trái đề bài Mục 16. Ghế trả về trống sau giờ bắt đầu (UC-008 bước 7) không được bán lại |
+| BR-45 | Từ giờ bắt đầu của suất chiếu, không ai được bắt đầu đặt hoặc mua vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | UC-005, UC-014, UC-004 | REQ-135; REQ-61, REQ-86 (phụ) | Hiệu lực | Trả lời Q-50. Kiểm ở bước 2; ngừng bán là ngừng nhận lần giữ ghế mới, còn lần giữ ghế đã tạo trước giờ bắt đầu vẫn được hoàn tất theo BR-10 (tối đa 10 phút) nên vé vẫn có thể được tạo sau giờ bắt đầu, không trái đề bài Mục 16. Ghế trả về trống sau giờ bắt đầu (UC-008 bước 7) không được bán lại. UC-004: lịch chiếu chỉ liệt kê suất chiếu chưa tới giờ bắt đầu (Q-177) |
 | BR-46 | Quản lý cụm rạp chỉ lập, sửa, xoá suất chiếu của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | UC-014 | REQ-60; REQ-100 (phụ) | Hiệu lực | - |
 | BR-47 | Định dạng của suất chiếu phải là một định dạng phát hành của phim. | Ràng buộc | UC-014 | REQ-62; REQ-55 (phụ) | Hiệu lực | - |
 | BR-48 | Phòng chiếu của suất chiếu phải chiếu được định dạng của suất chiếu. | Ràng buộc | UC-014 | REQ-63; REQ-57 (phụ) | Hiệu lực | - |
@@ -116,7 +117,7 @@ Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 G�
 | BR-55 | Thời điểm mở bán của suất chiếu phải trước giờ bắt đầu của suất chiếu. | Ràng buộc | UC-014 | REQ-137; REQ-61, REQ-86, REQ-135 (phụ) | Hiệu lực | Trả lời Q-52; bổ sung cho BR-01, BR-45 |
 | BR-56 | Khi lập suất chiếu mới hoặc sửa suất chiếu, giờ bắt đầu phải sau thời điểm hệ thống kiểm tra. | Ràng buộc | UC-014 | REQ-138 | Hiệu lực | Trả lời Q-53; giờ bắt đầu bằng đúng thời điểm kiểm tra là đã qua |
 | BR-57 | Suất chiếu đã tới giờ bắt đầu, kể cả đã kết thúc, không được sửa hoặc xoá. | Ràng buộc | UC-014 | REQ-139 | Hiệu lực | Trả lời Q-60 |
-| BR-58 | Xoá suất chiếu là bỏ suất chiếu khỏi lịch chiếu và ngừng bán vé của suất chiếu đó; thông tin của suất chiếu vẫn được giữ cho vé đã huỷ, hoàn tiền (kể cả thanh toán trễ) và báo cáo. | Ràng buộc | UC-014 | REQ-140 | Hiệu lực | Trả lời Q-54 |
+| BR-58 | Xoá suất chiếu là bỏ suất chiếu khỏi lịch chiếu và ngừng bán vé của suất chiếu đó; thông tin của suất chiếu vẫn được giữ cho vé đã huỷ, hoàn tiền (kể cả thanh toán trễ) và báo cáo. | Ràng buộc | UC-014, UC-004 | REQ-140 | Hiệu lực | Trả lời Q-54. UC-004: suất chiếu đã xoá không có trong lịch chiếu (bước 4, 1a4) |
 | BR-59 | Không được lập suất chiếu, hoặc sửa suất chiếu thành suất chiếu, khi bảng giá của cụm rạp chưa có giá cho đúng loại phòng và định dạng phim của suất chiếu đó. | Ràng buộc | UC-014 | REQ-145; REQ-37, REQ-38 (phụ) | Gộp vào BR-69 | Trả lời Q-59; là trường hợp riêng của BR-69 (kiểm đủ loại ghế và khung giờ, trả lời Q-61), P06 xét gộp. Gộp theo P06: BR-69 mở rộng BR-59 sang loại ghế và khung giờ (trả lời Q-61); UC và REQ của BR-59 đã nằm trong BR-69 |
 | BR-60 | Khi suất chiếu đã bị người khác sửa hoặc xoá kể từ lúc quản lý cụm rạp được hiển thị, yêu cầu sửa hoặc xoá của quản lý cụm rạp sau bị từ chối và không ghi đè thay đổi trước. | Ràng buộc | UC-014 | REQ-143 | Hiệu lực | Trả lời Q-57 |
 | BR-61 | Quản lý cụm rạp chỉ xem và thiết lập bảng giá của cụm rạp mình. | Ràng buộc | UC-013, UC-005 | REQ-37, REQ-59; REQ-100 (phụ) | Hiệu lực | UC-005 theo P02 Mục 5 (REQ-37) |
@@ -127,31 +128,59 @@ Danh sách chính thức gồm 93 BR (BR-01 đến BR-93): 85 Hiệu lực, 3 G�
 | BR-66 | Thay đổi bảng giá có hiệu lực ngay khi lưu, áp dụng cho mọi lần chốt giá sau đó, kể cả các suất chiếu đã lập; không hẹn ngày hiệu lực. | Ràng buộc | UC-013, UC-005 | REQ-150; REQ-59 (phụ) | Hiệu lực | Trả lời Q-66 |
 | BR-67 | Thay đổi bảng giá không đổi giá của vé đã bán; vé giữ giá đã ghi trên vé. | Suy luận | UC-013, UC-005 | REQ-149; REQ-105 (phụ) | Hiệu lực | Suy ra từ giá vé ghi trên vé (REQ-105); hệ quả với tiền hoàn ở BR-19, BR-31 (UC-008) |
 | BR-68 | Việc kiểm tra BR-64 rồi bỏ mục giá và việc kiểm tra BR-69 rồi lưu suất chiếu lập hoặc sửa (UC-014 bước 8) không xen vào nhau: nếu suất chiếu được ghi nhận trước thì bỏ giá bị từ chối theo BR-64; nếu bỏ giá được ghi nhận trước thì lập hoặc sửa suất chiếu bị từ chối theo BR-69. | Ràng buộc | UC-013, UC-014 | REQ-151; REQ-145 (phụ) | Hiệu lực | Trả lời Q-67; tương tự BR-54 |
-| BR-69 | Không được lập suất chiếu, hoặc sửa suất chiếu thành suất chiếu, khi bảng giá của cụm rạp chưa có giá cho mọi loại ghế có trong phòng chiếu (loại ghế mà phòng chiếu có ít nhất một ghế), ứng với khung giờ xác định theo giờ bắt đầu của suất chiếu (BR-12), theo loại phòng của phòng chiếu và định dạng phim của suất chiếu. | Ràng buộc | UC-014, UC-013 | REQ-145; REQ-37, REQ-38 (phụ) | Hiệu lực | Trả lời Q-61 (phương án A); mở rộng BR-59 sang loại ghế và khung giờ. Đã gộp BR-59 (P06) |
+| BR-69 | Không được lập suất chiếu, hoặc sửa suất chiếu thành suất chiếu, khi bảng giá của cụm rạp chưa có giá cho mọi loại ghế có trong phòng chiếu (loại ghế mà phòng chiếu có ít nhất một ghế), ứng với khung giờ xác định theo giờ bắt đầu của suất chiếu (BR-12), theo loại phòng của phòng chiếu và định dạng phim của suất chiếu. | Ràng buộc | UC-014, UC-013 | REQ-145; REQ-37, REQ-38 (phụ) | Hiệu lực | Trả lời Q-61 (phương án A); mở rộng BR-59 sang loại ghế và khung giờ. Đã gộp BR-59 (P06). UC-012: kiểm khi sửa phòng chiếu (BR-73) |
 | BR-70 | Giá vé của mục giá là số nguyên đồng lớn hơn 0, không có giá trị tối đa; mọi tổ hợp loại phòng, định dạng phim, loại ghế và khung giờ chiếu đều đặt được giá, kể cả loại phòng mà cụm rạp chưa có. | Ràng buộc | UC-013 | REQ-147; REQ-37, REQ-38 (phụ) | Hiệu lực | Trả lời Q-63 |
 | BR-71 | Việc chốt giá của một lần giữ ghế và việc lưu thay đổi bảng giá không xen vào nhau: thay đổi bảng giá được ghi nhận trước thì lần giữ ghế dùng giá mới; thay đổi bảng giá được ghi nhận sau thì không ảnh hưởng lần giữ ghế đó. | Ràng buộc | UC-013, UC-005 | REQ-149; REQ-150 (phụ) | Hiệu lực | Trả lời Q-65 |
 | BR-72 | Không được giữ ghế khi bảng giá của cụm rạp không có giá cho một ghế đã chọn, ứng với loại phòng, định dạng phim, loại ghế và khung giờ chiếu của suất chiếu. | Ràng buộc | UC-005, UC-013 | REQ-152; REQ-37, REQ-38 (phụ) | Hiệu lực | Trả lời Q-61; lưới an toàn khi bất biến của BR-69, BR-64 bị vỡ ở nơi khác |
-| BR-73 | Việc sửa phòng chiếu không được làm suất chiếu chưa tới giờ bắt đầu của phòng chiếu đó thiếu giá theo BR-69. | Ràng buộc | UC-012, UC-013, UC-014 | REQ-145; REQ-57, REQ-58 (phụ) | Hiệu lực | UC-012 chưa đặc tả; UC-012 phải dẫn BR này khi đặc tả. UC-014 theo P02 Mục 5 (REQ-145) |
-| BR-74 | Một ghế đôi là một vị trí dành cho hai người và được bán như một ghế. | Sự kiện | UC-005 | REQ-17 | Hiệu lực | Cấp ở P06 vì REQ-17 chưa có BR; UC-005 theo P02 Mục 5. Khác BR-06: BR-74 nêu ghế đôi được bán như một ghế (một vé), BR-06 nêu cách đếm ghế đôi trong số ghế mỗi lần giữ ghế, sức chứa và tỉ lệ lấp đầy |
+| BR-73 | Việc sửa phòng chiếu không được làm suất chiếu chưa tới giờ bắt đầu của phòng chiếu đó thiếu giá theo BR-69. | Ràng buộc | UC-012, UC-013, UC-014 | REQ-145; REQ-57, REQ-58 (phụ) | Hiệu lực | UC-014 theo P02 Mục 5 (REQ-145). UC-012 dẫn BR này ở bước 5, luồng 5b; suất chiếu đã xoá không tính (Q-209) |
+| BR-74 | Một ghế đôi là một vị trí dành cho hai người và được bán như một ghế. | Sự kiện | UC-005, UC-012 | REQ-17 | Hiệu lực | Cấp ở P06 vì REQ-17 chưa có BR; UC-005 theo P02 Mục 5. Khác BR-06: BR-74 nêu ghế đôi được bán như một ghế (một vé), BR-06 nêu cách đếm ghế đôi trong số ghế mỗi lần giữ ghế, sức chứa và tỉ lệ lấp đầy. UC-012: loại ghế ghế đôi trong sơ đồ ghế |
 | BR-75 | Không được sửa sơ đồ ghế của phòng chiếu đang có suất chiếu chưa diễn ra đã bán vé hoặc có ghế đang được giữ. | Ràng buộc | UC-012 | REQ-58 | Gộp vào BR-87 | Cấp ở P06 vì REQ-58 chưa có BR; UC-012 theo P02 Mục 5 (chưa đặc tả P04). Đã trả lời Q-12 (P00). BR-73 là quy tắc liên quan về giá khi sửa phòng chiếu. Gộp theo review P05, P06 (Q-80): BR-87 chặt hơn, mọi suất chiếu chưa diễn ra đã bán vé hoặc có ghế đang được giữ đều đã tới thời điểm mở bán và chưa kết thúc, nên thoả BR-87 thì thoả BR-75 |
-| BR-76 | Phim sắp chiếu là phim chưa tới ngày khởi chiếu; phim đang chiếu là phim đã tới ngày khởi chiếu và chưa qua ngày kết thúc chiếu. | Suy luận | UC-003 | REQ-96 | Hiệu lực | Cấp ở P06 vì REQ-96 chưa có BR; UC-003 theo P02 Mục 5 (chưa đặc tả P04). BR-49 dùng cách hiểu này cho khoảng chiếu của suất chiếu |
-| BR-77 | Doanh thu gồm tiền vé đã bán trừ phần tiền đã hoàn cho khách. | Tính toán | UC-015, UC-016 | REQ-99 | Hiệu lực | Cấp ở P06 vì REQ-99 chưa có BR; UC-015, UC-016 theo P02 Mục 5 (chưa đặc tả P04). UC-008 Mục 8: khoản hoàn chưa hoàn được và đã ghi log lỗi chưa được trừ khi chưa xử lý xong |
+| BR-76 | Phim sắp chiếu là phim chưa tới ngày khởi chiếu; phim đang chiếu là phim đã tới ngày khởi chiếu và chưa qua ngày kết thúc chiếu. | Suy luận | UC-003, UC-010, UC-004 | REQ-96 | Hiệu lực | Cấp ở P06 vì REQ-96 chưa có BR; UC-003 theo P02 Mục 5. BR-49 dùng cách hiểu này cho khoảng chiếu của suất chiếu. UC-010: dùng ở hậu điều kiện; UC-004: danh sách phim để chọn (Q-180) |
+| BR-77 | Doanh thu gồm tiền vé đã bán trừ phần tiền đã hoàn cho khách. | Tính toán | UC-015, UC-016 | REQ-99 | Hiệu lực | Cấp ở P06 vì REQ-99 chưa có BR; UC-015, UC-016 theo P02 Mục 5. UC-008 Mục 8: khoản hoàn chưa hoàn được và đã ghi log lỗi chưa được trừ khi chưa xử lý xong |
 | BR-78 | Mỗi nhân viên quầy, nhân viên soát vé và quản lý cụm rạp thuộc đúng một cụm rạp; quản lý chuỗi không thuộc cụm rạp nào. | Sự kiện | UC-017 | REQ-100 | Hiệu lực | Cấp ở P06 vì REQ-100 chưa có BR chính; UC-017 theo P02 Mục 5. BR-02, BR-17, BR-22, BR-46, BR-61 dùng REQ-100 làm căn cứ phụ cho phạm vi cụm rạp của từng use case |
 | BR-79 | Mỗi nhân viên có đúng một vai trò. | Sự kiện | UC-017 | REQ-101 | Hiệu lực | Cấp ở P06 vì REQ-101 chưa có BR; UC-017 theo P02 Mục 5 |
 | BR-80 | Mã đặt vé là duy nhất trên toàn hệ thống. | Ràng buộc | UC-005 | REQ-106 | Hiệu lực | Cấp ở P06 vì REQ-106 chưa có BR; UC-005 theo P02 Mục 5. Nguồn không quy định định dạng của mã |
-| BR-81 | Email dùng để đăng ký và đăng nhập tài khoản khách theo định dạng email chuẩn. | Ràng buộc | UC-001 | REQ-107 | Hiệu lực | Cấp ở P06 vì REQ-107 chưa có BR; UC-001 theo P02 Mục 5 (chưa đặc tả P04). Đã trả lời Q-26 |
-| BR-82 | Số điện thoại dùng để đăng ký và đăng nhập tài khoản khách là số Việt Nam gồm 10 chữ số, bắt đầu bằng chữ số 0. | Ràng buộc | UC-001 | REQ-108 | Hiệu lực | Cấp ở P06 vì REQ-108 chưa có BR; UC-001 theo P02 Mục 5 (chưa đặc tả P04). Đã trả lời Q-26 |
+| BR-81 | Email dùng để đăng ký và đăng nhập tài khoản khách theo định dạng email chuẩn. | Ràng buộc | UC-001 | REQ-107 | Hiệu lực | Cấp ở P06 vì REQ-107 chưa có BR; UC-001 theo P02 Mục 5. Đã trả lời Q-26 |
+| BR-82 | Số điện thoại dùng để đăng ký và đăng nhập tài khoản khách là số Việt Nam gồm 10 chữ số, bắt đầu bằng chữ số 0. | Ràng buộc | UC-001 | REQ-108 | Hiệu lực | Cấp ở P06 vì REQ-108 chưa có BR; UC-001 theo P02 Mục 5. Đã trả lời Q-26 |
 | BR-83 | Vé được soát vào bất kỳ thời điểm nào so với giờ bắt đầu của suất chiếu; hệ thống không giới hạn thời điểm soát vé. | Ràng buộc | UC-009 | REQ-125 | Hiệu lực | "Giờ chiếu" của REQ-125 hiểu là giờ bắt đầu của suất chiếu (REQ-91). Cấp ở P06 vì REQ-125 chưa có BR; UC-009 theo P02 Mục 5. Đã trả lời Q-43 (P04 UC-009) |
-| BR-84 | Phim hoặc phòng chiếu thay đổi sau khi lập suất chiếu không làm suất chiếu đã lập tự đổi. | Ràng buộc | UC-014 | REQ-144 | Hiệu lực | Cấp ở P06 vì REQ-144 chưa có BR; UC-014 theo P02 Mục 5. Đã trả lời Q-58 (P04 UC-014). Giờ kết thúc giữ nguyên khi phim đổi thời lượng (BR-50) |
+| BR-84 | Phim hoặc phòng chiếu thay đổi sau khi lập suất chiếu không làm suất chiếu đã lập tự đổi. | Ràng buộc | UC-014, UC-010, UC-012 | REQ-144 | Hiệu lực | Cấp ở P06 vì REQ-144 chưa có BR; UC-014 theo P02 Mục 5. Đã trả lời Q-58 (P04 UC-014). Giờ kết thúc giữ nguyên khi phim đổi thời lượng (BR-50). UC-010: sửa phim không làm suất chiếu đã lập tự đổi; UC-012: sửa phòng chiếu không làm suất chiếu đã lập tự đổi |
 | BR-85 | Các báo kết quả thanh toán của cổng thanh toán và mọi thao tác làm đổi trạng thái của cùng một lần giữ ghế (hết hạn, khách huỷ giữ ghế, báo thành công, báo thất bại, xác nhận đã thu tiền của nhân viên quầy) được xử lý tuần tự, khoá theo lần giữ ghế; mỗi thao tác thấy trạng thái do thao tác trước để lại. | Ràng buộc | UC-005, UC-006 | REQ-160; REQ-35, REQ-36, REQ-109, REQ-110, REQ-134 (phụ) | Hiệu lực | Trả lời Q-79. Gồm việc so thời điểm hết hạn với kết quả thanh toán rồi chuyển ghế sang đã bán hoặc ghi nhận thanh toán đến trễ là một thao tác không chia cắt (BR-14, BR-15, BR-44); hai báo thành công của cùng một giao dịch đến đồng thời thì chỉ báo đầu được xử lý (BR-37). Cơ chế bảo đảm thuộc P07, P09 |
 | BR-86 | Lần giữ ghế đã ở trạng thái cuối (Đã hoàn tất, Hết hạn, Đã huỷ, Thanh toán thất bại) thì trạng thái không thể thay đổi nữa; báo kết quả thanh toán đến sau được xử lý theo trạng thái cuối đó: báo thành công của giao dịch chưa xử lý được hoàn toàn bộ như thanh toán đến trễ (UC-006), báo của giao dịch đã xử lý là báo trùng, báo thất bại chỉ được ghi nhận. | Ràng buộc | UC-005, UC-006 | REQ-161; REQ-35, REQ-109, REQ-110, REQ-133 (phụ) | Hiệu lực | Trả lời Q-79. Tên bốn trạng thái cuối do nhóm đặt (Q-69, P05 GL-25). Báo thành công từ giao dịch khác cho lần giữ ghế Đã hoàn tất: BR-40; cho lần giữ ghế Hết hạn: BR-14; Đã huỷ hoặc Thanh toán thất bại: BR-15; báo trùng: BR-37; báo thất bại: BR-39 |
-| BR-87 | Không được sửa sơ đồ ghế của phòng chiếu khi phòng có suất chiếu đã tới thời điểm mở bán mà chưa kết thúc, kể cả khi suất chiếu chưa có vé đã bán và chưa có ghế được giữ. | Ràng buộc | UC-012 | REQ-162; REQ-58 (phụ) | Hiệu lực | Trả lời Q-80. Thời điểm so là lúc hệ thống kiểm tra yêu cầu sửa; chưa kết thúc tính theo giờ kết thúc của suất chiếu (BR-50). Việc sửa chỉ xảy ra khi phòng chưa có suất chiếu nào tới thời điểm mở bán nên không có lần giữ ghế nào để xen vào (giữ ghế cần suất chiếu đã mở bán, BR-01). Đã gộp BR-75. UC-012 chưa đặc tả; UC-012 phải dẫn BR này khi đặc tả. BR-73 áp dụng thêm cho suất chiếu chưa mở bán (về giá) |
-| BR-88 | Tỉ lệ lấp đầy của một suất chiếu bằng số ghế của vé đã bán chưa huỷ chia cho sức chứa của phòng chiếu; tỉ lệ lấp đầy theo ngày hoặc theo phim bằng tổng số ghế của vé đã bán chưa huỷ chia cho tổng sức chứa của các suất chiếu trong ngày hoặc của phim trong kỳ báo cáo; ghế đang được giữ không được tính. | Tính toán | UC-015, UC-016 | REQ-153; REQ-67, REQ-68, REQ-87 (phụ) | Hiệu lực | Trả lời Q-71. Ghế đôi tính một ghế (BR-06). Vé đã sử dụng vẫn là vé đã bán chưa huỷ. Ghế đang được giữ chưa tính vì có thể hết hạn; cùng tinh thần BR-77. UC-015, UC-016 chưa đặc tả |
+| BR-87 | Không được sửa sơ đồ ghế của phòng chiếu khi phòng có suất chiếu đã tới thời điểm mở bán mà chưa kết thúc, kể cả khi suất chiếu chưa có vé đã bán và chưa có ghế được giữ. | Ràng buộc | UC-012 | REQ-162; REQ-58 (phụ) | Hiệu lực | Trả lời Q-80. Thời điểm so là lúc hệ thống kiểm tra yêu cầu sửa; chưa kết thúc tính theo giờ kết thúc của suất chiếu (BR-50). Việc sửa chỉ xảy ra khi phòng chưa có suất chiếu nào tới thời điểm mở bán nên không có lần giữ ghế nào để xen vào (giữ ghế cần suất chiếu đã mở bán, BR-01). Đã gộp BR-75. BR-73 áp dụng thêm cho suất chiếu chưa mở bán (về giá). UC-012 dẫn BR này ở bước 5, luồng 5a; suất chiếu đã xoá không tính (Q-209) |
+| BR-88 | Tỉ lệ lấp đầy của một suất chiếu bằng số ghế của vé đã bán chưa huỷ chia cho sức chứa của phòng chiếu; tỉ lệ lấp đầy theo ngày hoặc theo phim bằng tổng số ghế của vé đã bán chưa huỷ chia cho tổng sức chứa của các suất chiếu trong ngày hoặc của phim trong kỳ báo cáo; ghế đang được giữ không được tính. | Tính toán | UC-015, UC-016 | REQ-153; REQ-67, REQ-68, REQ-87 (phụ) | Hiệu lực | Trả lời Q-71. Ghế đôi tính một ghế (BR-06). Vé đã sử dụng vẫn là vé đã bán chưa huỷ. Ghế đang được giữ chưa tính vì có thể hết hạn; cùng tinh thần BR-77. Sức chứa theo BR-118, bỏ suất chiếu đã xoá theo BR-116 |
 | BR-89 | Khi dịch vụ email từ chối hoặc không phản hồi lúc gửi email chứa vé hoặc email thông báo hoàn tiền, vé và khoản hoàn giữ nguyên hiệu lực; hệ thống thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không huỷ vé và không hoàn tiền thêm. | Kích hoạt hành động | UC-005, UC-006 | REQ-157; REQ-31, REQ-90 (phụ) | Hiệu lực | Trả lời Q-76. Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09); cùng cách xử lý BR-41. Khách vẫn thấy vé trên màn hình và trong lịch sử đặt vé (UC-007) |
 | BR-90 | Khi cổng thanh toán từ chối hoặc không trả lời trong 30 giây yêu cầu tạo giao dịch, hệ thống giữ nguyên lần giữ ghế và báo khách chưa tạo được thanh toán; khách thử lại được tới thời điểm hết hạn giữ ghế, tới lúc đó ghế được giải phóng theo UC-005 luồng 7b. Với cổng chỉ nhận địa chỉ thanh toán đã ký, quy tắc này chỉ áp dụng khi hệ thống lỗi trước lúc chuyển khách sang cổng. | Kích hoạt hành động | UC-005 | REQ-158; REQ-136 (phụ) | Hiệu lực | Trả lời Q-77. Mức 30 giây mượn từ BR-43. Thời điểm hết hạn giữ ghế không đổi khi khách thử lại. Nếu cổng đã tạo giao dịch ở lần trước thì giao dịch báo thành công thứ hai được nhận ra qua mã tham chiếu lần giữ ghế (BR-40) |
 | BR-91 | Thanh toán thành công mà số tiền cổng báo khác số tiền hệ thống đã ghi nhận cho giao dịch được ghi log lỗi và để lại cho xử lý thủ công ngoài hệ thống; hệ thống không tạo vé, không tự hoàn tiền và không gửi email. | Kích hoạt hành động | UC-006 | REQ-129 | Hiệu lực | Cùng cách xử lý BR-38; cấp ở UC-006 1.6 |
 | BR-92 | Không được đổi phòng chiếu của suất chiếu đã từng có vé, kể cả khi mọi vé của suất chiếu đó đã huỷ; muốn đổi phòng thì xoá suất chiếu đó theo các quy tắc xoá suất chiếu (BR-53, BR-57, BR-58) rồi lập suất chiếu mới. | Ràng buộc | UC-014 | REQ-65, REQ-141 | Hiệu lực | Chặt hơn BR-53, chủ dự án đã chốt (R13D-01, phương án A); cấp ở UC-014 1.4 |
 | BR-93 | Báo thanh toán thất bại của một giao dịch chỉ làm lần giữ ghế chuyển sang Thanh toán thất bại và giải phóng ghế khi giao dịch đó là giao dịch tạo sau cùng của lần giữ ghế; báo thất bại của giao dịch cũ khi khách đã có giao dịch thanh toán mới hơn chỉ được ghi nhận, lần giữ ghế và ghế giữ nguyên. | Ràng buộc | UC-005 | REQ-133; REQ-136 (phụ) | Hiệu lực | Làm rõ BR-39 và BR-86; cấp ở UC-005 1.11 |
+| BR-94 | Khách chỉ xem lịch sử đặt vé và các vé của chính mình. | Ràng buộc | UC-007 | REQ-39 | Hiệu lực | Suy ra từ "vé của mình" (Mục 11). Khác BR-17 (ai được huỷ vé): BR-94 quy định ai được xem |
+| BR-95 | Email của mỗi tài khoản nhân viên là duy nhất giữa mọi tài khoản nhân viên. | Ràng buộc | UC-017 | REQ-102 (phụ); Q-136 | Hiệu lực | Theo Q-136 (email duy nhất); đã trả lời Q-163 về định dạng. Cần duy nhất xuyên các bảng nhân viên ở P13 |
+| BR-96 | Khi nhân viên nghỉ việc, tài khoản nhân viên bị khoá chứ không bị xoá; dữ liệu liên quan tới nhân viên (lần giữ ghế, vé đã bán) được giữ nguyên. | Kích hoạt hành động | UC-017 | REQ-70 (phụ); Q-136 | Hiệu lực | Theo Q-136 (nghỉ việc thì khoá, không xoá, vì lần giữ ghế và vé cũ còn trỏ tới nhân viên) |
+| BR-97 | Nhân viên có tài khoản bị khoá không đăng nhập được vào hệ thống. | Ràng buộc | UC-017 | REQ-102 (phụ); Q-136 | Hiệu lực | Theo Q-136 (trạng thái hoạt động dùng cho đăng nhập và khoá tài khoản). Hiệu lực với phiên đang mở theo BR-101 (Q-165) |
+| BR-98 | Mỗi email và mỗi số điện thoại thuộc tối đa một tài khoản khách; đăng ký bằng email hoặc số điện thoại đã thuộc tài khoản khách khác bị từ chối. | Ràng buộc | UC-001 | REQ-12; REQ-11 (phụ); Q-155 | Hiệu lực | Trả lời Q-155 |
+| BR-99 | Mật khẩu của tài khoản khách có ít nhất 8 ký tự; không quy định thêm về độ phức tạp. | Ràng buộc | UC-001 | REQ-11 (phụ); Q-156 | Hiệu lực | Trả lời Q-156 |
+| BR-100 | Khoá tài khoản, đổi cụm rạp hoặc đổi vai trò của nhân viên quầy không ảnh hưởng lần giữ ghế chưa kết thúc: lần giữ ghế giữ nguyên và kết thúc theo UC-005 (hết hạn sau 10 phút hoặc xác nhận thu tiền); việc khoá hoặc đổi chỉ chặn các lần giữ ghế bắt đầu sau đó. | Ràng buộc | UC-017, UC-005 | REQ-89, REQ-92; REQ-102 (phụ); Q-164 | Hiệu lực | Trả lời Q-164. Lần giữ ghế kết thúc theo UC-005 (BR-10) |
+| BR-101 | Khoá tài khoản, đổi cụm rạp hoặc đổi vai trò của nhân viên đang đăng nhập có hiệu lực ngay với phiên làm việc đang mở: thao tác kế tiếp của nhân viên trong phiên cũ bị từ chối và nhân viên phải đăng nhập lại. | Ràng buộc | UC-017 | REQ-102 (phụ); Q-165 | Hiệu lực | Trả lời Q-165 |
+| BR-102 | Hai yêu cầu cùng lưu một tài khoản nhân viên (tạo, cập nhật, khoá, mở khoá, sửa họ tên, đặt lại mật khẩu) không xen vào nhau: yêu cầu ghi nhận trước thành công; yêu cầu ghi nhận sau bị từ chối, không ghi đè thay đổi trước, và quản trị viên phải mở lại tài khoản từ đầu. | Ràng buộc | UC-017 | REQ-70; REQ-102 (phụ); Q-166 | Hiệu lực | Trả lời Q-166; cùng kiểu BR-60, BR-63 |
+| BR-114 | Quản lý cụm rạp chỉ xem báo cáo của cụm rạp mình. | Ràng buộc | UC-015 | REQ-66, REQ-67; REQ-100 (phụ) | Hiệu lực | Cùng kiểu phạm vi cụm rạp như BR-46, BR-61; quản lý chuỗi xem toàn chuỗi ở UC-016 nên không áp dụng |
+| BR-115 | Doanh thu theo ngày xếp cả tiền vé đã bán và phần tiền đã hoàn của một vé vào ngày chiếu của suất chiếu có vé đó. | Tính toán | UC-015, UC-016 | REQ-99; REQ-66 (phụ); Q-182 | Hiệu lực | Trả lời Q-182; cùng cách BR-88 xếp suất chiếu vào ngày |
+| BR-116 | Suất chiếu đã xoá không được tính vào tổng sức chứa của tỉ lệ lấp đầy. | Tính toán | UC-015, UC-016 | REQ-153; REQ-140 (phụ); Q-183 | Hiệu lực | Trả lời Q-183 |
+| BR-117 | Mọi suất chiếu có ngày chiếu trong kỳ báo cáo được tính vào doanh thu và tỉ lệ lấp đầy, kể cả suất chiếu chưa tới giờ bắt đầu, theo dữ liệu tại lúc xem. | Tính toán | UC-015, UC-016 | REQ-99, REQ-153; Q-184 | Hiệu lực | Trả lời Q-184 |
+| BR-118 | Suất chiếu đã kết thúc hoặc đã xoá giữ sơ đồ ghế, loại ghế và sức chứa lúc suất chiếu mở bán; sửa sơ đồ ghế của phòng chiếu sau đó không đổi vé, sức chứa và tỉ lệ lấp đầy của các suất chiếu đó; suất chiếu chưa mở bán dùng sơ đồ mới. | Ràng buộc | UC-015, UC-016, UC-012 | REQ-153, REQ-58 (phụ); Q-186, Q-210 | Hiệu lực | Trả lời Q-186 và Q-210 (cùng ý, gộp thành một BR). Suất chiếu chưa mở bán dùng sơ đồ mới. P13 cần giữ ghế lịch sử |
+| BR-119 | Khoản hoàn toàn bộ của giao dịch thanh toán đến trễ (UC-006) không được trừ vào doanh thu, vì giao dịch đó không tạo vé nên chưa nằm trong tiền vé đã bán. | Tính toán | UC-015, UC-016 | REQ-99, REQ-35 (phụ); Q-187 | Hiệu lực | Trả lời Q-187 |
+| BR-134 | Mỗi phim được phát hành ở một hoặc nhiều định dạng trong hai định dạng 2D, 3D. | Sự kiện | UC-010, UC-014 | REQ-55 | Hiệu lực | Cấp vì REQ-55 chưa có BR; BR-47 (UC-014) dùng "định dạng phát hành" của phim |
+| BR-135 | Quản lý cụm rạp chỉ xem, thêm và sửa phòng chiếu, sơ đồ ghế của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | UC-012 | REQ-56; REQ-100 (phụ) | Hiệu lực | Cùng loại với BR-46 (UC-014) và BR-61 (UC-013) |
+| BR-136 | Việc kiểm tra BR-73 và BR-87 rồi lưu thay đổi phòng chiếu hoặc sơ đồ ghế, với việc kiểm tra BR-69 rồi lưu suất chiếu lập hoặc sửa của phòng chiếu đó (UC-014 bước 8) và với việc kiểm tra BR-64 rồi bỏ mục giá (UC-013 luồng 1a3), không xen vào nhau: yêu cầu được ghi nhận trước thì thành công, yêu cầu ghi nhận sau thấy kết quả của yêu cầu trước và bị từ chối theo quy tắc của mình khi vi phạm. | Ràng buộc | UC-012, UC-014, UC-013 | REQ-162, REQ-145; REQ-151 (phụ) | Hiệu lực | Cặp loại trừ giống BR-68 mà UC-013 Mục 8 yêu cầu cho UC-012; hệ quả của REQ-151 và REQ-162, nguồn không quy định riêng. Cơ chế bảo đảm thuộc P07, P09 (P08 X-19, X-21) |
+| BR-137 | Việc chốt giá của một lần giữ ghế (UC-005 bước 7) và việc lưu thay đổi loại phòng của phòng chiếu (UC-012 bước 5) không xen vào nhau: thay đổi được ghi nhận trước thì lần giữ ghế chốt giá theo loại phòng mới; thay đổi được ghi nhận sau thì không ảnh hưởng lần giữ ghế đó. | Ràng buộc | UC-012, UC-005 | REQ-149; REQ-37, REQ-38 (phụ) | Hiệu lực | Cùng cách xử lý BR-71 với bảng giá; giá chốt theo loại phòng hiện tại của phòng chiếu (BR-11) |
+| BR-138 | Hai yêu cầu cùng sửa một phim không xen vào nhau: yêu cầu ghi nhận trước thành công; yêu cầu ghi nhận sau bị từ chối, không ghi đè thay đổi trước, và quản lý chuỗi phải mở lại phim từ đầu. | Ràng buộc | UC-010 | REQ-53; REQ-144 (phụ); Q-201 | Hiệu lực | Trả lời Q-201; cùng kiểu BR-60, BR-63 |
+| BR-139 | Việc lưu phim đã sửa (UC-010 bước 5) và việc kiểm BR-47, BR-49, tính BR-50 rồi lưu suất chiếu lập hoặc sửa (UC-014 bước 5 đến 8) không xen vào nhau: phim sửa được ghi nhận trước thì bước 8 dùng phim hiện hành, thất bại thì quay lại bước 3 như BR-68 với bảng giá; phim sửa được ghi nhận sau không đổi suất chiếu đã lưu (BR-84). | Ràng buộc | UC-010, UC-014 | REQ-53, REQ-144; REQ-97, REQ-98 (phụ) | Hiệu lực | Trả lời Q-202; cùng kiểu BR-68 với bảng giá. Phim sửa sau suất chiếu không đổi suất chiếu đã lưu (BR-84) |
+| BR-140 | Vé đã bán giữ tên phim, tên cụm rạp, tên phòng chiếu và loại phòng của lúc bán; sửa các thông tin này sau đó không đổi nội dung vé, lịch sử đặt vé và email đã gửi. | Ràng buộc | UC-010, UC-011, UC-012, UC-005, UC-007 | REQ-105; REQ-149 (phụ); Q-203 | Hiệu lực | Trả lời Q-203; cùng cách BR-67 với giá vé |
+| BR-141 | Không có hai cụm rạp trùng tên trong chuỗi. | Ràng buộc | UC-011 | REQ-54, REQ-09 (phụ); Q-206 | Hiệu lực | Trả lời Q-206 |
+| BR-142 | Hai yêu cầu cùng sửa một cụm rạp không xen vào nhau: yêu cầu ghi nhận trước thành công; yêu cầu ghi nhận sau bị từ chối, không ghi đè thay đổi trước, và quản lý chuỗi phải mở lại cụm rạp từ đầu. | Ràng buộc | UC-011 | REQ-54; Q-207 | Hiệu lực | Trả lời Q-207; cùng kiểu BR-60, BR-63 |
+| BR-144 | Sức chứa của phòng chiếu, ghế đôi tính một ghế (BR-06), nằm trong khoảng từ 50 đến 400 ghế. | Ràng buộc | UC-012 | REQ-03; REQ-57 (phụ); Q-211 | Hiệu lực | Trả lời Q-211 (REQ-03); ghế đôi tính một ghế (BR-06). REQ-01 (4 đến 12 phòng) không là giới hạn cứng theo Q-212 |
+| BR-145 | Tên phòng chiếu là duy nhất trong cùng một cụm rạp; hai phòng chiếu của hai cụm rạp khác nhau được trùng tên. | Ràng buộc | UC-012 | REQ-56, REQ-105 (phụ); Q-213 | Hiệu lực | Trả lời Q-213 |
+| BR-146 | Hai yêu cầu cùng sửa một phòng chiếu không xen vào nhau: yêu cầu ghi nhận trước thành công; yêu cầu ghi nhận sau bị từ chối, không ghi đè thay đổi trước, và quản lý cụm rạp phải mở lại phòng chiếu từ đầu. | Ràng buộc | UC-012 | REQ-56; Q-214 | Hiệu lực | Trả lời Q-214; cùng kiểu BR-60, BR-63 |
+| BR-147 | Chỉ xoá được phòng chiếu chưa từng có suất chiếu, kể cả suất chiếu đã xoá; phòng chiếu đã từng có suất chiếu không xoá được và không có trạng thái ngừng sử dụng. | Ràng buộc | UC-012, UC-014 | REQ-56; REQ-140, REQ-141 (phụ) | Hiệu lực | Trả lời Q-208; vì BR-58, BR-92 giữ dữ liệu suất chiếu |
 
 ## 7. Ma trận truy vết
 
@@ -160,7 +189,7 @@ Bảng REQ --> NFR / BR:
 | REQ | Loại REQ | NFR / BR | Ghi chú |
 |---|---|---|---|
 | REQ-01 | Dữ liệu | NFR-04 | Dữ liệu quy mô, chuyển P06 theo P02 Mục 5: dùng làm dữ liệu mẫu của NFR-04 |
-| REQ-03 | Dữ liệu | NFR-04, NFR-05 | Dữ liệu quy mô, chuyển P06 theo P02 Mục 5: dùng làm điều kiện đo của NFR-04, NFR-05 |
+| REQ-03 | Dữ liệu | NFR-04, NFR-05, BR-144 | Dữ liệu quy mô, chuyển P06 theo P02 Mục 5: dùng làm điều kiện đo của NFR-04, NFR-05 |
 | REQ-04 | Dữ liệu | NFR-04 | Dữ liệu quy mô, chuyển P06 theo P02 Mục 5: dùng làm dữ liệu mẫu của NFR-04 |
 | REQ-17 | Quy tắc nghiệp vụ | BR-74 | Căn cứ phụ của BR-06 |
 | REQ-19 | Phi chức năng | NFR-08 | Yêu cầu đặc biệt UC-005 dòng 2 |
@@ -201,7 +230,7 @@ Bảng REQ --> NFR / BR:
 | REQ-96 | Quy tắc nghiệp vụ | BR-76 | Không có |
 | REQ-97 | Quy tắc nghiệp vụ | BR-49 | Không có |
 | REQ-98 | Quy tắc nghiệp vụ | BR-50 | Không có |
-| REQ-99 | Quy tắc nghiệp vụ | BR-77 | Không có |
+| REQ-99 | Quy tắc nghiệp vụ | BR-77, BR-115, BR-117, BR-119 | Không có |
 | REQ-100 | Quy tắc nghiệp vụ | BR-78 | Căn cứ phụ của BR-02, BR-17, BR-22, BR-46, BR-61 |
 | REQ-101 | Quy tắc nghiệp vụ | BR-79 | Không có |
 | REQ-103 | Ràng buộc | NFR-12 | Chuyển P06 theo P02 Mục 5 |
@@ -239,7 +268,7 @@ Bảng REQ --> NFR / BR:
 | REQ-141 | Quy tắc nghiệp vụ | BR-53, BR-92 | Không có |
 | REQ-142 | Quy tắc nghiệp vụ | BR-54 | Không có |
 | REQ-143 | Quy tắc nghiệp vụ | BR-60 | Không có |
-| REQ-144 | Quy tắc nghiệp vụ | BR-84 | Không có |
+| REQ-144 | Quy tắc nghiệp vụ | BR-84, BR-139 | Không có |
 | REQ-145 | Quy tắc nghiệp vụ | BR-59, BR-69, BR-73 | BR-59 đã gộp vào BR-69; Căn cứ phụ của BR-64, BR-68 |
 | REQ-147 | Quy tắc nghiệp vụ | BR-70 | Không có |
 | REQ-148 | Quy tắc nghiệp vụ | BR-63 | Không có |
@@ -247,7 +276,7 @@ Bảng REQ --> NFR / BR:
 | REQ-150 | Quy tắc nghiệp vụ | BR-66 | Căn cứ phụ của BR-71 |
 | REQ-151 | Quy tắc nghiệp vụ | BR-68 | Không có |
 | REQ-152 | Quy tắc nghiệp vụ | BR-72 | Không có |
-| REQ-153 | Quy tắc nghiệp vụ | BR-88 | Căn cứ phụ: REQ-67, REQ-68, REQ-87 |
+| REQ-153 | Quy tắc nghiệp vụ | BR-88, BR-116, BR-117, BR-118 | Căn cứ phụ: REQ-67, REQ-68, REQ-87 |
 | REQ-155 | Phi chức năng | NFR-04, NFR-05 | Mức đạt của phục vụ được (Q-74) |
 | REQ-156 | Phi chức năng | NFR-06, NFR-07, NFR-08, NFR-09 | Cách tính ngưỡng thời gian (Q-75) |
 | REQ-157 | Quy tắc nghiệp vụ | BR-89 | Áp dụng NFR-18 |
@@ -255,29 +284,29 @@ Bảng REQ --> NFR / BR:
 | REQ-159 | Ràng buộc | NFR-11 | Trình duyệt và thiết bị (Q-78) |
 | REQ-160 | Quy tắc nghiệp vụ | BR-85 | Không có |
 | REQ-161 | Quy tắc nghiệp vụ | BR-86 | Không có |
-| REQ-162 | Quy tắc nghiệp vụ | BR-87 | Gộp BR-75 |
+| REQ-162 | Quy tắc nghiệp vụ | BR-87, BR-136 | Gộp BR-75 |
 
 Bảng UC --> NFR / BR (BR chỉ tính trạng thái Hiệu lực; NFR toàn hệ thống NFR-04, NFR-10, NFR-11 áp dụng cho mọi UC và không lặp lại ở từng hàng):
 
 | UC | NFR | BR |
 |---|---|---|
-| UC-001 Đăng ký tài khoản | - | BR-81, BR-82 |
+| UC-001 Đăng ký tài khoản | - | BR-81, BR-82, BR-98, BR-99 |
 | UC-002 Đăng nhập (Loại) | - | - |
 | UC-003 Tra cứu phim | - | BR-76 |
-| UC-004 Tra cứu lịch chiếu | - | - |
-| UC-005 Đặt vé | NFR-01, NFR-02, NFR-05, NFR-06, NFR-07, NFR-08, NFR-09, NFR-14, NFR-15, NFR-16, NFR-18 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06, BR-07, BR-08, BR-09, BR-10, BR-11, BR-12, BR-13, BR-14, BR-15, BR-37, BR-44, BR-45, BR-54, BR-61, BR-62, BR-65, BR-66, BR-67, BR-71, BR-72, BR-74, BR-80, BR-85, BR-86, BR-89, BR-90, BR-93 |
+| UC-004 Tra cứu lịch chiếu | - | BR-45, BR-58, BR-76 |
+| UC-005 Đặt vé | NFR-01, NFR-02, NFR-05, NFR-06, NFR-07, NFR-08, NFR-09, NFR-14, NFR-15, NFR-16, NFR-18 | BR-01, BR-02, BR-03, BR-04, BR-05, BR-06, BR-07, BR-08, BR-09, BR-10, BR-11, BR-12, BR-13, BR-14, BR-15, BR-37, BR-44, BR-45, BR-54, BR-61, BR-62, BR-65, BR-66, BR-67, BR-71, BR-72, BR-74, BR-80, BR-85, BR-86, BR-89, BR-90, BR-93, BR-100, BR-137, BR-140 |
 | UC-006 Hoàn tiền thanh toán trễ | NFR-16, NFR-17, NFR-18 | BR-14, BR-15, BR-26, BR-37, BR-38, BR-39, BR-40, BR-41, BR-42, BR-43, BR-85, BR-86, BR-89, BR-91 |
-| UC-007 Xem lịch sử đặt vé | NFR-01 | - |
+| UC-007 Xem lịch sử đặt vé | NFR-01 | BR-94, BR-140 |
 | UC-008 Huỷ vé | NFR-01, NFR-02, NFR-09, NFR-17 | BR-11, BR-17, BR-18, BR-19, BR-20, BR-21, BR-26, BR-30, BR-31, BR-32, BR-41, BR-42, BR-43 |
 | UC-009 Soát vé | NFR-02, NFR-13, NFR-14 | BR-22, BR-23, BR-24, BR-25, BR-30, BR-33, BR-34, BR-83 |
-| UC-010 Quản lý phim | NFR-02 | - |
-| UC-011 Quản lý cụm rạp | NFR-02 | - |
-| UC-012 Quản lý phòng chiếu | NFR-02 | BR-06, BR-73, BR-87 |
-| UC-013 Quản lý bảng giá | NFR-02 | BR-11, BR-12, BR-61, BR-62, BR-63, BR-64, BR-65, BR-66, BR-67, BR-68, BR-69, BR-70, BR-71, BR-72, BR-73 |
-| UC-014 Lập lịch suất chiếu | NFR-02 | BR-01, BR-12, BR-45, BR-46, BR-47, BR-48, BR-49, BR-50, BR-51, BR-52, BR-53, BR-54, BR-55, BR-56, BR-57, BR-58, BR-60, BR-64, BR-68, BR-69, BR-73, BR-84, BR-92 |
-| UC-015 Xem báo cáo cụm rạp | NFR-02 | BR-06, BR-77, BR-88 |
-| UC-016 Xem báo cáo toàn chuỗi | NFR-02 | BR-06, BR-77, BR-88 |
-| UC-017 Quản lý tài khoản nhân viên | NFR-03, NFR-12 | BR-78, BR-79 |
+| UC-010 Quản lý phim | NFR-02 | BR-76, BR-84, BR-134, BR-138, BR-139, BR-140 |
+| UC-011 Quản lý cụm rạp | NFR-02 | BR-140, BR-141, BR-142 |
+| UC-012 Quản lý phòng chiếu | NFR-02 | BR-06, BR-73, BR-74, BR-84, BR-87, BR-118, BR-135, BR-136, BR-137, BR-140, BR-144, BR-145, BR-146, BR-147 |
+| UC-013 Quản lý bảng giá | NFR-02 | BR-11, BR-12, BR-61, BR-62, BR-63, BR-64, BR-65, BR-66, BR-67, BR-68, BR-69, BR-70, BR-71, BR-72, BR-73, BR-136 |
+| UC-014 Lập lịch suất chiếu | NFR-02 | BR-01, BR-12, BR-45, BR-46, BR-47, BR-48, BR-49, BR-50, BR-51, BR-52, BR-53, BR-54, BR-55, BR-56, BR-57, BR-58, BR-60, BR-64, BR-68, BR-69, BR-73, BR-84, BR-92, BR-134, BR-136, BR-139, BR-147 |
+| UC-015 Xem báo cáo cụm rạp | NFR-02 | BR-06, BR-77, BR-88, BR-114, BR-115, BR-116, BR-117, BR-118, BR-119 |
+| UC-016 Xem báo cáo toàn chuỗi | NFR-02 | BR-06, BR-77, BR-88, BR-115, BR-116, BR-117, BR-118, BR-119 |
+| UC-017 Quản lý tài khoản nhân viên | NFR-03, NFR-12 | BR-78, BR-79, BR-95, BR-96, BR-97, BR-100, BR-101, BR-102 |
 
 ## Câu hỏi mở
 
@@ -295,7 +324,6 @@ Bảng UC --> NFR / BR (BR chỉ tính trạng thái Hiệu lực; NFR toàn h�
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P04 UC-001, UC-003, UC-012, UC-015, UC-016, UC-017 (chưa đặc tả) | BR-74 đến BR-84, BR-87, BR-88, BR-06, BR-73 | Khi đặc tả cần dẫn các BR sổ đã gắn theo P02 Mục 5 | UC-001: BR-81, BR-82; UC-003: BR-76; UC-012: BR-87, BR-73, BR-06, BR-74; UC-015, UC-016: BR-77, BR-88, BR-06; UC-017: BR-78, BR-79 |
 | P02 | REQ-12, REQ-102, REQ-104, REQ-103 | P06 mục 2 và mục 4 nhận các REQ đăng nhập (chức năng dùng chung) và REQ-103 thành NFR-01 đến NFR-03, NFR-12; Mục 5 của P02 ghi "-" ở cột UC phủ | Bổ sung vào Ghi chú của bốn REQ này: "Phủ bằng P06 NFR-01", "NFR-02", "NFR-03", "NFR-12" |
 
 ## Vấn đề còn mở

@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.8; P03-usecase-model.md 1.1; _BR-register.md (đầu lô); P05-glossary.md 1.1; P06-supplementary-spec.md 1.3; dải mã đã được cấp: Q-175 đến Q-194, BR-114 đến BR-133 |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Chốt Q-175 (trường của danh sách phim ở Dữ liệu ra 1); bỏ các đề xuất sửa artifact trước đã được đồng bộ |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4 |
 | Phạm vi | UC-003 |
-| Mã Q, ASM cuối đã cấp | Q-175 (cấp ở UC-003); không có ASM (NGHIEM_NGAT) |
+| Mã Q, ASM cuối đã cấp | Q-175 (cấp ở UC-003, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
 ## 1. Thông tin chung
 
@@ -55,7 +56,10 @@ Dữ liệu ra 1 (bước 3)
 |---|---|---|---|---|
 | 1 | Nhóm phim | Phim đang chiếu hoặc phim sắp chiếu (REQ-05, REQ-96) | Văn bản; mỗi phim thuộc đúng một nhóm; nhóm không có phim nào thì không có dòng phim | Đang chiếu |
 | 2 | Tên phim | Tên của phim (REQ-07) | Văn bản | Phim A |
-| 3 | Các thông tin khác của phim trong danh sách | Chưa quy định (Q-175) | Chưa quy định (Q-175) | Chưa quy định (Q-175) |
+| 3 | Thể loại | Thể loại của phim (REQ-07, Q-175) | Văn bản | Hành động |
+| 4 | Thời lượng | Thời lượng của phim, đơn vị phút (REQ-07, Q-175) | Số nguyên kèm đơn vị "phút" | 125 phút |
+| 5 | Độ tuổi được xem | Độ tuổi được xem phim (REQ-07, Q-175) | Văn bản | Từ 13 tuổi |
+| 6 | Ngày khởi chiếu | Ngày khởi chiếu của phim; chỉ hiển thị cho phim sắp chiếu (REQ-95, Q-175) | Ngày dạng dd/mm/yyyy | 20/11/2026 |
 
 Dữ liệu ra 2 (bước 5)
 
@@ -82,6 +86,7 @@ Không có
 
 - Việc phân nhóm phim chạy ở bước 2 theo ngày hiện tại của hệ thống tại thời điểm khách yêu cầu. Phim có ngày kết thúc chiếu là ngày hiện tại vẫn đang chiếu (hai ngày đầu và cuối thuộc khoảng chiếu, như ghi chú của BR-49 ở UC-014). Phim đã qua ngày kết thúc chiếu không thuộc nhóm nào nên không có trong danh sách (suy ra trực tiếp từ BR-76).
 - Danh sách phim của chuỗi do UC-010 quản lý (REQ-53, REQ-95); use case này chỉ đọc, không đổi dữ liệu phim.
+- Danh sách ở Dữ liệu ra 1 chỉ có tên, thể loại, thời lượng, độ tuổi được xem và (với phim sắp chiếu) ngày khởi chiếu; mô tả và trailer chỉ hiển thị khi khách chọn một phim (Q-175).
 - Thông tin phim ở Dữ liệu ra 2 gồm đúng sáu thành phần của REQ-07. Cách trailer được xem (nhúng trong trang hay mở bằng liên kết) là cách trình bày thuộc thiết kế giao diện, không phải quy tắc nghiệp vụ.
 - Nguồn không nêu việc khách chuyển từ thông tin phim sang lịch chiếu của phim; UC-004 tự bắt đầu bằng việc chọn phim hoặc cụm rạp.
 - Use case do tác nhân người kích hoạt, không có use case nào do tác nhân thời gian kích hoạt dùng dữ liệu của use case này làm mốc, nên không có bước hẹn hoặc huỷ mốc (F4.2 mục 17).
@@ -146,9 +151,9 @@ Hai partition: ACT-01 Khách và hệ thống (P-SYS); luồng 2a chỉ có hàn
 
 ## Câu hỏi mở
 
-| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
-|---|---|---|---|---|---|
-| Q-175 | Danh sách phim đang chiếu và sắp chiếu hiển thị những thông tin nào của mỗi phim ngoài tên phim: thể loại, thời lượng, độ tuổi được xem, ngày khởi chiếu, ngày kết thúc chiếu, định dạng phát hành? | Dữ liệu ra 1 (dòng 3); P11a (màn hình danh sách phim) | Mục 1 nêu "danh sách phim đang chiếu và sắp chiếu" và "thông tin phim (tên, thể loại, thời lượng, độ tuổi được xem, mô tả, trailer)" như hai phần riêng, không nói danh sách hiển thị thông tin nào | Bên nghiệp vụ | Danh sách hiển thị tên phim, thể loại, thời lượng và độ tuổi được xem; mô tả và trailer chỉ hiển thị khi xem thông tin một phim; ngày khởi chiếu hiển thị kèm phim sắp chiếu |
+| Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
+|---|---|---|---|
+| Q-175 | Đã trả lời (Theo đề xuất: Danh sách hiển thị tên phim, thể loại, thời lượng và độ tuổi được xem; mô tả và trailer chỉ hiển thị khi xem thông tin một phim; ngày khởi chiếu hiển thị kèm phim sắp chiếu). Danh sách phim đang chiếu và sắp chiếu hiển thị những thông tin nào của mỗi phim ngoài tên phim: thể loại, thời lượng, độ tuổi được xem, ngày khởi chiếu, ngày kết thúc chiếu, định dạng phát hành? | Dữ liệu ra 1 (dòng 3); P11a (màn hình danh sách phim) | Mục 1 nêu "danh sách phim đang chiếu và sắp chiếu" và "thông tin phim (tên, thể loại, thời lượng, độ tuổi được xem, mô tả, trailer)" như hai phần riêng, không nói danh sách hiển thị thông tin nào |
 
 ## Giả định
 
@@ -156,13 +161,9 @@ Không áp dụng (CHE_DO_GIA_DINH là NGHIEM_NGAT).
 
 ## Đề xuất sửa artifact trước
 
-| Bước | Mã phần tử | Vấn đề | Đề nghị |
-|---|---|---|---|
-| P05 | GL-37, GL-38, GL-39 | Cột Ghi chú còn ghi "Chưa có đặc tả P04: UC-003" | Chạy lại P05 sau khi X3 gộp đặc tả UC-003 để cập nhật cột này |
-| P06 | Bảng UC --> NFR / BR, dòng UC-003 | Dòng UC-003 ghi BR-76, khớp với đặc tả này | Không cần sửa; kiểm lại khi X3 chạy lại P06 |
+Không có
 
 ## Vấn đề còn mở
 
-- Q-175 chưa trả lời: Dữ liệu ra 1 dòng 3 ghi "Chưa quy định"; sau khi có đáp án sẽ liệt kê từng trường vào bảng. Luồng chính và luồng thay thế không đổi theo đáp án.
 - Luồng 2a kết thúc thành công vì mục tiêu "biết phim đang chiếu, sắp chiếu" đạt được ở dạng danh sách rỗng; nếu chủ dự án coi đó là thất bại thì đổi đích kết thúc của 2a, không đổi cấu trúc luồng.
 - Luồng chính có 5 bước, trong khoảng 3-15.

@@ -4,8 +4,8 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="P-ACT-04" value="Quản lý cụm rạp" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="560" height="2641" as="geometry" /></mxCell>
-        <mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="560" y="0" width="691" height="2641" as="geometry" /></mxCell>
+        <mxCell id="P-ACT-04" value="Quản lý cụm rạp" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="560" height="2781" as="geometry" /></mxCell>
+        <mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="560" y="0" width="691" height="2781" as="geometry" /></mxCell>
         <mxCell id="INIT" value="" style="ellipse;html=1;fillColor=#000000;" vertex="1" parent="P-ACT-04"><mxGeometry x="130" y="60" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="D-1" value="" style="rhombus;html=1;" vertex="1" parent="P-ACT-04"><mxGeometry x="130" y="130" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="A-1" value="Yêu cầu lập suất chiếu mới" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-ACT-04"><mxGeometry x="60" y="210" width="180" height="60" as="geometry" /></mxCell>
@@ -53,12 +53,12 @@
         <mxCell id="D-1b3" value="" style="rhombus;html=1;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="2350" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="A-1b3c" value="Từ chối xoá: suất đã bị người khác sửa hoặc xoá (BR-60)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2340" width="180" height="60" as="geometry" /></mxCell>
         <mxCell id="A-1b3b" value="Từ chối xoá: suất đã tới giờ bắt đầu (BR-57)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2440" width="180" height="60" as="geometry" /></mxCell>
-        <mxCell id="A-1b3a" value="Từ chối xoá: suất có ghế giữ hoặc vé (BR-53)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2540" width="180" height="60" as="geometry" /></mxCell>
+        <mxCell id="A-1b3a" value="Từ chối xoá: suất có ghế giữ hoặc vé (BR-53)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2680" width="180" height="60" as="geometry" /></mxCell>
         <mxCell id="A-1b4" value="Thông báo xoá suất chiếu thành công" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="2450" width="180" height="60" as="geometry" /></mxCell>
         <mxCell id="FINAL-10" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="2350" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="FINAL-9" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="2450" width="40" height="40" as="geometry" /></mxCell>
-        <mxCell id="FINAL-4" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="2550" width="40" height="40" as="geometry" /></mxCell>
-        <mxCell id="FINAL-5" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="2550" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="FINAL-4" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="520" y="2690" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="FINAL-5" value="" style="ellipse;shape=endState;html=1;fillColor=#000000;" vertex="1" parent="P-SYS"><mxGeometry x="130" y="2690" width="40" height="40" as="geometry" /></mxCell>
         <mxCell id="N-*a" value="*a: Tại bất kỳ bước nào trước bước 8, quản lý huỷ yêu cầu: hệ thống không lưu, kết thúc (thất bại)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-ACT-04"><mxGeometry x="300" y="50" width="240" height="80" as="geometry" /></mxCell>
         <mxCell id="E-01" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="INIT" target="D-1"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-02" value="[lập suất chiếu mới]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1" target="A-1"><mxGeometry relative="1" as="geometry" /></mxCell>
@@ -116,13 +116,15 @@
         <mxCell id="E-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1b3" target="D-1b3"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-53" value="[suất bị người khác sửa hoặc xoá]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-1b3" target="A-1b3c"><mxGeometry relative="1" as="geometry" x="-0.2" /></mxCell>
         <mxCell id="E-54" value="[đã tới giờ bắt đầu]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-1b3" target="A-1b3b"><mxGeometry relative="1" as="geometry" x="0.2"><Array as="points"><mxPoint x="840" y="2370" /><mxPoint x="840" y="2470" /></Array></mxGeometry></mxCell>
-        <mxCell id="E-55" value="[có ghế giữ hoặc vé]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-1b3" target="A-1b3a"><mxGeometry relative="1" as="geometry" x="0.5"><Array as="points"><mxPoint x="840" y="2370" /><mxPoint x="840" y="2570" /></Array></mxGeometry></mxCell>
+        <mxCell id="E-55" value="[có ghế giữ hoặc vé]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="D-1b3" target="A-1b3a"><mxGeometry relative="1" as="geometry" x="0.3"><Array as="points"><mxPoint x="675" y="2370" /><mxPoint x="675" y="2345" /><mxPoint x="870" y="2345" /><mxPoint x="870" y="2710" /></Array></mxGeometry></mxCell>
         <mxCell id="E-56" value="[khác]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-1b3" target="A-1b4"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-57" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-1b3c" target="FINAL-10"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-58" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-1b3b" target="FINAL-9"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-59" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-1b3a" target="FINAL-4"><mxGeometry relative="1" as="geometry" /></mxCell>
-        <mxCell id="E-60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-1b4" target="FINAL-5"><mxGeometry relative="1" as="geometry" /></mxCell>
-      </root>
+        <mxCell id="E-60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-1b4" target="FINAL-5"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="605" y="2480" /><mxPoint x="605" y="2710" /></Array></mxGeometry></mxCell>
+      <mxCell id="N-8g" value="8g: Phim vừa được sửa làm sai định dạng phát hành hoặc khoảng chiếu (BR-47, BR-49): từ chối lưu, quay lại bước 3 (BR-139)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="2570" width="240" height="100" as="geometry" /></mxCell>
+<mxCell id="N-8h" value="8h: Phòng chiếu đã bị xoá bởi UC-012: từ chối lưu, thông báo phòng không còn, quay lại bước 3 (BR-147)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="330" y="2520" width="240" height="100" as="geometry" /></mxCell>
+</root>
     </mxGraphModel>
   </diagram>
 </mxfile>

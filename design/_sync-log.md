@@ -255,3 +255,94 @@ Còn lại từ lần 1, chưa xử lý trong X2:
 ### Mã cấp mới
 
 R-184 đến R-196 (13 quan hệ; R-83, R-96, R-109, R-165, R-167 đã bỏ, tổng 149); DC-HoldSettlement, DC-HoldEndReason, DC-HoldEndOutcome, IF-26, IF-27. Không cấp SY mới (SY cuối vẫn SY-36), không cấp Q hay ASM mới (Q cuối vẫn Q-154). Không có file pending nên không có khoảng trống do gộp lô.
+
+
+## Lần 3 - Lô P04 song song (UC-001, 003, 004, 007, 010, 011, 012, 015, 016, 017; bảng Thao tác nguyên tử UC-005, 006, 008, 009, 013, 014)
+
+### Cần người quyết
+
+Không có. Chủ dự án đã chốt tất cả Q mới của lô theo đúng phương án đề xuất trong đặc tả: Q-155 đến Q-166 (12), Q-175 đến Q-187 (13), Q-195 đến Q-214 (20), tổng 45 Q, đều đánh dấu "Đã trả lời" ở nơi cấp Q và đã áp vào luồng, dữ liệu, BR của đặc tả. Không tạo Q mới (Q cuối vẫn Q-214, SY mới từ SY-37).
+
+### Gộp sổ BR (A1)
+
+- Gộp 8 file pending (UC-001, UC-004, UC-007, UC-010, UC-011, UC-012, UC-015, UC-017; không có pending của UC-003, UC-016) vào _BR-register.md rồi xoá. Sổ từ 93 lên 121 BR.
+- 28 BR mới: BR-94 đến BR-102 (UC-007, UC-017, UC-001), BR-114 đến BR-119 (UC-015, UC-016), BR-134 đến BR-142 (UC-010, UC-011, UC-012), BR-144 đến BR-147 (UC-012). Giữ mã đã cấp, không mã nào bị đổi nghĩa.
+- Hai dòng cùng nghĩa do hai phiên cấp: quy tắc "suất chiếu đã kết thúc hoặc đã xoá giữ sức chứa, sơ đồ ghế lúc mở bán" nảy ra ở Q-186 (UC-015, BR-118) và Q-210 (UC-012, dự kiến BR-143). Giữ mã nhỏ hơn BR-118, mở rộng nội dung gồm sơ đồ ghế, loại ghế và sức chứa, UC áp dụng UC-015, UC-016, UC-012; BR-143 không cấp, UC-012 dẫn BR-118.
+- Dòng bổ sung: BR-84 từ hai pending (UC-010, UC-012) hợp thành một dòng UC-014, UC-010, UC-012; BR-45, BR-58, BR-76, BR-06, BR-69, BR-73, BR-74, BR-87 cập nhật cột UC áp dụng và Ghi chú; BR-81, BR-82, BR-88 bỏ cụm "chưa đặc tả P04".
+- BR-114 (UC-015, báo cáo của cụm rạp mình) và BR-135 (UC-012, phòng chiếu của cụm rạp mình) cùng kiểu với BR-46, BR-61 nhưng khác chức năng, giữ riêng.
+- Dải mã không dùng: Q-167 đến Q-174, Q-188 đến Q-194; BR-103 đến BR-113, BR-120 đến BR-133, BR-143, BR-148 đến BR-153.
+
+### Bảng đồng bộ
+
+| SY | Nguồn (file, mục) | Đích (bước, mã phần tử) | Loại | Nội dung | Kết quả hoặc lý do |
+|---|---|---|---|---|---|
+| SY-37 | 8 file _BR-register.*.pending.md | P04 _BR-register.md | Áp dụng | Gộp dòng mới và dòng bổ sung | Đã gộp, xoá pending; P06 Mục 6 thêm 28 BR |
+| SY-38 | UC-001, Đề xuất | P05 GL-18; P06 BR-81, BR-82 | Áp dụng | Bỏ cụm "chưa đặc tả P04" | Đã áp; P05 1.2, P06 1.4 |
+| SY-39 | UC-003, Đề xuất | P05 GL-37, GL-38, GL-39; P06 dòng UC-003 | Áp dụng | Cập nhật ghi chú; dòng UC-003 đã khớp BR-76 | Đã áp |
+| SY-40 | UC-004, Đề xuất | P06 dòng UC-004; sổ BR-58; P05 GL-47 | Áp dụng | Thêm BR-58, BR-45, BR-76 cho UC-004 | Đã áp |
+| SY-41 | UC-007, Đề xuất | P06 dòng UC-007; P05 GL-18 | Áp dụng | Thêm BR-94, BR-140 | Đã áp |
+| SY-42 | UC-015, UC-016, Đề xuất | P02 bảng 4b, Mục 5 | Áp dụng | Thêm REQ-153 cho UC-015, UC-016; thêm dòng REQ-153 | Đã áp; P02 1.9 |
+| SY-43 | UC-015, UC-016, Đề xuất | P06 dòng UC-015, UC-016; P05 GL-04, GL-55 | Áp dụng | Thêm BR-114 đến BR-119; ghi chú GL; thêm GL-66 Kỳ báo cáo theo Q-181 | Đã áp |
+| SY-44 | UC-017, Đề xuất | P05 GL-34, GL-43; P06 dòng UC-017 | Áp dụng | Bỏ cụm "chưa đặc tả"; thêm BR-95 đến BR-97, BR-100 đến BR-102 | Đã áp |
+| SY-45 | UC-012, Đề xuất | P02 bảng 4b, Mục 5 | Áp dụng | Thêm REQ-162 và REQ-03 vào UC-012, thêm dòng REQ-162; REQ-01 không thêm vì Q-212 chốt không là giới hạn cứng | Đã áp |
+| SY-46 | UC-012, Đề xuất | P04 UC-014 bước 8, Mục 8 | Áp dụng | Dẫn BR-136; UC-012 bước 5 và luồng 1b3 vào cột Loại trừ với; thêm luồng 8h (phòng đã xoá) theo Q-208 | Đã áp; UC-014 1.6 |
+| SY-47 | UC-012, Đề xuất | P04 UC-013 luồng 1a3, Mục 8 | Áp dụng | Dẫn BR-136, đối thủ UC-012 bước 5 | Đã áp; UC-013 1.4 |
+| SY-48 | UC-012, Đề xuất | P04 UC-005 bước 7, Mục 8 | Áp dụng | Dẫn BR-137, đối thủ UC-012 bước 5 | Đã áp; UC-005 1.14 |
+| SY-49 | UC-010, Đề xuất | P04 UC-014 bước 8 | Áp dụng | Đối thủ UC-010 bước 5; Q-202: kiểm lại BR-47, BR-49, tính BR-50 theo phim hiện hành, luồng 8g, BR-139 | Đã áp; UC-014 1.6 |
+| SY-50 | UC-013, Đề xuất | P04 UC-012 | Áp dụng | UC-012 dẫn BR-73, BR-87 và cặp loại trừ giống BR-68 | UC-012 đã đặc tả, xoá dòng đề xuất |
+| SY-51 | UC-005, Đề xuất (phiên 4) | P04 UC-005 luồng 9a1a, BR-44 | Áp dụng | Xác nhận đã thu tiền tới khi lần giữ ghế đã ở trạng thái cuối khác thì bị từ chối, nhân viên quầy trả lại tiền mặt; sửa decision D-9a1 và drawio | Đã áp theo chỉ đạo của chủ dự án |
+| SY-52 | UC-010, Đề xuất | P08 EX-13, mục 6 sau F4b | Chờ | Thêm Movie (S) vào bộ khoá EX-13 và đơn vị loại trừ lưu phim | Vào mục Đầu vào cho lần chạy lại P07-P13 |
+| SY-53 | UC-010, UC-011, UC-012, UC-017, Đề xuất | P08, P13 | Chờ | Cột trailer, tỉnh thành phố, tên duy nhất, ghế lịch sử, email nhân viên duy nhất, thực thể quản lý chuỗi, AC-E-Cinema, EX-15 | Vào mục Đầu vào cho lần chạy lại P07-P13 |
+
+Đề bài yeu-cau-dat-ve.md: không đổi. Không câu trả lời nào mâu thuẫn hoặc đổi quy tắc đã có của đề bài; các quy tắc mới (Q-211 sức chứa 50 đến 400 thành điều kiện hợp lệ, Q-212 số phòng không là giới hạn cứng, Q-208 xoá phòng chưa từng có suất chiếu) làm rõ chỗ đề bài để trống.
+
+### File đã sửa và phiên bản mới
+
+- P02-usecases.md 1.9; P03-usecase-model.md 1.2 (chỉ đồng bộ đầu vào, không đổi sơ đồ use case); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; _BR-register.md.
+- UC-001 1.1, UC-003 1.1, UC-004 1.1, UC-007 1.1, UC-010 1.1, UC-011 1.1, UC-012 1.1, UC-015 1.1, UC-016 1.1, UC-017 1.1, UC-005 1.14, UC-013 1.4, UC-014 1.6.
+- Sơ đồ activity đã đổi: UC-001, UC-005, UC-010, UC-011, UC-012, UC-014, UC-015, UC-016, UC-017 (ghi chú cho luồng mới, UC-001 thêm node và cạnh; diakempt đã chạy, XML parse được).
+
+### Bước cần rà lại
+
+P07 (UC-001, 004, 005, 007, 010 đến 017), P08, P09, P10, P11a, P11b, P12, P13, X1, X2 theo mục dưới. P07 của UC-003, UC-004, UC-015, UC-016 cần chạy mới vì BR-115 đến BR-119 và Q-175 đến Q-187.
+
+### Đầu vào cho lần chạy lại P07-P13
+
+| Bước | Phần tử | Nội dung | Nguồn |
+|---|---|---|---|
+| P07 | UC-005 luồng 9a1a | Nhánh xác nhận đã thu tiền khi lần giữ ghế đã Đã huỷ, Thanh toán thất bại hoặc Đã hoàn tất: từ chối, báo trả tiền mặt | UC-005 1.14, BR-44, BR-86 |
+| P07 | UC-005 bước 7 | Chốt giá xen với UC-012 đổi loại phòng, đối thủ mới | UC-012, BR-137 |
+| P07 | UC-014 bước 8 | Kiểm lại BR-47, BR-49, tính lại BR-50 theo phim hiện hành; luồng 8g (phim sửa), 8h (phòng đã xoá) | UC-010 Q-202; UC-012 Q-208; BR-136, BR-139, BR-147 |
+| P07 | UC-013 luồng 1a3 | Đối thủ UC-012 bước 5 | UC-012, BR-136 |
+| P07 | UC-010, UC-011, UC-012, UC-017 | Chạy mới: lưu đồng thời (từ chối bên ghi nhận sau), điều kiện hợp lệ, tên duy nhất, UC-012 xoá phòng, UC-017 mở khoá, sửa họ tên, đặt lại mật khẩu | Q-195 đến Q-214, Q-161 đến Q-166; BR-100 đến BR-102, BR-138 đến BR-147 |
+| P07 | UC-001, UC-007 | Bước kiểm mật khẩu, kiểm trùng email và số điện thoại thành thao tác không chia cắt; lịch sử gồm mọi vé kèm trạng thái | UC-001 Q-155 đến Q-158; UC-007 Q-159, Q-160; BR-98, BR-99 |
+| P07 | UC-015, UC-016 | Kỳ báo cáo là khoảng ngày; doanh thu xếp theo ngày chiếu; bỏ suất chiếu đã xoá khỏi sức chứa; sức chứa lúc suất chiếu diễn ra | Q-181 đến Q-187; BR-115 đến BR-119 |
+| P08 | EX-13 | Thêm Movie (S) vào bộ khoá; đơn vị loại trừ mới cho lưu phim, cùng cặp X với EX-13 | UC-010 Q-202; BR-138, BR-139 |
+| P08 | EX-15, X-19, X-21 | Xác nhận lại theo BR-136, BR-137, BR-118, suất chiếu đã xoá không chặn BR-87, BR-73; lớp chủ của EX-15 | UC-012 Q-209, Q-210 |
+| P08 | Thực thể quản lý chuỗi | Thêm thực thể cho quản lý chuỗi (ACT-05, không thuộc cụm rạp); chốt cách đổi vai trò giữa các thực thể ở luồng 1a | UC-017, BR-78 |
+| P08 | AC-E-Cinema | Thêm thuộc tính tỉnh, thành phố (bắt buộc, văn bản) | UC-011 Q-204 |
+| P08 | AC-E-Movie | Thêm thuộc tính trailer (văn bản, không bắt buộc), nhãn độ tuổi P, K, T13, T16, T18, C | UC-010 Q-198, Q-199 |
+| P08 | Showtime, Auditorium | Sức chứa, sơ đồ ghế lúc suất chiếu mở bán giữ cho suất chiếu đã kết thúc hoặc đã xoá; xoá phòng chỉ khi chưa từng có suất chiếu | UC-012 Q-208, Q-210; UC-015 Q-186; BR-118, BR-147 |
+| P09 | Phiên đăng nhập, khoá tài khoản | Khoá, đổi cụm rạp, đổi vai trò có hiệu lực ngay với phiên đang mở; lần giữ ghế đang chạy giữ nguyên | UC-017 Q-164, Q-165; BR-100, BR-101 |
+| P09 | Đồng thời | Bốn thao tác lưu mới (phim, cụm rạp, phòng chiếu, tài khoản nhân viên) từ chối bên ghi nhận sau, không ghi đè | BR-102, BR-138, BR-142, BR-146 |
+| P10, P12 | DC-BookTicketsService.ConfirmCashReceived | Xác nhận đã thu tiền khi lần giữ ghế đã ở trạng thái cuối: trả lỗi để báo nhân viên quầy trả lại tiền mặt | UC-005 luồng 9a1a, BR-44 |
+| P10, P12 | Dịch vụ lập suất chiếu | Kiểm lại phim hiện hành và phòng còn tồn tại trong cùng thao tác lưu | UC-014 8g, 8h |
+| P10, P12 | Dịch vụ phim, cụm rạp, phòng chiếu, tài khoản nhân viên | Lưu có kiểm phiên bản, tên cụm rạp, tên phòng duy nhất, sức chứa 50 đến 400, xoá phòng, mở khoá, sửa họ tên, đặt lại mật khẩu, đăng ký (mật khẩu từ 8 ký tự, email và số điện thoại duy nhất) | UC-001, UC-010 đến UC-012, UC-017; BR-98, BR-99, BR-141, BR-144 đến BR-147 |
+| P11a | UC-003, UC-004 | Danh sách phim hiển thị tên, thể loại, thời lượng, độ tuổi, ngày khởi chiếu (phim sắp chiếu); lịch chiếu thêm loại phòng, tỉnh thành phố, thời điểm mở bán, lọc theo một ngày | Q-175 đến Q-180 |
+| P11a | UC-015, UC-016, UC-007, UC-001, UC-017, UC-012 | Kỳ báo cáo từ ngày đến ngày; lịch sử đặt vé kèm trạng thái và các cột của lần đặt; màn đăng ký; màn mở khoá, sửa họ tên, đặt lại mật khẩu; xoá phòng | Q-155, Q-159 đến Q-162, Q-181, Q-208 |
+| P13 | movie | Thêm cột trailer; kiểm thời lượng lớn hơn 0, ngày kết thúc không trước ngày khởi chiếu, nhãn độ tuổi | UC-010 Q-196 đến Q-199 |
+| P13 | cinema | Thêm cột tỉnh, thành phố (bắt buộc); tên cụm rạp duy nhất | UC-011 Q-204, Q-206; BR-141 |
+| P13 | auditorium, seat, seat_status | Ràng buộc duy nhất (cinema_id, name); giữ ghế lịch sử (xoá mềm ghế) cho suất chiếu đã kết thúc hoặc đã xoá; xoá phòng chưa từng có suất chiếu | UC-012 Q-208, Q-210, Q-213; BR-118, BR-145, BR-147 |
+| P13 | showtime | Lưu sức chứa lúc mở bán để báo cáo kỳ cũ không đổi | UC-015 Q-186; BR-118 |
+| P13 | TBL-08, TBL-11, TBL-12 (email nhân viên) | Email duy nhất xuyên ba bảng nhân viên hoặc bảng định danh đăng nhập chung; cột trạng thái hoạt động | UC-017 Q-136, Q-163; BR-95 đến BR-97 |
+| P13 | bảng quản lý chuỗi | Thêm bảng cho vai trò quản lý chuỗi | UC-017, BR-78 |
+| P13 | cột phiên bản | Cột phiên bản hoặc cách tương đương cho phim, cụm rạp, phòng chiếu, tài khoản nhân viên | BR-102, BR-138, BR-142, BR-146 |
+| X1, X2 | Thao tác bị ảnh hưởng | Chạy lại sau P12: ConfirmCashReceived, dịch vụ lập suất chiếu, thao tác lưu mới | các dòng trên |
+
+### Lỗi hình thức (check_artifacts.py)
+
+Trước: 0 LOI, 156 CANH_BAO. Sau: 0 LOI; CANH_BAO K09 còn lại thuộc P07 trở đi (chờ chạy lại), K18 và K11 cũ của P04 chưa đổi.
+
+### Mã cấp mới
+
+BR-94 đến BR-102, BR-114 đến BR-119, BR-134 đến BR-142, BR-144 đến BR-147 (28 BR); GL-66. Không cấp Q hay ASM mới (Q cuối Q-214). SY cuối SY-53. Khoảng trống: xem mục Gộp sổ BR.

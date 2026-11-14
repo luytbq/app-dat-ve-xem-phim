@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P02 |
-| Phiên bản | 1.8 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.10; P01-actors.md 1.1; yeu-cau-dat-ve.md; P02-usecases.md 1.7; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
+| Phiên bản | 1.9 |
+| Thay đổi 1.9 | Gắn REQ-162, REQ-03 cho UC-012 và REQ-153 cho UC-015, UC-016 ở bảng 4b và Mục 5 (thêm dòng REQ-153, REQ-162) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; yeu-cau-dat-ve.md; P02-usecases.md 1.9; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-67; không có ASM (NGHIEM_NGAT) |
 
@@ -157,11 +158,11 @@ Bảng 4b. Bảng mô tả
 | UC-009 | Khách có vé hợp lệ được vào phòng chiếu; vé được đánh dấu đã sử dụng. | Nhân viên soát vé chọn suất chiếu đang soát, quét mã QR trên từng vé bằng camera của thiết bị; hệ thống kiểm tra vé và đánh dấu đã sử dụng, hoặc báo lý do không hợp lệ. | Khách mang vé tới cửa phòng chiếu (EV-11) | REQ-50, REQ-51, REQ-52, REQ-93, REQ-94, REQ-118, REQ-123 đến REQ-128 | CAND-32, CAND-33, CAND-34 |
 | UC-010 | Danh sách phim của chuỗi đúng và đủ thông tin để lập lịch chiếu và cho khách tra cứu. | Quản lý chuỗi quản lý danh sách phim: thông tin phim, định dạng phát hành, ngày khởi chiếu, ngày kết thúc chiếu. | Chuỗi có phim mới hoặc thông tin phim thay đổi (EV-12) | REQ-53, REQ-55, REQ-95 | CAND-35 |
 | UC-011 | Danh sách cụm rạp của chuỗi đúng và đủ. | Quản lý chuỗi quản lý danh sách cụm rạp. | Chuỗi có cụm rạp mới hoặc thông tin cụm rạp thay đổi (EV-13) | REQ-54 | CAND-36 |
-| UC-012 | Các phòng chiếu của cụm có đúng loại phòng, sức chứa, định dạng chiếu được và sơ đồ ghế. | Quản lý cụm rạp quản lý phòng chiếu của cụm mình cùng sơ đồ ghế; không sửa được sơ đồ ghế của phòng đang có suất chiếu chưa diễn ra đã bán vé hoặc có ghế đang được giữ. | Cụm rạp có phòng chiếu mới hoặc phòng chiếu thay đổi (EV-14) | REQ-56, REQ-57, REQ-58 | CAND-37, CAND-38 |
+| UC-012 | Các phòng chiếu của cụm có đúng loại phòng, sức chứa, định dạng chiếu được và sơ đồ ghế. | Quản lý cụm rạp quản lý phòng chiếu của cụm mình cùng sơ đồ ghế; không sửa được sơ đồ ghế của phòng đang có suất chiếu chưa diễn ra đã bán vé hoặc có ghế đang được giữ. | Cụm rạp có phòng chiếu mới hoặc phòng chiếu thay đổi (EV-14) | REQ-56, REQ-57, REQ-58, REQ-03, REQ-162 | CAND-37, CAND-38 |
 | UC-013 | Cụm rạp có bảng giá theo loại phòng, định dạng phim, loại ghế và khung giờ. | Quản lý cụm rạp thiết lập bảng giá của cụm mình: đặt giá hoặc bỏ giá của một tổ hợp loại phòng, định dạng, loại ghế, khung giờ. | Cụm rạp thay đổi giá vé (EV-15) | REQ-37, REQ-38, REQ-59, REQ-91, REQ-146 đến REQ-151 | CAND-39 |
 | UC-014 | Các phòng của cụm có lịch suất chiếu hợp lệ, kèm thời điểm mở bán. | Quản lý cụm rạp lập, sửa, xoá suất chiếu cho các phòng của cụm mình, theo các quy tắc về định dạng, khoảng ngày chiếu, thời điểm mở bán, giờ kết thúc, dọn phòng 15 phút, bảng giá của cụm có đủ giá cho suất chiếu; không sửa, xoá được suất chiếu đang có ghế được giữ, có vé đã bán chưa bị huỷ hoặc đã tới giờ bắt đầu. | Cụm rạp cần lên lịch chiếu (EV-16) | REQ-60 đến REQ-65, REQ-86, REQ-97, REQ-98, REQ-137 đến REQ-145, REQ-151 | CAND-40, CAND-41 |
-| UC-015 | Quản lý cụm rạp biết doanh thu và tỉ lệ lấp đầy ghế của cụm mình. | Quản lý cụm rạp xem báo cáo doanh thu và tỉ lệ lấp đầy ghế của cụm mình theo ngày, theo phim, theo suất chiếu. | Quản lý cụm rạp cần nắm kết quả kinh doanh (EV-17) | REQ-66, REQ-67, REQ-99 | CAND-42, CAND-43 |
-| UC-016 | Quản lý chuỗi biết doanh thu, tỉ lệ lấp đầy của toàn chuỗi và so sánh được giữa các cụm. | Quản lý chuỗi xem báo cáo doanh thu và tỉ lệ lấp đầy ghế cho toàn chuỗi, so sánh giữa các cụm rạp. | Quản lý chuỗi cần nắm và so sánh kết quả (EV-18) | REQ-68, REQ-69, REQ-99 | CAND-44, CAND-45 |
+| UC-015 | Quản lý cụm rạp biết doanh thu và tỉ lệ lấp đầy ghế của cụm mình. | Quản lý cụm rạp xem báo cáo doanh thu và tỉ lệ lấp đầy ghế của cụm mình theo ngày, theo phim, theo suất chiếu. | Quản lý cụm rạp cần nắm kết quả kinh doanh (EV-17) | REQ-66, REQ-67, REQ-99, REQ-153 | CAND-42, CAND-43 |
+| UC-016 | Quản lý chuỗi biết doanh thu, tỉ lệ lấp đầy của toàn chuỗi và so sánh được giữa các cụm. | Quản lý chuỗi xem báo cáo doanh thu và tỉ lệ lấp đầy ghế cho toàn chuỗi, so sánh giữa các cụm rạp. | Quản lý chuỗi cần nắm và so sánh kết quả (EV-18) | REQ-68, REQ-69, REQ-99, REQ-153 | CAND-44, CAND-45 |
 | UC-017 | Nhân viên có tài khoản đúng cụm rạp và đúng vai trò. | Quản trị viên quản lý tài khoản nhân viên, gán nhân viên vào cụm rạp và phân vai trò (nhân viên quầy, nhân viên soát vé, quản lý cụm rạp, quản lý chuỗi). | Có nhân viên mới hoặc nhân viên đổi cụm rạp, vai trò (EV-19) | REQ-70, REQ-71, REQ-72, REQ-100, REQ-101 | CAND-46, CAND-47, CAND-48 |
 
 ## 5. Ma trận truy vết REQ --> UC
@@ -170,7 +171,7 @@ Bảng 4b. Bảng mô tả
 |---|---|---|---|
 | REQ-01 | Quy mô 15 cụm rạp, 4-12 phòng mỗi cụm | - | Chuyển P06 (dữ liệu quy mô) |
 | REQ-02 | Ba loại phòng | UC-012 | Không có |
-| REQ-03 | Sức chứa 50-400 ghế | - | Chuyển P06 (dữ liệu quy mô) |
+| REQ-03 | Sức chứa 50-400 ghế | UC-012 | Điều kiện hợp lệ của sơ đồ ghế (Q-211); cũng là dữ liệu quy mô ở P06 |
 | REQ-04 | Khoảng 500 suất mỗi ngày | - | Chuyển P06 (dữ liệu quy mô) |
 | REQ-05 | Xem danh sách phim đang chiếu, sắp chiếu | UC-003 | Không có |
 | REQ-06 | Xem thông tin phim | UC-003 | Không có |
@@ -319,6 +320,8 @@ Bảng 4b. Bảng mô tả
 | REQ-150 | Thay đổi bảng giá có hiệu lực ngay khi lưu, không hẹn ngày | UC-013 | Không có |
 | REQ-151 | Kiểm tra bảng giá và lưu suất chiếu là thao tác không chia cắt với việc bỏ giá | UC-013, UC-014 | Không có |
 | REQ-152 | Bảng giá không có giá cho ghế đã chọn: từ chối giữ ghế | UC-005 | Không có |
+| REQ-153 | Công thức tỉ lệ lấp đầy theo suất chiếu, ngày, phim | UC-015, UC-016 | Không có |
+| REQ-162 | Không sửa sơ đồ ghế khi phòng có suất chiếu đã tới thời điểm mở bán mà chưa kết thúc | UC-012 | Không có |
 
 ## 6. Thống kê và nhận xét ngưỡng
 
@@ -339,6 +342,7 @@ Tổng số UC: 16 User-goal, không có Subfunction; UC-002 ở trạng thái L
 
 | UCR | Phần tử đã đổi (UC, CAND, dòng REQ) | Thay đổi |
 |---|---|---|
+| Đồng bộ P04 (phiên bản 1.9) | UC-012, UC-015, UC-016 (cột REQ), REQ-03, REQ-153, REQ-162 (Mục 5) | Gắn REQ-162 và REQ-03 cho UC-012, REQ-153 cho UC-015 và UC-016; không thêm use case, giữ nguyên tên và mã các UC |
 | Quy ước đã chốt (không qua P02R) | UC-002, CAND-02, CAND-03, CAND-04 | Đăng nhập không là use case: UC-002 chuyển sang Loại, các CAND đăng nhập kết luận Loại |
 | Hệ quả của quy ước | REQ-12, REQ-102, REQ-104 (Mục 5) | Không còn UC phủ; ghi là tiền điều kiện của các UC ở P04 |
 | Hệ quả của quy ước | UC-001 (cột Nhóm chức năng) | Chuyển từ nhóm Tài khoản sang nhóm Bán vé vì nhóm Tài khoản chỉ còn một UC |
