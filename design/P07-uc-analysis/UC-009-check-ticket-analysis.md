@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.4; P01-actors.md 1.1; P02-usecases.md 1.8; P03-usecase-model.md 1.0; P05-glossary.md 1.1; P06-supplementary-spec.md 1.1; P04-uc-specs/_BR-register.md; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.1 (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1) với lớp điều phối, lớp tham gia và điểm tuần tự; không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.6 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.2 (đầu lô) (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-97; không có ASM (NGHIEM_NGAT) |
 
@@ -118,6 +119,14 @@ Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Entity cốt lõi của 
 | 4a đến 4e | // rejectTicket | AC-B-CheckTicketForm | Giao tiếp tác nhân | Một trách nhiệm cho cả năm lý do, lý do truyền như dữ liệu. |
 | 4a | Xác định vé từ mã QR (không tương ứng vé nào) | AC-C-CheckTicketController | Controller | Tìm vé theo khoá là việc coi như có sẵn (A6 a); control quyết định rẽ nhánh 4a khi không tìm được vé và không cần message riêng. |
 | 7 | Lặp lại bước 3 đến 6 | Nhân viên soát vé | Giao tiếp tác nhân | Vòng lặp của tác nhân, vẽ bằng fragment loop. |
+
+### 4.1 Thao tác không chia cắt theo P04 Mục 8
+
+| Thao tác (P04) | Bước | Lớp điều phối | Lớp tham gia | Message vào đầu tiên | Điểm tuần tự |
+|---|---|---|---|---|---|
+| Kiểm vé hợp lệ và đánh dấu vé đã sử dụng | 4, 5 | AC-E-Ticket, // admitTicket | AC-E-Showtime (hỏi cụm rạp và suất chiếu của vé), AC-E-TicketChecker (cung cấp cụm rạp), AC-C-CheckTicketController | 2.1.3 từ AC-C-CheckTicketController, là lớp nhận đầu tiên của sự kiện quét từ boundary; control không giữ điều kiện nào | Theo từng vé; cùng điểm tuần tự với // cancelTicket của UC-008 bước 4 (BR-30). Hai nhân viên soát cùng quét một vé: người sau nhận lý do đã sử dụng (luồng 4d). UC-014 không là đối thủ vì vé chưa huỷ chặn sửa, xoá suất chiếu (BR-53) |
+
+Phạm vi bất biến (vé không đồng thời đã huỷ và đã sử dụng) và điểm tuần tự (một vé) khớp nhau: mọi thay đổi trạng thái của một vé đi qua Ticket. Thứ tự lý do khi vi phạm nhiều điều kiện (cụm rạp, suất chiếu, đã sử dụng, đã huỷ) cố định trong // admitTicket (BR-33).
 
 ## 5. Sequence diagram phân tích
 
