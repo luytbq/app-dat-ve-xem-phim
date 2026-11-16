@@ -4,7 +4,7 @@
 |---|---|
 | Bước | P11b |
 | Phiên bản | 1.2 |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (ACT-01, ACT-02); P04-uc-specs UC-005 1.9, UC-008 1.5; P06-supplementary-spec.md 1.2 (NFR-08, NFR-09); P07-uc-analysis UC-005 1.1, UC-008 (message updateSeatMap); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7.2, F7.5); P10-design-elements.md 1.1 (F2, F4, F5, F3 interface IF-22); TAI_LIEU_GIAO_TIEP: Không có (luồng SSE do P09 F7.5 mô tả) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.1 (ACT-01, ACT-02); P04-uc-specs UC-005 1.9, UC-008 1.5; P06-supplementary-spec.md 1.2 (NFR-08, NFR-09); P07-uc-analysis UC-005 1.1, UC-008 (message updateSeatMap); P08-analysis-model.md 1.2; P09-architecture.md 1.3 (F4, F6, F7.2, F7.5); P10-design-elements.md 2.0 (F2, F4, F5, F3 interface IF-22); TAI_LIEU_GIAO_TIEP: Không có (luồng SSE do P09 F7.5 mô tả) |
 | Phạm vi | SS-03 SeatEventHub (IF-04) |
 | Mã Q, ASM cuối đã cấp | Ghi ở file chung (Q-126 đến Q-132) |
 

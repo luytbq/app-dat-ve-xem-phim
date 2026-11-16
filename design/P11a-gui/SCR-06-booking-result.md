@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 11-15, Dữ liệu ra 3, luồng 7b, 11a); P09 F7.6; P05 GL-17, GL-51; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Nielsen 1: khách xem lại kết quả đặt vé ở SCR-26 (UC-007) ngoài email; đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.9 (bước 11-15, Dữ liệu ra 3, luồng 7b, 11a); P09 F7.6; P05 GL-17, GL-51; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-06 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -100,7 +101,7 @@ Không có trường nhập dữ liệu nghiệp vụ.
 
 | SCR | Tiêu chí | Kết quả | Bằng chứng | Cách xử lý |
 |---|---|---|---|---|
-| SCR-06 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Khách đóng tab ở VNPay hoặc tải lại thì thấy dải Tiếp tục thanh toán ở SCR-02 khi lần giữ ghế còn chạy (Q-119); kết quả đặt vé sau đó xem qua email | - |
+| SCR-06 | Nielsen 1 Hiển thị trạng thái hệ thống | Đạt | Khách đóng tab ở VNPay hoặc tải lại thì thấy dải Tiếp tục thanh toán ở SCR-02 khi lần giữ ghế còn chạy (Q-119); kết quả đặt vé sau đó xem qua email hoặc ở SCR-26 | - |
 | SCR-06 | Nielsen 9 | Đạt | MSG-14, MSG-16, MSG-30 nêu kết quả và việc tiếp theo (hoàn tiền, kiểm tra email) | - |
 | SCR-06 | WCAG 1.1.1 Nội dung không phải chữ | Đạt | Mã QR có văn bản thay thế nêu ghế và mã đặt vé (UI-STT 34) | - |
 | SCR-06 | WCAG 4.1.3 | Đạt | Kết quả đổi từ MSG-28 sang kết quả cuối qua vùng role=status | - |

@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-008 1.5 (bước 1-5, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a, 3a, 4a, 4b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Cập nhật cách xử lý vi phạm Nielsen 7: UC-007 đã có SCR-26 nhưng không có lọc; đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-008 1.5 (bước 1-5, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a, 3a, 4a, 4b); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-07 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -83,7 +84,7 @@ Mockup HTML: Không có (XUAT_HTML = Không).
 | SCR-07 | Nielsen 5 Ngăn lỗi | Đạt | Hộp xác nhận nêu số tiền hoàn và không hoàn tác (UI-STT 37) | - |
 | SCR-07 | Nielsen 1 | Đạt | MSG-78 trong lúc hoàn tiền kéo dài (UI-STT 27) | - |
 | SCR-07 | WCAG 3.3.4 Ngăn lỗi tài chính | Đạt | Xác nhận trước khi huỷ vé và hoàn tiền | - |
-| SCR-07 | Nielsen 7 | Vi phạm còn mở | Không có lọc theo mã đặt vé hoặc suất chiếu (chưa có trong đặc tả) | Chờ Q-121 |
+| SCR-07 | Nielsen 7 | Vi phạm còn mở | Không có lọc theo mã đặt vé hoặc suất chiếu (UC-008 bước 1 không có; UC-007 ở SCR-26 cũng không có lọc) | Chấp nhận theo Q-121, không thêm chức năng ngoài đặc tả |
 
 Các tiêu chí còn lại: Đạt theo ui-standards.md STT 05-09, 12-15, 18, 21, 27-31, 33-35, 37.
 
@@ -105,4 +106,4 @@ Không có.
 
 ## Vấn đề còn mở
 
-Phạm vi danh sách vé phụ thuộc Q-121.
+Phạm vi danh sách vé theo Q-121 (đã trả lời).

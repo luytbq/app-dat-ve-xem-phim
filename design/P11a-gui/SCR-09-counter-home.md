@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P01-actors.md; P02-usecases.md; P04 UC-005 1.9, UC-008 1.5; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đăng nhập nhân viên ở SCR-21 (hai điểm đăng nhập, Q-267); DC là DC-CounterHomeView (P10 2.0) |
+| Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P01-actors.md 1.2; P02-usecases.md 1.9; P04 UC-005 1.15, UC-008 1.10; P08-analysis-model.md 2.0 (F3); P10-design-elements.md 2.0 (F3, F4) |
 | Phạm vi | SCR-09 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -17,9 +18,9 @@
 | Bước UC | UC-005 bước 1; UC-008 bước 1a; thông điệp kết thúc, từ chối của UC-005 tại quầy |
 | Tác nhân | ACT-02 Nhân viên quầy |
 | Boundary AC | Điều hướng (mở UC-005, UC-008) |
-| DC | Chưa có (điều hướng) |
+| DC | DC-CounterHomeView |
 | Loại màn hình | Độc lập |
-| Đến từ | SCR-01 (E-07); SCR-10 (E-24); SCR-11 (E-26); menu của mọi màn hình quầy |
+| Đến từ | SCR-21 (E-07); SCR-10 (E-24); SCR-11 (E-26); menu của mọi màn hình quầy |
 | Đi tới | SCR-10 (E-21), SCR-13 (E-22), SCR-11 (E-33) |
 
 ## c) Hình ảnh màn hình
@@ -94,7 +95,7 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-123.
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P10 | F4 (PKG-06) | Chưa có View điều hướng cho nhân viên quầy | Thêm DC-CounterHomeView vào PKG-06 |
+| P10 | F4 (PKG-06) | View điều hướng cho nhân viên quầy | Đã áp dụng: P10 2.0 có DC-CounterHomeView |
 
 ## Vấn đề còn mở
 

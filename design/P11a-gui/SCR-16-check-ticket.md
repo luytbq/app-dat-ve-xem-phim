@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-009 (bước 1-7, Dữ liệu vào 1, 2, Dữ liệu ra 1-3, luồng 4a-4e); P06 NFR-11, NFR-13, NFR-14; P05 GL-48, GL-62; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đăng nhập nhân viên ở SCR-21 (hai điểm đăng nhập, Q-267) |
+| Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-009 1.7 (bước 1-7, Dữ liệu vào 1, 2, Dữ liệu ra 1-3, luồng 4a-4e); P06 NFR-11, NFR-13, NFR-14; P05 GL-48, GL-62; P08-analysis-model.md 2.0 (F3); P10-design-elements.md 2.0 (F3, F4) |
 | Phạm vi | SCR-16 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -19,7 +20,7 @@
 | Boundary AC | AC-B-CheckTicketForm (selectCheckingShowtime, showCheckingShowtime, scanTicketQr, showValidTicket, rejectTicket) |
 | DC | DC-CheckTicketView, DC-CheckTicketStore |
 | Loại màn hình | Độc lập |
-| Đến từ | SCR-01 (E-08) |
+| Đến từ | SCR-21 (E-08) |
 | Đi tới | Không có cạnh đi; màn hình kết thúc (nhân viên soát vé chỉ có UC-009), vòng lặp quét ở ngay màn hình |
 
 ## c) Hình ảnh màn hình

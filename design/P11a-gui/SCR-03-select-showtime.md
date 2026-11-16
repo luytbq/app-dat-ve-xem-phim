@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
-| Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 1, 2, Dữ liệu ra 1, luồng 2a, 2c); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Cập nhật cách xử lý vi phạm Nielsen 7: UC-004 đã có màn hình SCR-25, không nối sang SCR-03 (Q-272); đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.9 (bước 1, 2, Dữ liệu ra 1, luồng 2a, 2c); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-03 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
 
@@ -73,7 +74,7 @@ Không có trường nhập dữ liệu nghiệp vụ.
 
 | SCR | Tiêu chí | Kết quả | Bằng chứng | Cách xử lý |
 |---|---|---|---|---|
-| SCR-03 | Nielsen 7 Linh hoạt và hiệu quả | Vi phạm còn mở | Không có lọc, tìm kiếm danh sách suất chiếu (thuộc UC-004 chưa đặc tả) | Chờ Q-120 |
+| SCR-03 | Nielsen 7 Linh hoạt và hiệu quả | Vi phạm còn mở | Không có lọc, tìm kiếm danh sách suất chiếu (UC-005 bước 1 không có; lọc thuộc UC-004 ở SCR-25) | Chấp nhận theo Q-120, Q-272 |
 | SCR-03 | Nielsen 3 Kiểm soát và tự do | Đạt | Từ chối ở lại danh sách theo UI-STT 29(2), không đẩy khách khỏi màn hình | - |
 
 Các tiêu chí còn lại: Đạt theo ui-standards.md STT 05-09, 12-15, 18, 21-24, 28-29, 33-35.
