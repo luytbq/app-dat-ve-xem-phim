@@ -306,17 +306,17 @@ Không có. Chủ dự án đã chốt tất cả Q mới của lô theo đúng 
 
 P07 (UC-001, 004, 005, 007, 010 đến 017), P08, P09, P10, P11a, P11b, P12, P13, X1, X2 theo mục dưới. P07 của UC-003, UC-004, UC-015, UC-016 cần chạy mới vì BR-115 đến BR-119 và Q-175 đến Q-187.
 
-### Đầu vào cho lần chạy lại P07-P13
+### Đầu vào cho lần chạy lại P08-P13
 
 | Bước | Phần tử | Nội dung | Nguồn |
 |---|---|---|---|
-| P07 | UC-005 luồng 9a1a | Nhánh xác nhận đã thu tiền khi lần giữ ghế đã Đã huỷ, Thanh toán thất bại hoặc Đã hoàn tất: từ chối, báo trả tiền mặt | UC-005 1.14, BR-44, BR-86 |
-| P07 | UC-005 bước 7 | Chốt giá xen với UC-012 đổi loại phòng, đối thủ mới | UC-012, BR-137 |
-| P07 | UC-014 bước 8 | Kiểm lại BR-47, BR-49, tính lại BR-50 theo phim hiện hành; luồng 8g (phim sửa), 8h (phòng đã xoá) | UC-010 Q-202; UC-012 Q-208; BR-136, BR-139, BR-147 |
-| P07 | UC-013 luồng 1a3 | Đối thủ UC-012 bước 5 | UC-012, BR-136 |
-| P07 | UC-010, UC-011, UC-012, UC-017 | Chạy mới: lưu đồng thời (từ chối bên ghi nhận sau), điều kiện hợp lệ, tên duy nhất, UC-012 xoá phòng, UC-017 mở khoá, sửa họ tên, đặt lại mật khẩu | Q-195 đến Q-214, Q-161 đến Q-166; BR-100 đến BR-102, BR-138 đến BR-147 |
-| P07 | UC-001, UC-007 | Bước kiểm mật khẩu, kiểm trùng email và số điện thoại thành thao tác không chia cắt; lịch sử gồm mọi vé kèm trạng thái | UC-001 Q-155 đến Q-158; UC-007 Q-159, Q-160; BR-98, BR-99 |
-| P07 | UC-015, UC-016 | Kỳ báo cáo là khoảng ngày; doanh thu xếp theo ngày chiếu; bỏ suất chiếu đã xoá khỏi sức chứa; sức chứa lúc suất chiếu diễn ra | Q-181 đến Q-187; BR-115 đến BR-119 |
+| P07 (đã xử lý ở lần 4) | UC-005 luồng 9a1a | Nhánh xác nhận đã thu tiền khi lần giữ ghế đã Đã huỷ, Thanh toán thất bại hoặc Đã hoàn tất: từ chối, báo trả tiền mặt | UC-005 1.14, BR-44, BR-86 |
+| P07 (đã xử lý ở lần 4) | UC-005 bước 7 | Chốt giá xen với UC-012 đổi loại phòng, đối thủ mới | UC-012, BR-137 |
+| P07 (đã xử lý ở lần 4) | UC-014 bước 8 | Kiểm lại BR-47, BR-49, tính lại BR-50 theo phim hiện hành; luồng 8g (phim sửa), 8h (phòng đã xoá) | UC-010 Q-202; UC-012 Q-208; BR-136, BR-139, BR-147 |
+| P07 (đã xử lý ở lần 4) | UC-013 luồng 1a3 | Đối thủ UC-012 bước 5 | UC-012, BR-136 |
+| P07 (đã xử lý ở lần 4) | UC-010, UC-011, UC-012, UC-017 | Chạy mới: lưu đồng thời (từ chối bên ghi nhận sau), điều kiện hợp lệ, tên duy nhất, UC-012 xoá phòng, UC-017 mở khoá, sửa họ tên, đặt lại mật khẩu | Q-195 đến Q-214, Q-161 đến Q-166; BR-100 đến BR-102, BR-138 đến BR-147 |
+| P07 (đã xử lý ở lần 4) | UC-001, UC-007 | Bước kiểm mật khẩu, kiểm trùng email và số điện thoại thành thao tác không chia cắt; lịch sử gồm mọi vé kèm trạng thái | UC-001 Q-155 đến Q-158; UC-007 Q-159, Q-160; BR-98, BR-99 |
+| P07 (đã xử lý ở lần 4) | UC-015, UC-016 | Kỳ báo cáo là khoảng ngày; doanh thu xếp theo ngày chiếu; bỏ suất chiếu đã xoá khỏi sức chứa; sức chứa lúc suất chiếu diễn ra | Q-181 đến Q-187; BR-115 đến BR-119 |
 | P08 | EX-13 | Thêm Movie (S) vào bộ khoá; đơn vị loại trừ mới cho lưu phim, cùng cặp X với EX-13 | UC-010 Q-202; BR-138, BR-139 |
 | P08 | EX-15, X-19, X-21 | Xác nhận lại theo BR-136, BR-137, BR-118, suất chiếu đã xoá không chặn BR-87, BR-73; lớp chủ của EX-15 | UC-012 Q-209, Q-210 |
 | P08 | Thực thể quản lý chuỗi | Thêm thực thể cho quản lý chuỗi (ACT-05, không thuộc cụm rạp); chốt cách đổi vai trò giữa các thực thể ở luồng 1a | UC-017, BR-78 |
@@ -338,6 +338,19 @@ P07 (UC-001, 004, 005, 007, 010 đến 017), P08, P09, P10, P11a, P11b, P12, P13
 | P13 | bảng quản lý chuỗi | Thêm bảng cho vai trò quản lý chuỗi | UC-017, BR-78 |
 | P13 | cột phiên bản | Cột phiên bản hoặc cách tương đương cho phim, cụm rạp, phòng chiếu, tài khoản nhân viên | BR-102, BR-138, BR-142, BR-146 |
 | X1, X2 | Thao tác bị ảnh hưởng | Chạy lại sau P12: ConfirmCashReceived, dịch vụ lập suất chiếu, thao tác lưu mới | các dòng trên |
+| P08 | AC-E-Customer, AC-E-Booking, AC-E-Ticket, AC-E-Showtime | Hợp nhất theo _AC-register.md: Customer thêm // checkHasBookings, // provideBookingHistory, // checkOwnsBooking; Booking thêm bookedAt, // provideBookingSummary; Ticket thêm bốn thuộc tính lúc bán (movieTitle, cinemaName, auditoriumName, auditoriumType), // provideTicketSummary; thêm quan hệ Customer 1 - Booking 0..* | UC-007 Q-226, Q-227; BR-140 |
+| P08 | AC-E-Customer, EX mới | Thêm // draftCustomer, // checkRegistrationData, // saveCustomer; đơn vị loại trừ Độc quyền theo email và số điện thoại của mọi tài khoản khách, cặp với chính nó | UC-001 Q-225; BR-98 |
+| P08 | AC-E-Movie, AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, AC-E-Showtime | Đổi trạng thái Tạm sang Hoạt động và lấy trách nhiệm, thuộc tính từ _AC-register.md (tên đã hợp nhất: provideMovieInfo, provideAuditoriumInfo, provideCinemaInfo, calculateCapacity); Showtime thêm // checkBlocksSeatMapEdit, // checkStaysPriced, // adoptSeatMap, // provideReportFigures, capacity | UC-010, UC-011, UC-012, UC-015; Q-245 đến Q-254 |
+| P08 | R-38, R-39 | R-38 phía Auditorium 0..*; R-39 Composition A 1 - B 50..400 | UC-012 Q-253; BR-144, BR-147 |
+| P08 | EX-15, X-19, X-21 và đơn vị mới | Thêm đơn vị loại trừ: thêm phòng (khoá Cinema (X)), xoá phòng (Cinema (X), Auditorium (X), cặp X với EX-13, EX-15), lưu cụm rạp (khoá theo tập tên cụm rạp và Cinema (X)); kiểm tên phòng cùng thao tác ghi; thứ tự kiểm 5c, 4d, 5a, 5b | UC-011 Q-248; UC-012 Q-251, Q-254; BR-145 đến BR-147 |
+| P08 | AC-E-Staff, R-57, R-58, R-59, F2 STT 41 | Thêm AC-E-Staff làm lớp cha BoxOfficeClerk, TicketChecker, CinemaManager, chuyển cinema và // provideCinema lên Staff; thay R-57 đến R-59 bằng Staff 0..* - Cinema 0..1; quản lý chuỗi là giá trị của role (thay dòng "Thực thể quản lý chuỗi"); trả lời Q-108; đơn vị loại trừ lưu, khoá, mở khoá, sửa họ tên, đặt lại mật khẩu tài khoản nhân viên (email trên toàn tập, từng tài khoản) | UC-017 Q-228; BR-78, BR-95, BR-102 |
+| P08 | AC-E-ReportPeriod, AC-E-ReportGroup, Showtime.capacity | Giữ làm lớp phân tích hay đưa vào dịch vụ báo cáo; ReportGroup thêm cinema; cách ghi sơ đồ ghế, sức chứa lúc suất chiếu mở bán | UC-015, UC-016 Q-186; BR-118 |
+| P09 | Kiểm phiên theo mốc | Staff.accessChangedAt: mỗi thao tác của nhân viên đối chiếu mốc với thời điểm đăng nhập của phiên; không có entity phiên ở mức phân tích | UC-017 Q-229; BR-101 |
+| P10, P12 | Staff và lớp con | Lớp cha Staff, createTicket sao chép bốn giá trị lúc bán, createBooking ghi bookedAt, calculateCapacity dùng chung UC-012, UC-015, UC-016 | UC-017 Q-228; UC-005, UC-007 BR-140 |
+| P11a | UC-015, UC-016, UC-012 | Tỉ lệ lấp đầy "không áp dụng" khi sức chứa bằng 0; so sánh liệt kê mọi cụm rạp (0 đ, không áp dụng); báo lỗi phòng chiếu không thuộc cụm rạp | Q-235, Q-237, Q-252; BR-135 |
+| P13 | movie, ticket, booking | movie: mã phim là khoá chính, không duy nhất tên, cột phiên bản; ticket thêm cột tên phim, tên cụm rạp, tên phòng chiếu, loại phòng lúc bán; booking thêm cột thời điểm đặt | UC-010 Q-200, Q-247; UC-007 Q-227; BR-140 |
+| P13 | showtime, seat_status | Lưu sức chứa và sơ đồ ghế lúc mở bán; suất chiếu chưa mở bán dùng sơ đồ mới, đã kết thúc hoặc đã xoá giữ sơ đồ cũ | UC-012 Q-249, Q-253; BR-118 |
+| P05 | Thuật ngữ Yêu cầu hoàn (Refund Request) | Thêm vào mục 2 và bỏ khỏi mục 3; chờ chạy lại P05 | UC-006, UC-008 Q-87, Q-93 |
 
 ### Lỗi hình thức (check_artifacts.py)
 
@@ -346,3 +359,59 @@ Trước: 0 LOI, 156 CANH_BAO. Sau: 0 LOI; CANH_BAO K09 còn lại thuộc P07 t
 ### Mã cấp mới
 
 BR-94 đến BR-102, BR-114 đến BR-119, BR-134 đến BR-142, BR-144 đến BR-147 (28 BR); GL-66. Không cấp Q hay ASM mới (Q cuối Q-214). SY cuối SY-53. Khoảng trống: xem mục Gộp sổ BR.
+
+
+## Lần 4 - Lô P07 song song (UC-001, 003, 004, 007, 010, 011, 012, 015, 016, 017; cập nhật UC-005, 006, 008, 009, 013, 014)
+
+### Cần người quyết
+
+Đề xuất từ các P07 cũ (UC-005, 006, 009, 014) đổi luồng của P04 hoặc phạm vi, chưa có câu trả lời Q hay quyết định; giữ nguyên ở artifact nguồn.
+
+| SY | Câu hỏi | Phương án | Đề xuất |
+|---|---|---|---|
+| SY-70 | Thêm luồng 14a (UC-005) và 7a (UC-006) khi dịch vụ email lỗi (BR-89)? | Thêm luồng / Ghi ở Mục 3 là không có luồng thay thế | Thêm luồng, vé và khoản hoàn giữ nguyên hiệu lực, thử gửi lại, ghi log |
+| SY-71 | UC-005 bước 11 đến 13 là một thao tác; sửa bước 12 thành "đối chiếu mã giao dịch và đánh dấu đã xử lý" (Q-84, Q-85); UC-006 ghi giao dịch thứ hai tạo ở bước 3, lỗi giao dịch không nhận ra ghi log, điểm tiếp nhận chuyển lần giữ ghế sang Hết hạn (Q-88 đến Q-90) | Áp / Giữ nguyên P04 | Áp |
+| SY-72 | Thêm luồng UC-009 hiển thị suất chiếu trước bước 1 và luồng 2a từ chối suất chiếu không thuộc cụm rạp (Q-95, Q-96); luồng 1a3c, 1b3d của UC-014 (Q-105) | Thêm luồng / Ghi không thể xảy ra | Thêm luồng, như UC-012 luồng 1a2a |
+| SY-73 | P03 thêm quan hệ UC-005 và UC-006 qua điểm tiếp nhận dùng chung (Q-83); P02R cân nhắc use case include "Hoàn tiền qua cổng thanh toán" cho UC-006, UC-008 | Thêm / Giữ nguyên | Giữ nguyên P03 (đã thể hiện ở P07); P02R để người quyết xét |
+
+### Gộp sổ AC (A1)
+
+- Không có _AC-register.md từ trước (sổ được lập từ F3.4 của các file P07). Lập _AC-register.md từ bảng lớp phân tích của 16 file P07, đối chiếu 10 file pending (mọi trách nhiệm trong pending đều đã có trong F3.4 cùng use case; không mất dòng nào), rồi xoá 10 file pending. Sổ gồm 55 mã AC (Bảng 1) và các điều kiện, sự kiện dùng chung từ hai use case trở lên (Bảng 2).
+- Hợp nhất trùng nghĩa (giữ một tên, sửa phân tích và sơ đồ dẫn tên kia): AC-E-Auditorium // provideCapacity (UC-015, UC-016) --> // calculateCapacity (UC-012); AC-E-Movie // provideMovieDetails (UC-003) --> // provideMovieInfo (UC-010, UC-014); AC-E-Auditorium // provideAuditoriumForBrowsing (UC-004) --> // provideAuditoriumInfo; AC-E-Cinema // provideCinemaName (UC-017) --> // provideCinemaInfo (UC-004, UC-011, UC-016); AC-E-Ticket // provideTicketForHistory (UC-007) --> // provideTicketContent; AC-E-Booking // provideBookingHistoryDetail (UC-007) --> // provideBookingInfo. Hợp nhất 9 trách nhiệm cùng tên do nhiều phiên cấp (provideCinemaInfo, provideShowtimesInPeriod, determineRunStatus, provideMovieInfo, provideAuditoriumInfo, checkBelongsToCinema, checkNotStarted, checkUnchangedSinceDisplayed, provideCinema) và thuộc tính trùng (province, ageRating, trailer, name, title, email, phoneNumber, password); giữ mô tả đầy đủ nhất.
+- AC-E-Staff nhận lớp cha của BoxOfficeClerk, TicketChecker, CinemaManager (Q-228): // provideCinema và cinema chuyển lên Staff. Customer, Booking, Ticket, Seat, Showtime, Movie, Cinema, Auditorium đã hợp nhất theo cùng cách.
+- Dải mã không dùng: Q-231 đến Q-234, Q-238 đến Q-244, Q-255 đến Q-264. Không cấp Q, ASM mới (Q cuối vẫn Q-254, SY cuối SY-73).
+
+### Bảng đồng bộ
+
+| SY | Nguồn (file, mục) | Đích (bước, mã phần tử) | Loại | Nội dung | Kết quả hoặc lý do |
+|---|---|---|---|---|---|
+| SY-54 | 10 file _AC-register.*.pending.md | P07 _AC-register.md | Áp dụng | Gộp theo C10 mục 5 | Đã gộp, xoá pending |
+| SY-55 | Q-225 đến Q-230, Q-235 đến Q-237, Q-245 đến Q-254 | P07 Câu hỏi mở của 10 file | Áp dụng | Chủ dự án chốt theo đề xuất; đánh dấu "Đã trả lời" | Đã áp, 10 file P07 lên 1.1 |
+| SY-56 | UC-015, UC-016, Đề xuất; Q-235 đến Q-237 | P04 UC-015, UC-016 bước 2, luồng 2a, Dữ liệu ra | Áp dụng | Bước 2 kể cả suất chiếu đã xoá, chỉ không tính vào sức chứa; 2a nêu kể cả suất đã xoá; tỉ lệ không áp dụng khi sức chứa 0; liệt kê mọi cụm rạp | Đã áp, UC-015 và UC-016 lên 1.2; P07 UC-016 SD1c lặp theo mọi cụm rạp |
+| SY-57 | UC-017, Đề xuất; Q-230 | P04 UC-017 bước 4, luồng 4a đến 4d | Áp dụng | Thứ tự email, họ tên, vai trò, cụm rạp, điều kiện loại trừ nhau | Đã áp, UC-017 1.2 |
+| SY-58 | UC-007, Đề xuất | P04 UC-007 bước 2, Dữ liệu ra 1 | Áp dụng | Lần đặt gần nhất trước, xếp theo thời điểm đặt | Đã áp, UC-007 1.2 |
+| SY-59 | UC-012, Đề xuất; Q-251, Q-252, Q-254 | P04 UC-012 luồng 1a2a, 1b2a, 4d, 5a, 5c, Mục 8, activity | Áp dụng | Thêm luồng từ chối phòng không thuộc cụm rạp (BR-135); thứ tự 5c, 4d, 5a, 5b; 4d kiểm trong thao tác lưu | Đã áp, UC-012 1.2, thêm note N-12a vào sơ đồ |
+| SY-60 | UC-008 (yêu cầu bổ sung) | P04 UC-008 Mục 8 | Áp dụng | Bỏ câu UC-012 chưa đặc tả | Đã áp, UC-008 1.10 |
+| SY-61 | UC-017, Đề xuất; Q-228 | P07 UC-005, UC-009, UC-013, UC-014 | Áp dụng | Lớp con của AC-E-Staff, thêm lớp Staff và quan hệ Generalization vào bảng lớp, VOPC, sơ đồ lớp | Đã áp; UC-005 1.3, UC-009 1.3, UC-013 1.3, UC-014 1.5 |
+| SY-62 | UC-007, Đề xuất; Q-227 | P07 UC-005 createTicket, createBooking | Áp dụng | Vé ghi tên phim, tên cụm rạp, tên phòng chiếu, loại phòng lúc bán; lần đặt ghi thời điểm đặt (BR-140) | Đã áp, UC-005 1.3, sơ đồ lớp thêm thuộc tính |
+| SY-63 | UC-012, Đề xuất; BR-136, BR-137, BR-139 | P07 UC-005, UC-013, UC-014 | Áp dụng | Ghi UC-012 bước 5 và UC-010 bước 5 là đối thủ theo P07 của hai use case đó | Đã áp ở mô tả đơn vị loại trừ và Vấn đề còn mở |
+| SY-64 | UC-017, Đề xuất; Q-229 | P07 UC-005, UC-009, UC-013, UC-014 | Không áp | Message kiểm phiên theo mốc: Q-229 chốt không thêm entity phiên ở P07, cơ chế do P09 | Ghi ở Vấn đề còn mở của bốn file; P09 trong mục Đầu vào |
+| SY-65 | UC-005, Đề xuất (5a2a) | P04 UC-005 | Không áp | P04 đã có luồng 5a2a | Đã giải quyết |
+| SY-66 | UC-001, 007, 010, 011, 012, 015, 016, 017, Đề xuất | P08, P09, P13 | Chờ | Lớp, quan hệ, đơn vị loại trừ, cột | Vào mục Đầu vào cho lần chạy lại P08-P13 |
+| SY-67 | UC-006, UC-008, Đề xuất | P05 Yêu cầu hoàn | Chờ | Thêm thuật ngữ | Vào mục Đầu vào cho lần chạy lại P08-P13 (dòng P05) |
+
+Đề bài yeu-cau-dat-ve.md và sổ BR, P06: không đổi. Không câu trả lời nào mâu thuẫn hoặc đổi quy tắc của đề bài; Q-235 đến Q-237 chỉ làm rõ cách hiển thị khi sức chứa bằng 0, kỳ chỉ có suất chiếu đã xoá và cụm rạp không có số liệu.
+
+### File đã sửa và phiên bản mới
+
+- P04: UC-007 1.2, UC-008 1.10, UC-012 1.2, UC-015 1.2, UC-016 1.2, UC-017 1.2; chỉ đồng bộ đầu vào: UC-001, 004, 006, 010, 011, 013 tăng một bản phụ, UC-005 1.15, UC-009 1.7, UC-014 1.7.
+- P07: UC-001, 003, 004, 007, 010, 011, 012, 015, 016, 017 lên 1.1; UC-005 1.3, UC-009 1.3, UC-013 1.3, UC-014 1.5; UC-006 1.3, UC-008 1.4 (chỉ đồng bộ đầu vào); thêm _AC-register.md, xoá 10 file pending.
+- Sơ đồ .drawio đổi: P04-activity-UC-012; P07 class UC-005, 009, 013, 014 (Staff), UC-005 (thuộc tính vé, lần đặt); P07 sequence, communication, class của UC-003, 004, 007, 015, 016, 017 (đổi tên trách nhiệm), UC-016 (vòng lặp). Đã chạy diakempt, xoá .bak, XML parse được.
+
+### Bước cần rà lại
+
+P08 (gộp lại theo _AC-register.md), P09, P10, P11a, P12, P13, X1, X2 theo mục Đầu vào cho lần chạy lại P08-P13; P05 (thuật ngữ Yêu cầu hoàn).
+
+### Lỗi hình thức (check_artifacts.py)
+
+Trước: 0 LOI, 133 CANH_BAO. Sau: 0 LOI, 128 CANH_BAO (K11, K18, K10 cũ của P04, P07 chưa đổi).

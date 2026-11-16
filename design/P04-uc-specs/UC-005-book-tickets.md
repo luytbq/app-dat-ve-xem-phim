@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.14 |
+| Phiên bản | 1.15 |
+| Thay đổi 1.15 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.14 | Luồng 9a1a và BR-44 gồm cả xác nhận đã thu tiền tới khi lần giữ ghế đã ở trạng thái cuối khác; bước 7 và bảng Thao tác nguyên tử dẫn BR-137 (UC-012 bước 5 là đối thủ của giữ ghế); Dữ liệu ra 3 dẫn BR-140 |
 | Thay đổi 1.13 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (4 thao tác) và ghi một Đề xuất sửa artifact trước về xác nhận thu tiền đến sau khi lần giữ ghế đã huỷ; không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.12 | Cấp Q-139 (đã trả lời) làm nguồn gốc của BR-93 và dẫn mã Q ở luồng 11a |
 | Thay đổi 1.11 | Thêm điều kiện giao dịch tạo sau cùng vào luồng 11a và BR-93 (review cuối RF-04); ghi rõ ngừng bán là ngừng nhận lần giữ ghế mới (RF-16); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P02R-review.md 1.0; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-006-refund-late-payment.md 1.9, UC-008-cancel-ticket.md 1.9, UC-014-schedule-showtimes.md 1.6, UC-013-manage-price-list.md 1.4 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P02R-review.md 1.0; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-006-refund-late-payment.md 1.10, UC-008-cancel-ticket.md 1.10, UC-014-schedule-showtimes.md 1.7, UC-013-manage-price-list.md 1.5 (điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md; _review-UC-013.md (R13-03, R13-04) |
 | Phạm vi | UC-005 |
 | Mã Q, ASM cuối đã cấp | Q-139 (cấp cho BR-93, đã trả lời); Q-80 (Q-76, Q-77, Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-67 (cấp ở UC-013); Q-61 và Q-56 đã trả lời (cấp ở UC-014); không có ASM (NGHIEM_NGAT) |
 

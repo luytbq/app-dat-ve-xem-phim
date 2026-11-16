@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-001-register-account.md 1.1; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Chốt Q-225 (đã trả lời theo đề xuất); Đồng bộ sổ AC dùng chung _AC-register.md; đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-001-register-account.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
 | Phạm vi | UC-001 |
 | Mã Q, ASM cuối đã cấp | Q-225 (trong dải Q-225 đến Q-234); không có ASM (NGHIEM_NGAT) |
 
@@ -255,7 +256,7 @@ Ba file nằm trong diagrams/: P07-sequence-UC-001.drawio (2 trang), P07-communi
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
 |---|---|---|---|---|---|
-| Q-225 | Việc kiểm tra email và số điện thoại chưa thuộc tài khoản khách nào khác ở bước 7 (BR-98) cần dữ liệu của mọi tài khoản khách, trong khi không có đối tượng toàn thể nắm tập tài khoản khách. Giao thao tác này cho entity Customer (như Booking với mã đặt vé duy nhất, BR-80), hay thêm một lớp nắm tập tài khoản? | AC-E-Customer, // saveCustomer; SD1 message 2.1.6; UC-017 (BR-95, AC-E-Staff // saveStaff) | P04 Mục 8 nêu thao tác không chia cắt trên email và số điện thoại của các tài khoản khách, P05 không có thuật ngữ cho tập tài khoản | Nhóm dự án | Giữ trong Customer (// saveCustomer), không thêm lớp tập hợp ở mức phân tích; P08 xét đơn vị loại trừ theo email và theo số điện thoại, P12 chọn cơ chế |
+| Q-225 | Việc kiểm tra email và số điện thoại chưa thuộc tài khoản khách nào khác ở bước 7 (BR-98) cần dữ liệu của mọi tài khoản khách, trong khi không có đối tượng toàn thể nắm tập tài khoản khách. Giao thao tác này cho entity Customer (như Booking với mã đặt vé duy nhất, BR-80), hay thêm một lớp nắm tập tài khoản? | AC-E-Customer, // saveCustomer; SD1 message 2.1.6; UC-017 (BR-95, AC-E-Staff // saveStaff) | P04 Mục 8 nêu thao tác không chia cắt trên email và số điện thoại của các tài khoản khách, P05 không có thuật ngữ cho tập tài khoản | Nhóm dự án | Đã trả lời (chủ dự án chốt theo đề xuất): Giữ trong Customer (// saveCustomer), không thêm lớp tập hợp ở mức phân tích; P08 xét đơn vị loại trừ theo email và theo số điện thoại, P12 chọn cơ chế |
 
 ## Giả định
 

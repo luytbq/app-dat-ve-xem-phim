@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 | --- | --- |
 | Bước | P07 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1); // recordRefundedAmount cộng tổng đã hoàn và kiểm lại không vượt số tiền đã thanh toán trong một thao tác theo giao dịch (BR-26); không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.9 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.2 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.10 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.3 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-90; không có ASM (NGHIEM_NGAT) |
 

@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Chốt Q-230: bước 4 kiểm theo thứ tự email, họ tên, vai trò, cụm rạp; điều kiện của luồng 4a, 4b, 4c, 4d loại trừ nhau, mỗi điều kiện chỉ xét khi các điều kiện đứng trước đã đúng |
 | Thay đổi 1.1 | Chốt Q-161 đến Q-166: thêm luồng 1c (mở khoá), 1d (sửa họ tên), 1e (đặt lại mật khẩu), 4c, 4d (điều kiện email, họ tên), luồng bị từ chối khi lưu đồng thời, BR-100 đến BR-102, điều kiện Dữ liệu vào, bảng Thao tác nguyên tử |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.1, UC-007-view-booking-history.md 1.1 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.14, UC-009-check-ticket.md 1.6 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2, UC-007-view-booking-history.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.15, UC-009-check-ticket.md 1.7 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
 | Phạm vi | UC-017 |
 | Mã Q, ASM cuối đã cấp | Q-166 (Q-161 đến Q-166 cấp ở use case này, đã trả lời; Q-136 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -33,7 +34,7 @@
 | 1 | Quản trị viên | Yêu cầu tạo tài khoản cho một nhân viên mới. |
 | 2 | Hệ thống | Hiển thị các cụm rạp của chuỗi và bốn vai trò nhân viên để gán và phân quyền (xem Dữ liệu ra 1). |
 | 3 | Quản trị viên | Nhập email và họ tên của nhân viên, chọn vai trò và cụm rạp, rồi gửi (xem Dữ liệu vào 1). |
-| 4 | Hệ thống | Kiểm tra email theo định dạng email chuẩn và họ tên không rỗng (Q-163), nhân viên có đúng một vai trò trong bốn vai trò và cụm rạp được gán phù hợp vai trò (BR-78, BR-79). |
+| 4 | Hệ thống | Kiểm tra email theo định dạng email chuẩn và họ tên không rỗng (Q-163), nhân viên có đúng một vai trò trong bốn vai trò và cụm rạp được gán phù hợp vai trò (BR-78, BR-79); kiểm theo thứ tự email, họ tên, vai trò, cụm rạp, điều kiện đầu tiên bị vi phạm quyết định luồng thay thế (Q-230). |
 | 5 | Hệ thống | Kiểm tra email chưa thuộc tài khoản nhân viên nào khác và lưu tài khoản nhân viên, tài khoản mới ở trạng thái đang hoạt động, tất cả là một thao tác không chia cắt (BR-95). |
 | 6 | Hệ thống | Thông báo lưu tài khoản nhân viên thành công và hiển thị tài khoản đã lưu (xem Dữ liệu ra 2). |
 
@@ -74,10 +75,10 @@
 | 1e4 | | Hệ thống | Lưu mật khẩu mới của tài khoản đã chọn, là một thao tác không chia cắt (BR-102). | |
 | 1e4a | Tài khoản đã bị yêu cầu khác thay đổi kể từ lúc hiển thị (BR-102) | Hệ thống | Từ chối lưu, không ghi đè và thông báo quy tắc bị vi phạm (BR-102). | Quay lại bước 1e1 |
 | 1e5 | | Hệ thống | Thông báo đặt lại mật khẩu thành công. | Kết thúc use case (thành công) |
-| 4a | Nhân viên không có đúng một vai trò trong bốn vai trò (BR-79) | Hệ thống | Từ chối lưu tài khoản và thông báo quy tắc bị vi phạm (BR-79). | Quay lại bước 3 |
-| 4b | Nhân viên có đúng một vai trò và cụm rạp được gán không phù hợp vai trò: vai trò nhân viên quầy, nhân viên soát vé hoặc quản lý cụm rạp mà không gán đúng một cụm rạp, hoặc vai trò quản lý chuỗi mà có gán cụm rạp (BR-78) | Hệ thống | Từ chối lưu tài khoản và thông báo quy tắc bị vi phạm (BR-78). | Quay lại bước 3 |
+| 4a | Email và họ tên hợp lệ, nhưng nhân viên không có đúng một vai trò trong bốn vai trò (BR-79) | Hệ thống | Từ chối lưu tài khoản và thông báo quy tắc bị vi phạm (BR-79). | Quay lại bước 3 |
+| 4b | Email, họ tên hợp lệ và nhân viên có đúng một vai trò, nhưng cụm rạp được gán không phù hợp vai trò: vai trò nhân viên quầy, nhân viên soát vé hoặc quản lý cụm rạp mà không gán đúng một cụm rạp, hoặc vai trò quản lý chuỗi mà có gán cụm rạp (BR-78) | Hệ thống | Từ chối lưu tài khoản và thông báo quy tắc bị vi phạm (BR-78). | Quay lại bước 3 |
 | 4c | Email không theo định dạng email chuẩn (Q-163) | Hệ thống | Từ chối lưu tài khoản và thông báo điều kiện bị vi phạm. | Quay lại bước 3 |
-| 4d | Họ tên rỗng (Q-163) | Hệ thống | Từ chối lưu tài khoản và thông báo điều kiện bị vi phạm. | Quay lại bước 3 |
+| 4d | Email theo định dạng email chuẩn, nhưng họ tên rỗng (Q-163) | Hệ thống | Từ chối lưu tài khoản và thông báo điều kiện bị vi phạm. | Quay lại bước 3 |
 | 5a | Email đã thuộc một tài khoản nhân viên khác, kể cả khi tài khoản đó vừa được lưu cùng lúc bởi một yêu cầu khác (BR-95) | Hệ thống | Từ chối lưu tài khoản và thông báo quy tắc bị vi phạm (BR-95). | Quay lại bước 3 |
 | 5b | Chỉ khi theo luồng 1a: tài khoản đã bị yêu cầu khác thay đổi kể từ lúc hiển thị (BR-102) | Hệ thống | Từ chối lưu, không ghi đè và thông báo quy tắc bị vi phạm (BR-102). | Quay lại bước 1a1 |
 | *a | Tại bất kỳ bước nào trước bước 5, kể cả trong luồng 1a, 1b, 1c, 1d, 1e trước khi hệ thống lưu, quản trị viên huỷ yêu cầu | Hệ thống | Huỷ yêu cầu, không thay đổi tài khoản nhân viên nào. | Kết thúc use case (thất bại) |

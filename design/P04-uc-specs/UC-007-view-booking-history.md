@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Bước 2 và Dữ liệu ra 1 nêu thứ tự hiển thị: lần đặt gần nhất trước, xếp theo thời điểm đặt vé |
 | Thay đổi 1.1 | Chốt Q-159, Q-160: lịch sử gồm toàn bộ vé từng mua kèm trạng thái vé; thông tin của mỗi lần đặt ở Dữ liệu ra 1 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.1 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.14 (vé và lần đặt do UC-005 tạo); UC-008-cancel-ticket.md 1.9, UC-009-check-ticket.md 1.6 (trạng thái vé) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.15 (vé và lần đặt do UC-005 tạo); UC-008-cancel-ticket.md 1.10, UC-009-check-ticket.md 1.7 (trạng thái vé) |
 | Phạm vi | UC-007 |
 | Mã Q, ASM cuối đã cấp | Q-160 (Q-159, Q-160 cấp ở use case này, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -31,7 +32,7 @@
 | STT | Thực hiện bởi | Hành động |
 |---|---|---|
 | 1 | Khách | Yêu cầu xem lịch sử đặt vé. |
-| 2 | Hệ thống | Hiển thị các lần đặt vé của chính khách (BR-94; xem Dữ liệu ra 1). |
+| 2 | Hệ thống | Hiển thị các lần đặt vé của chính khách, lần đặt gần nhất (theo thời điểm đặt vé) trước (BR-94; xem Dữ liệu ra 1). |
 | 3 | Khách | Chọn một lần đặt vé cần xem (xem Dữ liệu vào 1). |
 | 4 | Hệ thống | Kiểm tra lần đặt đã chọn thuộc về khách (BR-94). |
 | 5 | Hệ thống | Hiển thị các vé của lần đặt đã chọn (xem Dữ liệu ra 2). |
@@ -57,7 +58,7 @@ Dữ liệu vào 1 (bước 3)
 
 Dữ liệu ra 1 (bước 2)
 
-Mỗi dòng là một lần đặt của khách.
+Mỗi dòng là một lần đặt của khách, xếp lần đặt gần nhất trước theo thời điểm đặt vé; thời điểm đặt vé chỉ dùng để xếp, không hiển thị.
 
 | STT | Trường dữ liệu | Mô tả | Định dạng hiển thị | Ví dụ |
 |---|---|---|---|---|

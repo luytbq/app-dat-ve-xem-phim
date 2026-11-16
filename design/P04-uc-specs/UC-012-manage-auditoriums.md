@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Chốt Q-251, Q-252, Q-254: thêm luồng 1a2a, 1b2a (phòng chiếu chọn không thuộc cụm rạp của quản lý cụm rạp, BR-135); thứ tự kiểm ở bước 5 là 5c, 4d, 5a, 5b; 4d được kiểm trong thao tác lưu ở bước 5 |
 | Thay đổi 1.1 | Chốt Q-208 đến Q-214: luồng 1b (xoá phòng chưa từng có suất chiếu), luồng 4b, 4d, 5c, suất chiếu đã xoá không chặn BR-87, BR-73, sơ đồ ghế lịch sử, BR-144 đến BR-147 và bảng Thao tác nguyên tử |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4 (BR-73, BR-87); P08-analysis-model.md 1.5 (EX-13, EX-15, X-19, X-21, Q-109); P13-data-model.md 1.5 (Q-136 đến Q-138, bảng auditorium, seat, seat_status); UC-005-book-tickets.md 1.14; UC-010-manage-movies.md 1.1 (Q-203); UC-011-manage-cinemas.md 1.1 (mẫu); UC-013-manage-price-list.md 1.4 (BR-73, BR-68); UC-014-schedule-showtimes.md 1.6 (điểm nối BR-84, BR-92) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4 (BR-73, BR-87); P08-analysis-model.md 1.5 (EX-13, EX-15, X-19, X-21, Q-109); P13-data-model.md 1.5 (Q-136 đến Q-138, bảng auditorium, seat, seat_status); UC-005-book-tickets.md 1.15; UC-010-manage-movies.md 1.2 (Q-203); UC-011-manage-cinemas.md 1.2 (mẫu); UC-013-manage-price-list.md 1.5 (BR-73, BR-68); UC-014-schedule-showtimes.md 1.7 (điểm nối BR-84, BR-92) |
 | Phạm vi | UC-012 |
 | Mã Q, ASM cuối đã cấp | Q-214 (Q-208 đến Q-214 cấp ở use case này, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -44,19 +45,21 @@
 | 1a | Quản lý cụm rạp chọn sửa một phòng chiếu đã có thay vì thêm phòng chiếu mới | - | Sửa phòng chiếu | - |
 | 1a1 | | Hệ thống | Hiển thị các phòng chiếu của cụm rạp mà quản lý cụm rạp thuộc về (BR-135; xem Dữ liệu ra 1). | |
 | 1a2 | | Quản lý cụm rạp | Chọn phòng chiếu cần sửa (xem Dữ liệu vào 2). | |
+| 1a2a | Phòng chiếu đã chọn không thuộc cụm rạp của quản lý cụm rạp (BR-135, Q-252) | Hệ thống | Từ chối thao tác, không đổi phòng chiếu và thông báo quy tắc bị vi phạm (BR-135). | Kết thúc use case (thất bại) |
 | 1a3 | | Hệ thống | Hiển thị thông tin hiện tại của phòng chiếu đã chọn, gồm sơ đồ ghế, để sửa (xem Dữ liệu ra 3). | Tiếp tục bước 3 |
 | 1b | Quản lý cụm rạp chọn xoá một phòng chiếu thay vì thêm phòng chiếu mới (Q-208) | - | Xoá phòng chiếu | - |
 | 1b1 | | Hệ thống | Hiển thị các phòng chiếu của cụm rạp mà quản lý cụm rạp thuộc về (BR-135; xem Dữ liệu ra 1). | |
 | 1b2 | | Quản lý cụm rạp | Chọn phòng chiếu cần xoá (xem Dữ liệu vào 2). | |
+| 1b2a | Phòng chiếu đã chọn không thuộc cụm rạp của quản lý cụm rạp (BR-135, Q-252) | Hệ thống | Từ chối thao tác, không đổi phòng chiếu và thông báo quy tắc bị vi phạm (BR-135). | Kết thúc use case (thất bại) |
 | 1b3 | | Hệ thống | Kiểm tra phòng chiếu chưa từng có suất chiếu, kể cả suất chiếu đã xoá (BR-147), rồi xoá phòng chiếu cùng các ghế của phòng, tất cả là một thao tác không chia cắt với việc lưu suất chiếu của phòng (BR-136). | |
 | 1b3a | Phòng chiếu đã từng có suất chiếu, kể cả suất chiếu đã xoá (BR-147) | Hệ thống | Từ chối xoá, không đổi phòng chiếu và thông báo quy tắc bị vi phạm (BR-147). | Kết thúc use case (thất bại) |
 | 1b4 | | Hệ thống | Thông báo xoá phòng chiếu thành công. | Kết thúc use case (thành công) |
 | 4a | Thông tin phòng chiếu hoặc sơ đồ ghế không đạt điều kiện hợp lệ của Dữ liệu vào 1 hoặc Dữ liệu vào 1a | Hệ thống | Từ chối lưu và thông báo điều kiện bị vi phạm của từng trường. | Quay lại bước 3 |
 | 4b | Sức chứa của sơ đồ ghế, ghế đôi tính một ghế, ngoài khoảng 50 đến 400 ghế (BR-144), không thuộc 4a | Hệ thống | Từ chối lưu và thông báo quy tắc bị vi phạm (BR-144). | Quay lại bước 3 |
-| 4d | Tên phòng chiếu đã thuộc một phòng chiếu khác trong cùng cụm rạp (BR-145), không thuộc 4a, 4b | Hệ thống | Từ chối lưu và thông báo quy tắc bị vi phạm (BR-145). | Quay lại bước 3 |
-| 5a | Sơ đồ ghế bị thay đổi và phòng chiếu có suất chiếu (không kể suất chiếu đã xoá, Q-209) đã tới thời điểm mở bán mà chưa kết thúc, so tại thời điểm hệ thống kiểm tra (BR-87); kiểm trước 5b | Hệ thống | Từ chối lưu, không đổi phòng chiếu và sơ đồ ghế, và thông báo quy tắc bị vi phạm (BR-87). | Kết thúc use case (thất bại) |
+| 4d | Tên phòng chiếu đã thuộc một phòng chiếu khác trong cùng cụm rạp (BR-145), không thuộc 4a, 4b; kiểm trong thao tác lưu ở bước 5, sau 5c và trước 5a (Q-251, Q-254) | Hệ thống | Từ chối lưu và thông báo quy tắc bị vi phạm (BR-145). | Quay lại bước 3 |
+| 5a | Sơ đồ ghế bị thay đổi và phòng chiếu có suất chiếu (không kể suất chiếu đã xoá, Q-209) đã tới thời điểm mở bán mà chưa kết thúc, so tại thời điểm hệ thống kiểm tra (BR-87); kiểm sau 5c và 4d, trước 5b (Q-254) | Hệ thống | Từ chối lưu, không đổi phòng chiếu và sơ đồ ghế, và thông báo quy tắc bị vi phạm (BR-87). | Kết thúc use case (thất bại) |
 | 5b | Việc đổi loại phòng hoặc thêm loại ghế vào phòng làm ít nhất một suất chiếu chưa tới giờ bắt đầu của phòng (không kể suất chiếu đã xoá, Q-209) thiếu giá theo BR-69 (BR-73), không thuộc 5a | Hệ thống | Từ chối lưu và thông báo quy tắc bị vi phạm (BR-73). | Kết thúc use case (thất bại) |
-| 5c | Chỉ khi theo luồng 1a: phòng chiếu đã bị yêu cầu khác sửa kể từ lúc hiển thị (BR-146) | Hệ thống | Từ chối lưu, không ghi đè thay đổi trước và thông báo quy tắc bị vi phạm (BR-146). | Quay lại bước 1a1 |
+| 5c | Chỉ khi theo luồng 1a: phòng chiếu đã bị yêu cầu khác sửa kể từ lúc hiển thị (BR-146); kiểm đầu tiên ở bước 5 (Q-254) | Hệ thống | Từ chối lưu, không ghi đè thay đổi trước và thông báo quy tắc bị vi phạm (BR-146). | Quay lại bước 1a1 |
 | *a | Tại bất kỳ bước nào trước bước 5 (trước bước 1b3 với luồng 1b), kể cả trong luồng 1a, quản lý cụm rạp huỷ yêu cầu | Hệ thống | Huỷ yêu cầu, không thay đổi phòng chiếu. | Kết thúc use case (thất bại) |
 
 ## 4. Luồng con
@@ -110,7 +113,7 @@ Dữ liệu ra 3 (bước 1a3)
 
 | BR | Quy tắc | Loại | Bước áp dụng | REQ | Trong sổ BR |
 |---|---|---|---|---|---|
-| BR-135 | Quản lý cụm rạp chỉ xem, thêm và sửa phòng chiếu, sơ đồ ghế của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | 2, 5, 1a1, Dữ liệu vào 2 | REQ-56; REQ-100 (phụ) | Mới |
+| BR-135 | Quản lý cụm rạp chỉ xem, thêm và sửa phòng chiếu, sơ đồ ghế của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | 2, 5, 1a1, 1a2a, 1b2a, Dữ liệu vào 2 | REQ-56; REQ-100 (phụ) | Mới |
 | BR-136 | Việc kiểm tra BR-73 và BR-87 rồi lưu thay đổi phòng chiếu hoặc sơ đồ ghế, với việc kiểm tra BR-69 rồi lưu suất chiếu lập hoặc sửa của phòng chiếu đó (UC-014 bước 8) và với việc kiểm tra BR-64 rồi bỏ mục giá (UC-013 luồng 1a3), không xen vào nhau: yêu cầu được ghi nhận trước thì thành công, yêu cầu ghi nhận sau thấy kết quả của yêu cầu trước và bị từ chối theo quy tắc của mình khi vi phạm. | Ràng buộc | 5, 5a, 5b | REQ-162, REQ-145; REQ-151 (phụ) | Mới |
 | BR-137 | Việc chốt giá của một lần giữ ghế (UC-005 bước 7) và việc lưu thay đổi loại phòng của phòng chiếu không xen vào nhau: thay đổi được ghi nhận trước thì lần giữ ghế chốt giá theo loại phòng mới; thay đổi được ghi nhận sau thì không ảnh hưởng lần giữ ghế đó. | Ràng buộc | 5 | REQ-149; REQ-37, REQ-38 (phụ) | Mới |
 | BR-118 | Suất chiếu đã kết thúc hoặc đã xoá giữ sơ đồ ghế, loại ghế và sức chứa lúc suất chiếu mở bán; sửa sơ đồ ghế của phòng chiếu sau đó không đổi vé, sức chứa và tỉ lệ lấp đầy của các suất chiếu đó; suất chiếu chưa mở bán dùng sơ đồ mới. | Ràng buộc | Hậu điều kiện, Mục 8 | REQ-153, REQ-58 (phụ); Q-186, Q-210 | Đã có |
@@ -143,7 +146,7 @@ Không có
 - Ảnh hưởng của sơ đồ ghế mới tới trạng thái ghế của từng suất chiếu (Q-210, BR-118): suất chiếu chưa mở bán dùng sơ đồ mới (P08 Q-109, EX-15); suất chiếu đã kết thúc hoặc đã xoá giữ sơ đồ ghế, loại ghế và sức chứa lúc suất chiếu mở bán, gắn với vé và lần giữ ghế đã kết thúc (BR-92, BR-58). Suất chiếu đã xoá không tính ở BR-87 và BR-73 vì không còn trong lịch chiếu và không bán vé (Q-209).
 - Tên phòng và loại phòng được ghi trên vé (REQ-105). Vé đã bán hiển thị giá trị lúc bán, không đổi khi phòng đổi tên hoặc đổi loại (BR-140, Q-203).
 - Bước 5 gộp mọi kiểm tra quyết định việc lưu và việc lưu thành một thao tác không chia cắt: nếu tách rời, UC-014 có thể lưu một suất chiếu đã mở bán giữa lúc kiểm BR-87 và lúc lưu sơ đồ ghế, hoặc lưu suất chiếu theo loại phòng cũ giữa lúc kiểm BR-73 và lúc lưu loại phòng mới. Cơ chế bảo đảm thuộc bước thiết kế (P07, P09).
-- Thứ tự kiểm ở bước 5: 5a (BR-87) trước 5b (BR-73). Thông tin đã thấy sai về trạng thái bán của phòng thì kiểm giá không còn ý nghĩa; nguồn không nêu thứ tự báo khi nhiều điều kiện cùng vi phạm.
+- Thứ tự kiểm ở bước 5: 5c (BR-146), 4d (BR-145), 5a (BR-87), 5b (BR-73) (Q-254). Phòng đã bị yêu cầu khác sửa thì các kiểm tra theo dữ liệu hiển thị cũ không còn ý nghĩa; thông tin đã thấy sai về trạng thái bán của phòng thì kiểm giá không còn ý nghĩa. Việc kiểm tên phòng (4d) nằm trong thao tác lưu ở bước 5 để hai yêu cầu cùng tên không cùng qua (Q-251).
 - Bước sinh theo quy tắc của prompt: bước 6 (báo kết quả cho quản lý cụm rạp); hành động "Từ chối ... và thông báo" ở luồng 4a, 5a, 5b; điểm quay lại bước 3 ở luồng 4a vì quản lý cụm rạp sửa được dữ liệu vi phạm. Luồng 5a, 5b kết thúc thất bại vì điều kiện thuộc use case khác (xoá suất chiếu ở UC-014, đặt giá ở UC-013), quản lý cụm rạp không sửa được ngay trong use case.
 - Không có bước hẹn hoặc huỷ mốc (F4.2 mục 17): P01 không có tác nhân thời gian; thời điểm mở bán là mốc của UC-005 và UC-014, không do use case này tạo hay đổi.
 
@@ -168,6 +171,7 @@ Mốc kết thúc của quá trình: suất chiếu "chưa kết thúc" của BR
 - KB7: Luồng 1b + 1b3a --> phòng đã từng có suất chiếu không xoá được.
 - KB8: Luồng chính + 4b hoặc 4d --> sức chứa ngoài khoảng hoặc trùng tên phòng, quay lại bước 3.
 - KB9: Luồng 1a + 5c --> phòng đã bị yêu cầu khác sửa, yêu cầu lưu sau bị từ chối, quản lý cụm rạp mở lại phòng từ đầu.
+- KB10: Luồng 1a + 1a2a hoặc luồng 1b + 1b2a --> phòng đã chọn không thuộc cụm rạp của quản lý cụm rạp, bị từ chối.
 
 ## 9. Activity diagram
 
@@ -187,6 +191,7 @@ Bảng đối chiếu
 | 1b đến 1b4 | N-1b |
 | 4b, 4d | N-4bd |
 | 5c | N-5c |
+| 1a2a, 1b2a | N-12a |
 | *a | N-*a |
 
 Bảng Node
@@ -217,7 +222,8 @@ Bảng Node
 | A-1a3 | Action | Hiển thị thông tin hiện tại của phòng | - | P-SYS | 1a3 | x=60, y=1100 (tương đối partition) |
 | N-1b | Note | 1b: Xoá phòng: hiển thị phòng, chọn phòng, kiểm tra chưa từng có suất chiếu rồi xoá phòng và ghế; 1b3a đã từng có suất chiếu: từ chối xoá, thất bại; 1b4 thành công (Q-208, BR-147) | - | P-SYS | 1b | x=330, y=1160, w=240, h=120 (tương đối partition) |
 | N-4bd | Note | 4b, 4d: Sức chứa ngoài 50 đến 400 ghế hoặc trùng tên phòng trong cụm: từ chối lưu, quay lại bước 3 (BR-144, BR-145) | - | P-SYS | 4b, 4d | x=330, y=1300, w=240, h=100 (tương đối partition) |
-| N-5c | Note | 5c: Chỉ khi theo luồng 1a: phòng đã bị yêu cầu khác sửa: từ chối lưu, không ghi đè, quay lại 1a1 (BR-146) | - | P-SYS | 5c | x=330, y=1420, w=240, h=100 (tương đối partition) |
+| N-5c | Note | 5c: Chỉ khi theo luồng 1a: phòng đã bị yêu cầu khác sửa: từ chối lưu, không ghi đè, quay lại 1a1; kiểm đầu tiên ở bước 5 (BR-146, Q-254) | - | P-SYS | 5c | x=330, y=1420, w=240, h=100 (tương đối partition) |
+| N-12a | Note | 1a2a, 1b2a: Phòng chiếu chọn không thuộc cụm rạp của quản lý cụm rạp: từ chối thao tác, kết thúc (thất bại) (BR-135, Q-252) | - | P-SYS | 1a2a, 1b2a | x=330, y=1550, w=240, h=100 (tương đối partition) |
 | N-*a | Note | *a: Tại bất kỳ bước nào trước bước 5, kể cả trong luồng 1a, quản lý cụm rạp huỷ yêu cầu: hệ thống không đổi phòng chiếu, kết thúc (thất bại) | - | P-ACT-04 | *a | x=300, y=60 (tương đối partition) |
 
 Bảng Edge

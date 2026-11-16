@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Chốt Q-235 đến Q-237: bước 2 bỏ câu loại suất chiếu đã xoá khỏi tập suất chiếu, điều kiện của luồng 2a nêu rõ kể cả suất chiếu đã xoá, tỉ lệ lấp đầy không áp dụng khi sức chứa bằng 0, kết quả so sánh liệt kê mọi cụm rạp của chuỗi |
 | Thay đổi 1.1 | Chốt Q-185 và các đáp án Q-181 đến Q-184, Q-186, Q-187 của UC-015: thêm luồng 1a, điều kiện bước 2 đến 5, kỳ báo cáo và kết quả so sánh ở Dữ liệu vào, Dữ liệu ra, BR-115 đến BR-119 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.9 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.6 (suất chiếu đã xoá) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.10 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.7 (suất chiếu đã xoá) |
 | Phạm vi | UC-016 |
 | Mã Q, ASM cuối đã cấp | Q-185 (cấp ở UC-016, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -31,10 +32,10 @@
 | STT | Thực hiện bởi | Hành động |
 |---|---|---|
 | 1 | Quản lý chuỗi | Yêu cầu xem báo cáo của toàn chuỗi, chọn cách xem (theo ngày, theo phim hoặc theo suất chiếu) và kỳ báo cáo (xem Dữ liệu vào 1). |
-| 2 | Hệ thống | Xác định các suất chiếu của mọi cụm rạp thuộc kỳ báo cáo : suất chiếu có ngày chiếu nằm trong kỳ báo cáo, kể cả suất chiếu chưa tới giờ bắt đầu (BR-117), không kể suất chiếu đã xoá (BR-116). |
+| 2 | Hệ thống | Xác định các suất chiếu của mọi cụm rạp thuộc kỳ báo cáo : suất chiếu có ngày chiếu nằm trong kỳ báo cáo, kể cả suất chiếu chưa tới giờ bắt đầu (BR-117) và suất chiếu đã xoá; suất chiếu đã xoá không được tính vào sức chứa (BR-116, Q-236). |
 | 3 | Hệ thống | Tính doanh thu của toàn chuỗi và của từng cụm rạp theo cách xem đã chọn, bằng tiền vé đã bán trừ phần tiền đã hoàn cho khách (BR-77); cả tiền vé và phần đã hoàn xếp vào ngày chiếu của suất chiếu có vé đó (BR-115); khoản hoàn toàn bộ của thanh toán đến trễ không được trừ (BR-119). |
 | 4 | Hệ thống | Tính tỉ lệ lấp đầy của toàn chuỗi và của từng cụm rạp theo cách xem đã chọn, từ số ghế của vé đã bán chưa huỷ và sức chứa của các phòng chiếu, ghế đôi tính một ghế (BR-88, BR-06); sức chứa của mỗi suất chiếu là sức chứa lúc suất chiếu diễn ra (BR-118). |
-| 5 | Hệ thống | Tổng hợp doanh thu và tỉ lệ lấp đầy của các cụm rạp để so sánh giữa các cụm rạp bằng cách đặt doanh thu và tỉ lệ lấp đầy của mọi cụm rạp cạnh nhau trong cùng kỳ báo cáo và cùng cách xem; không tính chênh lệch, không xếp hạng, không chọn tập con cụm rạp (Q-185). |
+| 5 | Hệ thống | Tổng hợp doanh thu và tỉ lệ lấp đầy của các cụm rạp để so sánh giữa các cụm rạp bằng cách đặt doanh thu và tỉ lệ lấp đầy của mọi cụm rạp cạnh nhau trong cùng kỳ báo cáo và cùng cách xem; không tính chênh lệch, không xếp hạng, không chọn tập con cụm rạp (Q-185); cụm rạp không có số liệu trong nhóm vẫn được liệt kê với doanh thu 0 đ và tỉ lệ lấp đầy không áp dụng (Q-237). |
 | 6 | Hệ thống | Hiển thị báo cáo toàn chuỗi cùng kết quả so sánh giữa các cụm rạp (xem Dữ liệu ra 1, Dữ liệu ra 2). |
 
 ## 3. Luồng sự kiện thay thế và ngoại lệ
@@ -42,7 +43,7 @@
 | STT | Điều kiện | Thực hiện bởi | Hành động | Quay lại / Kết thúc |
 |---|---|---|---|---|
 | 1a | Kỳ báo cáo thiếu từ ngày hoặc đến ngày, hoặc từ ngày sau đến ngày (Q-181) | Hệ thống | Từ chối xem báo cáo và thông báo kỳ báo cáo không hợp lệ. | Quay lại bước 1 |
-| 2a | Không xác định được suất chiếu nào của chuỗi thuộc kỳ báo cáo | Hệ thống | Thông báo chuỗi không có suất chiếu trong kỳ báo cáo. | Kết thúc use case (thành công) |
+| 2a | Không xác định được suất chiếu nào của chuỗi thuộc kỳ báo cáo, kể cả suất chiếu đã xoá (Q-236) | Hệ thống | Thông báo chuỗi không có suất chiếu trong kỳ báo cáo. | Kết thúc use case (thành công) |
 
 ## 4. Luồng con
 
@@ -64,7 +65,7 @@ Dữ liệu ra 1 (bước 6)
 |---|---|---|---|---|
 | 1 | Nhóm báo cáo | Ngày, phim hoặc suất chiếu, theo cách xem đã chọn; mỗi nhóm một dòng | Ngày dạng dd/mm/yyyy; phim là tên phim; suất chiếu gồm tên phim, tên cụm rạp, tên phòng chiếu và ngày giờ bắt đầu dạng dd/mm/yyyy hh:mm | 15/11/2026 |
 | 2 | Doanh thu toàn chuỗi | Tiền vé đã bán trừ phần tiền đã hoàn cho khách, của nhóm, trên mọi cụm rạp (REQ-68, REQ-99) | Số nguyên, phân cách hàng nghìn bằng dấu chấm, kèm "đ", căn phải | 185.300.000 đ |
-| 3 | Tỉ lệ lấp đầy toàn chuỗi | Số ghế của vé đã bán chưa huỷ chia cho sức chứa của nhóm trên mọi cụm rạp, ghế đôi tính một ghế, không tính ghế đang được giữ (REQ-68, REQ-153) | Phần trăm, căn phải; số chữ số thập phân thuộc thiết kế giao diện | 58,2% |
+| 3 | Tỉ lệ lấp đầy toàn chuỗi | Số ghế của vé đã bán chưa huỷ chia cho sức chứa của nhóm trên mọi cụm rạp, ghế đôi tính một ghế, không tính ghế đang được giữ (REQ-68, REQ-153) | Phần trăm, căn phải; số chữ số thập phân thuộc thiết kế giao diện; nhóm có sức chứa bằng 0 hiển thị "không áp dụng" (Q-235) | 58,2% |
 
 Dữ liệu ra 2 (bước 6)
 
@@ -72,7 +73,7 @@ Dữ liệu ra 2 (bước 6)
 |---|---|---|---|---|
 | 1 | Tên cụm rạp | Cụm rạp của dòng so sánh (REQ-69) | Văn bản | Cụm rạp X |
 | 2 | Doanh thu của cụm rạp | Doanh thu của nhóm tại cụm rạp, cùng cách tính với Dữ liệu ra 1 dòng 2 (REQ-69) | Như Dữ liệu ra 1 dòng 2 | 14.700.000 đ |
-| 3 | Tỉ lệ lấp đầy của cụm rạp | Tỉ lệ lấp đầy của nhóm tại cụm rạp, cùng cách tính với Dữ liệu ra 1 dòng 3 (REQ-69) | Như Dữ liệu ra 1 dòng 3 | 64,0% |
+| 3 | Tỉ lệ lấp đầy của cụm rạp | Tỉ lệ lấp đầy của nhóm tại cụm rạp, cùng cách tính với Dữ liệu ra 1 dòng 3 (REQ-69) | Như Dữ liệu ra 1 dòng 3; cụm rạp không có số liệu trong nhóm hiển thị "không áp dụng" (Q-237) | 64,0% |
 
 
 ## 6. Quy tắc nghiệp vụ

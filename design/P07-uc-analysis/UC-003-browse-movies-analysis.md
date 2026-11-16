@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P04-uc-specs/UC-003-browse-movies.md 1.1; sổ AC lập từ F3.4 của P07-uc-analysis/UC-005, UC-006, UC-008, UC-009, UC-013, UC-014 (đầu lô); P08-analysis-model.md 1.5 (mã AC-E-Cinema, AC-E-Seat đã cấp); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-015, UC-016); dải mã Q được cấp 235 đến 244, không cấp ASM |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Đổi // provideMovieDetails thành // provideMovieInfo (hợp nhất với UC-010); đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P04-uc-specs/UC-003-browse-movies.md 1.1; P07-uc-analysis/_AC-register.md (đã gộp, đầu lô lập từ F3.4 của UC-005, UC-006, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 1.5 (mã AC-E-Cinema, AC-E-Seat đã cấp); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-015, UC-016); dải mã Q được cấp 235 đến 244, không cấp ASM |
 | Phạm vi | UC-003 |
 | Mã Q, ASM cuối đã cấp | Q-175 (cấp ở P04, đã trả lời); không cấp Q mới ở use case này; không có ASM (NGHIEM_NGAT) |
 
@@ -75,7 +76,7 @@ Số boundary là 1, bằng số tác nhân tham gia (không có tác nhân ph�
 |---|---|---|---|---|---|---|---|---|
 | AC-B-BrowseMoviesForm | boundary | BrowseMoviesForm | // requestMovieList: khách yêu cầu xem danh sách phim<br>// showMovieList: hiển thị các phim đang chiếu và các phim sắp chiếu kèm tên, thể loại, thời lượng, độ tuổi được xem và ngày khởi chiếu của phim sắp chiếu<br>// notifyNoMovies: thông báo hiện chưa có phim đang chiếu hoặc sắp chiếu<br>// selectMovie: khách chọn một phim trong danh sách<br>// showMovieDetails: hiển thị thông tin của phim đã chọn | selectedMovie (Phim khách đã chọn) | 1, 3, 4, 5, 2a | Giao diện người dùng | Mới | GL-18 |
 | AC-C-BrowseMoviesController | control | BrowseMoviesController | // startBrowsingMovies: điều phối bước 2, 3 và 2a: duyệt từng phim, hỏi nhóm của phim, lấy thông tin tóm tắt của phim đang chiếu hoặc sắp chiếu, báo boundary hiển thị danh sách hoặc thông báo không có phim<br>// viewMovieDetails: điều phối bước 5: lấy thông tin chi tiết của phim đã chọn và báo boundary hiển thị | - | 2, 3, 5, 2a | - | Mới | - |
-| AC-E-Movie | entity | Movie | // determineRunStatus: phân loại phim theo ngày hiện tại: đang chiếu, sắp chiếu hoặc không thuộc nhóm nào, theo ngày khởi chiếu và ngày kết thúc chiếu của phim (BR-76)<br>// provideMovieSummary: cung cấp tên, thể loại, thời lượng, độ tuổi được xem và, với phim sắp chiếu, ngày khởi chiếu để hiển thị trong danh sách<br>// provideMovieDetails: cung cấp tên, thể loại, thời lượng, độ tuổi được xem, mô tả, trailer để hiển thị | title (Văn bản)<br>duration (Số phút)<br>releaseDate (Ngày)<br>endOfRunDate (Ngày)<br>genre (Văn bản) (mới ở UC này)<br>ageRating (Văn bản) (mới ở UC này)<br>description (Văn bản) (mới ở UC này)<br>trailer (Trailer xem được qua hệ thống) (mới ở UC này) | 2, 3, 5 | - | Tái dùng từ UC-014, bổ sung trách nhiệm; chủ sở hữu UC-010 | GL-37, GL-38, GL-39 |
+| AC-E-Movie | entity | Movie | // determineRunStatus: phân loại phim theo ngày hiện tại: đang chiếu, sắp chiếu hoặc không thuộc nhóm nào, theo ngày khởi chiếu và ngày kết thúc chiếu của phim (BR-76)<br>// provideMovieSummary: cung cấp tên, thể loại, thời lượng, độ tuổi được xem và, với phim sắp chiếu, ngày khởi chiếu để hiển thị trong danh sách<br>// provideMovieInfo: cung cấp tên, thể loại, thời lượng, độ tuổi được xem, mô tả, trailer để hiển thị | title (Văn bản)<br>duration (Số phút)<br>releaseDate (Ngày)<br>endOfRunDate (Ngày)<br>genre (Văn bản) (mới ở UC này)<br>ageRating (Văn bản) (mới ở UC này)<br>description (Văn bản) (mới ở UC này)<br>trailer (Trailer xem được qua hệ thống) (mới ở UC này) | 2, 3, 5 | - | Tái dùng từ UC-014, bổ sung trách nhiệm; chủ sở hữu UC-010 | GL-37, GL-38, GL-39 |
 
 Tổng cộng 3 lớp: 1 boundary, 1 control, 1 entity. Dưới ngưỡng 4 lớp vì use case chỉ đọc một khái niệm là phim: không có entity nào khác tham gia hành vi (P04 Mục 8, bảng lọc danh từ F3.2 không còn ứng viên entity). Entity AC-E-Movie có hành vi riêng (phân nhóm theo BR-76) nên không thiếu trách nhiệm.
 
@@ -90,7 +91,7 @@ Tổng cộng 3 lớp: 1 boundary, 1 control, 1 entity. Dưới ngưỡng 4 lớ
 | 3 | // showMovieList | AC-B-BrowseMoviesForm | Giao tiếp tác nhân | - |
 | 2a | // notifyNoMovies | AC-B-BrowseMoviesForm | Giao tiếp tác nhân | Control biết không có phim nào thuộc hai nhóm sau khi duyệt xong; không cần message riêng để kiểm tra (tìm và đếm theo kết quả là việc có sẵn, A6). |
 | 4, 5 | // viewMovieDetails | AC-C-BrowseMoviesController | Controller | - |
-| 5 | // provideMovieDetails | AC-E-Movie | Information Expert | Đặt tên khác // provideMovieSummary vì nội dung cung cấp khác (Dữ liệu ra 2 có mô tả, trailer). |
+| 5 | // provideMovieInfo | AC-E-Movie | Information Expert | Đặt tên khác // provideMovieSummary vì nội dung cung cấp khác (Dữ liệu ra 2 có mô tả, trailer). |
 | 5 | // showMovieDetails | AC-B-BrowseMoviesForm | Giao tiếp tác nhân | - |
 
 Thao tác nguyên tử: không có (P04 Mục 8), nên không có dòng thao tác nguyên tử ở F4 (00-Concurrency.md M3 mục 1).
@@ -131,7 +132,7 @@ c) Bảng message
 | 1.1.4 | :BrowseMoviesController | :BrowseMoviesForm | // showMovieList (các phim đang chiếu, các phim sắp chiếu) | Đồng bộ | - | 3 |
 | 2 | :Khách | :BrowseMoviesForm | // selectMovie (phim đã chọn) | Đồng bộ | - | 4 |
 | 2.1 | :BrowseMoviesForm | :BrowseMoviesController | // viewMovieDetails (phim đã chọn) | Đồng bộ | - | 4, 5 |
-| 2.1.1 | :BrowseMoviesController | :Movie | // provideMovieDetails | Đồng bộ | - | 5 |
+| 2.1.1 | :BrowseMoviesController | :Movie | // provideMovieInfo | Đồng bộ | - | 5 |
 | 2.1.1 (trả về) | :Movie | :BrowseMoviesController | tên, thể loại, thời lượng, độ tuổi được xem, mô tả, trailer | Trả về | - | 5 |
 | 2.1.2 | :BrowseMoviesController | :BrowseMoviesForm | // showMovieDetails (thông tin phim) | Đồng bộ | - | 5 |
 
@@ -162,7 +163,7 @@ b) Bảng Edge
 |---|---|---|---|---|---|
 | CM1-L1 | CM1-O-A | CM1-O-F | Link | 1: // requestMovieList (-->)<br>2: // selectMovie (phim đã chọn) (-->) | Nguồn-->Đích: 1, 2 |
 | CM1-L2 | CM1-O-F | CM1-O-C | Link | 1.1: // startBrowsingMovies (-->)<br>1.1.3: // notifyNoMovies (<--) [không có phim đang chiếu hoặc sắp chiếu (2a)]<br>1.1.4: // showMovieList (các phim đang chiếu, các phim sắp chiếu) (<--)<br>2.1: // viewMovieDetails (phim đã chọn) (-->)<br>2.1.2: // showMovieDetails (thông tin phim) (<--) | Nguồn-->Đích: 1.1, 2.1; Đích-->Nguồn: 1.1.3, 1.1.4, 2.1.2 |
-| CM1-L3 | CM1-O-C | CM1-O-M | Link | 1.1.1: // determineRunStatus (-->) [lặp: mỗi phim trong danh sách phim của chuỗi]<br>1.1.2: // provideMovieSummary (-->) [phim đang chiếu hoặc sắp chiếu]<br>2.1.1: // provideMovieDetails (-->) | Nguồn-->Đích: 1.1.1, 1.1.2, 2.1.1 |
+| CM1-L3 | CM1-O-C | CM1-O-M | Link | 1.1.1: // determineRunStatus (-->) [lặp: mỗi phim trong danh sách phim của chuỗi]<br>1.1.2: // provideMovieSummary (-->) [phim đang chiếu hoặc sắp chiếu]<br>2.1.1: // provideMovieInfo (-->) | Nguồn-->Đích: 1.1.1, 1.1.2, 2.1.1 |
 
 ## 8. VOPC
 
@@ -174,7 +175,7 @@ a) Bảng Node (lớp)
 |---|---|---|---|---|---|---|
 | AC-B-BrowseMoviesForm | Class | BrowseMoviesForm | «boundary» | - | selectedMovie (Phim khách đã chọn) | // requestMovieList<br>// showMovieList<br>// notifyNoMovies<br>// selectMovie<br>// showMovieDetails |
 | AC-C-BrowseMoviesController | Class | BrowseMoviesController | «control» | - | - | // startBrowsingMovies<br>// viewMovieDetails |
-| AC-E-Movie | Class | Movie | «entity» | - | title (Văn bản)<br>duration (Số phút)<br>releaseDate (Ngày)<br>endOfRunDate (Ngày)<br>genre (Văn bản) (mới ở UC này)<br>ageRating (Văn bản) (mới ở UC này)<br>description (Văn bản) (mới ở UC này)<br>trailer (Trailer xem được qua hệ thống) (mới ở UC này) | // determineRunStatus<br>// provideMovieSummary<br>// provideMovieDetails |
+| AC-E-Movie | Class | Movie | «entity» | - | title (Văn bản)<br>duration (Số phút)<br>releaseDate (Ngày)<br>endOfRunDate (Ngày)<br>genre (Văn bản) (mới ở UC này)<br>ageRating (Văn bản) (mới ở UC này)<br>description (Văn bản) (mới ở UC này)<br>trailer (Trailer xem được qua hệ thống) (mới ở UC này) | // determineRunStatus<br>// provideMovieSummary<br>// provideMovieInfo |
 
 b) Bảng quan hệ
 

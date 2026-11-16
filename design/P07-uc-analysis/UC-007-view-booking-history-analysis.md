@@ -3,8 +3,9 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.0 |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-007-view-booking-history.md 1.1; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
+| Phiên bản | 1.1 |
+| Thay đổi 1.1 | Chốt Q-226, Q-227 (đã trả lời theo đề xuất); Đổi // provideTicketForHistory thành // provideTicketContent và // provideBookingHistoryDetail thành // provideBookingInfo (hợp nhất với UC-005, UC-008, UC-009); thứ tự hiển thị đã nêu ở P04 UC-007; vé ghi giá trị lúc bán (BR-140) đã áp ở UC-005; đồng bộ đầu vào đã dùng |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-007-view-booking-history.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
 | Phạm vi | UC-007 |
 | Mã Q, ASM cuối đã cấp | Q-227 (Q-225 cấp ở UC-001, Q-226 và Q-227 ở use case này; trong dải Q-225 đến Q-234); không có ASM (NGHIEM_NGAT) |
 
@@ -82,8 +83,8 @@ Số boundary là 1, bằng số tác nhân tham gia (không có tác nhân ph�
 | AC-B-ViewBookingHistoryForm | boundary | ViewBookingHistoryForm | // requestBookingHistory: khách yêu cầu xem lịch sử đặt vé<br>// showNoBooking: thông báo khách chưa có lần đặt vé nào<br>// showBookingHistory: hiển thị các lần đặt của khách<br>// selectBooking: khách chọn một lần đặt cần xem<br>// rejectBookingView: thông báo từ chối hiển thị kèm quy tắc bị vi phạm<br>// showBookingTickets: hiển thị các vé của lần đặt đã chọn | selectedBookingCode (Mã đặt vé) | 1, 2, 3, 5, 2a, 4a | Giao diện người dùng | Mới | GL-18 |
 | AC-C-ViewBookingHistoryController | control | ViewBookingHistoryController | // startViewHistory: điều phối bước 2 và 2a: xác định khách của phiên, hỏi khách có lần đặt nào chưa, lấy các lần đặt để hiển thị<br>// viewBookingTickets: điều phối bước 4, 5, 4a: hỏi khách có sở hữu lần đặt đã chọn không, lấy các vé của lần đặt để hiển thị hoặc từ chối | - | 2, 4, 5, 2a, 4a | - | Mới | - |
 | AC-E-Customer | entity | Customer | // checkHasBookings: kiểm tra khách đã có lần đặt vé nào chưa<br>// provideBookingHistory: duyệt các lần đặt của khách từ gần nhất trước, lấy tóm tắt của từng lần đặt (BR-94)<br>// checkOwnsBooking: kiểm tra lần đặt có mã đặt vé đã chọn thuộc các lần đặt của khách (BR-94) | - (email, phoneNumber, password đã có ở UC-005, không dùng ở use case này) | 2, 4, 2a, 4a | - | Tái dùng từ UC-005, UC-006, bổ sung trách nhiệm; chủ sở hữu UC-001 | GL-18 |
-| AC-E-Booking | entity | Booking | // provideBookingSummary: cung cấp mã đặt vé, số vé (đếm các vé của lần đặt) và tên phim, tên cụm rạp, ngày giờ bắt đầu lấy từ một vé của lần đặt<br>// provideBookingHistoryDetail: cung cấp mã đặt vé và nội dung từng vé của lần đặt kèm mã QR và trạng thái | bookedAt (Ngày giờ) (mới ở UC này) | 2, 5 | - | Tái dùng từ UC-005, UC-008, bổ sung trách nhiệm | GL-24, GL-28 |
-| AC-E-Ticket | entity | Ticket | // provideTicketSummary: cung cấp tên phim, tên cụm rạp theo vé lúc bán và ngày giờ bắt đầu của suất chiếu (BR-140)<br>// provideTicketForHistory: cung cấp nội dung vé kèm mã QR và trạng thái: tên phim, định dạng, cụm rạp, phòng và loại phòng, ngày giờ bắt đầu, vị trí ghế, loại ghế, giá vé (BR-140, REQ-105) | movieTitle (Văn bản) (mới ở UC này), cinemaName (Văn bản) (mới ở UC này), auditoriumName (Văn bản) (mới ở UC này), auditoriumType (Văn bản) (mới ở UC này) | 2, 5 | - | Tái dùng từ UC-005, UC-008, UC-009, bổ sung trách nhiệm | GL-59, GL-60, GL-61, GL-65 |
+| AC-E-Booking | entity | Booking | // provideBookingSummary: cung cấp mã đặt vé, số vé (đếm các vé của lần đặt) và tên phim, tên cụm rạp, ngày giờ bắt đầu lấy từ một vé của lần đặt<br>// provideBookingInfo: cung cấp mã đặt vé và nội dung từng vé của lần đặt kèm mã QR và trạng thái | bookedAt (Ngày giờ) (mới ở UC này) | 2, 5 | - | Tái dùng từ UC-005, UC-008, bổ sung trách nhiệm | GL-24, GL-28 |
+| AC-E-Ticket | entity | Ticket | // provideTicketSummary: cung cấp tên phim, tên cụm rạp theo vé lúc bán và ngày giờ bắt đầu của suất chiếu (BR-140)<br>// provideTicketContent: cung cấp nội dung vé kèm mã QR và trạng thái: tên phim, định dạng, cụm rạp, phòng và loại phòng, ngày giờ bắt đầu, vị trí ghế, loại ghế, giá vé (BR-140, REQ-105) | movieTitle (Văn bản) (mới ở UC này), cinemaName (Văn bản) (mới ở UC này), auditoriumName (Văn bản) (mới ở UC này), auditoriumType (Văn bản) (mới ở UC này) | 2, 5 | - | Tái dùng từ UC-005, UC-008, UC-009, bổ sung trách nhiệm | GL-59, GL-60, GL-61, GL-65 |
 | AC-E-Showtime | entity | Showtime | // provideShowtimeSchedule: cung cấp định dạng phim và ngày giờ bắt đầu của suất chiếu | startTime (Ngày giờ), movieFormat (Văn bản) | 2, 5 | - | Tái dùng từ UC-005, UC-009, UC-014, bổ sung trách nhiệm | GL-47 |
 
 Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Không có entity cốt lõi của chủ đề race condition: use case chỉ đọc.
@@ -105,8 +106,8 @@ Tổng cộng 6 lớp: 1 boundary, 1 control, 4 entity. Không có entity cốt 
 | 4, 5 | // viewBookingTickets | AC-C-ViewBookingHistoryController | Controller | - |
 | 4, 4a | // checkOwnsBooking | AC-E-Customer | Information Expert | Điều kiện "lần đặt thuộc khách" định nghĩa ở một nơi là Customer (BR-94), vì Customer nắm tập lần đặt của khách. Đặt ở Booking thì Booking phải biết khách của phiên; đặt ở control thì control tự tính quy tắc. |
 | 4a | // rejectBookingView | AC-B-ViewBookingHistoryForm | Giao tiếp tác nhân | Quy tắc BR-94 truyền như dữ liệu. |
-| 5 | // provideBookingHistoryDetail | AC-E-Booking | Information Expert | Các vé của lần đặt do Booking nắm (R-UC005-18); gửi message tới từng Ticket trong loop [mỗi vé của lần đặt] vì cần dữ liệu riêng từng vé. Đặt tên khác // provideBookingInfo (UC-005, UC-008) vì thêm mã QR và trạng thái. |
-| 5 | // provideTicketForHistory | AC-E-Ticket | Information Expert | Nội dung vé thuộc vé. Đặt tên khác // provideTicketContent (UC-005, UC-008, UC-009) vì thêm mã QR và trạng thái, và lấy tên theo vé lúc bán. |
+| 5 | // provideBookingInfo | AC-E-Booking | Information Expert | Các vé của lần đặt do Booking nắm (R-UC005-18); gửi message tới từng Ticket trong loop [mỗi vé của lần đặt] vì cần dữ liệu riêng từng vé. Đặt tên khác // provideBookingInfo (UC-005, UC-008) vì thêm mã QR và trạng thái. |
+| 5 | // provideTicketContent | AC-E-Ticket | Information Expert | Nội dung vé thuộc vé. Đặt tên khác // provideTicketContent (UC-005, UC-008, UC-009) vì thêm mã QR và trạng thái, và lấy tên theo vé lúc bán. |
 | 5 | // showBookingTickets | AC-B-ViewBookingHistoryForm | Giao tiếp tác nhân | - |
 
 Thao tác nguyên tử của P04 (00-Concurrency.md M3 mục 1): Không có. Use case chỉ đọc (P04 Mục 8); trạng thái vé do UC-008, UC-009 đặt được đọc tại lúc hiển thị.
@@ -159,8 +160,8 @@ c) Bảng message
 | 2.1.1 | :ViewBookingHistoryController | :Customer | // checkOwnsBooking (mã đặt vé đã chọn) | Đồng bộ | - | 4 |
 | 2.1.1 (trả về) | :Customer | :ViewBookingHistoryController | lần đặt đã chọn thuộc hoặc không thuộc khách | Trả về | - | 4 |
 | 2.1.2 | :ViewBookingHistoryController | :ViewBookingHistoryForm | // rejectBookingView (quy tắc BR-94) | Đồng bộ | SD1-F3 | 4a |
-| 2.1.3 | :ViewBookingHistoryController | :Booking | // provideBookingHistoryDetail | Đồng bộ | SD1-F3-O2 | 5 |
-| 2.1.3.1 | :Booking | :Ticket | // provideTicketForHistory | Đồng bộ | SD1-F4 | 5 |
+| 2.1.3 | :ViewBookingHistoryController | :Booking | // provideBookingInfo | Đồng bộ | SD1-F3-O2 | 5 |
+| 2.1.3.1 | :Booking | :Ticket | // provideTicketContent | Đồng bộ | SD1-F4 | 5 |
 | 2.1.3.1.1 | :Ticket | :Showtime | // provideShowtimeSchedule | Đồng bộ | SD1-F4 | 5 |
 | 2.1.3.1.1 (trả về) | :Showtime | :Ticket | định dạng phim, ngày giờ bắt đầu | Trả về | SD1-F4 | 5 |
 | 2.1.3.1 (trả về) | :Ticket | :Booking | nội dung vé kèm mã QR và trạng thái | Trả về | SD1-F4 | 5 |
@@ -203,9 +204,9 @@ b) Bảng Edge
 | CM1-L2 | CM1-O-FM | CM1-O-CT | Link | 1.1: // startViewHistory (-->)<br>1.1.2: // showNoBooking (<--) [khách chưa có lần đặt vé nào (2a)]<br>1.1.4: // showBookingHistory (các lần đặt của khách) (<--)<br>2.1: // viewBookingTickets (mã đặt vé đã chọn) (-->)<br>2.1.2: // rejectBookingView (quy tắc BR-94) (<--) [lần đặt đã chọn không thuộc khách (4a)]<br>2.1.4: // showBookingTickets (mã đặt vé, các vé của lần đặt) (<--) [lần đặt đã chọn thuộc khách] | Nguồn-->Đích: 1.1, 2.1; Đích-->Nguồn: 1.1.2, 1.1.4, 2.1.2, 2.1.4 |
 | CM1-L3 | CM1-O-CT | CM1-O-CU | Link | 1.1.1: // checkHasBookings (-->)<br>1.1.3: // provideBookingHistory (-->)<br>2.1.1: // checkOwnsBooking (mã đặt vé đã chọn) (-->) | Nguồn-->Đích: 1.1.1, 1.1.3, 2.1.1 |
 | CM1-L4 | CM1-O-CU | CM1-O-BK | Link | 1.1.3.1: // provideBookingSummary (-->) [lặp: mỗi lần đặt của khách, từ lần đặt gần nhất trước] | Nguồn-->Đích: 1.1.3.1 |
-| CM1-L5 | CM1-O-BK | CM1-O-TK | Link | 1.1.3.1.1: // provideTicketSummary (một vé của lần đặt) (-->) [lặp: mỗi lần đặt của khách, từ lần đặt gần nhất trước]<br>2.1.3.1: // provideTicketForHistory (-->) [lặp: mỗi vé của lần đặt] | Nguồn-->Đích: 1.1.3.1.1, 2.1.3.1 |
+| CM1-L5 | CM1-O-BK | CM1-O-TK | Link | 1.1.3.1.1: // provideTicketSummary (một vé của lần đặt) (-->) [lặp: mỗi lần đặt của khách, từ lần đặt gần nhất trước]<br>2.1.3.1: // provideTicketContent (-->) [lặp: mỗi vé của lần đặt] | Nguồn-->Đích: 1.1.3.1.1, 2.1.3.1 |
 | CM1-L6 | CM1-O-TK | CM1-O-ST | Link | 1.1.3.1.1.1: // provideShowtimeSchedule (-->) [lặp: mỗi lần đặt của khách, từ lần đặt gần nhất trước]<br>2.1.3.1.1: // provideShowtimeSchedule (-->) [lặp: mỗi vé của lần đặt] | Nguồn-->Đích: 1.1.3.1.1.1, 2.1.3.1.1 |
-| CM1-L7 | CM1-O-CT | CM1-O-BK | Link | 2.1.3: // provideBookingHistoryDetail (-->) [lần đặt đã chọn thuộc khách] | Nguồn-->Đích: 2.1.3 |
+| CM1-L7 | CM1-O-CT | CM1-O-BK | Link | 2.1.3: // provideBookingInfo (-->) [lần đặt đã chọn thuộc khách] | Nguồn-->Đích: 2.1.3 |
 
 ## 8. VOPC
 
@@ -218,8 +219,8 @@ a) Bảng Node (lớp)
 | AC-B-ViewBookingHistoryForm | Class | ViewBookingHistoryForm | «boundary» | - | selectedBookingCode (Mã đặt vé) | // requestBookingHistory<br>// showNoBooking<br>// showBookingHistory<br>// selectBooking<br>// rejectBookingView<br>// showBookingTickets |
 | AC-C-ViewBookingHistoryController | Class | ViewBookingHistoryController | «control» | - | - | // startViewHistory<br>// viewBookingTickets |
 | AC-E-Customer | Class | Customer | «entity» | - | email (Văn bản)<br>phoneNumber (Văn bản)<br>password (Văn bản) | // checkHasBookings<br>// provideBookingHistory<br>// checkOwnsBooking |
-| AC-E-Booking | Class | Booking | «entity» | - | bookingCode (Văn bản)<br>bookedAt (Ngày giờ) (mới ở UC này) | // provideBookingSummary<br>// provideBookingHistoryDetail |
-| AC-E-Ticket | Class | Ticket | «entity» | - | ticketCode (Văn bản)<br>qrCode (Hình ảnh)<br>seatPosition (Mã hàng, số ghế)<br>seatType (Văn bản)<br>price (Số tiền)<br>status (Trạng thái)<br>movieTitle (Văn bản) (mới ở UC này)<br>cinemaName (Văn bản) (mới ở UC này)<br>auditoriumName (Văn bản) (mới ở UC này)<br>auditoriumType (Văn bản) (mới ở UC này) | // provideTicketSummary<br>// provideTicketForHistory |
+| AC-E-Booking | Class | Booking | «entity» | - | bookingCode (Văn bản)<br>bookedAt (Ngày giờ) (mới ở UC này) | // provideBookingSummary<br>// provideBookingInfo |
+| AC-E-Ticket | Class | Ticket | «entity» | - | ticketCode (Văn bản)<br>qrCode (Hình ảnh)<br>seatPosition (Mã hàng, số ghế)<br>seatType (Văn bản)<br>price (Số tiền)<br>status (Trạng thái)<br>movieTitle (Văn bản) (mới ở UC này)<br>cinemaName (Văn bản) (mới ở UC này)<br>auditoriumName (Văn bản) (mới ở UC này)<br>auditoriumType (Văn bản) (mới ở UC này) | // provideTicketSummary<br>// provideTicketContent |
 | AC-E-Showtime | Class | Showtime | «entity» | - | startTime (Ngày giờ)<br>movieFormat (Văn bản) | // provideShowtimeSchedule |
 
 b) Bảng quan hệ
@@ -255,8 +256,8 @@ Ba file nằm trong diagrams/: P07-sequence-UC-007.drawio (1 trang), P07-communi
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
 |---|---|---|---|---|---|
-| Q-226 | Lần đặt gắn với khách qua người giữ ghế của lần giữ ghế (R-UC005-14, R-UC005-17), nhưng UC-007 duyệt và kiểm tra theo khách (BR-94). Mô hình có quan hệ trực tiếp Customer - Booking, hay chỉ đi qua SeatHold và để SeatHold nắm các lần đặt của khách? | R-UC007-04; AC-E-Customer (// checkHasBookings, // provideBookingHistory, // checkOwnsBooking); P08 | P04 BR-94 nêu "lịch sử của chính mình" mà không nêu quan hệ giữa khách và lần đặt; GL-24, GL-25 chỉ nêu Lần đặt là kết quả của Lần giữ ghế | Nhóm dự án | Thêm quan hệ Customer 1 - Booking 0..* ở P08, dẫn xuất từ người giữ ghế của lần giữ ghế; Customer nắm tập lần đặt của khách |
-| Q-227 | Vé đã huỷ thuộc suất chiếu sau đó được sửa (suất chiếu không còn vé chưa huỷ nên sửa được, BR-53). Lịch sử hiển thị định dạng phim và ngày giờ bắt đầu theo suất chiếu hiện hành, hay theo giá trị lúc bán như tên phim, cụm rạp, phòng chiếu (BR-140)? | AC-E-Ticket, AC-E-Showtime (// provideShowtimeSchedule); SD1 message 1.1.3.1.1.1, 2.1.3.1.1; BR-140 | BR-140 chỉ nêu bốn thông tin giữ giá trị lúc bán, không nêu định dạng phim và ngày giờ bắt đầu | Bên nghiệp vụ | Giữ như BR-140: chỉ bốn thông tin trên lấy theo vé; định dạng và ngày giờ bắt đầu đọc từ suất chiếu hiện hành. Nếu bên nghiệp vụ muốn lịch sử không đổi thì Ticket giữ thêm hai thông tin này và bỏ message tới Showtime |
+| Q-226 | Lần đặt gắn với khách qua người giữ ghế của lần giữ ghế (R-UC005-14, R-UC005-17), nhưng UC-007 duyệt và kiểm tra theo khách (BR-94). Mô hình có quan hệ trực tiếp Customer - Booking, hay chỉ đi qua SeatHold và để SeatHold nắm các lần đặt của khách? | R-UC007-04; AC-E-Customer (// checkHasBookings, // provideBookingHistory, // checkOwnsBooking); P08 | P04 BR-94 nêu "lịch sử của chính mình" mà không nêu quan hệ giữa khách và lần đặt; GL-24, GL-25 chỉ nêu Lần đặt là kết quả của Lần giữ ghế | Nhóm dự án | Đã trả lời (chủ dự án chốt theo đề xuất): Thêm quan hệ Customer 1 - Booking 0..* ở P08, dẫn xuất từ người giữ ghế của lần giữ ghế; Customer nắm tập lần đặt của khách |
+| Q-227 | Vé đã huỷ thuộc suất chiếu sau đó được sửa (suất chiếu không còn vé chưa huỷ nên sửa được, BR-53). Lịch sử hiển thị định dạng phim và ngày giờ bắt đầu theo suất chiếu hiện hành, hay theo giá trị lúc bán như tên phim, cụm rạp, phòng chiếu (BR-140)? | AC-E-Ticket, AC-E-Showtime (// provideShowtimeSchedule); SD1 message 1.1.3.1.1.1, 2.1.3.1.1; BR-140 | BR-140 chỉ nêu bốn thông tin giữ giá trị lúc bán, không nêu định dạng phim và ngày giờ bắt đầu | Bên nghiệp vụ | Đã trả lời (chủ dự án chốt theo đề xuất): Giữ như BR-140: chỉ bốn thông tin trên lấy theo vé; định dạng và ngày giờ bắt đầu đọc từ suất chiếu hiện hành. Nếu bên nghiệp vụ muốn lịch sử không đổi thì Ticket giữ thêm hai thông tin này và bỏ message tới Showtime |
 
 ## Giả định
 
@@ -266,9 +267,7 @@ Không có (chế độ NGHIEM_NGAT).
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P07 | UC-005 bước 13 (AC-E-Ticket // createTicket, AC-E-Booking // createBooking) | UC-007 cần vé giữ tên phim, tên cụm rạp, tên phòng chiếu, loại phòng lúc bán (BR-140) và lần đặt giữ thời điểm đặt để xếp lần đặt gần nhất trước | Ghi bốn thông tin lúc bán lên vé khi tạo vé, ghi thời điểm đặt khi tạo lần đặt |
-| P08 | AC-E-Customer, AC-E-Booking, AC-E-Ticket, AC-E-Showtime | Thêm trách nhiệm và thuộc tính của UC-007; thiếu quan hệ Customer - Booking (Q-226) | Thêm // checkHasBookings, // provideBookingHistory, // checkOwnsBooking vào Customer; // provideBookingSummary, // provideBookingHistoryDetail và bookedAt vào Booking; // provideTicketSummary, // provideTicketForHistory và bốn thuộc tính lúc bán vào Ticket; // provideShowtimeSchedule vào Showtime; thêm quan hệ Customer 1 - Booking 0..* |
-| P04 | UC-007 bước 2, Dữ liệu ra 1 | Thứ tự lần đặt gần nhất trước chỉ nằm ở Mục 8, Dữ liệu ra 1 không có thời điểm đặt | Ghi thứ tự hiển thị vào bước 2 hoặc Dữ liệu ra 1 |
+| P08 | AC-E-Customer, AC-E-Booking, AC-E-Ticket, AC-E-Showtime | Thêm trách nhiệm và thuộc tính của UC-007; thiếu quan hệ Customer - Booking (Q-226) | Thêm // checkHasBookings, // provideBookingHistory, // checkOwnsBooking vào Customer; // provideBookingSummary, // provideBookingInfo và bookedAt vào Booking; // provideTicketSummary, // provideTicketContent và bốn thuộc tính lúc bán vào Ticket; // provideShowtimeSchedule vào Showtime; thêm quan hệ Customer 1 - Booking 0..* |
 
 ## Vấn đề còn mở
 
