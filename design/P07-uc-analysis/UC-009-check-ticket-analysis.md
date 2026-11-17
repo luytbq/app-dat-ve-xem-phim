@@ -3,11 +3,12 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Thêm message cho luồng 2a (suất chiếu được chọn không thuộc cụm rạp, BR-34) và cho bước hệ thống hiển thị danh sách suất chiếu của cụm rạp trước bước 1 (P04 1.8); thêm trách nhiệm // openCheckingScreen, // showCinemaShowtimes, // notifyRefusal của CheckTicketForm và // listShowtimesOfCinema của CheckTicketController; cập nhật 3 file .drawio |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Lớp con của Staff cho TicketChecker (Q-228); đồng bộ sổ AC dùng chung _AC-register.md |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1) với lớp điều phối, lớp tham gia và điểm tuần tự; không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.8 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.4 (đầu lô) (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.8 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.5 (đầu lô) (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-97; không có ASM (NGHIEM_NGAT) |
 
@@ -30,13 +31,14 @@
 
 | Bước UC | Thực hiện bởi | Mô tả trong đặc tả | Mô tả bổ sung (hệ thống làm gì bên trong) | Nguồn (BR, GL, REQ) |
 |---|---|---|---|---|
-| 1 | Nhân viên soát vé | Chọn suất chiếu đang soát trong các suất chiếu của cụm rạp mình | Không đổi | BR-34, GL-48, REQ-93, REQ-123 |
+| 1 | Nhân viên soát vé | Chọn suất chiếu đang soát trong danh sách các suất chiếu của cụm rạp mình mà hệ thống hiển thị khi mở màn hình soát vé | Khi mở màn hình, control lấy cụm rạp của nhân viên soát vé, từng suất chiếu của cụm rạp cung cấp thông tin hiển thị rồi boundary hiển thị danh sách (đã trả lời Q-95); nhân viên chọn một suất chiếu trong danh sách | BR-34, GL-48, REQ-93, REQ-123 |
 | 2 | Hệ thống | Ghi nhận suất chiếu đã chọn là suất chiếu đang soát và hiển thị thông tin suất chiếu | Control lấy cụm rạp của nhân viên soát vé của phiên làm việc, suất chiếu đã chọn kiểm tra thuộc cụm rạp đó rồi hệ thống lấy từ suất chiếu phim, định dạng, phòng chiếu, ngày giờ bắt đầu và hiển thị. Suất chiếu đang soát chỉ có hiệu lực trong phiên làm việc: boundary giữ và gửi kèm mỗi lần quét cho tới khi chọn lại, đăng nhập lại thì chọn lại (Q-97). | BR-34, GL-48, Dữ liệu ra 1, Q-95, Q-96, Q-97 |
 | 3 | Nhân viên soát vé | Quét mã QR trên vé của khách bằng camera của thiết bị | Không đổi | REQ-50, Dữ liệu vào 2 |
 | 4 | Hệ thống | Kiểm tra mã QR tương ứng với một vé, vé thuộc cụm rạp của nhân viên soát vé, vé thuộc suất chiếu đang soát, vé chưa sử dụng và vé chưa huỷ | Control lấy cụm rạp của nhân viên soát vé, nhận suất chiếu đang soát của phiên kèm yêu cầu quét và xác định vé từ mã QR. Vé kiểm tra theo thứ tự cụm rạp của suất chiếu của vé, suất chiếu của vé, trạng thái đã sử dụng, trạng thái đã huỷ và dừng ở điều kiện đầu tiên vi phạm. Kiểm tra và bước 5 là một thao tác không chia cắt trên chính vé đó. | BR-22, BR-23, BR-24, BR-25, BR-30, BR-33, REQ-128 |
 | 5 | Hệ thống | Đánh dấu vé đã sử dụng | Khi vé qua cả bốn điều kiện, chính vé chuyển trạng thái từ chưa sử dụng sang đã sử dụng trong cùng thao tác với bước 4, để hai nhân viên cùng quét một vé chỉ một người thành công và việc huỷ vé cùng lúc ở UC-008 bị loại trừ. | BR-24, BR-30, REQ-52, GL-61 |
 | 6 | Hệ thống | Thông báo vé hợp lệ cho nhân viên soát vé và hiển thị thông tin vé | Hệ thống lấy nội dung vé: mã đặt vé từ lần đặt chứa vé, thông tin suất chiếu, vị trí ghế, loại ghế, giá vé; hiển thị trừ mã QR. | REQ-105, REQ-127, Dữ liệu ra 2, GL-62 |
 | 7 | Nhân viên soát vé | Lặp lại bước 3-6 cho đến khi không còn vé cần soát của suất chiếu đang soát | Không đổi | REQ-123, BR-34 |
+| 2a | Hệ thống | Từ chối, không ghi nhận suất chiếu đang soát và thông báo quy tắc bị vi phạm (BR-34); quay lại bước 1 | Suất chiếu được chọn trả lời không thuộc cụm rạp của nhân viên soát vé; control chuyển lý do cho boundary, không ghi nhận suất chiếu đang soát. Chỉ xảy ra khi yêu cầu không đi qua danh sách, vì danh sách chỉ gồm suất chiếu của cụm rạp (trả lời Q-96) | BR-34 |
 | 4a | Hệ thống | Từ chối cho vào và báo lý do: mã QR không tương ứng vé | Không xác định được vé từ mã QR thì không có vé để kiểm tra tiếp; hệ thống báo lý do này và không đổi trạng thái nào. | REQ-94, REQ-51, Dữ liệu ra 3 |
 | 4b | Hệ thống | Từ chối cho vào và báo lý do: vé thuộc cụm rạp khác | Cụm rạp của suất chiếu của vé khác cụm rạp của nhân viên soát vé; báo lý do này, vé không đổi trạng thái. | BR-22, BR-33 |
 | 4c | Hệ thống | Từ chối cho vào và báo lý do: vé thuộc suất chiếu khác | Vé cùng cụm rạp nhưng suất chiếu của vé khác suất chiếu đang soát; báo lý do này, vé không đổi trạng thái. | BR-23, BR-33 |
@@ -84,17 +86,17 @@ Số boundary là 1, bằng số tác nhân tham gia (không có tác nhân ph�
 
 | Control | Use case điều phối | Mới hoặc tái dùng | Lý do (hoặc lý do không có control) |
 |---|---|---|---|
-| CheckTicketController | UC-009 | Mới (AC-C-CheckTicketController) | Một control cho use case: nhận sự kiện từ boundary, xác định nhân viên soát vé của phiên, điều phối chọn suất chiếu đang soát và kiểm tra từng vé. Mọi quy tắc soát nằm ở entity; control không giữ suất chiếu đang soát giữa các lần quét. Có 2 trách nhiệm. |
+| CheckTicketController | UC-009 | Mới (AC-C-CheckTicketController) | Một control cho use case: nhận sự kiện từ boundary, xác định nhân viên soát vé của phiên, điều phối chọn suất chiếu đang soát và kiểm tra từng vé. Mọi quy tắc soát nằm ở entity; control không giữ suất chiếu đang soát giữa các lần quét. Có 3 trách nhiệm. |
 
 ### 3.4 Bảng lớp phân tích
 
 | AC | Stereotype | Tên | Trách nhiệm | Thuộc tính chính | Bước UC nguồn | Loại boundary | Mới hoặc tái dùng | GL |
 |---|---|---|---|---|---|---|---|---|
-| AC-B-CheckTicketForm | boundary | CheckTicketForm | // selectCheckingShowtime: nhân viên soát vé chọn suất chiếu đang soát<br>// showCheckingShowtime: hiển thị thông tin suất chiếu đang soát và giữ suất chiếu này trong phiên làm việc<br>// scanTicketQr: nhân viên soát vé quét mã QR trên vé bằng camera của thiết bị<br>// showValidTicket: thông báo vé hợp lệ và hiển thị nội dung vé trừ mã QR<br>// rejectTicket: thông báo từ chối cho vào kèm một lý do | scannedQr (Mã QR của vé), checkingShowtime (Suất chiếu đang soát, giữ trong phiên làm việc) (mới ở UC này) | 1, 2, 3, 6, 4a, 4b, 4c, 4d, 4e | Giao diện người dùng | Mới | GL-36 |
-| AC-C-CheckTicketController | control | CheckTicketController | // startChecking: điều phối bước 2: lấy cụm rạp của nhân viên, kiểm tra suất chiếu thuộc cụm rạp rồi lấy thông tin suất chiếu để hiển thị<br>// checkTicket: điều phối bước 4 đến 6 và 4a đến 4e: lấy cụm rạp của nhân viên, xác định vé từ mã QR, yêu cầu vé cho vào, hiển thị hợp lệ hoặc lý do | - | 2, 4, 5, 6, 4a, 4b, 4c, 4d, 4e | - | Mới | - |
-| AC-E-TicketChecker | entity | TicketChecker | (kế thừa AC-E-Staff: // provideCinema) | (kế thừa AC-E-Staff: cinema) | 2, 4 | - | Mới - chủ sở hữu UC-017; lớp con của AC-E-Staff (Q-228) | GL-36 |
-| AC-E-Staff | entity | Staff | // provideCinema: cung cấp cụm rạp mà nhân viên thuộc về (không có khi vai trò là quản lý chuỗi); lớp con theo vai trò kế thừa (Q-228) | cinema (Cụm rạp; không có khi vai trò là quản lý chuỗi) | 2, 4 | - | Mới - chủ sở hữu UC-017 | GL-34 |
-| AC-E-Showtime | entity | Showtime | // checkBelongsToCinema: kiểm tra suất chiếu thuộc cụm rạp của nhân viên (BR-22, BR-34)<br>// provideShowtimeForChecking: cung cấp phim, định dạng, cụm rạp, phòng chiếu và loại phòng, ngày giờ bắt đầu để hiển thị cho nhân viên soát vé | movieTitle (Văn bản) (mới ở UC này), auditoriumName (Văn bản) (mới ở UC này) | 2, 4, 6, 4b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-47 |
+| AC-B-CheckTicketForm | boundary | CheckTicketForm | // openCheckingScreen: nhân viên soát vé mở màn hình soát vé<br>// showCinemaShowtimes: hiển thị danh sách các suất chiếu của cụm rạp để nhân viên soát vé chọn<br>// selectCheckingShowtime: nhân viên soát vé chọn suất chiếu đang soát<br>// showCheckingShowtime: hiển thị thông tin suất chiếu đang soát và giữ suất chiếu này trong phiên làm việc<br>// scanTicketQr: nhân viên soát vé quét mã QR trên vé bằng camera của thiết bị<br>// showValidTicket: thông báo vé hợp lệ và hiển thị nội dung vé trừ mã QR<br>// rejectTicket: thông báo từ chối cho vào kèm một lý do<br>// notifyRefusal: thông báo từ chối chọn suất chiếu đang soát kèm quy tắc bị vi phạm (BR-34) | scannedQr (Mã QR của vé), checkingShowtime (Suất chiếu đang soát, giữ trong phiên làm việc) (mới ở UC này) | 1, 2, 2a, 3, 6, 4a, 4b, 4c, 4d, 4e | Giao diện người dùng | Mới | GL-36 |
+| AC-C-CheckTicketController | control | CheckTicketController | // listShowtimesOfCinema: điều phối bước 1: lấy cụm rạp của nhân viên và các suất chiếu của cụm rạp để hiển thị<br>// startChecking: điều phối bước 2 và luồng 2a: lấy cụm rạp của nhân viên, kiểm tra suất chiếu thuộc cụm rạp rồi lấy thông tin suất chiếu để hiển thị<br>// checkTicket: điều phối bước 4 đến 6 và 4a đến 4e: lấy cụm rạp của nhân viên, xác định vé từ mã QR, yêu cầu vé cho vào, hiển thị hợp lệ hoặc lý do | - | 1, 2, 2a, 4, 5, 6, 4a, 4b, 4c, 4d, 4e | - | Mới | - |
+| AC-E-TicketChecker | entity | TicketChecker | (kế thừa AC-E-Staff: // provideCinema) | (kế thừa AC-E-Staff: cinema) | 1, 2, 4 | - | Mới - chủ sở hữu UC-017; lớp con của AC-E-Staff (Q-228) | GL-36 |
+| AC-E-Staff | entity | Staff | // provideCinema: cung cấp cụm rạp mà nhân viên thuộc về (không có khi vai trò là quản lý chuỗi); lớp con theo vai trò kế thừa (Q-228) | cinema (Cụm rạp; không có khi vai trò là quản lý chuỗi) | 1, 2, 4 | - | Mới - chủ sở hữu UC-017 | GL-34 |
+| AC-E-Showtime | entity | Showtime | // checkBelongsToCinema: kiểm tra suất chiếu thuộc cụm rạp của nhân viên (BR-22, BR-34)<br>// provideShowtimeForChecking: cung cấp phim, định dạng, cụm rạp, phòng chiếu và loại phòng, ngày giờ bắt đầu để hiển thị cho nhân viên soát vé | movieTitle (Văn bản) (mới ở UC này), auditoriumName (Văn bản) (mới ở UC này) | 1, 2, 2a, 4, 6, 4b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-47 |
 | AC-E-Ticket | entity | Ticket | // admitTicket: thao tác không chia cắt: kiểm tra cụm rạp, suất chiếu, đã sử dụng, đã huỷ theo thứ tự BR-33 và khi hợp lệ đánh dấu đã sử dụng; trả về hợp lệ hoặc một lý do duy nhất (BR-22 đến BR-25, BR-30, BR-33)<br>// markUsed: chuyển trạng thái vé từ chưa sử dụng sang đã sử dụng (REQ-52)<br>// provideTicketContent: cung cấp nội dung vé: mã đặt vé, thông tin suất chiếu, vị trí ghế, loại ghế, giá vé (REQ-105) | status (Trạng thái: chưa sử dụng, đã sử dụng, đã huỷ) | 4, 5, 6, 4b, 4c, 4d, 4e | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-59, GL-60, GL-61, GL-65 |
 | AC-E-Booking | entity | Booking | // provideBookingCode: cung cấp mã đặt vé in trên vé (BR-80) | bookingCode (Văn bản) | 6 | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-24, GL-28 |
 
@@ -104,12 +106,17 @@ Tổng cộng 7 lớp: 1 boundary, 1 control, 5 entity. Entity cốt lõi của 
 
 | Bước UC | Trách nhiệm | Lớp nhận (AC) | Nguyên tắc | Lý do khi có lựa chọn khác |
 |---|---|---|---|---|
+| 1 | // openCheckingScreen, // showCinemaShowtimes | AC-B-CheckTicketForm | Giao tiếp tác nhân | - |
+| 1 | // listShowtimesOfCinema | AC-C-CheckTicketController | Controller | - |
+| 1 | // provideCinema | AC-E-TicketChecker | Information Expert | Như bước 2. |
+| 1 | // provideShowtimeForChecking | AC-E-Showtime | Information Expert | Dùng lại nội dung hiển thị của bước 2 cho từng suất chiếu trong danh sách; không thêm trách nhiệm mới. |
 | 1 | // selectCheckingShowtime | AC-B-CheckTicketForm | Giao tiếp tác nhân | - |
 | 2 | // startChecking | AC-C-CheckTicketController | Controller | - |
 | 2 | // provideCinema | AC-E-TicketChecker | Information Expert | Cụm rạp của nhân viên nằm ở hồ sơ nhân viên (BR-78); một tên với UC-013, UC-014. |
-| 2 | // checkBelongsToCinema | AC-E-Showtime | Information Expert | Showtime nắm cụm rạp của suất chiếu; control truyền cụm rạp của nhân viên làm tham số (suất chiếu và nhân viên không có quan hệ cấu trúc). |
+| 2, 2a | // checkBelongsToCinema | AC-E-Showtime | Information Expert | Showtime nắm cụm rạp của suất chiếu; control truyền cụm rạp của nhân viên làm tham số (suất chiếu và nhân viên không có quan hệ cấu trúc). |
 | 2, 6 | // provideShowtimeForChecking | AC-E-Showtime | Information Expert | Đặt tên khác // provideShowtimeInfo của UC-014 vì nội dung cung cấp khác. |
 | 2 | // showCheckingShowtime | AC-B-CheckTicketForm | Giao tiếp tác nhân | - |
+| 2a | // notifyRefusal | AC-B-CheckTicketForm | Giao tiếp tác nhân | Lý do từ chối chọn suất chiếu khác với năm lý do từ chối vé của // rejectTicket nên có trách nhiệm riêng, cùng tên với UC-005, UC-013, UC-014. |
 | 3 | // scanTicketQr | AC-B-CheckTicketForm | Giao tiếp tác nhân | Camera là kênh nhập của boundary, không có boundary thiết bị riêng. |
 | 4 | // checkTicket | AC-C-CheckTicketController | Controller | - |
 | 4 | // provideCinema | AC-E-TicketChecker | Information Expert | Suất chiếu đang soát đi cùng yêu cầu quét từ boundary (Q-97), nên chỉ cụm rạp lấy từ entity. |
@@ -133,9 +140,11 @@ Phạm vi bất biến (vé không đồng thời đã huỷ và đã sử dụn
 
 ## 5. Sequence diagram phân tích
 
-File diagrams/P07-sequence-UC-009.drawio, 2 trang. Số message không kể trả về: SD1a 6, SD1b 15. Mọi luồng thay thế 4a đến 4e kết thúc ở bước 7 nên vẽ bằng alt trong trang luồng chính, không có break.
+File diagrams/P07-sequence-UC-009.drawio, 2 trang. Số message không kể trả về: SD1a 12, SD1b 15. Message hiển thị danh sách (bước 1) dùng STT 0 đến 0.1.3, message của luồng 2a dùng STT 1.1.2a theo chữ của mã luồng. Mọi luồng thay thế 4a đến 4e kết thúc ở bước 7 nên vẽ bằng alt trong trang luồng chính, không có break.
 
-### SD1a - Luồng chính bước 1 đến 2
+### SD1a - Luồng chính bước 1 đến 2 và luồng 2a
+
+a) Luồng thể hiện: Hiển thị danh sách suất chiếu của cụm rạp, chọn suất chiếu đang soát, kiểm suất chiếu thuộc cụm rạp. Luồng 2a kết thúc ở bước 1 (quay lại chọn) nên vẽ bằng break.
 
 b) Bảng lifeline
 
@@ -146,16 +155,27 @@ b) Bảng lifeline
 | SD1a-L-CT | Lifeline | :CheckTicketController | «control» | - | AC-C-CheckTicketController |
 | SD1a-L-TC | Lifeline | :TicketChecker | «entity» | - | AC-E-TicketChecker |
 | SD1a-L-ST | Lifeline | :Showtime | «entity» | - | AC-E-Showtime |
+| SD1a-F1 | Fragment | loop [mỗi suất chiếu của cụm rạp của nhân viên soát vé] | - | - | Bao các message 0.1.2 |
+| SD1a-F2 | Fragment | break [suất chiếu được chọn không thuộc cụm rạp của nhân viên soát vé (2a, BR-34)] | - | - | Bao message 1.1.2a |
 
 c) Bảng message
 
 | STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
 |---|---|---|---|---|---|---|
+| 0 | :Nhân viên soát vé | :CheckTicketForm | // openCheckingScreen | Đồng bộ | - | 1 |
+| 0.1 | :CheckTicketForm | :CheckTicketController | // listShowtimesOfCinema | Đồng bộ | - | 1 |
+| 0.1.1 | :CheckTicketController | :TicketChecker | // provideCinema | Đồng bộ | - | 1 |
+| 0.1.1 (trả về) | :TicketChecker | :CheckTicketController | cụm rạp của nhân viên soát vé | Trả về | - | 1 |
+| 0.1.2 | :CheckTicketController | :Showtime | // provideShowtimeForChecking | Đồng bộ | SD1a-F1 | 1 |
+| 0.1.2 (trả về) | :Showtime | :CheckTicketController | thông tin suất chiếu | Trả về | SD1a-F1 | 1 |
+| 0.1.3 | :CheckTicketController | :CheckTicketForm | // showCinemaShowtimes (thông tin các suất chiếu của cụm rạp) | Đồng bộ | - | 1 |
 | 1 | :Nhân viên soát vé | :CheckTicketForm | // selectCheckingShowtime (suất chiếu) | Đồng bộ | - | 1 |
 | 1.1 | :CheckTicketForm | :CheckTicketController | // startChecking (suất chiếu) | Đồng bộ | - | 2 |
 | 1.1.1 | :CheckTicketController | :TicketChecker | // provideCinema | Đồng bộ | - | 2 |
 | 1.1.1 (trả về) | :TicketChecker | :CheckTicketController | cụm rạp của nhân viên soát vé | Trả về | - | 2 |
 | 1.1.2 | :CheckTicketController | :Showtime | // checkBelongsToCinema (cụm rạp của nhân viên soát vé) | Đồng bộ | - | 2 |
+| 1.1.2 (trả về) | :Showtime | :CheckTicketController | suất chiếu thuộc cụm rạp của nhân viên soát vé hay không | Trả về | - | 2 |
+| 1.1.2a | :CheckTicketController | :CheckTicketForm | // notifyRefusal (quy tắc BR-34 bị vi phạm) | Đồng bộ | SD1a-F2 | 2a |
 | 1.1.3 | :CheckTicketController | :Showtime | // provideShowtimeForChecking | Đồng bộ | - | 2 |
 | 1.1.3 (trả về) | :Showtime | :CheckTicketController | thông tin suất chiếu | Trả về | - | 2 |
 | 1.1.4 | :CheckTicketController | :CheckTicketForm | // showCheckingShowtime (thông tin suất chiếu, giữ làm suất chiếu đang soát của phiên làm việc) | Đồng bộ | - | 2 |
@@ -219,7 +239,7 @@ Ghi chú kiểm tra: Ticket --> Showtime, Ticket --> Booking (CM1-L6, CM1-L8) l�
 
 ## 7. Communication diagram
 
-File diagrams/P07-communication-UC-009.drawio, 1 trang CM1 gồm luồng chính và luồng 4a đến 4e (MUC_CHI_TIET là DAY_DU), giữ STT của SD1a, SD1b.
+File diagrams/P07-communication-UC-009.drawio, 1 trang CM1 gồm luồng chính và luồng 2a, 4a đến 4e (MUC_CHI_TIET là DAY_DU), giữ STT của SD1a, SD1b.
 
 a) Bảng Node
 
@@ -237,10 +257,10 @@ b) Bảng Edge
 
 | ID | Nguồn | Đích | Loại (Link) | Nhãn | Chiều message |
 |---|---|---|---|---|---|
-| CM1-L1 | CM1-O-NV | CM1-O-FM | Link | 1: // selectCheckingShowtime (suất chiếu) (-->)<br>2: // scanTicketQr (mã QR trên vé) (-->) [lặp: còn vé cần soát của suất chiếu đang soát] | Nguồn-->Đích: 1, 2 |
-| CM1-L2 | CM1-O-FM | CM1-O-CT | Link | 1.1: // startChecking (suất chiếu) (-->)<br>1.1.4: // showCheckingShowtime (thông tin suất chiếu, giữ làm suất chiếu đang soát của phiên làm việc) (<--)<br>2.1: // checkTicket (mã QR, suất chiếu đang soát của phiên làm việc) (-->) [lặp: còn vé cần soát của suất chiếu đang soát]<br>2.1.2: // rejectTicket (lý do: mã QR không tương ứng vé) (<--) [mã QR không tương ứng vé nào]<br>2.1.5: // showValidTicket (nội dung vé) (<--) [vé hợp lệ]<br>2.1.6: // rejectTicket (lý do: vé thuộc cụm rạp khác) (<--) [vé thuộc cụm rạp khác cụm rạp của nhân viên soát vé]<br>2.1.7: // rejectTicket (lý do: vé thuộc suất chiếu khác) (<--) [vé thuộc suất chiếu khác suất chiếu đang soát]<br>2.1.8: // rejectTicket (lý do: vé đã sử dụng) (<--) [vé đã sử dụng, kể cả khi nhân viên soát vé khác vừa soát chính vé đó]<br>2.1.9: // rejectTicket (lý do: vé đã huỷ) (<--) [vé đã huỷ, kể cả khi vừa huỷ ở UC-008] | Nguồn-->Đích: 1.1, 2.1; Đích-->Nguồn: 1.1.4, 2.1.2, 2.1.5, 2.1.6, 2.1.7, 2.1.8, 2.1.9 |
-| CM1-L3 | CM1-O-CT | CM1-O-TC | Link | 1.1.1: // provideCinema (-->)<br>2.1.1: // provideCinema (-->) [lặp: còn vé cần soát của suất chiếu đang soát] | Nguồn-->Đích: 1.1.1, 2.1.1 |
-| CM1-L4 | CM1-O-CT | CM1-O-ST | Link | 1.1.2: // checkBelongsToCinema (cụm rạp của nhân viên soát vé) (-->)<br>1.1.3: // provideShowtimeForChecking (-->) | Nguồn-->Đích: 1.1.2, 1.1.3 |
+| CM1-L1 | CM1-O-NV | CM1-O-FM | Link | 0: // openCheckingScreen (-->)<br>1: // selectCheckingShowtime (suất chiếu) (-->)<br>2: // scanTicketQr (mã QR trên vé) (-->) [lặp: còn vé cần soát của suất chiếu đang soát] | Nguồn-->Đích: 0, 1, 2 |
+| CM1-L2 | CM1-O-FM | CM1-O-CT | Link | 0.1: // listShowtimesOfCinema (-->)<br>1.1: // startChecking (suất chiếu) (-->)<br>1.1.4: // showCheckingShowtime (thông tin suất chiếu, giữ làm suất chiếu đang soát của phiên làm việc) (<--)<br>2.1: // checkTicket (mã QR, suất chiếu đang soát của phiên làm việc) (-->) [lặp: còn vé cần soát của suất chiếu đang soát]<br>2.1.2: // rejectTicket (lý do: mã QR không tương ứng vé) (<--) [mã QR không tương ứng vé nào]<br>2.1.5: // showValidTicket (nội dung vé) (<--) [vé hợp lệ]<br>2.1.6: // rejectTicket (lý do: vé thuộc cụm rạp khác) (<--) [vé thuộc cụm rạp khác cụm rạp của nhân viên soát vé]<br>2.1.7: // rejectTicket (lý do: vé thuộc suất chiếu khác) (<--) [vé thuộc suất chiếu khác suất chiếu đang soát]<br>2.1.8: // rejectTicket (lý do: vé đã sử dụng) (<--) [vé đã sử dụng, kể cả khi nhân viên soát vé khác vừa soát chính vé đó]<br>2.1.9: // rejectTicket (lý do: vé đã huỷ) (<--) [vé đã huỷ, kể cả khi vừa huỷ ở UC-008]<br>0.1.3: // showCinemaShowtimes (thông tin các suất chiếu của cụm rạp) (<--)<br>1.1.2a: // notifyRefusal (quy tắc BR-34 bị vi phạm) (<--) [suất chiếu được chọn không thuộc cụm rạp của nhân viên soát vé (2a)] | Nguồn-->Đích: 0.1, 1.1, 2.1; Đích-->Nguồn: 0.1.3, 1.1.2a, 1.1.4, 2.1.2, 2.1.5, 2.1.6, 2.1.7, 2.1.8, 2.1.9 |
+| CM1-L3 | CM1-O-CT | CM1-O-TC | Link | 0.1.1: // provideCinema (-->)<br>1.1.1: // provideCinema (-->)<br>2.1.1: // provideCinema (-->) [lặp: còn vé cần soát của suất chiếu đang soát] | Nguồn-->Đích: 0.1.1, 1.1.1, 2.1.1 |
+| CM1-L4 | CM1-O-CT | CM1-O-ST | Link | 0.1.2: // provideShowtimeForChecking (-->) [lặp: mỗi suất chiếu của cụm rạp của nhân viên soát vé]<br>1.1.2: // checkBelongsToCinema (cụm rạp của nhân viên soát vé) (-->)<br>1.1.3: // provideShowtimeForChecking (-->) | Nguồn-->Đích: 0.1.2, 1.1.2, 1.1.3 |
 | CM1-L5 | CM1-O-CT | CM1-O-TK | Link | 2.1.3: // admitTicket (cụm rạp và suất chiếu đang soát) (-->) [mã QR tương ứng một vé]<br>2.1.4: // provideTicketContent (-->) [vé hợp lệ] | Nguồn-->Đích: 2.1.3, 2.1.4 |
 | CM1-L6 | CM1-O-TK | CM1-O-ST | Link | 2.1.3.1: // checkBelongsToCinema (cụm rạp) (-->) [mã QR tương ứng một vé]<br>2.1.4.1: // provideShowtimeForChecking (-->) [vé hợp lệ] | Nguồn-->Đích: 2.1.3.1, 2.1.4.1 |
 | CM1-L7 | CM1-O-TK | CM1-O-TK | Link | 2.1.3.2: // markUsed (-->) [vé qua cả bốn điều kiện] | Nguồn-->Đích: 2.1.3.2 |
@@ -254,8 +274,8 @@ a) Bảng Node (lớp)
 
 | ID (mã AC) | Loại (Class) | Nhãn (tên lớp) | Stereotype | Thuộc về | Ngăn thuộc tính | Ngăn trách nhiệm |
 |---|---|---|---|---|---|---|
-| AC-B-CheckTicketForm | Class | CheckTicketForm | «boundary» | - | scannedQr (Mã QR của vé)<br>checkingShowtime (Suất chiếu đang soát, giữ trong phiên làm việc) (mới ở UC này) | // selectCheckingShowtime<br>// showCheckingShowtime<br>// scanTicketQr<br>// showValidTicket<br>// rejectTicket |
-| AC-C-CheckTicketController | Class | CheckTicketController | «control» | - | - | // startChecking<br>// checkTicket |
+| AC-B-CheckTicketForm | Class | CheckTicketForm | «boundary» | - | scannedQr (Mã QR của vé)<br>checkingShowtime (Suất chiếu đang soát, giữ trong phiên làm việc) (mới ở UC này) | // selectCheckingShowtime<br>// showCheckingShowtime<br>// scanTicketQr<br>// showValidTicket<br>// rejectTicket<br>// openCheckingScreen<br>// showCinemaShowtimes<br>// notifyRefusal |
+| AC-C-CheckTicketController | Class | CheckTicketController | «control» | - | - | // startChecking<br>// checkTicket<br>// listShowtimesOfCinema |
 | AC-E-TicketChecker | Class | TicketChecker | «entity» | - | - | - |
 | AC-E-Staff | Class | Staff | «entity» | - | cinema (Cụm rạp; không có khi vai trò là quản lý chuỗi) | // provideCinema |
 | AC-E-Showtime | Class | Showtime | «entity» | - | startTime (Ngày giờ)<br>movieFormat (Văn bản)<br>auditoriumType (Văn bản)<br>cinema (Cụm rạp)<br>movieTitle (Văn bản) (mới ở UC này)<br>auditoriumName (Văn bản) (mới ở UC này) | // checkBelongsToCinema<br>// provideShowtimeForChecking |
@@ -280,8 +300,9 @@ Link CM1-L1 là actor - boundary, link tự nối CM1-L9 không sinh quan hệ.
 
 | Bước UC | Message (STT) | Lớp tham gia (AC) |
 |---|---|---|
-| 1 | 1 | Nhân viên soát vé, AC-B-CheckTicketForm |
+| 1 | 0, 0.1, 0.1.1, 0.1.1 (trả về), 0.1.2, 0.1.2 (trả về), 0.1.3, 1 | Nhân viên soát vé, AC-B-CheckTicketForm, AC-C-CheckTicketController, AC-E-TicketChecker, AC-E-Showtime |
 | 2 | 1.1, 1.1.1, 1.1.1 (trả về), 1.1.2, 1.1.3, 1.1.3 (trả về), 1.1.4 | AC-B-CheckTicketForm, AC-C-CheckTicketController, AC-E-TicketChecker, AC-E-Showtime |
+| 2a | 1.1.2, 1.1.2 (trả về), 1.1.2a | AC-C-CheckTicketController, AC-E-Showtime, AC-B-CheckTicketForm |
 | 3 | 2, 2.1 | Nhân viên soát vé, AC-B-CheckTicketForm, AC-C-CheckTicketController |
 | 4 | 2.1, 2.1.1, 2.1.1 (trả về), 2.1.3, 2.1.3.1 | AC-C-CheckTicketController, AC-E-TicketChecker, AC-E-Ticket, AC-E-Showtime |
 | 5 | 2.1.3, 2.1.3.2 | AC-E-Ticket |
@@ -301,8 +322,8 @@ Ba file nằm trong diagrams/: P07-sequence-UC-009.drawio (2 trang), P07-communi
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Trạng thái |
 | --- | --- | --- | --- | --- |
-| Q-95 | Việc hiển thị danh sách các suất chiếu của cụm rạp để nhân viên soát vé chọn ở bước 1 có phải một bước hệ thống của UC-009 không? (Có, thêm bước hệ thống trước bước 1 / Không, danh sách là phần giao diện của bước 1) | Bước 1; AC-B-CheckTicketForm; AC-E-Showtime | P04 bước 1 là bước của nhân viên soát vé, không có bước hệ thống đưa ra các suất chiếu cần chọn; Dữ liệu vào 1 chỉ nêu điều kiện hợp lệ | Đã trả lời: có, hiển thị danh sách suất chiếu của cụm rạp mình là một bước hệ thống như UC-014 bước 1a1 và 1b1 (BR-34 giới hạn lựa chọn theo cụm rạp); là làm rõ, không thêm chức năng. Đề xuất sửa P04 ghi ở Đề xuất sửa artifact trước. Gộp: Q-96, Q-105 gộp vào Q-95. |
-| Q-96 | Khi suất chiếu được chọn ở bước 1 không thuộc cụm rạp của nhân viên soát vé (BR-34), hệ thống xử lý thế nào? (Từ chối và cho chọn lại, thêm luồng 2a / Không xảy ra vì chỉ trình bày suất của cụm rạp mình) | Bước 2; // checkBelongsToCinema; SD1a | P04 không có luồng thay thế cho bước 1, 2; BR-34 chỉ nêu "chỉ chọn" | Gộp vào Q-95. Tình huống không xảy ra qua giao diện; vẫn giữ phép kiểm checkBelongsToCinema ở hệ thống và từ chối theo BR-34 nếu vi phạm. |
+| Q-95 | Việc hiển thị danh sách các suất chiếu của cụm rạp để nhân viên soát vé chọn ở bước 1 có phải một bước hệ thống của UC-009 không? (Có, thêm bước hệ thống trước bước 1 / Không, danh sách là phần giao diện của bước 1) | Bước 1; AC-B-CheckTicketForm; AC-E-Showtime | P04 bước 1 là bước của nhân viên soát vé, không có bước hệ thống đưa ra các suất chiếu cần chọn; Dữ liệu vào 1 chỉ nêu điều kiện hợp lệ | Đã trả lời: có, hiển thị danh sách suất chiếu của cụm rạp mình là một bước hệ thống như UC-014 bước 1a1 và 1b1 (BR-34 giới hạn lựa chọn theo cụm rạp); là làm rõ, không thêm chức năng. P04 1.8 đã nêu bước hiển thị danh sách ở bước 1 và P07 1.5 đã có message 0 đến 0.1.3. Gộp: Q-96, Q-105 gộp vào Q-95. |
+| Q-96 | Khi suất chiếu được chọn ở bước 1 không thuộc cụm rạp của nhân viên soát vé (BR-34), hệ thống xử lý thế nào? (Từ chối và cho chọn lại, thêm luồng 2a / Không xảy ra vì chỉ trình bày suất của cụm rạp mình) | Bước 2; // checkBelongsToCinema; SD1a | P04 không có luồng thay thế cho bước 1, 2; BR-34 chỉ nêu "chỉ chọn" | Gộp vào Q-95. Tình huống không xảy ra qua giao diện; vẫn giữ phép kiểm checkBelongsToCinema ở hệ thống và từ chối theo BR-34 nếu vi phạm; P04 1.8 đã thêm luồng 2a và P07 1.5 có message 1.1.2a. |
 | Q-97 | Suất chiếu đang soát lưu gắn với nhân viên soát vé (còn khi đăng xuất, đăng nhập lại, khi dùng thiết bị khác) hay chỉ trong một phiên làm việc? (Gắn với nhân viên, TicketChecker giữ checkingShowtime / Chỉ trong phiên làm việc, không là dữ liệu của entity) | AC-B-CheckTicketForm (checkingShowtime); AC-E-TicketChecker (// provideCinema); SD1a, SD1b | GL-48 và BR-34 nêu "chọn một lần rồi quét liên tiếp tới khi chọn lại" nhưng không nêu vòng đời | Đã trả lời theo đề xuất, chờ người dùng xác nhận: suất chiếu đang soát chỉ có hiệu lực trong phiên làm việc, đăng nhập lại thì chọn lại, để tránh quét nhầm theo suất chiếu của ca trước; boundary CheckTicketForm giữ và gửi kèm mỗi lần quét, TicketChecker không giữ checkingShowtime. Nếu người dùng chọn gắn với nhân viên thì TicketChecker giữ checkingShowtime và có trách nhiệm ghi nhận suất chiếu đang soát. |
 
 ## Giả định

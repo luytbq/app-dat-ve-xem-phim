@@ -6,7 +6,7 @@
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | Chốt Q-235 đến Q-237: bước 2 bỏ câu loại suất chiếu đã xoá khỏi tập suất chiếu, điều kiện của luồng 2a nêu rõ kể cả suất chiếu đã xoá, tỉ lệ lấp đầy không áp dụng khi sức chứa bằng 0, kết quả so sánh liệt kê mọi cụm rạp của chuỗi |
 | Thay đổi 1.1 | Chốt Q-185 và các đáp án Q-181 đến Q-184, Q-186, Q-187 của UC-015: thêm luồng 1a, điều kiện bước 2 đến 5, kỳ báo cáo và kết quả so sánh ở Dữ liệu vào, Dữ liệu ra, BR-115 đến BR-119 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.10 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.7 (suất chiếu đã xoá) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.10 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.8 (suất chiếu đã xoá) |
 | Phạm vi | UC-016 |
 | Mã Q, ASM cuối đã cấp | Q-185 (cấp ở UC-016, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

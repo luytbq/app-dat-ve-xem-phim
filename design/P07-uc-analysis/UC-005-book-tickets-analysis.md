@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Thêm message cho luồng 14a (dịch vụ email lỗi, BR-89, P04 1.16): trang SD12, trách nhiệm // logEmailFailure của PaymentReportController (dùng chung với UC-006 luồng 7a); bước 12 ghi đối chiếu mã giao dịch theo P04 1.16 (không đổi message); bước 14 nhận kết quả gửi email; cập nhật 3 file .drawio và _AC-register.md; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Lớp con của Staff cho BoxOfficeClerk (Q-228); vé ghi tên phim, tên cụm rạp, tên phòng chiếu, loại phòng lúc bán và lần đặt ghi thời điểm đặt (BR-140, Q-227); UC-012 bước 5 đã có P07, ghi đối thủ trong bảng đơn vị loại trừ (BR-137); đồng bộ sổ AC dùng chung _AC-register.md |
 | Thay đổi 1.2 | Luồng 9a1a gồm cả xác nhận đã thu tiền tới khi lần giữ ghế đã ở trạng thái cuối khác (Đã huỷ, Thanh toán thất bại, Đã hoàn tất): từ chối, báo trả lại tiền mặt, trạng thái và ghế không đổi (BR-44, BR-86); bước 7 dẫn BR-137 (UC-012 bước 5 là đối thủ của // holdSeats khi đọc loại phòng) và cập nhật bảng đơn vị loại trừ; ghi chú BR-140; cập nhật sổ trách nhiệm của SeatHold và Showtime; cập nhật drawio SD11d; đồng bộ đầu vào đã dùng |
@@ -41,9 +42,10 @@
 | 9 | Khách | Yêu cầu thanh toán trực tuyến. | Không đổi | REQ-28 |
 | 10 | Hệ thống | Tạo giao dịch thanh toán cho tổng tiền đã hiển thị ở bước 8 qua cổng thanh toán, truyền kèm mã tham chiếu của lần giữ ghế và ghi nhận số tiền của giao dịch. | Control đưa tổng tiền và mã tham chiếu lần giữ ghế cho cổng thanh toán qua boundary của cổng, cổng trả mã giao dịch. Lần giữ ghế tạo giao dịch thanh toán thuộc mình, ghi mã giao dịch và số tiền (Q-85). | REQ-111, REQ-136, GL-12, GL-31, NFR-15 |
 | 11 | Cổng thanh toán | Báo giao dịch thanh toán thành công. | Không đổi | REQ-29, NFR-16 |
-| 12 | Hệ thống | Chuyển các ghế đang giữ sang trạng thái đã bán, lưu mã giao dịch do cổng thanh toán cấp và đánh dấu giao dịch đã xử lý. | Control tiếp nhận báo dùng chung (PaymentReportController) tìm lần giữ ghế theo mã giao dịch hoặc mã tham chiếu rồi giao cho lần giữ ghế một thao tác không chia cắt (settlePaymentReport) trả về một trong bốn kết quả: bán ghế, thanh toán trễ chờ hoàn, báo trùng, thất bại ghi nhận. Bán ghế khi giao dịch chưa xử lý và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn: đánh dấu giao dịch đã xử lý, chuyển từng ghế sang đã bán, chuyển lần giữ ghế sang Đã hoàn tất và tạo lần đặt cùng vé (bước 13) trong cùng thao tác. Lần giữ ghế Đang giữ mà đã quá hạn được chuyển sang Hết hạn trước; ba kết quả còn lại không bán ghế và được UC-006 xử lý tiếp. | BR-14, BR-15, BR-37, BR-85, BR-86, GL-17, GL-23, GL-51 |
+| 12 | Hệ thống | Chuyển các ghế đang giữ sang trạng thái đã bán, đối chiếu mã giao dịch do cổng thanh toán cấp với giao dịch đã tạo ở bước 10 và đánh dấu giao dịch đã xử lý. | Control tiếp nhận báo dùng chung (PaymentReportController) tìm lần giữ ghế theo mã giao dịch hoặc mã tham chiếu rồi giao cho lần giữ ghế một thao tác không chia cắt (settlePaymentReport) trả về một trong bốn kết quả: bán ghế, thanh toán trễ chờ hoàn, báo trùng, thất bại ghi nhận. Bán ghế khi giao dịch chưa xử lý và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn: đánh dấu giao dịch đã xử lý, chuyển từng ghế sang đã bán, chuyển lần giữ ghế sang Đã hoàn tất và tạo lần đặt cùng vé (bước 13) trong cùng thao tác. Lần giữ ghế Đang giữ mà đã quá hạn được chuyển sang Hết hạn trước; ba kết quả còn lại không bán ghế và được UC-006 xử lý tiếp. | BR-14, BR-15, BR-37, BR-85, BR-86, GL-17, GL-23, GL-51 |
 | 13 | Hệ thống | Tạo một mã đặt vé cho lần đặt và cho mỗi ghế một vé có mã QR riêng. | Lần giữ ghế đã hoàn tất tạo lần đặt trong cùng thao tác của bước 12 (Q-84): lần đặt sinh mã đặt vé duy nhất toàn hệ thống và tạo cho mỗi ghế đã bán một vé ghi giá đã chốt và mã QR riêng. Thao tác không hoàn tất thì không có gì được ghi và giao dịch được xử lý như thanh toán trễ, hoàn toàn bộ (UC-006). | BR-67, BR-80, BR-85, GL-24, GL-28, GL-30, GL-59, REQ-105 |
-| 14 | Hệ thống | Gửi các vé cho khách qua dịch vụ email. | Control tiếp nhận báo đưa các vé và địa chỉ email của khách cho dịch vụ email qua boundary dịch vụ email và không chờ kết quả. | BR-89, REQ-157, NFR-18 |
+| 14 | Hệ thống | Gửi các vé cho khách qua dịch vụ email. | Control tiếp nhận báo đưa các vé và địa chỉ email của khách cho dịch vụ email qua boundary dịch vụ email và nhận kết quả gửi; chỉ khi gửi không được mới xử lý luồng 14a, nếu không thì bước 15 tiếp tục ngay. | BR-89, REQ-157, NFR-18 |
+| 14a | Hệ thống | Giữ nguyên hiệu lực của vé, thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không huỷ vé và không hoàn tiền (BR-89, Q-76); tiếp tục bước 15. | Dịch vụ email từ chối hoặc không phản hồi: control gửi lại qua boundary dịch vụ email tới hết lượt thử lại, vẫn lỗi thì ghi log lỗi bằng message tự gọi (// logEmailFailure). Lần giữ ghế, ghế đã bán, lần đặt và vé không đổi; số lần thử lại và khoảng cách giữa các lần thuộc P09. | BR-89, Q-76 |
 | 15 | Hệ thống | Thông báo đặt vé thành công và hiển thị mã đặt vé cùng các vé. | Lần đặt cung cấp mã đặt vé và nội dung từng vé của mình, control chuyển cho boundary hiển thị. | Dữ liệu ra 3, REQ-105 |
 | 2a | Hệ thống | Từ chối bán vé và thông báo suất chiếu chưa mở bán. | Suất chiếu cho biết chưa tới thời điểm mở bán, control chuyển lý do cho boundary thông báo; không tạo gì. | BR-01 |
 | 2b | Hệ thống | Từ chối bán vé và thông báo quy tắc bị vi phạm (suất chiếu khác cụm rạp). | Suất chiếu cho biết không thuộc cụm rạp của nhân viên quầy, control chuyển lý do cho boundary thông báo; không tạo gì. | BR-02 |
@@ -125,7 +127,7 @@ Số boundary là 4, bằng số tác nhân tham gia trực tiếp (không có t
 | 39 | thanh toán đến trễ, hoàn tiền, lần báo trùng, giao dịch thứ hai | Mục 8; BR-14, BR-15, BR-37 | Loại - không tham gia hành vi của use case này (khái niệm của UC-006) | Chỉ được nhắc tới để xác định ranh giới; UC-005 không đọc hay ghi chúng. |
 | 40 | máy in, in vé | 9a5 | Loại - là tác nhân hoặc ngoài phạm vi | Máy in của máy tính tại quầy không là tác nhân (P01 Mục 1). |
 | 41 | thông báo, thông tin, hệ thống, quy tắc | Nhiều bước | Loại - mơ hồ | Không phải khái niệm nghiệp vụ cụ thể; nội dung thông báo là dữ liệu trao đổi qua boundary. |
-| 42 | log lỗi, thử gửi lại | Mục 8; BR-89 | Loại - cấu trúc cài đặt | Cơ chế gửi email thuộc thiết kế (P09), UC này chỉ gửi đi. |
+| 42 | log lỗi, thử gửi lại | 14a; Mục 8; BR-89 | Loại - cấu trúc cài đặt | Không có định danh và hành vi riêng; việc ghi log là trách nhiệm // logEmailFailure của PaymentReportController, cơ chế thử lại và số lần thuộc thiết kế (P09). |
 | 43 | mốc hiển thị sơ đồ ghế | 7; BR-54 | Loại - dữ liệu trao đổi qua boundary BookTicketsForm | Thời điểm hiển thị sơ đồ ghế mà tác nhân đã xem, mang theo yêu cầu giữ ghế để Showtime đối chiếu với lastChangedAt. |
 
 ### 3.3 Bảng control
@@ -133,7 +135,7 @@ Số boundary là 4, bằng số tác nhân tham gia trực tiếp (không có t
 | Control | Use case điều phối | Mới hoặc tái dùng | Lý do (hoặc lý do không có control) |
 |---|---|---|---|
 | BookTicketsController | UC-005 | Mới (AC-C-BookTicketsController) | Control của UC-005 cho phần do tác nhân điều khiển: điều phối bước 1 đến 10, hết hạn giữ ghế (after BR-10), huỷ giữ ghế và xác nhận thu tiền mặt. Báo các màn hình khác cập nhật sơ đồ ghế bằng cách gửi message updateSeatMap tới boundary, không là trách nhiệm nhận riêng. Mọi quy tắc nghiệp vụ nằm ở entity. Có 9 trách nhiệm, trong khoảng 2-10. |
-| PaymentReportController | UC-005, UC-006 | Mới (AC-C-PaymentReportController); UC-005 là chủ | Control tiếp nhận dùng chung mọi báo kết quả giao dịch của cổng (bước 11, 11a của UC-005; bước 1 của UC-006), khoá theo lần giữ ghế (BR-85). Tách riêng vì phần điều phối này dùng cho hai use case chưa include nhau (A5), nên control của UC này không gọi control của UC kia (F6). Nhánh bán ghế và thất bại khi lần giữ ghế còn hiệu lực mô tả ở UC-005; nhánh thanh toán trễ, báo trùng, thất bại muộn và hoàn tiền mô tả ở UC-006, cùng một trách nhiệm tiếp nhận handlePaymentReport. UC-006 không có control riêng. |
+| PaymentReportController | UC-005, UC-006 | Mới (AC-C-PaymentReportController); UC-005 là chủ | Control tiếp nhận dùng chung mọi báo kết quả giao dịch của cổng (bước 11, 11a, 14a của UC-005; bước 1, 7a của UC-006), khoá theo lần giữ ghế (BR-85). Tách riêng vì phần điều phối này dùng cho hai use case chưa include nhau (A5), nên control của UC này không gọi control của UC kia (F6). Nhánh bán ghế và thất bại khi lần giữ ghế còn hiệu lực mô tả ở UC-005; nhánh thanh toán trễ, báo trùng, thất bại muộn và hoàn tiền mô tả ở UC-006, cùng một trách nhiệm tiếp nhận handlePaymentReport. UC-006 không có control riêng. |
 
 ### 3.4 Bảng lớp phân tích
 
@@ -142,9 +144,9 @@ Số boundary là 4, bằng số tác nhân tham gia trực tiếp (không có t
 | AC-B-BookTicketsForm | boundary | BookTicketsForm | // selectShowtime: tác nhân chọn suất chiếu cần mua vé<br>// showSeatMap: hiển thị sơ đồ ghế và trạng thái ghế của suất chiếu<br>// confirmSeatSelection: tác nhân xác nhận chọn các ghế muốn mua<br>// showHeldSeats: hiển thị các ghế đã giữ, giá vé từng ghế, tổng tiền<br>// requestOnlinePayment: khách yêu cầu thanh toán trực tuyến<br>// showBookingSuccess: thông báo đặt vé thành công, hiển thị mã đặt vé và các vé<br>// notifyRefusal: thông báo từ chối hoặc kết thúc thất bại kèm lý do<br>// requestLogin: yêu cầu khách đăng nhập, giữ nguyên các ghế đã chọn<br>// provideCredentials: khách nhập email hoặc số điện thoại và mật khẩu<br>// cancelSeatHold: tác nhân huỷ việc giữ ghế<br>// updateSeatMap: cập nhật sơ đồ ghế đang hiển thị khi trạng thái ghế của suất chiếu đổi (REQ-119) | selectedSeats (Các ghế đã chọn), credentials (Email hoặc số điện thoại, mật khẩu) | 1, 3, 4, 5a, 5b, 6a, 7a, 7b, 7c, 7d, 7e, 8, 9, 10a, 11a, 15, 12, *a | Giao diện người dùng | Mới | GL-18 |
 | AC-B-CounterBookTicketsForm | boundary | CounterBookTicketsForm | // selectShowtime: nhân viên quầy chọn suất chiếu cần bán vé<br>// notifyRefusal: thông báo từ chối kèm lý do, kể cả yêu cầu trả lại tiền mặt<br>// showSeatMap: hiển thị sơ đồ ghế và trạng thái ghế của suất chiếu<br>// confirmSeatSelection: nhân viên quầy xác nhận chọn các ghế khách muốn mua<br>// showHeldSeats: hiển thị các ghế đã giữ, giá vé từng ghế, tổng tiền<br>// confirmCashReceived: nhân viên quầy xác nhận đã thu tiền mặt<br>// showTicketsForPrint: hiển thị mã đặt vé và các vé để in<br>// printTickets: nhân viên quầy in vé cho khách mua tại quầy<br>// updateSeatMap: cập nhật sơ đồ ghế đang hiển thị khi trạng thái ghế của suất chiếu đổi (REQ-119) | selectedSeats (Các ghế đã chọn) | 1, 2a, 2b, 2c, 3, 4, 8, 9a1, 9a1a, 9a4, 9a5, 9a2 | Giao diện người dùng | Mới | GL-35 |
 | AC-B-PaymentGateway | boundary | PaymentGateway | // createPaymentTransaction: chuyển yêu cầu tạo giao dịch thanh toán tới cổng thanh toán<br>// reportTransactionResult: nhận kết quả giao dịch do cổng thanh toán báo về | - | 10, 11, 11a | Giao diện hệ thống | Mới | GL-02 |
-| AC-B-EmailService | boundary | EmailService | // sendTicketsEmail: chuyển email chứa vé tới dịch vụ email | - | 14 | Giao diện hệ thống | Mới | - |
+| AC-B-EmailService | boundary | EmailService | // sendTicketsEmail: chuyển email chứa vé tới dịch vụ email và trả kết quả gửi (đã gửi, từ chối hoặc không phản hồi) | - | 14, 14a | Giao diện hệ thống | Mới | - |
 | AC-C-BookTicketsController | control | BookTicketsController | // startBooking: điều phối bước 2 và 3: kiểm tra suất chiếu rồi lấy sơ đồ ghế để hiển thị<br>// requestSeatHold: điều phối bước 5 đến 8: kiểm tra, giữ ghế, chờ hết hạn, hiển thị<br>// checkCustomerLoggedIn: xác định khách của phiên đã đăng nhập chưa<br>// startWaitingForHoldExpiry: bắt đầu chờ thời điểm hết hạn giữ ghế (BR-10)<br>// startOnlinePayment: điều phối bước 10: tạo giao dịch thanh toán, ghi nhận số tiền<br>// stopWaitingForHoldExpiry: ngừng chờ hết hạn khi tác nhân huỷ giữ ghế hoặc xác nhận thu tiền mặt<br>// handleHoldExpired: nhận sự kiện hết hạn, kết thúc lần giữ ghế và giải phóng ghế<br>// cancelSeatHold: điều phối việc huỷ giữ ghế và giải phóng ghế<br>// confirmCashReceived: điều phối bước 9a2 đến 9a4 khi nhân viên quầy xác nhận đã thu tiền mặt | - | 1 đến 10, 2a đến 10a, 9a1 đến 9a5, *a | - | Mới | - |
-| AC-C-PaymentReportController | control | PaymentReportController | // handlePaymentReport: tiếp nhận mọi báo kết quả giao dịch của cổng, tìm lần giữ ghế theo mã giao dịch hoặc mã tham chiếu lần giữ ghế, giao SeatHold thao tác xử lý báo rồi điều phối theo kết quả: bán ghế (bước 12 đến 15), thất bại khi lần giữ ghế còn hiệu lực (11a); các kết quả còn lại do UC-006 điều phối tiếp | - | 11 đến 15, 11a | - | Mới; UC-006 dùng lại | - |
+| AC-C-PaymentReportController | control | PaymentReportController | // handlePaymentReport: tiếp nhận mọi báo kết quả giao dịch của cổng, tìm lần giữ ghế theo mã giao dịch hoặc mã tham chiếu lần giữ ghế, giao SeatHold thao tác xử lý báo rồi điều phối theo kết quả: bán ghế (bước 12 đến 15), thất bại khi lần giữ ghế còn hiệu lực (11a); các kết quả còn lại do UC-006 điều phối tiếp<br>// logEmailFailure: ghi log lỗi khi hết lượt thử lại gửi email mà dịch vụ email vẫn từ chối hoặc không phản hồi, không huỷ vé và không hoàn tiền (BR-89); dùng chung với UC-006 | - | 11 đến 15, 11a, 14a | - | Mới; UC-006 dùng lại | - |
 | AC-E-Customer | entity | Customer | // checkNoActiveSeatHold: kiểm tra khách không có lần giữ ghế nào chưa kết thúc (BR-04)<br>// authenticateCustomer: đối chiếu email hoặc số điện thoại và mật khẩu với tài khoản khách | email (Văn bản), phoneNumber (Văn bản), password (Văn bản) | 5, 5a2, 7 | - | Mới - chủ sở hữu UC-001 | GL-18 |
 | AC-E-BoxOfficeClerk | entity | BoxOfficeClerk | (kế thừa AC-E-Staff: // provideCinema) | (kế thừa AC-E-Staff: cinema) | 2b, 5, 7 | - | Mới - chủ sở hữu UC-017; lớp con của AC-E-Staff (Q-228) | GL-35 |
 | AC-E-Staff | entity | Staff | // provideCinema: cung cấp cụm rạp mà nhân viên thuộc về (không có khi vai trò là quản lý chuỗi); lớp con theo vai trò kế thừa (Q-228) | cinema (Cụm rạp; không có khi vai trò là quản lý chuỗi) | 2b, 5, 7 | - | Mới - chủ sở hữu UC-017 | GL-34 |
@@ -208,7 +210,8 @@ Tổng cộng 16 lớp: 4 boundary, 2 control, 10 entity. Entity cốt lõi củ
 | 13 | // createBooking | AC-E-Booking | Creator | SeatHold có dữ liệu khởi tạo (suất chiếu, ghế đã bán). |
 | 13 | // generateBookingCode | AC-E-Booking | Information Expert | Mã đặt vé là mã của lần đặt, duy nhất toàn hệ thống (BR-80). |
 | 13 | // createTicket, generateQrCode | AC-E-Ticket | Creator | Booking gồm mỗi ghế một vé nên Booking tạo vé; vé tự sinh mã QR riêng từ mã vé. |
-| 14 | // sendTicketsEmail | AC-B-EmailService | Giao tiếp tác nhân | - |
+| 14, 14a | // sendTicketsEmail | AC-B-EmailService | Giao tiếp tác nhân | Gửi lần đầu ở bước 14 và gửi lại ở luồng 14a dùng cùng một trách nhiệm. |
+| 14a | // logEmailFailure | AC-C-PaymentReportController | Controller | Không có entity nào đổi trạng thái khi gửi email lỗi (BR-89) nên không có đối tượng nhận dữ liệu để giao; log ghi bằng message tự gọi của control, như // logRefundFailure của UC-006. |
 | 15 | // provideBookingInfo, provideTicketContent | AC-E-Booking, AC-E-Ticket | Information Expert | Booking nắm các vé của lần đặt nên lặp gom nội dung từng vé. |
 | 15 | // showBookingSuccess | AC-B-BookTicketsForm | Giao tiếp tác nhân | - |
 | 7b | // handleHoldExpired | AC-C-BookTicketsController | Controller | A2: control nhận sự kiện hết hạn (after BR-10). |
@@ -255,7 +258,7 @@ Thứ tự khoá cố định đề xuất: PriceList, Auditorium, Showtime, ng�
 
 ## 5. Sequence diagram phân tích
 
-File diagrams/P07-sequence-UC-005.drawio có 17 trang, mỗi trang một sơ đồ. ID cell của lifeline là "<ID trang>-L-<khoá>", ID cell của message là "<ID trang>-M-<STT>" (các ký tự [ ] ( ) * trong STT đổi thành _, message trả về thêm hậu tố -R). Luồng thay thế rẽ tại message có STT 1.1.1 dùng STT 1.1.1a, 1.1.1c theo chữ của mã luồng; luồng xảy ra trong một khoảng bước dùng STT message đầu khoảng kèm mã luồng trong ngoặc, ví dụ 2.1.5(7b).1. Biến thể ACT-02 dùng hậu tố [ACT-02]. Lifeline w:BookTicketsForm là boundary của khách khác đang xem cùng sơ đồ ghế.
+File diagrams/P07-sequence-UC-005.drawio có 18 trang, mỗi trang một sơ đồ. ID cell của lifeline là "<ID trang>-L-<khoá>", ID cell của message là "<ID trang>-M-<STT>" (các ký tự [ ] ( ) * trong STT đổi thành _, message trả về thêm hậu tố -R). Luồng thay thế rẽ tại message có STT 1.1.1 dùng STT 1.1.1a, 1.1.1c theo chữ của mã luồng; luồng xảy ra trong một khoảng bước dùng STT message đầu khoảng kèm mã luồng trong ngoặc, ví dụ 2.1.5(7b).1. Biến thể ACT-02 dùng hậu tố [ACT-02]. Luồng 14a rẽ tại message 4.1.3 của SD1c nên dùng STT 4.1.3a. Lifeline w:BookTicketsForm là boundary của khách khác đang xem cùng sơ đồ ghế.
 
 ### SD1a - Luồng chính bước 1 đến 7
 
@@ -799,6 +802,32 @@ c) Bảng message
 | 3a.1.5 | :BookTicketsController | :CounterBookTicketsForm | // showTicketsForPrint (mã đặt vé, các vé) | Đồng bộ | - | 9a4 |
 | 3a.2 | :Nhân viên quầy | :CounterBookTicketsForm | // printTickets | Đồng bộ | - | 9a5 |
 
+### SD12 - Luồng 14a
+
+a) Luồng thể hiện: Dịch vụ email từ chối hoặc không phản hồi khi gửi vé (14a): gửi lại vài lần, vẫn lỗi thì ghi log lỗi, rồi tiếp tục bước 15 ở SD1c. Vé và lần đặt giữ nguyên hiệu lực, không hoàn tiền.
+
+b) Bảng lifeline
+
+| ID | Loại (Actor / Lifeline / Fragment) | Nhãn | Stereotype | Thuộc về (container) | Ghi chú |
+|---|---|---|---|---|---|
+| SD12-L-PC | Lifeline | :PaymentReportController | «control» | - | AC-C-PaymentReportController |
+| SD12-L-ES | Lifeline | :EmailService | «boundary» | - | AC-B-EmailService |
+| SD12-L-A8 | Actor | :Dịch vụ email | - | - | Tác nhân (ACT-08) |
+| SD12-F1 | Fragment | loop [chưa gửi được và còn lượt thử lại (14a, BR-89)] | - | - | Bao các message gửi lại |
+| SD12-F2 | Fragment | opt [vẫn không gửi được khi hết lượt thử lại (14a, BR-89)] | - | - | Bao message ghi log |
+| SD12-N1 | Note | Điểm rẽ trong SD1c: tại message 4.1.3.1, khi dịch vụ email từ chối hoặc không phản hồi (BR-89). Vé và lần đặt giữ nguyên hiệu lực, không hoàn tiền (Q-76). | - | - | Chú thích |
+| SD12-N2 | Note | Tiếp tục bước 15: message 4.1.4 đến 4.1.5 của SD1c. | - | - | Chú thích |
+
+c) Bảng message
+
+| STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
+|---|---|---|---|---|---|---|
+| 4.1.3.1 (trả về) | :Dịch vụ email | :EmailService | dịch vụ email từ chối hoặc không phản hồi | Trả về | - | 14a |
+| 4.1.3 (trả về) | :EmailService | :PaymentReportController | gửi không thành công | Trả về | - | 14a |
+| 4.1.3a.1 | :PaymentReportController | :EmailService | // sendTicketsEmail (khách, các vé) | Đồng bộ | SD12-F1 | 14a |
+| 4.1.3a.1.1 | :EmailService | :Dịch vụ email | // sendTicketsEmail (khách, các vé) | Đồng bộ | SD12-F1 | 14a |
+| 4.1.3a.2 | :PaymentReportController | :PaymentReportController | // logEmailFailure (mã đặt vé, khách) | Tự gọi | SD12-F2 | 14a |
+
 ## 6. Quy tắc tương tác giữa các lớp phân tích
 
 | Vi phạm | Message hoặc link | Cách sửa đã áp dụng |
@@ -807,7 +836,7 @@ c) Bảng message
 
 ## 7. Communication diagram
 
-File diagrams/P07-communication-UC-005.drawio có 3 trang: trang CM1 cho luồng chính (SD1a, SD1b, SD1c), trang CM2 cho mọi luồng thay thế và ngoại lệ (SD2 đến SD10), trang CM3 cho biến thể ACT-02 (SD11a đến SD11e), giữ nguyên STT của sequence diagram. Message trả về không vẽ. Message ghi kèm guard trong ngoặc vuông khi nằm trong fragment alt, break hoặc loop. ID cell của đối tượng là "<ID trang>-O-<khoá>", ID cell của link là ID trong bảng Edge.
+File diagrams/P07-communication-UC-005.drawio có 3 trang: trang CM1 cho luồng chính (SD1a, SD1b, SD1c), trang CM2 cho mọi luồng thay thế và ngoại lệ (SD2 đến SD10, SD12), trang CM3 cho biến thể ACT-02 (SD11a đến SD11e), giữ nguyên STT của sequence diagram. Message trả về không vẽ. Message ghi kèm guard trong ngoặc vuông khi nằm trong fragment alt, break hoặc loop. ID cell của đối tượng là "<ID trang>-O-<khoá>", ID cell của link là ID trong bảng Edge.
 
 ### Trang CM1 - Luồng chính (SD1a, SD1b, SD1c)
 
@@ -866,7 +895,7 @@ b) Bảng Edge
 | CM1-L27 | CM1-O-PC | CM1-O-BK | Link | 4.1.4: // provideBookingInfo (-->) | Nguồn-->Đích: 4.1.4 |
 | CM1-L28 | CM1-O-PC | CM1-O-BF | Link | 4.1.5: // showBookingSuccess (mã đặt vé, các vé) (-->) | Nguồn-->Đích: 4.1.5 |
 
-### Trang CM2 - Luồng thay thế và ngoại lệ (SD2 đến SD10)
+### Trang CM2 - Luồng thay thế và ngoại lệ (SD2 đến SD10, SD12)
 
 a) Bảng Node
 
@@ -883,6 +912,8 @@ a) Bảng Node
 | CM2-O-PT | Object | :PaymentTransaction | «entity» | - | AC-E-PaymentTransaction |
 | CM2-O-PG | Object | :PaymentGateway | «boundary» | - | AC-B-PaymentGateway |
 | CM2-O-A7 | Actor | :Cổng thanh toán | - | - | Tác nhân (ACT-07) |
+| CM2-O-ES | Object | :EmailService | «boundary» | - | AC-B-EmailService |
+| CM2-O-A8 | Actor | :Dịch vụ email | - | - | Tác nhân (ACT-08) |
 
 b) Bảng Edge
 
@@ -902,6 +933,9 @@ b) Bảng Edge
 | CM2-L12 | CM2-O-SH | CM2-O-PT | Link | 4a.1.1.2: // recordFailedResult (-->) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn] | Nguồn-->Đích: 4a.1.1.2 |
 | CM2-L13 | CM2-O-PC | CM2-O-WF | Link | 4a.1.3: // updateSeatMap (ghế đã trống) (-->) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn] | Nguồn-->Đích: 4a.1.3 |
 | CM2-L14 | CM2-O-PC | CM2-O-BF | Link | 4a.1.4: // notifyRefusal (thanh toán không thành công) (-->) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn] | Nguồn-->Đích: 4a.1.4 |
+| CM2-L15 | CM2-O-PC | CM2-O-ES | Link | 4.1.3a.1: // sendTicketsEmail (khách, các vé) (-->) [chưa gửi được và còn lượt thử lại (14a, BR-89)] | Nguồn-->Đích: 4.1.3a.1 |
+| CM2-L16 | CM2-O-ES | CM2-O-A8 | Link | 4.1.3a.1.1: // sendTicketsEmail (khách, các vé) (-->) [chưa gửi được và còn lượt thử lại (14a, BR-89)] | Nguồn-->Đích: 4.1.3a.1.1 |
+| CM2-L17 | CM2-O-PC | CM2-O-PC | Link | 4.1.3a.2: // logEmailFailure (mã đặt vé, khách) (-->) [vẫn không gửi được khi hết lượt thử lại (14a, BR-89)] | Nguồn-->Đích: 4.1.3a.2 |
 
 ### Trang CM3 - Biến thể ACT-02 (SD11a đến SD11e)
 
@@ -958,7 +992,7 @@ a) Bảng Node (lớp)
 | AC-B-PaymentGateway | Class | PaymentGateway | «boundary» | - | - | // createPaymentTransaction<br>// reportTransactionResult |
 | AC-B-EmailService | Class | EmailService | «boundary» | - | - | // sendTicketsEmail |
 | AC-C-BookTicketsController | Class | BookTicketsController | «control» | - | - | // startBooking<br>// requestSeatHold<br>// checkCustomerLoggedIn<br>// startWaitingForHoldExpiry<br>// startOnlinePayment<br>// stopWaitingForHoldExpiry<br>// handleHoldExpired<br>// cancelSeatHold<br>// confirmCashReceived |
-| AC-C-PaymentReportController | Class | PaymentReportController | «control» | - | - | // handlePaymentReport |
+| AC-C-PaymentReportController | Class | PaymentReportController | «control» | - | - | // handlePaymentReport<br>// logEmailFailure |
 | AC-E-Customer | Class | Customer | «entity» | - | email (Văn bản)<br>phoneNumber (Văn bản)<br>password (Văn bản) | // checkNoActiveSeatHold<br>// authenticateCustomer |
 | AC-E-BoxOfficeClerk | Class | BoxOfficeClerk | «entity» | - | - | - |
 | AC-E-Staff | Class | Staff | «entity» | - | cinema (Cụm rạp; không có khi vai trò là quản lý chuỗi) | // provideCinema |
@@ -977,7 +1011,7 @@ b) Bảng quan hệ
 | R-UC005-01 | AC-B-BookTicketsForm | AC-C-BookTicketsController | Association | - | - | tạm thời; link F7: CM1-L2, CM1-L11, CM2-L1, CM2-L8, CM3-L11 |
 | R-UC005-02 | AC-B-CounterBookTicketsForm | AC-C-BookTicketsController | Association | - | - | tạm thời; link F7: CM3-L2 |
 | R-UC005-03 | AC-B-PaymentGateway | AC-C-BookTicketsController | Association | - | - | tạm thời; link F7: CM1-L15 |
-| R-UC005-04 | AC-B-EmailService | AC-C-PaymentReportController | Association | - | - | tạm thời; link F7: CM1-L25 |
+| R-UC005-04 | AC-B-EmailService | AC-C-PaymentReportController | Association | - | - | tạm thời; link F7: CM1-L25, CM2-L15 |
 | R-UC005-05 | AC-C-BookTicketsController | AC-E-Customer | Association | - | - | tạm thời; link F7: CM1-L6, CM2-L3 |
 | R-UC005-06 | AC-C-BookTicketsController | AC-E-BoxOfficeClerk | Association | - | - | tạm thời; link F7: CM3-L5 |
 | R-UC005-07 | AC-C-BookTicketsController | AC-E-Showtime | Association | - | - | tạm thời; link F7: CM1-L3, CM3-L3 |
@@ -1019,6 +1053,7 @@ b) Bảng quan hệ
 | 12 | 4.1.1, 4.1.1.1, 4.1.1.2, 4.1.1.3, 4.1.1.4, 4.1.1.5, 4.1.1 (trả về), 4.1.1.2x.1 | AC-C-PaymentReportController, AC-E-SeatHold, AC-E-PaymentTransaction, AC-E-SeatStatus |
 | 13 | 4.1.1.6, 4.1.1.6.1, 4.1.1.6.1.1, 4.1.1.6.1.2, 4.1.1.6.1.2.1, 4.1.1 (trả về) | AC-E-SeatHold, AC-E-Booking, AC-E-Ticket, AC-C-PaymentReportController |
 | 14 | 4.1.3, 4.1.3.1 | AC-C-PaymentReportController, AC-B-EmailService |
+| 14a | 4.1.3.1 (trả về), 4.1.3 (trả về), 4.1.3a.1, 4.1.3a.1.1, 4.1.3a.2 | AC-C-PaymentReportController, AC-B-EmailService |
 | 15 | 4.1.4, 4.1.4.1, 4.1.4 (trả về), 4.1.5 | AC-C-PaymentReportController, AC-E-Booking, AC-E-Ticket, AC-B-BookTicketsForm |
 | 2a | 1.1.1a.1, 1.1.1a.1[ACT-02] | AC-C-BookTicketsController, AC-B-BookTicketsForm, AC-B-CounterBookTicketsForm |
 | 2b | 1.1.1b.1 | AC-C-BookTicketsController, AC-B-CounterBookTicketsForm |
@@ -1044,7 +1079,7 @@ b) Bảng quan hệ
 
 ## 10. File .drawio
 
-Ba file nằm trong diagrams/: P07-sequence-UC-005.drawio (17 trang), P07-communication-UC-005.drawio (3 trang), P07-class-UC-005.drawio (1 trang). XML không nén, ID cell trùng ID trong bảng mô hình.
+Ba file nằm trong diagrams/: P07-sequence-UC-005.drawio (18 trang), P07-communication-UC-005.drawio (3 trang), P07-class-UC-005.drawio (1 trang). XML không nén, ID cell trùng ID trong bảng mô hình.
 
 ## Câu hỏi mở
 

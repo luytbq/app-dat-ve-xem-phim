@@ -6,7 +6,7 @@
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Chốt Q-204 đến Q-207: tỉnh, thành phố bắt buộc, tên cụm rạp duy nhất (luồng 5b, BR-141), luồng 5a và BR-142 khi lưu đồng thời, không có thao tác xoá cụm rạp |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P08-analysis-model.md 1.5 (EX-13, EX-15); P13-data-model.md 1.5 (Q-136 đến Q-138); UC-010-manage-movies.md 1.2 (mẫu và Q-203); UC-013-manage-price-list.md 1.5; UC-014-schedule-showtimes.md 1.7 (điểm nối BR-46) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P08-analysis-model.md 2.1 (EX-13, EX-15); P13-data-model.md 1.5 (Q-136 đến Q-138); UC-010-manage-movies.md 1.2 (mẫu và Q-203); UC-013-manage-price-list.md 1.5; UC-014-schedule-showtimes.md 1.8 (điểm nối BR-46) |
 | Phạm vi | UC-011 |
 | Mã Q, ASM cuối đã cấp | Q-207 (Q-204 đến Q-207 cấp ở use case này, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

@@ -3,11 +3,12 @@
 | Thuộc tính | Giá trị |
 | --- | --- |
 | Bước | P07 |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Thêm message cho luồng 7a (dịch vụ email lỗi, BR-89, P04 1.11): trang SD7, trách nhiệm // logEmailFailure của PaymentReportController (dùng chung với UC-005 luồng 14a), EmailService trả kết quả gửi; luồng 2d và bước 3 đã khớp P04 1.11 (không đổi message); cập nhật 3 file .drawio và _AC-register.md; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1); // recordRefundedAmount cộng tổng đã hoàn và kiểm lại không vượt số tiền đã thanh toán trong một thao tác theo giao dịch (BR-26); không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.11 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.4 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.11 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.5 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-90; không có ASM (NGHIEM_NGAT) |
 
@@ -37,6 +38,7 @@
 | 5 | Cổng thanh toán | Trả về kết quả hoàn tiền thành công. | Không đổi | GL-02, NFR-17 |
 | 6 | Hệ thống | Ghi nhận giao dịch đã được hoàn toàn bộ số tiền hoàn. | Kết quả hoàn tiền là kết quả trả về của lời gọi hoàn (Q-91); control ngừng chờ. Giao dịch thanh toán cộng số tiền hoàn vào tổng đã hoàn, yêu cầu hoàn ghi kết quả thành công. | BR-26, BR-37, GL-45 |
 | 7 | Hệ thống | Gửi email thông báo hoàn tiền cho khách qua dịch vụ email (xem Dữ liệu ra 1, Dữ liệu ra 2). | Giao dịch thanh toán cung cấp mã giao dịch, số tiền hoàn và lý do hoàn; lần giữ ghế lấy email của khách giữ ghế và tên phim, giờ bắt đầu từ suất chiếu (suất chiếu Đã xoá vẫn tra được, BR-58). Control chuyển nội dung cho dịch vụ email qua boundary và không chờ kết quả gửi. | BR-15, BR-58, BR-89, GL-06, REQ-90, REQ-116, REQ-157, NFR-18 |
+| 7a | Hệ thống | Giữ nguyên hiệu lực của khoản hoàn đã ghi nhận ở bước 6, thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không hoàn tiền thêm (BR-89, Q-76); kết thúc use case. | Dịch vụ email từ chối hoặc không phản hồi: control gửi lại qua boundary dịch vụ email tới hết lượt thử lại, vẫn lỗi thì ghi log lỗi bằng message tự gọi (// logEmailFailure). Giao dịch, yêu cầu hoàn và khoản đã hoàn không đổi; số lần thử lại và khoảng cách giữa các lần thuộc P09. | BR-89, Q-76 |
 | 2a | Hệ thống | Ghi nhận lần báo trùng, không tạo vé và không yêu cầu hoàn tiền thêm. | Giao dịch thanh toán tăng số lần báo trùng. Không tạo vé, không tạo yêu cầu hoàn; vé của giao dịch (nếu đã tạo ở UC-005) giữ nguyên. | BR-37, REQ-110, GL-12 |
 | 2b | - | - | Lần giữ ghế còn hiệu lực chưa quá hạn: thao tác xử lý báo trả về kết quả bán ghế và UC-005 xử lý tiếp (bước 12 đến 15, EV-07); UC-006 không ghi gì. | EV-07, BR-86 |
 | 2c | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền. | Lần giữ ghế đã Hết hạn (kể cả vừa được chuyển từ Đang giữ quá hạn) hoặc Đã huỷ: giao dịch thanh toán ghi nhận kết quả thất bại báo muộn. Không có khoản hoàn vì khách chưa mất tiền. | BR-39, BR-86, REQ-133 |
@@ -99,15 +101,15 @@ Số boundary là 2, bằng số tác nhân tham gia trực tiếp (không có t
 
 | Control | Use case điều phối | Mới hoặc tái dùng | Lý do (hoặc lý do không có control) |
 |---|---|---|---|
-| PaymentReportController | UC-006 | Tái dùng từ UC-005 (AC-C-PaymentReportController), bổ sung trách nhiệm | UC-006 chỉ được kích hoạt bởi báo kết quả giao dịch của cổng, cùng sự kiện với bước 11 của UC-005, nên không có control riêng: control tiếp nhận dùng chung (Q-83) điều phối bước 2 đến 7 ở nhánh thanh toán trễ, chờ kết quả hoàn tiền (BR-43) và ghi log lỗi. Tiếp nhận và xử lý báo là trách nhiệm do UC-005 làm chủ; UC-006 thêm 5 trách nhiệm (logUnrecognizedTransaction, startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure). Control có 6 trách nhiệm, trong khoảng 2-10; mọi quy tắc nghiệp vụ nằm ở entity. |
+| PaymentReportController | UC-006 | Tái dùng từ UC-005 (AC-C-PaymentReportController), bổ sung trách nhiệm | UC-006 chỉ được kích hoạt bởi báo kết quả giao dịch của cổng, cùng sự kiện với bước 11 của UC-005, nên không có control riêng: control tiếp nhận dùng chung (Q-83) điều phối bước 2 đến 7 ở nhánh thanh toán trễ, chờ kết quả hoàn tiền (BR-43) và ghi log lỗi. Tiếp nhận và xử lý báo là trách nhiệm do UC-005 làm chủ; UC-006 thêm 5 trách nhiệm (logUnrecognizedTransaction, startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure). Control có 7 trách nhiệm, trong khoảng 2-10; mọi quy tắc nghiệp vụ nằm ở entity. |
 
 ### 3.4 Bảng lớp phân tích
 
 | AC | Stereotype | Tên | Trách nhiệm | Thuộc tính chính | Bước UC nguồn | Loại boundary | Mới hoặc tái dùng | GL |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | AC-B-PaymentGateway | boundary | PaymentGateway | // reportTransactionResult: nhận kết quả giao dịch do cổng thanh toán báo về (cùng ý nghĩa với UC-005)<br>// requestRefund: chuyển yêu cầu hoàn toàn bộ, kèm khoá chống hoàn trùng, tới cổng thanh toán và nhận kết quả hoàn tiền trả về trong 30 giây | - | 1, 2, 4, 5, 2a, 2b, 2c, 2d, 4a, 5a | Giao diện hệ thống | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-02, GL-17 |
-| AC-B-EmailService | boundary | EmailService | // sendRefundNotificationEmail: chuyển email thông báo hoàn tiền tới dịch vụ email | - | 7 | Giao diện hệ thống | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-06 |
-| AC-C-PaymentReportController | control | PaymentReportController | // handlePaymentReport: tiếp nhận báo kết quả giao dịch (trách nhiệm của UC-005, cùng ý nghĩa); ở UC-006 điều phối tiếp khi kết quả là thanh toán trễ chờ hoàn: yêu cầu hoàn toàn bộ, chờ kết quả, gửi email (bước 2 đến 7)<br>// logUnrecognizedTransaction: ghi log lỗi giao dịch không nhận ra để xử lý thủ công ngoài hệ thống (BR-38)<br>// startWaitingForRefundResult: bắt đầu chờ kết quả hoàn tiền tối đa 30 giây (BR-43)<br>// stopWaitingForRefundResult: ngừng chờ khi cổng đã trả kết quả hoàn tiền<br>// handleRefundNoResponse: nhận sự kiện hết 30 giây không có kết quả hoàn tiền: ghi nhận, kiểm lượt thử lại (after BR-43)<br>// logRefundFailure: ghi log lỗi khoản hoàn khi hết lượt thử lại, không gửi email (BR-41) | - | 1 đến 7, 2a đến 2e, 4a, 4b, 5a, 5b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | - |
+| AC-B-EmailService | boundary | EmailService | // sendRefundNotificationEmail: chuyển email thông báo hoàn tiền tới dịch vụ email và trả kết quả gửi (đã gửi, từ chối hoặc không phản hồi) | - | 7, 7a | Giao diện hệ thống | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-06 |
+| AC-C-PaymentReportController | control | PaymentReportController | // handlePaymentReport: tiếp nhận báo kết quả giao dịch (trách nhiệm của UC-005, cùng ý nghĩa); ở UC-006 điều phối tiếp khi kết quả là thanh toán trễ chờ hoàn: yêu cầu hoàn toàn bộ, chờ kết quả, gửi email (bước 2 đến 7)<br>// logUnrecognizedTransaction: ghi log lỗi giao dịch không nhận ra để xử lý thủ công ngoài hệ thống (BR-38)<br>// startWaitingForRefundResult: bắt đầu chờ kết quả hoàn tiền tối đa 30 giây (BR-43)<br>// stopWaitingForRefundResult: ngừng chờ khi cổng đã trả kết quả hoàn tiền<br>// handleRefundNoResponse: nhận sự kiện hết 30 giây không có kết quả hoàn tiền: ghi nhận, kiểm lượt thử lại (after BR-43)<br>// logRefundFailure: ghi log lỗi khoản hoàn khi hết lượt thử lại, không gửi email (BR-41)<br>// logEmailFailure: ghi log lỗi khi hết lượt thử lại gửi email mà dịch vụ email vẫn từ chối hoặc không phản hồi, không hoàn tiền thêm (BR-89); dùng chung với UC-005 | - | 1 đến 7, 7a, 2a đến 2e, 4a, 4b, 5a, 5b | - | Tái dùng từ UC-005, bổ sung trách nhiệm | - |
 | AC-E-SeatHold | entity | SeatHold | // settlePaymentReport: trách nhiệm xử lý báo của UC-005, ở UC-006 trả về thanh toán trễ chờ hoàn, báo trùng hoặc thất bại ghi nhận (BR-37, BR-85, BR-86)<br>// checkHoldStillActive: xác định lần giữ ghế còn hiệu lực tại thời điểm nhận báo, dùng chung với UC-005 và UC-014; Đang giữ mà quá hạn đã được chuyển sang Hết hạn (BR-14, BR-15, BR-40)<br>// recordPaymentTransaction: tạo giao dịch thanh toán cho giao dịch thứ hai từ mã giao dịch và số tiền trong báo (trách nhiệm của UC-005, BR-40, Q-90)<br>// provideRefundNoticeRecipient: cung cấp email của khách giữ ghế, tên phim và giờ bắt đầu suất chiếu cho email hoàn tiền | - | 2, 3, 7, 2a đến 2d | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-25, GL-31, GL-51 |
 | AC-E-PaymentTransaction | entity | PaymentTransaction | // checkNotProcessed: kiểm giao dịch chưa dùng để tạo vé và chưa ghi nhận thanh toán trễ (BR-37)<br>// createPaymentTransaction: tạo giao dịch cho giao dịch thứ hai, do SeatHold ghi nhận (trách nhiệm của UC-005, BR-40)<br>// markLatePayment: ghi nhận giao dịch là thanh toán trễ chờ hoàn tiền, kèm lý do hoàn, đã xử lý (BR-14, BR-15, BR-40)<br>// recordDuplicateReport: ghi nhận lần báo trùng, không hoàn thêm (BR-37)<br>// recordFailedResult: ghi nhận kết quả thất bại của giao dịch, không hoàn tiền (BR-39)<br>// prepareRefundRequest: kiểm khoản hoàn không vượt số tiền đã thanh toán rồi tạo yêu cầu hoàn gắn giao dịch (BR-26, BR-43)<br>// checkRefundWithinPaidAmount: kiểm tổng đã hoàn cộng khoản hoàn không vượt số tiền đã thanh toán (BR-26)<br>// recordRefundedAmount: cộng số tiền hoàn vào tổng đã hoàn của giao dịch, kiểm lại tổng không vượt số tiền đã thanh toán ngay lúc cộng, là một thao tác không chia cắt theo giao dịch để hai khoản hoàn cùng lúc đều được cộng đủ (BR-26)<br>// provideRefundSummary: cung cấp mã giao dịch, số tiền hoàn và lý do hoàn cho email | lateReason (Văn bản) (mới ở UC này), refundedTotal (Số tiền) (mới ở UC này), duplicateReportCount (Số lượng) (mới ở UC này) | 2, 3, 4, 6, 7, 2a, 2c, 2d | - | Tái dùng từ UC-005, bổ sung trách nhiệm | GL-12, GL-29, GL-44, GL-51 |
 | AC-E-RefundRequest | entity | RefundRequest | // createRefundRequest: tạo yêu cầu hoàn gắn giao dịch, loại yêu cầu và số tiền hoàn (BR-43)<br>// generateIdempotencyKey: sinh khoá chống hoàn trùng từ mã giao dịch và loại yêu cầu, không đổi qua các lần thử lại (BR-43)<br>// recordAttempt: ghi nhận một lần gửi yêu cầu hoàn tới cổng<br>// recordResult: ghi nhận kết quả của lần gửi: thành công, thất bại, không phản hồi<br>// checkRetryRemaining: kiểm còn lượt thử lại (BR-41) | idempotencyKey (Văn bản), requestType (Văn bản), refundAmount (Số tiền), attemptCount (Số lượng), result (Văn bản) | 4, 6, 4a, 4b, 5a, 5b | - | Mới; UC-008 dùng lại, bổ sung liên kết tới vé | GL-20, GL-45, GL-56 |
@@ -142,7 +144,8 @@ Tổng cộng 8 lớp: 2 boundary, 1 control, 5 entity. Thuộc tính đã có �
 | 7 | // provideRefundNoticeRecipient | AC-E-SeatHold | Information Expert | Lần giữ ghế có quan hệ cấu trúc tới khách và suất chiếu; control gọi một lần thay vì tự đi tới Customer và Showtime (low coupling). |
 | 7 | // provideEmail | AC-E-Customer | Information Expert | - |
 | 7 | // provideMovieAndStartTime | AC-E-Showtime | Information Expert | Đọc được cả suất chiếu Đã xoá (BR-58). |
-| 7 | // sendRefundNotificationEmail | AC-B-EmailService | Giao tiếp tác nhân | - |
+| 7, 7a | // sendRefundNotificationEmail | AC-B-EmailService | Giao tiếp tác nhân | Gửi lần đầu ở bước 7 và gửi lại ở luồng 7a dùng cùng một trách nhiệm. |
+| 7a | // logEmailFailure | AC-C-PaymentReportController | Giao cho control | Không có entity nào đổi trạng thái khi gửi email lỗi (BR-89); log ghi bằng message tự gọi như // logRefundFailure. Cùng trách nhiệm với UC-005 luồng 14a. |
 | 2a | // recordDuplicateReport | AC-E-PaymentTransaction | Information Expert | Số lần báo trùng ghi trên giao dịch. |
 | 2b | // settlePaymentReport (trả về bán ghế) | AC-E-SeatHold | Information Expert | Kết quả bán ghế do UC-005 xử lý tiếp; UC-006 không ghi gì. |
 | 2c, 2d | // recordFailedResult | AC-E-PaymentTransaction | Information Expert | Ghi kết quả thất bại báo muộn trên giao dịch nhận ra; cùng tên với UC-005 (11a). |
@@ -162,7 +165,7 @@ Phạm vi bất biến và điểm tuần tự khớp nhau: bất biến "mỗi 
 
 ## 5. Sequence diagram phân tích
 
-File diagrams/P07-sequence-UC-006.drawio gồm 6 trang, mỗi trang một sơ đồ dưới đây. Lifeline ACT-07 (:Cổng thanh toán) đặt ở bên trái vì là tác nhân chính; ACT-08 ở bên phải. Việc cổng thanh toán nhận yêu cầu hoàn và trả kết quả hoàn (message 1.1.5.1) vẽ về lại lifeline này vì cùng một tác nhân ở hai vai trò. Các message tiếp nhận và xử lý báo (1 đến 1.1.1 trả về) thuộc trách nhiệm do UC-005 làm chủ; trang này chỉ vẽ phần dẫn tới nhánh của UC-006.
+File diagrams/P07-sequence-UC-006.drawio gồm 7 trang, mỗi trang một sơ đồ dưới đây. Lifeline ACT-07 (:Cổng thanh toán) đặt ở bên trái vì là tác nhân chính; ACT-08 ở bên phải. Việc cổng thanh toán nhận yêu cầu hoàn và trả kết quả hoàn (message 1.1.5.1) vẽ về lại lifeline này vì cùng một tác nhân ở hai vai trò. Các message tiếp nhận và xử lý báo (1 đến 1.1.1 trả về) thuộc trách nhiệm do UC-005 làm chủ; trang này chỉ vẽ phần dẫn tới nhánh của UC-006.
 
 ### SD1 - Luồng chính, bước 1 đến 7
 
@@ -347,6 +350,32 @@ c) Bảng message
 | 1.1.1.4[BR-40] | :SeatHold | :PaymentTransaction | // markLatePayment (lý do hoàn) | Đồng bộ | - | 3 |
 | 1.1.1[BR-40] (trả về) | :SeatHold | :PaymentReportController | kết quả: thanh toán trễ chờ hoàn toàn bộ, lý do hoàn | Trả về | - | 3 |
 
+### SD7 - Luồng 7a
+
+a) Luồng thể hiện: Dịch vụ email từ chối hoặc không phản hồi khi gửi email thông báo hoàn tiền (7a): gửi lại vài lần, vẫn lỗi thì ghi log lỗi, kết thúc use case. Khoản hoàn đã ghi nhận ở bước 6 giữ nguyên hiệu lực. Luồng 7a rẽ tại message 1.1.11 của SD1 nên dùng STT 1.1.11a.
+
+b) Bảng lifeline
+
+| ID | Loại (Actor / Lifeline / Fragment) | Nhãn | Stereotype | Thuộc về (container) | Ghi chú |
+| --- | --- | --- | --- | --- | --- |
+| SD7-L-PC | Lifeline | :PaymentReportController | «control» | - | AC-C-PaymentReportController |
+| SD7-L-ES | Lifeline | :EmailService | «boundary» | - | AC-B-EmailService |
+| SD7-L-A8 | Actor | :Dịch vụ email | - | - | Tác nhân (ACT-08) |
+| SD7-F1 | Fragment | loop [chưa gửi được và còn lượt thử lại (7a, BR-89)] | - | - | Bao các message gửi lại |
+| SD7-F2 | Fragment | opt [vẫn không gửi được khi hết lượt thử lại (7a, BR-89)] | - | - | Bao message ghi log |
+| SD7-N1 | Note | Điểm rẽ trong SD1: tại message 1.1.11.1, khi dịch vụ email từ chối hoặc không phản hồi (BR-89). Khoản hoàn đã ghi nhận ở bước 6 giữ nguyên hiệu lực, không hoàn tiền thêm (Q-76). | - | - | Chú thích |
+| SD7-N2 | Note | Kết thúc use case. | - | - | Chú thích |
+
+c) Bảng message
+
+| STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1.1.11.1 (trả về) | :Dịch vụ email | :EmailService | dịch vụ email từ chối hoặc không phản hồi | Trả về | - | 7a |
+| 1.1.11 (trả về) | :EmailService | :PaymentReportController | gửi không thành công | Trả về | - | 7a |
+| 1.1.11a.1 | :PaymentReportController | :EmailService | // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) | Đồng bộ | SD7-F1 | 7a |
+| 1.1.11a.1.1 | :EmailService | :Dịch vụ email | // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) | Đồng bộ | SD7-F1 | 7a |
+| 1.1.11a.2 | :PaymentReportController | :PaymentReportController | // logEmailFailure (mã giao dịch, số tiền hoàn) | Tự gọi | SD7-F2 | 7a |
+
 ## 6. Quy tắc tương tác giữa các lớp phân tích
 
 | Vi phạm | Message hoặc link | Cách sửa đã áp dụng |
@@ -357,7 +386,7 @@ Các điểm đã kiểm: actor chỉ gửi message tới boundary của nó (me
 
 ## 7. Communication diagram
 
-File diagrams/P07-communication-UC-006.drawio có 2 trang: CM1 cho luồng chính (SD1), CM2 cho mọi luồng thay thế, ngoại lệ và biến thể (SD2 đến SD6), giữ nguyên STT của sequence diagram (MUC_CHI_TIET là DAY_DU). Message trả về không vẽ. Message nằm trong fragment ghi kèm guard rút gọn trong ngoặc vuông.
+File diagrams/P07-communication-UC-006.drawio có 2 trang: CM1 cho luồng chính (SD1), CM2 cho mọi luồng thay thế, ngoại lệ và biến thể (SD2 đến SD7), giữ nguyên STT của sequence diagram (MUC_CHI_TIET là DAY_DU). Message trả về không vẽ. Message nằm trong fragment ghi kèm guard rút gọn trong ngoặc vuông.
 
 ### Trang CM1 - Luồng chính (SD1)
 
@@ -396,7 +425,7 @@ b) Bảng Edge (link)
 | CM1-L14 | CM1-O-PC | CM1-O-ES | Link | 1.1.11: // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) (-->) | Nguồn-->Đích: 1.1.11 |
 | CM1-L15 | CM1-O-ES | CM1-O-A8 | Link | 1.1.11.1: // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) (-->) | Nguồn-->Đích: 1.1.11.1 |
 
-### Trang CM2 - Luồng thay thế, ngoại lệ và biến thể (SD2 đến SD6)
+### Trang CM2 - Luồng thay thế, ngoại lệ và biến thể (SD2 đến SD7)
 
 a) Bảng Node
 
@@ -407,16 +436,20 @@ a) Bảng Node
 | CM2-O-SH | Object | :SeatHold | «entity» | - | AC-E-SeatHold |
 | CM2-O-PT | Object | :PaymentTransaction | «entity» | - | AC-E-PaymentTransaction |
 | CM2-O-RR | Object | :RefundRequest | «entity» | - | AC-E-RefundRequest (đỉnh lifeline đặt ngang message Tạo) |
+| CM2-O-ES | Object | :EmailService | «boundary» | - | AC-B-EmailService |
+| CM2-O-A8 | Actor | :Dịch vụ email | - | - | Tác nhân (ACT-08) |
 
 b) Bảng Edge (link)
 
 | ID | Nguồn | Đích | Loại (Link) | Nhãn (các message theo STT) | Chiều message (Nguồn-->Đích hoặc Đích-->Nguồn) |
 | --- | --- | --- | --- | --- | --- |
-| CM2-L1 | CM2-O-PC | CM2-O-PC | Link | 1.1e: // logUnrecognizedTransaction (mã giao dịch, kết quả, mã tham chiếu lần giữ ghế, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thành công và hệ thống không nhận ra giao dịch (2e, BR-38)]<br>1.1d: // logUnrecognizedTransaction (mã giao dịch, kết quả, mã tham chiếu lần giữ ghế, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thất bại và hệ thống không nhận ra giao dịch (2d, BR-39)]<br>1.1.3a: // after(BR-43) handleRefundNoResponse (-->)<br>1.1.3b: // logRefundFailure (mã giao dịch, số tiền hoàn) (-->) [không phản hồi trong 30 giây và đã hết lượt thử lại (4b, BR-41)]<br>1.1.5a.1: // stopWaitingForRefundResult (-->)<br>1.1.5b.1: // logRefundFailure (mã giao dịch, số tiền hoàn) (-->) [hoàn tiền thất bại và đã hết lượt thử lại (5b, BR-41)] | Nguồn-->Đích: 1.1e, 1.1d, 1.1.3a, 1.1.3b, 1.1.5a.1, 1.1.5b.1 |
+| CM2-L1 | CM2-O-PC | CM2-O-PC | Link | 1.1e: // logUnrecognizedTransaction (mã giao dịch, kết quả, mã tham chiếu lần giữ ghế, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thành công và hệ thống không nhận ra giao dịch (2e, BR-38)]<br>1.1d: // logUnrecognizedTransaction (mã giao dịch, kết quả, mã tham chiếu lần giữ ghế, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thất bại và hệ thống không nhận ra giao dịch (2d, BR-39)]<br>1.1.3a: // after(BR-43) handleRefundNoResponse (-->)<br>1.1.3b: // logRefundFailure (mã giao dịch, số tiền hoàn) (-->) [không phản hồi trong 30 giây và đã hết lượt thử lại (4b, BR-41)]<br>1.1.5a.1: // stopWaitingForRefundResult (-->)<br>1.1.5b.1: // logRefundFailure (mã giao dịch, số tiền hoàn) (-->) [hoàn tiền thất bại và đã hết lượt thử lại (5b, BR-41)]<br>1.1.11a.2: // logEmailFailure (mã giao dịch, số tiền hoàn) (-->) [vẫn không gửi được khi hết lượt thử lại (7a, BR-89)] | Nguồn-->Đích: 1.1e, 1.1d, 1.1.3a, 1.1.3b, 1.1.5a.1, 1.1.5b.1, 1.1.11a.2 |
 | CM2-L2 | CM2-O-SH | CM2-O-PT | Link | 1.1.1.1a: // recordDuplicateReport (thời điểm nhận báo) (-->) [kết quả thành công và giao dịch đã được xử lý trước đó (2a, BR-37)]<br>1.1.1c.2: // recordFailedResult (thất bại, thời điểm nhận báo) (-->) [kết quả thất bại và lần giữ ghế đã hết hạn hoặc đã bị khách huỷ (2c, BR-39)]<br>1.1.1d.2: // recordFailedResult (thất bại, thời điểm nhận báo) (-->) [kết quả thất bại, giao dịch nhận ra, không thuộc 2c: đã có vé hoặc lần giữ ghế đã có báo thất bại (2d, BR-39)]<br>1.1.1.3.1[BR-40]: «create» // createPaymentTransaction (mã giao dịch, số tiền đã thanh toán trong báo) (-->)<br>1.1.1.4[BR-40]: // markLatePayment (lý do hoàn) (-->) | Nguồn-->Đích: 1.1.1.1a, 1.1.1c.2, 1.1.1d.2, 1.1.1.3.1[BR-40], 1.1.1.4[BR-40] |
 | CM2-L3 | CM2-O-PC | CM2-O-SH | Link | 1.1.1c: // settlePaymentReport (lần giữ ghế tìm theo mã giao dịch hoặc mã tham chiếu lần giữ ghế, kết quả, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thất bại và lần giữ ghế đã hết hạn hoặc đã bị khách huỷ (2c, BR-39)]<br>1.1.1d: // settlePaymentReport (lần giữ ghế tìm theo mã giao dịch hoặc mã tham chiếu lần giữ ghế, kết quả, số tiền đã thanh toán, thời điểm nhận báo) (-->) [kết quả thất bại, giao dịch nhận ra, không thuộc 2c: đã có vé hoặc lần giữ ghế đã có báo thất bại (2d, BR-39)]<br>1.1.1[BR-40]: // settlePaymentReport (lần giữ ghế tìm theo mã giao dịch hoặc mã tham chiếu lần giữ ghế, kết quả, số tiền đã thanh toán, thời điểm nhận báo) (-->) | Nguồn-->Đích: 1.1.1c, 1.1.1d, 1.1.1[BR-40] |
 | CM2-L4 | CM2-O-SH | CM2-O-SH | Link | 1.1.1c.1: // checkHoldStillActive (thời điểm nhận báo) (-->) [kết quả thất bại và lần giữ ghế đã hết hạn hoặc đã bị khách huỷ (2c, BR-39)]<br>1.1.1d.1: // checkHoldStillActive (thời điểm nhận báo) (-->) [kết quả thất bại, giao dịch nhận ra, không thuộc 2c: đã có vé hoặc lần giữ ghế đã có báo thất bại (2d, BR-39)]<br>1.1.1.2[BR-40]: // checkHoldStillActive (thời điểm nhận báo) (-->)<br>1.1.1.3[BR-40]: // recordPaymentTransaction (mã giao dịch, số tiền đã thanh toán trong báo) (-->) | Nguồn-->Đích: 1.1.1c.1, 1.1.1d.1, 1.1.1.2[BR-40], 1.1.1.3[BR-40] |
 | CM2-L5 | CM2-O-PC | CM2-O-RR | Link | 1.1.3a.1: // recordResult (không phản hồi) (-->)<br>1.1.3a.2: // checkRetryRemaining (-->)<br>1.1.5a.2: // recordResult (thất bại) (-->)<br>1.1.5a.3: // checkRetryRemaining (-->) | Nguồn-->Đích: 1.1.3a.1, 1.1.3a.2, 1.1.5a.2, 1.1.5a.3 |
+| CM2-L6 | CM2-O-PC | CM2-O-ES | Link | 1.1.11a.1: // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) (-->) [chưa gửi được và còn lượt thử lại (7a, BR-89)] | Nguồn-->Đích: 1.1.11a.1 |
+| CM2-L7 | CM2-O-ES | CM2-O-A8 | Link | 1.1.11a.1.1: // sendRefundNotificationEmail (email khách, mã giao dịch, số tiền hoàn, tên phim, suất chiếu, lý do hoàn) (-->) [chưa gửi được và còn lượt thử lại (7a, BR-89)] | Nguồn-->Đích: 1.1.11a.1.1 |
 
 ## 8. VOPC
 
@@ -428,7 +461,7 @@ a) Bảng Node (lớp)
 | --- | --- | --- | --- | --- | --- | --- |
 | AC-B-PaymentGateway | Class | PaymentGateway | «boundary» | - | - | // reportTransactionResult<br>// requestRefund |
 | AC-B-EmailService | Class | EmailService | «boundary» | - | - | // sendRefundNotificationEmail |
-| AC-C-PaymentReportController | Class | PaymentReportController | «control» | - | - | // handlePaymentReport<br>// logUnrecognizedTransaction<br>// startWaitingForRefundResult<br>// stopWaitingForRefundResult<br>// handleRefundNoResponse<br>// logRefundFailure |
+| AC-C-PaymentReportController | Class | PaymentReportController | «control» | - | - | // handlePaymentReport<br>// logUnrecognizedTransaction<br>// startWaitingForRefundResult<br>// stopWaitingForRefundResult<br>// handleRefundNoResponse<br>// logRefundFailure<br>// logEmailFailure |
 | AC-E-SeatHold | Class | SeatHold | «entity» | - | - | // settlePaymentReport<br>// checkHoldStillActive<br>// recordPaymentTransaction<br>// provideRefundNoticeRecipient |
 | AC-E-PaymentTransaction | Class | PaymentTransaction | «entity» | - | lateReason (Văn bản) (mới ở UC này)<br>refundedTotal (Số tiền) (mới ở UC này)<br>duplicateReportCount (Số lượng) (mới ở UC này) | // checkNotProcessed<br>// createPaymentTransaction<br>// markLatePayment<br>// recordDuplicateReport<br>// recordFailedResult<br>// prepareRefundRequest<br>// checkRefundWithinPaidAmount<br>// recordRefundedAmount<br>// provideRefundSummary |
 | AC-E-RefundRequest | Class | RefundRequest | «entity» | - | idempotencyKey (Văn bản)<br>requestType (Văn bản)<br>refundAmount (Số tiền)<br>attemptCount (Số lượng)<br>result (Văn bản) | // createRefundRequest<br>// generateIdempotencyKey<br>// recordAttempt<br>// recordResult<br>// checkRetryRemaining |
@@ -442,7 +475,7 @@ b) Bảng quan hệ
 | ID | Lớp A | Lớp B | Loại | Multiplicity | Vai trò | Nguồn |
 | --- | --- | --- | --- | --- | --- | --- |
 | R-UC006-01 | AC-B-PaymentGateway | AC-C-PaymentReportController | Association | - | - | tạm thời; link F7: CM1-L2 |
-| R-UC006-02 | AC-B-EmailService | AC-C-PaymentReportController | Association | - | - | tạm thời; link F7: CM1-L14 |
+| R-UC006-02 | AC-B-EmailService | AC-C-PaymentReportController | Association | - | - | tạm thời; link F7: CM1-L14, CM2-L6 |
 | R-UC006-03 | AC-C-PaymentReportController | AC-E-SeatHold | Association | - | - | tạm thời; link F7: CM1-L3, CM2-L3 |
 | R-UC006-04 | AC-C-PaymentReportController | AC-E-PaymentTransaction | Association | - | - | tạm thời; link F7: CM1-L6 |
 | R-UC006-05 | AC-C-PaymentReportController | AC-E-RefundRequest | Association | - | - | tạm thời; link F7: CM1-L11, CM2-L5 |
@@ -473,12 +506,13 @@ Link tự nối (message tự gọi) và link actor-boundary không sinh quan h�
 | 4b | 1.1.3a, 1.1.3a.1, 1.1.3a.2, 1.1.3b | AC-C-PaymentReportController, AC-E-RefundRequest |
 | 5a | 1.1.5a.1, 1.1.5a.2, 1.1.5a.3 | AC-C-PaymentReportController, AC-E-RefundRequest |
 | 5b | 1.1.5a.1, 1.1.5a.2, 1.1.5a.3, 1.1.5b.1 | AC-C-PaymentReportController, AC-E-RefundRequest |
+| 7a | 1.1.11.1 (trả về), 1.1.11 (trả về), 1.1.11a.1, 1.1.11a.1.1, 1.1.11a.2 | AC-C-PaymentReportController, AC-B-EmailService |
 
 Bước 1 và 5 là bước của tác nhân; message của hai bước này đi từ actor vào AC-B-PaymentGateway (actor không là lớp trong VOPC).
 
 ## 10. File .drawio
 
-Ba file nằm trong diagrams/: P07-sequence-UC-006.drawio (6 trang), P07-communication-UC-006.drawio (2 trang), P07-class-UC-006.drawio (1 trang). XML không nén, ID cell trùng ID trong bảng mô hình (ID cell message sequence dạng <ID trang>-M-<STT>; STT có hậu tố [BR-40] thì bỏ dấu ngoặc vuông, dùng gạch dưới).
+Ba file nằm trong diagrams/: P07-sequence-UC-006.drawio (7 trang), P07-communication-UC-006.drawio (2 trang), P07-class-UC-006.drawio (1 trang). XML không nén, ID cell trùng ID trong bảng mô hình (ID cell message sequence dạng <ID trang>-M-<STT>; STT có hậu tố [BR-40] thì bỏ dấu ngoặc vuông, dùng gạch dưới).
 
 ## Câu hỏi mở
 
@@ -509,4 +543,4 @@ Không có (chế độ NGHIEM_NGAT).
 - Số lần thử lại (BR-41) và khoảng cách giữa hai lần thử là quyết định thiết kế (P09); phân tích chỉ có // checkRetryRemaining. Thời hạn chờ 30 giây tính cho mỗi lần gửi: mỗi lần quay lại bước 4 lặp message 1.1.3 (bắt đầu chờ).
 - Thông tin cổng trả về: số tiền đã thanh toán trong báo chỉ dùng cho giao dịch thứ hai (Dữ liệu vào 1 mục 4); với giao dịch hệ thống đã tạo, số tiền lấy từ PaymentTransaction. Việc nhận ra giao dịch (tra theo mã giao dịch rồi mã tham chiếu) coi là có sẵn theo A6 a), control gửi message thẳng tới lần giữ ghế tìm được; khi không tìm được thì control tự ghi log (2e, 2d).
 - Mới: AC-E-RefundRequest (UC-006 là chủ, UC-008 dùng lại và thêm liên kết tới vé). Lớp tái dùng bổ sung trách nhiệm hoặc thuộc tính: PaymentGateway, EmailService, PaymentReportController, SeatHold, PaymentTransaction, Customer, Showtime. Trách nhiệm cùng nghĩa dùng lại tên của UC-005 (reportTransactionResult, recordFailedResult, recordPaymentTransaction, checkHoldStillActive); trách nhiệm khác điều kiện đặt tên khác (markLatePayment so với markProcessed). Tên trách nhiệm hoàn tiền thống nhất với UC-008 (prepareRefundRequest, recordRefundedAmount, startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logRefundFailure).
-- Số lớp là 8 (2 boundary, 1 control tái dùng, 5 entity), trong khoảng 4-12. Control có 6 trách nhiệm, 5 trong đó là message tự gọi theo A2 hoặc ghi log (startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logUnrecognizedTransaction, logRefundFailure); không giữ quy tắc thuộc dữ liệu của entity.
+- Số lớp là 8 (2 boundary, 1 control tái dùng, 5 entity), trong khoảng 4-12. Control có 7 trách nhiệm, 6 trong đó là message tự gọi theo A2 hoặc ghi log (startWaitingForRefundResult, stopWaitingForRefundResult, handleRefundNoResponse, logUnrecognizedTransaction, logRefundFailure, logEmailFailure); không giữ quy tắc thuộc dữ liệu của entity.

@@ -5,7 +5,7 @@
 | Bước | P07 |
 | Phiên bản | 1.1 |
 | Thay đổi 1.1 | Chốt Q-245 đến Q-247 (đã trả lời theo đề xuất); đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-010-manage-movies.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md; P08-analysis-model.md 1.5 (F3, F4b: AC-E-Movie, EX-13); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Movie); P07-uc-analysis/UC-013-manage-price-list-analysis.md (mẫu định dạng); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-010); dải mã Q-245 đến Q-254 (đầu lô) |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-010-manage-movies.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md; P08-analysis-model.md 2.1 (F3, F4b: AC-E-Movie, EX-13); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Movie); P07-uc-analysis/UC-013-manage-price-list-analysis.md (mẫu định dạng); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-010); dải mã Q-245 đến Q-254 (đầu lô) |
 | Phạm vi | UC-010 |
 | Mã Q, ASM cuối đã cấp | Q-247 (Q-245 đến Q-247 cấp ở use case này, đã trả lời; dải được cấp Q-245 đến Q-254); không có ASM (NGHIEM_NGAT) |
 

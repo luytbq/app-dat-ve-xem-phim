@@ -52,7 +52,7 @@
         </root>
       </mxGraphModel>
     </diagram>
-    <diagram id="CM2" name="Luồng thay thế và ngoại lệ (SD2 đến SD10)">
+    <diagram id="CM2" name="Luồng thay thế và ngoại lệ (SD2 đến SD10, SD12)">
       <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
         <root>
           <mxCell id="0" />
@@ -82,6 +82,11 @@
           <mxCell id="CM2-L12" value="4a.1.1.2: // recordFailedResult (--&gt;) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;" edge="1" parent="1" source="CM2-O-SH" target="CM2-O-PT"><mxGeometry relative="1" as="geometry" x="0.7" /></mxCell>
           <mxCell id="CM2-L13" value="4a.1.3: // updateSeatMap (ghế đã trống) (--&gt;) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;" edge="1" parent="1" source="CM2-O-PC" target="CM2-O-WF"><mxGeometry relative="1" as="geometry" /></mxCell>
           <mxCell id="CM2-L14" value="4a.1.4: // notifyRefusal (thanh toán không thành công) (--&gt;) [cổng báo giao dịch thanh toán thất bại và lần giữ ghế còn Đang giữ, chưa quá thời điểm hết hạn]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;" edge="1" parent="1" source="CM2-O-PC" target="CM2-O-BF"><mxGeometry relative="1" as="geometry" x="-0.9" /></mxCell>
+          <mxCell id="CM2-O-ES" value="&lt;u&gt;:EmailService&lt;/u&gt;&lt;br&gt;«boundary»" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1"><mxGeometry x="1420" y="398.5" width="160" height="63" as="geometry" /></mxCell>
+          <mxCell id="CM2-O-A8" value=":Dịch vụ email" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1"><mxGeometry x="1825" y="400" width="30" height="60" as="geometry" /></mxCell>
+          <mxCell id="CM2-L15" value="4.1.3a.1: // sendTicketsEmail (khách, các vé) (--&gt;) [chưa gửi được và còn lượt thử lại (14a, BR-89)]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;" edge="1" parent="1" source="CM2-O-PC" target="CM2-O-ES"><mxGeometry relative="1" as="geometry" /></mxCell>
+          <mxCell id="CM2-L16" value="4.1.3a.1.1: // sendTicketsEmail (khách, các vé) (--&gt;) [chưa gửi được và còn lượt thử lại (14a, BR-89)]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;" edge="1" parent="1" source="CM2-O-ES" target="CM2-O-A8"><mxGeometry relative="1" as="geometry" x="-0.9" /></mxCell>
+          <mxCell id="CM2-L17" value="4.1.3a.2: // logEmailFailure (mã đặt vé, khách) (--&gt;) [vẫn không gửi được khi hết lượt thử lại (14a, BR-89)]" style="endArrow=none;html=1;labelBackgroundColor=#ffffff;fontSize=10;align=center;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="CM2-O-PC" target="CM2-O-PC"><mxGeometry relative="1" as="geometry" /></mxCell>
         </root>
       </mxGraphModel>
     </diagram>

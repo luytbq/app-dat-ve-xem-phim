@@ -7,7 +7,7 @@
 | Thay đổi 1.5 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.4 | Dẫn BR-136 ở luồng 1a3: UC-012 bước 5 là đối thủ của việc bỏ mục giá; UC-012 đã đặc tả |
 | Thay đổi 1.3 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.15, UC-014-schedule-showtimes.md 1.7 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16, UC-014-schedule-showtimes.md 1.8 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
 | Phạm vi | UC-013 |
 | Mã Q, ASM cuối đã cấp | Q-67 (Q-61 đến Q-67 đã trả lời); không có ASM (NGHIEM_NGAT) |
 

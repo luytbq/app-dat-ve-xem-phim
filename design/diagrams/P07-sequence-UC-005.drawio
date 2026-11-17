@@ -443,4 +443,24 @@
         </root>
       </mxGraphModel>
     </diagram>
+    <diagram id="SD12" name="SD12 - Luồng 14a">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="640" math="0" shadow="0">
+        <root>
+          <mxCell id="0" />
+          <mxCell id="1" parent="0" />
+          <mxCell id="SD12-L-PC" value=":PaymentReportController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="540" as="geometry" /></mxCell>
+          <mxCell id="SD12-L-ES" value=":EmailService" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="540" as="geometry" /></mxCell>
+          <mxCell id="SD12-L-A8" value=":Dịch vụ email" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="360" y="40" width="120" height="540" as="geometry" /></mxCell>
+          <mxCell id="SD12-F1" value="loop [chưa gửi được và còn lượt thử lại (14a, BR-89)]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="20" y="290" width="400" height="100" as="geometry" /></mxCell>
+          <mxCell id="SD12-F2" value="opt [vẫn không gửi được khi hết lượt thử lại (14a, BR-89)]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;align=left;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="20" y="420" width="400" height="40" as="geometry" /></mxCell>
+          <mxCell id="SD12-N1" value="Điểm rẽ trong SD1c: tại message 4.1.3.1, khi dịch vụ email từ chối hoặc không phản hồi (BR-89). Vé và lần đặt giữ nguyên hiệu lực, không hoàn tiền (Q-76)." style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1"><mxGeometry x="40" y="100" width="300" height="70" as="geometry" /></mxCell>
+          <mxCell id="SD12-N2" value="Tiếp tục bước 15: message 4.1.4 đến 4.1.5 của SD1c." style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1"><mxGeometry x="40" y="505" width="300" height="70" as="geometry" /></mxCell>
+          <mxCell id="SD12-M-4.1.3.1-R" value="4.1.3.1 (trả về): dịch vụ email từ chối hoặc không phản hồi" style="endArrow=open;dashed=1;html=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="420" y="200" as="sourcePoint" /><mxPoint x="260" y="200" as="targetPoint" /></mxGeometry></mxCell>
+          <mxCell id="SD12-M-4.1.3-R" value="4.1.3 (trả về): gửi không thành công" style="endArrow=open;dashed=1;html=1;" edge="1" parent="1"><mxGeometry relative="1" as="geometry"><mxPoint x="260" y="240" as="sourcePoint" /><mxPoint x="100" y="240" as="targetPoint" /></mxGeometry></mxCell>
+          <mxCell id="SD12-M-4.1.3a.1" value="4.1.3a.1: // sendTicketsEmail (khách, các vé)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1" source="SD12-F1"><mxGeometry relative="1" as="geometry"><mxPoint x="100" y="310" as="sourcePoint" /><mxPoint x="260" y="310" as="targetPoint" /></mxGeometry></mxCell>
+          <mxCell id="SD12-M-4.1.3a.1.1" value="4.1.3a.1.1: // sendTicketsEmail (khách, các vé)" style="endArrow=block;endFill=1;html=1;" edge="1" parent="1" source="SD12-F1"><mxGeometry relative="1" as="geometry"><mxPoint x="260" y="350" as="sourcePoint" /><mxPoint x="420" y="350" as="targetPoint" /></mxGeometry></mxCell>
+          <mxCell id="SD12-M-4.1.3a.2" value="4.1.3a.2: // logEmailFailure (mã đặt vé, khách)" style="endArrow=block;endFill=1;html=1;align=left;" edge="1" parent="1" source="SD12-F2"><mxGeometry relative="1" as="geometry"><mxPoint x="100" y="440" as="sourcePoint" /><mxPoint x="100" y="460" as="targetPoint" /></mxGeometry></mxCell>
+        </root>
+      </mxGraphModel>
+    </diagram>
 </mxfile>

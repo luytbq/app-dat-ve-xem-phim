@@ -6,7 +6,7 @@
 | Phiên bản | 1.2 |
 | Thay đổi 1.2 | Chốt Q-230: bước 4 kiểm theo thứ tự email, họ tên, vai trò, cụm rạp; điều kiện của luồng 4a, 4b, 4c, 4d loại trừ nhau, mỗi điều kiện chỉ xét khi các điều kiện đứng trước đã đúng |
 | Thay đổi 1.1 | Chốt Q-161 đến Q-166: thêm luồng 1c (mở khoá), 1d (sửa họ tên), 1e (đặt lại mật khẩu), 4c, 4d (điều kiện email, họ tên), luồng bị từ chối khi lưu đồng thời, BR-100 đến BR-102, điều kiện Dữ liệu vào, bảng Thao tác nguyên tử |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2, UC-007-view-booking-history.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.15, UC-009-check-ticket.md 1.7 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2, UC-007-view-booking-history.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.16, UC-009-check-ticket.md 1.8 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
 | Phạm vi | UC-017 |
 | Mã Q, ASM cuối đã cấp | Q-166 (Q-161 đến Q-166 cấp ở use case này, đã trả lời; Q-136 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
