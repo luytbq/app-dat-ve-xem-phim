@@ -124,6 +124,7 @@
         <mxCell id="E-60" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="A-1b4" target="FINAL-5"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="605" y="2480" /><mxPoint x="605" y="2710" /></Array></mxGeometry></mxCell>
       <mxCell id="N-8g" value="8g: Phim vừa được sửa làm sai định dạng phát hành hoặc khoảng chiếu (BR-47, BR-49): từ chối lưu, quay lại bước 3 (BR-139)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="60" y="2570" width="240" height="100" as="geometry" /></mxCell>
 <mxCell id="N-8h" value="8h: Phòng chiếu đã bị xoá bởi UC-012: từ chối lưu, thông báo phòng không còn, quay lại bước 3 (BR-147)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="330" y="2520" width="240" height="100" as="geometry" /></mxCell>
+        <mxCell id="N-1a3c" value="1a3c, 1b3d: Suất chiếu chọn thuộc phòng chiếu không thuộc cụm rạp của quản lý cụm rạp: từ chối thao tác, không đổi suất chiếu, kết thúc (thất bại) (BR-46, Q-105)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2090" width="240" height="100" as="geometry" /></mxCell>
 </root>
     </mxGraphModel>
   </diagram>

@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Nêu nguồn dữ liệu danh sách suất chiếu (Q-335) |
 | Thay đổi 1.2 | Đăng nhập nhân viên ở SCR-21 (hai điểm đăng nhập, Q-267) |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-009 1.7 (bước 1-7, Dữ liệu vào 1, 2, Dữ liệu ra 1-3, luồng 4a-4e); P06 NFR-11, NFR-13, NFR-14; P05 GL-48, GL-62; P08-analysis-model.md 2.0 (F3); P10-design-elements.md 2.0 (F3, F4) |
 | Phạm vi | SCR-16 |
@@ -116,5 +117,7 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-120, Q-123.
 Không có.
 
 ## Vấn đề còn mở
+
+Nguồn dữ liệu danh sách suất chiếu: đọc lịch chiếu của DC-CatalogController (UC-004) theo cụm rạp của phiên nhân viên soát vé (Q-335).
 
 Không có màn hình điều hướng cho nhân viên soát vé vì chỉ có UC-009; menu chỉ có tên ứng dụng (UI-STT 22).

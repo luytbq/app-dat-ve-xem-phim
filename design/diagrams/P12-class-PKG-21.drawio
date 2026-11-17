@@ -267,6 +267,24 @@
         <mxCell id="R-305" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="DC-PgReportStore" target="IF-28">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="IF-14" value="«interface»&lt;br&gt;&lt;b&gt;IMovieRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="4440" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="IF-29" value="«interface»&lt;br&gt;&lt;b&gt;IShowtimeGuardRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="2370" y="-60" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-312" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="IF-14">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3938" y="320" /><mxPoint x="3938" y="151" /><mxPoint x="4425" y="151" /><mxPoint x="4425" y="65" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="R-313" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgTicketingStore" target="IF-29">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2480" y="350" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="IF-15" value="«interface»&lt;br&gt;&lt;b&gt;IStaffRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="4720" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-314" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-PgCinemaOperationsStore" target="IF-15">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3603" y="378" /><mxPoint x="3955.5" y="378" /><mxPoint x="3955.5" y="197" /><mxPoint x="4705" y="197" /><mxPoint x="4705" y="65" /></Array></mxGeometry>
+        </mxCell>
 </root>
     </mxGraphModel>
   </diagram>

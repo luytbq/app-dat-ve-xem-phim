@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 | --- | --- |
 | Bước | P07 |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1); // recordRefundedAmount cộng tổng đã hoàn và kiểm lại không vượt số tiền đã thanh toán trong một thao tác theo giao dịch (BR-26); không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.10 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.3 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.11 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.4 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-90; không có ASM (NGHIEM_NGAT) |
 
@@ -496,12 +497,7 @@ Không có (chế độ NGHIEM_NGAT).
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 | --- | --- | --- | --- |
-| P04 | UC-006 bước 7 | BR-89 (dịch vụ email từ chối hoặc không phản hồi lúc gửi email thông báo hoàn tiền) chỉ nằm ở Mục 8, luồng thay thế không có mã luồng tương ứng nên không có message lỗi ở P07 | Thêm luồng 7a (dịch vụ email từ chối hoặc không phản hồi: khoản hoàn giữ nguyên hiệu lực, thử gửi lại, ghi log lỗi, kết thúc) hoặc ghi rõ ở Mục 3 là bước 7 không có luồng thay thế |
-| P04 | UC-006 bước 3, luồng 2d | Chưa nói giao dịch thứ hai có được tạo bản ghi ở bước 3 không (Q-90) và kết quả thất bại của giao dịch không nhận ra được ghi nhận ở đâu (Q-89) | Ghi giao dịch thứ hai được tạo ở bước 3 và luồng 2d của giao dịch không nhận ra chỉ ghi log |
-| P04 | UC-006 Mục 8, luồng 2b | Lần giữ ghế Đang giữ nhưng đã quá thời điểm hết hạn mà báo thành công đến: Mục 8 chỉ nói không đổi trạng thái ghế, chưa nói ai chuyển lần giữ ghế sang Hết hạn (Q-88) | Ghi điểm tiếp nhận chuyển lần giữ ghế sang Hết hạn trước khi UC-006 xử lý |
 | P05 | Mục 3 "Khoản hoàn, yêu cầu hoàn" | RefundRequest được chốt là entity dùng chung (Q-87) nên "yêu cầu hoàn" là khái niệm có định danh | Thêm thuật ngữ Yêu cầu hoàn (Refund Request) vào P05 mục 2 và bỏ khỏi mục 3 |
-| P03 | Quan hệ UC-005 và UC-006 | P03 không có quan hệ giữa hai use case, trong khi báo thành công đến sau trạng thái cuối do UC-005 hoặc UC-006 xử lý qua điểm tiếp nhận dùng chung (Q-83) | Thêm quan hệ giữa UC-005 và UC-006 qua điểm tiếp nhận dùng chung |
-| P02R | UC-006 và UC-008 | Cùng một cơ chế hoàn tiền qua cổng (khoá chống hoàn trùng, chờ 30 giây, thử lại, log lỗi: BR-26, BR-41, BR-43) lặp ở hai use case | Cân nhắc tách use case được include "Hoàn tiền qua cổng thanh toán" cho UC-006 và UC-008; khi đó control chờ, thử lại, log dùng chung thay cho hai bộ trách nhiệm trùng tên |
 
 ## Vấn đề còn mở
 

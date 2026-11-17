@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (bước 8, luồng 9a, 9a1, 9a1a, 9a2, 7b, *a, Dữ liệu ra 2); P05 GL-52; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-11 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
@@ -17,7 +17,7 @@
 | Bước UC | 8, 9a1, 9a2; luồng 9a1a, 7b, *a |
 | Tác nhân | ACT-02 Nhân viên quầy |
 | Boundary AC | AC-B-CounterBookTicketsForm (showHeldSeats, confirmCashReceived, notifyRefusal) |
-| DC | DC-CounterBookTicketsView, DC-CounterBookTicketsStore |
+| DC | DC-CounterHoldAndCashPage, DC-CounterBookTicketsStore |
 | Loại màn hình | Phụ thuộc có dữ liệu (lần giữ ghế) |
 | Đến từ | SCR-10 (E-23), SCR-09 (E-33) |
 | Đi tới | SCR-12 (E-25), SCR-09 (E-26) |

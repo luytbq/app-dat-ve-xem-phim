@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.7 |
+| Phiên bản | 1.8 |
+| Thay đổi 1.8 | Thêm luồng 1a3c, 1b3d (suất chiếu chọn thuộc phòng chiếu không thuộc cụm rạp, BR-46) theo quyết định SY-72 của chủ dự án; thêm ghi chú N-1a3c vào sơ đồ |
 | Thay đổi 1.7 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.6 | Bước 8 kiểm lại phim hiện hành (BR-47, BR-49, BR-50) theo BR-139, thêm luồng 8g, 8h; thêm UC-010 bước 5, UC-012 bước 5 và luồng 1b3 vào đối thủ của thao tác lưu suất chiếu (BR-136, BR-139, BR-147) |
 | Thay đổi 1.5 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.4 | Thêm BR-92 và luồng 8f: không đổi phòng của suất chiếu đã từng có vé, kể cả vé đã huỷ (quyết định R13D-01 phương án A, review cuối RF-02); cập nhật activity diagram (A-8f, FINAL-11, E-63, E-64); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.15, UC-008-cancel-ticket.md 1.10, UC-013-manage-price-list.md 1.5 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16, UC-008-cancel-ticket.md 1.10, UC-013-manage-price-list.md 1.5 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
 | Phạm vi | UC-014 |
 | Mã Q, ASM cuối đã cấp | Q-67 (cấp ở UC-013); Q-52 đến Q-61 đã trả lời; không có ASM (NGHIEM_NGAT) |
 
@@ -50,17 +51,19 @@
 | 1a | Quản lý cụm rạp chọn sửa một suất chiếu đã lập thay vì lập suất chiếu mới | - | Sửa suất chiếu | - |
 | 1a1 | | Hệ thống | Hiển thị các suất chiếu đã lập của các phòng chiếu thuộc cụm rạp (BR-46; xem Dữ liệu ra 3). | |
 | 1a2 | | Quản lý cụm rạp | Chọn suất chiếu cần sửa (xem Dữ liệu vào 2). | |
-| 1a3 | | Hệ thống | Kiểm tra suất chiếu đã chọn chưa tới giờ bắt đầu (BR-57), không có ghế đang được giữ và không có vé đã bán chưa bị huỷ (BR-53). | |
+| 1a3 | | Hệ thống | Kiểm tra suất chiếu đã chọn thuộc phòng chiếu của cụm rạp mình (BR-46), chưa tới giờ bắt đầu (BR-57), không có ghế đang được giữ và không có vé đã bán chưa bị huỷ (BR-53). | |
 | 1a3a | Suất chiếu đã chọn có ghế đang được giữ hoặc có vé đã bán chưa bị huỷ (BR-53); kiểm sau 1a3b | Hệ thống | Từ chối sửa và thông báo quy tắc bị vi phạm (BR-53). | Kết thúc use case (thất bại) |
 | 1a3b | Suất chiếu đã chọn đã tới giờ bắt đầu, kể cả đã kết thúc (BR-57); kiểm trước 1a3a | Hệ thống | Từ chối sửa và thông báo quy tắc bị vi phạm (BR-57). | Kết thúc use case (thất bại) |
+| 1a3c | Suất chiếu đã chọn thuộc phòng chiếu không thuộc cụm rạp của quản lý cụm rạp (BR-46, Q-105); kiểm trước 1a3b | Hệ thống | Từ chối sửa, không đổi suất chiếu và thông báo quy tắc bị vi phạm (BR-46). | Kết thúc use case (thất bại) |
 | 1a4 | | Hệ thống | Hiển thị thông tin hiện tại của suất chiếu cùng các phòng chiếu và danh sách phim để sửa (xem Dữ liệu ra 1, Dữ liệu ra 2). | Tiếp tục bước 3 |
 | 1b | Quản lý cụm rạp chọn xoá một suất chiếu đã lập thay vì lập suất chiếu mới | - | Xoá suất chiếu | - |
 | 1b1 | | Hệ thống | Hiển thị các suất chiếu đã lập của các phòng chiếu thuộc cụm rạp (BR-46; xem Dữ liệu ra 3). | |
 | 1b2 | | Quản lý cụm rạp | Chọn suất chiếu cần xoá (xem Dữ liệu vào 2). | |
-| 1b3 | | Hệ thống | Kiểm tra suất chiếu đã chọn chưa bị người khác sửa hoặc xoá kể từ lúc hiển thị danh sách, chưa tới giờ bắt đầu, không có ghế đang được giữ và không có vé đã bán chưa bị huỷ, rồi xoá suất chiếu khỏi lịch chiếu và giữ lại dữ liệu của suất chiếu, tất cả là một thao tác không chia cắt (BR-53, BR-54, BR-57, BR-58, BR-60). | |
+| 1b3 | | Hệ thống | Kiểm tra suất chiếu đã chọn thuộc phòng chiếu của cụm rạp mình (BR-46), chưa bị người khác sửa hoặc xoá kể từ lúc hiển thị danh sách, chưa tới giờ bắt đầu, không có ghế đang được giữ và không có vé đã bán chưa bị huỷ, rồi xoá suất chiếu khỏi lịch chiếu và giữ lại dữ liệu của suất chiếu, tất cả là một thao tác không chia cắt (BR-53, BR-54, BR-57, BR-58, BR-60). | |
 | 1b3a | Suất chiếu đã chọn có ghế đang được giữ hoặc có vé đã bán chưa bị huỷ (BR-53); kiểm sau 1b3b | Hệ thống | Từ chối xoá và thông báo quy tắc bị vi phạm (BR-53). | Kết thúc use case (thất bại) |
 | 1b3b | Suất chiếu đã chọn đã tới giờ bắt đầu, kể cả đã kết thúc (BR-57); kiểm sau 1b3c và trước 1b3a | Hệ thống | Từ chối xoá và thông báo quy tắc bị vi phạm (BR-57). | Kết thúc use case (thất bại) |
 | 1b3c | Suất chiếu đã chọn đã bị người khác sửa hoặc xoá kể từ lúc hiển thị danh sách ở bước 1b1 (BR-60); kiểm trước 1b3b | Hệ thống | Từ chối xoá, không ghi đè, và thông báo suất chiếu đã thay đổi hoặc không còn; quản lý cụm rạp mở lại danh sách suất chiếu từ đầu (BR-60). | Kết thúc use case (thất bại) |
+| 1b3d | Suất chiếu đã chọn thuộc phòng chiếu không thuộc cụm rạp của quản lý cụm rạp (BR-46, Q-105); kiểm trước 1b3c | Hệ thống | Từ chối xoá, không đổi suất chiếu và thông báo quy tắc bị vi phạm (BR-46). | Kết thúc use case (thất bại) |
 | 1b4 | | Hệ thống | Thông báo xoá suất chiếu thành công. | Kết thúc use case (thành công) |
 | 4a | Phòng chiếu đã chọn không thuộc cụm rạp của quản lý cụm rạp (BR-46) | Hệ thống | Từ chối lưu suất chiếu và thông báo quy tắc bị vi phạm (BR-46). | Quay lại bước 3 |
 | 5a | Định dạng đã chọn không là định dạng phát hành của phim (BR-47) | Hệ thống | Từ chối lưu suất chiếu và thông báo quy tắc bị vi phạm (BR-47). | Quay lại bước 3 |
@@ -127,7 +130,7 @@ Dữ liệu ra 3 (bước 1a1, 1b1)
 | BR-01 | Trước thời điểm mở bán của suất chiếu, không ai được đặt hoặc mua vé của suất chiếu đó. | Ràng buộc | Dữ liệu vào 1 (chỉ mô tả trường; kiểm ở UC-005) | REQ-86; REQ-61 (phụ) | Đã có |
 | BR-12 | Khung giờ chiếu xác định theo giờ bắt đầu của suất chiếu; cuối tuần gồm Thứ Bảy và Chủ nhật. | Suy luận | Dữ liệu vào 1 (chỉ mô tả trường; kiểm ở UC-005) | REQ-91 | Đã có |
 | BR-45 | Từ giờ bắt đầu của suất chiếu, không ai được bắt đầu đặt hoặc mua vé của suất chiếu đó; quy tắc áp dụng cả khi bán tại quầy. | Ràng buộc | Dữ liệu vào 1 (chỉ mô tả trường; kiểm ở UC-005) | REQ-135; REQ-61, REQ-86 (phụ) | Đã có |
-| BR-46 | Quản lý cụm rạp chỉ lập, sửa, xoá suất chiếu của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | 1a1, 1b1, 4, 4a, Dữ liệu vào 1, Dữ liệu vào 2 | REQ-60; REQ-100 (phụ) | Mới |
+| BR-46 | Quản lý cụm rạp chỉ lập, sửa, xoá suất chiếu của các phòng chiếu thuộc cụm rạp của mình. | Ràng buộc | 1a1, 1a3c, 1b1, 1b3d, 4, 4a, Dữ liệu vào 1, Dữ liệu vào 2 | REQ-60; REQ-100 (phụ) | Mới |
 | BR-47 | Định dạng của suất chiếu phải là một định dạng phát hành của phim. | Ràng buộc | 5, 5a, Dữ liệu vào 1 | REQ-62; REQ-55 (phụ) | Mới |
 | BR-48 | Phòng chiếu của suất chiếu phải chiếu được định dạng của suất chiếu. | Ràng buộc | 5, 5b, Dữ liệu vào 1 | REQ-63; REQ-57 (phụ) | Mới |
 | BR-49 | Ngày chiếu của suất chiếu phải nằm trong khoảng từ ngày khởi chiếu tới ngày kết thúc chiếu của phim. | Ràng buộc | 6, 6a, Dữ liệu vào 1 | REQ-97; REQ-95 (phụ) | Mới |
@@ -156,6 +159,7 @@ Không có
 
 ## 8. Thông tin bổ sung
 
+- Luồng 1a3c, 1b3d (trả lời Q-105) trên activity diagram là ghi chú N-1a3c không có cạnh; danh sách ở bước 1a1, 1b1 chỉ gồm suất chiếu của cụm rạp của quản lý cụm rạp nên hai luồng chỉ xảy ra khi yêu cầu không đi qua danh sách.
 - Luồng chính là kịch bản lập suất chiếu mới (REQ-60). Sửa và xoá suất chiếu (REQ-65) là luồng 1a và 1b: quản lý cụm rạp chọn một trong ba thao tác thay cho bước 1, nên trên activity diagram decision D-1 đặt ngay sau INIT, trước A-1. Luồng 1a quay về bước 3 để nhập thông tin mới; bước 4 đến bước 8 áp dụng như khi lập, trong đó bước 8 cập nhật suất chiếu đã chọn và khi tính BR-51 bỏ qua chính suất chiếu đang sửa.
 - Bước 8 gộp mọi kiểm tra quyết định việc lưu và việc lưu thành một thao tác không chia cắt: khoảng cách dọn phòng (BR-51, BR-52), bảng giá còn đủ giá cho suất chiếu (BR-68, BR-69) và, khi sửa, suất chiếu chưa bị người khác sửa hoặc xoá (BR-60), chưa tới giờ bắt đầu (BR-57), không có ghế đang giữ hoặc vé chưa huỷ (BR-53, BR-54). Phạm vi của thao tác là các suất chiếu của phòng chiếu đích và chính suất chiếu đang sửa. Khi sửa sang phòng chiếu khác, việc kiểm khoảng cách áp dụng cho phòng mới; phòng cũ chỉ bớt một suất chiếu nên không cần kiểm. Lý do: nếu tách rời, hai yêu cầu đồng thời đều thấy khoảng giờ còn trống rồi cùng lưu, vi phạm BR-51 (BR-52); và khách hoặc nhân viên quầy có thể giữ ghế (UC-005 bước 7) giữa lúc kiểm BR-53 và lúc lưu, khiến suất chiếu bị sửa khi đã có ghế giữ (BR-54). Điểm đua giữ ghế với sửa nằm ngay tại bước 8. Phim bị sửa bởi UC-010 xen vào giữa bước 5 đến 7 (đọc định dạng phát hành, khoảng chiếu, thời lượng) và bước 8 (lưu) được xử lý ở bước 8: bước 8 kiểm lại BR-47, BR-49, tính lại giờ kết thúc theo BR-50 với phim hiện hành, bên ghi nhận trước thành công, bên sau bị từ chối (luồng 8g quay lại bước 3, như BR-68 với bảng giá); phim sửa ghi nhận sau suất chiếu không đổi suất chiếu đã lưu (BR-84, BR-139). Sửa sơ đồ ghế, loại phòng của phòng chiếu bởi UC-012 bước 5 xen vào bước 8 theo BR-136 (BR-87, BR-73 từ chối bên ghi nhận sau); xoá phòng bởi UC-012 luồng 1b chỉ thành công khi phòng chưa từng có suất chiếu (BR-147), nên bước 8 ghi nhận trước thì xoá phòng bị từ chối, xoá phòng ghi nhận trước thì bước 8 bị từ chối ở luồng 8h. Việc kiểm bảng giá ở bước 8 loại trừ với việc bỏ mục giá của UC-013 (BR-68): quản lý cụm rạp khác có thể bỏ mục giá giữa lúc bước 5 kiểm sớm và bước 8 lưu; bên ghi nhận trước thành công, bên sau bị từ chối (luồng 8e quay lại bước 3, hoặc UC-013 luồng 1a3b). Cơ chế bảo đảm thuộc bước thiết kế (P07, P09). BR-52 là hệ quả của REQ-64 khi yêu cầu đồng thời, nguồn không quy định riêng.
 - Luồng 1a3 kiểm sớm BR-57 và BR-53 để báo ngay khi chọn suất chiếu, nhưng không thay cho bước 8: giữa lúc chọn và lúc lưu, quản lý cụm rạp nhập thông tin trong một khoảng thời gian, trong đó khách hoặc nhân viên quầy có thể giữ ghế (UC-005 bước 7) hoặc suất chiếu có thể đã bị sửa, xoá bởi người khác. Với luồng 1b, kiểm tra và xoá là một thao tác (1b3).
@@ -214,6 +218,7 @@ Bảng đối chiếu
 | 9 | A-9, FINAL-2 |
 | 1a1, 1a2, 1a3, 1a3a, 1a3b, 1a4 | A-1a1, A-1a2, A-1a3, D-1a3, A-1a3a, A-1a3b, FINAL-3, FINAL-8, A-1a4 |
 | 1b1, 1b2, 1b3, 1b3a, 1b3b, 1b3c, 1b4 | A-1b1, A-1b2, A-1b3, D-1b3, A-1b3a, A-1b3b, A-1b3c, FINAL-4, FINAL-9, FINAL-10, A-1b4, FINAL-5 |
+| 1a3c, 1b3d | N-1a3c |
 | *a | N-*a |
 
 Bảng Node
@@ -279,6 +284,7 @@ Bảng Node
 | FINAL-5 | ActivityFinal | - | - | P-SYS | - | x=130, y=2550 (tương đối partition) |
 | N-8g | Note | 8g: Phim vừa được sửa làm sai định dạng phát hành hoặc khoảng chiếu (BR-47, BR-49): từ chối lưu, quay lại bước 3 (BR-139) | - | P-SYS | 8g | x=60, y=2480, w=240, h=100 (tương đối partition) |
 | N-8h | Note | 8h: Phòng chiếu đã bị xoá bởi UC-012: từ chối lưu, thông báo phòng không còn, quay lại bước 3 (BR-147) | - | P-SYS | 8h | x=330, y=2480, w=240, h=100 (tương đối partition) |
+| N-1a3c | Note | 1a3c, 1b3d: Suất chiếu chọn thuộc phòng chiếu không thuộc cụm rạp của quản lý cụm rạp: từ chối thao tác, không đổi suất chiếu, kết thúc (thất bại) (BR-46, Q-105) | - | P-SYS | 1a3c, 1b3d | x=320, y=2090, w=240, h=100 (tương đối partition) |
 | N-*a | Note | *a: Tại bất kỳ bước nào trước bước 8, quản lý huỷ yêu cầu: hệ thống không lưu, kết thúc (thất bại) | - | P-ACT-04 | *a | x=300, y=50 (tương đối partition) |
 
 Bảng Edge

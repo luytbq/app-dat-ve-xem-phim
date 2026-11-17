@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này; Ghi chú các message kiểm do control điều phối ở bảng message (không đổi sơ đồ) |
 | Thay đổi 1.5 | Lớp con của Staff cho CinemaManager (Q-228); UC-010 bước 5 và UC-012 bước 5, luồng 1b3 đã có P07, ghi đối thủ của bước 8 (BR-139, BR-136, BR-147); đồng bộ sổ AC dùng chung _AC-register.md |
 | Thay đổi 1.4 | Thêm kiểm lại phim hiện hành và phòng chiếu còn tồn tại vào thao tác lưu suất chiếu ở bước 8, luồng 8g (phim vừa sửa, BR-47, BR-49, BR-139) và 8h (phòng chiếu vừa xoá, BR-147); thêm trách nhiệm // checkStillExists của Auditorium và // recheckMovie của Showtime; đánh số lại message 2.1.17.x của SD1d, SD3a và message 2.1.18 đến 2.1.21 của SD1d, SD3b; thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1); bổ sung UC-010 bước 5 và UC-012 bước 5, luồng 1b vào các use case đối thủ của bước 8; cập nhật 3 file .drawio; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.3 | Sửa 6 nhãn điều kiện sai ở liên kết CM1-L2 và CM2-L2 (5b, 5c, 6b, 6c, 8b); tên // checkRoomChangeAllowed đã thống nhất với P08 và P12, đóng vấn đề còn mở của luồng 8f |
 | Thay đổi 1.2 | Thêm luồng 8f (BR-92, MSG-83): từ chối đổi phòng chiếu của suất chiếu đã từng có vé, kể cả vé đã huỷ; thêm trách nhiệm // checkRoomChangeAllowed của Showtime và message 2.1.17[1a].4, 2.1.18[8f]; đánh số lại message 2.1.17[1a].4 đến .6 thành .5 đến .7; cập nhật 3 file .drawio; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-014-schedule-showtimes.md 1.7 (luồng 8f, 8g, 8h, bảng Thao tác nguyên tử, BR-92, BR-136, BR-139, BR-147); P04-uc-specs/UC-010-manage-movies.md 1.2 và P04-uc-specs/UC-012-manage-auditoriums.md 1.2 (chỉ điểm nối của bước 8); P08-analysis-model.md 1.5 (F4b EX-13); P12-class-design.md 1.6 (lượt PKG-27, Vấn đề còn mở 9); P11a-gui/ui-standards.md 1.3 (MSG-83); _review-final.md (RF-02); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.3 (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-101 đến Q-105 |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-014-schedule-showtimes.md 1.8 (luồng 8f, 8g, 8h, bảng Thao tác nguyên tử, BR-92, BR-136, BR-139, BR-147); P04-uc-specs/UC-010-manage-movies.md 1.2 và P04-uc-specs/UC-012-manage-auditoriums.md 1.2 (chỉ điểm nối của bước 8); P08-analysis-model.md 2.1 (F4b EX-13); P12-class-design.md 2.1 (lượt PKG-27, Vấn đề còn mở 9); P11a-gui/ui-standards.md 2.1 (MSG-83); _review-final.md (RF-02); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.4 (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-101 đến Q-105 |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-014 |
 | Mã Q, ASM cuối đã cấp | Q-105; không có ASM (NGHIEM_NGAT) |
 
@@ -333,15 +334,15 @@ c) Bảng message
 |---|---|---|---|---|---|---|
 | 2.1.17 | :ScheduleShowtimesController | :Auditorium | // saveShowtime (suất chiếu dự kiến) | Đồng bộ | - | 8 |
 | 2.1.17.1 | :Auditorium | :Auditorium | // checkStillExists | Tự gọi | - | 8, 8h |
-| 2.1.17.2 | :Auditorium | :Showtime | // recheckMovie | Đồng bộ | - | 8, 8g |
+| 2.1.17.2 | :Auditorium | :Showtime | // recheckMovie (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | - | 8, 8g |
 | 2.1.17.2.1 | :Showtime | :Movie | // checkReleasedInFormat (định dạng) | Đồng bộ | - | 8, 8g |
 | 2.1.17.2.2 | :Showtime | :Movie | // checkWithinRunPeriod (ngày của giờ bắt đầu) | Đồng bộ | - | 8, 8g |
 | 2.1.17.2.3 | :Showtime | :Movie | // provideDuration | Đồng bộ | - | 8, 8g |
 | 2.1.17.2.3 (trả về) | :Movie | :Showtime | thời lượng phim hiện hành | Trả về | - | 8, 8g |
 | 2.1.17.2.4 | :Showtime | :Showtime | // calculateEndTime | Tự gọi | - | 8, 8g |
-| 2.1.17.3 | :Auditorium | :PriceList | // checkCoversShowtime (loại phòng, định dạng, loại ghế, giờ bắt đầu) | Đồng bộ | - | 8 |
+| 2.1.17.3 | :Auditorium | :PriceList | // checkCoversShowtime (loại phòng, định dạng, loại ghế, giờ bắt đầu) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | - | 8 |
 | 2.1.17.3 (trả về) | :PriceList | :Auditorium | bảng giá có đủ giá hay không | Trả về | - | 8 |
-| 2.1.17.4 | :Auditorium | :Auditorium | // checkRoomGap (suất chiếu dự kiến) | Tự gọi | - | 8 |
+| 2.1.17.4 | :Auditorium | :Auditorium | // checkRoomGap (suất chiếu dự kiến) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Tự gọi | - | 8 |
 | 2.1.17.5 | :Auditorium | :Auditorium | // addToSchedule (suất chiếu dự kiến) | Tự gọi | - | 8 |
 | 2.1.17 (trả về) | :Auditorium | :ScheduleShowtimesController | kết quả lưu: đã lưu, phòng chiếu không còn, phim không còn hợp lệ, bảng giá thiếu giá hoặc vi phạm khoảng cách dọn phòng | Trả về | - | 8 |
 | 2.1.18 | :ScheduleShowtimesController | :ScheduleShowtimesForm | // notifyRefusal (quy tắc BR-47 hoặc BR-49 bị vi phạm) | Đồng bộ | SD1d-F1 | 8g |
@@ -408,8 +409,8 @@ c) Bảng message
 | STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
 |---|---|---|---|---|---|---|
 | 1a.2.1.3 | :ScheduleShowtimesController | :Showtime | // checkNoActiveHoldOrSoldTicket (thời điểm kiểm tra) | Đồng bộ | - | 1a3 |
-| 1a.2.1.3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) | Đồng bộ | SD2c-F1 | 1a3 |
-| 1a.2.1.3.2 | :Showtime | :Ticket | // checkNotCancelled | Đồng bộ | SD2c-F2 | 1a3 |
+| 1a.2.1.3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD2c-F1 | 1a3 |
+| 1a.2.1.3.2 | :Showtime | :Ticket | // checkNotCancelled (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD2c-F2 | 1a3 |
 | 1a.2.1.3 (trả về) | :Showtime | :ScheduleShowtimesController | suất chiếu có ghế đang được giữ hoặc có vé đã bán chưa bị huỷ hay không | Trả về | - | 1a3 |
 | 1a.2.1.4 | :ScheduleShowtimesController | :ScheduleShowtimesForm | // notifyRefusal (quy tắc BR-53 bị vi phạm) | Đồng bộ | SD2c-F3 | 1a3a |
 
@@ -469,8 +470,8 @@ c) Bảng message
 | 2.1.17[1a].1 | :Auditorium | :Showtime | // checkUnchangedSinceDisplayed (mốc thay đổi đã hiển thị) | Đồng bộ | - | 8 |
 | 2.1.17[1a].2 | :Auditorium | :Showtime | // checkNotStarted (thời điểm kiểm tra) | Đồng bộ | - | 8 |
 | 2.1.17[1a].3 | :Auditorium | :Showtime | // checkNoActiveHoldOrSoldTicket (thời điểm kiểm tra) | Đồng bộ | - | 8 |
-| 2.1.17[1a].3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) | Đồng bộ | SD3a-F1 | 8 |
-| 2.1.17[1a].3.2 | :Showtime | :Ticket | // checkNotCancelled | Đồng bộ | SD3a-F2 | 8 |
+| 2.1.17[1a].3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD3a-F1 | 8 |
+| 2.1.17[1a].3.2 | :Showtime | :Ticket | // checkNotCancelled (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD3a-F2 | 8 |
 | 2.1.17[1a].4 | :Auditorium | :Showtime | // checkRoomChangeAllowed (phòng chiếu đích) | Đồng bộ | - | 8, 8f |
 | 2.1.17[1a].5 | :Auditorium | :Auditorium | // checkStillExists | Tự gọi | - | 8, 8h |
 | 2.1.17[1a].6 | :Auditorium | :Showtime | // recheckMovie | Đồng bộ | - | 8, 8g |
@@ -593,8 +594,8 @@ c) Bảng message
 | 1b.2.1.1.1 | :Showtime | :Showtime | // checkUnchangedSinceDisplayed (mốc thay đổi đã hiển thị) | Tự gọi | - | 1b3 |
 | 1b.2.1.1.2 | :Showtime | :Showtime | // checkNotStarted (thời điểm kiểm tra) | Tự gọi | - | 1b3 |
 | 1b.2.1.1.3 | :Showtime | :Showtime | // checkNoActiveHoldOrSoldTicket (thời điểm kiểm tra) | Tự gọi | - | 1b3 |
-| 1b.2.1.1.3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) | Đồng bộ | SD4b-F1 | 1b3 |
-| 1b.2.1.1.3.2 | :Showtime | :Ticket | // checkNotCancelled | Đồng bộ | SD4b-F2 | 1b3 |
+| 1b.2.1.1.3.1 | :Showtime | :SeatHold | // checkHoldStillActive (thời điểm kiểm tra) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD4b-F1 | 1b3 |
+| 1b.2.1.1.3.2 | :Showtime | :Ticket | // checkNotCancelled (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD4b-F2 | 1b3 |
 | 1b.2.1.1.4 | :Showtime | :Showtime | // markDeleted | Tự gọi | - | 1b3 |
 | 1b.2.1.1 (trả về) | :Showtime | :ScheduleShowtimesController | kết quả xoá: đã xoá hoặc lý do bị từ chối (1b3c, 1b3b, 1b3a) | Trả về | - | 1b3 |
 
@@ -851,9 +852,7 @@ Không có (chế độ NGHIEM_NGAT).
 
 ## Đề xuất sửa artifact trước
 
-| Bước | Mã phần tử | Vấn đề | Đề nghị |
-|---|---|---|---|
-| P04 | UC-014 luồng 1a2, 1b2, Dữ liệu vào 2 | Điều kiện hợp lệ nêu BR-46 cho suất chiếu được chọn nhưng không có luồng khi vi phạm (Q-105) | Bổ sung luồng 1a3c, 1b3d khi có trả lời Q-105, hoặc ghi rõ ở Mục 3 là không thể xảy ra |
+Không có
 
 ## Vấn đề còn mở
 

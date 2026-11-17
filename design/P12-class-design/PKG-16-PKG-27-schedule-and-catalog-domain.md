@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P12 (chạy theo package) |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Đầu vào đã dùng | project-profile.md; 00-Conventions.md; 00-Concurrency.md (M7); P12-class-design.md 1.6 (lõi: F1, F1b, F2.PKG-27, F5, F6, Vấn đề còn mở 9); P10-design-elements.md 2.0 (F3, F3a, F4, F5); P09-architecture.md 2.0 (F7.3 EX-11 đến EX-19); P08-analysis-model.md 2.0 (F3, F4, F4b, F4c); P07 của UC-012, UC-013, UC-014; P04 UC-012 đến UC-014 và _BR-register.md (đọc BR); P11a 2.0 (SCR-18 đến SCR-20, SCR-28, SCR-29); P11b 2.0 (không có SS trong phạm vi); P13-data-model.md 1.5 và P13-schema.sql (ánh xạ cột); _sync-log.md (Đầu vào cho lần chạy lại P08-P13). Dải mã được cấp cho phiên: R-200 đến R-239, ST-06 đến ST-09, IF-29 đến IF-31, Q-292 đến Q-301 |
 | Phạm vi | PKG-16 (DC-ManagePriceListService, DC-ScheduleShowtimesService, DC-ManageAuditoriumsService) và phần còn lại của PKG-27: DC-Cinema, DC-Auditorium, DC-Seat, DC-Movie, DC-PriceEntry, phần còn lại của DC-Showtime và DC-PriceList, IF-11 đến IF-14; cấp mới IF-29 (PKG-28). UC-012, UC-013, UC-014; phần UC-010, UC-011 chạm DC-Movie, DC-Cinema |
 | Mã Q, ASM cuối đã cấp | Q-282 (toàn dự án), không cấp Q mới trong dải Q-292 đến Q-301; không có ASM (NGHIEM_NGAT). R cuối: R-228. ST cuối: ST-07. IF cuối: IF-29 |
@@ -12,7 +12,7 @@
 
 0.1. Phạm vi. Lần chạy này chi tiết hoá 15 lớp có hành vi: 3 lớp dịch vụ của PKG-16; 7 lớp miền và 4 interface kho của PKG-27; IF-29 mới ở PKG-28. Lớp lõi đã chi tiết hoá ở P12-class-design.md (DC-Showtime: CheckSaleOpen, CheckUnchangedSince, CheckSeatSelection, QuoteSeatPrices, BelongsToCinema, CheckCancellationDeadline, các getter ID, StartTime, Status, LastChangedAt; DC-PriceList.DetermineSeatPrice; IF-08, IF-25, IF-24, DC-RandomCodeGenerator, DC-Money, DC-CinemaIds, DC-ShowtimeStatus, DC-PriceQuery, DC-ShowtimeRouting, DC-ShowtimeInfo, DC-TxOptions, các lỗi dùng chung; IF-11.FindRouting, LockShared, FindByID, FindInfo; IF-12.LockSharedByCinema; IF-13.LockAuditoriumShared, FindSeats) chỉ được dẫn lại, không định nghĩa lại. Quy ước chung (bảng ánh xạ kiểu sang Go, association bằng mã, ctx và tx, hạng khoá cố định theo operation, now qua tham số) theo mục 0.2, 0.3 của P12-class-design.md.
 
-0.2. Ngoài phạm vi, để lượt khác: operation của DC-Showtime cho UC-004 (CheckInSchedule, CheckMatchesCriteria), UC-015, UC-016 (ProvideReportFigures); DC-Movie cho UC-003, UC-004 (DetermineRunStatus, ProvideMovieSummary); DC-Cinema.CheckInProvince (UC-004); DC-Auditorium.CheckMatchesRoomCriteria (UC-004); DC-ManageMoviesService, DC-ManageCinemasService (PKG-30). Phần entity của UC-010, UC-011 (khởi tạo, kiểm hợp lệ, kiểm mốc, ghi thay đổi) nằm trong lần chạy này vì lớp thuộc PKG-27.
+0.2. Operation đọc cho UC-003, UC-004, UC-015, UC-016 dùng DC-Movie.RunStatusAt, DC-Movie.Info, DC-Cinema.Info, IF-11.ListInfoByMovie, IF-11.ListInfoByCinema; việc lọc suất chiếu theo tiêu chí và tính số liệu báo cáo nằm ở PKG-17, PKG-18, PKG-33 (selectShowtimes, IF-28) nên DC-Showtime, DC-Auditorium không cần CheckInSchedule, CheckMatchesCriteria, CheckMatchesRoomCriteria, ProvideReportFigures. DC-ManageMoviesService, DC-ManageCinemasService thuộc PKG-30. Phần entity của UC-010, UC-011 (khởi tạo, kiểm hợp lệ, kiểm mốc, ghi thay đổi) nằm ở đây vì lớp thuộc PKG-27.
 
 0.3. Quyết định thiết kế chung của lần chạy.
 
@@ -53,6 +53,8 @@
 | DC-SeatType | enumeration | PKG-27 | STANDARD (ghế thường), VIP, COUPLE (ghế đôi) | DC-Seat, DC-PriceEntry, DC-PriceQuery, DC-Auditorium.SeatTypes |
 | DC-TimeBand | enumeration | PKG-27 | WEEKDAY_BEFORE_17, WEEKDAY_FROM_17, WEEKEND_BEFORE_17, WEEKEND_FROM_17 (BR-12) | DC-PriceList.DetermineTimeBand, DC-PriceCombo |
 | DC-AgeRating | enumeration | PKG-27 | P, K, T13, T16, T18, C (Q-199) | DC-Movie, DC-MovieDraft |
+| DC-BusinessDate | value object | PKG-27 | year, month, day (ngày theo Asia/Ho_Chi_Minh, không mang giờ; Q-268); So sánh theo thứ tự lịch | DC-Movie.RunStatusAt, DC-BrowseMoviesService |
+| DC-RunStatus | enumeration | PKG-27 | NOW_SHOWING (đang chiếu), COMING_SOON (sắp chiếu), ENDED (đã qua ngày kết thúc chiếu) | DC-Movie.RunStatusAt, DC-BrowseMoviesService, DC-BrowseShowtimesService |
 | DC-SeatMapState | enumeration | PKG-27 | IN_MAP (đang trong sơ đồ ghế), RETIRED (đã bỏ khỏi sơ đồ ghế) | DC-Seat (ST-07) |
 | DC-ShowtimePhase | enumeration | PKG-27 | NOT_ON_SALE (chưa mở bán), ON_SALE (đang mở bán), SHOWING (đang chiếu), ENDED (đã kết thúc); suy ra, không lưu | DC-Showtime.Phase (ST-06) |
 | DC-PriceCombo | value object | PKG-27 | auditoriumType, movieFormat, seatType, timeBand: định danh tổ hợp của mục giá (BR-62) | DC-PriceList, DC-PriceEntry, DC-Showtime.UsesPriceEntry |
@@ -129,6 +131,7 @@ F2.PKG-27 phần DC-Cinema, DC-Movie, DC-Seat, DC-Auditorium
 | DC-Movie | + | Duration() time.Duration | Thời lượng phim | BR-50 | P07 UC-014 msg 2.1.16.1 // provideDuration | Instance | - |
 | DC-Movie | + | Info() MovieInfo | Thông tin phim để hiển thị | - | P08 AC-E-Movie// provideMovieInfo | Instance | - |
 | DC-Movie | + | ID() MovieId | Định danh | - | Bổ sung: quan sát hậu điều kiện | Instance | - |
+| DC-Movie | + | RunStatusAt(today BusinessDate) RunStatus | COMING_SOON khi today trước releaseDate; ENDED khi today sau endOfRunDate; còn lại NOW_SHOWING (ngày kết thúc chiếu vẫn thuộc khoảng chiếu) | BR-76. Hậu: không đổi | P07 UC-003 msg 1.1.1 // determineRunStatus; UC-004 msg 1.1.1 | Instance | - |
 | DC-Seat | + | NewSeat(d SeatDraft) *Seat | Tạo ghế Trong sơ đồ ghế của phòng chiếu dự kiến | Hậu: mapState = IN_MAP (ST-07 sự kiện create) | P08 AC-E-Seat// createSeat | Classifier | - |
 | DC-Seat | + | CheckSeatValid() error | Hàng không trống, số ghế > 0, loại ghế thuộc ba loại | REQ-16. Hậu: không đổi | P08 AC-E-Seat// checkSeatValid | Instance | FieldInvalidError |
 | DC-Seat | + | RetireFromSeatMap() error | Đánh dấu ghế đã bỏ khỏi sơ đồ ghế; ghế giữ lại cho trạng thái ghế của suất chiếu đã kết thúc hoặc đã xoá | BR-118. Tiền: IN_MAP. Hậu: RETIRED | P08 AC-E-Seat// retireFromSeatMap | Instance | SeatStateError |
@@ -209,6 +212,8 @@ F2.PKG-27 phần interface kho (đã có ở lõi: FindRouting, LockShared, Find
 | IF-11 | + | Update(ctx Ctx, tx Tx, s *Showtime) error | UPDATE các cột đổi được theo khoá chính | Tiền: Showtime X đã khoá | P08 AC-E-Showtime// applyChanges, markDeleted | Instance | lỗi ràng buộc |
 | IF-11 | + | ListByCinema(ctx Ctx, cinemaId CinemaId) ([]ShowtimeListItem, error) | Đọc join không khoá các suất chiếu chưa xoá của cụm rạp, sắp theo giờ bắt đầu | Hậu: không khoá | P08 AC-E-Showtime// provideShowtimeInfo (UC-014) | Instance | - |
 | IF-11 | + | FindListItem(ctx Ctx, tx Tx, id ShowtimeId) (ShowtimeListItem, error) | Đọc join một suất chiếu | Hậu: không khoá | P07 UC-014 msg 2.1.22 // provideShowtimeInfo | Instance | NotFoundError |
+| IF-11 | + | ListInfoByMovie(ctx Ctx, movieId MovieId) ([]ShowtimeInfo, error) | Đọc join một lần các suất chiếu của phim cùng phòng, cụm rạp, định dạng, thời điểm mở bán và trạng thái | Hậu: không khoá; thứ tự theo giờ bắt đầu rồi tên cụm rạp, tên phòng (Q-302) | P07 UC-004 msg 2.1.1 đến 2.1.4 | Instance | - |
+| IF-11 | + | ListInfoByCinema(ctx Ctx, cinemaId CinemaId) ([]ShowtimeInfo, error) | Như ListInfoByMovie cho các suất chiếu của một cụm rạp | Hậu: không khoá; thứ tự như ListInfoByMovie | P07 UC-004 msg 1a.2.1.1 đến 1a.2.1.6 | Instance | - |
 | IF-12 | + | LockExclusiveByCinema(ctx Ctx, tx Tx, cinemaId CinemaId) (*PriceList, error) | SELECT FOR NO KEY UPDATE dòng bảng giá kèm mọi mục giá, kể cả mục đã bỏ (hạng 1) | Hạng 1 | P10 F3a EX-11, EX-12 | Instance | NotFoundError, SystemBusyError |
 | IF-12 | + | FindByCinema(ctx Ctx, cinemaId CinemaId) (*PriceList, error) | Đọc không khoá bảng giá kèm mục giá để hiển thị | Hậu: không khoá | P07 UC-013 msg 1.1.2 | Instance | NotFoundError |
 | IF-12 | + | SaveEntry(ctx Ctx, tx Tx, cinemaId CinemaId, e *PriceEntry) error | INSERT hoặc UPDATE mục giá theo khoá (cụm rạp, tổ hợp) | Tiền: hạng 1 X đã giữ | P08 AC-E-PriceList// savePriceEntry, deletePriceEntry | Instance | lỗi ràng buộc |
@@ -290,6 +295,7 @@ Mọi EX của PKG-16 là đúng một giao dịch (P09 F7.10), nên dòng "Nế
 | DC-Showtime.AdoptSeatMap | 1. Nếu status DELETED hoặc saleOpenTime <= now: trả SeatMapDelta rỗng.<br>2. addedSeatIds = inMapSeatIds không có trong existingSeatIds; removedSeatIds = existingSeatIds không có trong inMapSeatIds | - | Thuần tính toán trên mã ghế | ST-06: chỉ Chưa mở bán |
 | DC-Showtime.RecheckMovie | 1. movie.CheckReleasedInFormat(format).<br>2. movie.CheckWithinRunPeriod(startTime).<br>3. CalculateEndTime(movie.Duration()) | DC-Movie | Phim đọc dưới khoá S là phim hiện hành (BR-139); suất chiếu đã lưu không tự đổi khi phim đổi (BR-84) | - |
 | DC-Showtime.UsesPriceEntry | Trả false ngay khi status DELETED hoặc Phase khác Chưa mở bán, Đang mở bán; ngược lại so bốn yếu tố của combo với room.Type(), Format(), PriceList.DetermineTimeBand(startTime), room.SeatTypes() | DC-Auditorium, DC-PriceList.DetermineTimeBand | Dùng DetermineTimeBand là nơi duy nhất xác định khung giờ (BR-12) | ST-06 |
+| DC-Movie.RunStatusAt | d = releaseDate và e = endOfRunDate (ngày); today < d thì COMING_SOON; today > e thì ENDED; còn lại NOW_SHOWING | - | releaseDate, endOfRunDate | - |
 | DC-Movie.CheckWithinRunPeriod | d = start.In(Asia/Ho_Chi_Minh) cắt về ngày; hợp lệ khi releaseDate <= d <= endOfRunDate (releaseDate, endOfRunDate lưu là ngày) | - | Q-268 | - |
 | DC-Cinema.CheckAuditoriumNameAvailable | n = NormalizeName(name); với mỗi r của existing có r.id khác excludeId: NormalizeName(r.name) = n thì AuditoriumNameTakenError | DC-Cinema.NormalizeName | Tên phòng kiểm dưới Cinema X nên không cần khoá giá trị (BR-145) | - |
 
@@ -833,14 +839,7 @@ Không có (CHE_DO_GIA_DINH là NGHIEM_NGAT).
 
 | Bước | Mã phần tử | Vấn đề | Đề nghị |
 |---|---|---|---|
-| P10 | IF-29, F3a EX-13, EX-14, EX-15, F4 PKG-28, F5 | P10 F3a cho EX-13 đến EX-15 kiểm lần giữ ghế, vé và khoá SeatStatus qua IF-17, IF-18, IF-27 nhưng ba interface đó không có thao tác theo suất chiếu. P12 cấp IF-29 IShowtimeGuardRepository ở PKG-28 (hạng 5, 6, 8) | Thêm IF-29 vào bảng phần tử mới (cơ chế Persistence), F4 phần tử của PKG-28, F3a ghi EX-13 đến EX-15 dùng IF-29 cho kiểm theo suất chiếu; F5 visibility public cho IF-29 (PKG-16 dùng), DC-ShowtimeInUseError (PKG-16) và các kiểu mới của PKG-27 dùng trong chữ ký public (DC-MovieId, enumeration, draft, info, mọi lỗi mới ở F1b) |
-| P10, P12 lõi | DC-LockRank (PKG-21), DC-LockKey | DC-LockRank của lõi chỉ có 9 hạng (1 đến 9); IF-13.LockCinemaExclusive (hạng 0), IF-14 (hạng 10) và khoá giá trị cần hạng 0, 10 đến 13 theo P10 F3a | Lượt PKG-21 mở rộng DC-LockRank thành 14 hạng (CINEMA=0, MOVIE=10, và hạng 11 đến 13 của khoá giá trị) và DC-LockKey cho khoá giá trị |
-| P12 lõi | DC-Showtime.movieFormat, DC-PriceQuery.movieFormat và auditoriumType, seatType | Lõi ghi các trường này là string | Đổi sang DC-MovieFormat, DC-AuditoriumType, DC-SeatType (F1b của file này) |
-| P12 lõi | DC-PriceList.DetermineSeatPrice | Lõi chưa nói bỏ qua mục giá đã bỏ (removed) và dùng DetermineTimeBand để tính khung giờ | Ghi ở mô tả: chỉ xét mục chưa bỏ; khung giờ lấy từ DC-PriceList.DetermineTimeBand |
-| P12 (lượt PKG-21) | DC-PgCinemaOperationsStore, DC-PgTicketingStore | Cần hiện thực IF-14, các operation mới của IF-11, IF-12, IF-13 và IF-29 | Thêm Realization DC-PgCinemaOperationsStore --> IF-14 và DC-PgTicketingStore --> IF-29 (hoặc store chuyên cho phần suất chiếu theo Vấn đề còn mở 5 của lõi); mã R do lượt PKG-21 cấp |
 | P13 | cinema, movie, auditorium, seat, showtime, price_entry | Schema 1.5 thiếu cột của P08 2.0: cinema.province và last_changed_at; movie.trailer, last_changed_at (movie_code không cần cột, suy từ id); auditorium.last_changed_at; seat.in_seat_map (BOOLEAN, mặc định true); cột giá trị norm_name cho chỉ mục unique tên cụm rạp, tên phòng | Thêm cột trên. Ràng buộc uq_seat_position đổi thành unique từng phần WHERE in_seat_map để vị trí của ghế đã bỏ nhập lại thành ghế mới (ComputeSeatMapChange) |
-| P08, P09 | F4b EX-19, F4c removeAuditorium, P09 F7.3 EX-19 | Kiểm "phòng chưa bị sửa kể từ lúc hiển thị (5c)" khi xoá không có nguồn: P04 UC-012 luồng 1b3 và BR-146 chỉ nêu việc sửa; P07 UC-012 msg 2b.1 không mang mốc | Bỏ 5c khỏi EX-19 và dòng F4c tương ứng (phòng đã bị xoá thì khoá không trả dòng, AuditoriumGoneError) |
-| P07 | UC-012 SD2b, SD2c, SD1d; UC-014 SD1d, SD2c, SD3a, SD4b | Một số message ghi người gửi là :Auditorium (msg 2.1.6a.4, 2.1.6a.5, 2.1.11a.1, 2.1.17.2 đến 2.1.17.4) hoặc :Showtime gọi :SeatHold, :Ticket (msg 1a.2.1.3.1, 1a.2.1.3.2, 2.1.17[1a].3.1, 1b.2.1.1.3.1) trái với P08 F4b và P10 F3: control điều phối, Showtime và Auditorium không gọi PKG-28 | Đổi người gửi thành lớp control của UC hoặc ghi chú "do control điều phối" ở bảng message; thiết kế đã đi theo P10 (cột Operation của F4 ghi "Khác lớp nhận") |
 
 ## Vấn đề còn mở
 
@@ -850,7 +849,7 @@ Không có (CHE_DO_GIA_DINH là NGHIEM_NGAT).
 4. Không làm state machine cho DC-Auditorium, DC-Cinema, DC-Movie (chỉ có tạo, sửa, xoá, không operation nào đổi kết quả theo trạng thái) và DC-PriceEntry (xem F6). DC-Seat chỉ có hai trạng thái, giữ ST-07 vì BR-118.
 5. CreateShowtime và UpdateShowtime đọc phòng, phim, bảng giá hai lần (giai đoạn A không khoá để báo lỗi đúng thứ tự P04 và phản hồi sớm; giai đoạn B dưới khoá để quyết định). Thiết kế: UC quản lý có tải thấp nên chi phí đọc thêm chấp nhận được; nếu bỏ giai đoạn A thì thứ tự báo lỗi 5a, 5b, 5c, 6a, 6b, 6c của P04 vẫn giữ được vì cùng chạy tuần tự dưới khoá, và RecheckMovie (8g) trở thành bước trùng.
 6. UpdateShowtime lấy phòng hiện tại bằng đọc không khoá để biết cần khoá phòng nào (cùng nguyên tắc FindRouting của EX-01), rồi so lại dưới khoá Showtime X; khác thì thử lại tối đa hai lần, quá thì SystemBusyError.
-7. Các đồng bộ cần ở lượt khác: hiện thực SQL của IF-11 đến IF-14, IF-29 (PKG-21); DC-LockRank mở rộng 14 hạng; schema cột mới (P13); P11a ánh xạ thông điệp cho lỗi mới (AuditoriumGoneError, ShowtimeInUseError, PriceEntryInUseError...) khi chạy lại P11a.
+7. Các đồng bộ cần ở lượt khác: hiện thực SQL của IF-11 đến IF-14, IF-29 (PKG-21); schema cột mới (P13); P11a ánh xạ thông điệp cho lỗi mới (AuditoriumGoneError, ShowtimeInUseError, PriceEntryInUseError...) khi chạy lại P11a.
 8. Mã không dùng trong dải của phiên: R-229 đến R-239, ST-08, ST-09, IF-30, IF-31, Q-292 đến Q-301; để X3 ghi lại.
-9. Operation của DC-Showtime, DC-Movie, DC-Cinema, DC-Auditorium cho UC-003, UC-004, UC-015, UC-016 chưa chi tiết hoá ở đây (xem 0.2).
+9. Đã đóng: operation cho UC-003, UC-004, UC-015, UC-016 ở mục 0.2 (mục giữ số thứ tự để tham chiếu không lệch).
 10. Target 7: message từ tác nhân tới boundary giao diện (STT 1, 2, 1a, 1b, ...) không có dòng ở F4 vì boundary React thuộc PKG-05 đến PKG-10.

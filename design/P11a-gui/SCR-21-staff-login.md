@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P02-usecases.md 1.9; P04 UC-017 1.2 (Dữ liệu vào 1 STT 1, BR-95, BR-97, BR-101), tiền điều kiện của UC-005, UC-008, UC-009, UC-010 đến UC-017; P06 NFR-02, NFR-03, NFR-12; P08-analysis-model.md 2.0 (F3); P09-architecture.md 2.0 (F7.11, Q-267); P10-design-elements.md 2.0 (F3, F4, Q-271). Dải Q của phiên: Q-272 đến Q-281 (C10) |
 | Phạm vi | SCR-21 |
 | Mã Q, ASM cuối đã cấp | Q-276; không có ASM (NGHIEM_NGAT) |
@@ -17,7 +17,7 @@
 | Bước UC | Tiền điều kiện các use case của nhân viên và quản trị viên (REQ-102, REQ-104) |
 | Tác nhân | ACT-02 Nhân viên quầy, ACT-03 Nhân viên soát vé, ACT-04 Quản lý cụm rạp, ACT-05 Quản lý chuỗi, ACT-06 Quản trị viên |
 | Boundary AC | Chưa có (đăng nhập không là use case, hồ sơ dự án mục 4) |
-| DC | DC-LoginView, DC-SessionStore (PKG-31) |
+| DC | DC-LoginView (accountKind STAFF), DC-SessionStore (PKG-31) |
 | Loại màn hình | Độc lập |
 | Đến từ | START-ACT-02 đến START-ACT-06 (E-03, E-04, E-05, E-35, E-36); SCR-01 (E-39); mọi màn hình nhân viên khi máy chủ trả "phiên không còn hiệu lực" (UI-STT 48) |
 | Đi tới | SCR-09 (E-07), SCR-16 (E-08), SCR-17 (E-09), SCR-31 (E-37), SCR-37 (E-38), SCR-01 (E-40) |

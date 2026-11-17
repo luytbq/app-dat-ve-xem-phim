@@ -3,11 +3,12 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.7 |
+| Phiên bản | 1.8 |
+| Thay đổi 1.8 | Bước 1 nêu hệ thống hiển thị danh sách suất chiếu của cụm rạp; thêm luồng 2a (suất chiếu không thuộc cụm rạp, BR-34) (quyết định SY-72 của chủ dự án); thêm ghi chú N-2a vào sơ đồ |
 | Thay đổi 1.7 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.6 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (1 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.5 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.2; UC-005-book-tickets.md 1.15 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.10 (điểm nối huỷ và soát) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.10 (điểm nối huỷ và soát) |
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
 
@@ -32,7 +33,7 @@
 
 | STT | Thực hiện bởi | Hành động |
 |---|---|---|
-| 1 | Nhân viên soát vé | Chọn suất chiếu đang soát trong các suất chiếu của cụm rạp mình (xem Dữ liệu vào 1; BR-34). |
+| 1 | Nhân viên soát vé | Chọn suất chiếu đang soát trong danh sách các suất chiếu của cụm rạp mình mà hệ thống hiển thị khi mở màn hình soát vé (xem Dữ liệu vào 1; BR-34). |
 | 2 | Hệ thống | Ghi nhận suất chiếu đã chọn là suất chiếu đang soát và hiển thị thông tin suất chiếu (xem Dữ liệu ra 1). |
 | 3 | Nhân viên soát vé | Quét mã QR trên vé của khách bằng camera của thiết bị (xem Dữ liệu vào 2). |
 | 4 | Hệ thống | Kiểm tra mã QR tương ứng với một vé, vé thuộc cụm rạp của nhân viên soát vé, vé thuộc suất chiếu đang soát, vé chưa sử dụng và vé chưa huỷ (BR-22, BR-23, BR-24, BR-25, BR-30); khi vé vi phạm nhiều điều kiện thì chỉ xét điều kiện đầu tiên vi phạm theo thứ tự này (BR-33). |
@@ -44,6 +45,7 @@
 
 | STT | Điều kiện | Thực hiện bởi | Hành động | Quay lại / Kết thúc |
 |---|---|---|---|---|
+| 2a | Suất chiếu được chọn không thuộc cụm rạp của nhân viên soát vé (BR-34) | Hệ thống | Từ chối, không ghi nhận suất chiếu đang soát và thông báo quy tắc bị vi phạm (BR-34). | Quay lại bước 1 |
 | 4a | Mã QR không tương ứng với vé nào của hệ thống | Hệ thống | Từ chối cho vào và báo nhân viên soát vé lý do: mã QR không tương ứng vé (xem Dữ liệu ra 3). | Tiếp tục bước 7 |
 | 4b | Mã QR tương ứng một vé và vé thuộc cụm rạp khác cụm rạp của nhân viên soát vé (BR-22) | Hệ thống | Từ chối cho vào và báo nhân viên soát vé lý do: vé thuộc cụm rạp khác (BR-22; xem Dữ liệu ra 3). | Tiếp tục bước 7 |
 | 4c | Vé thuộc cụm rạp của nhân viên soát vé và vé thuộc suất chiếu khác suất chiếu đang soát (BR-23) | Hệ thống | Từ chối cho vào và báo nhân viên soát vé lý do: vé thuộc suất chiếu khác (BR-23; xem Dữ liệu ra 3). | Tiếp tục bước 7 |
@@ -117,6 +119,7 @@ Không có
 
 ## 8. Thông tin bổ sung
 
+- Luồng 2a (trả lời Q-96) trên activity diagram là ghi chú N-2a không có cạnh; danh sách ở bước 1 chỉ gồm suất chiếu của cụm rạp của nhân viên soát vé nên luồng 2a chỉ xảy ra khi yêu cầu không đi qua danh sách (trả lời Q-95).
 - Luồng chính theo kịch bản của ACT-03 Nhân viên soát vé, tác nhân chính duy nhất. Camera của thiết bị chỉ là kênh nhập, không phải tác nhân và không có giao tiếp riêng với phần mềm (P01 A-T2, Q-22, REQ-50).
 - Bước 4 và bước 5 là một thao tác không chia cắt về mặt nghiệp vụ. Lý do: BR-24 đòi hỏi khi hai nhân viên soát vé cùng quét một vé thì chỉ một người được kết quả hợp lệ; nếu kiểm tra "chưa sử dụng" và đánh dấu "đã sử dụng" là hai thao tác tách rời, cả hai có thể cùng thấy vé chưa sử dụng. Người quét sau nhận lý do ở luồng 4d. Cơ chế bảo đảm điều này thuộc bước thiết kế (P07, P09).
 - Kiểm tra và ghi trạng thái vé ở bước 4, 5 của use case này và ở UC-008 bước 4 phải loại trừ lẫn nhau trên cùng một vé; một vé không thể đồng thời ở trạng thái đã huỷ và đã sử dụng. Khi hai việc xảy ra cùng lúc, bên ghi nhận trước thắng và bên sau bị từ chối (BR-30): nếu việc huỷ được ghi nhận trước thì việc soát kết thúc ở luồng 4e; nếu việc soát được ghi nhận trước thì UC-008 từ chối huỷ ở luồng 4b.
@@ -155,6 +158,7 @@ Bảng đối chiếu
 |---|---|
 | 1 | A-1 |
 | 2 | A-2 |
+| 2a | N-2a |
 | 3 | A-3 |
 | 4 | A-4, D-4 |
 | 4a | A-4a |
@@ -175,6 +179,7 @@ Bảng Node
 | INIT | Initial | - | - | P-ACT-03 | - | x=130, y=60 (tương đối partition) |
 | A-1 | Action | Chọn suất chiếu đang soát | - | P-ACT-03 | 1 | x=60, y=130 (tương đối partition) |
 | A-2 | Action | Ghi nhận suất chiếu đang soát | - | P-SYS | 2 | x=60, y=230 (tương đối partition) |
+| N-2a | Note | 2a: Suất chiếu được chọn không thuộc cụm rạp của nhân viên soát vé: từ chối, không ghi nhận suất chiếu đang soát, quay lại bước 1 (BR-34) | - | P-SYS | 2a | x=319, y=50, w=240, h=100 (tương đối partition) |
 | M-3 | Merge | - | - | P-ACT-03 | 7 | x=130, y=330 (tương đối partition) |
 | A-3 | Action | Quét mã QR trên vé của khách | - | P-ACT-03 | 3 | x=60, y=400 (tương đối partition) |
 | A-4 | Action | Kiểm tra mã QR và vé | - | P-SYS | 4 | x=60, y=500 (tương đối partition) |

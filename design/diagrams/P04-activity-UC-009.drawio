@@ -45,7 +45,8 @@
         <mxCell id="E-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="M-7" target="D-7"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-21" value="[còn vé cần soát]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-7" target="M-3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="30" y="1120" /><mxPoint x="30" y="350" /></Array></mxGeometry></mxCell>
         <mxCell id="E-22" value="[hết vé cần soát]" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="D-7" target="FINAL-1"><mxGeometry relative="1" as="geometry" /></mxCell>
-      </root>
+              <mxCell id="N-2a" value="2a: Suất chiếu được chọn không thuộc cụm rạp của nhân viên soát vé: từ chối, không ghi nhận suất chiếu đang soát, quay lại bước 1 (BR-34)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="319" y="50" width="240" height="100" as="geometry" /></mxCell>
+</root>
     </mxGraphModel>
   </diagram>
 </mxfile>

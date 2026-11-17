@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.10 |
+| Phiên bản | 1.11 |
+| Thay đổi 1.11 | Thêm luồng 7a (dịch vụ email lỗi, BR-89); bước 3 tạo bản ghi cho giao dịch thứ hai; luồng 2d chỉ ghi log với giao dịch không nhận ra; Mục 8 nêu điểm tiếp nhận chuyển lần giữ ghế sang Hết hạn (quyết định SY-70, SY-71 của chủ dự án); thêm ghi chú N-7a vào sơ đồ |
 | Thay đổi 1.10 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-2e, M-6, M-RX trước A-2e, A-6, A-RX để mỗi action chỉ có một cạnh vào (E-33 đến E-35); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-005-book-tickets.md 1.15; _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-005-book-tickets.md 1.16; _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-76 và Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-51 (Q-48 và Q-51 đều đã trả lời); Q-127 và Q-128 (cấp ở P11b, đã trả lời theo đề xuất của review P11); không có ASM (NGHIEM_NGAT) |
 
@@ -35,7 +36,7 @@
 |---|---|---|
 | 1 | Cổng thanh toán | Báo kết quả của một giao dịch thanh toán (xem Dữ liệu vào 1). |
 | 2 | Hệ thống | Tra giao dịch theo mã giao dịch; với mã không phải của giao dịch hệ thống đã tạo thì tra lần giữ ghế theo mã tham chiếu lần giữ ghế kèm trong báo của cổng (REQ-136). Kiểm tra: kết quả là thành công, hệ thống nhận ra giao dịch (là giao dịch hệ thống đã tạo hoặc gắn được với một lần giữ ghế), giao dịch chưa được xử lý trước đó (chưa dùng để tạo vé ở UC-005 và chưa ghi nhận thanh toán trễ ở use case này, BR-37), và lần giữ ghế ứng với giao dịch ở trạng thái Hết hạn (BR-14), Đã huỷ hoặc Thanh toán thất bại (BR-15), hoặc Đã hoàn tất (đã có vé từ một giao dịch khác, BR-40); các kiểm tra và bước 3 là một thao tác xử lý tuần tự theo lần giữ ghế (BR-85, BR-86). |
-| 3 | Hệ thống | Ghi nhận giao dịch là thanh toán trễ chờ hoàn tiền và không tạo vé (BR-14, BR-15, BR-40). |
+| 3 | Hệ thống | Ghi nhận giao dịch là thanh toán trễ chờ hoàn tiền và không tạo vé (BR-14, BR-15, BR-40); với giao dịch thứ hai (mã không phải của giao dịch hệ thống đã tạo, BR-40) hệ thống tạo bản ghi giao dịch tại bước này từ báo của cổng. |
 | 4 | Hệ thống | Yêu cầu cổng thanh toán hoàn toàn bộ số tiền đã thanh toán của giao dịch, kèm khoá chống hoàn trùng của yêu cầu hoàn này (mã giao dịch và loại yêu cầu hoàn toàn bộ); số tiền lấy từ giao dịch hệ thống đã tạo lúc thanh toán, hoặc từ báo của cổng với giao dịch thứ hai (REQ-136) (BR-14, BR-15, BR-26, BR-37, BR-40, BR-43). |
 | 5 | Cổng thanh toán | Trả về kết quả hoàn tiền thành công. |
 | 6 | Hệ thống | Ghi nhận giao dịch đã được hoàn toàn bộ số tiền. |
@@ -48,7 +49,7 @@
 | 2a | Kết quả là thành công và giao dịch đã được xử lý trước đó: đã dùng để tạo vé ở UC-005 hoặc đã ghi nhận thanh toán trễ ở use case này (cổng báo trùng, BR-37) | Hệ thống | Ghi nhận lần báo trùng, không tạo vé và không yêu cầu hoàn tiền thêm (BR-37). | Kết thúc use case (thất bại) |
 | 2b | Hệ thống nhận ra giao dịch, giao dịch chưa được xử lý trước đó, lần giữ ghế ứng với giao dịch ở trạng thái Đang giữ (chưa hết hạn, chưa bị huỷ, chưa có báo thất bại, chưa có vé); kết quả thành công hay thất bại đều do UC-005 xử lý | - | - | Kết thúc use case (thất bại) |
 | 2c | Kết quả là thất bại và lần giữ ghế ứng với giao dịch đã hết hạn hoặc đã bị khách huỷ (BR-39) | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền (BR-39). | Kết thúc use case (thất bại) |
-| 2d | Kết quả là thất bại và không thuộc 2b, 2c: giao dịch đã có vé, giao dịch hệ thống không nhận ra, hoặc lần giữ ghế đã có báo thất bại trước đó (BR-39) | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền (BR-39). | Kết thúc use case (thất bại) |
+| 2d | Kết quả là thất bại và không thuộc 2b, 2c: giao dịch đã có vé, giao dịch hệ thống không nhận ra, hoặc lần giữ ghế đã có báo thất bại trước đó (BR-39) | Hệ thống | Ghi nhận kết quả thất bại và không hoàn tiền (BR-39); với giao dịch hệ thống không nhận ra thì không tạo bản ghi giao dịch, chỉ ghi log (BR-39). | Kết thúc use case (thất bại) |
 | 2e | Kết quả là thành công và hệ thống không nhận ra giao dịch (mã giao dịch không phải của giao dịch hệ thống đã tạo và báo của cổng không kèm mã tham chiếu lần giữ ghế nhận ra được, BR-38) | Hệ thống | Ghi log lỗi giao dịch để xử lý thủ công ngoài hệ thống; không tạo vé, không hoàn tiền, không gửi email (BR-38). | Kết thúc use case (thất bại) |
 | 2f | Kết quả là thành công, hệ thống nhận ra giao dịch nhưng số tiền cổng báo khác số tiền hệ thống đã ghi nhận cho giao dịch (BR-91) | Hệ thống | Ghi log lỗi giao dịch để xử lý thủ công ngoài hệ thống; không tạo vé, không hoàn tiền, không gửi email (BR-91). | Kết thúc use case (thất bại) |
 | 4a | Cổng thanh toán không phản hồi yêu cầu hoàn tiền trong 30 giây (BR-43) | Hệ thống | Không gửi lại ngay; chuyển sang tra cứu kết quả hoàn (BR-41, BR-43). | Thực hiện bước 4t |
@@ -56,6 +57,7 @@
 | 4t | Sau 4a hoặc 5a | Hệ thống | Tra cứu cổng xem yêu cầu hoàn mang khoá chống hoàn trùng này đã được thực hiện chưa (BR-43). Kết quả: (i) đã hoàn; (ii) chưa hoàn và còn lượt thử lại (BR-41), hệ thống chờ khoảng cách giữa hai lần thử rồi gửi lại; (iii) chưa hoàn và đã hết lượt thử lại; (iv) không tra cứu được kết quả (cổng không có tra cứu hoặc tra cứu không trả lời) thì không gửi lại tự động (BR-41). | (i) tiếp tục bước 6; (ii) quay lại bước 4; (iii), (iv) như 4b |
 | 4b | Sau 4t từ 4a: chưa hoàn và đã hết lượt thử lại, hoặc không tra cứu được kết quả | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
 | 5b | Sau 4t từ 5a: chưa hoàn và đã hết lượt thử lại, hoặc không tra cứu được kết quả | Hệ thống | Ghi log lỗi khoản hoàn toàn bộ để xử lý thủ công ngoài hệ thống; không gửi email cho khách (BR-41). | Kết thúc use case (thất bại) |
+| 7a | Dịch vụ email từ chối hoặc không phản hồi khi gửi email thông báo hoàn tiền (BR-89) | Hệ thống | Giữ nguyên hiệu lực của khoản hoàn đã ghi nhận ở bước 6, thử gửi lại vài lần, nếu vẫn lỗi thì ghi log lỗi; không hoàn tiền thêm (BR-89, Q-76). | Kết thúc use case |
 
 ## 4. Luồng con
 
@@ -123,6 +125,8 @@ Không có
 - Bước 2 và bước 3 phải là một thao tác không chia cắt trên cùng giao dịch. Lý do: BR-37 đòi hỏi mỗi giao dịch hoàn thành công không quá một lần; nếu hai lần báo trùng đến cùng lúc và cùng qua bước kiểm tra "chưa được xử lý" trước khi bước ghi nhận xảy ra, giao dịch bị yêu cầu hoàn hai lần. Cơ chế bảo đảm thuộc bước thiết kế (P07, P09).
 - Bước 2 và bước 3 cũng là một thao tác không chia cắt với việc UC-005 chuyển ghế sang đã bán và tạo vé (UC-005 bước 11, 12) trên cùng lần giữ ghế: việc so thời điểm nhận báo với thời điểm hết hạn giữ ghế, và việc đánh dấu giao dịch là thanh toán trễ (bước 3) hoặc chuyển lần giữ ghế sang Đã hoàn tất (UC-005 bước 12), phải xảy ra trong cùng một thao tác. Lý do: nếu tách rời, một ghế có thể vừa được bán cho giao dịch này vừa được giải phóng cho người khác, hoặc giao dịch vừa có vé vừa được hoàn toàn bộ tiền. Mỗi giao dịch thanh toán thành công đi theo đúng một trong UC-005 hoặc UC-006. Cơ chế bảo đảm thuộc bước thiết kế (P07, P09).
 - Luồng 2b: kết quả (thành công hoặc thất bại) báo về khi lần giữ ghế còn hiệu lực và chưa có vé là kết quả trong phiên đặt vé, do UC-005 xử lý ở bước 11, 12 và luồng 11a (EV-07), không thuộc use case này. Giao dịch đã dùng để tạo vé ở UC-005 mà cổng báo trùng, kể cả sau thời điểm hết hạn giữ ghế, thuộc luồng 2a, không thuộc luồng chính (BR-37).
+- Khi báo thành công đến sau thời điểm hết hạn của lần giữ ghế còn ở trạng thái Đang giữ, điểm tiếp nhận báo chuyển lần giữ ghế sang Hết hạn (BR-14) trước khi use case này xử lý; use case này không giải phóng ghế (trả lời Q-88).
+- Luồng 7a trên activity diagram là ghi chú N-7a không có cạnh.
 - Use case này không đổi trạng thái ghế: ghế được giải phóng bởi UC-005 (luồng 7b, 11a, *a).
 - Bước 7 chỉ gửi đi, không chờ kết quả. Khi dịch vụ email từ chối hoặc không phản hồi, khoản hoàn đã ghi nhận ở bước 6 giữ nguyên, hệ thống thử gửi lại vài lần rồi ghi log lỗi; không hoàn tiền thêm (BR-89, trả lời Q-76). Số lần thử lại và khoảng cách giữa hai lần là quyết định thiết kế (P09).
 - Trạng thái của lần giữ ghế tại bước 2 theo P05 GL-25 (Q-69): Hết hạn (BR-14), Đã huỷ hoặc Thanh toán thất bại (BR-15), Đã hoàn tất với giao dịch khác (BR-40), Đang giữ (luồng 2b, thuộc UC-005). Các báo kết quả của cùng một lần giữ ghế xử lý tuần tự (BR-85); lần giữ ghế đã ở trạng thái cuối thì không đổi nữa nên báo đến sau luôn được xử lý theo trạng thái cuối đó (BR-86, trả lời Q-79): báo thành công của giao dịch chưa xử lý đi luồng chính, báo của giao dịch đã xử lý đi luồng 2a, báo thất bại đi luồng 2c, 2d.
@@ -175,6 +179,7 @@ Bảng đối chiếu
 | 5 | A-5, D-5 |
 | 6 | M-6, A-6 |
 | 7 | A-7, FINAL-5 |
+| 7a | N-7a |
 
 Bảng Node
 
@@ -211,6 +216,7 @@ Bảng Node
 | M-RX | Merge | - | - | P-SYS | 4b, 5b | x=460, y=1040 (tương đối partition) |
 | A-6 | Action | Ghi nhận giao dịch đã hoàn tiền | - | P-SYS | 4t, 6 | x=60, y=990 (tương đối partition) |
 | A-7 | Action | Gửi email thông báo hoàn tiền | - | P-SYS | 7 | x=60, y=1090 (tương đối partition) |
+| N-7a | Note | 7a: Dịch vụ email từ chối hoặc không phản hồi khi gửi email thông báo hoàn tiền: khoản hoàn giữ nguyên hiệu lực, thử gửi lại, ghi log lỗi, kết thúc (BR-89) | - | P-SYS | 7a | x=320, y=1230, w=240, h=100 (tương đối partition) |
 | FINAL-5 | ActivityFinal | - | - | P-SYS | - | x=130, y=1190 (tương đối partition) |
 
 Bảng Edge

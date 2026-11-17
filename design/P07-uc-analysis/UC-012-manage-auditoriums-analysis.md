@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Ghi chú các message kiểm do control điều phối ở bảng message (không đổi sơ đồ) |
 | Thay đổi 1.1 | Chốt Q-249 đến Q-254 (đã trả lời theo đề xuất); Luồng 1a2a, 1b2a và thứ tự kiểm bước 5 theo P04 UC-012 1.2; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-012-manage-auditoriums.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md; P08-analysis-model.md 1.5 (F3, F4b: AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, EX-13, EX-15, X-19, X-21, Q-109, Q-110); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-010-manage-movies-analysis.md và UC-011-manage-cinemas-analysis.md (cùng phiên; Q-245 đến Q-248, AC-E-Cinema); P07-uc-analysis/UC-013-manage-price-list-analysis.md (AC-E-CinemaManager, AC-E-PriceList, mẫu định dạng); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Auditorium, AC-E-Showtime, AC-E-PriceList); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-012); dải mã Q-245 đến Q-254 (đầu lô) |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-012-manage-auditoriums.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md; P08-analysis-model.md 2.1 (F3, F4b: AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, EX-13, EX-15, X-19, X-21, Q-109, Q-110); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-010-manage-movies-analysis.md và UC-011-manage-cinemas-analysis.md (cùng phiên; Q-245 đến Q-248, AC-E-Cinema); P07-uc-analysis/UC-013-manage-price-list-analysis.md (AC-E-CinemaManager, AC-E-PriceList, mẫu định dạng); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Auditorium, AC-E-Showtime, AC-E-PriceList); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-012); dải mã Q-245 đến Q-254 (đầu lô) |
 | Phạm vi | UC-012 |
 | Mã Q, ASM cuối đã cấp | Q-254 (Q-249 đến Q-254 cấp ở use case này, đã trả lời; Q-245 đến Q-248 cấp ở UC-010, UC-011; dải được cấp Q-245 đến Q-254, đã dùng hết); không có ASM (NGHIEM_NGAT) |
 
@@ -372,9 +373,9 @@ c) Bảng message
 | 2.1.6a.2 | phòngChọn:Auditorium | :Cinema | // checkAuditoriumNameAvailable (tên phòng chiếu, không kể phòng này, BR-145) | Đồng bộ | - | 5 |
 | 2.1.6a.2 (trả về) | :Cinema | phòngChọn:Auditorium | tên chưa thuộc phòng khác hoặc đã thuộc | Trả về | - | 5 |
 | 2.1.6a.3 | phòngChọn:Auditorium | phòngChọn:Auditorium | // checkSeatMapChanged (sơ đồ ghế mới so với sơ đồ hiện tại) | Tự gọi | - | 5 |
-| 2.1.6a.4 | phòngChọn:Auditorium | chặn:Showtime | // checkBlocksSeatMapEdit (BR-87) | Đồng bộ | - | 5 |
+| 2.1.6a.4 | phòngChọn:Auditorium | chặn:Showtime | // checkBlocksSeatMapEdit (BR-87) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | - | 5 |
 | 2.1.6a.4 (trả về) | chặn:Showtime | phòngChọn:Auditorium | có suất chiếu đã mở bán chưa kết thúc hoặc không | Trả về | - | 5 |
-| 2.1.6a.5 | phòngChọn:Auditorium | chưaChiếu:Showtime | // checkStaysPriced (loại phòng mới, loại ghế mới, BR-73) | Đồng bộ | - | 5 |
+| 2.1.6a.5 | phòngChọn:Auditorium | chưaChiếu:Showtime | // checkStaysPriced (loại phòng mới, loại ghế mới, BR-73) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | - | 5 |
 | 2.1.6a.5.1 | chưaChiếu:Showtime | :PriceList | // checkCoversShowtime (loại phòng, loại ghế, giờ bắt đầu, định dạng, BR-69) | Đồng bộ | - | 5 |
 | 2.1.6a.5.1 (trả về) | :PriceList | chưaChiếu:Showtime | bảng giá phủ mọi loại ghế hoặc thiếu giá | Trả về | - | 5 |
 | 2.1.6a.5 (trả về) | chưaChiếu:Showtime | phòngChọn:Auditorium | có suất chiếu thiếu giá hoặc không | Trả về | - | 5 |
@@ -404,7 +405,7 @@ c) Bảng message
 | STT | Từ | Đến | Message | Loại (Đồng bộ / Trả về / Tự gọi / Tạo) | Fragment | Bước UC |
 |---|---|---|---|---|---|---|
 | 2.1.11a | :ManageAuditoriumsController | phòngChọn:Auditorium | // applyChanges (thông tin phòng chiếu đã kiểm, sơ đồ ghế mới) | Đồng bộ | - | 5 |
-| 2.1.11a.1 | phòngChọn:Auditorium | chưaMởBán:Showtime | // adoptSeatMap (sơ đồ ghế mới, BR-118) | Đồng bộ | SD2c-F1 | 5 |
+| 2.1.11a.1 | phòngChọn:Auditorium | chưaMởBán:Showtime | // adoptSeatMap (sơ đồ ghế mới, BR-118) (do control điều phối: Showtime và Auditorium không gọi PKG-28, P08 F4b, P10 F3) | Đồng bộ | SD2c-F1 | 5 |
 | 2.1.11a.1 (trả về) | chưaMởBán:Showtime | phòngChọn:Auditorium | suất chiếu đã dùng sơ đồ ghế mới | Trả về | SD2c-F1 | 5 |
 | 2.1.11a (trả về) | phòngChọn:Auditorium | :ManageAuditoriumsController | phòng chiếu đã lưu | Trả về | - | 5 |
 | 2.1.12a | :ManageAuditoriumsController | phòngChọn:Auditorium | // provideAuditoriumInfo (phòng chiếu đã lưu) | Đồng bộ | - | 6 |

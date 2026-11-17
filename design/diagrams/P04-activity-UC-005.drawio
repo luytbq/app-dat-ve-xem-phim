@@ -128,7 +128,8 @@
         <mxCell id="E-46" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-15" target="FINAL-5"><mxGeometry relative="1" as="geometry" /></mxCell>
         <mxCell id="E-47" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-9a4" target="A-9a5"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="970" y="2450" /><mxPoint x="390" y="2450" /></Array></mxGeometry></mxCell>
         <mxCell id="E-48" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;" edge="1" parent="1" source="A-9a5" target="FINAL-6"><mxGeometry relative="1" as="geometry" /></mxCell>
-      </root>
+              <mxCell id="N-14a" value="14a: Dịch vụ email từ chối hoặc không phản hồi khi gửi vé: vé giữ nguyên hiệu lực, thử gửi lại, ghi log lỗi, tiếp tục bước 15 (BR-89)" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="P-SYS"><mxGeometry x="320" y="2460" width="240" height="100" as="geometry" /></mxCell>
+</root>
     </mxGraphModel>
   </diagram>
 </mxfile>

@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.0 |
+| Phiên bản | 1.1 |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P01-actors.md 1.2; P02-usecases.md 1.9; P04 UC-010 1.2, UC-011 1.2, UC-016 1.2; P08-analysis-model.md 2.0 (F3); P10-design-elements.md 2.0 (F3, F4). Dải Q của phiên: Q-272 đến Q-281 (C10) |
 | Phạm vi | SCR-31 |
 | Mã Q, ASM cuối đã cấp | Q-276; không có ASM (NGHIEM_NGAT) |
@@ -17,7 +17,7 @@
 | Bước UC | UC-010 bước 1; UC-011 bước 1; UC-016 bước 1 |
 | Tác nhân | ACT-05 Quản lý chuỗi |
 | Boundary AC | Điều hướng (mở UC-010, UC-011, UC-016) |
-| DC | Chưa có (điều hướng) |
+| DC | DC-ChainAdminHomeView |
 | Loại màn hình | Độc lập |
 | Đến từ | SCR-21 (E-37); menu của mọi màn hình quản lý chuỗi |
 | Đi tới | SCR-32 (E-55), SCR-34 (E-57), SCR-36 (E-59) |

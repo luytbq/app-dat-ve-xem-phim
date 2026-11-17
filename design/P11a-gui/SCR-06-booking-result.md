@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Cột DC trỏ tới component trang và kho trạng thái thiết kế ở P12 |
 | Thay đổi 1.2 | Nielsen 1: khách xem lại kết quả đặt vé ở SCR-26 (UC-007) ngoài email; đồng bộ đầu vào đã dùng |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.9 (bước 11-15, Dữ liệu ra 3, luồng 7b, 11a); P09 F7.6; P05 GL-17, GL-51; P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-06 |
@@ -18,7 +19,7 @@
 | Bước UC | 11, 12, 13, 14, 15; luồng 7b, 11a |
 | Tác nhân | ACT-01 Khách |
 | Boundary AC | AC-B-BookTicketsForm (showBookingSuccess, notifyRefusal) |
-| DC | DC-BookTicketsView |
+| DC | DC-BookingResultPage |
 | Loại màn hình | Phụ thuộc có dữ liệu (giao dịch thanh toán) |
 | Đến từ | Cổng VNPay quay về địa chỉ trả về (E-18) |
 | Đi tới | SCR-05 (E-34) khi lần giữ ghế còn Đang giữ; thoát bằng nút Về trang chủ hoặc menu tới SCR-02 |

@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Cột DC trỏ tới component trang và kho trạng thái thiết kế ở P12 |
 | Thay đổi 1.3 | Thêm MSG-84 (suất chiếu chưa mở bán lúc giữ ghế) vào nhánh từ chối của nút Xác nhận chọn ghế; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.2 | Thêm MSG-82 vào nhánh từ chối của nút Xác nhận chọn ghế (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.15 (bước 3-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e, Mục 7); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 2.0 (F3); P09-architecture.md 2.0 (F7.3 EX-01); P10-design-elements.md 2.0 (F3, F4) |
@@ -19,7 +20,7 @@
 | Bước UC | 3, 4, 5, 6, 7; luồng 5a, 5b, 6a, 7a, 7c, 7d, 7e |
 | Tác nhân | ACT-01 Khách |
 | Boundary AC | AC-B-BookTicketsForm (showSeatMap, confirmSeatSelection, updateSeatMap, notifyRefusal, requestLogin) |
-| DC | DC-BookTicketsView, DC-SeatMapSyncClient, DC-SeatMapReducer |
+| DC | DC-SelectSeatsPage, DC-SeatMapSyncClient, DC-SeatMapReducer |
 | Loại màn hình | Phụ thuộc có dữ liệu (suất chiếu đã chọn) |
 | Đến từ | SCR-03 (E-13) |
 | Đi tới | SCR-01 pop-up (E-14), SCR-05 (E-15), SCR-02 (E-16), SCR-03 (E-17) |

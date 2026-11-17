@@ -136,7 +136,7 @@ Không còn mục nào. Chủ dự án chốt tất cả theo đề xuất ghi �
 | SY-20 | X2 dòng 20; CQ-8 | Hồ sơ dự án, P09 F7 | Áp dụng | Bật TRANH_CHAP_TAI_NGUYEN, thêm Bảng hỏng | Đã áp: hồ sơ thêm trường; P09 1.7 thêm F7.10 Bảng hỏng; F4.5 của X2 đối chiếu bảng này khi chạy lại |
 | SY-21 | X2 dòng 21; CQ-6 | P13 ck_seat_hold_expiry, ck_refund_request_attempts | Không áp | Cập nhật ca tích hợp cuối nếu áp RV-07 | RV-07 không đổi CHECK (Q-140 giữ hằng cố định) nên ca tích hợp cuối giữ nguyên |
 | SY-22 | X1 RV-01; CQ-1 | P10; P12 (DC-BookTicketsService, DC-PaymentReportService, DC-SeatHold, DC-Booking, DC-Ticket) | Áp dụng | Extract Class DC-HoldSettlement | Đã áp, P12 1.6, P10 1.5. Xem mục RV-01 bên dưới |
-| SY-23 | X1 RV-02; CQ-9 | P12 chữ ký công khai PKG-13, PKG-15 | Chờ | DTO ở chữ ký công khai | Chủ dự án chốt để sau khi có mã Project 3 và thiết kế PKG-11 |
+| SY-23 | X1 RV-02; CQ-9 | P12 chữ ký công khai PKG-13, PKG-15 | Chờ | DTO ở chữ ký công khai | Chủ dự án chốt để sau khi có mã Project 3 và thiết kế PKG-11; lần 5: PKG-11 đã thiết kế, chốt ngoại lệ hẹp PKG-11 --> PKG-27, PKG-28 (Q-342), RV-02 áp sau Project 3 nếu còn thời gian |
 | SY-24 | X1 RV-03; CQ-7, Q-141 | P09 F3, P10 F2, F3 (PKG-22), P12 F10 | Áp dụng | Sửa câu cam kết đổi cổng | Đã áp, P09 1.7, P10 1.5, P12 1.6: "đổi cổng sửa PKG-22, bảng RspCode ở PKG-12 và phần đọc tham số ở PKG-14"; thiết kế không đổi |
 | SY-25 | X1 RV-04; CQ-9, Q-148 | P10, P12 DC-HoldExpiryJob | Chờ | Khôi phục DC-SeatEventCleanupJob | Để sau Project 3; Q-148 xử lý bằng cleanupEvents ngữ cảnh riêng 2 giây (P12 1.6) |
 | SY-26 | X1 RV-05; CQ-9 | P10, P12 DC-PgTicketingStore | Chờ | Tách store theo bên gọi | Để sau Project 3: cần thân SQL của 39 operation |
@@ -418,3 +418,154 @@ P08 (gộp lại theo _AC-register.md), P09, P10, P11a, P12, P13, X1, X2 theo m�
 ### Lỗi hình thức (check_artifacts.py)
 
 Trước: 0 LOI, 133 CANH_BAO. Sau: 0 LOI, 128 CANH_BAO (K11, K18, K10 cũ của P04, P07 chưa đổi).
+
+## Lần 5 - Lô P12 theo package (lõi 2.1, PKG-16-PKG-27, PKG-17-PKG-18-PKG-30-PKG-33, PKG-19-PKG-32, PKG-05..31 frontend, PKG-11); SY-70 đến SY-73 của lần 4
+
+### Cần người quyết
+
+Không còn mục mở. Chủ dự án chốt theo đúng phương án đề xuất đã ghi:
+
+| Mục | Quyết định |
+|---|---|
+| SY-70 | Thêm luồng 14a của UC-005 và 7a của UC-006 khi dịch vụ email lỗi (BR-89): vé và khoản hoàn giữ nguyên hiệu lực, thử gửi lại, ghi log |
+| SY-71 | Áp: UC-005 bước 12 đối chiếu mã giao dịch; bước 11 đến 13 là một thao tác; UC-006 tạo bản ghi giao dịch thứ hai ở bước 3, luồng 2d chỉ ghi log với giao dịch không nhận ra, điểm tiếp nhận chuyển lần giữ ghế sang Hết hạn |
+| SY-72 | Thêm bước hiển thị suất chiếu của cụm rạp và luồng 2a của UC-009; luồng 1a3c, 1b3d của UC-014 (như UC-012 luồng 1a2a) |
+| SY-73 | Giữ nguyên P03 (đã thể hiện ở P07); không tách use case include cho UC-006, UC-008 (khớp Q-106 giữ hai bộ trách nhiệm) |
+| Q-302 đến Q-304, Q-312, Q-313, Q-322 đến Q-326, Q-332 đến Q-351 | Theo cột Đề xuất của từng câu; đánh dấu "Đã trả lời" ở file cấp |
+| Q-271 đến Q-276, Q-282 | Theo đề xuất; đánh dấu "Đã trả lời" ở P10, ui-standards, P11b |
+| Q-342 | PKG-11 phụ thuộc PKG-27, PKG-28 theo ngoại lệ hẹp của P09 F6 (chỉ kiểu định danh, giá trị, lỗi, getter chỉ đọc); RV-02 (DTO) áp sau Project 3 nếu còn thời gian (SY-23) |
+| DC-Showtime 28 operation, DC-Auditorium 20 operation (PKG-16-PKG-27 Vấn đề còn mở 2) | Giữ nguyên; tách DC-ShowtimeSchedulingRules khi X1 thấy quá lớn |
+| Q-132 | Vẫn mở: hỏi bên ngoài (tài liệu API VNPay sandbox), không có phương án đề xuất để chốt |
+
+### Ánh xạ mã R (C3: mã đã cấp không đổi nghĩa, không tái sử dụng)
+
+P08 2.0 cấp R-65 đến R-103 cho 39 quan hệ khác với 36 quan hệ P12 từng mang các mã này. Giữ mã P08; 36 quan hệ chỉ có ở P12 (R-76, R-83, R-96 đã bỏ từ trước) sang dải R-400 đến R-435 theo thứ tự mã cũ. Sửa ở P12-class-design.md (F5, F8), diagrams P12-class-PKG-13 và P12-class-PKG-12-PKG-14-PKG-15 (id cạnh), X1-design-review.md (dẫn chiếu). R-310, R-311 giữ nguyên (thiết kế của P08 R-65, R-67). Sau khi sửa, mọi mã R-65 đến R-103 trong các file P12 chỉ còn nghĩa của P08 (P12 dùng tên lớp thiết kế cho cùng quan hệ). Dải R-436 trở đi chưa cấp.
+
+| Mã cũ | Mã mới | Quan hệ P12 |
+|---|---|---|
+| R-65 | R-400 | DC-BookTicketsService --> IF-08 (Association) |
+| R-66 | R-401 | DC-BookTicketsService --> IF-11 (Association) |
+| R-67 | R-402 | DC-BookTicketsService --> IF-12 (Association) |
+| R-68 | R-403 | DC-BookTicketsService --> IF-13 (Association) |
+| R-69 | R-404 | DC-BookTicketsService --> IF-16 (Association) |
+| R-70 | R-405 | DC-BookTicketsService --> IF-17 (Association) |
+| R-71 | R-406 | DC-BookTicketsService --> IF-18 (Association) |
+| R-72 | R-407 | DC-BookTicketsService --> IF-19 (Association) |
+| R-73 | R-408 | DC-BookTicketsService --> IF-20 (Association) |
+| R-74 | R-409 | DC-BookTicketsService --> IF-24 (Association) |
+| R-75 | R-410 | DC-BookTicketsService --> IF-01 (Association) |
+| R-77 | R-411 | DC-SeatMapService --> IF-22 (Association) |
+| R-78 | R-412 | DC-SeatMapService --> IF-04 (Association) |
+| R-79 | R-413 | DC-HoldExpiryJob --> IF-08 (Association) |
+| R-80 | R-414 | DC-HoldExpiryJob --> IF-17 (Association) |
+| R-81 | R-415 | DC-HoldExpiryJob --> IF-22 (Association) |
+| R-82 | R-416 | DC-SeatReleaseJob --> IF-08 (Association) |
+| R-84 | R-417 | DC-SeatReleaseJob --> IF-18 (Association) |
+| R-85 | R-418 | DC-PaymentReportService --> IF-08 (Association) |
+| R-86 | R-419 | DC-PaymentReportService --> IF-02 (Association) |
+| R-87 | R-420 | DC-PaymentReportService --> IF-17 (Association) |
+| R-88 | R-421 | DC-PaymentReportService --> IF-18 (Association) |
+| R-89 | R-422 | DC-PaymentReportService --> IF-19 (Association) |
+| R-90 | R-423 | DC-PaymentReportService --> IF-20 (Association) |
+| R-91 | R-424 | DC-PaymentReportService --> IF-23 (Association) |
+| R-92 | R-425 | DC-PaymentReportService --> DC-RefundService (Association) |
+| R-93 | R-426 | DC-RefundService --> IF-08 (Association) |
+| R-94 | R-427 | DC-RefundService --> IF-01 (Association) |
+| R-95 | R-428 | DC-RefundService --> IF-19 (Association) |
+| R-97 | R-429 | DC-RefundService --> IF-21 (Association) |
+| R-98 | R-430 | DC-RefundService --> IF-23 (Association) |
+| R-99 | R-431 | DC-RefundOutboxJob --> IF-23 (Association) |
+| R-100 | R-432 | DC-RefundOutboxJob --> DC-RefundService (Association) |
+| R-101 | R-433 | DC-CancelTicketService --> IF-08 (Association) |
+| R-102 | R-434 | DC-CancelTicketService --> IF-11 (Association) |
+| R-103 | R-435 | DC-CancelTicketService --> IF-18 (Association) |
+
+### Bảng đồng bộ
+
+| SY | Nguồn (file, mục) | Đích (bước, mã phần tử) | Loại | Nội dung | Kết quả hoặc lý do |
+|---|---|---|---|---|---|
+| SY-74 | P12 lõi, Vấn đề còn mở 15; Đề xuất P10 mã R-nn | P12 lõi F5, F8; X1; 2 sơ đồ lớp | Áp dụng | Đổi 36 mã R theo bảng trên | Đã áp, lõi lên 2.1 |
+| SY-75 | PKG-17..33, Đề xuất P12 PKG-27 | PKG-16-PKG-27 F1b, F2, F3; PKG-17 F2 đến F4 | Áp dụng | Thêm DC-BusinessDate, DC-RunStatus, DC-Movie.RunStatusAt, IF-11.ListInfoByMovie, ListInfoByCinema; PKG-17 dùng tên NewMovie, NewCinema, CheckMovieInfoValid, SaveChanges, FieldInvalidError, MovieChangedError, CinemaChangedError, CinemaNameTakenError đã có ở PKG-27 | Đã áp, PKG-16-PKG-27 1.1, PKG-17 2.1 |
+| SY-76 | PKG-16-PKG-27, Đề xuất (DC-LockRank) | P12 lõi PKG-21 | Không áp | Lõi 2.1 đã có 14 hạng (0 đến 13) | Đã giải quyết |
+| SY-77 | PKG-16-PKG-27, Đề xuất (movieFormat, DetermineSeatPrice) | P12 lõi F1b, F2 | Áp dụng | DC-Showtime.movieFormat, DC-PriceQuery, DC-Ticket.auditoriumType dùng enumeration; DetermineSeatPrice chỉ xét mục chưa bỏ và lấy khung giờ từ DetermineTimeBand | Đã áp |
+| SY-78 | PKG-16-PKG-27, PKG-19-PKG-32 Vấn đề 2 | P12 lõi F5, F8; sơ đồ PKG-21 | Áp dụng | Realization R-312 (PgCinemaOperationsStore --> IF-14), R-313 (PgTicketingStore --> IF-29), R-314 (PgCinemaOperationsStore --> IF-15); thêm IF-14, IF-15, IF-29 vào sơ đồ PKG-21 | Đã áp |
+| SY-79 | PKG-19-PKG-32, Đề xuất (DC-Customer, IF-16, IF-07) | P12 lõi; PKG-19 F2 đến F4 | Áp dụng | Lõi đã có NewCustomer, CheckRegistrationData, IF-16.SaveCustomer, FindCustomerByLogin, IF-07 đủ chữ ký; PKG-19 đổi theo (bỏ DraftCustomer, FindTakenContact, InsertCustomer, DuplicateCustomerError, CustomerDataError) | Đã áp, PKG-19-PKG-32 1.1 |
+| SY-80 | PKG-19-PKG-32, Đề xuất (DC-BoxOfficeClerk; IF-08; DC-StaffRole) | P12 lõi | Không áp | Lõi 2.1 đã nhúng DC-Staff (R-311), có LockValue, ReadOnlyTx, ValueLockKind; DC-StaffRole chỉ ở Domain PKG-32, lõi không dùng DC-Role ở Domain | Đã giải quyết |
+| SY-81 | PKG-11, Q-343 | P12 lõi F1b, F2, F3, F4 | Áp dụng | GetHold, CancelHold, StartOnlinePayment, ConfirmCashReceived nhận holdRef (IF-17.FindIDByRef); thêm FindActiveHold, IF-17.FindActiveByHolder; DC-HoldResult thêm holdStatus, bookingCode, serverTime; DC-SeatSnapshot thêm rowCode, seatNumber, seatType; DC-ActorKind thêm MANAGER | Đã áp |
+| SY-82 | PKG-11, Q-344 | P12 lõi F1b, F2, F3 | Áp dụng | Thêm DC-CancelTicketService.PrepareCashRefund và DC-CashRefundView | Đã áp |
+| SY-83 | PKG-11, Q-345 | PKG-17 F2, F3, F4 | Áp dụng | Thêm DC-BrowseShowtimesService.GetShowtime; DC-ShowtimeInfo thêm showtimeId, movieId, cinemaId, province, auditoriumType, saleOpenTime, status, lastChangedAt | Đã áp |
+| SY-84 | PKG-11, Q-346, Q-347; frontend, Q-332 đến Q-341 | PKG-05..31, PKG-11 | Áp dụng | Không đổi chữ ký; displayName là định danh nhập; loadCancellableTickets dùng history.list và history.get; tuyến logic khớp F2a của PKG-11, bỏ nhãn Tạm | Đã áp, PKG-11 1.1, frontend 1.1 |
+| SY-85 | frontend, Q-338 | P12 lõi F3 (HandleIpn, ProcessRefund) | Áp dụng | sourceId của EMAIL_TICKET là mã lần đặt, của EMAIL_REFUND là mã yêu cầu hoàn | Đã áp |
+| SY-86 | frontend, Đề xuất (thao tác đọc dữ liệu email hoàn tiền một lời gọi) | P12 lõi | Không áp | EmailOutboxJob đã đọc đủ bằng interface hiện có; chỉ là tối ưu số lời gọi, không bắt buộc | Không thêm operation |
+| SY-87 | PKG-16-PKG-27, PKG-17, PKG-19, PKG-11, frontend (hàng P10 F3, F4, F5) | P10 F3, F4, F5 | Áp dụng | Thêm 177 phần tử và kiểu P12 cấp vào F3, F4, F5 (PKG-05 đến PKG-11, PKG-15 đến PKG-19, PKG-21, PKG-26 đến PKG-33; không gồm phần bên trong subsystem PKG-22 đến PKG-25); DC-PgCinemaOperationsStore, DC-PgTicketingStore nêu IF-14, IF-15, IF-29 | Đã áp, P10 2.1 |
+| SY-88 | PKG-16-PKG-27, Đề xuất (IF-29, EX-13 đến EX-15) | P10 F3a | Áp dụng | EX-13 đến EX-15 kiểm lần giữ ghế, vé theo suất chiếu qua IF-29 | Đã áp |
+| SY-89 | PKG-17..33, Đề xuất (F6; F3a EX-17); PKG-19, Đề xuất (F6) | P10 F4, F6, sơ đồ package | Áp dụng | Bỏ cạnh PKG-17, PKG-18, PKG-19, PKG-30 --> PKG-21 và PKG-18 --> PKG-28 (không có quan hệ lớp); EX-17 tra tên qua IF-13.FindCinemaByNormalizedName và IF-08.LockValue | Đã áp; P09 giữ các cạnh làm quy tắc cho phép |
+| SY-90 | PKG-11, Q-342; frontend, Đề xuất (PKG-29 --> PKG-31) | P09 F4, F6; P10 F4, F6; hai sơ đồ package | Áp dụng | Thêm PKG-11 --> PKG-27, PKG-28 (ngoại lệ hẹp) và PKG-29 --> PKG-31; thêm 3 cạnh vào P09-package-layers và P10-package-design | Đã áp, P09 2.1 |
+| SY-91 | PKG-11, Đề xuất (DC-CatalogController); frontend, Đề xuất (AC Store đặt vé) | P10 F3 | Áp dụng | DC-CatalogController thêm GetShowtime, FindOwnCinemaShowtimes; hai Store đặt vé kế thừa DC-HoldFlowStore | Đã áp |
+| SY-92 | PKG-19-PKG-32 (Q-312) | P09 F7.3 EX-22 | Áp dụng | Kiểm điều kiện riêng trước, mốc sau | Đã áp |
+| SY-93 | PKG-17..33 | P09 F7.12 | Áp dụng | SQL chỉ trả cặp (nhóm, cụm rạp) có suất chiếu; PKG-18 bổ sung dòng 0 đồng | Đã áp |
+| SY-94 | PKG-16-PKG-27, Đề xuất (5c) | P08 F4b EX-19, F4c; P09 F7.3 EX-19 | Áp dụng | Bỏ kiểm mốc 5c khỏi EX-19 (P04 UC-012 luồng 1b3 và BR-146 chỉ nêu việc sửa); phòng đã xoá thì khoá không trả dòng | Đã áp, P08 2.1 |
+| SY-95 | PKG-11, Q-349 | P09 F7.5 | Áp dụng | Cách lấy địa chỉ IP và phạm vi đếm của giới hạn kết nối đẩy | Đã áp |
+| SY-96 | frontend, Đề xuất (P08 R-19) | P08 F4 R-19 | Áp dụng | Ghi chú: updateSeatMap của UC-008 đi qua kết nối đẩy | Đã áp |
+| SY-97 | PKG-16-PKG-27, Đề xuất (P07 UC-012, UC-014) | P07 UC-012 SD2b, SD2c; UC-014 SD1d, SD2c, SD3a, SD4b | Áp dụng | Ghi chú "do control điều phối" ở 12 message có Auditorium hoặc Showtime gọi lớp thuộc PKG-28 hoặc lớp khác (không đổi sơ đồ) | Đã áp, UC-012 1.2, UC-014 1.6 |
+| SY-98 | frontend, Đề xuất (P11a cột DC; Q-335) | P11a screen-list; SCR-01, 03, 04, 05, 06, 10, 11, 12, 16, 21, 31 | Áp dụng | Cột DC trỏ component trang; nêu nguồn dữ liệu danh sách suất chiếu của SCR-03, SCR-10, SCR-16 | Đã áp, screen-list 2.1 |
+| SY-99 | PKG-19-PKG-32 / P11b, Đề xuất (kiểu DateTime rỗng) | P11b SS-05 | Áp dụng | accessChangedAt rỗng được, kiểu Go là con trỏ time.Time | Đã áp, SS-05 2.1 |
+| SY-100 | PKG-11, Đề xuất (P11a MSG) | P11a SCR-01, SCR-21 | Chờ | Đối chiếu bảng F2b khi viết ca kiểm thử giao diện | Giữ ở PKG-11 |
+| SY-101 | lõi, PKG-16-PKG-27, PKG-19-PKG-32 (P13) | P13 | Chờ | Cột và chỉ mục mới | Vào mục Đầu vào cho lần chạy lại P13 |
+| SY-102 | lõi, PKG-17..33, PKG-19-PKG-32, PKG-11 (X2) | X2 | Chờ | Ca thử cho operation mới | Vào mục Đầu vào cho lần chạy lại X2; dòng giữ ở file nguồn |
+| SY-103 | SY-70 (UC-005 14a, UC-006 7a) | P04 UC-005, UC-006 | Áp dụng | Thêm luồng 14a, 7a và ghi chú N-14a, N-7a | Đã áp, UC-005 1.16, UC-006 1.11 |
+| SY-104 | SY-71 | P04 UC-005 bước 12, Mục 8; UC-006 bước 3, 2d, Mục 8 | Áp dụng | Theo quyết định SY-71 | Đã áp |
+| SY-105 | SY-72 | P04 UC-009 bước 1, luồng 2a; UC-014 bước 1a3, 1b3, luồng 1a3c, 1b3d | Áp dụng | Theo quyết định SY-72; thêm ghi chú N-2a, N-1a3c | Đã áp, UC-009 1.8, UC-014 1.8 |
+| SY-106 | SY-73 | P03, P02R | Không áp | Giữ nguyên | Quyết định chủ dự án |
+| SY-107 | Q-271 đến Q-276, Q-282, Q-302 đến Q-351 (37 câu) | P10, P11a ui-standards, P11b, các file P12 | Áp dụng | Đánh dấu "Đã trả lời"; nội dung đã nằm trong thiết kế theo đề xuất | Đã áp |
+| SY-108 | SY-23 (X1 RV-02) | P12 chữ ký công khai | Áp dụng | Chốt: ngoại lệ hẹp PKG-11 --> PKG-27, PKG-28 (Q-342); RV-02 sau Project 3 nếu còn thời gian | Dòng SY-23 của lần 2 cập nhật bên dưới |
+
+Đề bài yeu-cau-dat-ve.md, sổ BR và P06: không đổi. Không câu trả lời nào đổi quy tắc nghiệp vụ so với đề bài: Q-302 đến Q-304 chỉ chốt thứ tự hiển thị và khoá gom nhóm, Q-312, Q-313 giữ BR-101, Q-322 đến Q-326 là quyết định lưu trữ, Q-332 đến Q-351 là hợp đồng kỹ thuật, các luồng mới SY-70 đến SY-72 dùng BR-89, BR-34, BR-46 đã có.
+
+### Đầu vào cho lần chạy lại P13
+
+| Phần tử | Nội dung | Nguồn |
+|---|---|---|
+| booking | customer_id (nullable, tham chiếu khách), booked_at; chỉ mục (customer_id, booked_at giảm dần) | P12 lõi, Q-322 |
+| ticket | movie_title, cinema_name, auditorium_name, auditorium_type NOT NULL, sao chép lúc bán (BR-140) | P12 lõi, Q-325 |
+| seat | in_seat_map BOOLEAN mặc định true; uq_seat_position unique từng phần WHERE in_seat_map | P12 lõi; PKG-16-PKG-27 |
+| showtime | không có cột sức chứa | P12 lõi |
+| cinema | province, last_changed_at | PKG-16-PKG-27 |
+| movie | trailer, last_changed_at (movie_code suy từ id, không cột) | PKG-16-PKG-27 |
+| auditorium | last_changed_at | PKG-16-PKG-27 |
+| staff | Gộp TBL-08, TBL-11, TBL-12 thành một bảng staff (id, email, full_name, password_hash, role, cinema_id NULL, status, last_changed_at, access_changed_at); access_changed_at so bằng nhau ở micro giây; khoá ngoại seat_hold.box_office_clerk_id tới staff; bảng administrator một dòng (Q-271) | P12 lõi; PKG-19-PKG-32 |
+| hàm chuẩn hoá | norm_email, norm_name (SQL immutable); chỉ mục unique theo biểu thức: email khách, số điện thoại khách, email nhân viên, tên cụm rạp, (cụm rạp, tên phòng); cột giá trị norm_name; cơ sở dữ liệu có locale tiếng Việt cho lower() | P12 lõi; PKG-16-PKG-27; PKG-19-PKG-32 |
+| khoá giá trị | Không có bảng khoá giá trị; khoá tư vấn kiểu hai số nguyên (1000 cộng hạng, hashtext) | P12 lõi |
+| chỉ mục báo cáo | Không đổi (đã có ở P09 F7.12); PKG-17..33 không yêu cầu cột mới | PKG-17-PKG-18-PKG-30-PKG-33 |
+
+### Đầu vào cho lần chạy lại X2
+
+| Phần tử | Ca thử cần thêm | Nguồn |
+|---|---|---|
+| DC-LockOrderGuard.AcquireValue, DC-PgUnitOfWork.LockValue | Khoá giá trị cùng hạng khác giá trị thô (vi phạm), khoá giá trị sau Cinema ở hạng 0 (vi phạm), khoá trong giao dịch chỉ đọc | P12 lõi |
+| DC-BoxOfficeClerk.CheckAccessCurrent | EX-01 nhân viên quầy bị khoá hoặc mốc lệch trước khoá Staff (từ chối) và sau khoá (lần giữ ghế giữ nguyên, X-33) | P12 lõi |
+| DC-Customer.CheckRegistrationData, DC-ViewBookingHistoryService, DC-Ticket.Snapshot, DC-Booking.Summary | Thứ tự báo lỗi EMAIL, PHONE, PASSWORD; sửa tên phim sau khi bán không đổi vé; lần đặt tại quầy có customerId rỗng; lịch sử từ gần nhất, khách chỉ thấy lần đặt của mình | P12 lõi |
+| DC-BookTicketsService.FindActiveHold, GetHold (holdRef), DC-CancelTicketService.PrepareCashRefund, DC-BrowseShowtimesService.GetShowtime | Mở lại lần giữ ghế; GetHold trả holdStatus, bookingCode; PrepareCashRefund từ chối đúng thứ tự, không ghi | P12 lõi; PKG-17 |
+| Sáu lớp dịch vụ PKG-17, PKG-18, PKG-30, PKG-33; ReportPeriod, ReportGroup | Ca thử sau khi PKG-27 chốt | PKG-17-PKG-18-PKG-30-PKG-33 |
+| DC-Staff, DC-ManageStaffAccountsService, DC-LoginService, DC-AccessCheckService | X-30 (hai đăng ký cùng email), X-31, X-32, X-33; thứ tự kiểm Q-312; mốc Equal ở micro giây; StaffLockedError chỉ sau mật khẩu đúng | PKG-19-PKG-32 |
+| DC-AuthFilter.Require, DC-HttpErrorMapper.Classify, ST-19 | Phân loại mã HTTP 409, 422, 401 (Q-350); phiên không hợp lệ | PKG-11 |
+
+### File đã sửa và phiên bản mới
+
+- P12: P12-class-design.md 2.1; PKG-16-PKG-27 1.1; PKG-17-PKG-18-PKG-30-PKG-33 2.1; PKG-19-PKG-32 1.1; PKG-05-PKG-10-PKG-20-PKG-23-PKG-29-PKG-31 1.1; PKG-11 1.1.
+- P08 2.1, P09 2.1, P10 2.1, X1 1.3; P11a: screen-list 2.1, ui-standards 2.1, SCR-01 2.1, SCR-03 1.3, SCR-04 1.4, SCR-05 1.2, SCR-06 1.3, SCR-10 1.4, SCR-11 1.2, SCR-12 1.2, SCR-16 1.3, SCR-21 1.1, SCR-31 1.1; P11b: P11b-system-interfaces 2.1, SS-05 2.1.
+- P04: UC-005 1.16, UC-006 1.11, UC-009 1.8, UC-014 1.8. P07: UC-005 1.4, UC-006 1.4, UC-009 1.4, UC-012 1.2, UC-014 1.6.
+- Sơ đồ .drawio đổi: P04-activity-UC-005, 006, 009, 014 (ghi chú N-14a, N-7a, N-2a, N-1a3c); P09-package-layers, P10-package-design (cạnh PKG-11 --> PKG-27, PKG-28; PKG-29 --> PKG-31; P10 bỏ năm cạnh); P12-class-PKG-13, P12-class-PKG-12-PKG-14-PKG-15 (id cạnh R mới); P12-class-PKG-21 (IF-14, IF-15, IF-29, R-312 đến R-314). Đã chạy diakempt, xoá .bak, XML parse được, mọi mxGraphModel còn grid="0", background="#ffffff", adaptiveColors="none".
+- Đầu vào đã dùng của các file trên đồng bộ theo phiên bản hiện hành; P04 UC-001, 004, 007, 008, 010 đến 013, 015 đến 017, P07 còn lại, P13, X2 chưa đồng bộ (cảnh báo K09 còn).
+
+### Bước cần rà lại
+
+P07 UC-005, UC-006, UC-009, UC-014 (message cho luồng 14a, 7a, 2a, 1a3c, 1b3d và bước 12 của UC-005); P05 (thuật ngữ Yêu cầu hoàn, SY-67); P11a SCR-16 (luồng 2a), SCR-19, SCR-20 (luồng 1a3c, 1b3d), SCR-06 (14a); P13 (mục Đầu vào cho lần chạy lại P13); X1 (rà lại P12 2.1); X2 (mục Đầu vào cho lần chạy lại X2); P12 lõi, PKG-17, PKG-19 khi P13 chốt cột.
+
+### Khoảng trống trong dải mã
+
+R-436 trở đi chưa cấp; R-315 đến R-329 không dùng; Q cuối vẫn Q-351 (không cấp Q mới); SY cuối SY-108.
+
+### Lỗi hình thức (check_artifacts.py)
+
+Trước: 0 LOI, 154 CANH_BAO. Sau: 0 LOI, 267 CANH_BAO (chủ yếu K09 do P04, P07, P13, X2 chưa đồng bộ đầu vào).

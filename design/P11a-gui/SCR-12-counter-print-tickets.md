@@ -3,7 +3,7 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
 | Đầu vào đã dùng | ui-standards.md 1.1; screen-list.md 1.1; screen-transition.md 1.1; P04 UC-005 1.9 (luồng 9a2-9a5, Dữ liệu ra 3); P01-actors.md (máy in nối qua máy tính tại quầy); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-12 |
 | Mã Q, ASM cuối đã cấp | Q-125; không có ASM (NGHIEM_NGAT) |
@@ -17,7 +17,7 @@
 | Bước UC | 9a3, 9a4, 9a5 |
 | Tác nhân | ACT-02 Nhân viên quầy |
 | Boundary AC | AC-B-CounterBookTicketsForm (showTicketsForPrint, printTickets) |
-| DC | DC-CounterBookTicketsView |
+| DC | DC-CounterPrintTicketsPage |
 | Loại màn hình | Phụ thuộc có dữ liệu (mã đặt vé và vé vừa tạo) |
 | Đến từ | SCR-11 (E-25) |
 | Đi tới | Không có cạnh đi; màn hình kết thúc, thoát bằng menu tới SCR-09 |

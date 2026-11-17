@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 2.0 |
+| Phiên bản | 2.1 |
+| Thay đổi 2.1 | Cột DC trỏ tới component trang và kho trạng thái thiết kế ở P12 |
 | Thay đổi 2.0 | Chỉ còn đăng nhập của khách; nhân viên và quản trị viên đăng nhập ở SCR-21 (hai điểm đăng nhập, Q-267); thêm hiển thị MSG-88 sau khi đăng ký, MSG-85 khi phiên không còn hiệu lực, liên kết tới SCR-22 và SCR-21; DC là DC-LoginView (P10 2.0) |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.15 (luồng 5a, Dữ liệu vào 2), UC-001 1.2 (bước 8), UC-007 1.2, UC-008 1.10 (tiền điều kiện); P06 NFR-01, NFR-03; P08-analysis-model.md 2.0 (F3); P09-architecture.md 2.0 (F7.11, Q-267); P10-design-elements.md 2.0 (F3, F4). Dải Q của phiên: Q-272 đến Q-281 (C10) |
 | Phạm vi | SCR-01 |
@@ -18,7 +19,7 @@
 | Bước UC | UC-005 luồng 5a1, 5a2; tiền điều kiện UC-007, UC-008; UC-001 bước 8 (khách đăng nhập riêng) |
 | Tác nhân | ACT-01 Khách |
 | Boundary AC | AC-B-BookTicketsForm (requestLogin, provideCredentials); đăng nhập không là use case nên không có boundary riêng |
-| DC | DC-LoginView, DC-SessionStore (PKG-31) |
+| DC | DC-LoginView (accountKind CUSTOMER), DC-SessionStore (PKG-31) |
 | Loại màn hình | Độc lập; mở dạng pop-up Con phụ thuộc từ SCR-04 |
 | Đến từ | START-ACT-01 (E-02); SCR-02 (E-12, E-49); SCR-04 (E-14, pop-up); SCR-21 (E-40); SCR-22 (E-42); mọi màn hình khách khi máy chủ trả "phiên không còn hiệu lực" (UI-STT 48) |
 | Đi tới | SCR-02 (E-06); SCR-21 (E-39); SCR-22 (E-63); pop-up đóng ngầm định về SCR-04 |

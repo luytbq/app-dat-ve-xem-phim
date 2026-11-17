@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.3 |
+| Phiên bản | 1.4 |
+| Thay đổi 1.4 | Cột DC trỏ tới component trang và kho trạng thái thiết kế ở P12; nêu nguồn dữ liệu danh sách suất chiếu (Q-335) |
 | Thay đổi 1.3 | Thêm MSG-84 (suất chiếu chưa mở bán lúc giữ ghế) vào nhánh từ chối của nút Xác nhận chọn ghế; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.2 | Thêm MSG-82 vào nhánh từ chối của nút Xác nhận chọn ghế (RF-17); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.15 (bước 1-7, Dữ liệu vào 1, Dữ liệu ra 1, luồng 2a-2c, 5b, 6a, 7a, 7c, 7d, 7e); P06 NFR-08, NFR-09; P09 F7.5; P08-analysis-model.md 2.0 (F3); P09-architecture.md 2.0 (F7.3 EX-01); P10-design-elements.md 2.0 (F3, F4) |
@@ -19,7 +20,7 @@
 | Bước UC | 1, 2, 3, 4, 5, 6, 7; luồng 2a, 2b, 2c, 5b, 6a, 7a, 7c, 7d, 7e |
 | Tác nhân | ACT-02 Nhân viên quầy |
 | Boundary AC | AC-B-CounterBookTicketsForm (selectShowtime, showSeatMap, confirmSeatSelection, updateSeatMap, notifyRefusal) |
-| DC | DC-CounterBookTicketsView, DC-SeatMapSyncClient, DC-SeatMapReducer |
+| DC | DC-CounterSelectSeatsPage, DC-SeatMapSyncClient, DC-SeatMapReducer |
 | Loại màn hình | Độc lập |
 | Đến từ | SCR-09 (E-21) |
 | Đi tới | SCR-11 (E-23), SCR-09 (E-24) |
@@ -112,5 +113,7 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-119, Q-120. Q-
 Không có.
 
 ## Vấn đề còn mở
+
+Nguồn dữ liệu danh sách suất chiếu: đọc lịch chiếu của DC-CatalogController (UC-004) theo cụm rạp của phiên nhân viên quầy, lọc suất mở bán và chưa bắt đầu (Q-335).
 
 Danh sách suất chiếu cho quầy phụ thuộc Q-120.

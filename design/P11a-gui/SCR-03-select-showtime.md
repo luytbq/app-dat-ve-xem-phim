@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (giai đoạn 2) |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Cột DC trỏ tới component trang và kho trạng thái thiết kế ở P12; nêu nguồn dữ liệu danh sách suất chiếu (Q-335) |
 | Thay đổi 1.2 | Cập nhật cách xử lý vi phạm Nielsen 7: UC-004 đã có màn hình SCR-25, không nối sang SCR-03 (Q-272); đồng bộ đầu vào đã dùng |
 | Đầu vào đã dùng | ui-standards.md 2.0; screen-list.md 2.0; screen-transition.md 2.0; P04 UC-005 1.9 (bước 1, 2, Dữ liệu ra 1, luồng 2a, 2c); P08-analysis-model.md 1.1 (F3); P10-design-elements.md 1.1 (F3, F4) |
 | Phạm vi | SCR-03 |
@@ -18,7 +19,7 @@
 | Bước UC | 1, 2; luồng 2a, 2c |
 | Tác nhân | ACT-01 Khách |
 | Boundary AC | AC-B-BookTicketsForm (selectShowtime) |
-| DC | DC-BookTicketsView |
+| DC | DC-SelectShowtimePage |
 | Loại màn hình | Độc lập |
 | Đến từ | SCR-02 (E-10); SCR-04 (E-17, luồng 7d) |
 | Đi tới | SCR-04 (E-13) |
@@ -96,5 +97,7 @@ Không có. Câu hỏi liên quan đã ghi ở ui-standards.md: Q-120.
 Không có.
 
 ## Vấn đề còn mở
+
+Nguồn dữ liệu danh sách suất chiếu: đọc lịch chiếu của DC-CatalogController (UC-004, không khoá, không đăng nhập) với bộ lọc suất mở bán và chưa bắt đầu (Q-335).
 
 Danh sách, bộ lọc và thông tin cụm rạp phụ thuộc Q-120.
