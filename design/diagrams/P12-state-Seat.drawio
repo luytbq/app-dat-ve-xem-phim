@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-07" name="ST-07 Ghế của phòng chiếu">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-07-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1"><mxGeometry x="120" y="40" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="ST-07-S1" value="&lt;b&gt;Trong sơ đồ ghế&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1"><mxGeometry x="80" y="120" width="170" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-07-S2" value="&lt;b&gt;Đã bỏ khỏi sơ đồ ghế&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1"><mxGeometry x="80" y="260" width="170" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-07-T1" value="create(rowCode, seatNumber, seatType)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-07-I" target="ST-07-S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-07-T2" value="retire() / mapState = RETIRED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-07-S1" target="ST-07-S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-07-T3" value="retype(seatType)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-07-S1" target="ST-07-S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

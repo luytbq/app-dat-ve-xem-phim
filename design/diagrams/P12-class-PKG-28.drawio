@@ -1,11 +1,11 @@
 <mxfile host="app.diagrams.net">
   <diagram id="P12-class-PKG-28" name="P12 Lớp PKG-28 Ticketing">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1600" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="DC-SeatHold" value="«entity»&lt;br&gt;&lt;b&gt;SeatHold&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="715" y="-11" width="750" height="482" as="geometry" />
+          <mxGeometry x="715" y="105.5" width="750" height="569" as="geometry" />
         </mxCell>
         <mxCell id="DC-SeatHold-attr" value="- id: SeatHoldId {id}&lt;br&gt;- holdRef: string {unique}&lt;br&gt;- requestId: string {unique}&lt;br&gt;- status: HoldStatus = ACTIVE&lt;br&gt;- holdTime: time.Time {readOnly}&lt;br&gt;- expiryTime: time.Time {readOnly}&lt;br&gt;&lt;u&gt;+ HoldDuration: time.Duration = 10 * time.Minute {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatHold">
           <mxGeometry y="40" width="750" height="120" as="geometry" />
@@ -17,7 +17,7 @@
           <mxGeometry y="170" width="750" height="232" as="geometry" />
         </mxCell>
         <mxCell id="DC-SeatStatus" value="«entity»&lt;br&gt;&lt;b&gt;SeatStatus&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1265" y="526" width="370" height="308" as="geometry" />
+          <mxGeometry x="1265" y="686" width="370" height="308" as="geometry" />
         </mxCell>
         <mxCell id="DC-SeatStatus-attr" value="- key: SeatKey {id}&lt;br&gt;- state: SeatState = AVAILABLE&lt;br&gt;- heldPrice: Money[0..1] {có khi HELD hoặc SOLD}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-SeatStatus">
           <mxGeometry y="40" width="370" height="56" as="geometry" />
@@ -29,7 +29,7 @@
           <mxGeometry y="106" width="370" height="202" as="geometry" />
         </mxCell>
         <mxCell id="DC-PaymentTransaction" value="«entity»&lt;br&gt;&lt;b&gt;PaymentTransaction&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2325" y="19" width="750" height="482" as="geometry" />
+          <mxGeometry x="2325" y="135.5" width="750" height="569" as="geometry" />
         </mxCell>
         <mxCell id="DC-PaymentTransaction-attr" value="- id: PaymentTransactionId {id}&lt;br&gt;- code: string {unique}&lt;br&gt;- amount: Money {&gt; 0}&lt;br&gt;- status: PaymentStatus = PENDING&lt;br&gt;- gatewayTransactionNo: string[0..1]&lt;br&gt;- paidAt: time.Time[0..1]&lt;br&gt;- lateReason: string[0..1]&lt;br&gt;- refundedTotal: Money = 0 {&lt;= amount}&lt;br&gt;- duplicateReportCount: int = 0 {&gt;= 0}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-PaymentTransaction">
           <mxGeometry y="40" width="570" height="152" as="geometry" />
@@ -41,7 +41,7 @@
           <mxGeometry y="202" width="570" height="280" as="geometry" />
         </mxCell>
         <mxCell id="DC-RefundRequest" value="«entity»&lt;br&gt;&lt;b&gt;RefundRequest&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="2325" y="519" width="750" height="482" as="geometry" />
+          <mxGeometry x="2325" y="725.5" width="750" height="569" as="geometry" />
         </mxCell>
         <mxCell id="DC-RefundRequest-attr" value="- id: RefundRequestId {id}&lt;br&gt;- idempotencyKey: string {unique}&lt;br&gt;- requestType: RefundType&lt;br&gt;- refundAmount: Money {&gt; 0}&lt;br&gt;- attemptCount: int = 0 {0..4}&lt;br&gt;- status: RefundStatus = NEW&lt;br&gt;- refundResult: string[0..1]&lt;br&gt;&lt;u&gt;+ MaxAttempts: int = 4 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-RefundRequest">
           <mxGeometry y="40" width="590" height="136" as="geometry" />
@@ -53,31 +53,31 @@
           <mxGeometry y="186" width="590" height="216" as="geometry" />
         </mxCell>
         <mxCell id="DC-Booking" value="«entity»&lt;br&gt;&lt;b&gt;Booking&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="185" y="25" width="470" height="210" as="geometry" />
+          <mxGeometry x="185" y="31" width="470" height="258" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Booking-attr" value="- id: BookingId {id}&lt;br&gt;- bookingCode: string {unique}&lt;br&gt;- /channel: HolderKind {readOnly}&lt;br&gt;- /buyerId: int64 {readOnly}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
-          <mxGeometry y="40" width="470" height="72" as="geometry" />
+        <mxCell id="DC-Booking-attr" value="- id: BookingId {id}&lt;br&gt;- bookingCode: string {unique}&lt;br&gt;- /channel: HolderKind {readOnly}&lt;br&gt;- /buyerId: int64 {readOnly}&lt;br&gt;- bookedAt: time.Time" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
+          <mxGeometry y="40" width="470" height="88" as="geometry" />
         </mxCell>
         <mxCell id="DC-Booking-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-Booking">
           <mxGeometry y="112" width="470" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Booking-ops" value="&lt;u&gt;+ NewBooking(hold *SeatHold, code string, seats []*SeatStatus, ticketCodes []string) *Booking&lt;/u&gt;&lt;br&gt;+ CheckCancellationChannel(actor ActorContext) error&lt;br&gt;+ Code() string&lt;br&gt;+ Tickets() []*Ticket&lt;br&gt;+ ID() BookingId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
-          <mxGeometry y="122" width="470" height="88" as="geometry" />
+        <mxCell id="DC-Booking-ops" value="&lt;u&gt;+ NewBooking(hold *SeatHold, code string, seats []*SeatStatus, ticketCodes []string, snap TicketSnapshot, bookedAt time.Time) *Booking&lt;/u&gt;&lt;br&gt;+ CheckCancellationChannel(actor ActorContext) error&lt;br&gt;+ Code() string&lt;br&gt;+ Tickets() []*Ticket&lt;br&gt;+ ID() BookingId&lt;br&gt;+ CustomerId() *CustomerId&lt;br&gt;+ Summary(startTime time.Time) BookingSummary" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Booking">
+          <mxGeometry y="122" width="470" height="120" as="geometry" />
         </mxCell>
         <mxCell id="DC-Ticket" value="«entity»&lt;br&gt;&lt;b&gt;Ticket&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="45" y="499" width="750" height="489" as="geometry" />
+          <mxGeometry x="45" y="785.5" width="750" height="569" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Ticket-attr" value="- id: TicketId {id}&lt;br&gt;- ticketCode: string {unique}&lt;br&gt;- price: Money {&gt; 0}&lt;br&gt;- status: TicketStatus = UNUSED&lt;br&gt;&lt;u&gt;+ RefundPercent: int = 70 {readOnly}&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
-          <mxGeometry y="40" width="540" height="88" as="geometry" />
+        <mxCell id="DC-Ticket-attr" value="- id: TicketId {id}&lt;br&gt;- ticketCode: string {unique}&lt;br&gt;- price: Money {&gt; 0}&lt;br&gt;- status: TicketStatus = UNUSED&lt;br&gt;&lt;u&gt;+ RefundPercent: int = 70 {readOnly}&lt;/u&gt;&lt;br&gt;- movieTitle: string&lt;br&gt;- cinemaName: string&lt;br&gt;- auditoriumName: string&lt;br&gt;- auditoriumType: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
+          <mxGeometry y="40" width="540" height="152" as="geometry" />
         </mxCell>
         <mxCell id="DC-Ticket-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-Ticket">
           <mxGeometry y="128" width="540" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Ticket-ops" value="&lt;u&gt;~ newTicket(key SeatKey, price Money, code string) *Ticket&lt;/u&gt;&lt;br&gt;+ Cancel() error&lt;br&gt;+ Admit(showtime *Showtime, selected ShowtimeId, cinemaId CinemaId) AdmitOutcome&lt;br&gt;+ RefundAmount() Money&lt;br&gt;+ IsCancelled() bool&lt;br&gt;+ ID() TicketId&lt;br&gt;+ Code() string&lt;br&gt;+ Price() Money&lt;br&gt;+ Status() TicketStatus&lt;br&gt;+ Key() SeatKey" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
-          <mxGeometry y="138" width="540" height="175" as="geometry" />
+        <mxCell id="DC-Ticket-ops" value="&lt;u&gt;~ newTicket(key SeatKey, price Money, code string, snap TicketSnapshot) *Ticket&lt;/u&gt;&lt;br&gt;+ Cancel() error&lt;br&gt;+ Admit(showtime *Showtime, selected ShowtimeId, cinemaId CinemaId) AdmitOutcome&lt;br&gt;+ RefundAmount() Money&lt;br&gt;+ IsCancelled() bool&lt;br&gt;+ ID() TicketId&lt;br&gt;+ Code() string&lt;br&gt;+ Price() Money&lt;br&gt;+ Status() TicketStatus&lt;br&gt;+ Key() SeatKey&lt;br&gt;+ Snapshot() TicketSnapshot" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Ticket">
+          <mxGeometry y="138" width="540" height="191" as="geometry" />
         </mxCell>
         <mxCell id="DC-Customer" value="«entity»&lt;br&gt;&lt;b&gt;Customer&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1530" y="21" width="460" height="178" as="geometry" />
+          <mxGeometry x="1530" y="23" width="460" height="274" as="geometry" />
         </mxCell>
         <mxCell id="DC-Customer-attr" value="- id: CustomerId {id}&lt;br&gt;- email: string {unique, &lt;= 254}&lt;br&gt;- phoneNumber: string {unique}&lt;br&gt;- passwordHash: string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Customer">
           <mxGeometry y="40" width="460" height="72" as="geometry" />
@@ -85,11 +85,11 @@
         <mxCell id="DC-Customer-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-Customer">
           <mxGeometry y="112" width="460" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-Customer-ops" value="+ Ref() HolderRef&lt;br&gt;+ CheckNoActiveSeatHold(unfinished []*SeatHold, now time.Time) error&lt;br&gt;+ Email() string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Customer">
-          <mxGeometry y="122" width="460" height="56" as="geometry" />
+        <mxCell id="DC-Customer-ops" value="+ Ref() HolderRef&lt;br&gt;+ CheckNoActiveSeatHold(unfinished []*SeatHold, now time.Time) error&lt;br&gt;+ Email() string&lt;br&gt;+ NewCustomer(email, phoneNumber, passwordHash string) *Customer&lt;br&gt;+ CheckRegistrationData(email, phoneNumber, plainPassword string) error&lt;br&gt;+ CheckOwnsBooking(b *Booking) error&lt;br&gt;+ PasswordHash() string&lt;br&gt;+ ID() CustomerId&lt;br&gt;+ PhoneNumber() string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-Customer">
+          <mxGeometry y="122" width="460" height="152" as="geometry" />
         </mxCell>
         <mxCell id="DC-BoxOfficeClerk" value="«entity»&lt;br&gt;&lt;b&gt;BoxOfficeClerk&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="3140" y="25" width="460" height="130" as="geometry" />
+          <mxGeometry x="3140" y="27" width="460" height="146" as="geometry" />
         </mxCell>
         <mxCell id="DC-BoxOfficeClerk-attr" value="- id: BoxOfficeClerkId {id}" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-BoxOfficeClerk">
           <mxGeometry y="40" width="460" height="24" as="geometry" />
@@ -97,8 +97,8 @@
         <mxCell id="DC-BoxOfficeClerk-sep" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;html=1;" vertex="1" parent="DC-BoxOfficeClerk">
           <mxGeometry y="64" width="460" height="10" as="geometry" />
         </mxCell>
-        <mxCell id="DC-BoxOfficeClerk-ops" value="+ Ref() HolderRef&lt;br&gt;+ CheckNoActiveSeatHold(unfinished []*SeatHold, now time.Time) error&lt;br&gt;+ CinemaId() CinemaId" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-BoxOfficeClerk">
-          <mxGeometry y="74" width="460" height="56" as="geometry" />
+        <mxCell id="DC-BoxOfficeClerk-ops" value="+ Ref() HolderRef&lt;br&gt;+ CheckNoActiveSeatHold(unfinished []*SeatHold, now time.Time) error&lt;br&gt;+ CinemaId() CinemaId (kế thừa DC-Staff)&lt;br&gt;+ CheckAccessCurrent(sessionAccessChangedAt time.Time) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="DC-BoxOfficeClerk">
+          <mxGeometry y="74" width="460" height="72" as="geometry" />
         </mxCell>
         <mxCell id="IF-16" value="«interface»&lt;br&gt;&lt;b&gt;IHolderRepository&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1">
           <mxGeometry x="40" y="924" width="440" height="102" as="geometry" />
@@ -173,13 +173,13 @@
           <mxGeometry y="62" width="680" height="88" as="geometry" />
         </mxCell>
         <mxCell id="DC-Showtime" value="«entity»&lt;br&gt;&lt;b&gt;Showtime&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="980" y="525" width="220" height="50" as="geometry" />
+          <mxGeometry x="980" y="685" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="DC-Seat" value="«entity»&lt;br&gt;&lt;b&gt;Seat&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
           <mxGeometry x="2050" y="25" width="220" height="50" as="geometry" />
         </mxCell>
         <mxCell id="R-44" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Showtime" target="DC-SeatStatus">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1215" y="554" /><mxPoint x="1215" y="683" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1215" y="718.5" /><mxPoint x="1215" y="847.5" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-44-s" value="showtime 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-44">
           <mxGeometry x="-0.5" relative="1" as="geometry">
@@ -190,14 +190,14 @@
             </mxGeometry>
         </mxCell>
         <mxCell id="R-45" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatStatus" target="DC-Seat">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2030" y="683" /><mxPoint x="2030" y="46" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2030" y="847.5" /><mxPoint x="2030" y="46" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-45-s" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-45">
           <mxGeometry x="-0.9" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-45-d" value="seat 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-45">
-          <mxGeometry x="0.9" relative="1" as="geometry">
+          <mxGeometry x="0.8" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-46" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;" edge="1" parent="1" source="DC-Showtime" target="DC-SeatHold">
@@ -211,19 +211,19 @@
           <mxGeometry x="0.7" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
-        <mxCell id="R-47" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-SeatStatus">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="486" /><mxPoint x="1450" y="486" /></Array></mxGeometry>
+        <mxCell id="R-47" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-SeatStatus">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1650" y="390" /><mxPoint x="1650" y="840" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-47-s" value="holds 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-47">
           <mxGeometry x="-0.4" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-47-d" value="seats 1..8" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-47">
-          <mxGeometry x="0.5" relative="1" as="geometry">
+          <mxGeometry x="0.4" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
-        <mxCell id="R-48" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-Customer">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="-26" /><mxPoint x="1515" y="-26" /><mxPoint x="1515" y="110" /></Array></mxGeometry>
+        <mxCell id="R-48" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-Customer">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="8" /><mxPoint x="1760" y="8" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-48-s" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-48">
           <mxGeometry x="-0.9" relative="1" as="geometry">
@@ -233,8 +233,8 @@
           <mxGeometry x="0.5" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
-        <mxCell id="R-49" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-BoxOfficeClerk">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1480" y="230" /><mxPoint x="1480" y="209" /><mxPoint x="2015" y="209" /><mxPoint x="2015" y="11" /><mxPoint x="3120" y="11" /><mxPoint x="3120" y="86" /></Array></mxGeometry>
+        <mxCell id="R-49" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-BoxOfficeClerk">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1090" y="90.5" /><mxPoint x="1290" y="90.5" /><mxPoint x="1290" y="13" /><mxPoint x="3125" y="13" /><mxPoint x="3125" y="100" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-49-s" value="0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-49">
           <mxGeometry x="-0.9" relative="1" as="geometry">
@@ -256,7 +256,7 @@
             </mxGeometry>
         </mxCell>
         <mxCell id="R-51" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-Booking">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="700" y="230" /><mxPoint x="700" y="246" /><mxPoint x="420" y="246" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="700" y="394.5" /><mxPoint x="700" y="410.5" /><mxPoint x="420" y="410.5" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-51-s" value="hold 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-51">
           <mxGeometry x="0" relative="1" as="geometry">
@@ -278,10 +278,10 @@
             </mxGeometry>
         </mxCell>
         <mxCell id="R-53" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Ticket" target="DC-Showtime">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="810" y="738" /><mxPoint x="810" y="594" /><mxPoint x="1090" y="594" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="810" y="902.5" /><mxPoint x="810" y="758.5" /><mxPoint x="1090" y="758.5" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-53-s" value="tickets 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-53">
-          <mxGeometry x="-0.2" relative="1" as="geometry">
+          <mxGeometry x="0" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-53-d" value="showtime 1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-53">
@@ -289,7 +289,7 @@
             </mxGeometry>
         </mxCell>
         <mxCell id="R-54" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Ticket" target="DC-SeatStatus">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="996" /><mxPoint x="1450" y="996" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="420" y="1369.5" /><mxPoint x="800" y="1369.5" /><mxPoint x="800" y="1009" /><mxPoint x="1450" y="1009" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-54-s" value="tickets 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-54">
           <mxGeometry x="-0.7" relative="1" as="geometry">
@@ -303,40 +303,40 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="R-55-s" value="transaction 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-55">
-          <mxGeometry x="-0.4" relative="1" as="geometry">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-55-d" value="refunds 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-55">
-          <mxGeometry x="0.4" relative="1" as="geometry">
+          <mxGeometry x="0.3" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-56" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Ticket" target="DC-RefundRequest">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="810" y="740" /><mxPoint x="810" y="844" /><mxPoint x="2310" y="844" /><mxPoint x="2310" y="760" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="810" y="904.5" /><mxPoint x="810" y="1133" /><mxPoint x="2310" y="1133" /><mxPoint x="2310" y="1013.5" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-56-s" value="ticket 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-56">
-          <mxGeometry x="-0.8" relative="1" as="geometry">
+          <mxGeometry x="-0.5" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-56-d" value="refund 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-56">
           <mxGeometry x="0.8" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
-        <mxCell id="R-63" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-SeatStatus">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1480" y="230" /><mxPoint x="1480" y="484" /><mxPoint x="1445" y="484" /></Array></mxGeometry>
+        <mxCell id="R-63" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-SeatHold" target="DC-SeatStatus">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1480" y="390" /><mxPoint x="1480" y="681" /><mxPoint x="1640" y="681" /><mxPoint x="1640" y="1009" /><mxPoint x="1450" y="1009" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-63-s" value="currentHold 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-63">
           <mxGeometry x="0.9" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-63-d" value="heldSeats 0..8" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-63">
-          <mxGeometry x="0.5" relative="1" as="geometry">
+          <mxGeometry x="0.6" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-64" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Ticket" target="DC-SeatStatus">
-          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1245" y="738" /><mxPoint x="1245" y="683" /></Array></mxGeometry>
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1245" y="902.5" /><mxPoint x="1245" y="847.5" /></Array></mxGeometry>
         </mxCell>
         <mxCell id="R-64-s" value="currentTicket 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-64">
-          <mxGeometry x="-0.4" relative="1" as="geometry">
+          <mxGeometry x="-0.3" relative="1" as="geometry">
             </mxGeometry>
         </mxCell>
         <mxCell id="R-64-d" value="soldSeat 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-64">
@@ -379,7 +379,24 @@
         <mxCell id="IF-27-ops" value="+ LockTicketByID(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ LockTicketByCode(ctx Ctx, tx Tx, code string) (*Ticket, error)&lt;br&gt;+ LockTicketShared(ctx Ctx, tx Tx, id TicketId) (*Ticket, error)&lt;br&gt;+ UpdateTicketStatus(ctx Ctx, tx Tx, t *Ticket) error" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="IF-27">
           <mxGeometry y="62" width="471" height="70" as="geometry" />
         </mxCell>
-      </root>
+              <mxCell id="DC-Staff" value="«entity»&lt;br&gt;&lt;b&gt;Staff&lt;/b&gt;" style="swimlane;fontStyle=0;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="45" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="R-310" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;startArrow=open;startFill=0;endArrow=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-Customer" target="DC-Booking">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2005" y="160" /><mxPoint x="2005" y="18" /><mxPoint x="670" y="18" /><mxPoint x="670" y="160" /></Array></mxGeometry>
+        </mxCell>
+<mxCell id="R-310-s" value="customer 0..1" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-310">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+<mxCell id="R-310-d" value="bookings 0..*" style="edgeLabel;resizable=0;html=1;align=left;verticalAlign=bottom;" vertex="1" connectable="0" parent="R-310">
+          <mxGeometry x="0.8" relative="1" as="geometry">
+            </mxGeometry>
+        </mxCell>
+        <mxCell id="R-311" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=block;endFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="DC-BoxOfficeClerk" target="DC-Staff">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="3370" y="12" /><mxPoint x="1410" y="12" /></Array></mxGeometry>
+        </mxCell>
+</root>
     </mxGraphModel>
   </diagram>
 </mxfile>

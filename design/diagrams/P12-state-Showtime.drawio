@@ -1,0 +1,30 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-06" name="ST-06 Suất chiếu">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-06-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1"><mxGeometry x="120" y="40" width="30" height="30" as="geometry" /></mxCell>
+        <mxCell id="ST-06-C1" value="" style="rhombus;html=1;" vertex="1" parent="1"><mxGeometry x="115" y="110" width="40" height="40" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S0" value="&lt;b&gt;Trong lịch chiếu&lt;/b&gt; (status = IN_SCHEDULE)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;verticalAlign=top;fillColor=none;" vertex="1" parent="1"><mxGeometry x="40" y="200" width="1280" height="240" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S1" value="&lt;b&gt;Chưa mở bán&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="ST-06-S0"><mxGeometry x="40" y="90" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S2" value="&lt;b&gt;Đang mở bán&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="ST-06-S0"><mxGeometry x="380" y="90" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S3" value="&lt;b&gt;Đang chiếu&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="ST-06-S0"><mxGeometry x="720" y="90" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S4" value="&lt;b&gt;Đã kết thúc&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="ST-06-S0"><mxGeometry x="1060" y="90" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-06-S5" value="&lt;b&gt;Đã xoá&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=30;" vertex="1" parent="1"><mxGeometry x="380" y="560" width="150" height="50" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T1" value="create(movieId, format, auditoriumId, start, saleOpen) / endTime = start + thời lượng" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-I" target="ST-06-C1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T2" value="[saleOpenTime &gt; now]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-C1" target="ST-06-S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T3" value="[else]" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-C1" target="ST-06-S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T4" value="when(now &gt;= saleOpenTime)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.3;entryX=0;entryY=0.3;" edge="1" parent="1" source="ST-06-S1" target="ST-06-S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T5" value="when(now &gt;= startTime)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-S2" target="ST-06-S3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T6" value="when(now &gt;= endTime)" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-S3" target="ST-06-S4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T7" value="applyChanges [saleOpenTime mới &gt; now] / lastChangedAt = now" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-S1" target="ST-06-S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T8" value="applyChanges [saleOpenTime mới &lt;= now] / lastChangedAt = now" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=1;exitY=0.8;entryX=0;entryY=0.8;" edge="1" parent="1" source="ST-06-S1" target="ST-06-S2"><mxGeometry relative="1" as="geometry" x="-0.9" /></mxCell>
+        <mxCell id="ST-06-T9" value="applyChanges [saleOpenTime mới &lt;= now] / lastChangedAt = now" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ST-06-S2" target="ST-06-S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T10" value="applyChanges [saleOpenTime mới &gt; now] / lastChangedAt = now" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.2;exitY=1;entryX=0.8;entryY=1;" edge="1" parent="1" source="ST-06-S2" target="ST-06-S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T11" value="markDeleted [không bị dùng] / status = DELETED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="ST-06-S1" target="ST-06-S5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ST-06-T12" value="markDeleted [không bị dùng] / status = DELETED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="ST-06-S2" target="ST-06-S5"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

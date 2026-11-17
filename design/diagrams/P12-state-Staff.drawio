@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="ST-12" name="ST-12 Tài khoản nhân viên">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ST-12-I" value="" style="ellipse;fillColor=#000000;" vertex="1" parent="1"><mxGeometry x="410" y="60" width="40" height="40" as="geometry"/></mxCell>
+        <mxCell id="ST-12-S1" value="&lt;b&gt;Đang hoạt động&lt;/b&gt;&lt;hr&gt;SaveStaffChanges [mốc khớp] / ghi role, cinemaId, lastChangedAt&lt;br&gt;RenameStaff [họ tên không rỗng, mốc khớp] / ghi fullName&lt;br&gt;ResetStaffPassword [mốc khớp] / ghi passwordHash" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;align=left;spacingLeft=8;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="240" y="200" width="380" height="130" as="geometry"/></mxCell>
+        <mxCell id="ST-12-S2" value="&lt;b&gt;Bị khoá&lt;/b&gt;&lt;hr&gt;SaveStaffChanges [mốc khớp] / ghi role, cinemaId, lastChangedAt&lt;br&gt;RenameStaff [họ tên không rỗng, mốc khớp] / ghi fullName&lt;br&gt;ResetStaffPassword [mốc khớp] / ghi passwordHash" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;align=left;spacingLeft=8;verticalAlign=top;" vertex="1" parent="1"><mxGeometry x="900" y="200" width="380" height="130" as="geometry"/></mxCell>
+        <mxCell id="ST-12-T1" value="DraftStaff / status = ACTIVE" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-12-I" target="ST-12-S1"><mxGeometry relative="1" as="geometry"><mxPoint x="110" y="0" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="ST-12-T2" value="LockStaff [mốc khớp] / status = LOCKED" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-12-S1" target="ST-12-S2"><mxGeometry relative="1" as="geometry"><mxPoint x="0" y="-25" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="ST-12-T3" value="UnlockStaff [mốc khớp] / status = ACTIVE" style="endArrow=open;endFill=0;html=1;edgeStyle=orthogonalEdgeStyle;labelBackgroundColor=#ffffff;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="ST-12-S2" target="ST-12-S1"><mxGeometry relative="1" as="geometry"><mxPoint x="0" y="25" as="offset"/></mxGeometry></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
