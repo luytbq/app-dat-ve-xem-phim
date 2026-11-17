@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="S03B1" name="Hộp đen - subscribe, unsubscribe (UC-005, UC-008)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="560" pageHeight="560" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="560" pageHeight="560" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -63,7 +63,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S03W1" name="Hộp trắng - subscribe">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="1150" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="1150" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -230,7 +230,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S03W2" name="Hộp trắng - vòng đọc seat_event mỗi 500 ms (nội bộ)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="720" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="720" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -328,7 +328,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S03C" name="Phần tử">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1810" pageHeight="720" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1810" pageHeight="720" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -481,7 +481,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S03D" name="Phụ thuộc">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1340" pageHeight="340" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1340" pageHeight="340" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />

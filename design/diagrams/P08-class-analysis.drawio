@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="P08-class-ent" name="Entity - Bán vé">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-E-Customer" value="«entity»&lt;br&gt;Customer" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="310" as="geometry" /></mxCell>
 <mxCell id="AC-E-Customer-ATTR" value="email (Văn bản)&lt;br&gt;phoneNumber (Văn bản)&lt;br&gt;password (Văn bản)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-E-Customer"><mxGeometry y="40" width="340" height="70" as="geometry" /></mxCell>
@@ -94,7 +94,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-ent2" name="Entity - Vận hành rạp">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-E-Cinema" value="«entity»&lt;br&gt;Cinema" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="430" as="geometry" /></mxCell>
 <mxCell id="AC-E-Cinema-ATTR" value="name (Văn bản)&lt;br&gt;province (Văn bản, tỉnh hoặc thành phố)&lt;br&gt;address (Văn bản)&lt;br&gt;lastChangedAt (Ngày giờ)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-E-Cinema"><mxGeometry y="40" width="340" height="90" as="geometry" /></mxCell>
@@ -182,7 +182,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-dat" name="Đặt vé (UC-005)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-BookTicketsForm__V2" value="«boundary»&lt;br&gt;BookTicketsForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="-5" width="340" height="390" as="geometry" /></mxCell>
 <mxCell id="AC-B-BookTicketsForm__V2-ATTR" value="selectedSeats (Các ghế đã chọn)&lt;br&gt;credentials (Thông tin đăng nhập)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-BookTicketsForm__V2"><mxGeometry y="40" width="340" height="50" as="geometry" /></mxCell>
@@ -265,7 +265,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-bao" name="Báo thanh toán và hoàn tiền trễ (UC-005, UC-006)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-PaymentGateway__V3" value="«boundary»&lt;br&gt;PaymentGateway" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="45" width="340" height="150" as="geometry" /></mxCell>
 <mxCell id="AC-B-PaymentGateway__V3-ATTR" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-PaymentGateway__V3"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -349,7 +349,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-huy" name="Huỷ vé (UC-008)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-CancelTicketForm__V4" value="«boundary»&lt;br&gt;CancelTicketForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="520" y="45" width="340" height="150" as="geometry" /></mxCell>
 <mxCell id="AC-B-CancelTicketForm__V4-ATTR" value="-" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-CancelTicketForm__V4"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -448,7 +448,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-soat" name="Soát vé (UC-009)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-CheckTicketForm__V5" value="«boundary»&lt;br&gt;CheckTicketForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="5" width="340" height="290" as="geometry" /></mxCell>
 <mxCell id="AC-B-CheckTicketForm__V5-ATTR" value="scannedQr (Mã QR của vé)&lt;br&gt;checkingShowtime (Suất chiếu đang soát, giữ trong phiên làm việc)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-CheckTicketForm__V5"><mxGeometry y="40" width="340" height="50" as="geometry" /></mxCell>
@@ -500,7 +500,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-gia" name="Bảng giá (UC-013)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ManagePriceListForm__V6" value="«boundary»&lt;br&gt;ManagePriceListForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="310" as="geometry" /></mxCell>
 <mxCell id="AC-B-ManagePriceListForm__V6-ATTR" value="displayedPriceList (Bảng giá đang hiển thị)&lt;br&gt;enteredPriceEntry (Tổ hợp và giá vé đã nhập)&lt;br&gt;selectedPriceEntry (Mục giá chọn để bỏ)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ManagePriceListForm__V6"><mxGeometry y="40" width="340" height="70" as="geometry" /></mxCell>
@@ -553,7 +553,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-lich" name="Lịch chiếu (UC-014)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ScheduleShowtimesForm__V7" value="«boundary»&lt;br&gt;ScheduleShowtimesForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="25" width="340" height="430" as="geometry" /></mxCell>
 <mxCell id="AC-B-ScheduleShowtimesForm__V7-ATTR" value="showtimeInput (Thông tin suất chiếu đã nhập)&lt;br&gt;selectedShowtime (Suất chiếu được chọn, mốc đã hiển thị)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ScheduleShowtimesForm__V7"><mxGeometry y="40" width="340" height="50" as="geometry" /></mxCell>
@@ -634,7 +634,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-dky" name="Đăng ký tài khoản (UC-001)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-RegisterAccountForm__V8" value="«boundary»&lt;br&gt;RegisterAccountForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="230" as="geometry" /></mxCell>
 <mxCell id="AC-B-RegisterAccountForm__V8-ATTR" value="registrationData (Email, số điện thoại, mật khẩu)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-RegisterAccountForm__V8"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -654,7 +654,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-tra" name="Tra cứu phim và lịch chiếu (UC-003, UC-004)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-BrowseMoviesForm__V9" value="«boundary»&lt;br&gt;BrowseMoviesForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="190" as="geometry" /></mxCell>
 <mxCell id="AC-B-BrowseMoviesForm__V9-ATTR" value="selectedMovie (Phim khách đã chọn)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-BrowseMoviesForm__V9"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -707,7 +707,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-ls" name="Lịch sử đặt vé (UC-007)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ViewBookingHistoryForm__V10" value="«boundary»&lt;br&gt;ViewBookingHistoryForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="210" as="geometry" /></mxCell>
 <mxCell id="AC-B-ViewBookingHistoryForm__V10-ATTR" value="selectedBookingCode (Mã đặt vé)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ViewBookingHistoryForm__V10"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -749,7 +749,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-phim" name="Quản lý phim (UC-010)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ManageMoviesForm__V11" value="«boundary»&lt;br&gt;ManageMoviesForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="310" as="geometry" /></mxCell>
 <mxCell id="AC-B-ManageMoviesForm__V11-ATTR" value="displayedMovieList (Danh sách phim đang hiển thị, kèm mốc thay đổi của từng phim lúc hiển thị)&lt;br&gt;enteredMovieInfo (Thông tin phim, định dạng phát hành và hai ngày đã nhập)&lt;br&gt;selectedMovie (Phim đã chọn để sửa)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ManageMoviesForm__V11"><mxGeometry y="40" width="340" height="70" as="geometry" /></mxCell>
@@ -769,7 +769,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-cum" name="Quản lý cụm rạp (UC-011)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ManageCinemasForm__V12" value="«boundary»&lt;br&gt;ManageCinemasForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="340" height="310" as="geometry" /></mxCell>
 <mxCell id="AC-B-ManageCinemasForm__V12-ATTR" value="displayedCinemaList (Danh sách cụm rạp đang hiển thị, kèm mốc thay đổi của từng cụm rạp lúc hiển thị)&lt;br&gt;enteredCinemaInfo (Tên, tỉnh hoặc thành phố, địa chỉ đã nhập)&lt;br&gt;selectedCinema (Cụm rạp đã chọn để sửa)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ManageCinemasForm__V12"><mxGeometry y="40" width="340" height="70" as="geometry" /></mxCell>
@@ -789,7 +789,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-phong" name="Quản lý phòng chiếu (UC-012)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ManageAuditoriumsForm__V13" value="«boundary»&lt;br&gt;ManageAuditoriumsForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="190" y="40" width="340" height="370" as="geometry" /></mxCell>
 <mxCell id="AC-B-ManageAuditoriumsForm__V13-ATTR" value="displayedAuditoriumList (Danh sách phòng chiếu đang hiển thị, kèm mốc thay đổi của từng phòng chiếu lúc hiển thị)&lt;br&gt;enteredAuditoriumInfo (Tên, loại phòng, định dạng chiếu được và sơ đồ ghế đã nhập)&lt;br&gt;selectedAuditorium (Phòng chiếu đã chọn để sửa hoặc xoá)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ManageAuditoriumsForm__V13"><mxGeometry y="40" width="340" height="70" as="geometry" /></mxCell>
@@ -854,7 +854,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-bc" name="Báo cáo (UC-015, UC-016)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ViewCinemaReportForm__V14" value="«boundary»&lt;br&gt;ViewCinemaReportForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="440" y="40" width="340" height="170" as="geometry" /></mxCell>
 <mxCell id="AC-B-ViewCinemaReportForm__V14-ATTR" value="reportRequest (Cách xem, từ ngày, đến ngày)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ViewCinemaReportForm__V14"><mxGeometry y="40" width="340" height="30" as="geometry" /></mxCell>
@@ -949,7 +949,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="P08-class-nv" name="Tài khoản nhân viên (UC-017)">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="3000" math="0" shadow="0">
       <root><mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="AC-B-ManageStaffAccountsForm__V15" value="«boundary»&lt;br&gt;ManageStaffAccountsForm" style="swimlane;fontStyle=1;align=center;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;collapsible=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="45" width="340" height="550" as="geometry" /></mxCell>
 <mxCell id="AC-B-ManageStaffAccountsForm__V15-ATTR" value="staffAccountData (Email, họ tên, mật khẩu ban đầu, vai trò, cụm rạp)&lt;br&gt;selectedStaff (Tài khoản nhân viên đã chọn kèm mốc thay đổi lúc hiển thị)&lt;br&gt;newFullName (Văn bản)&lt;br&gt;newPassword (Văn bản)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;html=1;whiteSpace=wrap;" vertex="1" parent="AC-B-ManageStaffAccountsForm__V15"><mxGeometry y="40" width="340" height="90" as="geometry" /></mxCell>

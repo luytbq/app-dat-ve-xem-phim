@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
     <diagram id="SD1a" name="SD1a - Luồng chính bước 1 đến 7">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1200" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1200" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -43,7 +43,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD1b" name="SD1b - Luồng chính bước 8 đến 12">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1210" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1210" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -84,7 +84,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD1c" name="SD1c - Luồng chính bước 13 đến 15">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="930" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="930" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -117,7 +117,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD2" name="SD2 - Luồng 2a và 2c">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="460" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="460" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -132,7 +132,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD3" name="SD3 - Luồng 5a, 5b và 6a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="950" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="950" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -162,7 +162,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD4" name="SD4 - Luồng 7c, 7d và 7e">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="550" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="550" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -179,7 +179,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD5" name="SD5 - Luồng 7a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -196,7 +196,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD6" name="SD6 - Luồng 7b">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="740" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="740" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -222,7 +222,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD7" name="SD7 - Luồng *a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="750" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="750" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -248,7 +248,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD8" name="SD8 - Luồng 10a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -265,7 +265,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD9" name="SD9 - Luồng 11a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="740" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1360" pageHeight="740" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -294,7 +294,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD10" name="SD10 - Báo thành công khi lần giữ ghế đã quá thời điểm hết hạn hoặc đã kết thúc">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="560" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="560" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -309,7 +309,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD11a" name="SD11a - Biến thể ACT-02, bước 1 đến 2 và luồng 2a, 2b, 2c">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="650" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="650" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -331,7 +331,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD11b" name="SD11b - Biến thể ACT-02, bước 3 đến 7">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1040" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1520" pageHeight="1040" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -370,7 +370,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD11c" name="SD11c - Biến thể ACT-02, bước 8, 9a1">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="730" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="730" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -395,7 +395,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD11d" name="SD11d - Biến thể ACT-02, bước 9a2 và luồng 9a1a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="480" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="480" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -414,7 +414,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD11e" name="SD11e - Biến thể ACT-02, bước 9a3 đến 9a5">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />

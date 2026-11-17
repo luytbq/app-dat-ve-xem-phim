@@ -1,4 +1,4 @@
-<mxfile><diagram id="UC-001" name="UC-001"><mxGraphModel><root>
+<mxfile><diagram id="UC-001" name="UC-001"><mxGraphModel adaptiveColors="none" background="#ffffff" grid="0"><root>
 <mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="P-ACT-01" value="Khách" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="440" height="1530" as="geometry" /></mxCell>
 <mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="440" y="0" width="551" height="1530" as="geometry" /></mxCell>

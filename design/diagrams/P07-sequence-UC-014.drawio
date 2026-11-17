@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
     <diagram id="SD1a" name="SD1a - Luồng chính bước 1, 2">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="640" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="640" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD1a-L-A" value=":Quản lý cụm rạp" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="540" as="geometry" /></mxCell>
       <mxCell id="SD1a-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="540" as="geometry" /></mxCell>
@@ -22,7 +22,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD1b" name="SD1b - Luồng chính bước 3, 4 và luồng 4a">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="600" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="600" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD1b-L-A" value=":Quản lý cụm rạp" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="500" as="geometry" /></mxCell>
       <mxCell id="SD1b-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="500" as="geometry" /></mxCell>
@@ -45,7 +45,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD1c" name="SD1c - Luồng chính bước 5 đến 7 và luồng 5a, 5b, 5c, 6a, 6b, 6c">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="1560" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="1560" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD1c-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="1460" as="geometry" /></mxCell>
       <mxCell id="SD1c-L-C" value=":ScheduleShowtimesController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="1460" as="geometry" /></mxCell>
@@ -104,7 +104,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD1d" name="SD1d - Luồng chính bước 8, 9 và luồng 8b, 8e, 8g, 8h">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="1310" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="1310" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD1d-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="1210" as="geometry" /></mxCell>
       <mxCell id="SD1d-L-C" value=":ScheduleShowtimesController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="1210" as="geometry" /></mxCell>
@@ -150,7 +150,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD2a" name="SD2a - Luồng 1a bước 1a1 đến 1a3 và luồng 1a3a, 1a3b">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="730" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="730" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -177,7 +177,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD2c" name="SD2c - Luồng 1a bước 1a3 (tiếp) và luồng 1a3a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="530" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="530" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -199,7 +199,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD2b" name="SD2b - Luồng 1a bước 1a4">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="600" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="600" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD2b-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="500" as="geometry" /></mxCell>
       <mxCell id="SD2b-L-C" value=":ScheduleShowtimesController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="500" as="geometry" /></mxCell>
@@ -220,7 +220,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD3a" name="SD3a - Luồng 1a bước 8">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="1020" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1380" pageHeight="1020" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD3a-L-C" value=":ScheduleShowtimesController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="920" as="geometry" /></mxCell>
       <mxCell id="SD3a-L-AU" value=":Auditorium" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="920" as="geometry" /></mxCell>
@@ -253,7 +253,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD3c" name="SD3c - Luồng 8c, 8d, 8a, 8f">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="500" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="500" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -279,7 +279,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD3b" name="SD3b - Luồng 1a bước 8 (tiếp), luồng 8b, 8e, 8g, 8h và bước 9">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="740" pageHeight="765" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="740" pageHeight="765" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD3b-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="665" as="geometry" /></mxCell>
       <mxCell id="SD3b-L-C" value=":ScheduleShowtimesController" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="665" as="geometry" /></mxCell>
@@ -304,7 +304,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD4a" name="SD4a - Luồng 1b bước 1b1, 1b2">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="560" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1220" pageHeight="560" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD4a-L-A" value=":Quản lý cụm rạp" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="460" as="geometry" /></mxCell>
       <mxCell id="SD4a-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="460" as="geometry" /></mxCell>
@@ -324,7 +324,7 @@
     </root></mxGraphModel>
   </diagram>
     <diagram id="SD4b" name="SD4b - Luồng 1b bước 1b3">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="680" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="680" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -349,7 +349,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD4c" name="SD4c - Luồng 1b bước 1b4 và luồng 1b3a, 1b3b, 1b3c">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="500" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="920" pageHeight="500" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -367,7 +367,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD5" name="SD5 - Luồng *a">
-    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="400" math="0" shadow="0"><root>
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="400" math="0" shadow="0"><root>
       <mxCell id="0" /><mxCell id="1" parent="0" />
       <mxCell id="SD5-L-A" value=":Quản lý cụm rạp" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="40" y="40" width="120" height="300" as="geometry" /></mxCell>
       <mxCell id="SD5-L-F" value=":ScheduleShowtimesForm" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;" vertex="1" parent="1"><mxGeometry x="200" y="40" width="120" height="300" as="geometry" /></mxCell>

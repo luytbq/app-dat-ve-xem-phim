@@ -1,4 +1,4 @@
-<mxfile><diagram id="UC-016" name="UC-016"><mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0"><root>
+<mxfile><diagram id="UC-016" name="UC-016"><mxGraphModel adaptiveColors="none" background="#ffffff" dx="1200" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0"><root>
 <mxCell id="0" /><mxCell id="1" parent="0" />
 <mxCell id="P-ACT-05" value="Quản lý chuỗi" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="0" y="0" width="300" height="900" as="geometry" /></mxCell>
 <mxCell id="P-SYS" value="Hệ thống" style="swimlane;html=1;startSize=40;" vertex="1" parent="1"><mxGeometry x="300" y="0" width="520" height="900" as="geometry" /></mxCell>

@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
     <diagram id="CM1" name="Luồng chính (SD1a, SD1b, SD1c, SD1d)">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -28,7 +28,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="CM2" name="Luồng 1a (SD2a, SD2c, SD2b, SD3a, SD3c, SD3b)">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -59,7 +59,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="CM3" name="Luồng 1b và *a (SD4a, SD4b, SD4c, SD5)">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2650" pageHeight="1470" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />

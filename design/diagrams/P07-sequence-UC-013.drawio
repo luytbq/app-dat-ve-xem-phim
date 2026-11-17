@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
     <diagram id="SD1" name="SD1 - Luồng chính, 4a, 5a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="1340" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1040" pageHeight="1340" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -43,7 +43,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD2" name="SD2 - Luồng 1a, 1a3a, 1a3b">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1190" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1190" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
@@ -83,7 +83,7 @@
       </mxGraphModel>
     </diagram>
     <diagram id="SD3" name="SD3 - Luồng *a">
-      <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
+      <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="510" math="0" shadow="0">
         <root>
           <mxCell id="0" />
           <mxCell id="1" parent="0" />
