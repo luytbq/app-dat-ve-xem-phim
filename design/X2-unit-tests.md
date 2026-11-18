@@ -3,15 +3,16 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | X2 |
-| Phiên bản | 2.0 |
+| Phiên bản | 2.1 |
+| Thay đổi 2.1 | Bổ sung 234 TC (TC-660 đến TC-893) và 9 mục F2 mới (F2.58 đến F2.66): quy tắc entity của UC-010 đến UC-014 (DC-PriceList, DC-Showtime, DC-Auditorium, DC-Cinema, DC-Movie), các lớp điều phối DC-ManageMoviesService, DC-ManageCinemasService, DC-ManageAuditoriumsService, DC-ManagePriceListService, DC-ScheduleShowtimesService, DC-ViewChainReportService, DC-BrowseMoviesService, và 11 ca tích hợp cho X-03, X-04, X-05, X-06, X-08, X-11, X-19, X-20, X-21, X-23 cùng tiến trình chết giữa EX-13, EX-15; ca unit cho phía còn lại của X-03, X-19 và các X-04, X-05, X-06, X-08, X-11, X-20, X-21, X-23 nằm ở F2.59 đến F2.63; F4.1 đến F4.6 cập nhật theo; thêm Q-356, Q-357 (chờ TC-824); chuyển Operation chưa có TC ở F1 thành Có; không thay đổi TC 2.0 |
 | Thay đổi 2.0 | Chạy lại theo P12 2.1 (lõi và sáu file package), P13 2.0, P09 2.1, P08 2.1, X1 2.0 (_sync-log.md, mục Đầu vào cho lần chạy lại X2): thêm DC-HoldSettlement (End, Sell, FinishSale) và chuyển các TC Expire, ReleaseHold, Complete, MarkSold, NewBooking, NewTicket khỏi bốn operation dịch vụ; viết lại CFG của HoldSeats, CancelHold, ConfirmCashReceived, StartOnlinePayment, HandleIpn, CancelOnlineTicket và ConfirmCashRefund (tách nhánh trực tuyến và tiền mặt); đóng các TC chờ Q-142 đến Q-154; thêm hạng khoá 0 đến 13 và AcquireValue, kiểm phiên theo mốc truy cập (BR-101), đăng ký, đăng nhập, quản lý tài khoản nhân viên, lịch sử đặt vé và snapshot vé (BR-140), quy tắc lịch chiếu và danh mục, báo cáo, lọc suất chiếu, ánh xạ lỗi HTTP, kiểm phiên của AuthFilter, hàng đợi sự kiện ghế, giới hạn kết nối, JobLoop; thêm ca tích hợp cho X-24 đến X-33, claim_token, trg_seat_status_link, EXCLUDE suất chiếu; F4.4, F4.5 đối chiếu P08 F4b và P09 F7.10 |
 | Thay đổi 1.2 | Bản trước (X3 lần 2): Q-142 đến Q-154 đánh dấu đã trả lời; chưa chạy lại X2 |
 | Đầu vào đã dùng | project-profile.md; P12-class-design.md 2.1 (F1, F1b, F2, F3, F6, Câu hỏi mở, Đề xuất sửa) cùng sáu file P12-class-design/ (PKG-05 đến PKG-10, PKG-20, PKG-23, PKG-29, PKG-31; PKG-11; PKG-16, PKG-27; PKG-17, PKG-18, PKG-30, PKG-33; PKG-19, PKG-32); P13-data-model.md 2.0, P13-schema.sql và P13-schema-tests.sql (207 case, PostgreSQL 16, chỉ tham chiếu); P09-architecture.md 2.1 (F7.3, F7.4, F7.6, F7.7, F7.9, F7.10, F7.11, F7.12); P08-analysis-model.md 2.1 (F4a EX-01 đến EX-22, F4b X-01 đến X-33); P06-supplementary-spec.md 1.4 (BR, NFR); P04-uc-specs/_BR-register.md; P04-uc-specs/UC-001, UC-004, UC-005, UC-006, UC-007, UC-008, UC-009, UC-010 đến UC-017 (luồng thay thế); X1-design-review.md 2.0 (Câu hỏi mở, F2); _sync-log.md (Đầu vào cho lần chạy lại X2); 00-Concurrency.md (M5, M9). Không có mã nguồn |
-| Phạm vi | Toàn hệ thống theo P12 2.1: lõi giữ ghế, thanh toán, huỷ vé, soát vé (PKG-12 đến PKG-15, PKG-21, PKG-22, PKG-24 đến PKG-26, PKG-28), tài khoản và nhân viên (PKG-19, PKG-32), danh mục, lịch chiếu và báo cáo (PKG-16, PKG-17, PKG-18, PKG-27, PKG-30, PKG-33), PKG-11 (ánh xạ lỗi, AuthFilter, giới hạn kết nối). Ngoài lần chạy này: điều phối UC-010 đến UC-014, giao diện React (F1) |
-| Tham số lần chạy | PHAM_VI_TEST: toàn hệ thống, ưu tiên chiều sâu ở giữ ghế, thanh toán, hoàn tiền, kiểm phiên và các ràng buộc tranh chấp; MUC_TIEU_PHU: mặc định (100% C1 cho operation ưu tiên Cao, 100% C0 cho còn lại); SINH_MA_TEST: Không có; MA_TC_BAT_DAU: Không có (giữ mã TC-001 đến TC-384 của 1.x, mã mới từ TC-385) |
+| Phạm vi | Toàn hệ thống theo P12 2.1: lõi giữ ghế, thanh toán, huỷ vé, soát vé (PKG-12 đến PKG-15, PKG-21, PKG-22, PKG-24 đến PKG-26, PKG-28), tài khoản và nhân viên (PKG-19, PKG-32), danh mục, lịch chiếu và báo cáo (PKG-16, PKG-17, PKG-18, PKG-27, PKG-30, PKG-33), PKG-11 (ánh xạ lỗi, AuthFilter, giới hạn kết nối). Ngoài lần chạy này: giao diện React (F1) |
+| Tham số lần chạy | PHAM_VI_TEST: toàn hệ thống, ưu tiên chiều sâu ở giữ ghế, thanh toán, hoàn tiền, kiểm phiên và các ràng buộc tranh chấp; MUC_TIEU_PHU: mặc định (100% C1 cho operation ưu tiên Cao, 100% C0 cho còn lại); SINH_MA_TEST: Không có; MA_TC_BAT_DAU: Không có (giữ mã TC-001 đến TC-384 của 1.x, mã mới từ TC-385); lần chạy 2.1 làm tiếp phần chưa có TC của 2.0 với MA_TC_BAT_DAU = TC-660 |
 | Chế độ | NGHIEM_NGAT; MUC_CHI_TIET = DAY_DU; TRANH_CHAP_TAI_NGUYEN = Có; CONG_NGHE: Go (net/http, pgx), PostgreSQL 15 trở lên, VNPay sandbox |
-| Mã TC đã cấp | TC-001 đến TC-659 (653 TC hiện hành: 609 unit, 42 tích hợp, 2 chờ Q-nn); mã bỏ không cấp lại: TC-004, TC-069, TC-074, TC-115, TC-141, TC-163; TC-385 đến TC-659 là mã mới của 2.0 |
-| Mã Q, ASM cuối đã cấp | Q-355 (Q-352 đến Q-355 mới của 2.0); không có ASM (NGHIEM_NGAT) |
+| Mã TC đã cấp | TC-001 đến TC-893 (887 TC hiện hành: 831 unit, 53 tích hợp, 3 chờ Q-nn); mã bỏ không cấp lại: TC-004, TC-069, TC-074, TC-115, TC-141, TC-163; TC-385 đến TC-659 là mã mới của 2.0; TC-660 đến TC-893 là mã mới của 2.1 |
+| Mã Q, ASM cuối đã cấp | Q-357 (Q-352 đến Q-355 mới của 2.0; Q-356, Q-357 mới của 2.1); không có ASM (NGHIEM_NGAT) |
 
 ## F1. Bảng chọn operation
 
@@ -26,6 +27,7 @@ Quy ước dùng chung cho mọi ca thử:
 - Dữ liệu vào dạng holdRef: ở CancelHold, StartOnlinePayment, ConfirmCashReceived, GetHold, ký hiệu H1 là holdRef của lần giữ ghế H1 (P12 2.1), 9999 là holdRef không tồn tại.
 - DC-HoldSettlement (lớp miền không trạng thái, không I/O) được dùng đối tượng thật ở mọi TC lớp dịch vụ, không giả lập; các TC kiểm Expire, ReleaseHold, Complete, MarkSold, NewBooking, NewTicket trong HoldSeats, CancelHold, ConfirmCashReceived, HandleIpn nằm ở F2.41, F2.42.
 - Mã TC đã bỏ không cấp lại: TC-004, TC-069, TC-074, TC-115, TC-141, TC-163 (giá trị ngoài miền là tiền điều kiện của bên gọi, Q-144).
+- Bối cảnh lịch chiếu (F2.58 đến F2.66, viết tắt "bối cảnh L"): cụm rạp 2 (tên "CineBook Quận 1", tỉnh TP.HCM, lastChangedAt T0 = 2026-11-08 09:00:00.000000) do quản lý cụm rạp 2 (actor 2) điều hành; phòng 7 (STANDARD, định dạng 2D, 60 ghế gồm 50 STANDARD và 10 VIP, tên "Phòng 1", lastChangedAt T0) và phòng 8 (STANDARD, 2D, 80 ghế STANDARD và VIP, tên "Phòng 2"); cụm rạp 3 có phòng 11 và suất chiếu S90; phim 5 ("Mai", 120 phút, phát hành 2D và 3D, khởi chiếu 2026-11-05, kết thúc chiếu 2026-11-20, lastChangedAt T0); bảng giá cụm rạp 2 phủ (STANDARD, 2D, STANDARD và VIP) mọi khung giờ, mục C1 = (STANDARD, 2D, STANDARD, WEEKDAY_FROM_17) giá 90.000 và C1V = (STANDARD, 2D, VIP, WEEKDAY_FROM_17) giá 120.000; suất chiếu S55 ở phòng 7, phim 5, 2D, bắt đầu 2026-11-10 20:00 (Thứ Ba), mở bán 2026-11-09 08:00, kết thúc 22:00, lastChangedAt T0; thời điểm hiện tại tx.Now = 2026-11-10 10:00:00.000 (+07:00).
 - Các tham chiếu P13: 207 case của P13-schema-tests.sql (PostgreSQL 16) không lặp lại ở đây; X2 chỉ kiểm hành vi của lớp ứng dụng khi gặp các ràng buộc đó.
 
 | DC.operation | Tiêu chí (BR / rẽ nhánh / tính toán / sự kiện ST / kiểm tra hợp lệ / điều phối UC / gọi hệ thống ngoài) | Ưu tiên (Cao / Trung bình / Thấp) | Chọn (Có / Không: lý do) |
@@ -105,7 +107,16 @@ Quy ước dùng chung cho mọi ca thử:
 | DC-RefundOutboxJob.RunDue; DC-EmailOutboxJob.RunDue | điều phối công việc nền, song song | Trung bình | Không: logic xử lý một dòng nằm ở ProcessRefund (F2.36); claim từng dòng và SKIP LOCKED là ca tích hợp (F2.55 TC claim_token, F2.40) |
 | DC-PaymentCallbackController.HandleIpn, HandleReturn, HandlePaymentStatus | giải mã, gọi service, ghi kết quả | Thấp | Không: chỉ ủy quyền nguyên lời gọi (Bước 1); ánh xạ RspCode kiểm ở F2.56 |
 | DC-VnpayUrlBuilder, DC-VnpayRefundClient, DC-PaymentGatewayManager, DC-PaymentReportReceiver, DC-GatewayConfig; IF-01, IF-02 | gọi hệ thống ngoài, dựng địa chỉ ký | Trung bình | Không: oracle phụ thuộc V-01 đến V-11 của VNPay chưa kiểm tài liệu (Q-355); kiểm với VNPay sandbox khi có tài liệu |
-| DC-ManageMoviesService, DC-ManageCinemasService, DC-ManageAuditoriumsService, DC-ManagePriceListService, DC-ScheduleShowtimesService (UC-010 đến UC-014); DC-ViewChainReportService; DC-BrowseMoviesService | điều phối UC có nhiều luồng thay thế | Trung bình | Không: vượt ngưỡng 60 TC mỗi lần chạy; quy tắc của entity đã kiểm ở F2.50, F2.51, loại trừ ở F2.55; làm tiếp bằng MA_TC_BAT_DAU (Vấn đề còn mở 2) |
+| DC-PriceList.CheckTicketPriceValid, CheckEntryUnchangedSinceDisplayed, SavePriceEntry, RemovePriceEntry, CheckCoversShowtime; DC-Showtime.UsesPriceEntry, BlocksSeatMapEdit, CheckStaysPriced, AdoptSeatMap, CheckSaleOpenBeforeStart, MarkDeleted; DC-Auditorium.ComputeSeatMapChange, CheckAuditoriumInfoValid, CheckCapacityInRange, CheckBelongsToCinema; DC-Cinema.CheckAuditoriumNameAvailable, CheckCinemaInfoValid; DC-Movie.CheckMovieInfoValid | BR (BR-12, BR-55, BR-58, BR-62 đến BR-64, BR-68 đến BR-71, BR-73, BR-87, BR-118, BR-134, BR-135, BR-144, BR-145) / kiểm tra điều kiện, thời gian, tính toán, sự kiện ST-06 | Cao | Có (F2.58) |
+| DC-ManageMoviesService.ListMovies, GetMovieForEdit, AddMovie, SaveMovieChanges | điều phối UC (UC-010) / BR (BR-84, BR-134, BR-138, BR-139) / EX-16 | Trung bình | Có (F2.59) |
+| DC-ManageCinemasService.ListCinemas, GetCinemaForEdit, AddCinema, SaveCinemaChanges | điều phối UC (UC-011) / BR (BR-141, BR-142) / EX-17 | Trung bình | Có (F2.60) |
+| DC-ManageAuditoriumsService.ListAuditoriums, SelectAuditorium, AddAuditorium, EditAuditorium, RemoveAuditorium, applySeatMapToShowtimes | điều phối UC (UC-012) / BR (BR-73, BR-87, BR-118, BR-135, BR-144 đến BR-147) / EX-15, EX-18, EX-19 / thứ tự báo lỗi | Cao | Có (F2.61) |
+| DC-ManagePriceListService.GetPriceList, SubmitPriceEntry, SubmitPriceEntryRemoval | điều phối UC (UC-013) / BR (BR-62 đến BR-64, BR-70, BR-71) / EX-11, EX-12 | Cao | Có (F2.62) |
+| DC-ScheduleShowtimesService.StartScheduling, ListShowtimes, PrepareShowtimeEdit, CreateShowtime, UpdateShowtime, DeleteShowtime, replaceSeatStatuses | điều phối UC (UC-014) / BR (BR-46 đến BR-60, BR-69, BR-92, BR-139) / EX-13, EX-14 / thứ tự báo lỗi / vòng lặp thử lại | Cao | Có (F2.63) |
+| DC-ViewChainReportService.ViewChainReport | điều phối UC (UC-016) / BR (BR-88, BR-118; Q-237) / tính toán, kiểm tra kỳ | Trung bình | Có (F2.64) |
+| DC-BrowseMoviesService.ListMovies, GetMovieDetails | điều phối UC (UC-003) / BR (BR-76) / phân nhóm theo ngày nghiệp vụ | Trung bình | Có (F2.65) |
+| Ca tích hợp cho UC-010 đến UC-014 (PostgreSQL 15 thật, nhiều goroutine hoặc nhiều bản backend) | tranh chấp đồng thời, khoá dòng, tiến trình chết / BR (BR-53, BR-64, BR-87, BR-92, BR-137; X-03 đến X-23) | Cao | Có (F2.66) |
+| DC-BrowseShowtimesService.ListMoviesForBrowsing, GetShowtime, ListCinemasForBrowsing; DC-Showtime.DraftShowtime, ApplyChanges, RecheckMovie; DC-Auditorium.CreateAuditorium, ApplyChanges; DC-Seat.NewSeat, CheckSeatValid, RetireFromSeatMap, SetType (ST-07) | đọc một dòng, ánh xạ, hàm dựng, chuyển trạng thái ghế do Auditorium.ApplyChanges gọi | Thấp | Không: ủy quyền hoặc ánh xạ không logic riêng (Bước 1); RecheckMovie, ApplyChanges phủ qua CreateShowtime, UpdateShowtime (F2.63); ghế ST-07 phủ qua ComputeSeatMapChange và EditAuditorium (F2.58, F2.61), chưa có TC riêng cho SeatStateError |
 | PKG-05 đến PKG-10, PKG-29, PKG-31 (React: boundary, hook, store, ApiClient) và DC-SessionClient | giao diện, định dạng hiển thị | Thấp | Không: kiểm bằng công cụ UI riêng theo P11a; mã lỗi hiển thị đối chiếu bảng F2b ở F2.53 |
 | DC-PgUnitOfWork.Do, runOnce, LockValue; DC-PgTx; DC-ConnectionPools; DC-PgTicketingStore; mọi IF-11 đến IF-23, IF-26 đến IF-28 (hiện thực SQL) | truy cập CSDL, khoá, thử lại | Cao | Không (unit): cần PostgreSQL thật; ca tích hợp F2.40, F2.55; ràng buộc cấp dữ liệu đã chạy ở P13-schema-tests.sql |
 
@@ -4708,6 +4719,499 @@ Căn cứ: P08 F4b X-32 ("hai yêu cầu khoá: bên sau thấy tài khoản đ�
 | IScheduledJob | mock | RunDue(budget) ghi lại số lần gọi, có thể ném panic hoặc lỗi | Kiểm hợp đồng JobLoop |
 | log | spy | Đếm số lần ghi log lỗi | Kiểm hiệu ứng phụ |
 
+### F2.58 Quy tắc entity của UC-010 đến UC-014 (PKG-27): DC-PriceList, DC-Showtime, DC-Auditorium, DC-Cinema, DC-Movie
+
+#### F2.58.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | PriceList.CheckTicketPriceValid(price), CheckEntryUnchangedSinceDisplayed(combo, displayedAt), SavePriceEntry(combo, price, displayedAt, now), RemovePriceEntry(combo, displayedAt, now, showtimes, rooms), CheckCoversShowtime(t, f, seatTypes, start); Showtime.UsesPriceEntry(combo, room, now), BlocksSeatMapEdit(now), CheckStaysPriced(list, t, seatTypes, now), AdoptSeatMap(inMap, existing, now), CheckSaleOpenBeforeStart(), MarkDeleted(now); Auditorium.ComputeSeatMapChange(drafts), CheckAuditoriumInfoValid(), CheckCapacityInRange(), CheckBelongsToCinema(cinemaId); Cinema.CheckAuditoriumNameAvailable(name, excludeId, existing), CheckCinemaInfoValid(); Movie.CheckMovieInfoValid() | P12 PKG-16-PKG-27 F2 |
+| Hậu điều kiện | RemovePriceEntry kiểm mốc (1a3a) trước, kiểm suất chiếu đang dùng (1a3b) sau, rồi đánh dấu đã bỏ và đặt mốc = now; SavePriceEntry dùng lại mục đã bỏ và bỏ cờ đã bỏ; CheckCoversShowtime báo tổ hợp đầu tiên thiếu theo thứ tự STANDARD, VIP, COUPLE và không tính mục đã bỏ; UsesPriceEntry chỉ đúng khi chưa xoá, chưa tới giờ bắt đầu và khớp bốn yếu tố; BlocksSeatMapEdit đúng khi chưa xoá và saleOpenTime <= now < endTime; CheckStaysPriced bỏ qua suất chiếu đã xoá hoặc đã bắt đầu; AdoptSeatMap trả delta rỗng khi đã xoá hoặc saleOpenTime <= now; MarkDeleted chỉ chuyển được từ IN_SCHEDULE | P12 F2, F3 |
+| BR | BR-12, BR-58, BR-62 đến BR-64, BR-68, BR-69, BR-70, BR-71, BR-73, BR-87, BR-118, BR-134, BR-135, BR-144, BR-145 | P06 |
+| Ngoại lệ | TicketPriceInvalidError, PriceEntryChangedError, PriceEntryInUseError, PriceNotCoveredError, SaleOpenOrderError, ShowtimeChangedError, CapacityOutOfRangeError, FieldInvalidError, NotOwnCinemaError, AuditoriumNameTakenError | P12 F2 |
+| Ghi chú | DetermineTimeBand được phủ gián tiếp qua DC-PriceList.DetermineSeatPrice (F2.24: biên 17:00, thứ Sáu và thứ Bảy); sức chứa tính ghế đôi một ghế, khoảng cho phép [50, 400] (BR-144) | P12 F2 |
+
+#### F2.58.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-312 | giá vé | lớn hơn 0 | Hợp lệ | 90.000 | BR-70 |
+| EC-313 | giá vé | nhỏ hơn hoặc bằng 0 | Không hợp lệ | 0 | BR-70 |
+| EC-314 | mục giá của tổ hợp | đã có, mốc bằng mốc lúc hiển thị | Hợp lệ | T0 | BR-63 |
+| EC-315 | mục giá của tổ hợp | đã có, mốc lệch mốc lúc hiển thị | Không hợp lệ | T0 + 1 micro giây | BR-63 |
+| EC-316 | mục giá của tổ hợp | chưa từng có, mốc hiển thị rỗng | Hợp lệ | time.Time{} | BR-63 |
+| EC-317 | mục giá của tổ hợp | chưa từng có, mốc hiển thị khác rỗng | Không hợp lệ | T0 | BR-63 |
+| EC-318 | mục giá của tổ hợp | đã bỏ, mốc hiển thị bằng mốc bỏ | Hợp lệ (tạo lại) | T1 | BR-71 |
+| EC-319 | bảng giá so với suất chiếu | có mục chưa bỏ cho mọi loại ghế của phòng | Hợp lệ | STANDARD, VIP | BR-68 |
+| EC-320 | bảng giá so với suất chiếu | thiếu mục của một loại ghế hoặc khung giờ | Không hợp lệ | thiếu VIP | BR-68, BR-69 |
+| EC-321 | bảng giá so với suất chiếu | mục của loại ghế đã bỏ | Không hợp lệ | VIP đã bỏ | BR-71 |
+| EC-322 | suất chiếu so với tổ hợp giá | chưa xoá, chưa bắt đầu, khớp cả bốn yếu tố | Hợp lệ (đang dùng) | S55 | BR-64 |
+| EC-323 | suất chiếu so với tổ hợp giá | đã bắt đầu hoặc đã xoá | Hợp lệ (không dùng) | status DELETED | BR-58, BR-64 |
+| EC-324 | suất chiếu so với tổ hợp giá | lệch loại phòng, định dạng, khung giờ hoặc loại ghế | Hợp lệ (không dùng) | combo COUPLE | BR-64 |
+| EC-325 | suất chiếu so với sơ đồ ghế | đã mở bán, chưa kết thúc, chưa xoá | Không hợp lệ (chặn sửa) | S55 | BR-87 |
+| EC-326 | suất chiếu so với sơ đồ ghế | chưa mở bán, đã kết thúc hoặc đã xoá | Hợp lệ (không chặn) | chưa mở bán | BR-87 |
+| EC-327 | giá sau khi sửa phòng | suất chiếu chưa bắt đầu, bảng giá phủ | Hợp lệ | IMAX có mục | BR-73 |
+| EC-328 | giá sau khi sửa phòng | suất chiếu chưa bắt đầu, bảng giá thiếu | Không hợp lệ | IMAX thiếu | BR-73 |
+| EC-329 | giá sau khi sửa phòng | suất chiếu đã bắt đầu hoặc đã xoá | Hợp lệ (bỏ qua) | đã xoá | BR-73 |
+| EC-330 | suất chiếu so với sơ đồ mới | chưa mở bán, sơ đồ khác | Hợp lệ (có delta) | saleOpen = now + 1 ngày | BR-118 |
+| EC-331 | suất chiếu so với sơ đồ mới | đã mở bán hoặc đã xoá | Hợp lệ (delta rỗng) | status DELETED | BR-118 |
+| EC-332 | giờ mở bán | trước giờ bắt đầu | Hợp lệ | start - 1ms | BR-55 |
+| EC-333 | giờ mở bán | bằng hoặc sau giờ bắt đầu | Không hợp lệ | start | BR-55 |
+| EC-334 | suất chiếu khi xoá | IN_SCHEDULE | Hợp lệ | S55 | BR-58 |
+| EC-335 | suất chiếu khi xoá | đã DELETED | Không hợp lệ | S55 đã xoá | BR-58 |
+| EC-336 | sơ đồ nhập so với sơ đồ hiện có | giống hệt | Hợp lệ (Changed = false) | 60 ghế như cũ | BR-118 |
+| EC-337 | sơ đồ nhập | có vị trí mới | Hợp lệ (added) | A13 | BR-118 |
+| EC-338 | sơ đồ nhập | thiếu một vị trí đang có | Hợp lệ (retired) | bỏ A12 | BR-118 |
+| EC-339 | sơ đồ nhập | cùng vị trí khác loại | Hợp lệ (retyped) | A01 STANDARD --> VIP | BR-118 |
+| EC-340 | sơ đồ nhập | vị trí của ghế đã RETIRED nhập lại | Hợp lệ (added, ghế mới) | A12 | BR-118 |
+| EC-341 | sức chứa | từ 50 đến 400 | Hợp lệ | 60 | BR-144 |
+| EC-342 | sức chứa | dưới 50 hoặc trên 400 | Không hợp lệ | 49, 401 | BR-144 |
+| EC-343 | thông tin phòng | tên, loại, định dạng, ghế đều hợp lệ | Hợp lệ | phòng 60 ghế | REQ-55 |
+| EC-344 | thông tin phòng | tên rỗng | Không hợp lệ | "" | REQ-55 |
+| EC-345 | thông tin phòng | không có định dạng | Không hợp lệ | {} | REQ-55 |
+| EC-346 | thông tin phòng | hai ghế cùng (hàng, số ghế) | Không hợp lệ | A01 hai lần | REQ-55 |
+| EC-347 | thông tin phòng | ghế có hàng rỗng hoặc số ghế không dương | Không hợp lệ | số ghế 0 | REQ-16 |
+| EC-348 | phòng so với cụm rạp của quản lý | cùng cụm rạp | Hợp lệ | cụm rạp 2 | BR-135 |
+| EC-349 | phòng so với cụm rạp của quản lý | khác cụm rạp | Không hợp lệ | cụm rạp 3 | BR-135 |
+| EC-350 | tên phòng | chưa thuộc phòng nào của cụm rạp (sau chuẩn hoá) | Hợp lệ | "Phòng 9" | BR-145 |
+| EC-351 | tên phòng | trùng phòng khác của cụm rạp sau chuẩn hoá | Không hợp lệ | " PHÒNG  1 " | BR-145 |
+| EC-352 | tên phòng | trùng chính phòng đang sửa (excludeId) | Hợp lệ | "Phòng 1" | BR-145 |
+| EC-353 | thông tin phim | mọi trường hợp lệ | Hợp lệ | phim "Mai" | BR-134 |
+| EC-354 | thông tin phim | tên hoặc thể loại rỗng | Không hợp lệ | "" | Q-196 |
+| EC-355 | thông tin phim | thời lượng không dương | Không hợp lệ | 0 | Q-196 |
+| EC-356 | thông tin phim | ngày kết thúc chiếu trước ngày khởi chiếu | Không hợp lệ | 2026-11-04 | Q-197 |
+| EC-357 | thông tin phim | nhãn độ tuổi ngoài tập P, K, T13, T16, T18, C | Không hợp lệ | T21 | Q-198 |
+| EC-358 | thông tin phim | không có định dạng phát hành | Không hợp lệ | {} | BR-134 |
+| EC-359 | thông tin cụm rạp | tên và tỉnh thành phố không rỗng | Hợp lệ | "CineBook Quận 3", "TP.HCM" | Q-204 |
+| EC-360 | thông tin cụm rạp | tên rỗng | Không hợp lệ | "" | Q-204 |
+| EC-361 | thông tin cụm rạp | tỉnh thành phố rỗng | Không hợp lệ | "" | Q-204 |
+| EC-362 | bỏ mục giá | tổ hợp chưa từng có mục | Không hợp lệ | combo mới | BR-63 |
+| EC-363 | bỏ mục giá | mục đã bỏ | Không hợp lệ | mục đã bỏ lúc T1 | BR-63 |
+
+#### F2.58.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-112 | giá vé (EC-313) | 0 | EC-313 | TicketPriceInvalidError |
+| BV-113 | giá vé (EC-312) | 1 | EC-312 | hợp lệ |
+| BV-114 | sức chứa (EC-342) | 49 | EC-342 | CapacityOutOfRangeError |
+| BV-115 | sức chứa (EC-341) | 50 | EC-341 | hợp lệ |
+| BV-116 | sức chứa (EC-341) | 400 | EC-341 | hợp lệ |
+| BV-117 | sức chứa (EC-342) | 401 | EC-342 | CapacityOutOfRangeError |
+| BV-118 | thời lượng phim (EC-355) | 0 phút | EC-355 | FieldInvalidError |
+| BV-119 | thời lượng phim (EC-353) | 1 phút | EC-353 | hợp lệ |
+| BV-120 | ngày kết thúc chiếu (EC-356) | khởi chiếu - 1 ngày | EC-356 | FieldInvalidError |
+| BV-121 | ngày kết thúc chiếu (EC-353) | bằng ngày khởi chiếu | EC-353 | hợp lệ (phim chiếu một ngày) |
+| BV-122 | giờ mở bán so với now (EC-325) | saleOpenTime = now | EC-325 | BlocksSeatMapEdit = true |
+| BV-123 | giờ mở bán so với now (EC-326) | saleOpenTime = now + 1ms | EC-326 | BlocksSeatMapEdit = false |
+| BV-124 | giờ kết thúc so với now (EC-326) | now = endTime | EC-326 | BlocksSeatMapEdit = false |
+| BV-125 | giờ kết thúc so với now (EC-325) | now = endTime - 1ms | EC-325 | BlocksSeatMapEdit = true |
+| BV-126 | giờ mở bán so với giờ bắt đầu (EC-332) | start - 1ms | EC-332 | hợp lệ |
+| BV-127 | giờ mở bán so với giờ bắt đầu (EC-333) | bằng start | EC-333 | SaleOpenOrderError |
+| BV-128 | giờ bắt đầu so với now (EC-323) | start = now | EC-323 | UsesPriceEntry = false |
+| BV-129 | giờ bắt đầu so với now (EC-322) | start = now + 1ms | EC-322 | UsesPriceEntry = true |
+| BV-130 | giờ bắt đầu so với now (EC-329) | start = now | EC-329 | CheckStaysPriced bỏ qua |
+| BV-131 | giờ bắt đầu so với now (EC-328) | start = now + 1ms | EC-328 | PriceNotCoveredError |
+| BV-132 | giờ mở bán so với now (EC-331) | saleOpenTime = now | EC-331 | delta rỗng |
+| BV-133 | giờ mở bán so với now (EC-330) | saleOpenTime = now + 1ms | EC-330 | delta có thay đổi |
+
+#### F2.58.4 Bảng quyết định
+
+DT15 cho PriceList.RemovePriceEntry (thứ tự 1a3a trước 1a3b, P12 F3):
+
+```text
+| Điều kiện / Hành động | DT15-R1 | DT15-R2 | DT15-R3 | DT15-R4 |
+| C1: mốc lệch hoặc mục không còn | N | Y | N | Y |
+| C2: có suất chiếu đang dùng mục | N | N | Y | Y |
+| A0: bỏ mục, mốc = now | X | - | - | - |
+| A1: PriceEntryChangedError | - | X | - | X |
+| A2: PriceEntryInUseError | - | - | X | - |
+```
+
+Căn cứ gộp: bốn cột liệt kê đủ 2^2 tổ hợp; R4 cùng kết quả R2 vì kiểm mốc đứng trước.
+
+#### F2.58.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| Không có | - | Đối tượng thuần: PriceList, Showtime, Auditorium, Cinema, Movie dựng bằng hàm dựng; thời gian truyền qua tham số | Entity không biết SQL và đồng hồ |
+
+### F2.59 DC-ManageMoviesService (UC-010: ListMovies, GetMovieForEdit, AddMovie, SaveMovieChanges)
+
+#### F2.59.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | ListMovies(ctx) ([]*Movie, error); GetMovieForEdit(ctx, movieId); AddMovie(ctx, d MovieDraft); SaveMovieChanges(ctx, movieId, d, displayedAt) | P12 PKG-17-PKG-18-PKG-30-PKG-33 F2 |
+| Hậu điều kiện | AddMovie kiểm draft trước giao dịch (sai thì không mở giao dịch), rồi một giao dịch một INSERT với lastChangedAt = tx.Now, không kiểm trùng tên (Q-200). SaveMovieChanges kiểm draft trước giao dịch, rồi LockExclusive(movieId) (hạng 10), mốc lệch thì MovieChangedError và không ghi, hợp lệ thì chỉ UPDATE dòng phim; không đụng suất chiếu (BR-84, BR-139). ListMovies, GetMovieForEdit chỉ đọc, không khoá | P12 F3 |
+| Ngoại lệ | FieldInvalidError, MovieChangedError, NotFoundError, SystemBusyError | P12 F2 |
+| Thao tác nguyên tử | EX-16 (lưu phim); X-24 | P08 F4b |
+| Luồng P04 | UC-010 4a (dữ liệu sai), 3a (sửa), mốc đã đổi | P04 UC-010 |
+
+#### F2.59.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-364 | AddMovie: draft | hợp lệ | Hợp lệ | phim "Mai" 131 phút | BR-134 |
+| EC-365 | AddMovie, SaveMovieChanges: draft | sai (tên rỗng) | Không hợp lệ | tên "" | UC-010 4a |
+| EC-366 | AddMovie: tên | trùng tên phim khác | Hợp lệ | "Mai" lần hai | Q-200 |
+| EC-367 | SaveMovieChanges: mốc | bằng lastChangedAt | Hợp lệ | T0 | BR-138 |
+| EC-368 | SaveMovieChanges: mốc | lệch lastChangedAt | Không hợp lệ | T0 | BR-138 |
+| EC-369 | phim theo mã | không tồn tại | Không hợp lệ | 9999 | P12 F2 |
+| EC-370 | ListMovies, GetMovieForEdit: phim | tồn tại | Hợp lệ | phim 5 | UC-010 1.1, 2a.1 |
+
+#### F2.59.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-134 | mốc so với lastChangedAt (EC-367) | displayedAt = lastChangedAt | EC-367 | ghi, lastChangedAt = tx.Now |
+| BV-135 | mốc so với lastChangedAt (EC-368) | lastChangedAt = displayedAt + 1 micro giây | EC-368 | MovieChangedError |
+
+#### F2.59.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 | fake | Do(UserTx) chạy fn một lần trên bản sao, hoàn lại khi fn lỗi; mang LockOrderGuard thật; ghi tên giao dịch | Giao dịch thay bằng bộ nhớ |
+| IF-14 | fake | List, FindByID, Insert, LockExclusive, Save trên bộ nhớ; đếm số lần gọi; Insert gán id | Store thay bằng bộ nhớ |
+| IF-25 | stub | tx.Now = 2026-11-10 10:00:00.000 | Thời gian phải tiêm vào |
+
+### F2.60 DC-ManageCinemasService (UC-011: ListCinemas, GetCinemaForEdit, AddCinema, SaveCinemaChanges)
+
+#### F2.60.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | ListCinemas(ctx); GetCinemaForEdit(ctx, cinemaId); AddCinema(ctx, d CinemaDraft); SaveCinemaChanges(ctx, cinemaId, d, displayedAt) | P12 PKG-17-PKG-18-PKG-30-PKG-33 F2 |
+| Hậu điều kiện | AddCinema kiểm draft trước giao dịch; trong giao dịch LockValue(CINEMA_NAME, tên) trước, rồi FindCinemaByNormalizedName, CheckNameNotTaken, InsertCinema và PriceList.Insert cùng commit. SaveCinemaChanges luôn lấy LockValue kể cả khi tên không đổi, rồi LockCinemaExclusive (hạng 0), kiểm tên (5b) trước mốc (5a), rồi SaveCinema; phòng, suất chiếu, nhân viên không đổi | P12 F3 |
+| Ngoại lệ | FieldInvalidError, CinemaNameTakenError, CinemaChangedError, NotFoundError, SystemBusyError | P12 F2 |
+| Thao tác nguyên tử | EX-17 (CINEMA_NAME); X-26 | P08 F4b |
+| Luồng P04 | UC-011 4a, 5a, 5b | P04 UC-011 |
+
+#### F2.60.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-371 | AddCinema: draft và tên | hợp lệ, tên chưa thuộc cụm rạp nào | Hợp lệ | "CineBook Quận 3" | BR-141 |
+| EC-372 | AddCinema, SaveCinemaChanges: draft | tỉnh thành phố rỗng | Không hợp lệ | "" | UC-011 4a |
+| EC-373 | AddCinema: tên | trùng cụm rạp khác sau chuẩn hoá | Không hợp lệ | "  cinebook   quận 1 " | BR-141 |
+| EC-374 | SaveCinemaChanges: tên | giữ nguyên tên, mốc đúng | Hợp lệ | tên cũ | BR-141, BR-142 |
+| EC-375 | SaveCinemaChanges: tên | đổi sang tên chưa ai dùng, mốc đúng | Hợp lệ | "CineBook Thủ Đức" | BR-141 |
+| EC-376 | SaveCinemaChanges: tên | thuộc cụm rạp khác | Không hợp lệ | "CineBook Quận 1" | BR-141 |
+| EC-377 | SaveCinemaChanges: mốc | lệch lastChangedAt | Không hợp lệ | T0 | BR-142 |
+| EC-378 | cụm rạp theo mã | không tồn tại | Không hợp lệ | 9999 | P12 F2 |
+| EC-379 | AddCinema: ghi bảng giá rỗng | kho trả lỗi | Không hợp lệ | IF-12.Insert lỗi | P09 F7.10 |
+| EC-380 | ListCinemas, GetCinemaForEdit: cụm rạp | tồn tại | Hợp lệ | cụm rạp 3 | UC-011 1.1, 2a.1 |
+
+#### F2.60.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-136 | mốc so với lastChangedAt (EC-374) | displayedAt = lastChangedAt | EC-374 | ghi, lastChangedAt = tx.Now |
+| BV-137 | mốc so với lastChangedAt (EC-377) | lastChangedAt = displayedAt + 1 micro giây | EC-377 | CinemaChangedError |
+
+#### F2.60.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 | fake | Do(UserTx) như F2.59; LockValue ghi thứ tự lấy khoá (CINEMA_NAME) | Kiểm thứ tự khoá |
+| IF-13 | fake | ListCinemas, FindCinema, FindCinemaByNormalizedName, InsertCinema, LockCinemaExclusive, SaveCinema trên bộ nhớ | Store thay bằng bộ nhớ |
+| IF-12 | fake | Insert(PriceList) ghi vào bộ nhớ; có thể cấu hình trả lỗi | Kiểm cùng commit |
+| IF-25 | stub | tx.Now = 2026-11-10 10:00:00.000 | Thời gian phải tiêm vào |
+
+### F2.61 DC-ManageAuditoriumsService (UC-012: ListAuditoriums, SelectAuditorium, AddAuditorium, EditAuditorium, RemoveAuditorium, applySeatMapToShowtimes)
+
+#### F2.61.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | ListAuditoriums(ctx, actor); SelectAuditorium(ctx, actor, id); AddAuditorium(ctx, actor, d); EditAuditorium(ctx, actor, req); RemoveAuditorium(ctx, actor, id); applySeatMapToShowtimes(ctx, tx, room, showtimes, now) | P12 PKG-16-PKG-27 F2 |
+| Hậu điều kiện | AddAuditorium: thứ tự 4a (hợp lệ), 4b (sức chứa) ngoài giao dịch, 4d (tên) trong giao dịch dưới Cinema X; phòng và ghế cùng commit. EditAuditorium: 4a, 4b ngoài giao dịch; trong giao dịch khoá Cinema X, PriceList S, Auditorium X, Showtime S (hạng 0, 1, 2, 3), kiểm 5c (mốc), 4d (tên), 5a (đã mở bán), 5b (thiếu giá), rồi ghi; chỉ suất chiếu chưa mở bán nhận sơ đồ mới (applySeatMapToShowtimes). RemoveAuditorium: khoá Cinema X, phòng FOR UPDATE, từng có suất chiếu (kể cả đã xoá) thì từ chối | P12 F2, F3; P08 EX-15, EX-18, EX-19 |
+| Ngoại lệ | FieldInvalidError, CapacityOutOfRangeError, NotOwnCinemaError, AuditoriumGoneError, AuditoriumChangedError, AuditoriumNameTakenError, AuditoriumBlockedError, PriceNotCoveredError, AuditoriumHasScheduleError, NotFoundError, SystemBusyError | P12 F2 |
+| Thao tác nguyên tử | EX-15, EX-18, EX-19; X-19, X-21, X-27, X-28, X-29 | P08 F4b |
+| Luồng P04 | UC-012 4a, 4b, 4d, 5a, 5b, 5c, 1b3a | P04 UC-012 |
+
+#### F2.61.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-381 | AddAuditorium: dữ liệu | hợp lệ, sức chứa trong khoảng, tên chưa có | Hợp lệ | 60 ghế "Phòng 9" | BR-144, BR-145 |
+| EC-382 | AddAuditorium: dữ liệu | draft sai (tên rỗng) | Không hợp lệ | "" | UC-012 4a |
+| EC-383 | AddAuditorium: sức chứa | ngoài [50, 400] | Không hợp lệ | 49 | BR-144 |
+| EC-384 | AddAuditorium: tên | trùng phòng khác của cụm rạp | Không hợp lệ | "phòng  1" | BR-145 |
+| EC-385 | EditAuditorium: mọi kiểm | đạt | Hợp lệ | phòng 7 đổi tên | BR-146 |
+| EC-386 | phòng so với cụm rạp của actor | khác cụm rạp | Không hợp lệ | phòng 11 của cụm rạp 3 | BR-135 |
+| EC-387 | phòng theo mã | không còn dòng | Không hợp lệ | 999 | BR-147 |
+| EC-388 | EditAuditorium: mốc | lệch lastChangedAt | Không hợp lệ | T0 | BR-146 |
+| EC-389 | EditAuditorium: tên | trùng phòng khác | Không hợp lệ | "Phòng 1" | BR-145 |
+| EC-390 | EditAuditorium: sơ đồ đổi, suất chiếu | có suất chiếu đã mở bán chưa kết thúc | Không hợp lệ | S55 | BR-87 |
+| EC-391 | EditAuditorium: loại phòng đổi | suất chiếu chưa bắt đầu thiếu giá | Không hợp lệ | IMAX thiếu | BR-73 |
+| EC-392 | EditAuditorium: sơ đồ ghế | không đổi (chỉ đổi tên hoặc loại) | Hợp lệ (không chặn) | Changed = false | BR-87 |
+| EC-393 | RemoveAuditorium: lịch sử suất chiếu | chưa từng có | Hợp lệ | phòng 12 | BR-147 |
+| EC-394 | RemoveAuditorium: lịch sử suất chiếu | từng có (kể cả đã xoá) | Không hợp lệ | S1 đã xoá | BR-147 |
+| EC-395 | applySeatMapToShowtimes: suất chiếu | chưa mở bán | Hợp lệ (áp sơ đồ) | S60 | BR-118 |
+| EC-396 | applySeatMapToShowtimes: suất chiếu | đã mở bán, đã kết thúc hoặc đã xoá | Hợp lệ (giữ sơ đồ cũ) | S50 đã kết thúc | BR-118 |
+| EC-397 | ListAuditoriums, SelectAuditorium: phòng | thuộc cụm rạp của actor | Hợp lệ | phòng 7 | BR-135 |
+
+#### F2.61.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-138 | giờ mở bán so với now (EC-390) | saleOpenTime = now, chưa kết thúc, sơ đồ đổi | EC-390 | AuditoriumBlockedError |
+| BV-139 | giờ mở bán so với now (EC-395) | saleOpenTime = now + 1ms, sơ đồ đổi | EC-395 | áp sơ đồ mới cho suất chiếu |
+
+#### F2.61.4 Bảng quyết định
+
+DT16 cho EditAuditorium (thứ tự 5c, 4d, 5a, 5b theo P08 EX-15):
+
+```text
+| Điều kiện / Hành động | DT16-R1 | DT16-R2 | DT16-R3 | DT16-R4 | DT16-R5 |
+| C1: mốc lệch (5c) | N | Y | N | N | N |
+| C2: tên trùng phòng khác (4d) | N | - | Y | N | N |
+| C3: sơ đồ đổi và có suất chiếu đang mở bán (5a) | N | - | - | Y | N |
+| C4: thiếu giá sau khi đổi loại phòng (5b) | N | - | - | - | Y |
+| A0: ghi phòng, ghế, trạng thái ghế | X | - | - | - | - |
+| A1: AuditoriumChangedError | - | X | - | - | - |
+| A2: AuditoriumNameTakenError | - | - | X | - | - |
+| A3: AuditoriumBlockedError | - | - | - | X | - |
+| A4: PriceNotCoveredError | - | - | - | - | X |
+```
+
+Căn cứ gộp: kiểm theo thứ tự 5c, 4d, 5a, 5b và trả điều kiện đầu tiên vi phạm nên mỗi cột gộp các điều kiện đứng sau điều kiện vi phạm bằng "-"; các TC thứ tự ở F3 đặt thêm các điều kiện sau cùng đúng để chứng minh thứ tự.
+
+#### F2.61.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 | fake | Do(UserTx) như F2.59; mang LockOrderGuard thật để ghi thứ tự hạng 0, 1, 2, 3, 6 | Kiểm thứ tự khoá |
+| IF-13 | fake | FindAuditorium, ListAuditoriumRefs, LockCinemaExclusive, LockAuditoriumsExclusive, LockAuditoriumForDelete, InsertAuditorium, SaveAuditorium, DeleteAuditorium trên bộ nhớ | Store thay bằng bộ nhớ |
+| IF-12, IF-11, IF-29, IF-18 | fake | LockSharedByCinema, LockSharedByAuditorium, ExistsByAuditorium, LockSeatStatusesByShowtimes, DeleteSeatStatuses, InsertAll trên bộ nhớ; đếm lời gọi | Store thay bằng bộ nhớ |
+| IF-25 | stub | tx.Now = 2026-11-10 10:00:00.000 | Thời gian phải tiêm vào |
+
+### F2.62 DC-ManagePriceListService (UC-013: GetPriceList, SubmitPriceEntry, SubmitPriceEntryRemoval)
+
+#### F2.62.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | GetPriceList(ctx, actor); SubmitPriceEntry(ctx, actor, req); SubmitPriceEntryRemoval(ctx, actor, req) | P12 PKG-16-PKG-27 F2 |
+| Hậu điều kiện | SubmitPriceEntry kiểm giá ngoài giao dịch (4a), rồi LockExclusiveByCinema (hạng 1 X), kiểm mốc (5a), ghi và có hiệu lực ngay; giá đã chốt của lần giữ ghế và vé không đổi (BR-65, BR-67). SubmitPriceEntryRemoval khoá PriceList X, Auditorium S theo mã tăng dần, Showtime S (hạng 1, 2, 3), kiểm mốc (1a3a) trước suất chiếu đang dùng (1a3b), rồi đánh dấu mục đã bỏ | P12 F2, F3 |
+| Ngoại lệ | TicketPriceInvalidError, PriceEntryChangedError, PriceEntryInUseError, NotFoundError, SystemBusyError | P12 F2 |
+| Thao tác nguyên tử | EX-11, EX-12; X-04, X-05, X-06, X-21 | P08 F4b |
+| Luồng P04 | UC-013 4a, 5a, 1a3a, 1a3b | P04 UC-013 |
+
+#### F2.62.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-398 | SubmitPriceEntry: tổ hợp | chưa có mục, giá hợp lệ, mốc rỗng | Hợp lệ | combo mới, 80.000 | BR-62 |
+| EC-399 | SubmitPriceEntry: tổ hợp | đã có mục, đổi giá, mốc đúng | Hợp lệ | 90.000 --> 100.000 | BR-66 |
+| EC-400 | SubmitPriceEntry: giá | không dương | Không hợp lệ | 0 | BR-70 |
+| EC-401 | SubmitPriceEntry: mốc | lệch mốc của mục | Không hợp lệ | T0 | BR-63 |
+| EC-402 | SubmitPriceEntryRemoval: mục | mốc đúng, không suất chiếu nào dùng | Hợp lệ | mục VIP | BR-71 |
+| EC-403 | SubmitPriceEntryRemoval: mục | có suất chiếu chưa bắt đầu dùng | Không hợp lệ | S55 | BR-64 |
+| EC-404 | SubmitPriceEntryRemoval: mốc | lệch hoặc mục đã bỏ | Không hợp lệ | T0 | BR-63 |
+| EC-405 | GetPriceList: bảng giá | của cụm rạp actor | Hợp lệ | cụm rạp 2 | UC-013 1.1 |
+| EC-406 | GetPriceList: bảng giá | cụm rạp không có | Không hợp lệ | cụm rạp 99 | P12 F2 |
+
+#### F2.62.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-140 | giá vé (EC-398) | 1 | EC-398 | ghi |
+| BV-141 | giá vé (EC-400) | 0 | EC-400 | TicketPriceInvalidError, Do 0 lần |
+| BV-142 | giờ bắt đầu của suất chiếu so với now (EC-402) | start = now | EC-402 | không tính là đang dùng, bỏ được |
+| BV-143 | giờ bắt đầu của suất chiếu so với now (EC-403) | start = now + 1ms | EC-403 | PriceEntryInUseError |
+
+#### F2.62.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 | fake | Do(UserTx) như F2.59; guard thật ghi thứ tự hạng 1, 2, 3 | Kiểm thứ tự khoá |
+| IF-12 | fake | FindByCinema, LockExclusiveByCinema, SaveEntry trên bộ nhớ; đếm SaveEntry | Store thay bằng bộ nhớ |
+| IF-13, IF-11 | fake | LockAuditoriumsShared, LockSharedNotStartedByCinema trả phòng và suất chiếu theo điều kiện đầu | Store thay bằng bộ nhớ |
+| IF-25 | stub | tx.Now = 2026-11-10 10:00:00.000 | Thời gian phải tiêm vào |
+
+### F2.63 DC-ScheduleShowtimesService (UC-014: StartScheduling, ListShowtimes, PrepareShowtimeEdit, CreateShowtime, UpdateShowtime, DeleteShowtime, replaceSeatStatuses)
+
+#### F2.63.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | StartScheduling(ctx, actor); ListShowtimes(ctx, actor); PrepareShowtimeEdit(ctx, actor, id); CreateShowtime(ctx, actor, req); UpdateShowtime(ctx, actor, req); DeleteShowtime(ctx, actor, id, displayedAt); checkNoActiveHoldOrSoldTicket(holds, tickets, now); replaceSeatStatuses(ctx, tx, showtime, room) | P12 PKG-16-PKG-27 F2 |
+| Hậu điều kiện | CreateShowtime: giai đoạn A (đọc không khoá) báo lỗi theo thứ tự 4a, 5a, 5b, 5c, 6a, 6b, 6c; giai đoạn B một giao dịch khoá PriceList S, Auditorium X, Movie S (hạng 1, 2, 10), kiểm lại 8g, 8e, 8b, rồi Insert suất chiếu và InsertAll trạng thái ghế Trống cho mọi ghế trong sơ đồ cùng commit. UpdateShowtime: thứ tự kiểm 8c, 8d, 8a, 8f, 8g, 8e, 6b, 6c, 8b; phòng hiện tại đổi giữa đọc không khoá và lấy khoá thì lặp tối đa 2 lần rồi SystemBusyError; đổi phòng thì thay tập trạng thái ghế. DeleteShowtime: thứ tự 1b3c, 1b3b, 1b3a; không đụng SeatStatus. checkNoActiveHoldOrSoldTicket từ chối khi có SeatHold.IsActiveAt(now) hoặc vé chưa huỷ. replaceSeatStatuses giải phóng ghế còn dở bằng ReleaseHold, xoá tập cũ, tạo tập của phòng mới | P12 F2, F3 |
+| Ngoại lệ | NotOwnCinemaError, FormatNotReleasedError, FormatNotSupportedError, PriceNotCoveredError, OutsideRunPeriodError, ShowtimeStartedError, SaleOpenOrderError, AuditoriumGoneError, RoomGapError, ShowtimeChangedError, ShowtimeInUseError, RoomChangeNotAllowedError, SystemBusyError | P12 F2 |
+| Thao tác nguyên tử | EX-13, EX-14; X-03, X-06, X-07, X-08, X-11, X-19, X-20, X-23 | P08 F4b |
+| Luồng P04 | UC-014 4a, 5a, 5b, 5c, 6a, 6b, 6c, 8a đến 8h, 1a3a, 1a3b, 1b3a đến 1b3c | P04 UC-014 |
+
+#### F2.63.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-407 | CreateShowtime: yêu cầu | mọi kiểm đạt | Hợp lệ | S mới phòng 7 | BR-46 đến BR-52 |
+| EC-408 | CreateShowtime: phòng | khác cụm rạp của actor | Không hợp lệ | phòng 11 | BR-46 |
+| EC-409 | CreateShowtime: định dạng | phim không phát hành định dạng | Không hợp lệ | 3D | BR-47 |
+| EC-410 | CreateShowtime: định dạng | phòng không hỗ trợ định dạng | Không hợp lệ | 3D | BR-48 |
+| EC-411 | CreateShowtime: bảng giá | không phủ mọi loại ghế | Không hợp lệ | thiếu VIP | BR-69 |
+| EC-412 | CreateShowtime: ngày chiếu | ngoài khoảng chiếu của phim | Không hợp lệ | 2026-11-21 | BR-49 |
+| EC-413 | CreateShowtime: giờ bắt đầu | bằng now | Không hợp lệ | now | BR-56 |
+| EC-414 | CreateShowtime: giờ mở bán | không trước giờ bắt đầu | Không hợp lệ | saleOpen = start | BR-55 |
+| EC-415 | CreateShowtime: phòng dưới khoá | đã bị xoá giữa hai giai đoạn | Không hợp lệ | không còn dòng | BR-147 |
+| EC-416 | CreateShowtime: khoảng cách phòng | suất chiếu giao nhau trong phòng | Không hợp lệ | 19:00 đến 21:00 so với 18:00 đến 20:00 | BR-51 |
+| EC-417 | CreateShowtime: thời lượng phim | đổi giữa hai giai đoạn | Hợp lệ (tính theo thời lượng hiện hành) | 120 --> 150 phút | BR-139 |
+| EC-418 | UpdateShowtime: yêu cầu | mọi kiểm đạt, giữ phòng | Hợp lệ | đổi giờ | BR-53, BR-60 |
+| EC-419 | UpdateShowtime: phòng | đổi sang phòng khác, chưa từng có vé | Hợp lệ | 7 --> 8 | BR-92 |
+| EC-420 | UpdateShowtime: phòng | đổi phòng khi từng có vé (kể cả đã huỷ) | Không hợp lệ | vé đã huỷ | BR-92 |
+| EC-421 | UpdateShowtime, DeleteShowtime: mốc | lệch lastChangedAt hoặc suất chiếu đã xoá | Không hợp lệ | T0 | BR-60 |
+| EC-422 | UpdateShowtime, DeleteShowtime, PrepareShowtimeEdit: giờ bắt đầu | không sau now | Không hợp lệ | now | BR-57 |
+| EC-423 | UpdateShowtime: phòng hiện tại | đổi giữa đọc không khoá và lấy khoá | Hợp lệ (lặp fn, tối đa 2 lần) | 7 --> 8 do EX-13 khác | P12 F3 |
+| EC-424 | suất chiếu so với cụm rạp của actor | khác cụm rạp | Không hợp lệ | cụm rạp 3 | BR-46 |
+| EC-425 | DeleteShowtime: yêu cầu | mọi kiểm đạt | Hợp lệ | S55 chưa bán | BR-58 |
+| EC-426 | DeleteShowtime: suất chiếu | không còn dòng | Không hợp lệ | 999 | BR-60 |
+| EC-427 | checkNoActiveHoldOrSoldTicket: lần giữ ghế | ACTIVE và chưa quá hạn tại now | Không hợp lệ | H1 | BR-53 |
+| EC-428 | checkNoActiveHoldOrSoldTicket: lần giữ ghế và vé | lần giữ ghế quá hạn, mọi vé đã huỷ | Hợp lệ | H1 hết hạn, vé CANCELLED | BR-53 |
+| EC-429 | checkNoActiveHoldOrSoldTicket: vé | có vé chưa huỷ | Không hợp lệ | vé UNUSED | BR-53 |
+| EC-430 | PrepareShowtimeEdit: suất chiếu | mọi kiểm đạt | Hợp lệ | S55 | BR-53, BR-57 |
+| EC-431 | StartScheduling, ListShowtimes: dữ liệu | cụm rạp có phòng và suất chiếu | Hợp lệ | cụm rạp 2 | BR-46 |
+| EC-432 | replaceSeatStatuses: ghế cũ | còn HELD dở bởi lần giữ ghế đã kết thúc | Hợp lệ (ReleaseHold trước khi xoá) | ghế 101 HELD bởi H1 EXPIRED | BR-53, Q-109 |
+| EC-433 | replaceSeatStatuses: ghế cũ | đã Trống | Hợp lệ (không đổi) | ghế 102 | BR-53 |
+
+#### F2.63.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-144 | hạn lần giữ ghế so với now (EC-428) | expiryTime = now | EC-428 | không còn hiệu lực, cho phép |
+| BV-145 | hạn lần giữ ghế so với now (EC-427) | expiryTime = now + 1ms | EC-427 | ShowtimeInUseError |
+| BV-146 | giờ bắt đầu so với now (EC-422) | start = now | EC-422 | ShowtimeStartedError |
+| BV-147 | giờ bắt đầu so với now (EC-425) | start = now + 1ms | EC-425 | xoá được |
+
+#### F2.63.4 Bảng quyết định
+
+DT17 cho DeleteShowtime (thứ tự 1b3c, 1b3b, 1b3a); DT18 cho PrepareShowtimeEdit (thứ tự 1a3b, 1a3a):
+
+```text
+| Điều kiện / Hành động | DT17-R1 | DT17-R2 | DT17-R3 | DT17-R4 |
+| C1: mốc lệch hoặc suất chiếu không còn (1b3c) | N | Y | N | N |
+| C2: giờ bắt đầu không sau now (1b3b) | N | - | Y | N |
+| C3: còn lần giữ ghế hiệu lực hoặc vé chưa huỷ (1b3a) | N | - | - | Y |
+| A0: đánh dấu Đã xoá | X | - | - | - |
+| A1: ShowtimeChangedError | - | X | - | - |
+| A2: ShowtimeStartedError | - | - | X | - |
+| A3: ShowtimeInUseError | - | - | - | X |
+```
+
+```text
+| Điều kiện / Hành động | DT18-R1 | DT18-R2 | DT18-R3 |
+| C1: giờ bắt đầu không sau now (1a3b) | N | Y | N |
+| C2: còn lần giữ ghế hiệu lực hoặc vé chưa huỷ (1a3a) | N | - | Y |
+| A0: trả dữ liệu sửa | X | - | - |
+| A1: ShowtimeStartedError | - | X | - |
+| A2: ShowtimeInUseError | - | - | X |
+```
+
+Căn cứ gộp: kiểm theo thứ tự bước và trả điều kiện đầu tiên vi phạm. Thứ tự báo lỗi của CreateShowtime (4a, 5a, 5b, 5c, 6a, 6b, 6c) và UpdateShowtime (8c, 8d, 8a, 8f, 8g, 8e, 6b, 6c, 8b) được kiểm bằng các cặp liền kề ở F3 (không lập bảng quyết định riêng vì 2^7 và 2^9 tổ hợp; mỗi cặp liền kề chứng minh thứ tự theo tính bắc cầu).
+
+#### F2.63.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 | fake | Do(UserTx) như F2.59; guard thật ghi thứ tự hạng 1, 2, 3, 5, 6, 8, 10; có thể cấu hình chạy fn hai lần | Kiểm thứ tự khoá và lặp fn |
+| IF-11, IF-12, IF-13, IF-14 | fake | FindByID, FindListItem, LockExclusive, Insert, Update, FindInScheduleByAuditorium, FindByCinema, FindAuditorium, LockAuditoriumsExclusive, LockShared trên bộ nhớ | Store thay bằng bộ nhớ |
+| IF-29, IF-18 | fake | LockHoldsSharedByShowtime, LockTicketsSharedByShowtime, LockSeatStatusesByShowtimes, DeleteSeatStatuses, SaveChanges, InsertAll trên bộ nhớ; đếm lời gọi | Store thay bằng bộ nhớ |
+| IF-25 | stub | tx.Now = 2026-11-10 10:00:00.000; đồng hồ giai đoạn A cùng giá trị | Thời gian phải tiêm vào |
+
+### F2.64 DC-ViewChainReportService.ViewChainReport (UC-016)
+
+#### F2.64.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | ViewChainReport(ctx, req ReportRequest) (ChainReport, error) | P12 PKG-17-PKG-18-PKG-30-PKG-33 F2 |
+| Hậu điều kiện | Kiểm kỳ trước khi mở giao dịch (InvalidPeriodError, Do 0 lần); một giao dịch ReportTx đọc FindChainFigures và ListCinemas; dòng rỗng thì báo cáo rỗng; nhóm toàn chuỗi và nhóm từng cụm rạp cộng riêng nên tỉ lệ toàn chuỗi là tổng ghế chia tổng sức chứa; cụm rạp không có số liệu trong nhóm hiện 0 đồng và tỉ lệ không áp dụng (Q-237); cụm rạp theo thứ tự ListCinemas | P12 F3; BR-88 |
+| Ngoại lệ | InvalidPeriodError, SystemBusyError | P12 F2 |
+| Luồng P04 | UC-016 1a (kỳ sai), 2a (rỗng) | P04 UC-016 |
+
+#### F2.64.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-434 | kỳ | hợp lệ, có số liệu của nhiều cụm rạp | Hợp lệ | 2026-11-01 đến 2026-11-30 | GL-66 |
+| EC-435 | kỳ | thiếu hoặc từ ngày sau đến ngày | Không hợp lệ | rỗng, 11-30 đến 11-01 | UC-016 1a |
+| EC-436 | số liệu của chuỗi trong kỳ | không có dòng nào | Hợp lệ (báo cáo rỗng) | IF-28 trả [] | UC-016 2a |
+| EC-437 | cụm rạp trong một khoá nhóm | không có dòng số liệu | Hợp lệ (0 đồng, không áp dụng) | cụm rạp 4 | Q-237 |
+| EC-438 | tỉ lệ toàn chuỗi | nhiều cụm rạp cùng nhóm | Hợp lệ (tổng ghế chia tổng sức chứa) | 2 trên 100 và 1 trên 25 | BR-88 |
+| EC-439 | khoá nhóm | nhiều khoá nhóm | Hợp lệ | K1, K2 | UC-016 |
+| EC-440 | sức chứa của nhóm cụm rạp | bằng 0 nhưng có doanh thu (suất chiếu đã xoá) | Hợp lệ (không áp dụng) | 0 | BR-118 |
+| EC-441 | kho báo cáo | trả lỗi CSDL | Không hợp lệ | IF-28 lỗi | P12 F2 |
+
+#### F2.64.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-148 | độ dài kỳ (EC-434) | từ ngày = đến ngày = 2026-11-15 | EC-434 | q = [11-15 00:00, 11-16 00:00) +07:00 |
+
+#### F2.64.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08 (ReportTx), IF-28, IF-13 | fake | Do(ReportTx) cấm Acquire; FindChainFigures trả dòng theo điều kiện đầu; ListCinemas trả cụm rạp theo tên; ghi lại q | Store thay bằng bộ nhớ |
+| múi giờ | stub | zone = Asia/Ho_Chi_Minh | Thời gian phải tiêm vào |
+
+### F2.65 DC-BrowseMoviesService (UC-003: ListMovies, GetMovieDetails)
+
+#### F2.65.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Chữ ký | ListMovies(ctx) (MovieListing, error); GetMovieDetails(ctx, movieId) (MovieDetails, error) | P12 PKG-17-PKG-18-PKG-30-PKG-33 F2 |
+| Hậu điều kiện | ListMovies: today = ngày nghiệp vụ của tx.Now theo múi giờ; NOW_SHOWING vào nowShowing, COMING_SOON vào comingSoon kèm ngày khởi chiếu, ENDED bị bỏ (ngày kết thúc chiếu vẫn là đang chiếu, BR-76); IsEmpty đúng khi cả hai nhóm rỗng; không ghi, không khoá. GetMovieDetails: không có phim thì NotFoundError, không kiểm phim còn đang chiếu | P12 F3 |
+| Ngoại lệ | NotFoundError, SystemBusyError | P12 F2 |
+| Luồng P04 | UC-003 2a (không có phim) | P04 UC-003 |
+
+#### F2.65.2 Phân vùng tương đương
+
+| EC | Điều kiện | Lớp tương đương | Hợp lệ / Không hợp lệ | Giá trị đại diện | Nguồn |
+|---|---|---|---|---|---|
+| EC-442 | phim theo ngày hôm nay | đang chiếu | Hợp lệ (vào nowShowing) | 2026-11-05 đến 2026-11-20 | BR-76 |
+| EC-443 | phim theo ngày hôm nay | sắp chiếu | Hợp lệ (vào comingSoon) | khởi chiếu 2026-11-12 | BR-76 |
+| EC-444 | phim theo ngày hôm nay | đã qua ngày kết thúc | Hợp lệ (bị bỏ) | kết thúc 2026-11-09 | BR-76 |
+| EC-445 | danh sách phim | không phim nào đang chiếu hoặc sắp chiếu | Hợp lệ (IsEmpty) | chỉ phim đã hết chiếu | UC-003 2a |
+| EC-446 | GetMovieDetails: phim | tồn tại | Hợp lệ | phim 5 | UC-003 |
+| EC-447 | GetMovieDetails: phim | không tồn tại | Không hợp lệ | 9999 | P12 F2 |
+
+#### F2.65.3 Giá trị biên
+
+| BV | Biên (của EC nào) | Giá trị kiểm thử | Kỳ vọng thuộc lớp | Kết quả mong đợi |
+|---|---|---|---|---|
+| BV-149 | ngày hôm nay so với ngày kết thúc (EC-442) | today = endOfRunDate | EC-442 | vào nowShowing |
+| BV-150 | ngày hôm nay so với ngày kết thúc (EC-444) | today = endOfRunDate + 1 | EC-444 | bị bỏ |
+| BV-151 | ngày hôm nay so với ngày khởi chiếu (EC-443) | today = releaseDate - 1 | EC-443 | vào comingSoon |
+| BV-152 | ngày hôm nay so với ngày khởi chiếu (EC-442) | today = releaseDate | EC-442 | vào nowShowing |
+| BV-153 | ngày theo múi giờ (EC-444) | tx.Now = 2026-11-20 17:00:00Z (đúng 00:00 ngày 21 +07:00), endOfRunDate 2026-11-20 | EC-444 | bị bỏ |
+
+#### F2.65.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-08, IF-14 | fake | Do(UserTx) chạy fn; List, FindByID trả phim theo điều kiện đầu | Store thay bằng bộ nhớ |
+| IF-25, múi giờ | stub | tx.Now theo từng TC; zone = Asia/Ho_Chi_Minh | Thời gian phải tiêm vào |
+
+### F2.66 Ca tích hợp cho UC-010 đến UC-014 (PostgreSQL 15 thật, nhiều goroutine hoặc nhiều bản backend)
+
+#### F2.66.1 Cơ sở kiểm thử
+
+| Mục (chữ ký / tiền điều kiện / hậu điều kiện / ngoại lệ / BR / luồng thay thế / điều kiện hợp lệ) | Nội dung | Nguồn |
+|---|---|---|
+| Phân loại | Bổ sung cho F2.40 và F2.55: cặp loại trừ giữa các thao tác của lịch chiếu, bảng giá, phòng chiếu với giữ ghế, thanh toán, huỷ vé và job giải phóng ghế (X-03, X-04, X-05, X-06, X-08, X-11, X-19, X-20, X-21, X-23), và tiến trình chết giữa EX-13, EX-14, EX-15. Mỗi X-nn có ca ép cả hai thứ tự đến; ca unit tương ứng ở F2.59 đến F2.63 chứng minh logic sau khi có khoá | 00-Concurrency.md M9; P08 F4b; P09 F7.3, F7.10 |
+| Hạ tầng | Như F2.40.1; thêm 1 quản lý cụm rạp 2 và 1 phòng 8 | F2.40 |
+| Không áp dụng | F2.66.2 đến F2.66.6 (ca tích hợp, không phân tích mức đơn vị) | - |
+
+#### F2.66.7 Test double
+
+| Phụ thuộc (DC / IF) | Loại (stub / driver / mock / fake) | Hành vi giả lập hoặc điều cần xác minh | Lý do |
+|---|---|---|---|
+| IF-01 (cổng thanh toán) | fake | Như F2.40.7 | Hệ thống ngoài |
+| Hook giữ giao dịch (pg_sleep, giao dịch của harness) | driver | Ép thứ tự đến của hai giao dịch | Tái lập được thứ tự |
+
 ## F3. Bảng test case
 
 | TC | DC.operation | Kỹ thuật (phân vùng tương đương / giá trị biên / bảng quyết định / chuyển trạng thái / use case / đường đi) | Điều kiện đầu | Dữ liệu vào | Kết quả mong đợi | Nguồn (BR / UC bước) | Phủ (EC, BV, DT-R, chuyển trạng thái, nhánh CE) | Test double | Ưu tiên | Mức |
@@ -5365,6 +5869,240 @@ Căn cứ: P08 F4b X-32 ("hai yêu cầu khoá: bên sau thấy tài khoản đ�
 | TC-657 | DC-CancelTicketService.ConfirmCashRefund | phân vùng tương đương | Vé TK2 mua tại quầy (Booking của hold CLERK 3), CANCELLED, giá 100.000; ghế 102 SOLD với currentTicket TK2; Showtime 55 cụm rạp 2 bắt đầu 20:00; clerk 4 cụm rạp 2; tx.Now = 17:00 | ConfirmCashRefund(TK2, clerk 4) | Ném TicketStateError mang CANCELLED; không tạo yêu cầu hoàn tiền mặt thứ hai | BR-21; UC-008 4a | EC-149 | fake IF-08/11/18/20/21/27, stub IF-25 | Cao | Unit |
 | TC-658 | DC-RefundService.ProcessRefund | giá trị biên | Dòng hàng đợi E1 (REFUND_GATEWAY, claimToken TOK1); RR1 FULL của PT1 (mã 20260001, paidAt 10:04:00, 100.000), khoá 20260001-FULL; tx.Now = 11:00:00.000, ExtendClaim trả claimedUntil = 11:02:00; RR1 NEW; ExtendClaim trả claimedUntil = tx.Now + 14,999 giây | ProcessRefund(E1) | Trả nil; log cảnh báo 1 lần; IF-01.RequestRefund 0 lần; IF-01.FindRefund 0 lần | P12 F3 bước 2; Q-149 | BV-70, EC-170 | fake IF-08/19/21/23, mock IF-01, stub IF-25/đồng hồ, spy log | Cao | Unit |
 | TC-659 | DC-RefundService.ProcessRefund | giá trị biên | Dòng hàng đợi E1 (REFUND_GATEWAY, claimToken TOK1); RR1 FULL của PT1 (mã 20260001, paidAt 10:04:00, 100.000), khoá 20260001-FULL; tx.Now = 11:00:00.000, ExtendClaim trả claimedUntil = 11:02:00; RR1 NEW; ExtendClaim trả claimedUntil = tx.Now + 15,000 giây | ProcessRefund(E1) | Gọi IF-01.RequestRefund đúng 1 lần với ctx có hạn 5 giây (nhỏ hơn của 30 giây và 15 - 10 giây); không bỏ lượt | P12 F3 bước 2; Q-149 | BV-71, EC-171 | fake IF-08/19/21/23, mock IF-01, stub IF-25/đồng hồ, spy log | Cao | Unit |
+| TC-660 | DC-PriceList.CheckTicketPriceValid | giá trị biên | PriceList cụm rạp 2 | CheckTicketPriceValid(1) | Trả nil | BR-70 | BV-113, EC-312 | Không (đối tượng thuần) | Cao | Unit |
+| TC-661 | DC-PriceList.CheckTicketPriceValid | giá trị biên | PriceList cụm rạp 2 | CheckTicketPriceValid(0) | Ném TicketPriceInvalidError | BR-70; UC-013 4a | BV-112, EC-313 | Không (đối tượng thuần) | Cao | Unit |
+| TC-662 | DC-PriceList.CheckEntryUnchangedSinceDisplayed | phân vùng tương đương | Mục giá của C1 (STANDARD, 2D, STANDARD, WEEKDAY_FROM_17) có lastChangedAt T0 | CheckEntryUnchangedSinceDisplayed(C1, T0) | Trả nil | BR-63 | EC-314 | Không (đối tượng thuần) | Cao | Unit |
+| TC-663 | DC-PriceList.CheckEntryUnchangedSinceDisplayed | giá trị biên | Mục giá của C1 có lastChangedAt T0 + 1 micro giây | CheckEntryUnchangedSinceDisplayed(C1, T0) | Ném PriceEntryChangedError | BR-63; X-05 | EC-315 | Không (đối tượng thuần) | Cao | Unit |
+| TC-664 | DC-PriceList.CheckEntryUnchangedSinceDisplayed | phân vùng tương đương | Tổ hợp C2 chưa từng có mục giá | CheckEntryUnchangedSinceDisplayed(C2, time.Time{}) | Trả nil (bảng hiển thị không có mục, mốc rỗng) | BR-63 | EC-316 | Không (đối tượng thuần) | Cao | Unit |
+| TC-665 | DC-PriceList.CheckEntryUnchangedSinceDisplayed | phân vùng tương đương | Tổ hợp C2 chưa từng có mục giá | CheckEntryUnchangedSinceDisplayed(C2, T0) | Ném PriceEntryChangedError | BR-63 | EC-317 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-666 | DC-PriceList.CheckEntryUnchangedSinceDisplayed | phân vùng tương đương | Mục giá của C1 đã bỏ lúc T1 (mốc = T1) | CheckEntryUnchangedSinceDisplayed(C1, T1) | Trả nil (mục đã bỏ vẫn có mốc để so) | BR-63, BR-71 | EC-318 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-667 | DC-PriceList.SavePriceEntry | phân vùng tương đương | Mục C1 giá 90.000, lastChangedAt T0; now = 2026-11-10 10:00:00.000 | SavePriceEntry(C1, 100.000, T0, now) | Trả mục giá 100.000 với lastChangedAt = now; mục của tổ hợp khác không đổi | BR-66, BR-71 | EC-314 | Không (đối tượng thuần) | Cao | Unit |
+| TC-668 | DC-PriceList.SavePriceEntry | phân vùng tương đương | Tổ hợp C2 chưa từng có mục | SavePriceEntry(C2, 80.000, time.Time{}, now) | Tạo mục giá mới của C2 giá 80.000, lastChangedAt = now | BR-62 | EC-316 | Không (đối tượng thuần) | Cao | Unit |
+| TC-669 | DC-PriceList.SavePriceEntry | phân vùng tương đương | Mục C1 đã bỏ lúc T1 | SavePriceEntry(C1, 95.000, T1, now) | Dùng lại mục đã bỏ: giá 95.000, không còn cờ đã bỏ, lastChangedAt = now | BR-71 | EC-318 | Không (đối tượng thuần) | Cao | Unit |
+| TC-670 | DC-PriceList.SavePriceEntry | phân vùng tương đương | Mục C1 giá 90.000, lastChangedAt T0 + 1 micro giây | SavePriceEntry(C1, 100.000, T0, now) | Ném PriceEntryChangedError; giá của C1 vẫn 90.000 | BR-63; X-05 | EC-315 | Không (đối tượng thuần) | Cao | Unit |
+| TC-671 | DC-PriceList.RemovePriceEntry | bảng quyết định | Mục C1 lastChangedAt T0; showtimes = [S1 phòng 7 bắt đầu 21:00 thuộc tổ hợp khác] | RemovePriceEntry(C1, T0, now, [S1], rooms) | Mục C1 đã bỏ, lastChangedAt = now | BR-71 | DT15-R1, EC-314 | Không (đối tượng thuần) | Cao | Unit |
+| TC-672 | DC-PriceList.RemovePriceEntry | bảng quyết định | Mục C1 lastChangedAt T0 + 1 micro giây; showtimes = [] | RemovePriceEntry(C1, T0, now, [], {}) | Ném PriceEntryChangedError; mục còn nguyên | BR-63; UC-013 1a3a | DT15-R2, EC-315 | Không (đối tượng thuần) | Cao | Unit |
+| TC-673 | DC-PriceList.RemovePriceEntry | bảng quyết định | Mục C1V lastChangedAt T0; S55 (phòng 7 STANDARD, 2D, bắt đầu 20:00 Thứ Ba, ghế VIP) | RemovePriceEntry(C1V, T0, now, [S55], {7: phòng 7}) | Ném PriceEntryInUseError; mục còn nguyên | BR-64; UC-013 1a3b; X-06 | DT15-R3, EC-322 | Không (đối tượng thuần) | Cao | Unit |
+| TC-674 | DC-PriceList.RemovePriceEntry | bảng quyết định | Mục C1V lastChangedAt T0 + 1 micro giây; S55 đang dùng C1V | RemovePriceEntry(C1V, T0, now, [S55], {7: phòng 7}) | Ném PriceEntryChangedError (kiểm mốc trước kiểm suất chiếu đang dùng) | BR-63, BR-64 | DT15-R4 | Không (đối tượng thuần) | Cao | Unit |
+| TC-675 | DC-PriceList.RemovePriceEntry | phân vùng tương đương | Tổ hợp C2 chưa từng có mục | RemovePriceEntry(C2, time.Time{}, now, [], {}) | Ném PriceEntryChangedError (không có gì để bỏ) | P12 F3 RemovePriceEntry | EC-362 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-676 | DC-PriceList.RemovePriceEntry | phân vùng tương đương | Mục C1 đã bỏ lúc T1 | RemovePriceEntry(C1, T1, now, [], {}) | Ném PriceEntryChangedError (bỏ lần hai) | BR-63; X-05 | EC-363 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-677 | DC-PriceList.CheckCoversShowtime | phân vùng tương đương | Bảng giá có mục chưa bỏ của (STANDARD, 2D, STANDARD, WEEKDAY_FROM_17) và (STANDARD, 2D, VIP, WEEKDAY_FROM_17) | CheckCoversShowtime(STANDARD, 2D, [STANDARD, VIP], Thứ Ba 2026-11-10 20:00 +07:00) | Trả nil | BR-68 | EC-319 | Không (đối tượng thuần) | Cao | Unit |
+| TC-678 | DC-PriceList.CheckCoversShowtime | phân vùng tương đương | Bảng giá chỉ có mục STANDARD của khung WEEKDAY_FROM_17 | CheckCoversShowtime(STANDARD, 2D, [STANDARD, VIP], Thứ Ba 20:00) | Ném PriceNotCoveredError mang tổ hợp (STANDARD, 2D, VIP, WEEKDAY_FROM_17) | BR-68, BR-69 | EC-320 | Không (đối tượng thuần) | Cao | Unit |
+| TC-679 | DC-PriceList.CheckCoversShowtime | phân vùng tương đương | Bảng giá rỗng | CheckCoversShowtime(STANDARD, 2D, [VIP, STANDARD], Thứ Ba 20:00) | Ném PriceNotCoveredError mang tổ hợp STANDARD (thứ tự STANDARD, VIP, COUPLE, không theo thứ tự đầu vào) | BR-69 | EC-320 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-680 | DC-PriceList.CheckCoversShowtime | phân vùng tương đương | Mục VIP của WEEKDAY_FROM_17 đã bỏ; mục STANDARD còn | CheckCoversShowtime(STANDARD, 2D, [STANDARD, VIP], Thứ Ba 20:00) | Ném PriceNotCoveredError mang VIP (mục đã bỏ không tính) | BR-71 | EC-321 | Không (đối tượng thuần) | Cao | Unit |
+| TC-681 | DC-PriceList.CheckCoversShowtime | phân vùng tương đương | Bảng giá phủ WEEKDAY_FROM_17, không có WEEKEND_FROM_17 | CheckCoversShowtime(STANDARD, 2D, [STANDARD], Thứ Bảy 2026-11-14 20:00 +07:00) | Ném PriceNotCoveredError mang khung WEEKEND_FROM_17 | BR-12, BR-68 | EC-320 | Không (đối tượng thuần) | Cao | Unit |
+| TC-682 | DC-Showtime.UsesPriceEntry | phân vùng tương đương | S55 IN_SCHEDULE bắt đầu now + 10 giờ (Thứ Ba 20:00), phòng 7 STANDARD, định dạng 2D, ghế STANDARD và VIP | UsesPriceEntry(C1V, phòng 7, now) | Trả true | BR-64 | EC-322 | Không (đối tượng thuần) | Cao | Unit |
+| TC-683 | DC-Showtime.UsesPriceEntry | giá trị biên | Suất chiếu như trên nhưng bắt đầu đúng now | UsesPriceEntry(C1V, phòng 7, now) | Trả false (đã tới giờ bắt đầu) | BR-64 | BV-128, EC-323 | Không (đối tượng thuần) | Cao | Unit |
+| TC-684 | DC-Showtime.UsesPriceEntry | giá trị biên | Suất chiếu như trên nhưng bắt đầu now + 1ms | UsesPriceEntry(C1V, phòng 7, now) | Trả true | BR-64 | BV-129, EC-322 | Không (đối tượng thuần) | Cao | Unit |
+| TC-685 | DC-Showtime.UsesPriceEntry | phân vùng tương đương | S55 status DELETED, chưa tới giờ bắt đầu | UsesPriceEntry(C1V, phòng 7, now) | Trả false | BR-58, BR-64 | EC-323 | Không (đối tượng thuần) | Cao | Unit |
+| TC-686 | DC-Showtime.UsesPriceEntry | phân vùng tương đương | S55 như TC đầu; phòng 7 không có ghế đôi | UsesPriceEntry((STANDARD, 2D, COUPLE, WEEKDAY_FROM_17), phòng 7, now) | Trả false | BR-64 | EC-324 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-687 | DC-Showtime.UsesPriceEntry | phân vùng tương đương | S55 như TC đầu | UsesPriceEntry((IMAX, 2D, VIP, WEEKDAY_FROM_17), phòng 7, now) | Trả false (lệch loại phòng) | BR-64 | EC-324 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-688 | DC-Showtime.UsesPriceEntry | phân vùng tương đương | S55 như TC đầu (Thứ Ba 20:00) | UsesPriceEntry((STANDARD, 2D, VIP, WEEKEND_FROM_17), phòng 7, now) | Trả false (lệch khung giờ, DetermineTimeBand cho WEEKDAY_FROM_17) | BR-12, BR-64 | EC-324 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-689 | DC-Showtime.BlocksSeatMapEdit | phân vùng tương đương | S55 mở bán 2026-11-09 08:00, kết thúc 22:00, IN_SCHEDULE; now 10:00 | BlocksSeatMapEdit(now) | Trả true | BR-87 | EC-325 | Không (đối tượng thuần) | Cao | Unit |
+| TC-690 | DC-Showtime.BlocksSeatMapEdit | giá trị biên | Suất chiếu mở bán đúng now, chưa kết thúc | BlocksSeatMapEdit(now) | Trả true | BR-87 | BV-122, EC-325 | Không (đối tượng thuần) | Cao | Unit |
+| TC-691 | DC-Showtime.BlocksSeatMapEdit | giá trị biên | Suất chiếu mở bán now + 1ms | BlocksSeatMapEdit(now) | Trả false | BR-87 | BV-123, EC-326 | Không (đối tượng thuần) | Cao | Unit |
+| TC-692 | DC-Showtime.BlocksSeatMapEdit | giá trị biên | S55 kết thúc 22:00:00.000 | BlocksSeatMapEdit(now = 22:00:00.000) | Trả false (đã kết thúc) | BR-87; Q-250 | BV-124, EC-326 | Không (đối tượng thuần) | Cao | Unit |
+| TC-693 | DC-Showtime.BlocksSeatMapEdit | giá trị biên | S55 kết thúc 22:00:00.000 | BlocksSeatMapEdit(now = 21:59:59.999) | Trả true | BR-87 | BV-125, EC-325 | Không (đối tượng thuần) | Cao | Unit |
+| TC-694 | DC-Showtime.BlocksSeatMapEdit | phân vùng tương đương | S55 status DELETED, trong khoảng mở bán đến kết thúc | BlocksSeatMapEdit(now) | Trả false | BR-58, BR-87 | EC-326 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-695 | DC-Showtime.CheckStaysPriced | phân vùng tương đương | S55 chưa bắt đầu; bảng giá có mục IMAX cho STANDARD, VIP của WEEKDAY_FROM_17 | CheckStaysPriced(list, IMAX, [STANDARD, VIP], now) | Trả nil | BR-73 | EC-327 | Không (đối tượng thuần) | Cao | Unit |
+| TC-696 | DC-Showtime.CheckStaysPriced | giá trị biên | S55 bắt đầu now + 1ms; bảng giá không có mục IMAX | CheckStaysPriced(list, IMAX, [STANDARD, VIP], now) | Ném PriceNotCoveredError | BR-73, BR-69 | BV-131, EC-328 | Không (đối tượng thuần) | Cao | Unit |
+| TC-697 | DC-Showtime.CheckStaysPriced | giá trị biên | S55 bắt đầu đúng now; bảng giá không có mục IMAX | CheckStaysPriced(list, IMAX, [STANDARD, VIP], now) | Trả nil (suất chiếu đã bắt đầu được bỏ qua) | BR-73; Q-250 | BV-130, EC-329 | Không (đối tượng thuần) | Cao | Unit |
+| TC-698 | DC-Showtime.CheckStaysPriced | phân vùng tương đương | S55 status DELETED; bảng giá không có mục IMAX | CheckStaysPriced(list, IMAX, [STANDARD, VIP], now) | Trả nil | BR-58, BR-73 | EC-329 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-699 | DC-Showtime.AdoptSeatMap | phân vùng tương đương | Suất chiếu S60 chưa mở bán (saleOpenTime = now + 1 ngày), IN_SCHEDULE | AdoptSeatMap(inMap {1,2,3,5}, existing {1,2,3,4}, now) | SeatMapDelta added {5}, removed {4} | BR-118 | EC-330 | Không (đối tượng thuần) | Cao | Unit |
+| TC-700 | DC-Showtime.AdoptSeatMap | giá trị biên | Suất chiếu mở bán đúng now | AdoptSeatMap(inMap {1,2,3,5}, existing {1,2,3,4}, now) | SeatMapDelta rỗng (đã mở bán giữ sơ đồ lúc mở bán) | BR-118 | BV-132, EC-331 | Không (đối tượng thuần) | Cao | Unit |
+| TC-701 | DC-Showtime.AdoptSeatMap | giá trị biên | Suất chiếu mở bán now + 1ms | AdoptSeatMap(inMap {1,2,3,5}, existing {1,2,3,4}, now) | SeatMapDelta added {5}, removed {4} | BR-118 | BV-133, EC-330 | Không (đối tượng thuần) | Cao | Unit |
+| TC-702 | DC-Showtime.AdoptSeatMap | phân vùng tương đương | Suất chiếu status DELETED, mở bán now + 1 ngày | AdoptSeatMap(inMap {1,2,3,5}, existing {1,2,3,4}, now) | SeatMapDelta rỗng | BR-58, BR-118 | EC-331 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-703 | DC-Showtime.CheckSaleOpenBeforeStart | giá trị biên | Suất chiếu bắt đầu 20:00:00.000, mở bán 19:59:59.999 | CheckSaleOpenBeforeStart() | Trả nil | BR-55 | BV-126, EC-332 | Không (đối tượng thuần) | Cao | Unit |
+| TC-704 | DC-Showtime.CheckSaleOpenBeforeStart | giá trị biên | Suất chiếu bắt đầu 20:00:00.000, mở bán 20:00:00.000 | CheckSaleOpenBeforeStart() | Ném SaleOpenOrderError | BR-55; UC-014 6c | BV-127, EC-333 | Không (đối tượng thuần) | Cao | Unit |
+| TC-705 | DC-Showtime.MarkDeleted | chuyển trạng thái | S55 status IN_SCHEDULE, lastChangedAt T0 | MarkDeleted(now) | Status = DELETED; lastChangedAt = now; mã phim, phòng, giờ giữ nguyên | BR-58; ST-06 | EC-334 | Không (đối tượng thuần) | Cao | Unit |
+| TC-706 | DC-Showtime.MarkDeleted | chuyển trạng thái | S55 status DELETED | MarkDeleted(now) | Ném ShowtimeChangedError; lastChangedAt không đổi | BR-58; ST-06 | EC-335 | Không (đối tượng thuần) | Cao | Unit |
+| TC-707 | DC-Auditorium.ComputeSeatMapChange | phân vùng tương đương | Phòng 7 có 60 ghế IN_MAP | ComputeSeatMapChange(60 ghế đúng vị trí và loại hiện có) | Changed = false; added, retired, retyped đều rỗng | BR-118 | EC-336 | Không (đối tượng thuần) | Cao | Unit |
+| TC-708 | DC-Auditorium.ComputeSeatMapChange | phân vùng tương đương | Phòng 7 có 60 ghế IN_MAP | ComputeSeatMapChange(60 ghế cũ và thêm A13) | added = {A13}; Changed = true | BR-118 | EC-337 | Không (đối tượng thuần) | Cao | Unit |
+| TC-709 | DC-Auditorium.ComputeSeatMapChange | phân vùng tương đương | Phòng 7 có 60 ghế IN_MAP | ComputeSeatMapChange(59 ghế, thiếu A12) | retired = {mã ghế A12}; Changed = true | BR-118 | EC-338 | Không (đối tượng thuần) | Cao | Unit |
+| TC-710 | DC-Auditorium.ComputeSeatMapChange | phân vùng tương đương | Phòng 7 có ghế A01 STANDARD | ComputeSeatMapChange(A01 đổi sang VIP, còn lại giữ) | retyped = {A01: VIP}; Changed = true | BR-118 | EC-339 | Không (đối tượng thuần) | Cao | Unit |
+| TC-711 | DC-Auditorium.ComputeSeatMapChange | phân vùng tương đương | Phòng 7 có ghế A12 đã RETIRED, vị trí A12 không còn trong sơ đồ | ComputeSeatMapChange(sơ đồ có lại A12) | added = {A12} (ghế mới), không mở lại ghế đã bỏ | BR-118 | EC-340 | Không (đối tượng thuần) | Cao | Unit |
+| TC-712 | DC-Auditorium.CheckCapacityInRange | giá trị biên | Phòng dự kiến 49 ghế STANDARD | CheckCapacityInRange() | Ném CapacityOutOfRangeError | BR-144 | BV-114, EC-342 | Không (đối tượng thuần) | Cao | Unit |
+| TC-713 | DC-Auditorium.CheckCapacityInRange | giá trị biên | Phòng dự kiến 49 ghế STANDARD và 1 ghế COUPLE | CheckCapacityInRange() | Trả nil (ghế đôi tính một ghế, sức chứa 50) | BR-144, BR-06 | BV-115, EC-341 | Không (đối tượng thuần) | Cao | Unit |
+| TC-714 | DC-Auditorium.CheckCapacityInRange | giá trị biên | Phòng dự kiến 400 ghế | CheckCapacityInRange() | Trả nil | BR-144 | BV-116, EC-341 | Không (đối tượng thuần) | Cao | Unit |
+| TC-715 | DC-Auditorium.CheckCapacityInRange | giá trị biên | Phòng dự kiến 401 ghế | CheckCapacityInRange() | Ném CapacityOutOfRangeError | BR-144 | BV-117, EC-342 | Không (đối tượng thuần) | Cao | Unit |
+| TC-716 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Phòng dự kiến "Phòng 9", STANDARD, định dạng {2D}, 60 ghế hợp lệ | CheckAuditoriumInfoValid() | Trả nil | REQ-55 | EC-343 | Không (đối tượng thuần) | Cao | Unit |
+| TC-717 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Như trên nhưng tên "" | CheckAuditoriumInfoValid() | Ném FieldInvalidError với violations chỉ có trường tên | REQ-55; UC-012 4a | EC-344 | Không (đối tượng thuần) | Cao | Unit |
+| TC-718 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Như trên nhưng định dạng {} | CheckAuditoriumInfoValid() | Ném FieldInvalidError với violations chỉ có trường định dạng | REQ-55 | EC-345 | Không (đối tượng thuần) | Cao | Unit |
+| TC-719 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Như trên nhưng hai ghế cùng (hàng A, số 1) | CheckAuditoriumInfoValid() | Ném FieldInvalidError với violations ghế trùng vị trí | REQ-55 | EC-346 | Không (đối tượng thuần) | Cao | Unit |
+| TC-720 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Như trên nhưng một ghế có số ghế 0 | CheckAuditoriumInfoValid() | Ném FieldInvalidError với violations ghế sai | REQ-16 | EC-347 | Không (đối tượng thuần) | Cao | Unit |
+| TC-721 | DC-Auditorium.CheckAuditoriumInfoValid | phân vùng tương đương | Như trên nhưng tên "" và định dạng {} | CheckAuditoriumInfoValid() | Ném FieldInvalidError gom cả hai trường tên và định dạng trong một lần | REQ-55; P12 F2 (gom theo trường) | EC-344, EC-345 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-722 | DC-Auditorium.CheckBelongsToCinema | phân vùng tương đương | Phòng 7 thuộc cụm rạp 2 | CheckBelongsToCinema(2) | Trả nil | BR-135 | EC-348 | Không (đối tượng thuần) | Cao | Unit |
+| TC-723 | DC-Auditorium.CheckBelongsToCinema | phân vùng tương đương | Phòng 11 thuộc cụm rạp 3 | CheckBelongsToCinema(2) | Ném NotOwnCinemaError | BR-46, BR-135 | EC-349 | Không (đối tượng thuần) | Cao | Unit |
+| TC-724 | DC-Cinema.CheckAuditoriumNameAvailable | phân vùng tương đương | Cụm rạp 2 có phòng 7 "Phòng 1" và phòng 8 "Phòng 2" | CheckAuditoriumNameAvailable("Phòng 9", 0, refs) | Trả nil | BR-145 | EC-350 | Không (đối tượng thuần) | Cao | Unit |
+| TC-725 | DC-Cinema.CheckAuditoriumNameAvailable | phân vùng tương đương | Như trên | CheckAuditoriumNameAvailable(" PHÒNG  1 ", 0, refs) | Ném AuditoriumNameTakenError (chuẩn hoá cắt đầu cuối, gộp khoảng trắng, chữ thường) | BR-145 | EC-351 | Không (đối tượng thuần) | Cao | Unit |
+| TC-726 | DC-Cinema.CheckAuditoriumNameAvailable | phân vùng tương đương | Như trên | CheckAuditoriumNameAvailable("Phòng 1", 7, refs) | Trả nil (bỏ chính phòng 7 đang sửa) | BR-145 | EC-352 | Không (đối tượng thuần) | Cao | Unit |
+| TC-727 | DC-Movie.CheckMovieInfoValid | phân vùng tương đương | MovieDraft "Mai", thể loại "Tâm lý", 131 phút, 2026-11-05 đến 2026-11-20, T13, {2D} | CheckMovieInfoValid() | Trả nil | BR-134 | EC-353 | Không (đối tượng thuần) | Cao | Unit |
+| TC-728 | DC-Movie.CheckMovieInfoValid | phân vùng tương đương | MovieDraft như trên nhưng tên "" | CheckMovieInfoValid() | Ném FieldInvalidError (trường tên) | Q-196; UC-010 4a | EC-354 | Không (đối tượng thuần) | Cao | Unit |
+| TC-729 | DC-Movie.CheckMovieInfoValid | phân vùng tương đương | MovieDraft như trên nhưng thể loại "" | CheckMovieInfoValid() | Ném FieldInvalidError (trường thể loại) | Q-196 | EC-354 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-730 | DC-Movie.CheckMovieInfoValid | giá trị biên | MovieDraft như trên nhưng thời lượng 0 phút | CheckMovieInfoValid() | Ném FieldInvalidError (trường thời lượng) | Q-196 | BV-118, EC-355 | Không (đối tượng thuần) | Cao | Unit |
+| TC-731 | DC-Movie.CheckMovieInfoValid | giá trị biên | MovieDraft như trên nhưng thời lượng 1 phút | CheckMovieInfoValid() | Trả nil | Q-196 | BV-119, EC-353 | Không (đối tượng thuần) | Cao | Unit |
+| TC-732 | DC-Movie.CheckMovieInfoValid | giá trị biên | MovieDraft khởi chiếu 2026-11-05, kết thúc chiếu 2026-11-04 | CheckMovieInfoValid() | Ném FieldInvalidError (trường ngày kết thúc chiếu) | Q-197 | BV-120, EC-356 | Không (đối tượng thuần) | Cao | Unit |
+| TC-733 | DC-Movie.CheckMovieInfoValid | giá trị biên | MovieDraft khởi chiếu 2026-11-05, kết thúc chiếu 2026-11-05 | CheckMovieInfoValid() | Trả nil (phim chiếu một ngày) | Q-197 | BV-121, EC-353 | Không (đối tượng thuần) | Cao | Unit |
+| TC-734 | DC-Movie.CheckMovieInfoValid | phân vùng tương đương | MovieDraft như trên nhưng nhãn độ tuổi T21 | CheckMovieInfoValid() | Ném FieldInvalidError (trường nhãn độ tuổi) | Q-198 | EC-357 | Không (đối tượng thuần) | Trung bình | Unit |
+| TC-735 | DC-Movie.CheckMovieInfoValid | phân vùng tương đương | MovieDraft như trên nhưng định dạng phát hành {} | CheckMovieInfoValid() | Ném FieldInvalidError (trường định dạng) | BR-134 | EC-358 | Không (đối tượng thuần) | Cao | Unit |
+| TC-736 | DC-Cinema.CheckCinemaInfoValid | phân vùng tương đương | CinemaDraft "CineBook Quận 3", "TP.HCM", địa chỉ "12 Nguyễn Huệ" | CheckCinemaInfoValid() | Trả nil | Q-204 | EC-359 | Không (đối tượng thuần) | Cao | Unit |
+| TC-737 | DC-Cinema.CheckCinemaInfoValid | phân vùng tương đương | CinemaDraft tên "" | CheckCinemaInfoValid() | Ném FieldInvalidError (trường tên) | Q-204; UC-011 4a | EC-360 | Không (đối tượng thuần) | Cao | Unit |
+| TC-738 | DC-Cinema.CheckCinemaInfoValid | phân vùng tương đương | CinemaDraft tỉnh thành phố "" | CheckCinemaInfoValid() | Ném FieldInvalidError (trường tỉnh thành phố) | Q-204 | EC-361 | Không (đối tượng thuần) | Cao | Unit |
+| TC-739 | DC-ManageMoviesService.AddMovie | use case | Bối cảnh L; chưa có phim "Mai"; tx.Now = 2026-11-10 10:00:00.000 | AddMovie(d: "Mai", "Tâm lý", 131 phút, 2026-11-05 đến 2026-11-20, T13, {2D}) | Do(UserTx "AddMovie") 1 lần; IF-14.Insert 1 lần với lastChangedAt = tx.Now; trả phim có mã; không khoá | BR-134; UC-010 2.1 | EC-364 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-740 | DC-ManageMoviesService.AddMovie | use case | Bối cảnh L | AddMovie(d có tên "") | Ném FieldInvalidError (trường tên); Do 0 lần; Insert 0 lần | UC-010 4a; P12 F3 AddMovie bước 1 | EC-365 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-741 | DC-ManageMoviesService.AddMovie | use case | Bối cảnh L; đã có phim 5 tên "Mai" | AddMovie(d cùng tên "Mai", thông tin hợp lệ) | Thêm được: phim mới có mã khác phim 5; không CinemaNameTaken, không lỗi trùng | Q-200; UC-010 mục 5 (hai yêu cầu cùng thêm) | EC-366 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-742 | DC-ManageMoviesService.SaveMovieChanges | giá trị biên | Bối cảnh L; phim 5 lastChangedAt T0 | SaveMovieChanges(5, d (đổi mô tả), displayedAt = T0) | IF-14.LockExclusive(5) 1 lần (hạng 10); Save 1 lần với lastChangedAt = tx.Now; IF-11 (suất chiếu) 0 lần ghi; S55 không đổi | BR-138, BR-84, BR-139; UC-010 3a.1 | BV-134, EC-367 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-743 | DC-ManageMoviesService.SaveMovieChanges | giá trị biên | Bối cảnh L; phim 5 lastChangedAt = T0 + 1 micro giây | SaveMovieChanges(5, d, displayedAt = T0) | Ném MovieChangedError; Save 0 lần; rollback | BR-138; UC-010 3a (mốc đã đổi) | BV-135, EC-368 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-744 | DC-ManageMoviesService.SaveMovieChanges | phân vùng tương đương | Bối cảnh L; không có phim 9999 | SaveMovieChanges(9999, d, T0) | Ném NotFoundError; Save 0 lần | P12 F3 SaveMovieChanges | EC-369 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-745 | DC-ManageMoviesService.SaveMovieChanges | phân vùng tương đương | Bối cảnh L; phim 5 lastChangedAt T0 | SaveMovieChanges(5, d có thời lượng 0, T0) | Ném FieldInvalidError; Do 0 lần; LockExclusive 0 lần | UC-010 4a; P12 F3 bước 1 | EC-365 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-746 | DC-ManageMoviesService.SaveMovieChanges | bảng quyết định | Bối cảnh L; phim 5 lastChangedAt T0 + 1 micro giây | SaveMovieChanges(5, d có tên "", displayedAt = T0) | Ném FieldInvalidError (kiểm draft trước giao dịch, không tới kiểm mốc) | P12 F3 bước 1 trước bước 2 | EC-365, EC-368 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-747 | DC-ManageMoviesService.SaveMovieChanges | use case | Bối cảnh L; phim 5 lastChangedAt T0; hai quản lý chuỗi cùng hiển thị mốc T0 | SaveMovieChanges(5, dA, T0) rồi SaveMovieChanges(5, dB, T0) | Yêu cầu A thành công (lastChangedAt = tx.Now); yêu cầu B ném MovieChangedError; phim giữ nội dung dA | BR-138; X-24 | EC-367, EC-368 | fake IF-08/14, stub IF-25 | Cao | Unit |
+| TC-748 | DC-ManageMoviesService.ListMovies | use case | Bối cảnh L; chuỗi có phim 5 và phim 6 | ListMovies() | Trả hai phim kèm lastChangedAt theo thứ tự IF-14.List; Do 1 lần; ghi 0 lần | UC-010 1.1 | EC-370 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-749 | DC-ManageMoviesService.GetMovieForEdit | use case | Bối cảnh L; phim 5 lastChangedAt T0 | GetMovieForEdit(5) | Trả phim 5 mang lastChangedAt T0 (làm mốc hiển thị); không khoá | UC-010 2a.1 | EC-370 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-750 | DC-ManageMoviesService.GetMovieForEdit | phân vùng tương đương | Bối cảnh L; không có phim 9999 | GetMovieForEdit(9999) | Ném NotFoundError | P12 F2 | EC-369 | fake IF-08/14, stub IF-25 | Trung bình | Unit |
+| TC-751 | DC-ManageCinemasService.AddCinema | use case | Bối cảnh L; chưa có cụm rạp tên "CineBook Quận 3" | AddCinema(d: "CineBook Quận 3", "TP.HCM", "12 Nguyễn Huệ") | LockValue(CINEMA_NAME, "CineBook Quận 3") 1 lần trước FindCinemaByNormalizedName; InsertCinema 1 lần; IF-12.Insert bảng giá rỗng 1 lần với cinemaId của cụm rạp mới; 1 commit | BR-141; UC-011 2.1; P09 F7.3 EX-17 | EC-371 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-752 | DC-ManageCinemasService.AddCinema | use case | Bối cảnh L | AddCinema(d tỉnh thành phố "") | Ném FieldInvalidError; Do 0 lần; LockValue 0 lần | UC-011 4a; Q-204 | EC-372 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-753 | DC-ManageCinemasService.AddCinema | phân vùng tương đương | Bối cảnh L; đã có cụm rạp 2 tên "CineBook Quận 1" | AddCinema(d tên "  cinebook   quận 1 ") | Ném CinemaNameTakenError; InsertCinema 0 lần; IF-12.Insert 0 lần | BR-141; UC-011 5b | EC-373 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-754 | DC-ManageCinemasService.AddCinema | phân vùng tương đương | Bối cảnh L; IF-12.Insert cấu hình trả lỗi | AddCinema(d hợp lệ, tên mới) | Trả lỗi; fake hoàn lại: không có cụm rạp mới, không có bảng giá (cụm rạp và bảng giá cùng một commit) | P09 F7.10; P12 F3 AddCinema bước 3 | EC-379 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-755 | DC-ManageCinemasService.AddCinema | use case | Bối cảnh L; chưa có cụm rạp tên "CineBook Thủ Đức" | AddCinema(d tên "CineBook Thủ Đức") lần một, rồi AddCinema(d tên "cinebook  thủ đức") lần hai | Lần một thành công; lần hai ném CinemaNameTakenError (thấy cụm rạp của lần một); chỉ một cụm rạp mang tên | BR-141; X-26 | EC-371, EC-373 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-756 | DC-ManageCinemasService.SaveCinemaChanges | giá trị biên | Bối cảnh L; cụm rạp 2 lastChangedAt T0 | SaveCinemaChanges(2, d (tên giữ "CineBook Quận 1", đổi địa chỉ), displayedAt = T0) | LockValue(CINEMA_NAME) 1 lần dù tên không đổi, đứng trước LockCinemaExclusive(2); SaveCinema 1 lần với lastChangedAt = tx.Now; phòng, suất chiếu, nhân viên không đổi | BR-141, BR-142; UC-011 3a.1 | BV-136, EC-374 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-757 | DC-ManageCinemasService.SaveCinemaChanges | phân vùng tương đương | Bối cảnh L; cụm rạp 2 lastChangedAt T0; chưa ai dùng tên "CineBook Thủ Đức" | SaveCinemaChanges(2, d tên "CineBook Thủ Đức", T0) | Lưu được; Info() trả tên mới | BR-141 | EC-375 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-758 | DC-ManageCinemasService.SaveCinemaChanges | phân vùng tương đương | Bối cảnh L; cụm rạp 3 tên "CineBook Quận 3" | SaveCinemaChanges(3, d tên "cinebook quận 1", T0) | Ném CinemaNameTakenError (thuộc cụm rạp 2); SaveCinema 0 lần | BR-141; UC-011 5b | EC-376 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-759 | DC-ManageCinemasService.SaveCinemaChanges | giá trị biên | Bối cảnh L; cụm rạp 2 lastChangedAt = T0 + 1 micro giây | SaveCinemaChanges(2, d, displayedAt = T0) | Ném CinemaChangedError; SaveCinema 0 lần | BR-142; UC-011 5a; X-26 | BV-137, EC-377 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-760 | DC-ManageCinemasService.SaveCinemaChanges | bảng quyết định | Bối cảnh L; cụm rạp 3 lastChangedAt T0 + 1 micro giây; tên mới thuộc cụm rạp 2 | SaveCinemaChanges(3, d tên "CineBook Quận 1", displayedAt = T0) | Ném CinemaNameTakenError (5b trước 5a) | P12 F3 SaveCinemaChanges bước 2 | EC-376, EC-377 | fake IF-08/12/13, stub IF-25 | Cao | Unit |
+| TC-761 | DC-ManageCinemasService.SaveCinemaChanges | phân vùng tương đương | Bối cảnh L; không có cụm rạp 9999 | SaveCinemaChanges(9999, d, T0) | Ném NotFoundError; SaveCinema 0 lần | P12 F3 | EC-378 | fake IF-08/12/13, stub IF-25 | Trung bình | Unit |
+| TC-762 | DC-ManageCinemasService.SaveCinemaChanges | phân vùng tương đương | Bối cảnh L | SaveCinemaChanges(2, d tỉnh thành phố "", T0) | Ném FieldInvalidError; Do 0 lần | UC-011 4a | EC-372 | fake IF-08/12/13, stub IF-25 | Trung bình | Unit |
+| TC-763 | DC-ManageCinemasService.ListCinemas, GetCinemaForEdit | use case | Bối cảnh L; cụm rạp 2 và 3 | ListCinemas() rồi GetCinemaForEdit(3) | Danh sách hai cụm rạp kèm lastChangedAt; GetCinemaForEdit trả cụm rạp 3; không khoá | UC-011 1.1, 2a.1 | EC-380 | fake IF-08/12/13, stub IF-25 | Trung bình | Unit |
+| TC-764 | DC-ManageCinemasService.ListCinemas, GetCinemaForEdit | phân vùng tương đương | Bối cảnh L; không có cụm rạp 9999 | GetCinemaForEdit(9999) | Ném NotFoundError | P12 F2 | EC-378 | fake IF-08/12/13, stub IF-25 | Trung bình | Unit |
+| TC-765 | DC-ManageAuditoriumsService.AddAuditorium | use case | Bối cảnh L; cụm rạp 2 có phòng 7 "Phòng 1" và phòng 8 "Phòng 2" | AddAuditorium(actor 2, d: "Phòng 9", STANDARD, {2D}, 60 ghế) | LockCinemaExclusive(2) (hạng 0) 1 lần; ListAuditoriumRefs 1 lần; InsertAuditorium 1 lần kèm 60 ghế; trả Info với sức chứa 60; 1 commit | BR-144, BR-145; UC-012 2.1 | EC-381 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-766 | DC-ManageAuditoriumsService.AddAuditorium | use case | Bối cảnh L | AddAuditorium(actor 2, d tên "") | Ném FieldInvalidError; Do 0 lần | UC-012 4a | EC-382 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-767 | DC-ManageAuditoriumsService.AddAuditorium | use case | Bối cảnh L | AddAuditorium(actor 2, d hợp lệ nhưng 49 ghế) | Ném CapacityOutOfRangeError; Do 0 lần | BR-144; UC-012 4b | EC-383 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-768 | DC-ManageAuditoriumsService.AddAuditorium | use case | Bối cảnh L | AddAuditorium(actor 2, d tên "phòng  1", 60 ghế) | Ném AuditoriumNameTakenError; InsertAuditorium 0 lần | BR-145; UC-012 4d | EC-384 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-769 | DC-ManageAuditoriumsService.AddAuditorium | bảng quyết định | Bối cảnh L | AddAuditorium(actor 2, d tên "" và 49 ghế); sau đó AddAuditorium(d 401 ghế và tên "phòng  1") | Lần một ném FieldInvalidError (4a trước 4b); lần hai ném CapacityOutOfRangeError (4b trước 4d, vì 4d nằm trong giao dịch) | P12 F2 AddAuditorium (thứ tự 4a, 4b, 4d) | EC-382, EC-383, EC-384 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-770 | DC-ManageAuditoriumsService.AddAuditorium | use case | Bối cảnh L; chưa có phòng "Phòng 9" | AddAuditorium(d "Phòng 9") lần một rồi AddAuditorium(d " phòng 9 ") lần hai | Lần một thành công; lần hai ném AuditoriumNameTakenError | BR-145; X-27 | EC-381, EC-384 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-771 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0; S55 đang mở bán trên phòng 7 | EditAuditorium(actor 2, req: id 7, d đổi tên "Phòng 1A", sơ đồ ghế giữ nguyên, displayedAt = T0) | Thứ tự khoá ghi nhận: hạng 0 Cinema X, hạng 1 PriceList S, hạng 2 Auditorium X, hạng 3 Showtime S; SaveAuditorium 1 lần; applySeatMapToShowtimes 0 lần (Changed = false) | BR-146, BR-87; UC-012 5 | DT16-R1, EC-385, EC-392 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-772 | DC-ManageAuditoriumsService.EditAuditorium | use case | Bối cảnh L trừ S55; phòng 7 lastChangedAt T0; phòng 7 chỉ có S60 mở bán 2026-11-11 08:00 (now + 22 giờ), chưa mở bán | EditAuditorium(actor 2, req: id 7, thêm ghế A13, displayedAt = T0) | Phòng có 61 ghế; IF-29.LockSeatStatusesByShowtimes([S60]) (hạng 6) 1 lần; IF-18.InsertAll 1 ghế mới Trống cho S60; DeleteSeatStatuses rỗng; không ghi seat_event | BR-118; UC-012 5 | EC-395, BV-139 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-773 | DC-ManageAuditoriumsService.EditAuditorium | giá trị biên | Bối cảnh L; phòng 7 lastChangedAt T0; S55 mở bán 2026-11-10 10:00:00.000 (đúng now), kết thúc 22:00 | EditAuditorium(actor 2, req: id 7, thêm ghế A13, T0) | Ném AuditoriumBlockedError; SaveAuditorium 0 lần; trạng thái ghế không đổi | BR-87; UC-012 5a; X-19 | BV-138, EC-390, EC-325 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-774 | DC-ManageAuditoriumsService.EditAuditorium | phân vùng tương đương | Bối cảnh L trừ S55; phòng 7 lastChangedAt T0; suất chiếu S50 của phòng 7 đã kết thúc (saleOpen 2026-11-05, end 2026-11-09) và S51 đã xoá | EditAuditorium(actor 2, req: id 7, bỏ ghế A12, T0) | Ghi được; applySeatMapToShowtimes không đổi trạng thái ghế của S50, S51 (giữ sơ đồ lúc mở bán); DeleteSeatStatuses 0 lần | BR-118 | EC-396 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-775 | DC-ManageAuditoriumsService.EditAuditorium | phân vùng tương đương | Bối cảnh L; phòng 7 lastChangedAt T0; S55 đang mở bán | EditAuditorium(actor 2, req: id 7, chỉ đổi loại ghế A01 STANDARD --> VIP không đổi vị trí, T0) | Bị chặn AuditoriumBlockedError vì đổi loại là thay đổi sơ đồ (retyped, Changed = true) | BR-87, BR-118; P12 F3 EditAuditorium bước 3; Q-356 | EC-390 | fake IF-08/12/13/11/18/29, stub IF-25 | Trung bình | Unit |
+| TC-776 | DC-ManageAuditoriumsService.EditAuditorium | phân vùng tương đương | Bối cảnh L; phòng 7 lastChangedAt T0; S55 chưa bắt đầu (20:00) và đang mở bán; bảng giá chưa có mục IMAX | EditAuditorium(actor 2, req: id 7, đổi loại phòng sang IMAX, sơ đồ giữ, T0) | Ném PriceNotCoveredError mang tổ hợp IMAX đầu tiên thiếu; SaveAuditorium 0 lần | BR-73; UC-012 5b | DT16-R5, EC-391 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-777 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0 + 1 micro giây | EditAuditorium(actor 2, req: id 7, d, displayedAt = T0) | Ném AuditoriumChangedError; SaveAuditorium 0 lần | BR-146; UC-012 5c; X-29 | DT16-R2, EC-388 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-778 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0; phòng 8 tên "Phòng 2" | EditAuditorium(actor 2, req: id 7, d tên "phòng 2", T0) | Ném AuditoriumNameTakenError; SaveAuditorium 0 lần | BR-145; UC-012 4d | DT16-R3, EC-389 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-779 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0 + 1 micro giây; tên mới trùng phòng 8 | EditAuditorium(actor 2, req: id 7, d tên "Phòng 2", displayedAt = T0) | Ném AuditoriumChangedError (5c trước 4d) | P08 EX-15 (thứ tự kiểm) | DT16-R2, EC-388, EC-389 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-780 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0; tên mới trùng phòng 8; S55 đang mở bán; thêm ghế A13 | EditAuditorium(actor 2, req: id 7, d tên "Phòng 2" thêm A13, T0) | Ném AuditoriumNameTakenError (4d trước 5a) | P08 EX-15 (thứ tự kiểm) | DT16-R3, EC-389, EC-390 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-781 | DC-ManageAuditoriumsService.EditAuditorium | bảng quyết định | Bối cảnh L; phòng 7 lastChangedAt T0; S55 đang mở bán; đổi loại sang IMAX (thiếu giá) và thêm ghế A13 | EditAuditorium(actor 2, req: id 7, d IMAX thêm A13, T0) | Ném AuditoriumBlockedError (5a trước 5b) | P08 EX-15 (thứ tự kiểm) | DT16-R4, EC-390, EC-391 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-782 | DC-ManageAuditoriumsService.EditAuditorium | phân vùng tương đương | Bối cảnh L; phòng 11 thuộc cụm rạp 3 | EditAuditorium(actor 2, req: id 11, d, T0) | Ném NotOwnCinemaError; SaveAuditorium 0 lần | BR-135 | EC-386 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-783 | DC-ManageAuditoriumsService.EditAuditorium | phân vùng tương đương | Bối cảnh L; phòng 999 không còn dòng | EditAuditorium(actor 2, req: id 999, d, T0) | Ném AuditoriumGoneError | BR-147; UC-012 8h | EC-387 | fake IF-08/12/13/11/18/29, stub IF-25 | Trung bình | Unit |
+| TC-784 | DC-ManageAuditoriumsService.RemoveAuditorium | use case | Bối cảnh L; phòng 12 của cụm rạp 2 chưa từng có suất chiếu | RemoveAuditorium(actor 2, 12) | LockCinemaExclusive(2) rồi LockAuditoriumForDelete(12); ExistsByAuditorium trả false; DeleteAuditorium 1 lần (xoá cả ghế); 1 commit | BR-147; UC-012 1b | EC-393, EC-348 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-785 | DC-ManageAuditoriumsService.RemoveAuditorium | use case | Bối cảnh L; phòng 7 từng có suất chiếu S1 đã xoá | RemoveAuditorium(actor 2, 7) | Ném AuditoriumHasScheduleError; DeleteAuditorium 0 lần | BR-147; UC-012 1b3a; X-28 | EC-394 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-786 | DC-ManageAuditoriumsService.RemoveAuditorium | phân vùng tương đương | Bối cảnh L; phòng 999 không còn dòng | RemoveAuditorium(actor 2, 999) | Ném AuditoriumGoneError | BR-147; X-29 | EC-387 | fake IF-08/12/13/11/18/29, stub IF-25 | Trung bình | Unit |
+| TC-787 | DC-ManageAuditoriumsService.RemoveAuditorium | phân vùng tương đương | Bối cảnh L; phòng 11 thuộc cụm rạp 3 | RemoveAuditorium(actor 2, 11) | Ném NotOwnCinemaError; DeleteAuditorium 0 lần | BR-135 | EC-386 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-788 | DC-ManageAuditoriumsService.ListAuditoriums, SelectAuditorium | use case | Bối cảnh L; cụm rạp 2 có phòng 7 và 8; cụm rạp 3 có phòng 11 | ListAuditoriums(actor 2); SelectAuditorium(actor 2, 7); SelectAuditorium(actor 2, 11) | Danh sách chỉ phòng 7, 8 kèm sức chứa và mốc; Select(7) trả phòng với từng ghế; Select(11) ném NotOwnCinemaError; không khoá | BR-135; UC-012 1a2a | EC-397, EC-386 | fake IF-08/12/13/11/18/29, stub IF-25 | Trung bình | Unit |
+| TC-789 | DC-ManagePriceListService.SubmitPriceEntry | giá trị biên | Bối cảnh L; chưa có mục giá C2 = (STANDARD, 3D, STANDARD, WEEKDAY_FROM_17) | SubmitPriceEntry(actor 2, req: C2, giá 1, displayedAt rỗng) | LockExclusiveByCinema(2) (hạng 1 X) 1 lần; SaveEntry 1 lần; trả mục giá 1 đồng, lastChangedAt = tx.Now; có hiệu lực ngay | BR-62, BR-70, BR-71; UC-013 5 | BV-140, EC-398 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-790 | DC-ManagePriceListService.SubmitPriceEntry | giá trị biên | Bối cảnh L | SubmitPriceEntry(actor 2, req: C2, giá 0, rỗng) | Ném TicketPriceInvalidError; Do 0 lần; SaveEntry 0 lần | BR-70; UC-013 4a | BV-141, EC-400 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-791 | DC-ManagePriceListService.SubmitPriceEntry | use case | Bối cảnh L; mục C1 giá 90.000 lastChangedAt T0; lần giữ ghế H1 đã chốt heldPrice 90.000 | SubmitPriceEntry(actor 2, req: C1, giá 100.000, displayedAt = T0) | Mục C1 giá 100.000, lastChangedAt = tx.Now; heldPrice của H1 vẫn 90.000 (không ghi SeatHold, SeatStatus, Ticket) | BR-65, BR-66, BR-67 | EC-399 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-792 | DC-ManagePriceListService.SubmitPriceEntry | use case | Bối cảnh L; mục C1 lastChangedAt T0 + 1 micro giây | SubmitPriceEntry(actor 2, req: C1, giá 100.000, displayedAt = T0) | Ném PriceEntryChangedError; SaveEntry 0 lần; giá vẫn 90.000 | BR-63; UC-013 5a | EC-401 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-793 | DC-ManagePriceListService.SubmitPriceEntry | use case | Bối cảnh L; mục C1 giá 90.000 lastChangedAt T0; hai quản lý cùng hiển thị mốc T0 | SubmitPriceEntry(actor 2, A: C1 giá 100.000, T0) rồi SubmitPriceEntry(actor 2, B: C1 giá 110.000, T0) | A thành công; B ném PriceEntryChangedError (không ghi đè); giá cuối 100.000 | BR-63; X-05 | EC-399, EC-401 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-794 | DC-ManagePriceListService.SubmitPriceEntry | use case | Bối cảnh L; mục C1V đã bỏ lúc T1 | SubmitPriceEntry(actor 2, req: C1V, giá 120.000, displayedAt = T1) rồi SubmitPriceEntryRemoval(actor 2, req: C1V, displayedAt = T1) | Lần một tạo lại mục (lastChangedAt = tx.Now); lần hai ném PriceEntryChangedError vì mốc T1 đã cũ (Remove sau Submit, X-05 theo chiều EX-11 trước EX-12) | BR-63, BR-71; UC-013 1a3a; X-05 | EC-399, EC-404 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-795 | DC-ManagePriceListService.SubmitPriceEntryRemoval | giá trị biên | Bối cảnh L; mục C1V lastChangedAt T0; S55 bắt đầu đúng now (đã bắt đầu) trên phòng 7 | SubmitPriceEntryRemoval(actor 2, req: C1V, T0) | Bỏ được: SaveEntry 1 lần (đánh dấu đã bỏ); thứ tự khoá 1 X, 2 S, 3 S; suất chiếu đã bắt đầu không tính | BR-64, BR-71; UC-013 1a3 | BV-142, EC-402 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-796 | DC-ManagePriceListService.SubmitPriceEntryRemoval | giá trị biên | Bối cảnh L; mục C1V lastChangedAt T0; S55 bắt đầu now + 1ms trên phòng 7 | SubmitPriceEntryRemoval(actor 2, req: C1V, T0) | Ném PriceEntryInUseError; SaveEntry 0 lần | BR-64; UC-013 1a3b | BV-143, EC-403 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-797 | DC-ManagePriceListService.SubmitPriceEntryRemoval | use case | Bối cảnh L; mục C1V lastChangedAt T0 + 1 micro giây; S55 đang dùng C1V | SubmitPriceEntryRemoval(actor 2, req: C1V, displayedAt = T0) | Ném PriceEntryChangedError (1a3a trước 1a3b); SaveEntry 0 lần | BR-63; UC-013 1a3a | EC-404 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-798 | DC-ManagePriceListService.SubmitPriceEntryRemoval | use case | Bối cảnh L; mục C1V lastChangedAt T0; không có suất chiếu chưa bắt đầu | SubmitPriceEntryRemoval(actor 2, A: C1V, T0) rồi lần hai SubmitPriceEntryRemoval(actor 2, B: C1V, T0) | A bỏ được; B ném PriceEntryChangedError (mục đã bỏ, mốc đổi) | BR-63; X-05 | EC-402, EC-404 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-799 | DC-ManagePriceListService.SubmitPriceEntryRemoval | use case | Bối cảnh L; mục C1V lastChangedAt T0; S55 đã được lập trước (đang dùng C1V) | SubmitPriceEntryRemoval(actor 2, req: C1V, T0) | Ném PriceEntryInUseError (CreateShowtime ghi nhận trước thì Remove thấy suất chiếu mới) | BR-64, BR-136; X-06 | EC-403 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-800 | DC-ManagePriceListService.SubmitPriceEntryRemoval | use case | Bối cảnh L; phòng 7 STANDARD; S55 dùng mục (STANDARD, 2D, VIP, WEEKDAY_FROM_17) | EditAuditorium đổi loại phòng 7 sang IMAX (bảng giá IMAX đủ), rồi SubmitPriceEntryRemoval(actor 2, req: mục (STANDARD, 2D, VIP, WEEKDAY_FROM_17), T0) | Remove bỏ được vì S55 thuộc loại phòng mới IMAX không còn dùng tổ hợp STANDARD (EX-15 ghi nhận trước) | BR-64, BR-137; X-21 | EC-402 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-801 | DC-ManagePriceListService.SubmitPriceEntryRemoval | use case | Như TC trước nhưng thứ tự ngược: SubmitPriceEntryRemoval trước, rồi EditAuditorium | SubmitPriceEntryRemoval(actor 2, mục STANDARD VIP, T0) khi S55 còn loại phòng STANDARD | Ném PriceEntryInUseError; sau đó EditAuditorium đổi loại IMAX thành công và mục vẫn còn | BR-64, BR-137; X-21 | EC-403 | fake IF-08/12/13/11, stub IF-25 | Cao | Unit |
+| TC-802 | DC-ManagePriceListService.GetPriceList | use case | Bối cảnh L; bảng giá cụm rạp 2 có 6 mục chưa bỏ và 1 mục đã bỏ | GetPriceList(actor 2) | Trả 6 mục chưa bỏ kèm lastChangedAt từng mục (làm mốc hiển thị); không khoá; ghi 0 | UC-013 1.1 | EC-405 | fake IF-08/12/13/11, stub IF-25 | Trung bình | Unit |
+| TC-803 | DC-ManagePriceListService.GetPriceList | phân vùng tương đương | Cụm rạp 99 không có bảng giá | GetPriceList(actor cụm rạp 99) | Ném NotFoundError | P12 F2 | EC-406 | fake IF-08/12/13/11, stub IF-25 | Trung bình | Unit |
+| TC-804 | DC-ScheduleShowtimesService.StartScheduling, ListShowtimes | use case | Bối cảnh L; cụm rạp 2 có S55 và S1 đã xoá; cụm rạp 3 có S90 | StartScheduling(actor 2); ListShowtimes(actor 2) | StartScheduling trả phòng 7, 8 và mọi phim; ListShowtimes chỉ S55 (không S1 đã xoá, không S90) kèm lastChangedAt; không khoá | BR-46, BR-60; UC-014 1.1 | EC-431 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-805 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L; phòng 7 trống từ 2026-11-11 18:00 | CreateShowtime(actor 2, req: phim 5, 2D, phòng 7, bắt đầu 2026-11-12 20:00, mở bán 2026-11-11 08:00) | Thứ tự khoá: hạng 1 S, hạng 2 X, hạng 10 S; IF-11.Insert 1 lần với endTime 22:00; IF-18.InsertAll 60 SeatStatus Trống gắn suất chiếu mới; trả ListItem; 1 commit | BR-46 đến BR-52; UC-014 8 | EC-407 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-806 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phòng 11 thuộc cụm rạp 3 | CreateShowtime(actor 2, req phòng 11) | Ném NotOwnCinemaError; Insert 0 lần | BR-46; UC-014 4a | EC-408 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-807 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phim 5 chỉ phát hành 2D | CreateShowtime(actor 2, req phim 5, định dạng 3D, phòng 7) | Ném FormatNotReleasedError; Insert 0 lần | BR-47; UC-014 5a | EC-409 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-808 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phim 6 phát hành 2D và 3D; phòng 7 chỉ 2D | CreateShowtime(actor 2, req phim 6, 3D, phòng 7) | Ném FormatNotSupportedError; Insert 0 lần | BR-48; UC-014 5b | EC-410 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-809 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; bảng giá thiếu mục VIP của WEEKDAY_FROM_17 | CreateShowtime(actor 2, req phòng 7, bắt đầu Thứ Tư 2026-11-11 20:00) | Ném PriceNotCoveredError mang tổ hợp (STANDARD, 2D, VIP, WEEKDAY_FROM_17); Insert 0 lần | BR-69; UC-014 5c | EC-411 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-810 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phim 5 kết thúc chiếu 2026-11-20 | CreateShowtime(actor 2, req bắt đầu 2026-11-21 20:00) | Ném OutsideRunPeriodError; Insert 0 lần | BR-49; UC-014 6a | EC-412 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-811 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L | CreateShowtime(actor 2, req bắt đầu 2026-11-10 10:00:00.000 (bằng now), mở bán 2026-11-09 08:00) | Ném ShowtimeStartedError; Insert 0 lần | BR-56; UC-014 6b | EC-413 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-812 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L | CreateShowtime(actor 2, req bắt đầu 2026-11-12 20:00, mở bán 2026-11-12 20:00) | Ném SaleOpenOrderError; Insert 0 lần | BR-55; UC-014 6c | EC-414 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-813 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phòng 7 có ở giai đoạn A nhưng LockAuditoriumsExclusive không còn dòng (phòng bị EX-19 xoá giữa hai giai đoạn) | CreateShowtime(actor 2, req phòng 7) | Ném AuditoriumGoneError; Insert 0 lần; InsertAll 0 lần | BR-147; UC-014 8h; X-28 | EC-415 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-814 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L; phòng 7 trống | CreateShowtime(A: 2026-11-12 18:00 đến 20:00) rồi CreateShowtime(B: 19:00 đến 21:00) | A thành công; B ném RoomGapError (thấy A dưới khoá Auditorium X); Insert B 0 lần | BR-51; UC-014 8b; X-07 | EC-407, EC-416 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-815 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L; phòng 7 trống; thứ tự ngược | CreateShowtime(B: 19:00 đến 21:00) rồi CreateShowtime(A: 18:00 đến 20:00) | B thành công; A ném RoomGapError | BR-51; X-07 | EC-407, EC-416 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-816 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L; phòng 7 có S2 kết thúc 18:00 | CreateShowtime(actor 2, req bắt đầu 18:15, kết thúc 20:15) | Thành công (đúng 15 phút là hợp lệ); Insert 1 lần | BR-51 | EC-407 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-817 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; phim 5 thời lượng 120 phút lúc đọc giai đoạn A; EX-16 đổi thành 150 phút trước khi giai đoạn B lấy khoá Movie S | CreateShowtime(actor 2, req bắt đầu 2026-11-12 20:00) | Insert với endTime 22:30 (tính theo thời lượng hiện hành 150 phút dưới khoá S) | BR-139, BR-84; X-25 | EC-417 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-818 | DC-ScheduleShowtimesService.CreateShowtime | bảng quyết định | Bối cảnh L; phòng 11 (cụm rạp 3) và định dạng 3D không phát hành | CreateShowtime(actor 2, req phòng 11, 3D) | Ném NotOwnCinemaError (4a trước 5a) | P12 F3 CreateShowtime bước 2 | EC-408, EC-409 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-819 | DC-ScheduleShowtimesService.CreateShowtime | bảng quyết định | Bối cảnh L; phim 6 (2D, 3D), phòng 7 chỉ 2D; bảng giá thiếu 3D | CreateShowtime(actor 2, req phim 6, 3D, phòng 7) | Ném FormatNotSupportedError (5b trước 5c) | P12 F3 CreateShowtime bước 2 | EC-410, EC-411 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-820 | DC-ScheduleShowtimesService.CreateShowtime | bảng quyết định | Bối cảnh L; bảng giá thiếu VIP; bắt đầu 2026-11-21 | CreateShowtime(actor 2, req phim 5, 2D, phòng 7, bắt đầu 2026-11-21 20:00) | Ném PriceNotCoveredError (5c trước 6a) | P12 F3 CreateShowtime bước 2 | EC-411, EC-412 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-821 | DC-ScheduleShowtimesService.CreateShowtime | bảng quyết định | Bối cảnh L; phim 7 kết thúc chiếu 2026-11-09 | CreateShowtime(actor 2, req phim 7 (kết thúc chiếu 2026-11-09), bắt đầu = now) | Ném OutsideRunPeriodError (6a trước 6b) | P12 F3 CreateShowtime bước 2 | EC-412, EC-413 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-822 | DC-ScheduleShowtimesService.CreateShowtime | bảng quyết định | Bối cảnh L | CreateShowtime(actor 2, req bắt đầu = now, mở bán = bắt đầu) | Ném ShowtimeStartedError (6b trước 6c) | P12 F3 CreateShowtime bước 2 | EC-413, EC-414 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-823 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L; mục giá VIP của (STANDARD, 2D, WEEKDAY_FROM_17) đã bỏ bởi SubmitPriceEntryRemoval | CreateShowtime(actor 2, req phòng 7, Thứ Tư 2026-11-11 20:00) | Ném PriceNotCoveredError (EX-12 ghi nhận trước thì EX-13 thấy mục đã bỏ) | BR-68, BR-69, BR-136; X-06 | EC-411 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-824 | DC-ScheduleShowtimesService.CreateShowtime | phân vùng tương đương | Bối cảnh L; giai đoạn A đọc đồng hồ CSDL 2026-11-10 09:59:59.999 (giờ bắt đầu yêu cầu 10:00:00.000 vẫn sau now); giai đoạn B có tx.Now = 10:00:00.000 | CreateShowtime(actor 2, req phòng 7, bắt đầu 2026-11-10 10:00:00.000, mở bán 2026-11-09 08:00) | Chưa xác định: chờ Q-357 (đề xuất: ShowtimeStartedError vì giai đoạn B kiểm lại 6b theo tx.Now, như UpdateShowtime; Insert 0 lần) | BR-56; UC-014 6b; Q-357 | EC-413 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-825 | DC-ScheduleShowtimesService.CreateShowtime | use case | Bối cảnh L trừ S55; phòng 7 STANDARD có 60 ghế sau khi EditAuditorium thêm ghế A13 (EX-15 ghi nhận trước), phòng 7 chưa có suất chiếu nào | CreateShowtime(actor 2, req phòng 7, bắt đầu 2026-11-12 20:00, mở bán 2026-11-10 09:00) | Thành công; IF-18.InsertAll 61 SeatStatus Trống (thấy sơ đồ mới của phòng) | BR-118; X-19 | EC-407 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-826 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; phòng 7 vừa được EditAuditorium đổi tên (EX-15 ghi nhận trước), S55 hiển thị mốc T0 | DeleteShowtime(actor 2, 55, T0) | Xoá được: EX-14 không bị EX-15 chặn (không khoá Auditorium); S55 DELETED | BR-58, BR-87; X-19 | EC-425 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-827 | DC-ManageAuditoriumsService.EditAuditorium | use case | Bối cảnh L; S55 đã xoá trước (DeleteShowtime ghi nhận trước, EX-14 trước EX-15); phòng 7 lastChangedAt T0 | EditAuditorium(actor 2, req: id 7, thêm ghế A13, T0) | Ghi được: suất chiếu đã xoá không tính ở 5a, 5b (Q-209); S55 giữ sơ đồ 60 ghế | BR-87, BR-118; Q-209; X-19 | EC-396 | fake IF-08/12/13/11/18/29, stub IF-25 | Cao | Unit |
+| TC-828 | DC-ScheduleShowtimesService.PrepareShowtimeEdit | bảng quyết định | Bối cảnh L; S55 bắt đầu 20:00, không có lần giữ ghế hiệu lực, không có vé | PrepareShowtimeEdit(actor 2, 55) | Trả ShowtimeEditView (suất chiếu, phòng, phim); không khoá; ghi 0 lần | BR-53, BR-57; UC-014 1a3 | DT18-R1, EC-430 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-829 | DC-ScheduleShowtimesService.PrepareShowtimeEdit | bảng quyết định | Bối cảnh L; S55 bắt đầu = now; có lần giữ ghế ACTIVE | PrepareShowtimeEdit(actor 2, 55) | Ném ShowtimeStartedError (1a3b trước 1a3a) | BR-57; UC-014 1a3b | DT18-R2, EC-422 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-830 | DC-ScheduleShowtimesService.PrepareShowtimeEdit | bảng quyết định | Bối cảnh L; S55 chưa bắt đầu; vé UNUSED của S55 | PrepareShowtimeEdit(actor 2, 55) | Ném ShowtimeInUseError | BR-53; UC-014 1a3a | DT18-R3, EC-429 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-831 | DC-ScheduleShowtimesService.PrepareShowtimeEdit | phân vùng tương đương | Bối cảnh L; S90 thuộc cụm rạp 3 | PrepareShowtimeEdit(actor 2, 90) | Ném NotOwnCinemaError | BR-46 | EC-424 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-832 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 lastChangedAt T0, không hold, không vé; sửa giờ bắt đầu thành 2026-11-10 20:30 | UpdateShowtime(actor 2, req: id 55, phòng 7, phim 5, bắt đầu 20:30, mở bán 2026-11-09 08:00, displayedAt = T0) | Thứ tự khoá: hạng 1 S, 2 X, 3 X, 5 S, 8 S, 10 S; IF-11.Update 1 lần với lastChangedAt = tx.Now; replaceSeatStatuses 0 lần; trả ListItem | BR-53, BR-60; UC-014 8 | EC-418 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-833 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 chưa từng có vé; phòng 8 có 80 ghế; ghế 101 của S55 đang HELD bởi H1 EXPIRED chưa được job quét | UpdateShowtime(actor 2, req: id 55, đổi sang phòng 8, T0) | Thứ tự khoá thêm hạng 6 trước hạng 8; ReleaseHold ghế 101; SaveChanges; DeleteSeatStatuses 60 ghế cũ; InsertAll 80 ghế Trống của phòng 8; không ghế nào khác Trống | BR-92, BR-53, Q-109 | EC-419, EC-432 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-834 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 có vé TK1 CANCELLED (từng có vé) | UpdateShowtime(actor 2, req: id 55, đổi sang phòng 8, T0) | Ném RoomChangeNotAllowedError; IF-11.Update 0 lần; DeleteSeatStatuses 0 lần | BR-92; UC-014 8f | EC-420 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-835 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 có vé TK1 CANCELLED; sửa giờ trong cùng phòng 7 | UpdateShowtime(actor 2, req: id 55, giữ phòng 7, giờ 20:30, T0) | Thành công (không đổi phòng nên BR-92 không chặn); replaceSeatStatuses 0 lần | BR-92 | EC-418 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-836 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 lastChangedAt T0 + 1 micro giây | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeChangedError; Update 0 lần | BR-60; UC-014 8c | EC-421 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-837 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 status DELETED (EX-14 ghi nhận trước), mốc hiển thị T0 | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeChangedError | BR-58, BR-60; X-08 | EC-421 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-838 | DC-ScheduleShowtimesService.UpdateShowtime | giá trị biên | Bối cảnh L; S55 bắt đầu đúng now | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeStartedError | BR-57; UC-014 8d | BV-146, EC-422 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-839 | DC-ScheduleShowtimesService.UpdateShowtime | giá trị biên | Bối cảnh L; S55 có H1 ACTIVE expiryTime = now + 1ms | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeInUseError; Update 0 lần | BR-53; UC-014 8a; X-03, X-11 | BV-145, EC-427 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-840 | DC-ScheduleShowtimesService.UpdateShowtime | giá trị biên | Bối cảnh L; S55 có H1 ACTIVE expiryTime = now (không còn hiệu lực); mọi vé đã huỷ | UpdateShowtime(actor 2, req: id 55 giữ phòng 7, giờ 20:30, T0) | Thành công (IsActiveAt(now) = false) | BR-53 | BV-144, EC-428 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-841 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 có vé TK2 UNUSED (đã tạo bởi HandleIpn hoặc ConfirmCashReceived trước) | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeInUseError; Update 0 lần | BR-53; UC-014 8a; X-11, X-23 | EC-429 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-842 | DC-ScheduleShowtimesService.UpdateShowtime | use case | Bối cảnh L; S55 có vé TK2 CANCELLED (EX-07 ghi nhận trước), ghế đã trả Trống; sửa giờ trong phòng 7 | UpdateShowtime(actor 2, req: id 55, giờ 20:30, T0) | Thành công: mọi vé đã huỷ nên không chặn | BR-53, BR-21; X-23 | EC-428 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-843 | DC-ScheduleShowtimesService.UpdateShowtime | phân vùng tương đương | Bối cảnh L; đọc không khoá thấy S55 ở phòng 7; sau khi khoá phòng 7, S55 đã ở phòng 8 (EX-13 khác đổi) | UpdateShowtime(actor 2, req: id 55, giờ 20:30, T0) | fn chạy lại từ đầu lần hai với phòng hiện tại 8; kết thúc thành công; khoá lấy theo thứ tự tăng ngặt ở cả hai lần | P12 F3 UpdateShowtime bước 3 | EC-423 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-844 | DC-ScheduleShowtimesService.UpdateShowtime | phân vùng tương đương | Như trên nhưng phòng hiện tại vẫn khác cur sau lần lặp thứ hai | UpdateShowtime(actor 2, req: id 55, T0) | Ném SystemBusyError; Update 0 lần | P12 F3 UpdateShowtime bước 3 (tối đa 2 lần) | EC-423 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-845 | DC-ScheduleShowtimesService.UpdateShowtime | phân vùng tương đương | Bối cảnh L; S90 thuộc cụm rạp 3 | UpdateShowtime(actor 2, req: id 90, T0) | Ném NotOwnCinemaError | BR-46 | EC-424 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-846 | DC-ScheduleShowtimesService.UpdateShowtime | bảng quyết định | Bối cảnh L; S55 lastChangedAt T0 + 1 micro giây và bắt đầu = now | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeChangedError (8c trước 8d) | P12 F3 UpdateShowtime bước 6 | EC-421, EC-422 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-847 | DC-ScheduleShowtimesService.UpdateShowtime | bảng quyết định | Bối cảnh L; S55 bắt đầu = now và có H1 ACTIVE | UpdateShowtime(actor 2, req: id 55, T0) | Ném ShowtimeStartedError (8d trước 8a) | P12 F3 UpdateShowtime bước 6 | EC-422, EC-427 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-848 | DC-ScheduleShowtimesService.UpdateShowtime | bảng quyết định | Bối cảnh L; S55 có H1 ACTIVE chưa quá hạn và có vé TK1 CANCELLED; yêu cầu đổi sang phòng 8 | UpdateShowtime(actor 2, req: id 55, phòng 8, T0) | Ném ShowtimeInUseError (8a trước 8f) | P12 F3 UpdateShowtime bước 6 | EC-427, EC-420 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-849 | DC-ScheduleShowtimesService.UpdateShowtime | bảng quyết định | Bối cảnh L; S55 có vé TK1 CANCELLED; đổi sang phòng 8 và bảng giá thiếu mục cho loại ghế của phòng 8 | UpdateShowtime(actor 2, req: id 55, phòng 8, T0) | Ném RoomChangeNotAllowedError (8f trước 8e) | P12 F3 UpdateShowtime bước 6 | EC-420, EC-411 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Trung bình | Unit |
+| TC-850 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; S55 lastChangedAt T0, chưa bắt đầu, không hold, không vé | DeleteShowtime(actor 2, 55, T0) | Thứ tự khoá: hạng 3 X, 5 S, 8 S; Update 1 lần với status DELETED, lastChangedAt = tx.Now; SaveChanges, DeleteSeatStatuses, InsertAll đều 0 lần (SeatStatus không đổi) | BR-58; UC-014 1b3 | DT17-R1, EC-425, BV-147 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-851 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; không còn dòng suất chiếu 999 | DeleteShowtime(actor 2, 999, T0) | Ném ShowtimeChangedError | BR-60; UC-014 1b3c | DT17-R2, EC-426 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-852 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; S55 lastChangedAt T0 + 1 micro giây | DeleteShowtime(actor 2, 55, T0) | Ném ShowtimeChangedError; Update 0 lần | BR-60; UC-014 1b3c; X-08 | DT17-R2, EC-421 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-853 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; S55 bắt đầu đúng now | DeleteShowtime(actor 2, 55, T0) | Ném ShowtimeStartedError | BR-57; UC-014 1b3b | DT17-R3, BV-146, EC-422 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-854 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; S55 chưa bắt đầu; H1 ACTIVE expiryTime = now + 1ms | DeleteShowtime(actor 2, 55, T0) | Ném ShowtimeInUseError; Update 0 lần | BR-53; UC-014 1b3a; X-03, X-11 | DT17-R4, BV-145, EC-427 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-855 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; S55 có H1 COMPLETED và vé TK2 UNUSED do HandleIpn tạo trước | DeleteShowtime(actor 2, 55, T0) | Ném ShowtimeInUseError (thấy vé đã tạo, không thấy trạng thái dở dang) | BR-53; X-11, X-23 | EC-429 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-856 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; S55 có H1 ACTIVE expiryTime = now (quá hạn, EX-04 chưa chạy), không vé | DeleteShowtime(actor 2, 55, T0) | Xoá được (IsActiveAt(now) = false); SeatStatus ghế còn HELD của H1 không đổi để EX-05 trả sau | BR-53, BR-58; X-11, X-20 | BV-144, EC-428 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-857 | DC-ScheduleShowtimesService.DeleteShowtime | bảng quyết định | Bối cảnh L; S55 lastChangedAt T0 + 1 micro giây và bắt đầu = now | DeleteShowtime(actor 2, 55, T0) | Ném ShowtimeChangedError (1b3c trước 1b3b) | P12 F3 DeleteShowtime | DT17-R2 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-858 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; S90 thuộc cụm rạp 3 | DeleteShowtime(actor 2, 90, T0) | Ném NotOwnCinemaError; Update 0 lần | BR-46 | EC-424 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-859 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; hai quản lý hiển thị S55 mốc T0 | DeleteShowtime(actor 2, 55, T0) lần một rồi lần hai | Lần một xoá được; lần hai ném ShowtimeChangedError (mốc đổi, status DELETED) | BR-60; X-08 | EC-421, EC-425 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-860 | DC-ScheduleShowtimesService.DeleteShowtime | use case | Bối cảnh L; S55 hiển thị mốc T0 | UpdateShowtime(actor 2, req: id 55, giờ 20:30, T0) rồi DeleteShowtime(actor 2, 55, T0) | Update thành công (lastChangedAt = tx.Now); Delete ném ShowtimeChangedError (mốc T0 đã cũ), S55 còn IN_SCHEDULE | BR-60; X-08 | EC-421, EC-418 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-861 | DC-ScheduleShowtimesService.replaceSeatStatuses | use case | Bối cảnh L; S55 đổi sang phòng 8; ghế 101 HELD bởi H1 EXPIRED, ghế 102 Trống | UpdateShowtime đổi phòng 8 (replaceSeatStatuses chạy) | ReleaseHold ghế 101 gọi 1 lần, ghế 102 0 lần; SaveChanges 1 lần (ghế 101); xoá toàn bộ ghế cũ; InsertAll cho mọi ghế trong sơ đồ phòng 8; sau đó mọi ghế mới Trống | BR-53, Q-109; X-20 | EC-432, EC-433 | fake IF-08/11/12/13/14/18/29, stub IF-25 | Cao | Unit |
+| TC-862 | DC-SeatReleaseJob.RunDue | use case | H1 EXPIRED của suất chiếu 55; ghế 101, 102 của S55 đã bị xoá (UpdateShowtime đổi phòng chạy trước EX-05) | RunDue(ctx, 8 giây) | IF-26.LockByHolds không trả ghế nào cho H1; ReleaseHold 0 lần; SaveChanges 0 lần; không lỗi; JobRunResult đếm lần giữ ghế đã xử lý | REQ-76; X-20; P12 F3 releaseBatch | - | fake IF-08/18/26, stub IF-25 | Cao | Unit |
+| TC-863 | DC-BookTicketsService.HoldSeats, DC-ManagePriceListService.SubmitPriceEntry | use case | Bối cảnh L; ghế 101, 102 của S55 AVAILABLE (STANDARD, 90.000 theo mục C1); khách 7 không có lần giữ ghế | HoldSeats(khách 7, ghế [101, 102]) rồi SubmitPriceEntry(actor 2, C1, giá 100.000, T0) | HoldSeats chốt heldPrice 90.000 mỗi ghế, tổng 180.000; Submit thành công; heldPrice của hai ghế vẫn 90.000 | BR-65, BR-71; X-04 | - | fake IF-08/11/12/13/16/17/18, stub IF-25, IF-24 | Cao | Unit |
+| TC-864 | DC-BookTicketsService.HoldSeats, DC-ManagePriceListService.SubmitPriceEntry | use case | Như TC trước | SubmitPriceEntry(actor 2, C1, giá 100.000, T0) rồi HoldSeats(khách 7, ghế [101, 102]) | HoldSeats chốt heldPrice 100.000 mỗi ghế, tổng 200.000 (lấy giá sau thay đổi, không lẫn) | BR-65, BR-71; X-04 | - | fake IF-08/11/12/13/16/17/18, stub IF-25, IF-24 | Cao | Unit |
+| TC-865 | DC-BookTicketsService.HoldSeats, DC-ManageAuditoriumsService.EditAuditorium | use case | Bối cảnh L; phòng 7 STANDARD; bảng giá có mục IMAX STANDARD WEEKDAY_FROM_17 giá 150.000; ghế 101 AVAILABLE | EditAuditorium(phòng 7 đổi loại IMAX, sơ đồ giữ nguyên) rồi HoldSeats(khách 7, [101]) | Edit thành công; HoldSeats chốt heldPrice 150.000 theo loại phòng mới | BR-137; X-21 | - | fake IF-08/11/12/13/16/17/18/29, stub IF-25, IF-24 | Cao | Unit |
+| TC-866 | DC-BookTicketsService.HoldSeats, DC-ManageAuditoriumsService.EditAuditorium | use case | Như TC trước | HoldSeats(khách 7, [101]) rồi EditAuditorium(phòng 7 đổi loại IMAX) | HoldSeats chốt heldPrice 90.000 theo loại phòng cũ; Edit thành công; heldPrice của ghế 101 vẫn 90.000 | BR-137; X-21 | - | fake IF-08/11/12/13/16/17/18/29, stub IF-25, IF-24 | Cao | Unit |
+| TC-867 | DC-ViewChainReportService.ViewChainReport | use case | Không có dữ liệu | ViewChainReport(req: view theo phim, từ ngày rỗng, đến ngày 2026-11-15) | Ném InvalidPeriodError(MISSING_FROM); Do 0 lần; IF-28 0 lần | UC-016 1a | EC-435 | fake IF-08/13/28, stub múi giờ | Cao | Unit |
+| TC-868 | DC-ViewChainReportService.ViewChainReport | use case | Không có dữ liệu | ViewChainReport(req: từ ngày 2026-11-16, đến ngày 2026-11-15) | Ném InvalidPeriodError(FROM_AFTER_TO); Do 0 lần | UC-016 1a | EC-435 | fake IF-08/13/28, stub múi giờ | Cao | Unit |
+| TC-869 | DC-ViewChainReportService.ViewChainReport | giá trị biên | IF-28 trả [] | ViewChainReport(req: từ ngày = đến ngày = 2026-11-15) | Do(ReportTx "ChainReport") 1 lần; q = [2026-11-15 00:00, 2026-11-16 00:00) +07:00; trả ChainReport rỗng (IsEmpty = true) | UC-016 2a; GL-66 | BV-148, EC-434, EC-436 | fake IF-08/13/28, stub múi giờ | Cao | Unit |
+| TC-870 | DC-ViewChainReportService.ViewChainReport | use case | Khoá nhóm K1 (phim "Mai"); cụm rạp 2 doanh thu 180.000, bán 2, sức chứa 100; cụm rạp 3 doanh thu 90.000, bán 1, sức chứa 25; ListCinemas trả [2, 3] | ViewChainReport(req: kỳ 2026-11-01 đến 2026-11-30) | Nhóm toàn chuỗi K1: doanh thu 270.000, bán 3, sức chứa 125, tỉ lệ 2,4 (tổng ghế chia tổng sức chứa, không phải trung bình 3 của 2 và 4); nhóm cụm rạp 2 tỉ lệ 2, cụm rạp 3 tỉ lệ 4; thứ tự cụm rạp theo ListCinemas | BR-88; UC-016 | EC-434, EC-438 | fake IF-08/13/28, stub múi giờ | Cao | Unit |
+| TC-871 | DC-ViewChainReportService.ViewChainReport | use case | Như TC trước và ListCinemas trả [2, 3, 4]; cụm rạp 4 không có dòng số liệu | ViewChainReport(req: kỳ 2026-11-01 đến 2026-11-30) | Trong K1 có nhóm của cụm rạp 4 với doanh thu 0 đồng, bán 0, sức chứa 0, tỉ lệ không áp dụng (applicable = false) | Q-237; UC-016 | EC-437 | fake IF-08/13/28, stub múi giờ | Cao | Unit |
+| TC-872 | DC-ViewChainReportService.ViewChainReport | use case | Hai khoá nhóm K1 và K2; cụm rạp 3 chỉ có dòng ở K2 | ViewChainReport(req: kỳ 2026-11-01 đến 2026-11-30) | Hai entry theo thứ tự IF-28; K1 có nhóm cụm rạp 3 rỗng (0 đồng, không áp dụng); K2 có số liệu cụm rạp 3 | Q-237, Q-303 | EC-439, EC-437 | fake IF-08/13/28, stub múi giờ | Trung bình | Unit |
+| TC-873 | DC-ViewChainReportService.ViewChainReport | phân vùng tương đương | Cụm rạp 2 có dòng K1 doanh thu 90.000 bán 1 sức chứa 0 (suất chiếu đã xoá) | ViewChainReport(req: kỳ 2026-11-01 đến 2026-11-30) | Nhóm cụm rạp 2 và nhóm toàn chuỗi có tỉ lệ không áp dụng (sức chứa 0); doanh thu vẫn cộng 90.000 | BR-118, BR-88 | EC-440 | fake IF-08/13/28, stub múi giờ | Trung bình | Unit |
+| TC-874 | DC-ViewChainReportService.ViewChainReport | phân vùng tương đương | IF-28.FindChainFigures trả SystemBusyError | ViewChainReport(req: kỳ hợp lệ) | Trả SystemBusyError; không báo cáo dở | P12 F2 | EC-441 | fake IF-08/13/28, stub múi giờ | Trung bình | Unit |
+| TC-875 | DC-BrowseMoviesService.ListMovies | giá trị biên | Phim 5 (khởi chiếu 2026-11-05, kết thúc 2026-11-20); tx.Now = 2026-11-20 16:59:59.999Z (23:59:59.999 ngày 20 +07:00) | ListMovies() | Phim 5 thuộc nowShowing (ngày kết thúc chiếu vẫn đang chiếu) | BR-76 | BV-149, EC-442 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-876 | DC-BrowseMoviesService.ListMovies | giá trị biên | Như trên; tx.Now = 2026-11-20 17:00:00Z (00:00 ngày 21 +07:00) | ListMovies() | Phim 5 bị bỏ (ENDED theo ngày nghiệp vụ +07:00, không theo UTC); IsEmpty = true nếu không phim nào khác | BR-76 | BV-153, BV-150, EC-444, EC-445 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-877 | DC-BrowseMoviesService.ListMovies | giá trị biên | Phim 6 khởi chiếu 2026-11-12; phim 5 như trên; tx.Now = 2026-11-11 10:00 | ListMovies() | Phim 6 vào comingSoon kèm ngày khởi chiếu 2026-11-12; phim 5 vào nowShowing | BR-76 | BV-151, EC-443 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-878 | DC-BrowseMoviesService.ListMovies | giá trị biên | Phim 6 khởi chiếu 2026-11-12; tx.Now = 2026-11-12 00:00:00.000 +07:00 | ListMovies() | Phim 6 vào nowShowing | BR-76 | BV-152, EC-442 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-879 | DC-BrowseMoviesService.ListMovies | phân vùng tương đương | Chuỗi có phim 4 kết thúc 2026-11-09 và phim 5 đang chiếu; tx.Now = 2026-11-10 10:00 | ListMovies() | nowShowing = [phim 5]; comingSoon rỗng; phim 4 không xuất hiện; Do 1 lần, ghi 0 | BR-76; UC-003 | EC-442, EC-444 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-880 | DC-BrowseMoviesService.ListMovies | phân vùng tương đương | Chuỗi chỉ có phim 4 đã hết chiếu | ListMovies() | MovieListing.IsEmpty() = true (hai nhóm rỗng) | UC-003 2a | EC-445 | fake IF-08/14, stub IF-25, múi giờ | Cao | Unit |
+| TC-881 | DC-BrowseMoviesService.GetMovieDetails | use case | Phim 5 có mô tả và trailer | GetMovieDetails(5) | Trả MovieDetails đủ tên, thể loại, thời lượng, độ tuổi, mô tả, trailer; không ghi | UC-003 2.1 | EC-446 | fake IF-08/14, stub IF-25, múi giờ | Trung bình | Unit |
+| TC-882 | DC-BrowseMoviesService.GetMovieDetails | phân vùng tương đương | Không có phim 9999 | GetMovieDetails(9999) | Ném NotFoundError | P12 F2 | EC-447 | fake IF-08/14, stub IF-25, múi giờ | Trung bình | Unit |
+| TC-883 | DC-BookTicketsService.HoldSeats, DC-ScheduleShowtimesService.UpdateShowtime, DeleteShowtime | tích hợp đồng thời | Bối cảnh L; S55 chưa có lần giữ ghế; hiển thị mốc T0 cho quản lý và khách | Thứ tự A: HoldSeats ghế 101 (displayedAt T0) commit trước, rồi DeleteShowtime(55, T0) và UpdateShowtime(55, T0). Thứ tự B: DeleteShowtime(55, T0) commit trước, rồi HoldSeats (displayedAt T0); biến thể B2: UpdateShowtime commit trước rồi HoldSeats | A: Delete và Update nhận ShowtimeInUseError (BR-53). B: HoldSeats nhận ShowtimeChangedError (luồng 7d, BR-54), ghế 101 vẫn AVAILABLE, không có lần giữ ghế; không có 40P01 hay 23505 lọt ra | BR-53, BR-54; X-03 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-884 | DC-BookTicketsService.HoldSeats, DC-ManagePriceListService.SubmitPriceEntry, SubmitPriceEntryRemoval | tích hợp đồng thời | Bối cảnh L; mục C1 giá 90.000 lastChangedAt T0 | Thứ tự A: HoldSeats giữ khoá PriceList S (hook giữ giao dịch), SubmitPriceEntry(C1, 100.000, T0) đến sau. Thứ tự B: SubmitPriceEntry giữ khoá PriceList X, HoldSeats đến sau. Biến thể: SubmitPriceEntryRemoval thay Submit | A: Submit chờ HoldSeats commit; heldPrice 90.000; Submit thành công sau. B: HoldSeats chờ Submit commit rồi chốt 100.000. Giá chốt là một trong hai, không lẫn; Remove không xen vào lúc đang chốt giá (X-04); không 40P01 | BR-65, BR-71, BR-64; X-04 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-885 | DC-ManagePriceListService.SubmitPriceEntry, SubmitPriceEntryRemoval | tích hợp đồng thời | Bối cảnh L; mục C1V lastChangedAt T0; hai quản lý cụm rạp 2 cùng hiển thị mốc T0 | Thứ tự A: Submit(C1V, 120.000, T0) commit trước rồi Submit(C1V, 130.000, T0). Thứ tự B: Submit(C1V, 120.000, T0) commit trước rồi Remove(C1V, T0). Thứ tự C: Remove trước rồi Submit(C1V, 120.000, T0) | A: yêu cầu sau nhận PriceEntryChangedError, giá 120.000 không bị ghi đè (luồng 5a). B: Remove nhận PriceEntryChangedError (luồng 1a3a). C: Submit nhận PriceEntryChangedError vì mục đã bỏ có mốc mới; không có hai mục cùng tổ hợp (unique P13) | BR-63; X-05 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-886 | DC-ManagePriceListService.SubmitPriceEntryRemoval, DC-ScheduleShowtimesService.CreateShowtime | tích hợp đồng thời | Bối cảnh L; mục C1V lastChangedAt T0; chưa có suất chiếu thứ Tư 2026-11-11 20:00 ở phòng 7 | Thứ tự A: Remove(C1V, T0) giữ khoá PriceList X (hook), CreateShowtime(phòng 7, Thứ Tư 20:00) đến sau. Thứ tự B: CreateShowtime giữ khoá PriceList S và Auditorium X, Remove đến sau | A: Create chờ rồi nhận PriceNotCoveredError (mục đã bỏ). B: Remove chờ Create commit rồi nhận PriceEntryInUseError (thấy suất chiếu mới). Không suất chiếu nào được lập khi thiếu giá | BR-64, BR-68, BR-69, BR-136; X-06 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-887 | DC-ScheduleShowtimesService.UpdateShowtime, DeleteShowtime | tích hợp đồng thời | Bối cảnh L; S55 hiển thị mốc T0 cho hai quản lý | Thứ tự A: Update(55, T0) commit trước rồi Delete(55, T0). Thứ tự B: Delete(55, T0) commit trước rồi Update(55, T0). Thứ tự C: hai Delete(55, T0) đồng thời | A: Delete nhận ShowtimeChangedError (1b3c), S55 còn IN_SCHEDULE. B: Update nhận ShowtimeChangedError (8c), S55 DELETED. C: đúng một Delete thành công, bên kia ShowtimeChangedError; không 40P01 | BR-60; X-08 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-888 | DC-PaymentReportService.HandleIpn, DC-BookTicketsService.ConfirmCashReceived, DC-ScheduleShowtimesService.DeleteShowtime, UpdateShowtime | tích hợp đồng thời | Bối cảnh L; H1 ACTIVE giữ ghế 101, 102 của S55, expiryTime = now + 5 phút; giao dịch thanh toán chờ | Thứ tự A: IPN thành công (hoặc ConfirmCashReceived) commit trước rồi Delete(55, T0) và Update(55, T0). Thứ tự B: Delete(55, T0) bắt đầu trước, khi H1 còn ACTIVE, rồi IPN đến | A: Delete và Update nhận ShowtimeInUseError (thấy H1 COMPLETED cùng vé đã tạo, không thấy trạng thái dở dang). B: Delete nhận ShowtimeInUseError vì H1 còn ACTIVE; IPN xử lý bình thường; S55 còn IN_SCHEDULE | BR-53; X-11 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-889 | DC-ManageAuditoriumsService.EditAuditorium, DC-ScheduleShowtimesService.CreateShowtime, DeleteShowtime | tích hợp đồng thời | Bối cảnh L trừ S55; phòng 7 hiển thị mốc T0; S60 của phòng 7 chưa mở bán, S61 của phòng 7 sắp được lập mở bán ngay | Thứ tự A: Edit(phòng 7, thêm ghế A13, T0) commit trước rồi Create(S61 mở bán ngay) và Delete(S60). Thứ tự B: Create(S61 mở bán ngay) commit trước rồi Edit(thêm A13, T0). Biến thể C: Delete(S61 đã mở bán) trước Edit | A: S61 có đủ 61 ghế Trống (thấy sơ đồ mới); S60 nhận ghế A13 mới. B: Edit nhận AuditoriumBlockedError (5a, suất S61 đã mở bán chưa kết thúc). C: Edit thành công vì suất chiếu đã xoá không chặn (Q-209); S61 giữ sơ đồ cũ | BR-87, BR-118, BR-136; X-19 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-890 | DC-ScheduleShowtimesService.UpdateShowtime, DC-SeatReleaseJob.RunDue, DC-HoldExpiryJob.RunDue, DC-CancelTicketService.CancelOnlineTicket | tích hợp đồng thời | Bối cảnh L; H1 EXPIRED còn ghế 101, 102 HELD ở S55 chưa được job quét; hoặc vé TK2 UNUSED của ghế 103 | Thứ tự A: SeatReleaseJob trả ghế 101, 102 trước, rồi UpdateShowtime đổi sang phòng 8. Thứ tự B: UpdateShowtime đổi phòng 8 trước, rồi SeatReleaseJob chạy. Biến thể C: CancelOnlineTicket(TK2) rồi UpdateShowtime; biến thể D: UpdateShowtime trước rồi CancelOnlineTicket | A: Update thấy ghế Trống, ReleaseHold không đổi gì; mọi ghế mới Trống. B: Update giải phóng ghế dở trong replaceSeatStatuses; job không thấy liên kết khớp hoặc ghế cũ đã xoá, không đổi, không lỗi. C: Update thấy vé đã huỷ (BR-92 vẫn chặn đổi phòng, cho phép đổi giờ). D: Update bị ShowtimeInUseError chặn vì vé TK2 chưa huỷ; Cancel thành công | BR-53, BR-92, REQ-76; X-20, X-23 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-891 | DC-ManageAuditoriumsService.EditAuditorium, DC-BookTicketsService.HoldSeats, DC-ManagePriceListService.SubmitPriceEntryRemoval | tích hợp đồng thời | Bối cảnh L; phòng 7 STANDARD hiển thị mốc T0; bảng giá có mục IMAX; ghế 101 AVAILABLE | Thứ tự A: Edit(phòng 7, đổi loại IMAX, T0) giữ khoá Auditorium X (hook), HoldSeats ghế 101 đến sau. Thứ tự B: HoldSeats giữ khoá Auditorium S, Edit đến sau. Biến thể C: Edit trước rồi Remove(mục STANDARD VIP, T0); biến thể D: Remove trước rồi Edit | A: HoldSeats chờ rồi chốt heldPrice theo loại IMAX (150.000, BR-137). B: HoldSeats chốt 90.000 theo loại cũ, Edit thành công sau, heldPrice của ghế 101 vẫn 90.000. C: Remove thành công (S55 thuộc loại IMAX). D: Remove nhận PriceEntryInUseError, rồi Edit thành công. Không lẫn giữa loại phòng cũ và mới; không 40P01 | BR-73, BR-137, BR-64; X-21 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-892 | DC-CancelTicketService.CancelOnlineTicket, DC-ScheduleShowtimesService.DeleteShowtime, UpdateShowtime | tích hợp đồng thời | Bối cảnh L; vé TK2 UNUSED mua trực tuyến của ghế 103 ở S55; S55 hiển thị mốc T0 | Thứ tự A: CancelOnlineTicket(TK2) commit trước rồi Delete(55, T0). Thứ tự B: Delete(55, T0) và Update(55, T0) bắt đầu khi TK2 chưa huỷ, rồi Cancel | A: Cancel thành công (vé CANCELLED, ghế 103 Trống, tạo yêu cầu hoàn tiền); Delete thấy mọi vé đã huỷ nên xoá được; ghế 103 đã Trống không dở dang. B: Delete và Update nhận ShowtimeInUseError (vé chưa huỷ); Cancel thành công sau; không trạng thái dở dang (vé đã huỷ mà ghế kẹt Đã bán) | BR-21, BR-53, BR-30; X-23 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
+| TC-893 | DC-ScheduleShowtimesService.CreateShowtime, UpdateShowtime, DC-ManageAuditoriumsService.EditAuditorium | tích hợp đồng thời | Bối cảnh L; PostgreSQL thật | SIGKILL backend giữa thao tác (trước COMMIT, sau INSERT suất chiếu hoặc sau DeleteSeatStatuses, trước InsertAll hoặc sau SaveAuditorium, trước applySeatMapToShowtimes) của EX-13 (lập, đổi phòng) và EX-15 | Không có suất chiếu thiếu trạng thái ghế, không có suất chiếu đổi phòng mà trạng thái ghế còn của phòng cũ, không có phòng đổi sơ đồ mà suất chiếu chưa mở bán giữ sơ đồ cũ: rollback trọn do một COMMIT; sau khi khởi động lại, thao tác chạy lại thành công | P09 F7.10 (Bảng hỏng 8); BR-53, BR-118 | - | không (PostgreSQL thật); IF-01 giả lập | Cao | Tích hợp |
 
 ## F4. Ma trận phủ
 
@@ -5944,6 +6682,200 @@ F4.1. Phân vùng, giá trị biên, quy tắc bảng quyết định, chuyển 
 | DT14-R2 (quy tắc bảng quyết định DT14-R2) | TC-469 | Có |
 | DT14-R3 (quy tắc bảng quyết định DT14-R3) | TC-470 | Có |
 | DT14-R4 (quy tắc bảng quyết định DT14-R4) | TC-471 | Có |
+| EC-312 (giá vé - lớn hơn 0) | TC-660 | Có |
+| EC-313 (giá vé - nhỏ hơn hoặc bằng 0) | TC-661 | Có |
+| EC-314 (mục giá của tổ hợp - đã có, mốc bằng mốc lúc hiển thị) | TC-662, TC-667, TC-671 | Có |
+| EC-315 (mục giá của tổ hợp - đã có, mốc lệch mốc lúc hiển thị) | TC-663, TC-670, TC-672 | Có |
+| EC-316 (mục giá của tổ hợp - chưa từng có, mốc hiển thị rỗng) | TC-664, TC-668 | Có |
+| EC-317 (mục giá của tổ hợp - chưa từng có, mốc hiển thị khác rỗng) | TC-665 | Có |
+| EC-318 (mục giá của tổ hợp - đã bỏ, mốc hiển thị bằng mốc bỏ) | TC-666, TC-669 | Có |
+| EC-319 (bảng giá so với suất chiếu - có mục chưa bỏ cho mọi loại ghế của phòng) | TC-677 | Có |
+| EC-320 (bảng giá so với suất chiếu - thiếu mục của một loại ghế hoặc khung giờ) | TC-678, TC-679, TC-681 | Có |
+| EC-321 (bảng giá so với suất chiếu - mục của loại ghế đã bỏ) | TC-680 | Có |
+| EC-322 (suất chiếu so với tổ hợp giá - chưa xoá, chưa bắt đầu, khớp cả bốn yếu tố) | TC-673, TC-682, TC-684 | Có |
+| EC-323 (suất chiếu so với tổ hợp giá - đã bắt đầu hoặc đã xoá) | TC-683, TC-685 | Có |
+| EC-324 (suất chiếu so với tổ hợp giá - lệch loại phòng, định dạng, khung giờ hoặc loại ghế) | TC-686, TC-687, TC-688 | Có |
+| EC-325 (suất chiếu so với sơ đồ ghế - đã mở bán, chưa kết thúc, chưa xoá) | TC-689, TC-690, TC-693, TC-773 | Có |
+| EC-326 (suất chiếu so với sơ đồ ghế - chưa mở bán, đã kết thúc hoặc đã xoá) | TC-691, TC-692, TC-694 | Có |
+| EC-327 (giá sau khi sửa phòng - suất chiếu chưa bắt đầu, bảng giá phủ) | TC-695 | Có |
+| EC-328 (giá sau khi sửa phòng - suất chiếu chưa bắt đầu, bảng giá thiếu) | TC-696 | Có |
+| EC-329 (giá sau khi sửa phòng - suất chiếu đã bắt đầu hoặc đã xoá) | TC-697, TC-698 | Có |
+| EC-330 (suất chiếu so với sơ đồ mới - chưa mở bán, sơ đồ khác) | TC-699, TC-701 | Có |
+| EC-331 (suất chiếu so với sơ đồ mới - đã mở bán hoặc đã xoá) | TC-700, TC-702 | Có |
+| EC-332 (giờ mở bán - trước giờ bắt đầu) | TC-703 | Có |
+| EC-333 (giờ mở bán - bằng hoặc sau giờ bắt đầu) | TC-704 | Có |
+| EC-334 (suất chiếu khi xoá - IN_SCHEDULE) | TC-705 | Có |
+| EC-335 (suất chiếu khi xoá - đã DELETED) | TC-706 | Có |
+| EC-336 (sơ đồ nhập so với sơ đồ hiện có - giống hệt) | TC-707 | Có |
+| EC-337 (sơ đồ nhập - có vị trí mới) | TC-708 | Có |
+| EC-338 (sơ đồ nhập - thiếu một vị trí đang có) | TC-709 | Có |
+| EC-339 (sơ đồ nhập - cùng vị trí khác loại) | TC-710 | Có |
+| EC-340 (sơ đồ nhập - vị trí của ghế đã RETIRED nhập lại) | TC-711 | Có |
+| EC-341 (sức chứa - từ 50 đến 400) | TC-713, TC-714 | Có |
+| EC-342 (sức chứa - dưới 50 hoặc trên 400) | TC-712, TC-715 | Có |
+| EC-343 (thông tin phòng - tên, loại, định dạng, ghế đều hợp lệ) | TC-716 | Có |
+| EC-344 (thông tin phòng - tên rỗng) | TC-717, TC-721 | Có |
+| EC-345 (thông tin phòng - không có định dạng) | TC-718, TC-721 | Có |
+| EC-346 (thông tin phòng - hai ghế cùng (hàng, số ghế)) | TC-719 | Có |
+| EC-347 (thông tin phòng - ghế có hàng rỗng hoặc số ghế không dương) | TC-720 | Có |
+| EC-348 (phòng so với cụm rạp của quản lý - cùng cụm rạp) | TC-722, TC-784 | Có |
+| EC-349 (phòng so với cụm rạp của quản lý - khác cụm rạp) | TC-723 | Có |
+| EC-350 (tên phòng - chưa thuộc phòng nào của cụm rạp (sau chuẩn hoá)) | TC-724 | Có |
+| EC-351 (tên phòng - trùng phòng khác của cụm rạp sau chuẩn hoá) | TC-725 | Có |
+| EC-352 (tên phòng - trùng chính phòng đang sửa (excludeId)) | TC-726 | Có |
+| EC-353 (thông tin phim - mọi trường hợp lệ) | TC-727, TC-731, TC-733 | Có |
+| EC-354 (thông tin phim - tên hoặc thể loại rỗng) | TC-728, TC-729 | Có |
+| EC-355 (thông tin phim - thời lượng không dương) | TC-730 | Có |
+| EC-356 (thông tin phim - ngày kết thúc chiếu trước ngày khởi chiếu) | TC-732 | Có |
+| EC-357 (thông tin phim - nhãn độ tuổi ngoài tập P, K, T13, T16, T18, C) | TC-734 | Có |
+| EC-358 (thông tin phim - không có định dạng phát hành) | TC-735 | Có |
+| EC-359 (thông tin cụm rạp - tên và tỉnh thành phố không rỗng) | TC-736 | Có |
+| EC-360 (thông tin cụm rạp - tên rỗng) | TC-737 | Có |
+| EC-361 (thông tin cụm rạp - tỉnh thành phố rỗng) | TC-738 | Có |
+| EC-362 (bỏ mục giá - tổ hợp chưa từng có mục) | TC-675 | Có |
+| EC-363 (bỏ mục giá - mục đã bỏ) | TC-676 | Có |
+| BV-112 (giá vé (EC-313) - 0) | TC-661 | Có |
+| BV-113 (giá vé (EC-312) - 1) | TC-660 | Có |
+| BV-114 (sức chứa (EC-342) - 49) | TC-712 | Có |
+| BV-115 (sức chứa (EC-341) - 50) | TC-713 | Có |
+| BV-116 (sức chứa (EC-341) - 400) | TC-714 | Có |
+| BV-117 (sức chứa (EC-342) - 401) | TC-715 | Có |
+| BV-118 (thời lượng phim (EC-355) - 0 phút) | TC-730 | Có |
+| BV-119 (thời lượng phim (EC-353) - 1 phút) | TC-731 | Có |
+| BV-120 (ngày kết thúc chiếu (EC-356) - khởi chiếu - 1 ngày) | TC-732 | Có |
+| BV-121 (ngày kết thúc chiếu (EC-353) - bằng ngày khởi chiếu) | TC-733 | Có |
+| BV-122 (giờ mở bán so với now (EC-325) - saleOpenTime = now) | TC-690 | Có |
+| BV-123 (giờ mở bán so với now (EC-326) - saleOpenTime = now + 1ms) | TC-691 | Có |
+| BV-124 (giờ kết thúc so với now (EC-326) - now = endTime) | TC-692 | Có |
+| BV-125 (giờ kết thúc so với now (EC-325) - now = endTime - 1ms) | TC-693 | Có |
+| BV-126 (giờ mở bán so với giờ bắt đầu (EC-332) - start - 1ms) | TC-703 | Có |
+| BV-127 (giờ mở bán so với giờ bắt đầu (EC-333) - bằng start) | TC-704 | Có |
+| BV-128 (giờ bắt đầu so với now (EC-323) - start = now) | TC-683 | Có |
+| BV-129 (giờ bắt đầu so với now (EC-322) - start = now + 1ms) | TC-684 | Có |
+| BV-130 (giờ bắt đầu so với now (EC-329) - start = now) | TC-697 | Có |
+| BV-131 (giờ bắt đầu so với now (EC-328) - start = now + 1ms) | TC-696 | Có |
+| BV-132 (giờ mở bán so với now (EC-331) - saleOpenTime = now) | TC-700 | Có |
+| BV-133 (giờ mở bán so với now (EC-330) - saleOpenTime = now + 1ms) | TC-701 | Có |
+| EC-364 (AddMovie: draft - hợp lệ) | TC-739 | Có |
+| EC-365 (AddMovie, SaveMovieChanges: draft - sai (tên rỗng)) | TC-740, TC-745, TC-746 | Có |
+| EC-366 (AddMovie: tên - trùng tên phim khác) | TC-741 | Có |
+| EC-367 (SaveMovieChanges: mốc - bằng lastChangedAt) | TC-742, TC-747 | Có |
+| EC-368 (SaveMovieChanges: mốc - lệch lastChangedAt) | TC-743, TC-746, TC-747 | Có |
+| EC-369 (phim theo mã - không tồn tại) | TC-744, TC-750 | Có |
+| EC-370 (ListMovies, GetMovieForEdit: phim - tồn tại) | TC-748, TC-749 | Có |
+| BV-134 (mốc so với lastChangedAt (EC-367) - displayedAt = lastChangedAt) | TC-742 | Có |
+| BV-135 (mốc so với lastChangedAt (EC-368) - lastChangedAt = displayedAt + 1 micro giây) | TC-743 | Có |
+| EC-371 (AddCinema: draft và tên - hợp lệ, tên chưa thuộc cụm rạp nào) | TC-751, TC-755 | Có |
+| EC-372 (AddCinema, SaveCinemaChanges: draft - tỉnh thành phố rỗng) | TC-752, TC-762 | Có |
+| EC-373 (AddCinema: tên - trùng cụm rạp khác sau chuẩn hoá) | TC-753, TC-755 | Có |
+| EC-374 (SaveCinemaChanges: tên - giữ nguyên tên, mốc đúng) | TC-756 | Có |
+| EC-375 (SaveCinemaChanges: tên - đổi sang tên chưa ai dùng, mốc đúng) | TC-757 | Có |
+| EC-376 (SaveCinemaChanges: tên - thuộc cụm rạp khác) | TC-758, TC-760 | Có |
+| EC-377 (SaveCinemaChanges: mốc - lệch lastChangedAt) | TC-759, TC-760 | Có |
+| EC-378 (cụm rạp theo mã - không tồn tại) | TC-761, TC-764 | Có |
+| EC-379 (AddCinema: ghi bảng giá rỗng - kho trả lỗi) | TC-754 | Có |
+| EC-380 (ListCinemas, GetCinemaForEdit: cụm rạp - tồn tại) | TC-763 | Có |
+| BV-136 (mốc so với lastChangedAt (EC-374) - displayedAt = lastChangedAt) | TC-756 | Có |
+| BV-137 (mốc so với lastChangedAt (EC-377) - lastChangedAt = displayedAt + 1 micro giây) | TC-759 | Có |
+| EC-381 (AddAuditorium: dữ liệu - hợp lệ, sức chứa trong khoảng, tên chưa có) | TC-765, TC-770 | Có |
+| EC-382 (AddAuditorium: dữ liệu - draft sai (tên rỗng)) | TC-766, TC-769 | Có |
+| EC-383 (AddAuditorium: sức chứa - ngoài [50, 400]) | TC-767, TC-769 | Có |
+| EC-384 (AddAuditorium: tên - trùng phòng khác của cụm rạp) | TC-768, TC-769, TC-770 | Có |
+| EC-385 (EditAuditorium: mọi kiểm - đạt) | TC-771 | Có |
+| EC-386 (phòng so với cụm rạp của actor - khác cụm rạp) | TC-782, TC-787, TC-788 | Có |
+| EC-387 (phòng theo mã - không còn dòng) | TC-783, TC-786 | Có |
+| EC-388 (EditAuditorium: mốc - lệch lastChangedAt) | TC-777, TC-779 | Có |
+| EC-389 (EditAuditorium: tên - trùng phòng khác) | TC-778, TC-779, TC-780 | Có |
+| EC-390 (EditAuditorium: sơ đồ đổi, suất chiếu - có suất chiếu đã mở bán chưa kết thúc) | TC-773, TC-775, TC-780, TC-781 | Có |
+| EC-391 (EditAuditorium: loại phòng đổi - suất chiếu chưa bắt đầu thiếu giá) | TC-776, TC-781 | Có |
+| EC-392 (EditAuditorium: sơ đồ ghế - không đổi (chỉ đổi tên hoặc loại)) | TC-771 | Có |
+| EC-393 (RemoveAuditorium: lịch sử suất chiếu - chưa từng có) | TC-784 | Có |
+| EC-394 (RemoveAuditorium: lịch sử suất chiếu - từng có (kể cả đã xoá)) | TC-785 | Có |
+| EC-395 (applySeatMapToShowtimes: suất chiếu - chưa mở bán) | TC-772 | Có |
+| EC-396 (applySeatMapToShowtimes: suất chiếu - đã mở bán, đã kết thúc hoặc đã xoá) | TC-774, TC-827 | Có |
+| EC-397 (ListAuditoriums, SelectAuditorium: phòng - thuộc cụm rạp của actor) | TC-788 | Có |
+| BV-138 (giờ mở bán so với now (EC-390) - saleOpenTime = now, chưa kết thúc, sơ đồ đổi) | TC-773 | Có |
+| BV-139 (giờ mở bán so với now (EC-395) - saleOpenTime = now + 1ms, sơ đồ đổi) | TC-772 | Có |
+| EC-398 (SubmitPriceEntry: tổ hợp - chưa có mục, giá hợp lệ, mốc rỗng) | TC-789 | Có |
+| EC-399 (SubmitPriceEntry: tổ hợp - đã có mục, đổi giá, mốc đúng) | TC-791, TC-793, TC-794 | Có |
+| EC-400 (SubmitPriceEntry: giá - không dương) | TC-790 | Có |
+| EC-401 (SubmitPriceEntry: mốc - lệch mốc của mục) | TC-792, TC-793 | Có |
+| EC-402 (SubmitPriceEntryRemoval: mục - mốc đúng, không suất chiếu nào dùng) | TC-795, TC-798, TC-800 | Có |
+| EC-403 (SubmitPriceEntryRemoval: mục - có suất chiếu chưa bắt đầu dùng) | TC-796, TC-799, TC-801 | Có |
+| EC-404 (SubmitPriceEntryRemoval: mốc - lệch hoặc mục đã bỏ) | TC-794, TC-797, TC-798 | Có |
+| EC-405 (GetPriceList: bảng giá - của cụm rạp actor) | TC-802 | Có |
+| EC-406 (GetPriceList: bảng giá - cụm rạp không có) | TC-803 | Có |
+| BV-140 (giá vé (EC-398) - 1) | TC-789 | Có |
+| BV-141 (giá vé (EC-400) - 0) | TC-790 | Có |
+| BV-142 (giờ bắt đầu của suất chiếu so với now (EC-402) - start = now) | TC-795 | Có |
+| BV-143 (giờ bắt đầu của suất chiếu so với now (EC-403) - start = now + 1ms) | TC-796 | Có |
+| EC-407 (CreateShowtime: yêu cầu - mọi kiểm đạt) | TC-805, TC-814, TC-815, TC-816, TC-825 | Có |
+| EC-408 (CreateShowtime: phòng - khác cụm rạp của actor) | TC-806, TC-818 | Có |
+| EC-409 (CreateShowtime: định dạng - phim không phát hành định dạng) | TC-807, TC-818 | Có |
+| EC-410 (CreateShowtime: định dạng - phòng không hỗ trợ định dạng) | TC-808, TC-819 | Có |
+| EC-411 (CreateShowtime: bảng giá - không phủ mọi loại ghế) | TC-809, TC-819, TC-820, TC-823, TC-849 | Có |
+| EC-412 (CreateShowtime: ngày chiếu - ngoài khoảng chiếu của phim) | TC-810, TC-820, TC-821 | Có |
+| EC-413 (CreateShowtime: giờ bắt đầu - bằng now) | TC-811, TC-821, TC-822, TC-824 | Có |
+| EC-414 (CreateShowtime: giờ mở bán - không trước giờ bắt đầu) | TC-812, TC-822 | Có |
+| EC-415 (CreateShowtime: phòng dưới khoá - đã bị xoá giữa hai giai đoạn) | TC-813 | Có |
+| EC-416 (CreateShowtime: khoảng cách phòng - suất chiếu giao nhau trong phòng) | TC-814, TC-815 | Có |
+| EC-417 (CreateShowtime: thời lượng phim - đổi giữa hai giai đoạn) | TC-817 | Có |
+| EC-418 (UpdateShowtime: yêu cầu - mọi kiểm đạt, giữ phòng) | TC-832, TC-835, TC-860 | Có |
+| EC-419 (UpdateShowtime: phòng - đổi sang phòng khác, chưa từng có vé) | TC-833 | Có |
+| EC-420 (UpdateShowtime: phòng - đổi phòng khi từng có vé (kể cả đã huỷ)) | TC-834, TC-848, TC-849 | Có |
+| EC-421 (UpdateShowtime, DeleteShowtime: mốc - lệch lastChangedAt hoặc suất chiếu đã xoá) | TC-836, TC-837, TC-846, TC-852, TC-859, TC-860 | Có |
+| EC-422 (UpdateShowtime, DeleteShowtime, PrepareShowtimeEdit: giờ bắt đầu - không sau now) | TC-829, TC-838, TC-846, TC-847, TC-853 | Có |
+| EC-423 (UpdateShowtime: phòng hiện tại - đổi giữa đọc không khoá và lấy khoá) | TC-843, TC-844 | Có |
+| EC-424 (suất chiếu so với cụm rạp của actor - khác cụm rạp) | TC-831, TC-845, TC-858 | Có |
+| EC-425 (DeleteShowtime: yêu cầu - mọi kiểm đạt) | TC-826, TC-850, TC-859 | Có |
+| EC-426 (DeleteShowtime: suất chiếu - không còn dòng) | TC-851 | Có |
+| EC-427 (checkNoActiveHoldOrSoldTicket: lần giữ ghế - ACTIVE và chưa quá hạn tại now) | TC-839, TC-847, TC-848, TC-854 | Có |
+| EC-428 (checkNoActiveHoldOrSoldTicket: lần giữ ghế và vé - lần giữ ghế quá hạn, mọi vé đã huỷ) | TC-840, TC-842, TC-856 | Có |
+| EC-429 (checkNoActiveHoldOrSoldTicket: vé - có vé chưa huỷ) | TC-830, TC-841, TC-855 | Có |
+| EC-430 (PrepareShowtimeEdit: suất chiếu - mọi kiểm đạt) | TC-828 | Có |
+| EC-431 (StartScheduling, ListShowtimes: dữ liệu - cụm rạp có phòng và suất chiếu) | TC-804 | Có |
+| EC-432 (replaceSeatStatuses: ghế cũ - còn HELD dở bởi lần giữ ghế đã kết thúc) | TC-833, TC-861 | Có |
+| EC-433 (replaceSeatStatuses: ghế cũ - đã Trống) | TC-861 | Có |
+| BV-144 (hạn lần giữ ghế so với now (EC-428) - expiryTime = now) | TC-840, TC-856 | Có |
+| BV-145 (hạn lần giữ ghế so với now (EC-427) - expiryTime = now + 1ms) | TC-839, TC-854 | Có |
+| BV-146 (giờ bắt đầu so với now (EC-422) - start = now) | TC-838, TC-853 | Có |
+| BV-147 (giờ bắt đầu so với now (EC-425) - start = now + 1ms) | TC-850 | Có |
+| EC-434 (kỳ - hợp lệ, có số liệu của nhiều cụm rạp) | TC-869, TC-870 | Có |
+| EC-435 (kỳ - thiếu hoặc từ ngày sau đến ngày) | TC-867, TC-868 | Có |
+| EC-436 (số liệu của chuỗi trong kỳ - không có dòng nào) | TC-869 | Có |
+| EC-437 (cụm rạp trong một khoá nhóm - không có dòng số liệu) | TC-871, TC-872 | Có |
+| EC-438 (tỉ lệ toàn chuỗi - nhiều cụm rạp cùng nhóm) | TC-870 | Có |
+| EC-439 (khoá nhóm - nhiều khoá nhóm) | TC-872 | Có |
+| EC-440 (sức chứa của nhóm cụm rạp - bằng 0 nhưng có doanh thu (suất chiếu đã xoá)) | TC-873 | Có |
+| EC-441 (kho báo cáo - trả lỗi CSDL) | TC-874 | Có |
+| BV-148 (độ dài kỳ (EC-434) - từ ngày = đến ngày = 2026-11-15) | TC-869 | Có |
+| EC-442 (phim theo ngày hôm nay - đang chiếu) | TC-875, TC-878, TC-879 | Có |
+| EC-443 (phim theo ngày hôm nay - sắp chiếu) | TC-877 | Có |
+| EC-444 (phim theo ngày hôm nay - đã qua ngày kết thúc) | TC-876, TC-879 | Có |
+| EC-445 (danh sách phim - không phim nào đang chiếu hoặc sắp chiếu) | TC-876, TC-880 | Có |
+| EC-446 (GetMovieDetails: phim - tồn tại) | TC-881 | Có |
+| EC-447 (GetMovieDetails: phim - không tồn tại) | TC-882 | Có |
+| BV-149 (ngày hôm nay so với ngày kết thúc (EC-442) - today = endOfRunDate) | TC-875 | Có |
+| BV-150 (ngày hôm nay so với ngày kết thúc (EC-444) - today = endOfRunDate + 1) | TC-876 | Có |
+| BV-151 (ngày hôm nay so với ngày khởi chiếu (EC-443) - today = releaseDate - 1) | TC-877 | Có |
+| BV-152 (ngày hôm nay so với ngày khởi chiếu (EC-442) - today = releaseDate) | TC-878 | Có |
+| BV-153 (ngày theo múi giờ (EC-444) - tx.Now = 2026-11-20 17:00:00Z (đúng 00:00 ngày 21 +07:00), endOfRunDate 2026-11-20) | TC-876 | Có |
+| DT15-R1 (quy tắc bảng quyết định DT15-R1) | TC-671 | Có |
+| DT15-R2 (quy tắc bảng quyết định DT15-R2) | TC-672 | Có |
+| DT15-R3 (quy tắc bảng quyết định DT15-R3) | TC-673 | Có |
+| DT15-R4 (quy tắc bảng quyết định DT15-R4) | TC-674 | Có |
+| DT16-R1 (quy tắc bảng quyết định DT16-R1) | TC-771 | Có |
+| DT16-R2 (quy tắc bảng quyết định DT16-R2) | TC-777, TC-779 | Có |
+| DT16-R3 (quy tắc bảng quyết định DT16-R3) | TC-778, TC-780 | Có |
+| DT16-R4 (quy tắc bảng quyết định DT16-R4) | TC-781 | Có |
+| DT16-R5 (quy tắc bảng quyết định DT16-R5) | TC-776 | Có |
+| DT17-R1 (quy tắc bảng quyết định DT17-R1) | TC-850 | Có |
+| DT17-R2 (quy tắc bảng quyết định DT17-R2) | TC-851, TC-852, TC-857 | Có |
+| DT17-R3 (quy tắc bảng quyết định DT17-R3) | TC-853 | Có |
+| DT17-R4 (quy tắc bảng quyết định DT17-R4) | TC-854 | Có |
+| DT18-R1 (quy tắc bảng quyết định DT18-R1) | TC-828 | Có |
+| DT18-R2 (quy tắc bảng quyết định DT18-R2) | TC-829 | Có |
+| DT18-R3 (quy tắc bảng quyết định DT18-R3) | TC-830 | Có |
 
 F4.2. Quy tắc nghiệp vụ (BR) và NFR liên quan tới phương thức trong phạm vi. Mọi BR ghi ở cột Nguồn của F3 xuất hiện ở đây; mục chỉ có TC tích hợp ghi rõ.
 
@@ -5953,13 +6885,13 @@ F4.2. Quy tắc nghiệp vụ (BR) và NFR liên quan tới phương thức tron
 | BR-02 | unit: TC-510, TC-648, TC-651 | Có (unit) |
 | BR-04 | unit: TC-024, TC-121, TC-122, TC-123, TC-124, TC-125, TC-126, TC-186, TC-187, TC-188, TC-200, TC-501; tích hợp: TC-365, TC-384 | Có (unit và tích hợp) |
 | BR-05 | unit: TC-026, TC-027, TC-152, TC-153, TC-154, TC-155, TC-175, TC-176, TC-177, TC-178, TC-179, TC-392, TC-393 | Có (unit) |
-| BR-06 | unit: TC-158 | Có (unit) |
+| BR-06 | unit: TC-158, TC-713 | Có (unit) |
 | BR-07 | unit: TC-030, TC-174, TC-195, TC-196; tích hợp: TC-363, TC-364 | Có (unit và tích hợp) |
 | BR-08 | unit: TC-030, TC-031, TC-196 | Có (unit) |
 | BR-09 | unit: TC-031, TC-032, TC-036, TC-193, TC-197; tích hợp: TC-363, TC-364, TC-366, TC-367, TC-384 | Có (unit và tích hợp) |
 | BR-10 | unit: TC-001, TC-002, TC-003, TC-005, TC-006, TC-007, TC-174, TC-187, TC-217, TC-268, TC-385, TC-386, TC-387, TC-389, và 3 TC khác; tích hợp: TC-375 | Có (unit và tích hợp) |
 | BR-11 | unit: TC-164, TC-165, TC-166, TC-167, TC-168, TC-169, TC-170, TC-171 | Có (unit) |
-| BR-12 | unit: TC-164, TC-165, TC-166, TC-167, TC-168, TC-169, TC-170, TC-171, TC-173 | Có (unit) |
+| BR-12 | unit: TC-164, TC-165, TC-166, TC-167, TC-168, TC-169, TC-170, TC-171, TC-173, TC-681, TC-688 | Có (unit) |
 | BR-14 | unit: TC-006, TC-047, TC-070, TC-210, TC-240, TC-241, TC-265, TC-317; tích hợp: TC-372 | Có (unit và tích hợp) |
 | BR-15 | unit: TC-051, TC-211, TC-212, TC-213, TC-242, TC-243, TC-264; tích hợp: TC-371 | Có (unit và tích hợp) |
 | BR-16 | unit: TC-059, TC-246 | Có (unit) |
@@ -5967,13 +6899,13 @@ F4.2. Quy tắc nghiệp vụ (BR) và NFR liên quan tới phương thức tron
 | BR-18 | unit: TC-142, TC-143, TC-144, TC-145, TC-146, TC-288, TC-289, TC-290, TC-305, TC-508, TC-512, TC-655 | Có (unit) |
 | BR-19 | unit: TC-071, TC-109, TC-110, TC-287, TC-299, TC-319, TC-346 | Có (unit) |
 | BR-20 | unit: TC-073, TC-655 | Có (unit) |
-| BR-21 | unit: TC-098, TC-099, TC-287, TC-293, TC-302, TC-511, TC-657; tích hợp: TC-378 | Có (unit và tích hợp) |
+| BR-21 | unit: TC-098, TC-099, TC-287, TC-293, TC-302, TC-511, TC-657, TC-842; tích hợp: TC-378, TC-892 | Có (unit và tích hợp) |
 | BR-22 | unit: TC-101, TC-107, TC-308, TC-309 | Có (unit) |
 | BR-23 | unit: TC-103, TC-107, TC-310 | Có (unit) |
 | BR-24 | unit: TC-105, TC-107, TC-108, TC-231, TC-308, TC-311, TC-314; tích hợp: TC-376 | Có (unit và tích hợp) |
 | BR-25 | unit: TC-106, TC-312, TC-315; tích hợp: TC-377 | Có (unit và tích hợp) |
 | BR-26 | unit: TC-063, TC-064, TC-065, TC-066, TC-067, TC-068, TC-297, TC-317, TC-318, TC-319, TC-320, TC-321, TC-322; tích hợp: TC-378, TC-379, TC-384 | Có (unit và tích hợp) |
-| BR-30 | unit: TC-100, TC-294, TC-306, TC-315, TC-316; tích hợp: TC-376, TC-377 | Có (unit và tích hợp) |
+| BR-30 | unit: TC-100, TC-294, TC-306, TC-315, TC-316; tích hợp: TC-376, TC-377, TC-892 | Có (unit và tích hợp) |
 | BR-31 | unit: TC-110, TC-111, TC-112, TC-113, TC-114, TC-299, TC-346, TC-508 | Có (unit) |
 | BR-32 | unit: TC-142, TC-143, TC-144, TC-145, TC-288, TC-289, TC-512, TC-655 | Có (unit) |
 | BR-33 | unit: TC-101, TC-102, TC-104, TC-105, TC-106 | Có (unit) |
@@ -5987,33 +6919,46 @@ F4.2. Quy tắc nghiệp vụ (BR) và NFR liên quan tới phương thức tron
 | BR-43 | unit: TC-070, TC-071, TC-072, TC-075, TC-082, TC-085, TC-317, TC-319, TC-323, TC-326, TC-327, TC-329, TC-344; tích hợp: TC-380, TC-598 | Có (unit và tích hợp) |
 | BR-44 | unit: TC-010, TC-225, TC-226, TC-227 | Có (unit) |
 | BR-45 | unit: TC-147, TC-148, TC-149, TC-150, TC-190, TC-653 | Có (unit) |
-| BR-47 | unit: TC-518, TC-519 | Có (unit) |
-| BR-48 | unit: TC-530, TC-531 | Có (unit) |
-| BR-49 | unit: TC-513, TC-514, TC-515, TC-516, TC-517 | Có (unit) |
-| BR-51 | unit: TC-524, TC-525, TC-526, TC-527, TC-528, TC-529; tích hợp: TC-602 | Có (unit và tích hợp) |
-| BR-52 | tích hợp: TC-602 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
-| BR-53 | unit: TC-022, TC-023 | Có (unit) |
-| BR-54 | unit: TC-160, TC-161, TC-162, TC-182, TC-191, TC-201 | Có (unit) |
-| BR-56 | unit: TC-534, TC-535, TC-561 | Có (unit) |
-| BR-57 | unit: TC-534, TC-535 | Có (unit) |
-| BR-58 | unit: TC-151, TC-529, TC-562 | Có (unit) |
-| BR-60 | tích hợp: TC-602 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
-| BR-65 | unit: TC-025, TC-026, TC-027, TC-030, TC-174 | Có (unit) |
-| BR-67 | unit: TC-225, TC-400 | Có (unit) |
+| BR-46 | unit: TC-723, TC-804, TC-805, TC-806, TC-831, TC-845, TC-858 | Có (unit) |
+| BR-47 | unit: TC-518, TC-519, TC-805, TC-807 | Có (unit) |
+| BR-48 | unit: TC-530, TC-531, TC-805, TC-808 | Có (unit) |
+| BR-49 | unit: TC-513, TC-514, TC-515, TC-516, TC-517, TC-805, TC-810 | Có (unit) |
+| BR-50 | unit: TC-805 | Có (unit) |
+| BR-51 | unit: TC-524, TC-525, TC-526, TC-527, TC-528, TC-529, TC-805, TC-814, TC-815, TC-816; tích hợp: TC-602 | Có (unit và tích hợp) |
+| BR-52 | unit: TC-805; tích hợp: TC-602 | Có (unit và tích hợp) |
+| BR-53 | unit: TC-022, TC-023, TC-828, TC-830, TC-832, TC-833, TC-839, TC-840, TC-841, TC-842, TC-854, TC-855, TC-856, TC-861; tích hợp: TC-883, TC-888, TC-890, TC-892, TC-893 | Có (unit và tích hợp) |
+| BR-54 | unit: TC-160, TC-161, TC-162, TC-182, TC-191, TC-201; tích hợp: TC-883 | Có (unit và tích hợp) |
+| BR-55 | unit: TC-703, TC-704, TC-812 | Có (unit) |
+| BR-56 | unit: TC-534, TC-535, TC-561, TC-811, TC-824 | Có (unit) |
+| BR-57 | unit: TC-534, TC-535, TC-828, TC-829, TC-838, TC-853 | Có (unit) |
+| BR-58 | unit: TC-151, TC-529, TC-562, TC-685, TC-694, TC-698, TC-702, TC-705, TC-706, TC-826, TC-837, TC-850, TC-856 | Có (unit) |
+| BR-60 | unit: TC-804, TC-832, TC-836, TC-837, TC-851, TC-852, TC-859, TC-860; tích hợp: TC-602, TC-887 | Có (unit và tích hợp) |
+| BR-62 | unit: TC-668, TC-789 | Có (unit) |
+| BR-63 | unit: TC-662, TC-663, TC-664, TC-665, TC-666, TC-670, TC-672, TC-674, TC-676, TC-792, TC-793, TC-794, TC-797, TC-798; tích hợp: TC-885 | Có (unit và tích hợp) |
+| BR-64 | unit: TC-673, TC-674, TC-682, TC-683, TC-684, TC-685, TC-686, TC-687, TC-688, TC-795, TC-796, TC-799, TC-800, TC-801; tích hợp: TC-884, TC-886, TC-891 | Có (unit và tích hợp) |
+| BR-65 | unit: TC-025, TC-026, TC-027, TC-030, TC-174, TC-791, TC-863, TC-864; tích hợp: TC-884 | Có (unit và tích hợp) |
+| BR-66 | unit: TC-667, TC-791 | Có (unit) |
+| BR-67 | unit: TC-225, TC-400, TC-791 | Có (unit) |
+| BR-68 | unit: TC-677, TC-678, TC-681, TC-823; tích hợp: TC-886 | Có (unit và tích hợp) |
+| BR-69 | unit: TC-678, TC-679, TC-696, TC-809, TC-823; tích hợp: TC-886 | Có (unit và tích hợp) |
+| BR-70 | unit: TC-660, TC-661, TC-789, TC-790 | Có (unit) |
+| BR-71 | unit: TC-666, TC-667, TC-669, TC-671, TC-680, TC-789, TC-794, TC-795, TC-863, TC-864; tích hợp: TC-884 | Có (unit và tích hợp) |
 | BR-72 | unit: TC-172, TC-198, TC-202 | Có (unit) |
-| BR-76 | unit: TC-520, TC-521, TC-522, TC-523 | Có (unit) |
+| BR-73 | unit: TC-695, TC-696, TC-697, TC-698, TC-776; tích hợp: TC-891 | Có (unit và tích hợp) |
+| BR-76 | unit: TC-520, TC-521, TC-522, TC-523, TC-875, TC-876, TC-877, TC-878, TC-879 | Có (unit) |
 | BR-78 | unit: TC-456, TC-462, TC-463, TC-464, TC-485 | Có (unit) |
 | BR-79 | unit: TC-456, TC-465, TC-487 | Có (unit) |
 | BR-80 | unit: TC-225, TC-400 | Có (unit) |
 | BR-81 | unit: TC-429, TC-430, TC-436 | Có (unit) |
 | BR-82 | unit: TC-429, TC-431, TC-432, TC-433, TC-434, TC-437 | Có (unit) |
-| BR-84 | tích hợp: TC-604 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
+| BR-84 | unit: TC-742, TC-817; tích hợp: TC-604 | Có (unit và tích hợp) |
 | BR-85 | unit: TC-011, TC-012, TC-022, TC-033, TC-034, TC-040, TC-216, TC-217, TC-231, TC-239, TC-240, TC-262, TC-263, TC-264, và 4 TC khác; tích hợp: TC-370, TC-371, TC-372, TC-600 | Có (unit và tích hợp) |
 | BR-86 | unit: TC-008, TC-009, TC-013, TC-014, TC-015, TC-016, TC-017, TC-018, TC-019, TC-020, TC-021, TC-024, TC-184, TC-185, và 27 TC khác; tích hợp: TC-371, TC-372, TC-384, TC-600, TC-601 | Có (unit và tích hợp) |
-| BR-88 | unit: TC-555, TC-556, TC-557, TC-560 | Có (unit) |
+| BR-87 | unit: TC-689, TC-690, TC-691, TC-692, TC-693, TC-694, TC-771, TC-773, TC-775, TC-826, TC-827; tích hợp: TC-889 | Có (unit và tích hợp) |
+| BR-88 | unit: TC-555, TC-556, TC-557, TC-560, TC-870, TC-873 | Có (unit) |
 | BR-90 | unit: TC-232, TC-233, TC-236 | Có (unit) |
 | BR-91 | unit: TC-253, TC-255, TC-260, TC-261 | Có (unit) |
-| BR-92 | unit: TC-536, TC-537, TC-538 | Có (unit) |
+| BR-92 | unit: TC-536, TC-537, TC-538, TC-833, TC-834, TC-835; tích hợp: TC-890 | Có (unit và tích hợp) |
 | BR-93 | unit: TC-247, TC-248 | Có (unit) |
 | BR-94 | unit: TC-491, TC-492, TC-493, TC-495, TC-496, TC-498 | Có (unit) |
 | BR-95 | unit: TC-485, TC-486; tích hợp: TC-610 | Có (unit và tích hợp) |
@@ -6024,15 +6969,20 @@ F4.2. Quy tắc nghiệp vụ (BR) và NFR liên quan tới phương thức tron
 | BR-100 | unit: TC-423, TC-490; tích hợp: TC-612 | Có (unit và tích hợp) |
 | BR-101 | unit: TC-419, TC-421, TC-422, TC-423, TC-424, TC-425, TC-426, TC-427, TC-449, TC-468, TC-476, TC-478, TC-490, TC-591, và 5 TC khác; tích hợp: TC-612, TC-613 | Có (unit và tích hợp) |
 | BR-102 | unit: TC-470, TC-472, TC-479, TC-482, TC-484, TC-489; tích hợp: TC-611 | Có (unit và tích hợp) |
-| BR-136 | tích hợp: TC-607 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
-| BR-138 | unit: TC-545; tích hợp: TC-603 | Có (unit và tích hợp) |
-| BR-139 | tích hợp: TC-604 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
+| BR-118 | unit: TC-699, TC-700, TC-701, TC-702, TC-707, TC-708, TC-709, TC-710, TC-711, TC-772, TC-774, TC-775, TC-825, TC-827, và 1 TC khác; tích hợp: TC-889, TC-893 | Có (unit và tích hợp) |
+| BR-134 | unit: TC-727, TC-735, TC-739 | Có (unit) |
+| BR-135 | unit: TC-722, TC-723, TC-782, TC-787, TC-788 | Có (unit) |
+| BR-136 | unit: TC-799, TC-823; tích hợp: TC-607, TC-886, TC-889 | Có (unit và tích hợp) |
+| BR-137 | unit: TC-800, TC-801, TC-865, TC-866; tích hợp: TC-891 | Có (unit và tích hợp) |
+| BR-138 | unit: TC-545, TC-742, TC-743, TC-747; tích hợp: TC-603 | Có (unit và tích hợp) |
+| BR-139 | unit: TC-742, TC-817; tích hợp: TC-604 | Có (unit và tích hợp) |
 | BR-140 | unit: TC-400, TC-494, TC-495, TC-500 | Có (unit) |
-| BR-141 | unit: TC-539, TC-540, TC-541, TC-542; tích hợp: TC-605, TC-616 | Có (unit và tích hợp) |
-| BR-142 | unit: TC-543, TC-544; tích hợp: TC-605 | Có (unit và tích hợp) |
-| BR-145 | tích hợp: TC-606, TC-616 | Có (tích hợp: loại trừ thật cần PostgreSQL) |
-| BR-146 | unit: TC-546; tích hợp: TC-608 | Có (unit và tích hợp) |
-| BR-147 | unit: TC-532, TC-533; tích hợp: TC-607, TC-616 | Có (unit và tích hợp) |
+| BR-141 | unit: TC-539, TC-540, TC-541, TC-542, TC-751, TC-753, TC-755, TC-756, TC-757, TC-758; tích hợp: TC-605, TC-616 | Có (unit và tích hợp) |
+| BR-142 | unit: TC-543, TC-544, TC-756, TC-759; tích hợp: TC-605 | Có (unit và tích hợp) |
+| BR-144 | unit: TC-712, TC-713, TC-714, TC-715, TC-765, TC-767 | Có (unit) |
+| BR-145 | unit: TC-724, TC-725, TC-726, TC-765, TC-768, TC-770, TC-778; tích hợp: TC-606, TC-616 | Có (unit và tích hợp) |
+| BR-146 | unit: TC-546, TC-771, TC-777; tích hợp: TC-608 | Có (unit và tích hợp) |
+| BR-147 | unit: TC-532, TC-533, TC-783, TC-784, TC-785, TC-786, TC-813; tích hợp: TC-607, TC-616 | Có (unit và tích hợp) |
 | NFR-01 | unit: TC-353, TC-354, TC-445, TC-446, TC-448, TC-593 | Có (unit) |
 | NFR-02 | unit: TC-353, TC-357, TC-452 | Có (unit) |
 | NFR-03 | unit: TC-358, TC-453, TC-454 | Có (unit) |
@@ -6052,6 +7002,7 @@ F4.3. Luồng thay thế và ngoại lệ của đặc tả use case (P04) liên
 | UC-001 2b | TC-431, TC-439 | Có |
 | UC-001 2c | TC-435 | Có |
 | UC-001 7a | TC-440, TC-441 | Có |
+| UC-003 2a | TC-880 | Có |
 | UC-004 1a4a | TC-565 | Có |
 | UC-004 4a | TC-565 | Có |
 | UC-005 *a | TC-011, TC-020, TC-037, TC-211, TC-216, TC-221, TC-235, TC-242, TC-264 | Có |
@@ -6107,9 +7058,50 @@ F4.3. Luồng thay thế và ngoại lệ của đặc tả use case (P04) liên
 | UC-009 4c | TC-103, TC-104, TC-310 | Có |
 | UC-009 4d | TC-105, TC-108, TC-311, TC-314, TC-376 | Có |
 | UC-009 4e | TC-106, TC-312, TC-315 | Có |
-| UC-011 5b | TC-542 | Có |
+| UC-010 3a | TC-743 | Có |
+| UC-010 4a | TC-728, TC-740, TC-745 | Có |
+| UC-011 4a | TC-737, TC-752, TC-762 | Có |
+| UC-011 5a | TC-759 | Có |
+| UC-011 5b | TC-542, TC-753, TC-758 | Có |
+| UC-012 1a2a | TC-788 | Có |
+| UC-012 1b | TC-784 | Có |
+| UC-012 1b3a | TC-785 | Có |
+| UC-012 4a | TC-717, TC-766 | Có |
+| UC-012 4b | TC-767 | Có |
+| UC-012 4d | TC-768, TC-778 | Có |
+| UC-012 5a | TC-773 | Có |
+| UC-012 5b | TC-776 | Có |
+| UC-012 5c | TC-777 | Có |
+| UC-012 8h | TC-783 | Có |
+| UC-013 1a3 | TC-795 | Có |
+| UC-013 1a3a | TC-672, TC-794, TC-797 | Có |
+| UC-013 1a3b | TC-673, TC-796 | Có |
+| UC-013 4a | TC-661, TC-790 | Có |
+| UC-013 5a | TC-792 | Có |
+| UC-014 1a3 | TC-828 | Có |
+| UC-014 1a3a | TC-830 | Có |
+| UC-014 1a3b | TC-829 | Có |
+| UC-014 1b3 | TC-850 | Có |
+| UC-014 1b3a | TC-854 | Có |
+| UC-014 1b3b | TC-853 | Có |
+| UC-014 1b3c | TC-851, TC-852 | Có |
+| UC-014 4a | TC-806 | Có |
+| UC-014 5a | TC-807 | Có |
+| UC-014 5b | TC-808 | Có |
+| UC-014 5c | TC-809 | Có |
+| UC-014 6a | TC-810 | Có |
+| UC-014 6b | TC-811, TC-824 | Có |
+| UC-014 6c | TC-704, TC-812 | Có |
+| UC-014 8a | TC-839, TC-841 | Có |
+| UC-014 8b | TC-814 | Có |
+| UC-014 8c | TC-836 | Có |
+| UC-014 8d | TC-838 | Có |
+| UC-014 8f | TC-834 | Có |
+| UC-014 8h | TC-813 | Có |
 | UC-015 1a | TC-549, TC-550, TC-551, TC-558 | Có |
 | UC-015 2a | TC-559 | Có |
+| UC-016 1a | TC-867, TC-868 | Có |
+| UC-016 2a | TC-869 | Có |
 | UC-017 1a | TC-427, TC-476, TC-490 | Có |
 | UC-017 1b3 | TC-468 | Có |
 | UC-017 1b3a | TC-469 | Có |
@@ -6133,15 +7125,15 @@ F4.4. Cặp loại trừ X-nn trong phạm vi (00-Concurrency.md M9: mỗi X-nn 
 |---|---|---|
 | X-01: EX-01 với EX-01 cùng suất chiếu: một bên giữ được, bên kia bị từ chối (BR-07, BR-09) | unit: TC-031, TC-193, TC-648; tích hợp: TC-363, TC-364 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-02: EX-01 với EX-01 cùng người giữ khác suất chiếu: bên sau thấy lần giữ ghế chưa kết thúc (BR-04) | unit: TC-186; tích hợp: TC-365 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-03: EX-01 với EX-13, EX-14: phía EX-01 (suất chiếu đã đổi thì bị từ chối); phía EX-13, EX-14 thuộc UC-014 chưa chi tiết hoá | unit: TC-161; tích hợp: - | Có (unit) |
-| X-04: EX-01 với EX-11, EX-12 (giá): phía EX-11, EX-12 thuộc UC-013 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
-| X-05: EX-11, EX-12: UC-013 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
-| X-06: EX-12 với EX-13: UC-013, UC-014 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
-| X-07: EX-13 với EX-13 (cùng phòng chiếu hoặc suất chiếu): chỉ một yêu cầu được lưu (BR-52, BR-60) | unit: TC-524, TC-525, TC-527, TC-528; tích hợp: TC-602 | Có (một phía: lập suất chiếu giao nhau hoặc cách dưới 15 phút; phía sửa cùng suất chiếu chưa có TC) |
-| X-08: EX-13, EX-14: UC-014 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
+| X-03: EX-01 với EX-13, EX-14 (cùng suất chiếu): giữ ghế ghi nhận trước thì sửa hoặc xoá bị từ chối (BR-53); sửa hoặc xoá ghi nhận trước thì giữ ghế bị từ chối vì suất chiếu đã đổi (luồng 7d) | unit: TC-161, TC-839, TC-854; tích hợp: TC-883 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-04: EX-01 với EX-11, EX-12 (giá): giá chốt lấy từ bảng giá trước hoặc sau thay đổi, không lẫn; bỏ mục giá không xen vào lúc đang chốt giá | unit: TC-863, TC-864; tích hợp: TC-884 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-05: EX-11 với EX-11, EX-12: yêu cầu ghi nhận sau bị từ chối và không ghi đè thay đổi trước (luồng 5a, 1a3a) | unit: TC-663, TC-670, TC-676, TC-793, TC-794, TC-798; tích hợp: TC-885 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-06: EX-12 với EX-13: bên ghi nhận sau bị từ chối theo BR-64 hoặc BR-69 | unit: TC-673, TC-799, TC-823; tích hợp: TC-886 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-07: EX-13 với EX-13 (cùng phòng chiếu hoặc suất chiếu): chỉ một yêu cầu được lưu (BR-52, BR-60) | unit: TC-524, TC-525, TC-527, TC-528, TC-814, TC-815; tích hợp: TC-602 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-08: EX-13 với EX-14, EX-14 với EX-14 (cùng suất chiếu): yêu cầu ghi nhận sau bị từ chối vì suất chiếu đã đổi hoặc không còn | unit: TC-837, TC-852, TC-859, TC-860; tích hợp: TC-887 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-09: EX-02, EX-03 với EX-02, EX-03 cùng lần giữ ghế: báo đầu được xử lý, báo sau là báo trùng hoặc thanh toán trễ | unit: TC-227, TC-228, TC-241, TC-245, TC-262, TC-404; tích hợp: TC-370, TC-601 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-10: EX-02, EX-03 với EX-04 cùng lần giữ ghế: chỉ một trạng thái cuối; hết hạn, huỷ, báo thanh toán theo hai thứ tự | unit: TC-020, TC-218, TC-263, TC-264, TC-265, TC-266, TC-277, TC-394, TC-395, TC-398, TC-397; tích hợp: TC-371, TC-372, TC-600 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-11: EX-02, EX-03 với EX-13, EX-14: phía sửa hoặc xoá suất chiếu thuộc UC-014 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
+| X-11: EX-02, EX-03 với EX-13, EX-14: sửa hoặc xoá thấy lần giữ ghế còn Đang giữ, hoặc thấy lần giữ ghế đã Đã hoàn tất cùng vé đã tạo, không thấy trạng thái dở dang | unit: TC-839, TC-841, TC-854, TC-855, TC-856; tích hợp: TC-888 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-12: EX-05 với EX-02, EX-03: không thể vừa bán vừa giải phóng cùng một ghế | unit: TC-034, TC-040, TC-221, TC-263, TC-266, TC-281, TC-386, TC-400; tích hợp: TC-371, TC-600 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-13: EX-05, EX-06 với EX-01: ghế chỉ giữ lại được sau khi đã về trống | unit: TC-038, TC-194, TC-223, TC-280, TC-386; tích hợp: TC-369, TC-374, TC-599 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-14: EX-07 với EX-08 cùng vé: bên ghi nhận trước thành công (huỷ và soát) | unit: TC-100, TC-294, TC-315, TC-316; tích hợp: TC-377 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
@@ -6149,17 +7141,17 @@ F4.4. Cặp loại trừ X-nn trong phạm vi (00-Concurrency.md M9: mỗi X-nn 
 | X-16: EX-09 với EX-09, EX-02: tổng đã hoàn không mất cập nhật, không vượt số đã thanh toán (BR-26) | unit: TC-066, TC-297, TC-318, TC-321, TC-322; tích hợp: TC-379 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-17: EX-10 với EX-10 cùng yêu cầu hoàn: một lời gọi cổng cho mỗi khoá chống hoàn trùng (BR-43) | unit: TC-072; tích hợp: TC-380 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-18: EX-05 với EX-05, EX-06 với EX-06 cùng ghế: chạy lặp, không trả nhầm ghế đã giữ lại hoặc bán lại | unit: TC-038, TC-041, TC-043, TC-223, TC-280, TC-282, TC-298; tích hợp: TC-374 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-19: EX-15 với EX-13, EX-14 (cùng phòng chiếu) | unit: TC-538; tích hợp: TC-602 | Có (phía EX-13 với EX-13 của i_exclude_gap; phía EX-15 chưa có TC, xem Vấn đề còn mở 2) |
-| X-20: EX-13 với EX-05, EX-06: phía EX-13 thuộc UC-014 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
-| X-21: EX-15 với EX-01, EX-12: UC-012, UC-013 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
+| X-19: EX-15 với EX-13, EX-14 (cùng phòng chiếu): bên ghi nhận sau thấy kết quả của bên trước (lập suất chiếu thấy sơ đồ mới hoặc bị từ chối; sửa sơ đồ thấy suất chiếu đã mở bán và bị từ chối; EX-14 trước thì EX-15 không tính suất chiếu đã xoá; EX-15 trước thì EX-14 không bị chặn) | unit: TC-538, TC-773, TC-825, TC-826, TC-827; tích hợp: TC-602, TC-889 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-20: EX-13 với EX-05, EX-06 (cùng suất chiếu): EX-05, EX-06 trước thì EX-13 thấy ghế đã trống; EX-13 trước thì EX-05, EX-06 không thấy liên kết khớp và không đổi | unit: TC-856, TC-861, TC-862; tích hợp: TC-890 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-21: EX-15 với EX-01, EX-12 (cùng phòng chiếu): giá chốt và kiểm mục giá thấy loại phòng trước hoặc sau khi sửa, không lẫn | unit: TC-800, TC-801, TC-865, TC-866; tích hợp: TC-891 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-22: EX-04 với EX-05 cùng lần giữ ghế: giải phóng chỉ khi lần giữ ghế đã ở trạng thái cuối | unit: TC-279, TC-388; tích hợp: TC-375, TC-600 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-23: EX-07 với EX-13, EX-14: phía EX-13, EX-14 thuộc UC-014 chưa chi tiết hoá | - | Không: orchestration của UC-013, UC-014 (DC-ManagePriceListService, DC-ScheduleShowtimesService) chưa có TC trong lần chạy này vì vượt ngưỡng; làm tiếp bằng MA_TC_BAT_DAU = TC-660 (Vấn đề còn mở 2) |
-| X-24: EX-16 với EX-16 cùng phim: bên ghi nhận sau bị từ chối ở luồng 5a, không ghi đè (BR-138) | unit: TC-545, TC-543; tích hợp: TC-603 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-25: EX-16 với EX-13 cùng phim: EX-16 trước thì EX-13 dùng phim hiện hành (luồng 8g); EX-13 trước thì suất chiếu đã lưu không đổi (BR-139, BR-84) | unit: TC-516, TC-514, TC-519; tích hợp: TC-604 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-26: EX-17 với EX-17 cùng tên hoặc cùng cụm rạp: bên sau bị từ chối ở luồng 5b hoặc 5a (BR-141, BR-142) | unit: TC-410, TC-539, TC-542, TC-541, TC-544; tích hợp: TC-605 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-27: EX-18 với EX-18, EX-15 và EX-15 với EX-15 cùng cụm rạp cùng tên phòng (BR-145) | unit: -; tích hợp: TC-606 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-28: EX-19 với EX-13 cùng phòng chiếu: kết cục theo thứ tự đến (BR-147, BR-136) | unit: TC-532, TC-533; tích hợp: TC-607 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
-| X-29: EX-19 với EX-15, EX-19: bên sau bị từ chối hoặc thấy phòng không còn (BR-146) | unit: TC-546; tích hợp: TC-608 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-23: EX-07 với EX-13, EX-14 (cùng suất chiếu): EX-13, EX-14 thấy vé chưa huỷ hoặc vé đã huỷ, không thấy trạng thái dở dang | unit: TC-841, TC-842, TC-855; tích hợp: TC-890, TC-892 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-24: EX-16 với EX-16 cùng phim: bên ghi nhận sau bị từ chối ở luồng 5a, không ghi đè (BR-138) | unit: TC-545, TC-543, TC-747; tích hợp: TC-603 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-25: EX-16 với EX-13 cùng phim: EX-16 trước thì EX-13 dùng phim hiện hành (luồng 8g); EX-13 trước thì suất chiếu đã lưu không đổi (BR-139, BR-84) | unit: TC-516, TC-514, TC-519, TC-817; tích hợp: TC-604 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-26: EX-17 với EX-17 cùng tên hoặc cùng cụm rạp: bên sau bị từ chối ở luồng 5b hoặc 5a (BR-141, BR-142) | unit: TC-410, TC-539, TC-542, TC-541, TC-544, TC-755, TC-759; tích hợp: TC-605 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-27: EX-18 với EX-18, EX-15 và EX-15 với EX-15 cùng cụm rạp cùng tên phòng (BR-145) | unit: TC-770; tích hợp: TC-606 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-28: EX-19 với EX-13 cùng phòng chiếu: kết cục theo thứ tự đến (BR-147, BR-136) | unit: TC-532, TC-533, TC-785, TC-813; tích hợp: TC-607 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
+| X-29: EX-19 với EX-15, EX-19: bên sau bị từ chối hoặc thấy phòng không còn (BR-146) | unit: TC-546, TC-777, TC-786; tích hợp: TC-608 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-30: EX-20 với EX-20 cùng email hoặc số điện thoại: bên sau bị từ chối ở luồng 7a (BR-98) | unit: TC-411, TC-412, TC-413, TC-414, TC-438, TC-440, TC-441, TC-442, TC-444; tích hợp: TC-609 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-31: EX-21 với EX-21 cùng email: bên sau bị từ chối ở luồng 5a (BR-95) | unit: TC-416, TC-485, TC-486; tích hợp: TC-610 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
 | X-32: EX-22 với EX-22 cùng tài khoản: bên sau bị từ chối, hai yêu cầu khoá thì bên sau thấy đã khoá (BR-102) | unit: TC-468, TC-469, TC-470, TC-471, TC-474, TC-479, TC-482, TC-484, TC-489; tích hợp: TC-611 | Có (unit: logic sau khoá; tích hợp: loại trừ thật) |
@@ -6176,7 +7168,7 @@ F4.5. Tình huống hỏng (P09 F7.10 Bảng hỏng, 10 dòng; 00-Concurrency.md
 | 5. Nhiều bản cùng quét một hàng đợi (SKIP LOCKED, hàng rào claim_token) | unit: TC-282, TC-340; tích hợp: TC-374, TC-380, TC-598 | Có |
 | 6. Tiến trình dọn dẹp ở tải đỉnh (4.000 lần giữ ghế hết hạn, ngân sách 8 giây, cleanupEvents ngữ cảnh riêng) | unit: TC-274, TC-275; tích hợp: TC-375 | Có |
 | 7. Nguồn thông báo hoặc hàng đợi mất sự kiện, bên nhận lấy lại được (RELOAD_REQUIRED, SLOW_CONSUMER) | unit: TC-632, TC-633, TC-636, TC-638, TC-639; tích hợp: TC-381 | Có |
-| 8. Tiến trình dừng giữa thao tác ghi nhiều bản ghi (EX-17 đến EX-21) | unit: -; tích hợp: TC-616 | Có (tích hợp: rollback trọn do một COMMIT) |
+| 8. Tiến trình dừng giữa thao tác ghi nhiều bản ghi (EX-13, EX-15, EX-17 đến EX-21) | unit: -; tích hợp: TC-616, TC-893 | Có (tích hợp: rollback trọn do một COMMIT) |
 | 9. Khoá giữ lâu do giao dịch treo hoặc kết nối chết | unit: -; tích hợp: TC-367, TC-617 | Có |
 | 10. Phiên của nhân viên bị thu hồi lúc đang có yêu cầu bay (EX-22 với EX-01, BR-101) | unit: TC-649, TC-421, TC-426, TC-591; tích hợp: TC-612, TC-613 | Có |
 
@@ -6241,6 +7233,15 @@ F4.6. Độ phủ hộp trắng đạt được so với mục tiêu (mức thi�
 | Ca tích hợp bổ sung (PostgreSQL 15 thật, nhiều goroutine hoặc nhiều bản backend) (F2.55) | không áp dụng | không áp dụng | - | - | Ca tích hợp, không tính độ phủ đơn vị |
 | DC-PaymentCallbackController.writeIpnAnswer, DC-VnpaySigner.Sign, Verify, DC-VnpayReportDecoder.Decode (F2.56) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
 | DC-SubscriberQueue.Offer, Close; DC-EmittedEventTracker; DC-SeatEventPoller.pollOnce; DC-IpConnectionLimiter;  (F2.57) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-PriceList, DC-Showtime, DC-Auditorium, DC-Cinema, DC-Movie: quy tắc entity của UC-010 đến UC-014 (F2.58) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ManageMoviesService: ListMovies, GetMovieForEdit, AddMovie, SaveMovieChanges (F2.59) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ManageCinemasService: ListCinemas, GetCinemaForEdit, AddCinema, SaveCinemaChanges (F2.60) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ManageAuditoriumsService (F2.61) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ManagePriceListService (F2.62) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ScheduleShowtimesService (F2.63) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-ViewChainReportService.ViewChainReport (F2.64) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| DC-BrowseMoviesService.ListMovies, GetMovieDetails (F2.65) | Đo khi có mã nguồn | Đo khi có mã nguồn | - | 100% C1 (Cao) hoặc C0 (còn lại) | Mọi lớp tương đương, giá trị biên, quy tắc bảng quyết định, chuyển trạng thái đều có TC (F4.1) |
+| Ca tích hợp cho UC-010 đến UC-014 (PostgreSQL 15 thật, nhiều goroutine hoặc nhiều bản backend) (F2.66) | không áp dụng | không áp dụng | - | - | Ca tích hợp, không tính độ phủ đơn vị |
 
 V(G) lớn hơn 10: HoldSeats (21), HandleIpn (13), ProcessRefund (13); đề xuất tách ghi ở F2.25.6, F2.30.6, F2.36.6 và mục Đề xuất sửa artifact trước. Mọi operation có CFG còn lại có V(G) từ 2 đến 8.
 
@@ -6250,10 +7251,12 @@ Không áp dụng: SINH_MA_TEST là Không có theo yêu cầu người chạy (
 
 ## Câu hỏi mở
 
-Q-142 đến Q-154 của lần chạy 1.x đã trả lời (giữ để truy vết); Q-352 đến Q-355 là câu hỏi mới của lần chạy 2.0.
+Q-142 đến Q-154 của lần chạy 1.x đã trả lời (giữ để truy vết); Q-352 đến Q-355 là câu hỏi mới của lần chạy 2.0; Q-356, Q-357 là câu hỏi mới của lần chạy 2.1.
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
 |---|---|---|---|---|---|
+| Q-356 | Đổi loại của ghế hiện có (STANDARD sang VIP, không thêm không bỏ vị trí) khi phòng có suất chiếu đã mở bán chưa kết thúc có bị chặn theo BR-87 (AuditoriumBlockedError, luồng 5a) không? | DC-ManageAuditoriumsService.EditAuditorium; DC-Auditorium.ComputeSeatMapChange; TC-775 | BR-87 chỉ nêu "sửa sơ đồ ghế"; BR-118 liệt kê "sơ đồ ghế, loại ghế và sức chứa" như ba thứ riêng; P12 F2 tính retyped vào Changed nên bị chặn | Bên nghiệp vụ | Chặn như P12 F3 (loại ghế quyết định giá đã chốt của suất chiếu đang bán, BR-137). Ghi rõ trong BR-87: sơ đồ ghế gồm vị trí và loại của từng ghế. TC giữ kết quả theo P12 F3 |
+| Q-357 | CreateShowtime có kiểm lại giờ bắt đầu còn sau now (luồng 6b) ở giai đoạn giao dịch theo tx.Now như UpdateShowtime (bước 6) không, khi giai đoạn đọc không khoá đã kiểm bằng đồng hồ khác? | DC-ScheduleShowtimesService.CreateShowtime; TC-824 | P12 F3 CreateShowtime kiểm 6b, 6c ở giai đoạn A và chỉ kiểm lại 8g, 8e, 8b ở giai đoạn B; UpdateShowtime kiểm lại 6b, 6c trong giao dịch | Nhóm dự án | Kiểm lại 6b và 6c ở giai đoạn B bằng tx.Now (suất chiếu bắt đầu giữa hai giai đoạn bị ShowtimeStartedError); ghi vào P12 F3 CreateShowtime bước 4 |
 | Q-352 | Khi nhân viên quầy xác nhận thu tiền (ConfirmCashReceived) cho lần giữ ghế đã Đã huỷ, Đã hoàn tất hoặc Thanh toán thất bại, kết quả là HoldNotActiveError mang trạng thái (F2 của ConfirmCashReceived, BR-86) hay LinkMismatchError (F3: LockByHold không trả ghế nào nên DC-HoldSettlement.Sell dừng ở bước kiểm ghế rỗng trước khi gọi Complete)? | DC-BookTicketsService.ConfirmCashReceived, DC-HoldSettlement.Sell; TC-228, TC-231, TC-601; HTTP 500 INTERNAL thay vì 409 HOLD_NOT_ACTIVE | P12 F2 nêu HoldNotActiveError; F3 bước 3 gọi Sell ngay sau End(EXPIRY) và Sell kiểm ghế trước lần giữ ghế | Nhóm dự án | HoldNotActiveError mang trạng thái của lần giữ ghế (409). Sửa P12 F3 ConfirmCashReceived: sau End(EXPIRY) kiểm hold.IsActiveAt(now), sai thì trả HoldNotActiveError mang status trước khi gọi Sell; hoặc đổi thứ tự trong Sell (kiểm lần giữ ghế trước ghế). Các TC giữ kết quả theo F2 |
 | Q-353 | Khi nhân viên quầy thuộc cụm rạp khác và suất chiếu chưa mở bán cùng lúc, báo lỗi nào (UC-005 2b hay 2a, 2c)? | DC-BookTicketsService.HoldSeats; TC-652 | P04 UC-005 không nêu thứ tự giữa 2b và 2a, 2c; chỉ P12 F3 (e) nêu 2b trước | Nhóm dự án | ChannelMismatchError (2b trước 2a, 2c) như P12 F3; bổ sung thứ tự vào P12 F2 và P04 UC-005 mục 8. TC dùng kết quả này làm oracle |
 | Q-354 | UnlockStaff khi tài khoản đang hoạt động (đã được yêu cầu khác mở khoá) và đồng thời mốc lúc hiển thị đã lệch, báo StaffStatusUnchangedError (1c3a) hay StaleStaffError (1c3b)? | DC-Staff.UnlockStaff; TC-475 | P04 UC-017 1c3a, 1c3b không nêu thứ tự; X-32 và P12 F3 chỉ nêu thứ tự cho LockStaff | Nhóm dự án | StaffStatusUnchangedError trước StaleStaffError, đối xứng với LockStaff (X-32); ghi vào P12 F2, F3 của UnlockStaff |
@@ -6288,15 +7291,18 @@ Không có (chế độ NGHIEM_NGAT).
 | P12 | F3 IF-17.LockByID sau FindIDByRef | Nhánh NotFoundError không thể đi tới (seat_hold không có thao tác xoá) | Ghi bất biến này ở F2, bỏ nhánh khỏi CFG |
 | P12, P11b | F2 DC-VnpayReportDecoder.Decode; P11b SS-01 V-04, V-05 | Tên tham số và hệ số số tiền chưa nêu (Q-355) | Ghi tên tham số, hệ số nhân 100 sau khi đối chiếu tài liệu VNPay |
 | P12 | F2b DC-HttpErrorMapper, DC-ErrorScope | LoginFailedError có hai messageId (MSG-02 khách, MSG-86 nhân viên) nhưng ErrorScope chỉ có ACCOUNT, Classify không phân biệt được | Thêm scope CUSTOMER_LOGIN, STAFF_LOGIN hoặc hai mã lỗi riêng |
+| P12, P06 | F2, F3 DC-ManageAuditoriumsService.EditAuditorium; P06 BR-87 | Chưa nêu đổi loại ghế của ghế hiện có là sửa sơ đồ ghế hay không (Q-356) | Ghi trong BR-87 và P12 F2: sơ đồ ghế gồm vị trí và loại của từng ghế |
+| P12 | F3 DC-ScheduleShowtimesService.CreateShowtime bước 4 | Giai đoạn B không kiểm lại 6b, 6c bằng tx.Now (Q-357) | Kiểm lại 6b, 6c ở giai đoạn B như UpdateShowtime bước 6 |
+| P12 | F2 DC-ManagePriceListService.GetPriceList | NotFoundError không đi tới được: AddCinema tạo bảng giá cùng commit với cụm rạp (TC của EC-406 chỉ kiểm nhánh phòng thủ) | Ghi bất biến mỗi cụm rạp có đúng một bảng giá, hoặc bỏ NotFoundError khỏi F2 |
 | P09, P10 (RV-02, RV-04 của X1) | Chữ ký công khai PKG-13, PKG-15; DC-HoldExpiryJob.cleanupEvents | DTO thay kiểu miền ở chữ ký công khai và tách job dọn seat_event để sau Project 3 (SY-19 loại Chờ) | Nếu áp dụng, dữ liệu vào của TC HoldSeats, CancelHold, StartOnlinePayment, ConfirmCashReceived, CancelOnlineTicket, CheckTicket ghi lại bằng int64 và string; số TC không đổi |
 
 ## Vấn đề còn mở
 
-1. Phạm vi vượt ngưỡng: lần chạy 2.0 gồm 653 TC (609 unit, 42 tích hợp, 2 chờ câu hỏi) trên 57 mục F2, vượt ngưỡng 60 TC mỗi lần chạy của prompt; theo yêu cầu người chạy (Conventions C9 mức 2) làm toàn hệ thống trong một file, chia nhóm package và viết tuần tự. Operation ưu tiên Thấp và Trung bình ngoài trọng tâm bị bớt trước (F1).
-2. Operation chưa có TC (F1, chọn Không kèm lý do), làm tiếp bằng MA_TC_BAT_DAU = TC-660: điều phối UC-010 đến UC-014 (DC-ManageMoviesService, DC-ManageCinemasService, DC-ManageAuditoriumsService, DC-ManagePriceListService, DC-ScheduleShowtimesService), DC-ViewChainReportService, DC-BrowseMoviesService; hệ quả: X-04, X-05, X-06, X-08, X-11, X-20, X-21, X-23 chưa có TC, X-19 chỉ một phía (F4.4). Quy tắc của entity thuộc các UC này đã có TC ở F2.50, F2.51.
+1. Phạm vi vượt ngưỡng: lần chạy 2.0 gồm 653 TC (609 unit, 42 tích hợp, 2 chờ câu hỏi) trên 57 mục F2; lần chạy 2.1 thêm 234 TC (222 unit, 11 tích hợp, 1 chờ câu hỏi) trên 9 mục F2 mới, nâng tổng lên 887 TC (831 unit, 53 tích hợp, 3 chờ câu hỏi) trên 66 mục F2, vượt ngưỡng 60 TC mỗi lần chạy của prompt; theo yêu cầu người chạy (Conventions C9 mức 2) làm toàn hệ thống trong một file, chia nhóm package và viết tuần tự. Operation ưu tiên Thấp và Trung bình ngoài trọng tâm bị bớt trước (F1).
+2. Operation chưa có TC (F1, chọn Không kèm lý do): các operation getter, ủy quyền và hàm dựng không logic; DC-BrowseShowtimesService.ListMoviesForBrowsing, GetShowtime, ListCinemasForBrowsing; chuyển trạng thái ghế ST-07 (SeatStateError của RetireFromSeatMap, SetType) chưa có TC riêng. Điều phối UC-010 đến UC-014, DC-ViewChainReportService, DC-BrowseMoviesService đã có TC ở F2.58 đến F2.65 (2.1); mọi cặp loại trừ X-nn trong phạm vi đã có TC ở cả hai phía (F4.4). Mã TC làm tiếp: TC-894.
 3. Sơ đồ CFG (diagrams/X2-cfg-<DC>-<operation>.drawio, MUC_CHI_TIET = DAY_DU) chưa sinh. Bảng node (N) và cạnh (CE) ở F2.x.6 đã đủ định danh để dựng sơ đồ theo Conventions C7; cần chạy riêng bước vẽ.
 4. Chưa có mã nguồn: C0, C1 ở F4.6 là mức thiết kế (CFG từ P12 F3); operation không có thiết kế method ghi Đo khi có mã nguồn. Khi có mã Go, chạy lại bước hộp trắng với go test -cover.
 5. Unit test dùng IF-08 giả chạy tuần tự nên chỉ chứng minh logic quyết định sau khi có khoá; loại trừ thật, khoá dòng và khoá giá trị, NOWAIT, SKIP LOCKED, trigger, EXCLUDE, hàng rào claim_token và tiến trình chết nằm ở các ca tích hợp (F2.40, F2.55). 207 case P13-schema-tests.sql đã chạy đạt trên PostgreSQL 16 không lặp lại.
 6. Phát hiện mức Cao: TC-228, TC-231 và TC TC-601 sẽ thất bại trên thiết kế hiện hành do Q-352 (ConfirmCashReceived trên lần giữ ghế đã kết thúc trả LinkMismatchError, HTTP 500); chờ quyết định, TC giữ kết quả theo F2 và BR-86.
-7. TC chờ câu hỏi còn lại: TC-475, TC-630 (Q-354, Q-355); không tính vào độ phủ.
+7. TC chờ câu hỏi còn lại: TC-475, TC-630, TC-824 (Q-354, Q-355, Q-357); không tính vào độ phủ.
 8. DC-Ticket.RefundAmount: giá vé nhỏ nhất P13 cho phép là 1 đồng (ck_ticket_price) cho khoản hoàn 0 đồng theo BR-31, trong khi ck_refund_request_amount yêu cầu refund_amount lớn hơn 0; TC-114 giữ kết quả 0 theo BR-31. Không lập Q vì giá vé thực tế lớn hơn nhiều; nên có giá vé tối thiểu ở BR bảng giá.
