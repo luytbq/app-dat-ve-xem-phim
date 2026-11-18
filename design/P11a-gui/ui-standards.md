@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 2.1 |
+| Phiên bản | 2.2 |
+| Thay đổi 2.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): Q-119 và Q-272 đến Q-276 ghi đã trả lời theo đề xuất, bỏ câu "chờ xác nhận" |
 | Thay đổi 2.1 | Đồng bộ X3 lần 5 (design/_sync-log.md): Q-272 đến Q-276 đã trả lời theo đề xuất |
 | Thay đổi 2.0 | Mở rộng cho đủ 16 use case của P10 2.0: thêm MSG-84 đến MSG-134 (đăng nhập hai điểm, phiên không còn hiệu lực, UC-001, UC-003, UC-004, UC-007, UC-010, UC-011, UC-012, UC-015, UC-016, UC-017 và giữ ghế suất chiếu chưa mở bán); thêm UI-STT 48 đến 53 (phiên hết hiệu lực, ô ngày, pop-up form quản lý, danh sách và chi tiết, trình chỉnh sơ đồ ghế, báo cáo); sửa UI-STT 18, 22, 29, 37, 46, 47; thêm Q-272 đến Q-276; bỏ Vấn đề còn mở về use case chưa có màn hình |
 | Thay đổi 1.3 | Thêm MSG-82 (ghế đang được trả về trống, RF-17) và MSG-83 (không đổi phòng của suất chiếu đã từng có vé, RF-02); đồng bộ đầu vào đã dùng (RF-06) |
@@ -248,7 +249,7 @@ Thông điệp ở trên bao quát mọi thông báo, từ chối và kết qu�
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ |
 |---|---|---|---|
-| Q-119 | Đã trả lời theo đề xuất, chờ người dùng xác nhận (chọn (a) làm tối thiểu: dải "Tiếp tục thanh toán" trên SCR-02 và SCR-09, SCR-05 và SCR-11 tự nạp lần giữ ghế đang chạy, MSG-09 thêm nút tiếp tục; không thêm màn hình; kết quả sau khi đóng tab xem qua email, lịch sử đặt vé chờ UC-007). Khi khách tải lại trang, đóng tab hoặc không quay lại từ cổng thanh toán trong lúc còn lần giữ ghế (BR-04), khách mở lại lần giữ ghế đang chạy (để thanh toán, huỷ) và xem lại kết quả đặt vé bằng màn hình nào? (a) màn hình điều hướng của khách hiển thị lối vào "Tiếp tục thanh toán" khi có lần giữ ghế đang chạy; (b) chỉ có lịch sử đặt vé (UC-007); (c) không có, khách chờ hết hạn | SCR-02, SCR-05, SCR-06; UC-005; UC-007 | UC-005 chỉ mô tả luồng liền mạch, không nêu quay lại lần giữ ghế đang chạy; UC-007 chưa đặc tả |
+| Q-119 | Đã trả lời (chủ dự án chốt theo đề xuất, X3 lần 6; chọn (a) làm tối thiểu: dải "Tiếp tục thanh toán" trên SCR-02 và SCR-09, SCR-05 và SCR-11 tự nạp lần giữ ghế đang chạy, MSG-09 thêm nút tiếp tục; không thêm màn hình; kết quả sau khi đóng tab xem qua email, lịch sử đặt vé chờ UC-007). Khi khách tải lại trang, đóng tab hoặc không quay lại từ cổng thanh toán trong lúc còn lần giữ ghế (BR-04), khách mở lại lần giữ ghế đang chạy (để thanh toán, huỷ) và xem lại kết quả đặt vé bằng màn hình nào? (a) màn hình điều hướng của khách hiển thị lối vào "Tiếp tục thanh toán" khi có lần giữ ghế đang chạy; (b) chỉ có lịch sử đặt vé (UC-007); (c) không có, khách chờ hết hạn | SCR-02, SCR-05, SCR-06; UC-005; UC-007 | UC-005 chỉ mô tả luồng liền mạch, không nêu quay lại lần giữ ghế đang chạy; UC-007 chưa đặc tả |
 | Q-120 | Đã trả lời (theo đề xuất review P11: do UC-005 cấp, chỉ suất đã mở bán và chưa bắt đầu của cụm rạp mình (quầy) hoặc của hệ thống (khách), hiện phim, định dạng, phòng chiếu, giờ bắt đầu, xếp theo giờ, không bộ lọc tới khi UC-004 được đặc tả). Danh sách suất chiếu để khách và nhân viên quầy chọn ở UC-005 bước 1 do UC-004 (Tra cứu lịch chiếu, chưa đặc tả) hay do UC-005 cung cấp? Danh sách hiển thị những trường nào và có bộ lọc nào? | SCR-03, SCR-10; UC-004 | UC-005 bước 1 chỉ ghi "chọn một suất chiếu", không có bảng dữ liệu ra cho danh sách |
 | Q-121 | Đã trả lời (theo đề xuất review P11: hiện mọi vé mua trực tuyến của khách, giờ chiếu mới nhất trước; vé đã huỷ, đã dùng hoặc quá hạn huỷ vẫn hiện, chọn vào thì báo MSG-36, MSG-37, MSG-35). Danh sách vé khách mua trực tuyến để chọn huỷ ở UC-008 bước 1 là màn hình của UC-008 hay lấy từ UC-007 (Xem lịch sử đặt vé, chưa đặc tả)? Danh sách gồm những vé nào (mọi vé, chỉ vé chưa sử dụng và chưa huỷ, hay chỉ vé còn trong hạn huỷ)? | SCR-07; UC-007 | UC-008 bước 1 và Dữ liệu vào 1 STT 2 không nêu cách khách thấy danh sách vé |
 | Q-122 | Đã trả lời (theo đề xuất review P11: nhân viên dùng email và mật khẩu như khách, mật khẩu tối thiểu 8 ký tự; xét lại khi UC-017 có). Nhân viên đăng nhập bằng định danh nào (email, số điện thoại hay tên đăng nhập) và mật khẩu có quy định độ dài, ký tự? | SCR-01; UC-017; NFR-02 | NFR-02 chỉ nêu tài khoản do quản trị viên tạo; UC-017 chưa đặc tả; NFR-01 chỉ nêu định danh của khách |
@@ -256,7 +257,7 @@ Thông điệp ở trên bao quát mọi thông báo, từ chối và kết qu�
 | Q-124 | Đã trả lời (theo đề xuất review P11: mật khẩu tối đa 64 ký tự, mã đặt vé 20 ký tự, giá vé tối đa 9 chữ số; ghi Thiết kế trong đặc tả). Độ dài tối đa của các trường nhập mà nguồn không nêu: mật khẩu, mã đặt vé (nhân viên quầy nhập ở UC-008 bước 1a1), giá vé (số chữ số; BR-70 không có giá trị tối đa)? | SCR-01, SCR-13, SCR-18 | UC-005 Dữ liệu vào 2 STT 2; UC-008 Dữ liệu vào 1 STT 1; UC-013 Dữ liệu vào 1 STT 5 không nêu độ dài |
 | Q-125 | Đã trả lời (quyết định của người dùng: nhân viên quầy luôn hoàn được tiền mặt nên hoàn tiền mặt và xác nhận nằm cùng thao tác huỷ tại quầy; không có trạng thái "đã huỷ, chờ hoàn tiền mặt"; ghế trả về trống khi huỷ). Với vé mua tại quầy, vé đã được ghi nhận huỷ ở bước 4 trước khi nhân viên xác nhận hoàn tiền mặt (bước 5a2). Nếu nhân viên đóng trang hoặc mất kết nối ở màn hình hoàn tiền mặt thì ghế được trả về trống và khoản hoàn được ghi nhận khi nào, và nhân viên mở lại màn hình hoàn tiền bằng cách nào? | SCR-14, SCR-13; UC-008 | UC-008 luồng 5a và bước 7 không nêu trường hợp nhân viên không xác nhận |
 
-Câu hỏi mới của lần chạy này (dải Q-272 đến Q-281; Q-277 đến Q-281 để trống). Nội dung các màn hình đã viết theo đề xuất, chờ xác nhận.
+Câu hỏi mới của lần chạy này (dải Q-272 đến Q-281; Q-277 đến Q-281 để trống). Nội dung các màn hình đã viết theo đề xuất; các câu hỏi đã trả lời theo đề xuất.
 
 | Mã | Câu hỏi | Ảnh hưởng tới | Nguồn gây mơ hồ | Người quyết | Đề xuất |
 |---|---|---|---|---|---|
@@ -284,5 +285,5 @@ Câu hỏi mới của lần chạy này (dải Q-272 đến Q-281; Q-277 đến
 2. Các tỉ lệ tương phản ở UI-STT 12 do AI tính, cần đo lại bằng công cụ khi lập trình.
 3. UC-006 có tác nhân chính là cổng thanh toán nên không có màn hình; khách chỉ thấy kết quả qua email (BR-14) và qua MSG-14, MSG-30.
 4. Chưa lập mockup HTML (XUAT_HTML = Không).
-5. Q-272 đến Q-276 chờ xác nhận; màn hình đã viết theo đề xuất. Q-119 vẫn chờ người dùng xác nhận như trước.
+5. Q-272 đến Q-276 và Q-119 đã trả lời theo đề xuất (chủ dự án chốt, X3 lần 6); màn hình đã viết theo đề xuất.
 6. Bộ lọc "Tỉnh, thành phố" của SCR-25 cần danh sách giá trị (Đề xuất sửa P04); đến khi có, danh sách lấy từ tỉnh, thành phố của các cụm rạp.

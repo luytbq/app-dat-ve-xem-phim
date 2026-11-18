@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 | --- | --- |
 | Bước | P07 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.5 | Thêm message cho luồng 7a (dịch vụ email lỗi, BR-89, P04 1.11): trang SD7, trách nhiệm // logEmailFailure của PaymentReportController (dùng chung với UC-005 luồng 14a), EmailService trả kết quả gửi; luồng 2d và bước 3 đã khớp P04 1.11 (không đổi message); cập nhật 3 file .drawio và _AC-register.md; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1); // recordRefundedAmount cộng tổng đã hoàn và kiểm lại không vượt số tiền đã thanh toán trong một thao tác theo giao dịch (BR-26); không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.11 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.5 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-006-refund-late-payment.md 1.12 (bảng Thao tác nguyên tử); P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.6 (đầu lô) (F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở; sổ đăng ký AC lấy từ file này; P07-uc-analysis/_review-P07-batch.md |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-90; không có ASM (NGHIEM_NGAT) |
 

@@ -531,6 +531,23 @@ $$;
 CREATE TRIGGER trg_booking_customer BEFORE INSERT OR UPDATE OF customer_id, seat_hold_id ON booking
   FOR EACH ROW EXECUTE FUNCTION fn_booking_customer_guard();
 
+-- seat_hold.box_office_clerk_id chỉ được trỏ tới nhân viên có vai trò BOX_OFFICE_CLERK (BR-02, BR-79). Chỉ kiểm khi ghi người giữ ghế:
+-- khoá ngoại ghép (id, role) sẽ chặn việc đổi vai trò của nhân viên đã từng giữ ghế (UC-017 luồng 1a) và làm hỏng lịch sử.
+CREATE FUNCTION fn_seat_hold_clerk_role() RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM staff WHERE id = NEW.box_office_clerk_id AND role = 'BOX_OFFICE_CLERK') THEN
+    RAISE EXCEPTION 'seat_hold.box_office_clerk_id (%) không phải nhân viên quầy', NEW.box_office_clerk_id
+      USING ERRCODE = 'check_violation';
+  END IF;
+  RETURN NEW;
+END
+$$;
+
+CREATE TRIGGER trg_seat_hold_clerk_role BEFORE INSERT OR UPDATE OF box_office_clerk_id ON seat_hold
+  FOR EACH ROW WHEN (NEW.box_office_clerk_id IS NOT NULL) EXECUTE FUNCTION fn_seat_hold_clerk_role();
+
 -- Mỗi cụm rạp có đúng một bảng giá (R-40): kiểm lúc COMMIT để INSERT cụm rạp và INSERT bảng giá nằm cùng giao dịch theo thứ tự tuỳ ý.
 CREATE FUNCTION fn_cinema_has_price_list() RETURNS trigger
 LANGUAGE plpgsql

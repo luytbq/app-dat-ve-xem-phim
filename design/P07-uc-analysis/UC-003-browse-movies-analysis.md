@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Đổi // provideMovieDetails thành // provideMovieInfo (hợp nhất với UC-010); đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P04-uc-specs/UC-003-browse-movies.md 1.1; P07-uc-analysis/_AC-register.md (đã gộp, đầu lô lập từ F3.4 của UC-005, UC-006, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 2.1 (mã AC-E-Cinema, AC-E-Seat đã cấp); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-015, UC-016); dải mã Q được cấp 235 đến 244, không cấp ASM |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md (đầu lô); P04-uc-specs/UC-003-browse-movies.md 1.2; P07-uc-analysis/_AC-register.md (đã gộp, đầu lô lập từ F3.4 của UC-005, UC-006, UC-008, UC-009, UC-013, UC-014); P08-analysis-model.md 2.2 (mã AC-E-Cinema, AC-E-Seat đã cấp); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-015, UC-016); dải mã Q được cấp 235 đến 244, không cấp ASM |
 | Phạm vi | UC-003 |
 | Mã Q, ASM cuối đã cấp | Q-175 (cấp ở P04, đã trả lời); không cấp Q mới ở use case này; không có ASM (NGHIEM_NGAT) |
 

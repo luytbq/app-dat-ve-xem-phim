@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): thêm DC-SeatEventCleanupJob (PKG-13) vào các công việc hiện thực IF-06 (X1 RV-04); không đổi chữ ký |
 | Thay đổi 1.2 | runDue: dòng hoàn tiền xử lý tối đa 80 giây, hàng rào claim_token, xử lý bản bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2; P04-uc-specs UC-005 1.11 (luồng 7b, 11a, *a), UC-006 1.8, UC-008 1.8; P06-supplementary-spec.md 1.3 (NFR-07); P07-uc-analysis UC-005 1.1 (startWaitingForHoldExpiry, stopWaitingForHoldExpiry), UC-006 1.1, UC-008 1.2; P09-architecture.md 1.6 (F4, F6, F7.4, F7.7); P10-design-elements.md 2.0 (F2, F4, F5, interface gọi ngược IF-06); TAI_LIEU_GIAO_TIEP: Không có |
 | Phạm vi | SS-04 Scheduler (IF-05, IF-06) |
@@ -15,7 +16,7 @@ SS-04 không có lớp phân tích nguồn tương ứng một-một; trách nhi
 
 | UC | Control gọi (AC hoặc DC) | Message trong P07 (STT, tên) | Dữ liệu truyền | Luồng lỗi trong P04 |
 |---|---|---|---|---|
-| UC-005 Đặt vé | DC-HoldExpiryJob, DC-SeatReleaseJob (PKG-13) hiện thực IF-06; SS-04 gọi | 2.1.5 // startWaitingForHoldExpiry (bước 7); 2.1.7(*a).1.1 // stopWaitingForHoldExpiry; 2.1.5(7b) // after(BR-10) handleHoldExpired | Ngân sách thời gian của lượt; kết quả: số mục đã xử lý, còn việc hay không | Luồng 7b (hết hạn), 11a và *a (giải phóng ghế); NFR-07 |
+| UC-005 Đặt vé | DC-HoldExpiryJob, DC-SeatReleaseJob, DC-SeatEventCleanupJob (PKG-13) hiện thực IF-06; SS-04 gọi | 2.1.5 // startWaitingForHoldExpiry (bước 7); 2.1.7(*a).1.1 // stopWaitingForHoldExpiry; 2.1.5(7b) // after(BR-10) handleHoldExpired | Ngân sách thời gian của lượt; kết quả: số mục đã xử lý, còn việc hay không | Luồng 7b (hết hạn), 11a và *a (giải phóng ghế); NFR-07 |
 | UC-006 Hoàn tiền thanh toán đến muộn | DC-RefundOutboxJob (PKG-14) hiện thực IF-06 | 1.1.5 // requestRefund và thử lại (bước 4 đến 7) | như trên | Luồng 4a, 4b, 5a, 5b |
 | UC-008 Huỷ vé | DC-RefundOutboxJob (PKG-14) hiện thực IF-06 | 1.1.9 // requestRefund (bước 5, 6) | như trên | Luồng 5b, 5c, 6a, 6b |
 | UC-005, UC-006 | DC-EmailOutboxJob (PKG-20) hiện thực IF-06 | 4.1.3 // sendTicketsEmail (bước 14); 1.1.11 // sendRefundNotificationEmail (bước 7) | như trên | Ghi chú bước 14 (UC-005), bước 7 (UC-006); BR-89 |
@@ -27,7 +28,7 @@ Hàm khởi động chương trình (ngoài mô hình package, P10 F2) gọi reg
 | IF | Tên | Vai trò (một câu) | Bên hiện thực (SS; DC khi là interface gọi ngược) | Client (DC, PKG) | Package chứa |
 |---|---|---|---|---|---|
 | IF-05 | IJobScheduler | Đăng ký công việc định kỳ, bắt đầu và dừng chạy | SS-04 | Hàm khởi động chương trình (ngoài mô hình package) | PKG-25 |
-| IF-06 | IScheduledJob | Một công việc nền chạy một lượt các mục đã đến hạn trong ngân sách thời gian (interface gọi ngược do SS-04 gọi) | DC-HoldExpiryJob, DC-SeatReleaseJob (PKG-13); DC-RefundOutboxJob (PKG-14); DC-EmailOutboxJob (PKG-20) | SS-04 (DC-JobLoop) | PKG-25 |
+| IF-06 | IScheduledJob | Một công việc nền chạy một lượt các mục đã đến hạn trong ngân sách thời gian (interface gọi ngược do SS-04 gọi) | DC-HoldExpiryJob, DC-SeatReleaseJob, DC-SeatEventCleanupJob (PKG-13); DC-RefundOutboxJob (PKG-14); DC-EmailOutboxJob (PKG-20) | SS-04 (DC-JobLoop) | PKG-25 |
 
 IF-05 có 3 operation, IF-06 có 1 operation. IF-06 do SS-04 định nghĩa ở layer Services và Application hiện thực, nên realization đi xuống, không đi lên (P09 F6, P10 F2).
 
@@ -53,7 +54,7 @@ File diagrams/P11b-subsystem-SS-04.drawio, 5 trang: S04B1 (hộp đen), S04W1 (h
 | S04B1-L1 | Lifeline | :ApplicationBootstrap | - | Hàm khởi động chương trình (ngoài mô hình package) | Nối IF-05 với bốn lớp hiện thực IF-06 |
 | S04B1-L2 | Lifeline | :IF-05 IJobScheduler | «interface» | SS-04 | Interface đăng ký và điều khiển |
 | S04B1-L3 | Lifeline | :Scheduler | «subsystem» | SS-04 | Subsystem gọi ngược IF-06 |
-| S04B1-L4 | Lifeline | :IF-06 IScheduledJob | «interface» | PKG-25 | Hiện thực bởi DC-HoldExpiryJob, DC-SeatReleaseJob (PKG-13), DC-RefundOutboxJob (PKG-14), DC-EmailOutboxJob (PKG-20) |
+| S04B1-L4 | Lifeline | :IF-06 IScheduledJob | «interface» | PKG-25 | Hiện thực bởi DC-HoldExpiryJob, DC-SeatReleaseJob, DC-SeatEventCleanupJob (PKG-13), DC-RefundOutboxJob (PKG-14), DC-EmailOutboxJob (PKG-20) |
 | S04B1-F1 | Fragment | loop [với từng công việc trong bốn công việc nền] | - | - | Một operand |
 | S04B1-F2 | Fragment | loop [mỗi chu kỳ, đến khi stop] | - | - | Một operand |
 
@@ -177,7 +178,7 @@ Trang "Phụ thuộc"
 | IF-05 | Interface | IF-05 IJobScheduler | «interface» | - | PKG-25 |
 | SS-04 | Subsystem | Scheduler | - | - | PKG-25; không phụ thuộc package nào khác |
 | IF-06 | Interface | IF-06 IScheduledJob | «interface» | - | PKG-25 định nghĩa |
-| PKG-13 | Package | PKG-13 SeatBooking | - | - | DC-HoldExpiryJob, DC-SeatReleaseJob |
+| PKG-13 | Package | PKG-13 SeatBooking | - | - | DC-HoldExpiryJob, DC-SeatReleaseJob, DC-SeatEventCleanupJob |
 | PKG-14 | Package | PKG-14 PaymentRefund | - | - | DC-RefundOutboxJob |
 | PKG-20 | Package | PKG-20 Notification | - | - | DC-EmailOutboxJob |
 

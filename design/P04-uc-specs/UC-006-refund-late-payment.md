@@ -3,13 +3,14 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.11 |
+| Phiên bản | 1.12 |
+| Thay đổi 1.12 | Đồng bộ X3 lần 6 (design/_sync-log.md): hàng REQ ở Mục 1 bổ sung các REQ phụ của BR; đồng bộ đầu vào đã dùng; không đổi luồng và quy tắc |
 | Thay đổi 1.11 | Thêm luồng 7a (dịch vụ email lỗi, BR-89); bước 3 tạo bản ghi cho giao dịch thứ hai; luồng 2d chỉ ghi log với giao dịch không nhận ra; Mục 8 nêu điểm tiếp nhận chuyển lần giữ ghế sang Hết hạn (quyết định SY-70, SY-71 của chủ dự án); thêm ghi chú N-7a vào sơ đồ |
 | Thay đổi 1.10 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-2e, M-6, M-RX trước A-2e, A-6, A-RX để mỗi action chỉ có một cạnh vào (E-33 đến E-35); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-005-book-tickets.md 1.16; _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3 (Mục 1, Mục 2); _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; UC-005-book-tickets.md 1.17; _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-006 |
 | Mã Q, ASM cuối đã cấp | Q-80 (Q-76 và Q-79 cấp ở P06, review P05 và P06, đã trả lời); Q-51 (Q-48 và Q-51 đều đã trả lời); Q-127 và Q-128 (cấp ở P11b, đã trả lời theo đề xuất của review P11); không có ASM (NGHIEM_NGAT) |
 
@@ -28,7 +29,7 @@
 | Hậu điều kiện tối thiểu | Use case này không tạo vé ở bất kỳ luồng nào; giao dịch không bị hoàn toàn bộ quá một lần (BR-37) và tổng các lần hoàn của giao dịch không vượt số tiền đã thanh toán (BR-26).<br>Khi kết thúc ở luồng 2a: lần báo trùng được ghi nhận, không có khoản hoàn mới; vé của giao dịch (nếu đã tạo ở UC-005) giữ nguyên.<br>Khi kết thúc ở luồng 2c hoặc 2d: kết quả thất bại được ghi nhận, không có khoản hoàn và không có vé nào được tạo từ giao dịch này.<br>Khi kết thúc ở luồng 2e hoặc 2f: không có vé nào được tạo từ giao dịch này; giao dịch được ghi log lỗi để xử lý thủ công ngoài hệ thống, không có khoản hoàn và không có email (BR-38).<br>Khi kết thúc ở luồng 4b hoặc 5b: giao dịch đã được ghi nhận là thanh toán trễ (từ bước 3), chưa được hoàn tiền, khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống; không có email cho khách (BR-41). Khoản hoàn chỉ được gửi lại sau khi tra cứu cho thấy chưa được hoàn (luồng 4t). |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
-| REQ | REQ-35, REQ-36, REQ-90, REQ-109 đến REQ-111, REQ-116, REQ-129 đến REQ-133, REQ-136 (theo P02 và P00 1.8); REQ-79, REQ-80 (P02 Mục 5 đã gắn UC-006); REQ-78 (tham chiếu, UC-005; lưu mã giao dịch), REQ-76 (tham chiếu, UC-005; mốc hết hạn so với thời điểm giải phóng ghế), REQ-11 (tham chiếu, UC-001; email của tài khoản khách), REQ-107 (tham chiếu, UC-001; Dữ liệu ra 1), REQ-105 (tham chiếu, UC-005; tên phim ở Dữ liệu ra 2), REQ-157 (bước 7), REQ-160, REQ-161 (bước 2, 3, Mục 8) |
+| REQ | REQ-35, REQ-36, REQ-90, REQ-109 đến REQ-111, REQ-116, REQ-129 đến REQ-133, REQ-136 (theo P02 và P00 1.8); REQ-79, REQ-80 (P02 Mục 5 đã gắn UC-006); REQ-78 (tham chiếu, UC-005; lưu mã giao dịch), REQ-76 (tham chiếu, UC-005; mốc hết hạn so với thời điểm giải phóng ghế), REQ-11 (tham chiếu, UC-001; email của tài khoản khách), REQ-107 (tham chiếu, UC-001; Dữ liệu ra 1), REQ-105 (tham chiếu, UC-005; tên phim ở Dữ liệu ra 2), REQ-157 (bước 7), REQ-160, REQ-161 (bước 2, 3, Mục 8); REQ-31, REQ-42, REQ-134 (phụ của các BR ở Mục 6) |
 
 ## 2. Luồng sự kiện chính
 

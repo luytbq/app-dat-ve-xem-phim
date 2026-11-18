@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.10 |
+| Phiên bản | 1.11 |
+| Thay đổi 1.11 | Đồng bộ X3 lần 6 (design/_sync-log.md): hàng REQ ở Mục 1 bổ sung các REQ phụ của BR; đồng bộ đầu vào đã dùng; không đổi luồng và quy tắc |
 | Thay đổi 1.10 | Mục 8, bảng Thao tác nguyên tử: bỏ câu UC-012 chưa đặc tả, nêu UC-012 bước 5; không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.9 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (3 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.8 | Activity diagram: thêm Merge M-6c trước A-6c để A-6c chỉ có một cạnh vào (E-57); không đổi luồng |
 | Thay đổi 1.7 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; UC-005-book-tickets.md 1.17 (mẫu và điểm nối); _review-final-batch1.md; _review-final-batch1-recheck.md |
 | Phạm vi | UC-008 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-36 gộp vào Q-30); không có ASM (NGHIEM_NGAT) |
 
@@ -27,7 +28,7 @@
 | Hậu điều kiện tối thiểu | Khi use case kết thúc ở luồng 2a, 2b, 2c, 3a, 4a hoặc 4b: vé, ghế không thay đổi và không có khoản hoàn tiền nào.<br>Một vé không bao giờ được hoàn tiền quá một lần (BR-21).<br>Khi use case đi qua luồng 5c hoặc 6b: vé ở trạng thái đã huỷ (từ bước 4), ghế đã trở về trạng thái trống ở bước 7 (BR-42), khoản hoàn được ghi log lỗi để xử lý thủ công ngoài hệ thống và không có email cho khách (BR-41). Không có trạng thái vé đã huỷ mà ghế chưa trống. |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
-| REQ | REQ-40 đến REQ-44, REQ-83, REQ-84, REQ-85, REQ-118 đến REQ-122, REQ-131, REQ-132 (theo P02); REQ-12, REQ-102, REQ-79 (P02 Mục 5 đã gắn UC-008); REQ-19 (tham chiếu, UC-005), REQ-78 (tham chiếu, UC-005; phụ của BR-43), REQ-35, REQ-109 (tham chiếu, UC-006; BR-26), REQ-135 (tham chiếu, UC-005; Mục 8), REQ-30 (tham chiếu, UC-005), REQ-47 (tham chiếu, UC-005), REQ-51 (tham chiếu, UC-009), REQ-99 (tham chiếu, UC-015, UC-016), REQ-100 (tham chiếu, UC-017), REQ-105, REQ-106 (tham chiếu, UC-005; Dữ liệu vào 1, Dữ liệu ra 1) |
+| REQ | REQ-40 đến REQ-44, REQ-83, REQ-84, REQ-85, REQ-118 đến REQ-122, REQ-131, REQ-132 (theo P02); REQ-12, REQ-102, REQ-79 (P02 Mục 5 đã gắn UC-008); REQ-19 (tham chiếu, UC-005), REQ-78 (tham chiếu, UC-005; phụ của BR-43), REQ-35, REQ-109 (tham chiếu, UC-006; BR-26), REQ-135 (tham chiếu, UC-005; Mục 8), REQ-30 (tham chiếu, UC-005), REQ-47 (tham chiếu, UC-005), REQ-51 (tham chiếu, UC-009), REQ-99 (tham chiếu, UC-015, UC-016), REQ-100 (tham chiếu, UC-017), REQ-105, REQ-106 (tham chiếu, UC-005; Dữ liệu vào 1, Dữ liệu ra 1); REQ-37, REQ-38, REQ-87, REQ-90 (phụ của các BR ở Mục 6) |
 
 ## 2. Luồng sự kiện chính
 

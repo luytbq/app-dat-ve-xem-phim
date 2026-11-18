@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P12 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): thêm DC-RequestStoreBase, DC-ManagedListStore, DC-ReportStoreBase (RV-19, R-498 đến R-507); đổi tên DC-SeatMapState thành DC-SeatMapGrid, DC-ReportRequest thành DC-ReportFormInput, DC-CashRefundView thành DC-CounterCashRefundView (RV-23); thêm IF-48 ISessionSource, DC-FetchApiClient không còn phụ thuộc DC-SessionStore (RV-24, R-508, R-509) |
 | Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M7); project-profile.md; P08-analysis-model.md 2.0 (F3, F4, bảng quan hệ R-01 đến R-101); P09-architecture.md 2.0 (F3 đến F7.5, F7.7, F7.11); P10-design-elements.md 2.0 (F3, F4, F5, Đề xuất sửa artifact trước); P11a-gui 2.0 (screen-list, screen-transition SCR-01 đến SCR-40, ui-standards UI-STT 41, 43, 48); P11b-system-interfaces SS-02 1.1 (IF-03, F5); P07 UC-001, UC-003, UC-004, UC-005, UC-007 đến UC-017 (message của các boundary Form); design/P12-class-design.md 1.6 (tham chiếu, không sửa: IF-06, IF-08, IF-11, IF-16, IF-19 đến IF-21, IF-23, DC-HoldResult, DC-PaymentStatusView, DC-CancelResult, DC-AdmitResult); _sync-log.md (Đầu vào cho lần chạy lại P08-P13, dòng P12). Dải mã của phiên (C10): R-330 đến R-369, ST-17 đến ST-18, IF-41 đến IF-43, Q-332 đến Q-341 |
 | Phạm vi | PKG-05 CustomerWeb, PKG-06 CounterWeb, PKG-07 CheckInWeb, PKG-08 CinemaAdminWeb, PKG-09 ChainAdminWeb, PKG-10 AccountAdminWeb, PKG-29 SeatMapClient, PKG-31 SessionClient, PKG-20 Notification, PKG-23 EmailGatewayClient (SS-02). Tham chiếu, không sửa: design/P12-class-design.md (lõi) |
 | Mã Q, ASM cuối đã cấp | Q-341 (dải Q-332 đến Q-341 của phiên); không có ASM (NGHIEM_NGAT) |
@@ -27,7 +28,7 @@ Trọng tâm: lớp trình bày chạy ở trình duyệt (TypeScript, React) gi
 | Application phía máy chủ | PKG-20 | 1: DC-EmailOutboxJob |
 | Services (SS-02) | PKG-23 | 5: IF-03, DC-EmailGatewayManager, DC-MimeMessageBuilder, DC-SmtpClient, DC-SmtpConfig |
 | Giao diện React | PKG-29 | 6: IF-42, DC-BrowserEventSourceFactory, DC-SeatMapReducer, DC-SeatMapSyncClient, DC-HoldCountdown, DC-HoldFlowStore |
-| Giao diện React | PKG-31 | 7: IF-41, IF-43, DC-BrowserTicker, DC-FetchApiClient, DC-StoreBase, DC-SessionStore, DC-LoginView |
+| Giao diện React | PKG-31 | 11: IF-41, IF-43, IF-48, DC-BrowserTicker, DC-FetchApiClient, DC-StoreBase, DC-RequestStoreBase, DC-ManagedListStore, DC-ReportStoreBase, DC-SessionStore, DC-LoginView |
 
 0.2. Bảng ánh xạ kiểu sang TypeScript và Go (một lần cho cả artifact). Phần giao diện dùng TypeScript (React SPA, theo P09 F11); PKG-20 và PKG-23 dùng Go như P12 lõi mục 0.2.
 
@@ -106,7 +107,7 @@ Kiểu hợp đồng REST: Các kiểu SeatId, ShowtimeId, MovieId, CinemaId, Au
 | DC-SmtpConfig | SmtpConfig | «utility» | PKG-23 | Giữ cấu hình SMTP đọc từ biến môi trường khi khởi động và không để lộ thông tin xác thực ra log | P11b SS-02 | class | Không | Visibility package |
 | IF-42 | IEventSourceFactory | «interface» | PKG-29 | Mở một kết nối đẩy sự kiện (SSE) tới một địa chỉ và trả bộ nhận sự kiện | Thiết kế: để DC-SeatMapSyncClient kiểm thử được mà không cần EventSource thật | interface | Không | Interface mới; hiện thực DC-BrowserEventSourceFactory |
 | DC-BrowserEventSourceFactory | BrowserEventSourceFactory | «utility» | PKG-29 | Hiện thực IEventSourceFactory bằng EventSource của trình duyệt và đổi khung seat, reload, nhịp tim thành lời gọi handlers | Thiết kế: hiện thực IF-42 | class | Không | Hiện thực IF-42; không thêm operation công khai |
-| DC-SeatMapReducer | SeatMapReducer | «control» | PKG-29 | Áp ảnh chụp và sự kiện đổi ghế vào sơ đồ ghế theo quy tắc chỉ nhận sự kiện mới hơn eventSeq của từng ghế | P10 cơ chế (P09 F7.5 điểm 5); P08 // updateSeatMap | class | Không | Hàm thuần trên SeatMapState; không giữ trạng thái, không gọi mạng |
+| DC-SeatMapReducer | SeatMapReducer | «control» | PKG-29 | Áp ảnh chụp và sự kiện đổi ghế vào sơ đồ ghế theo quy tắc chỉ nhận sự kiện mới hơn eventSeq của từng ghế | P10 cơ chế (P09 F7.5 điểm 5); P08 // updateSeatMap | class | Không | Hàm thuần trên SeatMapGrid; không giữ trạng thái, không gọi mạng |
 | DC-SeatMapSyncClient | SeatMapSyncClient | «control» | PKG-29 | Giữ sơ đồ ghế của một suất chiếu đồng bộ với máy chủ: tải ảnh chụp, mở kết nối đẩy từ con trỏ, nối lại và tải lại khi cần | P10 cơ chế (P09 F7.5; AC-B-BookTicketsForm // updateSeatMap) | class | Không | Kế thừa DC-StoreBase; có state machine ST-18 |
 | DC-HoldCountdown | HoldCountdown | «control» | PKG-29 | Tính thời gian giữ ghế còn lại từ thời điểm hết hạn của máy chủ, bù độ lệch đồng hồ, và báo các mốc cảnh báo | Thiết kế: P11a ui-standards UI-STT 43 (BR-10); dùng chung PKG-05, PKG-06 | class | Không | Kế thừa DC-StoreBase; hai Store đặt chỗ dùng chung |
 | DC-HoldFlowStore | HoldFlowStore | «control» | PKG-29 | Điều phối luồng chọn ghế, giữ ghế, huỷ giữ ghế và mở lại lần giữ ghế đang chạy, dùng chung cho khách và nhân viên quầy | Thiết kế: tách phần chung của AC-B-BookTicketsForm và AC-B-CounterBookTicketsForm | abstract class | Không | Lớp abstract kế thừa DC-StoreBase; DC-BookTicketsStore và DC-CounterBookTicketsStore kế thừa; có state machine ST-17. Đề xuất sửa P10: đặt ở PKG-29 |
@@ -114,7 +115,11 @@ Kiểu hợp đồng REST: Các kiểu SeatId, ShowtimeId, MovieId, CinemaId, Au
 | IF-43 | ITicker | «interface» | PKG-31 | Cung cấp thời điểm hiện tại và bộ hẹn giờ lặp cho lớp giao diện để kiểm thử được mốc thời gian | Thiết kế: Bước 2.6 (không gọi đồng hồ hệ thống trực tiếp) | interface | Không | Interface mới; hiện thực DC-BrowserTicker |
 | DC-BrowserTicker | BrowserTicker | «utility» | PKG-31 | Hiện thực ITicker bằng Date.now và setInterval, setTimeout của trình duyệt | Thiết kế: hiện thực IF-43 | class | Không | Hiện thực IF-43; không thêm operation công khai |
 | DC-FetchApiClient | FetchApiClient | «service» | PKG-31 | Đổi một ApiRequest thành lời gọi fetch có mã phiên và đổi phản hồi lỗi thành ApiError | Thiết kế: hiện thực IF-41 | class | Không | Hiện thực IF-41; bảng tuyến logic sang phương thức và đường dẫn do P12 của PKG-11 chốt (Q-332) |
+| IF-48 | ISessionSource | «interface» | PKG-31 | Cho DC-FetchApiClient lấy giá trị Authorization của phiên và báo phiên hết hiệu lực khi nhận 401, không biết DC-SessionStore | Thiết kế: Extract Interface (X1 RV-24), phá vòng lớp DC-FetchApiClient và DC-SessionStore | interface | Không | DC-SessionStore hiện thực; bản giả của DC-FetchApiClient trong X2 không cần khởi tạo DC-SessionStore thật |
 | DC-StoreBase | StoreBase<S> | «control» | PKG-31 | Giữ trạng thái bất biến của một Store và báo cho người đăng ký khi trạng thái đổi | Thiết kế: khuôn Flux (P09 F5), mẫu Observer | abstract class | Không | Lớp abstract; mọi Store của PKG-05 đến PKG-10 và DC-HoldFlowStore kế thừa |
+| DC-RequestStoreBase | RequestStoreBase<S> | «control» | PKG-31 | Giữ trạng thái gửi yêu cầu, lý do từ chối và số thứ tự yêu cầu của một Store có gửi yêu cầu tới máy chủ | Thiết kế: Extract Superclass (X1 RV-19) | abstract class | Không | Lớp abstract, kế thừa DC-StoreBase; DC-ManagedListStore và DC-ReportStoreBase kế thừa |
+| DC-ManagedListStore | ManagedListStore<S> | «control» | PKG-31 | Bước lưu có mốc displayedAt và quy tắc nạp lại danh sách khi bị từ chối do mốc cũ (BR-138, BR-142, BR-146) cho năm Store quản lý | Thiết kế: Extract Superclass (X1 RV-19) | abstract class | Không | Lớp abstract; DC-ManagePriceListStore, DC-ScheduleShowtimesStore, DC-ManageAuditoriumsStore, DC-ManageMoviesStore, DC-ManageCinemasStore kế thừa |
+| DC-ReportStoreBase | ReportStoreBase<S> | «control» | PKG-31 | Đánh số yêu cầu, bỏ kết quả của yêu cầu cũ và giữ thông báo kỳ báo cáo cho hai Store báo cáo | Thiết kế: Extract Superclass (X1 RV-19) | abstract class | Không | Lớp abstract; DC-ViewCinemaReportStore, DC-ViewChainReportStore kế thừa |
 | DC-SessionStore | SessionStore | «control» | PKG-31 | Giữ mã phiên và danh tính của người dùng đang đăng nhập, và đưa về màn đăng nhập khi phiên không còn hiệu lực | P10 cơ chế (P09 F5, F7.11) | class | Không | Kế thừa DC-StoreBase; mã phiên lưu ở sessionStorage (Q-337) |
 | DC-LoginView | LoginView | «boundary» | PKG-31 | Hiển thị một form đăng nhập dùng cho khách hoặc nhân viên, ở dạng trang hoặc pop-up, và chuyển người dùng tới màn hình đầu của vai trò | P10 cơ chế (PKG-31); P11a Đề xuất: một component phục vụ SCR-01 và SCR-21 | class | Không | Một component nhận accountKind (Q-267, E-39, E-40) |
 
@@ -136,8 +141,8 @@ F1b. Kiểu phụ trợ
 | DC-ExpireReason | enumeration | PKG-31 | SESSION_INVALID (mã phiên bị từ chối, nhân viên đổi quyền), SESSION_EXPIRED (quá hạn) | DC-SessionStore.expire |
 | DC-ScreenId | enumeration | PKG-31 | SCR-01 đến SCR-40 (mã màn hình P11a) | DC-LoginView.homeRouteFor, các View điều hướng |
 | DC-ConnectionState | enumeration | PKG-29 | CONNECTING, LIVE, RECONNECTING, RELOAD_PENDING, CLOSED (ST-18) | DC-SeatMapSyncClient.connection |
-| DC-SeatMapState | value object | PKG-29 | seats (Map seatId --> SeatCell), cursor (number, mã sự kiện lớn nhất đã thấy), showtimeChangedAt (string, lastChangedAt của suất chiếu) | DC-SeatMapReducer, DC-SeatMapSyncClient |
-| DC-SeatCell | value object | PKG-29 | seatId, label, seatType, state (AVAILABLE, HELD, SOLD), eventSeq (number) | DC-SeatMapState |
+| DC-SeatMapGrid | value object | PKG-29 | seats (Map seatId --> SeatCell), cursor (number, mã sự kiện lớn nhất đã thấy), showtimeChangedAt (string, lastChangedAt của suất chiếu) | DC-SeatMapReducer, DC-SeatMapSyncClient |
+| DC-SeatCell | value object | PKG-29 | seatId, label, seatType, state (AVAILABLE, HELD, SOLD), eventSeq (number) | DC-SeatMapGrid |
 | DC-SeatMapSnapshot | value object | PKG-29 | Ảnh chụp sơ đồ ghế REST: showtimeId, showtimeChangedAt, cursor, seats (seatId, state, eventSeq); phản chiếu DC-SeatSnapshot của PKG-28 | DC-SeatMapReducer.fromSnapshot |
 | DC-SeatEventView | value object | PKG-29 | eventId (number), showtimeId, items (seatId, state); phản chiếu DC-SeatChangeEvent của PKG-28 | DC-SeatMapReducer.applyEvent |
 | DC-StreamHandlers | value object | PKG-29 | onOpen, onSeatEvent, onReload, onHeartbeat, onError (các hàm gọi lại) | IF-42.open |
@@ -149,10 +154,10 @@ F1b. Kiểu phụ trợ
 | DC-ShowtimeView | value object | PKG-29 | showtimeId, movieTitle, format, cinemaName, auditoriumName, startsAt, lastChangedAt, maxSeatsPerHold | DC-HoldFlowStore.openShowtime |
 | DC-PaymentOutcome | value object | PKG-05 | holdStatus, paymentStatus, bookingCode (rỗng nếu chưa có vé); phản chiếu DC-PaymentStatusView của PKG-14 | DC-BookTicketsStore.loadPaymentOutcome |
 | DC-SoldTickets | value object | PKG-06 | bookingCode, tickets (TicketView), qrContents | DC-CounterBookTicketsStore.confirmCashReceived |
-| DC-CashRefundView | value object | PKG-06 | ticketId, amount (đồng), refundType = TICKET_CASH | DC-CounterCancelTicketStore |
+| DC-CounterCashRefundView | value object | PKG-06 | ticketId, amount (đồng), refundType = TICKET_CASH | DC-CounterCancelTicketStore |
 | DC-CancelResultView | value object | PKG-05 | ticketId, refundAmount, refundType, refundStatus; phản chiếu DC-CancelResult của PKG-15 | DC-CancelTicketStore, DC-CounterCancelTicketStore |
 | DC-ScanOutcome | value object | PKG-07 | outcome (ADMITTED, WRONG_CINEMA, WRONG_SHOWTIME, ALREADY_USED, CANCELLED), bookingCode, seatLabel, seatType; phản chiếu DC-AdmitResult của PKG-15 | DC-CheckTicketStore.scanTicket |
-| DC-ReportRequest | value object | PKG-08 | groupBy (cách xem), fromDate, toDate (ngày dd/mm/yyyy theo múi giờ nghiệp vụ) | DC-ViewCinemaReportStore, DC-ViewChainReportStore |
+| DC-ReportFormInput | value object | PKG-08 | groupBy (cách xem), fromDate, toDate (ngày dd/mm/yyyy theo múi giờ nghiệp vụ) | DC-ViewCinemaReportStore, DC-ViewChainReportStore |
 | DC-ReportNotice | enumeration | PKG-08 | INVALID_PERIOD, NO_SHOWTIMES | hai Store báo cáo |
 | DC-StaffAction | enumeration | PKG-10 | UPDATE, LOCK, UNLOCK, RENAME, RESET_PASSWORD | DC-ManageStaffAccountsView.onRowActionSelected |
 | DC-StaffDialogKind | enumeration | PKG-10 | CREATE, UPDATE, RENAME, RESET_PASSWORD | DC-ManageStaffAccountsView |
@@ -247,7 +252,7 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-CounterCancelTicketView | + | onCashRefundConfirmed(): Promise<void> | Gọi store.confirmCashRefunded rồi hiện SCR-15 | Tiền: nhân viên đã hoàn tiền mặt cho khách. Hậu: điều hướng SCR-15 | P07 UC-008 // confirmCashRefunded; P11a E-28 | Instance | - |
 | DC-CounterCancelTicketView | + | onBackHomeClicked(): void | Về SCR-09 | Hậu: store.reset | P11a SCR-15 | Instance | - |
 | DC-CounterCancelTicketStore | + | findBooking(code: string): Promise<void> | Tìm các vé của lần đặt theo mã đặt vé và kiểm vé mua tại quầy của cụm rạp mình | Hậu: bookingTickets; mã không tồn tại hoặc khác cụm rạp thì refusal | P07 UC-008 // findBookingTickets; // showBookingTickets; // notifyRefusal; UC-008 2c | Instance | ApiError |
-| DC-CounterCancelTicketStore | + | cancelTicket(ticketId: TicketId): Promise<void> | Gửi yêu cầu huỷ vé; vé mua tại quầy thì nhận CashRefundView | Tiền: bookingTickets có vé. Hậu: cashRefund = số tiền mặt cần hoàn | P07 UC-008 // requestCancellation; // showCashRefund | Instance | ApiError |
+| DC-CounterCancelTicketStore | + | cancelTicket(ticketId: TicketId): Promise<void> | Gửi yêu cầu huỷ vé; vé mua tại quầy thì nhận CounterCashRefundView | Tiền: bookingTickets có vé. Hậu: cashRefund = số tiền mặt cần hoàn | P07 UC-008 // requestCancellation; // showCashRefund | Instance | ApiError |
 | DC-CounterCancelTicketStore | + | confirmCashRefunded(ticketId: TicketId): Promise<void> | Gửi xác nhận đã hoàn tiền mặt | Tiền: cashRefund khác null. Hậu: result = kết quả huỷ; gọi lặp trả cùng kết quả | P07 UC-008 // confirmCashRefunded; // showCancellationResult | Instance | ApiError |
 | DC-CounterCancelTicketStore | + | reset(): void | Xoá lần đặt, hoàn tiền, kết quả | Hậu: trạng thái ban đầu | Bổ sung: kết thúc luồng | Instance | - |
 | DC-CheckTicketView | + | mount(): Promise<void> | Tải suất chiếu của cụm rạp, khôi phục suất đang soát từ sessionStorage | Hậu: nếu đã chọn suất thì mở camera | P11a SCR-16 | Instance | - |
@@ -294,8 +299,8 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-ManageAuditoriumsStore | + | saveAuditorium(input: AuditoriumInput): Promise<void> | Gửi tên, loại phòng, định dạng chiếu được, sơ đồ ghế kèm lastChangedAt khi sửa | Hậu: thành công thì hiện phòng đã lưu và sức chứa; từ chối (tên trùng, sức chứa ngoài 50..400, phòng đã bị sửa, ghế có suất chiếu) thì refusal, form giữ nhập | P07 UC-012 // submitAuditorium; // showSavedAuditorium; // notifyRefusal; BR-141, BR-144 đến BR-147 | Instance | ApiError |
 | DC-ManageAuditoriumsStore | + | removeAuditorium(auditoriumId: AuditoriumId): Promise<void> | Gửi yêu cầu xoá kèm lastChangedAt | Hậu: phòng khỏi auditoriums hoặc refusal (phòng đã từng có suất chiếu, BR-147) | P07 UC-012 // submitAuditoriumRemoval; // showRemovalSuccess | Instance | ApiError |
 | DC-ManageAuditoriumsStore | + | cancelForm(): void | Đóng form | Hậu: form = null | P07 UC-012 // cancelRequest | Instance | - |
-| DC-ViewCinemaReportView | + | onReportRequested(request: ReportRequest): Promise<void> | Kiểm nhanh từ ngày không sau đến ngày rồi gọi store.requestReport | Hậu: báo cáo hoặc thông báo kỳ không hợp lệ, không có suất chiếu | P07 UC-015 // requestCinemaReport; GL-66; BR-115 | Instance | - |
-| DC-ViewCinemaReportStore | + | requestReport(request: ReportRequest): Promise<void> | Gửi kỳ và cách xem; cụm rạp lấy từ phiên ở máy chủ, không gửi từ trình duyệt | Hậu: report; kỳ sai thì notice INVALID_PERIOD; không có suất chiếu thì notice NO_SHOWTIMES; yêu cầu mới thay yêu cầu đang chạy (bỏ kết quả cũ) | P07 UC-015 // startCinemaReport; // showReport; // notifyInvalidPeriod; // notifyNoShowtimes; P09 F7.12 | Instance | ApiError |
+| DC-ViewCinemaReportView | + | onReportRequested(request: ReportFormInput): Promise<void> | Kiểm nhanh từ ngày không sau đến ngày rồi gọi store.requestReport | Hậu: báo cáo hoặc thông báo kỳ không hợp lệ, không có suất chiếu | P07 UC-015 // requestCinemaReport; GL-66; BR-115 | Instance | - |
+| DC-ViewCinemaReportStore | + | requestReport(request: ReportFormInput): Promise<void> | Gửi kỳ và cách xem; cụm rạp lấy từ phiên ở máy chủ, không gửi từ trình duyệt | Hậu: report; kỳ sai thì notice INVALID_PERIOD; không có suất chiếu thì notice NO_SHOWTIMES; yêu cầu mới thay yêu cầu đang chạy (bỏ kết quả cũ) | P07 UC-015 // startCinemaReport; // showReport; // notifyInvalidPeriod; // notifyNoShowtimes; P09 F7.12 | Instance | ApiError |
 | DC-ChainAdminHomeView | + | onMenuSelected(target: ScreenId): void | Điều hướng tới SCR-32, SCR-34 hoặc SCR-36 | Hậu: điều hướng | P11a SCR-31 | Instance | - |
 | DC-ManageMoviesView | + | mount(): Promise<void> | Gọi store.loadMovies | Hậu: danh sách hiện | P07 UC-010 // requestMovieEdit (chuẩn bị); P11a SCR-32 | Instance | - |
 | DC-ManageMoviesView | + | onAddClicked(): void | Gọi store.openAddForm, mở SCR-33 | Hậu: form trống hiện | P07 UC-010 // requestMovieAddition | Instance | - |
@@ -317,8 +322,8 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-ManageCinemasStore | + | openEditForm(cinemaId: CinemaId): Promise<void> | Tải thông tin cụm rạp để sửa, ghi lastChangedAt | Hậu: form.mode = EDIT | P07 UC-011 // selectCinema; // showCinemaForEdit | Instance | ApiError |
 | DC-ManageCinemasStore | + | saveCinema(input: CinemaInput): Promise<void> | Gửi tên, tỉnh hoặc thành phố, địa chỉ kèm lastChangedAt khi sửa | Hậu: thành công hiện cụm rạp đã lưu; từ chối (tên trùng, cụm rạp đã bị sửa) thì refusal, form giữ nhập | P07 UC-011 // submitCinema, // submitCinemaChanges; // showSavedCinema; // notifyRefusal; BR-141, BR-142 | Instance | ApiError |
 | DC-ManageCinemasStore | + | cancelForm(): void | Đóng form | Hậu: form = null | P07 UC-011 // cancelRequest | Instance | - |
-| DC-ViewChainReportView | + | onReportRequested(request: ReportRequest): Promise<void> | Kiểm nhanh từ ngày không sau đến ngày rồi gọi store.requestReport | Hậu: báo cáo hoặc thông báo | P07 UC-016 // requestChainReport; GL-66; BR-115 | Instance | - |
-| DC-ViewChainReportStore | + | requestReport(request: ReportRequest): Promise<void> | Gửi kỳ và cách xem | Hậu: report gồm nhóm và so sánh từng cụm rạp; kỳ sai thì notice INVALID_PERIOD; không có suất chiếu thì NO_SHOWTIMES; yêu cầu mới thay yêu cầu đang chạy | P07 UC-016 // startChainReport; // showChainReport; // notifyInvalidPeriod; // notifyNoShowtimes; P09 F7.12 | Instance | ApiError |
+| DC-ViewChainReportView | + | onReportRequested(request: ReportFormInput): Promise<void> | Kiểm nhanh từ ngày không sau đến ngày rồi gọi store.requestReport | Hậu: báo cáo hoặc thông báo | P07 UC-016 // requestChainReport; GL-66; BR-115 | Instance | - |
+| DC-ViewChainReportStore | + | requestReport(request: ReportFormInput): Promise<void> | Gửi kỳ và cách xem | Hậu: report gồm nhóm và so sánh từng cụm rạp; kỳ sai thì notice INVALID_PERIOD; không có suất chiếu thì NO_SHOWTIMES; yêu cầu mới thay yêu cầu đang chạy | P07 UC-016 // startChainReport; // showChainReport; // notifyInvalidPeriod; // notifyNoShowtimes; P09 F7.12 | Instance | ApiError |
 | DC-ManageStaffAccountsView | + | mount(): Promise<void> | Gọi store.loadStaff | Hậu: danh sách hiện | P07 UC-017 // requestUpdateStaff (chuẩn bị); P11a SCR-37 | Instance | - |
 | DC-ManageStaffAccountsView | + | onCreateClicked(): Promise<void> | Gọi store.openCreateForm, mở SCR-38 | Hậu: hộp thoại tạo hiện | P07 UC-017 // requestCreateStaff; P11a SCR-38 | Instance | - |
 | DC-ManageStaffAccountsView | + | onRowActionSelected(action: StaffAction, staffId: StaffId): Promise<void> | Thực hiện hành động chọn trên một dòng: UPDATE mở SCR-38 (cập nhật), LOCK và UNLOCK gọi store.lockStaff, store.unlockStaff sau xác nhận, RENAME mở SCR-39, RESET_PASSWORD mở SCR-40 | Tiền: dòng đã hiển thị kèm lastChangedAt. Hậu: hộp thoại tương ứng hiện hoặc đổi trạng thái ngay | P07 UC-017 // requestUpdateStaff, // selectStaff, // requestLockStaff, // requestUnlockStaff, // requestRenameStaff, // requestResetStaffPassword | Instance | - |
@@ -347,13 +352,13 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-SmtpClient | + | Send(ctx Ctx, to string, raw []byte) EmailSendResult | Kết nối (tối đa 10 giây), TLS, MAIL FROM, RCPT TO, DATA; toàn thư tối đa 30 giây; 2xx là Accepted, 5xx là Rejected, 4xx hoặc lỗi mạng là TemporaryFailure, maybeDelivered = true khi lỗi xảy ra sau khi đã gửi nội dung | Hậu: luôn đóng kết nối | P11b IF-03 timeout, F7 | Instance | - |
 | DC-SmtpConfig | + | LoadSmtpConfig(getenv func(string) string) (SmtpConfig, error) | Đọc máy chủ, cổng, chế độ TLS, tài khoản, mật khẩu, địa chỉ người gửi, miền Message-ID; thiếu giá trị bắt buộc thì lỗi khởi động | Classifier. Hậu: mật khẩu không xuất hiện trong String() | P11b SS-02 F5 | Classifier | ConfigurationError |
 | IF-42 | + | open(url: string, handlers: StreamHandlers): StreamHandle | Mở kết nối; handlers có onOpen, onSeatEvent, onReload, onHeartbeat, onError | Hậu: StreamHandle.close() đóng kết nối, gọi nhiều lần vô hại | Bổ sung: P09 F7.5 điểm 4 | Instance | - |
-| DC-SeatMapReducer | + | fromSnapshot(snapshot: SeatMapSnapshot): SeatMapState | Dựng sơ đồ ghế từ ảnh chụp (ghế, state, eventSeq, con trỏ, showtimeChangedAt) | Hậu: cursor = snapshot.cursor | P09 F7.5 điểm 4 | Instance | - |
-| DC-SeatMapReducer | + | applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState | Với từng ghế trong sự kiện chỉ áp khi event.eventId > eventSeq hiện có của ghế; cập nhật cursor = max(cursor, eventId) | Hậu: sự kiện lặp, phát lại, lệch thứ tự giữa các ghế đều không đổi kết quả (chạy lặp an toàn); trả đối tượng mới | P07 UC-005 // updateSeatMap; P09 F7.5 điểm 5; NFR-08 | Instance | - |
-| DC-SeatMapReducer | + | changedSeatIds(before: SeatMapState, after: SeatMapState): SeatId[] | Danh sách ghế đổi state giữa hai bản | Hậu: không đổi trạng thái | Bổ sung: DC-HoldFlowStore báo ghế đang chọn đã bị lấy (MSG-11) | Instance | - |
-| DC-SeatMapSyncClient | + | start(showtimeId: ShowtimeId): Promise<void> | Tải ảnh chụp, dựng SeatMapState, mở kết nối đẩy với after = cursor | Tiền: trạng thái CLOSED. Hậu: connection LIVE khi kết nối mở; nếu ảnh chụp lỗi thì RELOAD_PENDING và hẹn thử lại | P07 UC-005 // showSeatMap; P09 F7.5 | Instance | ApiError |
+| DC-SeatMapReducer | + | fromSnapshot(snapshot: SeatMapSnapshot): SeatMapGrid | Dựng sơ đồ ghế từ ảnh chụp (ghế, state, eventSeq, con trỏ, showtimeChangedAt) | Hậu: cursor = snapshot.cursor | P09 F7.5 điểm 4 | Instance | - |
+| DC-SeatMapReducer | + | applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid | Với từng ghế trong sự kiện chỉ áp khi event.eventId > eventSeq hiện có của ghế; cập nhật cursor = max(cursor, eventId) | Hậu: sự kiện lặp, phát lại, lệch thứ tự giữa các ghế đều không đổi kết quả (chạy lặp an toàn); trả đối tượng mới | P07 UC-005 // updateSeatMap; P09 F7.5 điểm 5; NFR-08 | Instance | - |
+| DC-SeatMapReducer | + | changedSeatIds(before: SeatMapGrid, after: SeatMapGrid): SeatId[] | Danh sách ghế đổi state giữa hai bản | Hậu: không đổi trạng thái | Bổ sung: DC-HoldFlowStore báo ghế đang chọn đã bị lấy (MSG-11) | Instance | - |
+| DC-SeatMapSyncClient | + | start(showtimeId: ShowtimeId): Promise<void> | Tải ảnh chụp, dựng SeatMapGrid, mở kết nối đẩy với after = cursor | Tiền: trạng thái CLOSED. Hậu: connection LIVE khi kết nối mở; nếu ảnh chụp lỗi thì RELOAD_PENDING và hẹn thử lại | P07 UC-005 // showSeatMap; P09 F7.5 | Instance | ApiError |
 | DC-SeatMapSyncClient | + | stop(): void | Đóng kết nối, huỷ hẹn giờ, về CLOSED | Hậu: không còn callback nào gọi sau stop | Bổ sung: rời màn hình | Instance | - |
 | DC-SeatMapSyncClient | + | reload(): Promise<void> | Tải lại ảnh chụp rồi mở lại kết nối từ con trỏ mới | Hậu: sơ đồ thay bằng ảnh chụp mới; sự kiện áp theo eventSeq nên không mất hay lặp | P09 F7.5 điểm 6 (RELOAD_REQUIRED) | Instance | ApiError |
-| DC-SeatMapSyncClient | + | currentMap(): SeatMapState | Sơ đồ ghế hiện tại | - | Bổ sung: quan sát | Instance | - |
+| DC-SeatMapSyncClient | + | currentMap(): SeatMapGrid | Sơ đồ ghế hiện tại | - | Bổ sung: quan sát | Instance | - |
 | DC-SeatMapSyncClient | + | connection(): ConnectionState | Trạng thái kết nối (CONNECTING, LIVE, RECONNECTING, RELOAD_PENDING, CLOSED) | - | ST-18; P11a UI-STT 41 | Instance | - |
 | DC-SeatMapSyncClient | - | onSeatEvent(event: SeatEventView): void | Áp sự kiện qua SeatMapReducer, ghi lastFrameAt | Hậu: map mới, báo người đăng ký | ST-18 sự kiện seatEvent | Instance | - |
 | DC-SeatMapSyncClient | - | onHeartbeat(): void | Ghi lastFrameAt | - | ST-18 sự kiện heartbeat | Instance | - |
@@ -376,6 +381,8 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-HoldFlowStore | # | applyHold(hold: HoldView): void | Nhận lần giữ ghế: lưu HoldView, bắt đầu đếm ngược với expiryTime và serverTime | Hậu: phase HELD | Bổ sung: dùng chung confirmSeatSelection, loadActiveHold | Instance | - |
 | IF-41 | + | send<T>(request: ApiRequest): Promise<T> | Gửi yêu cầu; request gồm route (tên tuyến logic), params, body; trả nội dung đã giải mã JSON | Hậu: phản hồi 401 "phiên không còn hiệu lực" đã chuyển cho DC-SessionStore.expire trước khi ném | Thiết kế: P09 F7.11, P11a ui-standards UI-STT 48 | Instance | ApiError |
 | IF-41 | + | openStream(request: ApiRequest): Promise<string> | Trả địa chỉ tuyệt đối kèm tham số cho kết nối đẩy (SSE) | - | Không đổi trạng thái; Thiết kế: P09 F7.5 | Instance | - |
+| IF-48 | + | authHeader(): string | null | Trả giá trị Authorization của phiên hiện tại hoặc null | Hậu: không đổi trạng thái | Thiết kế: X1 RV-24 | Instance | - |
+| IF-48 | + | expire(reason: ExpireReason): void | Xoá phiên khi máy chủ từ chối (401) | Hậu: phiên đã xoá; gọi nhiều lần vô hại | Thiết kế: X1 RV-24 | Instance | - |
 | IF-43 | + | now(): number | Thời điểm hiện tại của trình duyệt, mili giây từ epoch | - | Bổ sung: đồng hồ tiêm vào | Instance | - |
 | IF-43 | + | every(periodMs: number, tick: () => void): () => void | Gọi tick mỗi periodMs; trả hàm huỷ hẹn giờ | Hậu: hàm huỷ gọi nhiều lần vô hại | Bổ sung: đếm ngược, nhịp tim, lùi thời gian nối lại | Instance | - |
 | IF-43 | + | after(delayMs: number, action: () => void): () => void | Gọi action một lần sau delayMs; trả hàm huỷ | - | Bổ sung: độ trễ ngẫu nhiên tải lại ảnh chụp (P09 F7.5 điểm 6) | Instance | - |
@@ -384,6 +391,11 @@ Chữ ký TypeScript: tenOperation(thamSo: Kieu): KieuTraVe; Promise<void> là l
 | DC-StoreBase | + | getState(): S | Trả trạng thái hiện tại (đối tượng bất biến) | - | Bổ sung: View và kiểm thử đọc trạng thái | Instance | - |
 | DC-StoreBase | + | subscribe(listener: () => void): () => void | Đăng ký nghe thay đổi; trả hàm huỷ đăng ký | Hậu: listener được gọi sau mỗi setState, không gọi lúc đăng ký | Bổ sung: View React đăng ký (useSyncExternalStore) | Instance | - |
 | DC-StoreBase | # | setState(next: S): void | Thay trạng thái bằng bản mới rồi gọi mọi listener | Hậu: getState() trả next | Bổ sung: Store con đổi trạng thái | Instance | - |
+| DC-RequestStoreBase | # | beginRequest(): number | Tăng requestSeq, đặt status LOADING, xoá refusal; trả số thứ tự của yêu cầu | Hậu: requestSeq tăng một | Thiết kế: X1 RV-19 | Instance | - |
+| DC-RequestStoreBase | # | isCurrent(seq: number): boolean | Đúng khi seq bằng requestSeq hiện tại (kết quả của yêu cầu cũ bị bỏ) | Hậu: không đổi trạng thái | Thiết kế: X1 RV-19 | Instance | - |
+| DC-RequestStoreBase | # | setRefusal(refusal: Refusal | null): void | Ghi lý do từ chối, status IDLE | Hậu: refusal = tham số | Thiết kế: X1 RV-19 | Instance | - |
+| DC-ManagedListStore | # | submitWithDisplayedAt<T>(send: () => Promise<T>, reload: () => Promise<void>): Promise<T | null> | Gọi send (đã kèm displayedAt); bị từ chối do mốc cũ (đã bị yêu cầu khác đổi) thì setRefusal, gọi reload để nạp lại danh sách và không ghi đè dữ liệu nhập | BR-138, BR-142, BR-146. Hậu: thành công trả kết quả, từ chối trả null | Thiết kế: X1 RV-19 | Instance | ApiError |
+| DC-ReportStoreBase | # | runReport<R>(fetch: () => Promise<R>, apply: (r: R) => void): Promise<void> | beginRequest; bỏ kết quả khi isCurrent sai; kỳ không hợp lệ hoặc không có suất chiếu thì đặt notice | BR-117. Hậu: chỉ yêu cầu mới nhất ghi vào Store | Thiết kế: X1 RV-19 | Instance | ApiError |
 | DC-SessionStore | + | login(kind: AccountKind, identifier: string, password: string): Promise<LoginOutcome> | Gửi thông tin đăng nhập tới điểm đăng nhập của khách hoặc của nhân viên; thành công thì giữ phiên | Tiền: identifier và password không rỗng. Hậu: thành công thì getState().session khác null và ghi sessionStorage; thất bại trả LoginOutcome.refused kèm mã MSG, không đổi phiên | P11a SCR-01, SCR-21; NFR-01 đến NFR-03; P09 F7.11 (hai điểm đăng nhập, Q-267) | Instance | - |
 | DC-SessionStore | + | logout(): void | Xoá phiên khỏi bộ nhớ và sessionStorage | Hậu: session = null | Bổ sung: menu đăng xuất | Instance | - |
 | DC-SessionStore | + | expire(reason: ExpireReason): void | Xoá phiên khi máy chủ từ chối (401) và ghi lý do để màn đăng nhập hiện MSG-85 | Hậu: session = null, expiredReason = reason, kind lưu để về đúng màn SCR-01 hoặc SCR-21. Gọi nhiều lần vô hại | P11a UI-STT 48, MSG-85; BR-101 | Instance | - |
@@ -483,10 +495,10 @@ Message của boundary Form trong P07 đi từ tác nhân tới Form (sự kiệ
 | UC-005 | 2.1.4c.1 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-005 | 2.1.4d.1 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-005 | 2.1.4e.1 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
-| UC-005 | 2.1.5(7b).4 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 2.1.5(7b).4 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-005 | 2.1.5(7b).5 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
-| UC-005 | 2.1.6 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
-| UC-005 | 2.1.6[ACT-02] | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 2.1.6 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 2.1.6[ACT-02] | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-005 | 2.1.8 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // showHeldSeats | Trả về: DC-HoldFlowStore.confirmSeatSelection đặt trạng thái kết quả (showHeldSeats); View hiển thị |
 | UC-005 | 2.1.8[ACT-02] | AC-C-BookTicketsController | AC-B-CounterBookTicketsForm | // showHeldSeats | Trả về: DC-HoldFlowStore.confirmSeatSelection đặt trạng thái kết quả (showHeldSeats); View hiển thị |
 | UC-005 | 2[ACT-02] | Tác nhân | AC-B-CounterBookTicketsForm | // confirmSeatSelection | DC-CounterSelectSeatsPage.onConfirmSelection(): Promise<void> |
@@ -496,12 +508,12 @@ Message của boundary Form trong P07 đi từ tác nhân tới Form (sự kiệ
 | UC-005 | 3a.1 | AC-B-CounterBookTicketsForm | AC-C-BookTicketsController | // confirmCashReceived | DC-CounterBookTicketsStore.confirmCashReceived(): Promise<void> |
 | UC-005 | 3.1.1a.1 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-005 | 3a.1.2.1a.2 | AC-C-BookTicketsController | AC-B-CounterBookTicketsForm | // notifyRefusal | Ngoại lệ: DC-CounterBookTicketsStore.confirmCashReceived đặt refusal (ApiError kèm mã MSG); View hiển thị |
-| UC-005 | 3a.1.3 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 3a.1.3 | AC-C-BookTicketsController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-005 | 3a.1.5 | AC-C-BookTicketsController | AC-B-CounterBookTicketsForm | // showTicketsForPrint | Trả về: DC-CounterBookTicketsStore.confirmCashReceived đặt soldTickets (SoldTickets); sau NetworkError thì reconcileCashResult |
 | UC-005 | 3a.2 | Tác nhân | AC-B-CounterBookTicketsForm | // printTickets | DC-CounterPrintTicketsPage.onPrintClicked(): void |
-| UC-005 | 4.1.2 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 4.1.2 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-005 | 4.1.3 | AC-C-PaymentReportController | AC-B-EmailService | // sendTicketsEmail | Khác lớp nhận: IF-23.Enqueue(EMAIL_TICKET) trong DC-PaymentReportService.HandleIpn (P12 lõi F4); DC-EmailOutboxJob.RunDue --> processEntry --> IF-03.SendEmail(ctx, message) |
-| UC-005 | 4a.1.3 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-005 | 4a.1.3 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-005 | 4.1.3.1 | AC-B-EmailService | Dịch vụ email | // sendTicketsEmail | DC-EmailGatewayManager.SendEmail(ctx, message): (EmailSendResult, error) (IF-03) |
 | UC-005 | 4a.1.4 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // notifyRefusal | Ngoại lệ: DC-HoldFlowStore.confirmSeatSelection đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-005 | 4.1.5 | AC-C-PaymentReportController | AC-B-BookTicketsForm | // showBookingSuccess | Trả về: DC-BookTicketsStore.loadPaymentOutcome trả PaymentOutcome (bookingCode) |
@@ -529,12 +541,12 @@ Message của boundary Form trong P07 đi từ tác nhân tới Form (sự kiệ
 | UC-008 | 1.1.3a.1 | AC-C-CancelTicketController | AC-B-CancelTicketForm | // notifyRefusal | Ngoại lệ: DC-CancelTicketStore.cancelTicket đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-008 | 1.1.3b.1 | AC-C-CancelTicketController | AC-B-CancelTicketForm | // notifyRefusal | Ngoại lệ: DC-CancelTicketStore.cancelTicket đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-008 | 1.1.4a.2 | AC-C-CancelTicketController | AC-B-CounterCancelTicketForm | // showCashRefund | Trả về: DC-CounterCancelTicketStore. đặt trạng thái kết quả (showCashRefund); View hiển thị |
-| UC-008 | 1.1.14 | AC-C-CancelTicketController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-008 | 1.1.14 | AC-C-CancelTicketController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-008 | 1.1.16 | AC-C-CancelTicketController | AC-B-CancelTicketForm | // showCancellationResult | Trả về: DC-CancelTicketStore.cancelTicket đặt trạng thái kết quả (showCancellationResult); View hiển thị |
 | UC-008 | 1a.2 | Tác nhân | AC-B-CounterCancelTicketForm | // selectTicketToCancel | DC-CounterCancelTicketView.onTicketCancelConfirmed(ticketId: TicketId): Promise<void> |
 | UC-008 | 2(5a) | Tác nhân | AC-B-CounterCancelTicketForm | // confirmCashRefunded | DC-CounterCancelTicketView.onCashRefundConfirmed(): Promise<void> |
 | UC-008 | 2(5a).1 | AC-B-CounterCancelTicketForm | AC-C-CancelTicketController | // confirmCashRefund | DC-CounterCancelTicketStore.confirmCashRefunded(ticketId: TicketId): Promise<void> |
-| UC-008 | 2(5a).1.3 | AC-C-CancelTicketController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapState, event: SeatEventView): SeatMapState (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
+| UC-008 | 2(5a).1.3 | AC-C-CancelTicketController | AC-B-BookTicketsForm | // updateSeatMap | DC-SeatMapReducer.applyEvent(map: SeatMapGrid, event: SeatEventView): SeatMapGrid (Khác lớp nhận: P09 F7.5, sự kiện tới qua SSE, không có lời gọi đang chờ) |
 | UC-008 | 2(5a).1.5 | AC-C-CancelTicketController | AC-B-CounterCancelTicketForm | // showCancellationResult | Trả về: DC-CounterCancelTicketStore.confirmCashRefunded đặt trạng thái kết quả (showCancellationResult); View hiển thị |
 | UC-009 | 1 | Tác nhân | AC-B-CheckTicketForm | // selectCheckingShowtime | DC-CheckTicketView.onShowtimeChosen(showtimeId: ShowtimeId): Promise<void> |
 | UC-009 | 1.1 | AC-B-CheckTicketForm | AC-C-CheckTicketController | // startChecking | DC-CheckTicketStore.selectCheckingShowtime(showtimeId: ShowtimeId): Promise<void> |
@@ -671,13 +683,13 @@ Message của boundary Form trong P07 đi từ tác nhân tới Form (sự kiệ
 | UC-014 | 2.1.21[8b] | AC-C-ScheduleShowtimesController | AC-B-ScheduleShowtimesForm | // notifyRefusal | Ngoại lệ: DC-ScheduleShowtimesStore.openEditForm đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-014 | 2.1.23 | AC-C-ScheduleShowtimesController | AC-B-ScheduleShowtimesForm | // showSavedShowtime | Trả về: DC-ScheduleShowtimesStore.saveShowtime đặt trạng thái kết quả (showSavedShowtime); View hiển thị |
 | UC-014 | 2.1.23[1a] | AC-C-ScheduleShowtimesController | AC-B-ScheduleShowtimesForm | // showSavedShowtime | Trả về: DC-ScheduleShowtimesStore.openEditForm đặt trạng thái kết quả (showSavedShowtime); View hiển thị |
-| UC-015 | 1 | Tác nhân | AC-B-ViewCinemaReportForm | // requestCinemaReport | DC-ViewCinemaReportView.onReportRequested(request: ReportRequest): Promise<void> |
-| UC-015 | 1.1 | AC-B-ViewCinemaReportForm | AC-C-ViewCinemaReportController | // startCinemaReport | DC-ViewCinemaReportStore.requestReport(request: ReportRequest): Promise<void> |
+| UC-015 | 1 | Tác nhân | AC-B-ViewCinemaReportForm | // requestCinemaReport | DC-ViewCinemaReportView.onReportRequested(request: ReportFormInput): Promise<void> |
+| UC-015 | 1.1 | AC-B-ViewCinemaReportForm | AC-C-ViewCinemaReportController | // startCinemaReport | DC-ViewCinemaReportStore.requestReport(request: ReportFormInput): Promise<void> |
 | UC-015 | 1.1.3 | AC-C-ViewCinemaReportController | AC-B-ViewCinemaReportForm | // notifyInvalidPeriod | Ngoại lệ: DC-ViewCinemaReportStore.requestReport đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-015 | 1.1.6 | AC-C-ViewCinemaReportController | AC-B-ViewCinemaReportForm | // notifyNoShowtimes | Ngoại lệ: DC-ViewCinemaReportStore.requestReport đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-015 | 1.1.12 | AC-C-ViewCinemaReportController | AC-B-ViewCinemaReportForm | // showReport | Trả về: DC-ViewCinemaReportStore.requestReport đặt trạng thái kết quả (showReport); View hiển thị |
-| UC-016 | 1 | Tác nhân | AC-B-ViewChainReportForm | // requestChainReport | DC-ViewChainReportView.onReportRequested(request: ReportRequest): Promise<void> |
-| UC-016 | 1.1 | AC-B-ViewChainReportForm | AC-C-ViewChainReportController | // startChainReport | DC-ViewChainReportStore.requestReport(request: ReportRequest): Promise<void> |
+| UC-016 | 1 | Tác nhân | AC-B-ViewChainReportForm | // requestChainReport | DC-ViewChainReportView.onReportRequested(request: ReportFormInput): Promise<void> |
+| UC-016 | 1.1 | AC-B-ViewChainReportForm | AC-C-ViewChainReportController | // startChainReport | DC-ViewChainReportStore.requestReport(request: ReportFormInput): Promise<void> |
 | UC-016 | 1.1.3 | AC-C-ViewChainReportController | AC-B-ViewChainReportForm | // notifyInvalidPeriod | Ngoại lệ: DC-ViewChainReportStore.requestReport đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-016 | 1.1.5 | AC-C-ViewChainReportController | AC-B-ViewChainReportForm | // notifyNoShowtimes | Ngoại lệ: DC-ViewChainReportStore.requestReport đặt refusal (ApiError kèm mã MSG); View hiển thị |
 | UC-016 | 1.1.16 | AC-C-ViewChainReportController | AC-B-ViewChainReportForm | // showChainReport | Trả về: DC-ViewChainReportStore.requestReport đặt trạng thái kết quả (showChainReport); View hiển thị |
@@ -746,7 +758,17 @@ Mã R-nn mới nối tiếp từ R-330 (dải của phiên); mã có gốc P08 g
 
 | ID | Lớp A | Lớp B | Loại | Multiplicity | Điều hướng | Lý do | Vai trò | Căn cứ hiển thị |
 |---|---|---|---|---|---|---|---|---|
-| R-330 | DC-RegisterAccountStore, DC-BrowseMoviesStore, DC-BrowseShowtimesStore, DC-ViewBookingHistoryStore, DC-CancelTicketStore, DC-CounterCancelTicketStore, DC-CheckTicketStore, DC-ManagePriceListStore, DC-ScheduleShowtimesStore, DC-ManageAuditoriumsStore, DC-ViewCinemaReportStore, DC-ManageMoviesStore, DC-ManageCinemasStore, DC-ViewChainReportStore, DC-ManageStaffAccountsStore, DC-SessionStore, DC-SeatMapSyncClient, DC-HoldCountdown, DC-HoldFlowStore | DC-StoreBase | Generalization |  | A --> B | Thiết kế: mọi Store là một khoá trạng thái Flux có người đăng ký (mẫu Observer); thay thế được lớp cha vì không đổi hợp đồng getState, subscribe |  |  |
+| R-330 | DC-RegisterAccountStore, DC-BrowseMoviesStore, DC-BrowseShowtimesStore, DC-ViewBookingHistoryStore, DC-CancelTicketStore, DC-CounterCancelTicketStore, DC-CheckTicketStore, DC-ManageStaffAccountsStore, DC-SessionStore, DC-SeatMapSyncClient, DC-HoldCountdown, DC-HoldFlowStore | DC-StoreBase | Generalization |  | A --> B | Thiết kế: mọi Store là một khoá trạng thái Flux có người đăng ký (mẫu Observer); thay thế được lớp cha vì không đổi hợp đồng getState, subscribe |  |  |
+| R-498 | DC-ManagePriceListStore | DC-ManagedListStore | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-499 | DC-ScheduleShowtimesStore | DC-ManagedListStore | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-500 | DC-ManageAuditoriumsStore | DC-ManagedListStore | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-501 | DC-ManageMoviesStore | DC-ManagedListStore | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-502 | DC-ManageCinemasStore | DC-ManagedListStore | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-503 | DC-ViewCinemaReportStore | DC-ReportStoreBase | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-504 | DC-ViewChainReportStore | DC-ReportStoreBase | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-505 | DC-ManagedListStore | DC-RequestStoreBase | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-506 | DC-ReportStoreBase | DC-RequestStoreBase | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
+| R-507 | DC-RequestStoreBase | DC-StoreBase | Generalization |  | A --> B | Thiết kế: Extract Superclass (X1 RV-19), thay R-330 cho Store này | |  |
 | R-331 | DC-BookTicketsStore, DC-CounterBookTicketsStore | DC-HoldFlowStore | Generalization |  | A --> B | Thiết kế: hai kênh dùng chung luồng chọn ghế, giữ ghế, huỷ giữ ghế; khác nhau ở bước kết thúc (thanh toán trực tuyến hoặc thu tiền mặt); thay thế được lớp cha (Template Method) |  |  |
 | R-332 | DC-FetchApiClient | IF-41 | Realization |  | A --> B | Hiện thực interface |  |  |
 | R-333 | DC-BrowserTicker | IF-43 | Realization |  | A --> B | Hiện thực interface |  |  |
@@ -770,7 +792,8 @@ Mã R-nn mới nối tiếp từ R-330 (dải của phiên); mã có gốc P08 g
 | R-351 | DC-SeatMapSyncClient | IF-42 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | streams | field |
 | R-352 | DC-SeatMapSyncClient | DC-SeatMapReducer | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc (hàm thuần dùng chung) | reducer | field |
 | R-353 | DC-SeatMapSyncClient, DC-HoldCountdown, DC-CheckTicketStore | IF-43 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc (đồng hồ và hẹn giờ) | ticker | field |
-| R-354 | DC-FetchApiClient | DC-SessionStore | Association | A 0..* - B 1 | A --> B | Đính mã phiên vào yêu cầu và báo hết hiệu lực khi nhận 401; vòng với R-348 chỉ nằm trong PKG-31 | session | field |
+| R-508 | DC-FetchApiClient | IF-48 | Association | A 0..* - B 1 | A --> B | Đính mã phiên vào yêu cầu và báo hết hiệu lực khi nhận 401; thay R-354, không còn vòng với DC-SessionStore | session | field |
+| R-509 | DC-SessionStore | IF-48 | Realization |  | A --> B | Hiện thực interface |  |  |
 | R-355 | DC-LoginView | DC-SessionStore | Association | A 0..* - B 1 | A --> B | Form đăng nhập gọi SessionStore.login và đọc expiredReason | session | field |
 | R-356 | DC-BookTicketsView | DC-LoginView | Dependency |  | A --> B | Vỏ đặt vé dựng LoginView dạng POPUP khi cần đăng nhập (UC-005 luồng 5a1) |  | biến cục bộ |
 | R-357 | DC-EmailOutboxJob | IF-23 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc (claim, MarkSucceeded, Reschedule, MarkExhausted) | outbox | field |
@@ -1061,7 +1084,7 @@ Mục M7 (00-Concurrency.md): mọi trạng thái trung gian của ST-17 có chu
 | DC-CounterCancelTicketView | - | screen | "FIND"  |  "REFUND"  |  "RESULT" | 1 | Instance | Không | FIND | - |
 | DC-CounterCancelTicketStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-CounterCancelTicketStore | - | bookingTickets | TicketView[] | 0..* | [] | - | Instance | Không | P07 UC-008 // showBookingTickets | Vé của lần đặt |
-| DC-CounterCancelTicketStore | - | cashRefund | CashRefundView  |  null | 0..1 | null | Instance | Không | - | P07 UC-008 // showCashRefund |
+| DC-CounterCancelTicketStore | - | cashRefund | CounterCashRefundView  |  null | 0..1 | null | Instance | Không | - | P07 UC-008 // showCashRefund |
 | DC-CounterCancelTicketStore | - | result | CancelResultView  |  null | 0..1 | null | Instance | Không | - | P07 UC-008 // showCancellationResult |
 | DC-CounterCancelTicketStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-008 // notifyRefusal |
 | DC-CheckTicketView | - | cameraActive | boolean | 1 | false | - | Instance | Không | P11a SCR-16 | Camera đang đọc |
@@ -1074,44 +1097,28 @@ Mục M7 (00-Concurrency.md): mọi trạng thái trung gian của ST-17 có chu
 | DC-CheckTicketStore | - | duplicateWindowMs | number | 1 | 3000 | {readOnly} | Classifier | Không | Thiết kế: camera đọc nhiều khung cho một mã | Cửa sổ chặn quét trùng |
 | DC-CinemaAdminHomeView | - | menu | MenuItem[] | 1..* | - | {readOnly} | Instance | Không | P11a SCR-17 | Các thẻ điều hướng |
 | DC-ManagePriceListView | - | confirmingRemoval | PriceEntryKey  |  null | 0..1 | null | Instance | Không | - | P11a SCR-18 |
-| DC-ManagePriceListStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ManagePriceListStore | - | priceList | PriceListView | 1 | rỗng | - | Instance | Không | P07 UC-013 displayedPriceList | Bảng giá đang hiển thị |
-| DC-ManagePriceListStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-013 // notifyRefusal |
 | DC-ManagePriceListStore | - | lastSaved | PriceEntryView  |  null | 0..1 | null | Instance | Không | - | P07 UC-013 // showSavedPriceEntry |
 | DC-ScheduleShowtimesView | - | confirmingDelete | ShowtimeId  |  null | 0..1 | null | Instance | Không | - | P11a SCR-19 |
-| DC-ScheduleShowtimesStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ScheduleShowtimesStore | - | showtimes | ShowtimeRow[] | 0..* | [] | - | Instance | Không | P07 UC-014 // showShowtimes | Suất chiếu của cụm rạp |
 | DC-ScheduleShowtimesStore | - | auditoriums | AuditoriumChoice[] | 0..* | [] | - | Instance | Không | P07 UC-014 // showAuditoriumsAndMovies | Phòng chiếu để chọn |
 | DC-ScheduleShowtimesStore | - | movies | MovieChoice[] | 0..* | [] | - | Instance | Không | P07 UC-014 // showAuditoriumsAndMovies | Phim để chọn |
 | DC-ScheduleShowtimesStore | - | form | ShowtimeFormState  |  null | 0..1 | null | Instance | Không | - | P07 UC-014 selectedShowtime |
-| DC-ScheduleShowtimesStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-014 // notifyRefusal |
 | DC-ManageAuditoriumsView | - | confirmingRemoval | AuditoriumId  |  null | 0..1 | null | Instance | Không | - | P11a SCR-28 |
-| DC-ManageAuditoriumsStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ManageAuditoriumsStore | - | auditoriums | AuditoriumRow[] | 0..* | [] | - | Instance | Không | P07 UC-012 displayedAuditoriumList | Phòng chiếu đang hiển thị |
 | DC-ManageAuditoriumsStore | - | form | AuditoriumFormState  |  null | 0..1 | null | Instance | Không | - | P07 UC-012 selectedAuditorium |
-| DC-ManageAuditoriumsStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-012 // notifyRefusal |
 | DC-ManageAuditoriumsStore | - | lastSaved | AuditoriumRow  |  null | 0..1 | null | Instance | Không | - | P07 UC-012 // showSavedAuditorium |
-| DC-ViewCinemaReportView | - | request | ReportRequest | 1 | - | - | Instance | Không | P07 UC-015 reportRequest | Cách xem, từ ngày, đến ngày đang nhập |
-| DC-ViewCinemaReportStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải |
+| DC-ViewCinemaReportView | - | request | ReportFormInput | 1 | - | - | Instance | Không | P07 UC-015 reportRequest | Cách xem, từ ngày, đến ngày đang nhập |
 | DC-ViewCinemaReportStore | - | report | ReportView  |  null | 0..1 | null | Instance | Không | - | P07 UC-015 // showReport |
-| DC-ViewCinemaReportStore | - | notice | ReportNotice  |  null | 0..1 | null | Instance | Không | - | P07 UC-015 // notifyInvalidPeriod, // notifyNoShowtimes |
-| DC-ViewCinemaReportStore | - | requestSeq | number | 1 | 0 | {>= 0} | Instance | Không | Thiết kế | Đánh số yêu cầu để bỏ kết quả của yêu cầu cũ |
 | DC-ChainAdminHomeView | - | menu | MenuItem[] | 1..* | - | {readOnly} | Instance | Không | P11a SCR-31 | Các thẻ điều hướng |
-| DC-ManageMoviesStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ManageMoviesStore | - | movies | MovieRow[] | 0..* | [] | - | Instance | Không | P07 UC-010 displayedMovieList | Phim đang hiển thị |
 | DC-ManageMoviesStore | - | form | MovieFormState  |  null | 0..1 | null | Instance | Không | - | P07 UC-010 selectedMovie |
-| DC-ManageMoviesStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-010 // notifyRefusal |
 | DC-ManageMoviesStore | - | lastSaved | MovieRow  |  null | 0..1 | null | Instance | Không | - | P07 UC-010 // showSavedMovie |
-| DC-ManageCinemasStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ManageCinemasStore | - | cinemas | CinemaRow[] | 0..* | [] | - | Instance | Không | P07 UC-011 displayedCinemaList | Cụm rạp đang hiển thị |
 | DC-ManageCinemasStore | - | form | CinemaFormState  |  null | 0..1 | null | Instance | Không | - | P07 UC-011 selectedCinema |
-| DC-ManageCinemasStore | - | refusal | Refusal  |  null | 0..1 | null | Instance | Không | - | P07 UC-011 // notifyRefusal |
 | DC-ManageCinemasStore | - | lastSaved | CinemaRow  |  null | 0..1 | null | Instance | Không | - | P07 UC-011 // showSavedCinema |
-| DC-ViewChainReportView | - | request | ReportRequest | 1 | - | - | Instance | Không | P07 UC-016 reportRequest | Cách xem, từ ngày, đến ngày đang nhập |
-| DC-ViewChainReportStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải |
+| DC-ViewChainReportView | - | request | ReportFormInput | 1 | - | - | Instance | Không | P07 UC-016 reportRequest | Cách xem, từ ngày, đến ngày đang nhập |
 | DC-ViewChainReportStore | - | report | ChainReportView  |  null | 0..1 | null | Instance | Không | - | P07 UC-016 // showChainReport |
-| DC-ViewChainReportStore | - | notice | ReportNotice  |  null | 0..1 | null | Instance | Không | - | P07 UC-016 // notifyInvalidPeriod, // notifyNoShowtimes |
-| DC-ViewChainReportStore | - | requestSeq | number | 1 | 0 | {>= 0} | Instance | Không | Thiết kế | Đánh số yêu cầu để bỏ kết quả cũ |
 | DC-ManageStaffAccountsView | - | dialog | StaffDialogKind  |  null | 0..1 | null | Instance | Không | - | P11a SCR-38 đến SCR-40 |
 | DC-ManageStaffAccountsStore | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
 | DC-ManageStaffAccountsStore | - | staff | StaffRow[] | 0..* | [] | - | Instance | Không | P07 UC-017 // showStaffList | Tài khoản đang hiển thị |
@@ -1139,7 +1146,7 @@ Mục M7 (00-Concurrency.md): mọi trạng thái trung gian của ST-17 có chu
 | DC-SmtpConfig | - | senderAddress | string | 1 | - | - | Instance | Không | P11b SS-02 F5 | Địa chỉ người gửi |
 | DC-SmtpConfig | - | messageIdDomain | string | 1 | - | - | Instance | Không | P11b SS-02 F5 | Miền của Message-ID |
 | DC-SeatMapSyncClient | - | showtimeId | ShowtimeId  |  null | 0..1 | null | Instance | Không | - | P09 F7.5 |
-| DC-SeatMapSyncClient | - | map | SeatMapState | 1 | rỗng | - | Instance | Không | P09 F7.5 | Sơ đồ hiện tại (State của StoreBase) |
+| DC-SeatMapSyncClient | - | map | SeatMapGrid | 1 | rỗng | - | Instance | Không | P09 F7.5 | Sơ đồ hiện tại (State của StoreBase) |
 | DC-SeatMapSyncClient | - | connection | ConnectionState | 1 | CLOSED | - | Instance | Không | ST-18 | Trạng thái kết nối |
 | DC-SeatMapSyncClient | - | lastFrameAt | number | 1 | 0 | - | Instance | Không | P09 F7.5 | Mốc nhận khung cuối (ms, theo ITicker) |
 | DC-SeatMapSyncClient | - | retryCount | number | 1 | 0 | {>= 0} | Instance | Không | Thiết kế | Số lần nối lại liên tiếp để tính độ lùi |
@@ -1165,6 +1172,10 @@ Mục M7 (00-Concurrency.md): mọi trạng thái trung gian của ST-17 có chu
 | DC-FetchApiClient | - | fetchFn | typeof fetch | 1 | fetch | {readOnly} | Instance | Không | Thiết kế: tiêm để kiểm thử | Hàm gửi thật |
 | DC-StoreBase | - | state | S | 1 | - | - | Instance | Không | Bổ sung | Trạng thái hiện tại |
 | DC-StoreBase | - | listeners | Set<() => void> | 1 | rỗng | - | Instance | Không | Bổ sung | Người đăng ký |
+| DC-RequestStoreBase | - | status | LoadStatus | 1 | IDLE | - | Instance | Không | Bổ sung | Trạng thái tải, gửi |
+| DC-RequestStoreBase | - | refusal | Refusal | null | 0..1 | null | Instance | Không | - | Lý do từ chối của yêu cầu gần nhất |
+| DC-RequestStoreBase | - | requestSeq | number | 1 | 0 | {>= 0} | Instance | Không | Thiết kế | Đánh số yêu cầu để bỏ kết quả của yêu cầu cũ |
+| DC-ReportStoreBase | - | notice | ReportNotice | null | 0..1 | null | Instance | Không | - | Thông báo kỳ không hợp lệ hoặc không có suất chiếu |
 | DC-SessionStore | - | session | SessionInfo  |  null | 0..1 | null | Instance | Không | - | P09 F7.11 |
 | DC-SessionStore | - | expiredReason | ExpireReason  |  null | 0..1 | null | Instance | Không | - | MSG-85 |
 | DC-SessionStore | - | storageKey | string | 1 | "cinebook.session" | {readOnly} | Classifier | Không | Thiết kế | Khoá sessionStorage |
@@ -1279,6 +1290,9 @@ Nội dung ngăn thuộc tính và ngăn operation lấy đúng từ F7, F2. L�
 | ID | Loại | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
 | DC-StoreBase | Class | StoreBase<S> (PKG-31) | «control» | PKG-31 | tham chiếu |
+| DC-RequestStoreBase | Class | RequestStoreBase<S> (PKG-31) | «control» | PKG-31 | tham chiếu |
+| DC-ManagedListStore | Class | ManagedListStore<S> (PKG-31) | «control» | PKG-31 | tham chiếu |
+| DC-ReportStoreBase | Class | ReportStoreBase<S> (PKG-31) | «control» | PKG-31 | tham chiếu |
 | DC-ManagePriceListStore | Class | ManagePriceListStore | «control» | PKG-08 | chi tiết |
 | DC-ScheduleShowtimesStore | Class | ScheduleShowtimesStore | «control» | PKG-08 | chi tiết |
 | DC-ManageAuditoriumsStore | Class | ManageAuditoriumsStore | «control» | PKG-08 | chi tiết |
@@ -1300,14 +1314,17 @@ Nội dung ngăn thuộc tính và ngăn operation lấy đúng từ F7, F2. L�
 
 | ID | Nguồn | Đích | Loại quan hệ | Nhãn / multiplicity | Ghi chú |
 |---|---|---|---|---|---|
-| R-330.8 | DC-ManagePriceListStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.9 | DC-ScheduleShowtimesStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.10 | DC-ManageAuditoriumsStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.11 | DC-ViewCinemaReportStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.12 | DC-ManageMoviesStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.13 | DC-ManageCinemasStore | DC-StoreBase | Generalization | - | R-330 |
-| R-330.14 | DC-ViewChainReportStore | DC-StoreBase | Generalization | - | R-330 |
 | R-330.15 | DC-ManageStaffAccountsStore | DC-StoreBase | Generalization | - | R-330 |
+| R-498 | DC-ManagePriceListStore | DC-ManagedListStore | Generalization | - | R-498 |
+| R-499 | DC-ScheduleShowtimesStore | DC-ManagedListStore | Generalization | - | R-499 |
+| R-500 | DC-ManageAuditoriumsStore | DC-ManagedListStore | Generalization | - | R-500 |
+| R-501 | DC-ManageMoviesStore | DC-ManagedListStore | Generalization | - | R-501 |
+| R-502 | DC-ManageCinemasStore | DC-ManagedListStore | Generalization | - | R-502 |
+| R-503 | DC-ViewCinemaReportStore | DC-ReportStoreBase | Generalization | - | R-503 |
+| R-504 | DC-ViewChainReportStore | DC-ReportStoreBase | Generalization | - | R-504 |
+| R-505 | DC-ManagedListStore | DC-RequestStoreBase | Generalization | - | R-505 |
+| R-506 | DC-ReportStoreBase | DC-RequestStoreBase | Generalization | - | R-506 |
+| R-507 | DC-RequestStoreBase | DC-StoreBase | Generalization | - | R-507 |
 | R-345.1 | DC-ManagePriceListView | DC-ManagePriceListStore | Association | A 1 - B 1 | R-345 |
 | R-345.2 | DC-ScheduleShowtimesView | DC-ScheduleShowtimesStore | Association | A 1 - B 1 | R-345 |
 | R-345.3 | DC-ManageAuditoriumsView | DC-ManageAuditoriumsStore | Association | A 1 - B 1 | R-345 |
@@ -1333,6 +1350,7 @@ Nội dung ngăn thuộc tính và ngăn operation lấy đúng từ F7, F2. L�
 | DC-FetchApiClient | Class | FetchApiClient | «service» | PKG-31 | chi tiết |
 | DC-BrowserEventSourceFactory | Class | BrowserEventSourceFactory | «utility» | PKG-29 | chi tiết |
 | DC-SessionStore | Class | SessionStore | «control» | PKG-31 | chi tiết |
+| IF-48 | Interface | ISessionSource | «interface» | PKG-31 | chi tiết |
 | DC-LoginView | Class | LoginView | «boundary» | PKG-31 | chi tiết |
 
 | ID | Nguồn | Đích | Loại quan hệ | Nhãn / multiplicity | Ghi chú |
@@ -1353,7 +1371,8 @@ Nội dung ngăn thuộc tính và ngăn operation lấy đúng từ F7, F2. L�
 | R-352 | DC-SeatMapSyncClient | DC-SeatMapReducer | Association | A 0..* - B 1 | R-352 |
 | R-353.1 | DC-SeatMapSyncClient | IF-43 | Association | A 0..* - B 1 | R-353 |
 | R-353.2 | DC-HoldCountdown | IF-43 | Association | A 0..* - B 1 | R-353 |
-| R-354 | DC-FetchApiClient | DC-SessionStore | Association | A 0..* - B 1 | R-354 |
+| R-508 | DC-FetchApiClient | IF-48 | Association | A 0..* - B 1 | R-508 |
+| R-509 | DC-SessionStore | IF-48 | Realization |  | R-509 |
 | R-355 | DC-LoginView | DC-SessionStore | Association | A 0..* - B 1 | R-355 |
 | R-365 | DC-HoldFlowStore | DC-SessionStore | Association | A 0..* - B 1 | R-365 |
 
@@ -1362,7 +1381,7 @@ Nội dung ngăn thuộc tính và ngăn operation lấy đúng từ F7, F2. L�
 | ID | Loại | Nhãn | Stereotype | Thuộc về | Ghi chú |
 |---|---|---|---|---|---|
 | IF-06 | Interface | IScheduledJob (PKG-25) | «interface» | PKG-25 | tham chiếu |
-| IF-23 | Interface | IOutboxStore (PKG-21) | «interface» | PKG-21 | tham chiếu |
+| IF-23 | Interface | IOutboxStore (PKG-28) | «interface» | PKG-28 | tham chiếu |
 | IF-08 | Interface | IUnitOfWork (PKG-27) | «interface» | PKG-27 | tham chiếu |
 | IF-20 | Interface | IBookingRepository (PKG-28) | «interface» | PKG-28 | tham chiếu |
 | IF-19 | Interface | IPaymentTransactionRepository (PKG-28) | «interface» | PKG-28 | tham chiếu |
@@ -1410,10 +1429,10 @@ Bảng Node và Edge của ST-17, ST-18 ở F6.4.
 | PKG-08 | DC-CinemaAdminHomeView, DC-ManagePriceListView, DC-ManagePriceListStore, DC-ScheduleShowtimesView, DC-ScheduleShowtimesStore, DC-ManageAuditoriumsView, DC-ManageAuditoriumsStore, DC-ViewCinemaReportView, DC-ViewCinemaReportStore | PKG-31 | Có: PKG-31 theo P10 F4 |
 | PKG-09 | DC-ChainAdminHomeView, DC-ManageMoviesView, DC-ManageMoviesStore, DC-ManageCinemasView, DC-ManageCinemasStore, DC-ViewChainReportView, DC-ViewChainReportStore | PKG-31 | Có: PKG-31 theo P10 F4 |
 | PKG-10 | DC-ManageStaffAccountsView, DC-ManageStaffAccountsStore | PKG-31 | Có: PKG-31 theo P10 F4 |
-| PKG-20 | DC-EmailOutboxJob | PKG-21, PKG-23, PKG-25, PKG-27, PKG-28 | Có: PKG-21, PKG-23, PKG-25, PKG-27, PKG-28 theo P10 F4 (IF-23 ở PKG-21, IF-06 ở PKG-25, IF-08 và IF-11 ở PKG-27, IF-16, IF-19 đến IF-21 ở PKG-28) |
+| PKG-20 | DC-EmailOutboxJob | PKG-23, PKG-25, PKG-27, PKG-28 | Có: PKG-23, PKG-25, PKG-27, PKG-28 theo P10 F4 (IF-23 ở PKG-28 từ X3 lần 6, IF-06 ở PKG-25, IF-08 và IF-11 ở PKG-27, IF-16, IF-19 đến IF-21 ở PKG-28) |
 | PKG-23 | IF-03, DC-EmailGatewayManager, DC-MimeMessageBuilder, DC-SmtpClient, DC-SmtpConfig | - | Có: không phụ thuộc package khác |
 | PKG-29 | IF-42, DC-BrowserEventSourceFactory, DC-SeatMapReducer, DC-SeatMapSyncClient, DC-HoldCountdown, DC-HoldFlowStore | PKG-31 | Không theo P10 F4 (PKG-29 ghi "-"): DC-HoldFlowStore kế thừa DC-StoreBase và dùng IF-41, DC-SessionStore của PKG-31. Phụ thuộc cùng layer, một chiều (PKG-31 không phụ thuộc PKG-29), không vòng; Đề xuất sửa P10 F4, F6: thêm cạnh PKG-29 --> PKG-31 |
-| PKG-31 | IF-41, IF-43, DC-BrowserTicker, DC-FetchApiClient, DC-StoreBase, DC-SessionStore, DC-LoginView | - | Có: không phụ thuộc package khác; có vòng nội bộ DC-FetchApiClient <--> DC-SessionStore chỉ trong package (R-354, R-348) |
+| PKG-31 | IF-41, IF-43, IF-48, DC-BrowserTicker, DC-FetchApiClient, DC-StoreBase, DC-RequestStoreBase, DC-ManagedListStore, DC-ReportStoreBase, DC-SessionStore, DC-LoginView | - | Có: không phụ thuộc package khác; không còn vòng lớp giữa DC-FetchApiClient và DC-SessionStore (DC-FetchApiClient chỉ phụ thuộc IF-48, R-508, R-509) |
 
 Kiểm tra gán package: boundary của hai tác nhân khác nhau không cùng package (PKG-05 khách, PKG-06 quầy, PKG-07 soát vé, PKG-08 quản lý cụm rạp, PKG-09 quản lý chuỗi, PKG-10 quản trị viên); phần dùng chung hai tác nhân (DC-HoldFlowStore, DC-HoldCountdown, đồng bộ sơ đồ ghế) ở PKG-29 và phần dùng chung mọi tác nhân (phiên, IF-41, DC-StoreBase, DC-LoginView) ở PKG-31, theo A3. PKG-05 có 17 phần tử có hành vi và PKG-29 có 6, PKG-31 có 7: PKG-05 vượt khoảng 15 do tách thêm bốn component trang (P11a Đề xuất); giữ vì các trang chỉ tồn tại trong một vỏ (composition R-339) và cùng đổi theo UC-005 (CCP). Không có phụ thuộc vòng giữa package, không phụ thuộc ngược layer; PKG-05 đến PKG-10 đứng cùng layer Presentation với PKG-29, PKG-31. Phụ thuộc Form --> Controller (R-01 đến R-101) là lời gọi HTTP giữa trình duyệt và máy chủ, không tính là phụ thuộc package của mã nguồn.
 

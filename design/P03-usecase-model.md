@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P03 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Đồng bộ số phiên bản P02 trong Đầu vào đã dùng; nội dung đã đối chiếu với đặc tả P04 của UC-001, UC-007, UC-010 đến UC-012, UC-015 đến UC-017, không đổi tác nhân và quan hệ |
 | Thay đổi 1.1 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 4: đăng nhập không là use case); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; yeu-cau-dat-ve.md. P02R 1.0: UCR-01, UCR-02 đã áp dụng ở P02 1.2 |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 4: đăng nhập không là use case); P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; yeu-cau-dat-ve.md. P02R 1.0: UCR-01, UCR-02 đã áp dụng ở P02 1.2 |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-23; không có ASM (NGHIEM_NGAT) |
 

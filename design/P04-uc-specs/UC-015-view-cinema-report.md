@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Chốt Q-235, Q-236: bước 2 bỏ câu loại suất chiếu đã xoá khỏi tập suất chiếu (BR-116 chỉ loại khỏi sức chứa), điều kiện của luồng 2a nêu rõ kể cả suất chiếu đã xoá, tỉ lệ lấp đầy là không áp dụng khi sức chứa của nhóm bằng 0 |
 | Thay đổi 1.1 | Chốt Q-181 đến Q-187: thêm luồng 1a (kỳ báo cáo không hợp lệ), điều kiện của bước 2, 3, 4, kỳ báo cáo ở Dữ liệu vào 1, BR-115 đến BR-119 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-008-cancel-ticket.md 1.10 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.8 (suất chiếu đã xoá) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; UC-008-cancel-ticket.md 1.11 (tình trạng hoàn tiền), UC-014-schedule-showtimes.md 1.9 (suất chiếu đã xoá) |
 | Phạm vi | UC-015 |
 | Mã Q, ASM cuối đã cấp | Q-187 (Q-181 đến Q-184, Q-186, Q-187 cấp ở UC-015, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

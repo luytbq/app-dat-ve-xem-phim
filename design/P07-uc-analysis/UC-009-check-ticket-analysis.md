@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.5 | Thêm message cho luồng 2a (suất chiếu được chọn không thuộc cụm rạp, BR-34) và cho bước hệ thống hiển thị danh sách suất chiếu của cụm rạp trước bước 1 (P04 1.8); thêm trách nhiệm // openCheckingScreen, // showCinemaShowtimes, // notifyRefusal của CheckTicketForm và // listShowtimesOfCinema của CheckTicketController; cập nhật 3 file .drawio |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Lớp con của Staff cho TicketChecker (Q-228); đồng bộ sổ AC dùng chung _AC-register.md |
 | Thay đổi 1.2 | Thêm bảng thao tác không chia cắt theo P04 Mục 8 (mục 4.1) với lớp điều phối, lớp tham gia và điểm tuần tự; không đổi luồng, message và sơ đồ; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.8 (bảng Thao tác nguyên tử); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.5 (đầu lô) (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-009-check-ticket.md 1.9 (bảng Thao tác nguyên tử); P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/UC-005-book-tickets-analysis.md 1.6 (đầu lô) (sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/_review-P07-batch.md; mã Q đã cấp Q-95 đến Q-97 |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-97; không có ASM (NGHIEM_NGAT) |
 

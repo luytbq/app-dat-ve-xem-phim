@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Chốt Q-175 (trường của danh sách phim ở Dữ liệu ra 1); bỏ các đề xuất sửa artifact trước đã được đồng bộ |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4 |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5 |
 | Phạm vi | UC-003 |
 | Mã Q, ASM cuối đã cấp | Q-175 (cấp ở UC-003, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

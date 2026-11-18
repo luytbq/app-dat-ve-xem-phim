@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Chốt Q-176 đến Q-180: điều kiện suất chiếu được liệt kê, trường Dữ liệu vào, Dữ liệu ra; bỏ các đề xuất sửa artifact trước đã được đồng bộ |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-005-book-tickets.md 1.16 và UC-014-schedule-showtimes.md 1.8 (nhất quán thời điểm mở bán, giờ bắt đầu, xoá suất chiếu, trạng thái ghế) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; UC-005-book-tickets.md 1.17 và UC-014-schedule-showtimes.md 1.9 (nhất quán thời điểm mở bán, giờ bắt đầu, xoá suất chiếu, trạng thái ghế) |
 | Phạm vi | UC-004 |
 | Mã Q, ASM cuối đã cấp | Q-180 (Q-176 đến Q-180 cấp ở UC-004, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

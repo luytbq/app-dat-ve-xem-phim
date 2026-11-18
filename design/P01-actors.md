@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P01 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.11; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-23); P01-actors.md 1.1 (bản trước) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.12; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-23); P01-actors.md 1.1 (bản trước) |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-23; không có ASM (NGHIEM_NGAT) |
 

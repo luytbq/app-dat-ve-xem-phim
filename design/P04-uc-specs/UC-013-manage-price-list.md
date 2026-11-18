@@ -3,11 +3,12 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Đồng bộ X3 lần 6 (design/_sync-log.md): hàng REQ ở Mục 1 bổ sung các REQ phụ của BR; đồng bộ đầu vào đã dùng; không đổi luồng và quy tắc |
 | Thay đổi 1.5 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.4 | Dẫn BR-136 ở luồng 1a3: UC-012 bước 5 là đối thủ của việc bỏ mục giá; UC-012 đã đặc tả |
 | Thay đổi 1.3 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16, UC-014-schedule-showtimes.md 1.8 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-61 đến Q-67); P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; UC-005-book-tickets.md 1.17, UC-014-schedule-showtimes.md 1.9 (điểm nối); _review-UC-013.md (R13-01 đến R13-15) |
 | Phạm vi | UC-013 |
 | Mã Q, ASM cuối đã cấp | Q-67 (Q-61 đến Q-67 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -26,7 +27,7 @@
 | Hậu điều kiện tối thiểu | Khi use case kết thúc thất bại, bảng giá của cụm rạp không thay đổi. |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
-| REQ | REQ-37, REQ-38, REQ-59, REQ-91 (theo P02); REQ-146 đến REQ-151 (P02 Mục 5 đã gắn UC-013); REQ-102 (tiền điều kiện; P02 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-02, REQ-57 (tham chiếu, UC-012: loại phòng); REQ-55 (tham chiếu, UC-010: định dạng); REQ-16, REQ-17, REQ-87 (tham chiếu, UC-005: loại ghế, ghế đôi); REQ-105, REQ-111 (tham chiếu, UC-005); REQ-42, REQ-85 (tham chiếu, UC-008); REQ-145 (tham chiếu, UC-014); REQ-152 (tham chiếu, UC-005); REQ-162, REQ-58 (căn cứ phụ của BR dẫn ở Mục 6) |
+| REQ | REQ-37, REQ-38, REQ-59, REQ-91 (theo P02); REQ-146 đến REQ-151 (P02 Mục 5 đã gắn UC-013); REQ-102 (tiền điều kiện; P02 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-02, REQ-57 (tham chiếu, UC-012: loại phòng); REQ-55 (tham chiếu, UC-010: định dạng); REQ-16, REQ-17, REQ-87 (tham chiếu, UC-005: loại ghế, ghế đôi); REQ-105, REQ-111 (tham chiếu, UC-005); REQ-42, REQ-85 (tham chiếu, UC-008); REQ-145 (tham chiếu, UC-014); REQ-152 (tham chiếu, UC-005); REQ-162, REQ-58 (căn cứ phụ của BR dẫn ở Mục 6); REQ-30, REQ-99 (phụ của các BR ở Mục 6) |
 
 ## 2. Luồng sự kiện chính
 

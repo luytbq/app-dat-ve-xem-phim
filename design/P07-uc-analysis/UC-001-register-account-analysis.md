@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.1 |
+| Phiên bản | 1.2 |
+| Thay đổi 1.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Chốt Q-225 (đã trả lời theo đề xuất); Đồng bộ sổ AC dùng chung _AC-register.md; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-001-register-account.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-001-register-account.md 1.3; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md (đầu lô); P07-uc-analysis/UC-005-book-tickets-analysis.md (sổ đăng ký AC: F1, F3.4, F8 b, Câu hỏi mở, Vấn đề còn mở; đầu lô) và UC-006, UC-008, UC-009, UC-013, UC-014 (F3.4); _sync-log.md (mục Đầu vào cho lần chạy lại P07-P13, dòng UC-001, UC-007); dải mã được cấp Q-225 đến Q-234 |
 | Phạm vi | UC-001 |
 | Mã Q, ASM cuối đã cấp | Q-225 (trong dải Q-225 đến Q-234); không có ASM (NGHIEM_NGAT) |
 

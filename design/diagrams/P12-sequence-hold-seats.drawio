@@ -13,10 +13,10 @@
         <mxCell id="SQ-01-L3" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="480" y="40" width="160" height="2010" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-L4" value=":PgCinemaOperationsStore (IF-11, IF-12, IF-13)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-01-L4" value=":PgShowtimeStore + :PgCatalogStore + :PgCinemaStore (IF-11, IF-12, IF-13)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="700" y="40" width="160" height="2010" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-L5" value=":PgTicketingStore (IF-16, IF-17, IF-18)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-01-L5" value=":PgSeatHoldStore + :PgSeatStatusStore (IF-16, IF-17, IF-18)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="920" y="40" width="160" height="2010" as="geometry" />
         </mxCell>
         <mxCell id="SQ-01-L6" value=":LockOrderGuard" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
@@ -28,7 +28,7 @@
         <mxCell id="SQ-01-L8" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="1580" y="40" width="160" height="2010" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-01-N1" value="BelongsToCinema (nhân viên quầy, BR-02); CheckSaleOpen; HoldSettlement.End(EXPIRY) lần giữ ghế cũ đã quá hạn, hoặc CheckNoActiveSeatHold (BR-04); số ghế; CheckUnchangedSince, CheckSeatSelection" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
+        <mxCell id="SQ-01-N1" value="BelongsToCinema (nhân viên quầy, BR-02); CheckSaleOpen; HoldSettlement.End(EXPIRY) lần giữ ghế cũ đã quá hạn, hoặc CheckHolderHasNoUnfinishedHold (BR-04); số ghế; CheckUnchangedSince, CheckSeatSelection" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="320" y="1098.5" width="420" height="63" as="geometry" />
         </mxCell>
         <mxCell id="SQ-01-N2" value="QuoteSeatPrices; NewSeatHold(now); HoldSettlement.End(EXPIRY, các ghế vừa khoá) rồi SaveChanges để ghi Trống cho ghế trùng lần giữ ghế cũ vừa hết hạn; HoldFor(holdId, price) từng ghế" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">

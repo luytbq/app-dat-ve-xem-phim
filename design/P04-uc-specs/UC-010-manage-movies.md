@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.1 | Chốt Q-195 đến Q-203: điều kiện hợp lệ của các trường phim, luồng 5a (phim đã bị yêu cầu khác sửa), BR-138 đến BR-140, thao tác nguyên tử Lưu phim |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P08-analysis-model.md 2.1 (EX-13, EX-15); P13-data-model.md 1.5 (Q-136 đến Q-138); UC-005-book-tickets.md 1.16; UC-013-manage-price-list.md 1.5 (mẫu); UC-014-schedule-showtimes.md 1.8 (điểm nối) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P08-analysis-model.md 2.2 (EX-13, EX-15); P13-data-model.md 2.1 (Q-136 đến Q-138); UC-005-book-tickets.md 1.17; UC-013-manage-price-list.md 1.6 (mẫu); UC-014-schedule-showtimes.md 1.9 (điểm nối) |
 | Phạm vi | UC-010 |
 | Mã Q, ASM cuối đã cấp | Q-203 (Q-195 đến Q-203 cấp ở use case này, đã trả lời); không có ASM (NGHIEM_NGAT) |
 

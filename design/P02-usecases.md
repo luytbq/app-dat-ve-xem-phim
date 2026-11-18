@@ -3,9 +3,10 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P02 |
-| Phiên bản | 1.9 |
+| Phiên bản | 1.10 |
+| Thay đổi 1.10 | Đồng bộ X3 lần 6 (design/_sync-log.md): Q-51 ghi đã trả lời (đã có ở P04 UC-006, P00); không đổi danh sách use case |
 | Thay đổi 1.9 | Gắn REQ-162, REQ-03 cho UC-012 và REQ-153 cho UC-015, UC-016 ở bảng 4b và Mục 5 (thêm dòng REQ-153, REQ-162) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; yeu-cau-dat-ve.md; P02-usecases.md 1.9; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; yeu-cau-dat-ve.md; P02-usecases.md 1.9; P02R-review.md 1.0 (áp dụng UCR-01, UCR-02). Quy ước đã chốt: U-R01 ghi đè, không mô hình hoá Đăng nhập thành use case, chỉ ghi là tiền điều kiện |
 | Phạm vi | Toàn hệ thống |
 | Mã Q, ASM cuối đã cấp | Q-67; không có ASM (NGHIEM_NGAT) |
 
@@ -358,7 +359,7 @@ Tổng số UC: 16 User-goal, không có Subfunction; UC-002 ở trạng thái L
 
 ## Câu hỏi mở
 
-Q-01 đến Q-46, Q-48, Q-49 và Q-50 đã được trả lời ở P00, P01, P04 (Q-36 gộp vào Q-30, Q-47 gộp vào Q-35). Q-51 (P04 UC-006, nội dung báo của cổng cho giao dịch thứ hai) chưa trả lời và không đổi danh sách use case. Q-52 đến Q-60 (P04 UC-014) và Q-61 đến Q-67 (P04 UC-014, UC-013) đã được trả lời và không đổi danh sách use case.
+Q-01 đến Q-46, Q-48, Q-49 và Q-50 đã được trả lời ở P00, P01, P04 (Q-36 gộp vào Q-30, Q-47 gộp vào Q-35). Q-51 (P04 UC-006, nội dung báo của cổng cho giao dịch thứ hai) đã được trả lời (mã tham chiếu lần giữ ghế và số tiền đã thanh toán) và không đổi danh sách use case. Q-52 đến Q-60 (P04 UC-014) và Q-61 đến Q-67 (P04 UC-014, UC-013) đã được trả lời và không đổi danh sách use case.
 
 ## Đề xuất sửa artifact trước
 

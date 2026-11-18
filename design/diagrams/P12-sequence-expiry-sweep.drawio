@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="SQ-03" name="Dọn hết hạn và giải phóng ghế EX-04, EX-05 (UC-005)">
-    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1354" math="0" shadow="0">
+    <mxGraphModel adaptiveColors="none" background="#ffffff" dx="1600" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1354" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -16,7 +16,7 @@
         <mxCell id="SQ-03-L4" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="700" y="40" width="160" height="1234" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-03-L5" value=":PgTicketingStore (IF-17, IF-18, IF-26)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-03-L5" value=":PgSeatHoldStore + :PgSeatStatusStore (IF-17, IF-18, IF-26)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="920" y="40" width="160" height="1234" as="geometry" />
         </mxCell>
         <mxCell id="SQ-03-L6" value=":PgSeatEventStore (IF-22)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
@@ -46,7 +46,10 @@
         <mxCell id="SQ-03-N3" value="Hai bản backend quét chồng hoặc một ghế vừa được giữ lại cho lần giữ ghế khác: SKIP LOCKED chia lô, điều kiện current_hold_id không khớp nên không đổi gì" style="shape=note;whiteSpace=wrap;html=1;size=14;" vertex="1" parent="1">
           <mxGeometry x="260" y="1162" width="1260" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-03-M1" value="1: RunDue(ctx, 8 s) [mỗi 10 giây, không chạy chồng]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-03-L8" value=":SeatEventCleanupJob (IF-06)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+          <mxGeometry x="1580" y="40" width="160" height="1234" as="geometry" />
+        </mxCell>
+<mxCell id="SQ-03-M1" value="1: RunDue(ctx, 8 s) [mỗi 10 giây, không chạy chồng]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="120" y="170" as="sourcePoint" />
             <mxPoint x="340" y="170" as="targetPoint" />
@@ -88,9 +91,9 @@
             <mxPoint x="1440" y="540" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SQ-03-M8" value="8: DeleteOlderThan(10 phút, 200) [dọn seat_event]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
+        <mxCell id="SQ-03-M8" value="8: DeleteOlderThan(10 phút, 200) [dọn seat_event, lượt riêng của SeatEventCleanupJob]" style="endArrow=block;endFill=1;html=1;verticalAlign=bottom;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="340" y="604" as="sourcePoint" />
+            <mxPoint x="1660" y="604" as="sourcePoint" />
             <mxPoint x="1220" y="604" as="targetPoint" />
           </mxGeometry>
         </mxCell>

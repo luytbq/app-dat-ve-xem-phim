@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Ghi chú các message kiểm do control điều phối ở bảng message (không đổi sơ đồ) |
 | Thay đổi 1.1 | Chốt Q-249 đến Q-254 (đã trả lời theo đề xuất); Luồng 1a2a, 1b2a và thứ tự kiểm bước 5 theo P04 UC-012 1.2; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-012-manage-auditoriums.md 1.2; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md; P08-analysis-model.md 2.1 (F3, F4b: AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, EX-13, EX-15, X-19, X-21, Q-109, Q-110); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-010-manage-movies-analysis.md và UC-011-manage-cinemas-analysis.md (cùng phiên; Q-245 đến Q-248, AC-E-Cinema); P07-uc-analysis/UC-013-manage-price-list-analysis.md (AC-E-CinemaManager, AC-E-PriceList, mẫu định dạng); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Auditorium, AC-E-Showtime, AC-E-PriceList); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-012); dải mã Q-245 đến Q-254 (đầu lô) |
+| Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-012-manage-auditoriums.md 1.3; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md; P08-analysis-model.md 2.2 (F3, F4b: AC-E-Cinema, AC-E-Auditorium, AC-E-Seat, EX-13, EX-15, X-19, X-21, Q-109, Q-110); P07-uc-analysis/UC-005-book-tickets-analysis.md (đầu lô; sổ đăng ký AC: F1, F3.4, F8 b), Câu hỏi mở, Vấn đề còn mở); P07-uc-analysis/UC-010-manage-movies-analysis.md và UC-011-manage-cinemas-analysis.md (cùng phiên; Q-245 đến Q-248, AC-E-Cinema); P07-uc-analysis/UC-013-manage-price-list-analysis.md (AC-E-CinemaManager, AC-E-PriceList, mẫu định dạng); P07-uc-analysis/UC-014-schedule-showtimes-analysis.md (AC-E-Auditorium, AC-E-Showtime, AC-E-PriceList); _sync-log.md (Đầu vào cho lần chạy lại P07-P13, dòng UC-012); dải mã Q-245 đến Q-254 (đầu lô) |
 | Phạm vi | UC-012 |
 | Mã Q, ASM cuối đã cấp | Q-254 (Q-249 đến Q-254 cấp ở use case này, đã trả lời; Q-245 đến Q-248 cấp ở UC-010, UC-011; dải được cấp Q-245 đến Q-254, đã dùng hết); không có ASM (NGHIEM_NGAT) |
 

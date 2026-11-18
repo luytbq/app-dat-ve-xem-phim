@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P07 |
-| Phiên bản | 1.5 |
+| Phiên bản | 1.6 |
+| Thay đổi 1.6 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.5 | Thêm message cho luồng 14a (dịch vụ email lỗi, BR-89, P04 1.16): trang SD12, trách nhiệm // logEmailFailure của PaymentReportController (dùng chung với UC-006 luồng 7a); bước 12 ghi đối chiếu mã giao dịch theo P04 1.16 (không đổi message); bước 14 nhận kết quả gửi email; cập nhật 3 file .drawio và _AC-register.md; đồng bộ đầu vào đã dùng |
 | Thay đổi 1.4 | Bỏ các đề xuất sửa P04, P03, P02R đã xử lý theo quyết định của chủ dự án; luồng mới của P04 (14a, 7a, 2a, 1a3c, 1b3d) chưa có message ở bản này |
 | Thay đổi 1.3 | Lớp con của Staff cho BoxOfficeClerk (Q-228); vé ghi tên phim, tên cụm rạp, tên phòng chiếu, loại phòng lúc bán và lần đặt ghi thời điểm đặt (BR-140, Q-227); UC-012 bước 5 đã có P07, ghi đối thủ trong bảng đơn vị loại trừ (BR-137); đồng bộ sổ AC dùng chung _AC-register.md |
 | Thay đổi 1.2 | Luồng 9a1a gồm cả xác nhận đã thu tiền tới khi lần giữ ghế đã ở trạng thái cuối khác (Đã huỷ, Thanh toán thất bại, Đã hoàn tất): từ chối, báo trả lại tiền mặt, trạng thái và ghế không đổi (BR-44, BR-86); bước 7 dẫn BR-137 (UC-012 bước 5 là đối thủ của // holdSeats khi đọc loại phòng) và cập nhật bảng đơn vị loại trừ; ghi chú BR-140; cập nhật sổ trách nhiệm của SeatHold và Showtime; cập nhật drawio SD11d; đồng bộ đầu vào đã dùng |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-005-book-tickets.md 1.16 (luồng 9a1a, BR-44, BR-137, BR-140); P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/_review-P07-batch.md; chưa có file P07 nào khác khi lập bản 1.0 (sổ đăng ký AC rỗng) |; không dùng mã nào trong dải Q được cấp theo C10
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M3); project-profile.md; P04-uc-specs/UC-005-book-tickets.md 1.17 (luồng 9a1a, BR-44, BR-137, BR-140); P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P04-uc-specs/_BR-register.md (đã gộp BR-01 đến BR-147); P07-uc-analysis/_review-P07-batch.md; chưa có file P07 nào khác khi lập bản 1.0 (sổ đăng ký AC rỗng) |; không dùng mã nào trong dải Q được cấp theo C10
 | Phạm vi | UC-005 |
 | Mã Q, ASM cuối đã cấp | Q-86; không có ASM (NGHIEM_NGAT) |
 

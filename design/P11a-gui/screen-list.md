@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11a (Toàn bộ: giai đoạn 1 và giai đoạn 2) |
-| Phiên bản | 2.1 |
+| Phiên bản | 2.2 |
+| Thay đổi 2.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): Q-119 và Q-272 đến Q-276 ghi đã trả lời theo đề xuất |
 | Thay đổi 2.1 | Cột DC của SCR-01, 03, 04, 05, 06, 10, 11, 12, 21, 31 trỏ tới component trang thiết kế ở P12 |
 | Thay đổi 2.0 | Mở rộng cho đủ 16 use case của P10 2.0: thêm SCR-21 đến SCR-40 (đăng nhập nhân viên, UC-001, UC-003, UC-004, UC-007, UC-010, UC-011, UC-012, UC-015, UC-016, UC-017, trang chủ quản lý chuỗi); SCR-01 chỉ còn đăng nhập khách (Q-267); SCR-02 và SCR-17 thêm lối vào; cập nhật bảng F7 và đề xuất sửa artifact trước |
 | Thay đổi 1.3 | Cập nhật dải MSG đã cấp đến MSG-83 và dải luồng 8a-8f của SCR-20; đồng bộ đầu vào đã dùng (RF-06) |
@@ -179,7 +180,7 @@ Số dòng Vi phạm còn mở: 8; Vi phạm đã sửa: 4. Còn mở do phạm 
 
 ## Câu hỏi mở
 
-Xem ui-standards.md: Q-119 đến Q-125 (đã trả lời; Q-119 chờ người dùng xác nhận) và Q-272 đến Q-276 (mới, chờ xác nhận). Liên quan danh sách màn hình: Q-272 (lối từ tra cứu sang đặt vé), Q-273 (độ dài trường), Q-274 (mật khẩu nhân viên), Q-275 (điểm khởi đầu ACT-05, ACT-06), Q-276 (thông điệp tài khoản bị khoá).
+Xem ui-standards.md: Q-119 đến Q-125 và Q-272 đến Q-276 (đã trả lời theo đề xuất). Liên quan danh sách màn hình: Q-272 (lối từ tra cứu sang đặt vé), Q-273 (độ dài trường), Q-274 (mật khẩu nhân viên), Q-275 (điểm khởi đầu ACT-05, ACT-06), Q-276 (thông điệp tài khoản bị khoá).
 
 ## Đề xuất sửa artifact trước
 

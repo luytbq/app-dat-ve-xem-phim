@@ -16,10 +16,10 @@
         <mxCell id="SQ-04-L4" value=":PgUnitOfWork (IF-08)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="700" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-L5" value=":PgTicketingStore (IF-18, IF-19, IF-20, IF-21, IF-27)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-04-L5" value=":PgSeatStatusStore + :PgPaymentStore + :PgBookingStore + :PgRefundStore (IF-18, IF-19, IF-20, IF-21, IF-27)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="920" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
-        <mxCell id="SQ-04-L6" value=":PgCinemaOperationsStore (IF-11) + :PgOutboxStore (IF-23)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
+        <mxCell id="SQ-04-L6" value=":PgShowtimeStore (IF-11) + :PgOutboxStore (IF-23)" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">
           <mxGeometry x="1140" y="40" width="160" height="1400" as="geometry" />
         </mxCell>
         <mxCell id="SQ-04-L7" value="PostgreSQL" style="shape=umlLifeline;perimeter=lifelinePerimeter;container=1;collapsible=0;recursiveResize=0;html=1;whiteSpace=wrap;size=80;" vertex="1" parent="1">

@@ -3,13 +3,14 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.8 |
+| Phiên bản | 1.9 |
+| Thay đổi 1.9 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.8 | Thêm luồng 1a3c, 1b3d (suất chiếu chọn thuộc phòng chiếu không thuộc cụm rạp, BR-46) theo quyết định SY-72 của chủ dự án; thêm ghi chú N-1a3c vào sơ đồ |
 | Thay đổi 1.7 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.6 | Bước 8 kiểm lại phim hiện hành (BR-47, BR-49, BR-50) theo BR-139, thêm luồng 8g, 8h; thêm UC-010 bước 5, UC-012 bước 5 và luồng 1b3 vào đối thủ của thao tác lưu suất chiếu (BR-136, BR-139, BR-147) |
 | Thay đổi 1.5 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (2 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.4 | Thêm BR-92 và luồng 8f: không đổi phòng của suất chiếu đã từng có vé, kể cả vé đã huỷ (quyết định R13D-01 phương án A, review cuối RF-02); cập nhật activity diagram (A-8f, FINAL-11, E-63, E-64); đồng bộ đầu vào đã dùng (RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16, UC-008-cancel-ticket.md 1.10, UC-013-manage-price-list.md 1.5 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md (đã bổ sung trả lời Q-52 đến Q-67); P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; UC-005-book-tickets.md 1.17, UC-008-cancel-ticket.md 1.11, UC-013-manage-price-list.md 1.6 (mẫu và điểm nối); _review-UC-014.md (R14-01 đến R14-13); _review-UC-013.md (R13-02) |
 | Phạm vi | UC-014 |
 | Mã Q, ASM cuối đã cấp | Q-67 (cấp ở UC-013); Q-52 đến Q-61 đã trả lời; không có ASM (NGHIEM_NGAT) |
 

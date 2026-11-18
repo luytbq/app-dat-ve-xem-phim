@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P11b |
-| Phiên bản | 1.4 |
+| Phiên bản | 1.5 |
+| Thay đổi 1.5 | Đồng bộ X3 lần 6 (design/_sync-log.md): IF-01 nhận PaymentRequest và RefundTarget thay danh sách tham số rời (X1 RV-10); Q-132 chốt theo giả định an toàn; tên tham số IPN và hệ số 100 của số tiền (Q-355, V-03 đến V-05) |
 | Thay đổi 1.4 | Đồng bộ X3 lần 2 (design/_sync-log.md): kiểm số tiền thông báo chỉ với báo thành công chưa xử lý (Q-146) |
 | Thay đổi 1.3 | Hoàn tiền: claim từng dòng, hàng rào claim_token, thời gian xử lý tối đa 80 giây, rủi ro tiến trình bị tạm dừng (RF-01); đồng bộ đầu vào đã dùng (RF-06) |
 | Đầu vào đã dùng | 00-Conventions.md; project-profile.md (mục 3); P01-actors.md 1.2 (ACT-07); P04-uc-specs UC-005 1.11, UC-006 1.8, UC-008 1.8 (luồng thay thế, ngoại lệ có bước của cổng thanh toán); P06-supplementary-spec.md 1.3 (NFR-10, NFR-15, NFR-16, NFR-17); P07-uc-analysis UC-005 1.1, UC-006 1.1, UC-008 1.2 (message tới PaymentGateway); P08-analysis-model.md 1.5 (AC-B-PaymentGateway); P09-architecture.md 1.6 (F4, F6, F7.1, F7.6, F7.7, F11); P10-design-elements.md 2.0 (F2, F4, F5); TAI_LIEU_GIAO_TIEP: Không có |
@@ -37,9 +38,9 @@ IF-01 có 3 operation, IF-02 có 1 operation (mức hợp lý). Hai interface t�
 
 | IF | Tên | Hệ thống/thiết bị | Operation | Tham số vào | Kết quả | Lỗi / ngoại lệ | UC | Tiền điều kiện | Hậu điều kiện | Đồng bộ | Idempotent | Timeout |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | createPaymentTransaction(transactionId: String, holdReference: String, amount: Integer, expiresAt: DateTime, customerAddress: String): String | transactionId: String - mã giao dịch do hệ thống sinh, duy nhất; bản ghi PaymentTransaction ở trạng thái chờ đã commit (P09 F7.6)<br>holdReference: String - mã tham chiếu lần giữ ghế (REQ-136)<br>amount: Integer - số tiền chốt của lần giữ ghế, đơn vị đồng, lớn hơn 0<br>expiresAt: DateTime - thời điểm hết hạn lần giữ ghế (BR-10), sau thời điểm hiện tại<br>customerAddress: String - địa chỉ IP của trình duyệt khách | String paymentUrl: địa chỉ https tuyệt đối để chuyển trình duyệt khách sang trang thanh toán | GatewayConfigurationError (Kỹ thuật, không tạm thời); InvalidGatewayRequestError (Nghiệp vụ nội bộ: vi phạm tiền điều kiện) | UC-005 (bước 10) | Bản ghi PaymentTransaction chờ đã commit; lần giữ ghế còn Đang giữ; không có giao dịch cơ sở dữ liệu đang mở | Không đổi dữ liệu; cổng chưa được gọi qua mạng | Đồng bộ | Có (không tác dụng phụ; mỗi lần gọi trả địa chỉ khác nhau ở thời điểm tạo, mọi địa chỉ đều hợp lệ) | Không áp dụng: ký cục bộ, không gọi mạng (P09 F7.6) |
-| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | requestRefund(refundKey: String, transactionId: String, paidAt: DateTime, originalAmount: Integer, refundAmount: Integer): RefundOutcome | refundKey: String - khoá chống hoàn trùng của yêu cầu hoàn, giữ nguyên qua mọi lần thử lại (BR-43)<br>transactionId: String - mã giao dịch của hệ thống<br>paidAt: DateTime - thời điểm thanh toán thành công (cổng yêu cầu khi hoàn, V-08)<br>originalAmount: Integer - số tiền đã thanh toán, đồng<br>refundAmount: Integer - số tiền hoàn, lớn hơn 0 và không vượt originalAmount; bằng originalAmount là hoàn toàn bộ | RefundOutcome: status (Succeeded: cổng xác nhận đã hoàn / Rejected: cổng từ chối rõ ràng và chưa thực hiện / Unknown: hết 30 giây, mất kết nối, trả lời sai chữ ký hoặc mã không nhận ra), gatewayRefundNo, reasonCode | InvalidGatewayRequestError (Nghiệp vụ nội bộ); GatewayConfigurationError (Kỹ thuật); Rejected (Nghiệp vụ, là giá trị trả về); Unknown (Không rõ kết quả, là giá trị trả về) | UC-006 (bước 4, 5); UC-008 (bước 5, 6) | RefundRequest và dòng hàng đợi đã commit và đã claim; không giữ khoá, không mở giao dịch trong lúc gọi (P09 F7.1, F7.7); từ lần thử thứ hai trở đi findRefund đã trả NotRefunded | Succeeded: cổng đã nhận hoàn refundAmount cho giao dịch; các giá trị khác: không có hoàn nào được xác nhận. Không đổi dữ liệu của hệ thống | Đồng bộ | Có với khoá, chưa xác nhận (Q-132; V-09, Q-118): bên gọi không tự gửi lại sau Unknown nếu chưa findRefund | 30 giây (BR-43, NFR-17) |
-| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | findRefund(refundKey: String, transactionId: String, paidAt: DateTime): RefundLookup | refundKey: String - khoá của yêu cầu hoàn cần tra<br>transactionId: String - mã giao dịch của hệ thống<br>paidAt: DateTime - thời điểm thanh toán thành công | RefundLookup: status (Refunded: cổng cho biết yêu cầu hoàn đã thành công / NotRefunded: cổng cho biết rõ chưa có yêu cầu hoàn / NotSupported: cổng không có cách tra cứu / Unreachable: không trả lời trong 30 giây, sai chữ ký hoặc trạng thái không rõ), refundedAmount | InvalidGatewayRequestError (Nghiệp vụ nội bộ); Unreachable (Kỹ thuật tạm thời, là giá trị trả về) | UC-006 (luồng 4a, 5a); UC-008 (luồng 5b, 6a). Operation kỹ thuật: cần cho chính sách lỗi của Q-118 và P09 F7.7 (không gửi lại khi chưa biết đã hoàn hay chưa) | Như requestRefund | Không đổi dữ liệu | Đồng bộ | Có (chỉ đọc) | 30 giây (P09 F7.1; Thiết kế: cùng máy khách với hoàn tiền) |
+| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | createPaymentTransaction(request: PaymentRequest): String | request: PaymentRequest - gói tham số (X1 RV-10): transactionId (String, mã giao dịch do hệ thống sinh, duy nhất; bản ghi PaymentTransaction ở trạng thái chờ đã commit, P09 F7.6), holdReference (String, mã tham chiếu lần giữ ghế, REQ-136), amount (Integer, số tiền chốt của lần giữ ghế, đơn vị đồng, lớn hơn 0), expiresAt (DateTime, thời điểm hết hạn lần giữ ghế, BR-10, sau thời điểm hiện tại), customerAddress (String, địa chỉ IP của trình duyệt khách) | String paymentUrl: địa chỉ https tuyệt đối để chuyển trình duyệt khách sang trang thanh toán | GatewayConfigurationError (Kỹ thuật, không tạm thời); InvalidGatewayRequestError (Nghiệp vụ nội bộ: vi phạm tiền điều kiện) | UC-005 (bước 10) | Bản ghi PaymentTransaction chờ đã commit; lần giữ ghế còn Đang giữ; không có giao dịch cơ sở dữ liệu đang mở | Không đổi dữ liệu; cổng chưa được gọi qua mạng | Đồng bộ | Có (không tác dụng phụ; mỗi lần gọi trả địa chỉ khác nhau ở thời điểm tạo, mọi địa chỉ đều hợp lệ) | Không áp dụng: ký cục bộ, không gọi mạng (P09 F7.6) |
+| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | requestRefund(target: RefundTarget, originalAmount: Integer, refundAmount: Integer): RefundOutcome | target: RefundTarget - gói ba trường (X1 RV-10): refundKey (String, khoá chống hoàn trùng của yêu cầu hoàn, giữ nguyên qua mọi lần thử lại, BR-43), transactionId (String, mã giao dịch của hệ thống), paidAt (DateTime, thời điểm thanh toán thành công, cổng yêu cầu khi hoàn, V-08)<br>originalAmount: Integer - số tiền đã thanh toán, đồng<br>refundAmount: Integer - số tiền hoàn, lớn hơn 0 và không vượt originalAmount; bằng originalAmount là hoàn toàn bộ | RefundOutcome: status (Succeeded: cổng xác nhận đã hoàn / Rejected: cổng từ chối rõ ràng và chưa thực hiện / Unknown: hết 30 giây, mất kết nối, trả lời sai chữ ký hoặc mã không nhận ra), gatewayRefundNo, reasonCode | InvalidGatewayRequestError (Nghiệp vụ nội bộ); GatewayConfigurationError (Kỹ thuật); Rejected (Nghiệp vụ, là giá trị trả về); Unknown (Không rõ kết quả, là giá trị trả về) | UC-006 (bước 4, 5); UC-008 (bước 5, 6) | RefundRequest và dòng hàng đợi đã commit và đã claim; không giữ khoá, không mở giao dịch trong lúc gọi (P09 F7.1, F7.7); từ lần thử thứ hai trở đi findRefund đã trả NotRefunded | Succeeded: cổng đã nhận hoàn refundAmount cho giao dịch; các giá trị khác: không có hoàn nào được xác nhận. Không đổi dữ liệu của hệ thống | Đồng bộ | Có với khoá theo giả định an toàn: không dựa vào việc cổng loại trùng (Q-132; V-09, Q-118): bên gọi không tự gửi lại sau Unknown nếu chưa findRefund | 30 giây (BR-43, NFR-17) |
+| IF-01 | IPaymentGateway | Cổng thanh toán (ACT-07) | findRefund(target: RefundTarget): RefundLookup | target: RefundTarget - như requestRefund: refundKey của yêu cầu hoàn cần tra, transactionId, paidAt | RefundLookup: status (Refunded: cổng cho biết yêu cầu hoàn đã thành công / NotRefunded: cổng cho biết rõ chưa có yêu cầu hoàn / NotSupported: cổng không có cách tra cứu / Unreachable: không trả lời trong 30 giây, sai chữ ký hoặc trạng thái không rõ), refundedAmount | InvalidGatewayRequestError (Nghiệp vụ nội bộ); Unreachable (Kỹ thuật tạm thời, là giá trị trả về) | UC-006 (luồng 4a, 5a); UC-008 (luồng 5b, 6a). Operation kỹ thuật: cần cho chính sách lỗi của Q-118 và P09 F7.7 (không gửi lại khi chưa biết đã hoàn hay chưa) | Như requestRefund | Không đổi dữ liệu | Đồng bộ | Có (chỉ đọc) | 30 giây (P09 F7.1; Thiết kế: cùng máy khách với hoàn tiền) |
 | IF-02 | IPaymentReportReceiver | Cổng thanh toán (ACT-07) | reportTransactionResult(parameters: Map(String, String)): PaymentReport | parameters: Map(String, String) - các cặp tên-giá trị nguyên văn của thông báo (IPN hoặc địa chỉ trả về), không rỗng | PaymentReport: outcome (Succeeded / Failed), transactionId, gatewayTransactionNo, holdReference (có thể rỗng), amount (Integer, đồng), paidAt | InvalidSignatureError (Nghiệp vụ); MalformedReportError (Nghiệp vụ) | UC-005 (bước 11, 11a); UC-006 (bước 1) | Không | Không đổi dữ liệu. Số tiền chỉ được giải mã; việc so với bản ghi do DC-PaymentReportService làm vì SS-01 không đọc cơ sở dữ liệu | Đồng bộ | Có (thuần, không tác dụng phụ) | Không áp dụng: tính toán cục bộ |
 
 Phủ trách nhiệm của AC-B-PaymentGateway (P08 F3): createPaymentTransaction --> operation cùng tên; reportTransactionResult --> operation cùng tên; requestRefund --> operation cùng tên. Kết quả hoàn tiền trả về trong lời gọi, không có callback riêng (Q-91).
@@ -58,7 +59,7 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | :BookTicketsService | :IF-01 IPaymentGateway | createPaymentTransaction(transactionId, holdReference, amount, expiresAt, customerAddress) | Đồng bộ | - | UC-005 bước 10 |
+| 1 | :BookTicketsService | :IF-01 IPaymentGateway | createPaymentTransaction(request) | Đồng bộ | - | UC-005 bước 10 |
 | 2 | :IF-01 IPaymentGateway | :BookTicketsService | paymentUrl | Trả về | S01B1-F1 [tạo được địa chỉ thanh toán] | UC-005 bước 10 (khách được chuyển sang cổng) |
 | 3 | :IF-01 IPaymentGateway | :BookTicketsService | GatewayConfigurationError | Trả về | S01B1-F1 [thiếu cấu hình khoá của cổng] | UC-005 luồng 10a, BR-90 (giữ nguyên lần giữ ghế, báo chưa tạo được thanh toán) |
 | 4 | :IF-01 IPaymentGateway | :BookTicketsService | InvalidGatewayRequestError | Trả về | S01B1-F1 [tham số sai (số tiền, hạn, mã rỗng)] | Lỗi lập trình bên gọi, không có luồng P04; xử lý như 10a |
@@ -88,7 +89,7 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | :RefundService | :IF-01 IPaymentGateway | requestRefund(refundKey, transactionId, paidAt, originalAmount, refundAmount) | Đồng bộ | - | UC-006 bước 4; UC-008 bước 5 |
+| 1 | :RefundService | :IF-01 IPaymentGateway | requestRefund(target, originalAmount, refundAmount) | Đồng bộ | - | UC-006 bước 4; UC-008 bước 5 |
 | 2 | :IF-01 IPaymentGateway | :RefundService | RefundOutcome(Succeeded) | Trả về | S01B3-F1 [cổng xác nhận đã hoàn] | UC-006 bước 5; UC-008 bước 6 |
 | 3 | :IF-01 IPaymentGateway | :RefundService | RefundOutcome(Rejected) | Trả về | S01B3-F1 [cổng từ chối rõ ràng] | UC-006 luồng 5a, 5b; UC-008 luồng 6a, 6b |
 | 4 | :IF-01 IPaymentGateway | :RefundService | RefundOutcome(Unknown) | Trả về | S01B3-F1 [hết 30 giây hoặc kết quả không rõ] | UC-006 luồng 4a, 4b; UC-008 luồng 5b, 5c (Q-127) |
@@ -104,10 +105,10 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | :RefundService | :IF-01 IPaymentGateway | findRefund(refundKey, transactionId, paidAt) | Đồng bộ | - | UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a |
+| 1 | :RefundService | :IF-01 IPaymentGateway | findRefund(target) | Đồng bộ | - | UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a |
 | 2 | :IF-01 IPaymentGateway | :RefundService | RefundLookup(Refunded) | Trả về | S01B4-F1 [đã hoàn] | Ghi nhận đã hoàn, không gửi lại (UC-006 bước 6; UC-008 bước 8) |
 | 3 | :IF-01 IPaymentGateway | :RefundService | RefundLookup(NotRefunded) | Trả về | S01B4-F1 [chưa hoàn] | Được phép gửi lại |
-| 4 | :RefundService | :IF-01 IPaymentGateway | requestRefund(refundKey, transactionId, paidAt, originalAmount, refundAmount) | Đồng bộ | S01B4-F1 [chưa hoàn] | UC-006 bước 4 (lượt thử lại) |
+| 4 | :RefundService | :IF-01 IPaymentGateway | requestRefund(target, originalAmount, refundAmount) | Đồng bộ | S01B4-F1 [chưa hoàn] | UC-006 bước 4 (lượt thử lại) |
 | 5 | :IF-01 IPaymentGateway | :RefundService | RefundOutcome | Trả về | S01B4-F1 [chưa hoàn] | Như sơ đồ S01B3 |
 | 6 | :IF-01 IPaymentGateway | :RefundService | RefundLookup(Unavailable) | Trả về | S01B4-F1 [cổng không có tra cứu hoặc không trả lời] | Không gửi lại tự động (Q-118): hẹn tra cứu lại hoặc Cần xử lý thủ công, UC-006 luồng 4b, 5b; UC-008 luồng 5c, 6b |
 
@@ -128,7 +129,7 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | Gate | :PaymentGatewayManager | createPaymentTransaction(transactionId, holdReference, amount, expiresAt, customerAddress) | Đồng bộ | - | IF-01; UC-005 bước 10 |
+| 1 | Gate | :PaymentGatewayManager | createPaymentTransaction(request) | Đồng bộ | - | IF-01; UC-005 bước 10 |
 | 2 | :PaymentGatewayManager | :PaymentGatewayManager | validate(amount > 0, expiresAt > now, mã không rỗng) | Tự gọi | - | Kiểm tham số |
 | 3 | :PaymentGatewayManager | Gate | InvalidGatewayRequestError | Trả về | S01W1-F1 [tham số sai] | Lỗi lập trình bên gọi |
 | 4 | :PaymentGatewayManager | :GatewayConfig | paymentSettings() | Đồng bộ | - | Đọc mã đơn vị, khoá ký, địa chỉ cổng, địa chỉ trả về |
@@ -164,7 +165,7 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 | 4 | :PaymentReportReceiver | Gate | InvalidSignatureError | Trả về | S01W2-F1 [chữ ký sai hoặc thiếu] | DC-PaymentReportService trả DC-IpnOutcome INVALID_SIGNATURE, PKG-12 dịch sang RspCode 97 |
 | 5 | :VnpaySigner | :PaymentReportReceiver | true | Trả về | S01W2-F1 [chữ ký đúng] | - |
 | 6 | :PaymentReportReceiver | :VnpayReportDecoder | decode(parameters) | Đồng bộ | S01W2-F1 [chữ ký đúng] | Tách mã giao dịch, mã tham chiếu lần giữ ghế, số tiền, kết quả |
-| 7 | :VnpayReportDecoder | :VnpayReportDecoder | parse(parameters) | Tự gọi | S01W2-F1 [chữ ký đúng] | Số tiền chia 100, thời điểm múi giờ GMT+7, kết quả suy từ mã phản hồi và trạng thái giao dịch [V-03, V-05, V-15] |
+| 7 | :VnpayReportDecoder | :VnpayReportDecoder | parse(parameters) | Tự gọi | S01W2-F1 [chữ ký đúng] | Đọc vnp_TxnRef (mã giao dịch), vnp_Amount (số tiền nhân 100, chia 100 khi đọc), vnp_ResponseCode và vnp_TransactionStatus (cả hai bằng 00 là Succeeded), vnp_TransactionNo, vnp_PayDate (múi giờ GMT+7), vnp_OrderInfo (mang mã tham chiếu lần giữ ghế); thiếu một trong vnp_TxnRef, vnp_Amount, vnp_ResponseCode, vnp_SecureHash hoặc vnp_Amount không là số nguyên thì MalformedReportError [V-03, V-04, V-05, V-15] |
 | 8 | :VnpayReportDecoder | :PaymentReportReceiver | MalformedReportError | Trả về | S01W2-F2 [thiếu tham số bắt buộc hoặc số tiền không là số] | - |
 | 9 | :PaymentReportReceiver | Gate | MalformedReportError | Trả về | S01W2-F2 [thiếu tham số bắt buộc hoặc số tiền không là số] | DC-PaymentReportService trả DC-IpnOutcome MALFORMED, PKG-12 dịch sang RspCode 99 [V-04] |
 | 10 | :VnpayReportDecoder | :PaymentReportReceiver | PaymentReport | Trả về | S01W2-F2 [đủ và hợp lệ] | - |
@@ -188,10 +189,10 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | Gate | :PaymentGatewayManager | requestRefund(refundKey, transactionId, paidAt, originalAmount, refundAmount) | Đồng bộ | - | IF-01; UC-006 bước 4; UC-008 bước 5 |
+| 1 | Gate | :PaymentGatewayManager | requestRefund(target, originalAmount, refundAmount) | Đồng bộ | - | IF-01; UC-006 bước 4; UC-008 bước 5 |
 | 2 | :PaymentGatewayManager | :PaymentGatewayManager | validate(0 < refundAmount <= originalAmount) | Tự gọi | - | Kiểm tham số |
 | 3 | :PaymentGatewayManager | Gate | InvalidGatewayRequestError | Trả về | S01W3-F1 [tham số sai] | Lỗi lập trình bên gọi |
-| 4 | :PaymentGatewayManager | :VnpayRefundClient | refund(request) | Đồng bộ | - | request gồm refundKey, transactionId, paidAt, originalAmount, refundAmount |
+| 4 | :PaymentGatewayManager | :VnpayRefundClient | refund(request) | Đồng bộ | - | request gồm target (refundKey, transactionId, paidAt), originalAmount, refundAmount |
 | 5 | :VnpayRefundClient | :VnpayRefundClient | composeBody(request) | Tự gọi | - | requestId suy ra từ refundKey, loại toàn phần hoặc một phần theo refundAmount so với originalAmount [V-08, V-09] |
 | 6 | :VnpayRefundClient | :VnpaySigner | sign(refundFields) | Đồng bộ | - | [V-08] |
 | 7 | :VnpaySigner | :VnpayRefundClient | secureHash | Trả về | - | - |
@@ -222,8 +223,8 @@ File diagrams/P11b-subsystem-SS-01.drawio, 10 trang. Trang hộp đen: S01B1 đ�
 
 | STT | Từ | Đến | Message | Loại | Fragment | Operation hoặc UC bước |
 |---|---|---|---|---|---|---|
-| 1 | Gate | :PaymentGatewayManager | findRefund(refundKey, transactionId, paidAt) | Đồng bộ | - | IF-01; UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a |
-| 2 | :PaymentGatewayManager | :VnpayRefundClient | lookup(refundKey, transactionId, paidAt) | Đồng bộ | - | - |
+| 1 | Gate | :PaymentGatewayManager | findRefund(target) | Đồng bộ | - | IF-01; UC-006 luồng 4a, 5a; UC-008 luồng 5b, 6a |
+| 2 | :PaymentGatewayManager | :VnpayRefundClient | lookup(target) | Đồng bộ | - | - |
 | 3 | :VnpayRefundClient | :PaymentGatewayManager | RefundLookup(NotSupported) | Trả về | S01W4-F1 [cấu hình ghi cổng không có tra cứu hoàn] | Q-118: bên gọi chuyển Cần xử lý thủ công [V-11] |
 | 4 | :VnpayRefundClient | :VnpaySigner | sign(queryFields) | Đồng bộ | S01W4-F1 [có tra cứu] | [V-11] |
 | 5 | :VnpaySigner | :VnpayRefundClient | secureHash | Trả về | S01W4-F1 [có tra cứu] | - |

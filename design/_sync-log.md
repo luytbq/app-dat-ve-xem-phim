@@ -569,3 +569,130 @@ R-436 trở đi chưa cấp; R-315 đến R-329 không dùng; Q cuối vẫn Q-3
 ### Lỗi hình thức (check_artifacts.py)
 
 Trước: 0 LOI, 154 CANH_BAO. Sau: 0 LOI, 267 CANH_BAO (chủ yếu K09 do P04, P07, P13, X2 chưa đồng bộ đầu vào).
+
+
+## Lần 6 - Cuối (X1 2.0 F7, X2 2.1, Q-352..Q-357, Q còn mở)
+
+### Cần người quyết
+
+Không còn mục mở. Theo yêu cầu người chạy, mọi Q còn mở được chốt theo phương án đề xuất của câu hỏi:
+
+| Mục | Quyết định |
+|---|---|
+| Q-352 | HoldNotActiveError mang trạng thái của lần giữ ghế (HTTP 409); sửa ConfirmCashReceived và DC-HoldSettlement.Sell ở P12 (SY-126) |
+| Q-353 | ChannelMismatchError, 2b trước 2a và 2c (SY-127) |
+| Q-354 | StaffStatusUnchangedError trước StaleStaffError (SY-130) |
+| Q-355 | Bộ tham số vnp_ chuẩn của VNPay, vnp_Amount nhân 100; giả định ghi rõ, kiểm lại với tài liệu sandbox khi viết mã (SY-132) |
+| Q-356 | Chặn: sơ đồ ghế gồm vị trí và loại của từng ghế; ghi ở BR-87, P06, UC-012, P00, P05 và đề bài Mục 15 (SY-134) |
+| Q-357 | Kiểm lại 6b, 6c ở giai đoạn B bằng tx.Now (SY-135) |
+| Q-132 | Giả định an toàn không phụ thuộc tài liệu ngoài: không dựa vào việc cổng loại trùng theo refundKey; findRefund trước mỗi lần gửi lại; không tra cứu được thì Cần xử lý thủ công (SY-138) |
+| Q-119, Q-272 đến Q-276 | Theo đề xuất; bỏ câu "chờ xác nhận" ở P11a (SY-139) |
+| Q-51 | Đã trả lời từ P04 và P00; sửa câu lỗi thời ở P02 (SY-140) |
+| RV-17 | Tách DC-ShowtimeSchedulingRules và DC-SeatMapEditor, bỏ phụ thuộc hai chiều; DC-Showtime còn 21 operation, chấp nhận trên ngưỡng 20 vì là getter của lõi (SY-115) |
+
+### Bảng đồng bộ
+
+| SY | Nguồn (file, mục) | Đích (bước, mã phần tử) | Loại | Nội dung | Kết quả hoặc lý do |
+|---|---|---|---|---|---|
+| SY-109 | X1 2.0 F2 RV-08 | P08 F2a, F3, F5; P12 lõi F2, F3, F5 | Áp dụng | Một trách nhiệm CheckHolderHasNoUnfinishedHold ở DC-SeatHold thay checkNoActiveSeatHold của Customer và BoxOfficeClerk; R-163, R-164 thay bằng R-494 | P08 2.2, P12 2.2; sơ đồ P08-class-analysis, P12-class-PKG-28 |
+| SY-110 | X1 2.0 F2 RV-25 | P09 F4, F6, F8; P10 F6, F7 | Áp dụng | Bỏ các cạnh PKG-13 đến PKG-20, PKG-24, PKG-30 --> PKG-21; thêm PKG-32, PKG-33 vào layer Domain của P09 | P09 2.2, P10 2.2; sơ đồ P09-package-layers, P10-package-design |
+| SY-111 | X1 2.0 F2 RV-04 | P10 F3, F4, F5; P11b SS-04; P12 lõi F1, F2, F3, F5 | Áp dụng | Khôi phục DC-SeatEventCleanupJob (PKG-13, hiện thực IF-06, chỉ gọi IF-22); DC-HoldExpiryJob chỉ còn expireBatch; R-415 thay bằng R-436, R-437 | P10 2.2, P11b SS-04 1.3, P12 2.2; sơ đồ P10-subsystem-context, P12-class-PKG-13, P12-sequence-expiry-sweep (thêm đường sống L8) |
+| SY-112 | X1 2.0 F2 RV-05 | P10 F3, F4, F5; P12 lõi F1, F2, F3, F5, F8, F9 | Áp dụng | Tách DC-PgTicketingStore thành năm Pg Store theo interface; lockRows, lockRow, mapPgError sang DC-PgStoreSupport; R-438 đến R-482 | P10 2.2, P12 2.2; sơ đồ P12-class-PKG-21, các sơ đồ tuần tự |
+| SY-113 | X1 2.0 F2 RV-12 | P09 F4, F6; P10 F3, F4, F5; P12 lõi F1, F1b, F8, F9 | Áp dụng | IF-22, IF-23, DC-OutboxKind, DC-OutboxStatus, DC-OutboxEntry, DC-ClaimLostError sang PKG-28 (đáp: P10 Q-116 giữ nguyên vì PKG-24 --> PKG-28) | P09 2.2, P10 2.2, P12 2.2; sơ đồ P12-class-PKG-20-PKG-23 |
+| SY-114 | X1 2.0 F2 RV-16 | P10 F3, F4, F5; P12 PKG-16-PKG-27, PKG-17-PKG-18-PKG-30-PKG-33, PKG-19-PKG-32 | Áp dụng | Tách DC-PgCinemaOperationsStore thành DC-PgShowtimeStore, DC-PgCatalogStore, DC-PgCinemaStore, DC-PgStaffStore; thêm IF-47 ICinemaReader cho bên chỉ đọc (R-483, R-484 thay R-244, R-254; R-453) | P10 2.2, P12 2.2, PKG-16-PKG-27 1.2, PKG-17-PKG-18-PKG-30-PKG-33 2.2, PKG-19-PKG-32 1.2; sơ đồ P12-class-PKG-17, P12-class-PKG-18-PKG-33, P12-class-PKG-27 |
+| SY-115 | X1 2.0 F2 RV-17 | P10 F3, F4, F5; P12 PKG-16-PKG-27 F1, F2, F3, F5, F8, F9 | Áp dụng | Tối thiểu hợp lý: tách DC-ShowtimeSchedulingRules (9 operation liên thực thể) và DC-SeatMapEditor (4 operation) khỏi DC-Showtime (còn 21 operation) và DC-Auditorium (còn 14); bỏ R-218, R-219, R-220, R-61 (hai chiều); DC-PriceList.RemovePriceEntry nhận inUse; còn một cạnh một chiều R-60; thêm R-485 đến R-493 | P10 2.2, PKG-16-PKG-27 1.2; sơ đồ P12-class-PKG-27; X2 chuyển chủ thể TC |
+| SY-116 | X1 2.0 F2 RV-23 | P10 F3, F4, F5; P12 frontend | Áp dụng | Phía trình duyệt: DC-CashRefundView --> DC-CounterCashRefundView, DC-SeatMapState --> DC-SeatMapGrid, DC-ReportRequest --> DC-ReportFormInput | P10 2.2, P12 frontend 1.2 |
+| SY-117 | X1 2.0 F2 RV-10 | P11b SS-01; P12 lõi F1b, F2, F3 | Áp dụng | IF-01.CreatePaymentTransaction nhận PaymentRequest; RequestRefund, FindRefund nhận RefundTarget (refundKey, transactionId, paidAt); thêm DC-PaymentRequest, DC-RefundTarget | P11b SS-01 1.5, P12 2.2 |
+| SY-118 | X1 2.0 F2 RV-11 | P12 lõi F2, F3, F4 | Áp dụng | NewPending, NewFullRefund, NewTicketRefund, NewCashRefund nhận mã (SeatHoldId, PaymentTransactionId, TicketId) và mã chữ | P12 2.2; X2 2.2 dữ liệu vào TC-046 đến TC-049, TC-070 đến TC-073 |
+| SY-119 | X1 2.0 F2 RV-18 | P12 PKG-11 F5 | Áp dụng | Thêm R-496, R-497: Dependency tổng hợp tới kiểu của PKG-27, PKG-28, xoá khi áp RV-02 | P12 PKG-11 1.2 |
+| SY-120 | X1 2.0 F2 RV-19 | P12 frontend F1, F2, F5, F7, F8, F9 | Áp dụng | Thêm DC-RequestStoreBase, DC-ManagedListStore (năm Store quản lý), DC-ReportStoreBase (hai Store báo cáo); R-330.8 đến R-330.14 thay bằng R-498 đến R-507 | P12 frontend 1.2; sơ đồ P12-class-PKG-08-PKG-09-PKG-10 |
+| SY-121 | X1 2.0 F2 RV-20 | P10 F3, F4, F5; P12 lõi F1b, F2, F3, F4; PKG-11 F2b | Áp dụng | Bỏ DC-BoxOfficeClerk.CheckAccessCurrent và DC-StaffAccessChangedError; HoldSeats dùng DC-Staff.CheckAccessUnchanged và StaffAccessRevokedError | P10 2.2, P12 2.2, PKG-11 1.2; X2 2.2 |
+| SY-122 | X1 2.0 F2 RV-22 | P12 lõi F1, F5, F9, Vấn đề còn mở 5; P13 F2 | Áp dụng | Sửa dòng Pg Store (F1), xoá R-314 trùng, thêm PKG-32 vào hàng PKG-21 của F9, sửa số operation ở Vấn đề còn mở 5; P13 F2 ghi IF-01 đến IF-48 | P12 2.2, P13 2.1 |
+| SY-123 | X1 2.0 F2 RV-24 | P12 frontend F1, F2, F5, F9 | Áp dụng | Thêm IF-48 ISessionSource (authHeader, expire) do DC-SessionStore hiện thực; DC-FetchApiClient chỉ phụ thuộc IF-48 (R-508, R-509 thay R-354) | P12 frontend 1.2; sơ đồ P12-class-PKG-29-PKG-31 |
+| SY-124 | X1 2.0 F2 RV-27 | P12 PKG-11 F1, F2, F3, F4, F5, F8, F9 | Áp dụng | Tách DC-StaffAdminController (chín tuyến ADM) khỏi DC-AccountController; R-391 thay bằng R-495; DC-PricingScheduleController giữ nguyên | P12 PKG-11 1.2; sơ đồ P12-class-PKG-11 |
+| SY-125 | X1 2.0 F2 RV-28 | P13 schema, F4.4a; P13-schema-tests.sql | Áp dụng | Trigger trg_seat_hold_clerk_role (C-35) thay cho khoá ngoại ghép (id, role) vì khoá ngoại ghép chặn đổi vai trò của nhân viên đã giữ ghế; thêm năm ca thử; sửa hai ca cũ phụ thuộc dữ liệu (xoá nhân viên đã giữ ghế dùng nhân viên quầy 60; đổi vai trò dùng nhân viên 62) | P13 2.1, P13-schema.sql, P13-schema-tests.sql; PostgreSQL 16: 212/212 ca đạt |
+| SY-126 | X2 2.1 Đề xuất dòng 1; Q-352 | P12 lõi F2, F3 ConfirmCashReceived, DC-HoldSettlement.Sell | Áp dụng | Lần giữ ghế đã Đã huỷ, Đã hoàn tất, Thanh toán thất bại trả HoldNotActiveError mang trạng thái (409), không còn LinkMismatchError: ConfirmCashReceived kiểm trạng thái cuối trước End, Sell kiểm hold.IsActiveAt trước kiểm ghế | P12 2.2; X2 2.2 (TC-228, TC-231, TC-406, TC-601, TC-582) |
+| SY-127 | X2 2.1 Đề xuất dòng 2; Q-353 | P12 lõi F2 HoldSeats; P04 UC-005 Mục 8 | Áp dụng | Thứ tự báo lỗi 2b, 2a và 2c, 7c, 6a, 7d, 7a, 7e ghi ở F2 và Mục 8 | P12 2.2, P04 UC-005 1.17 |
+| SY-128 | X2 2.1 Đề xuất dòng 3 | P12 lõi F2, F3 | Áp dụng | Tách HoldSeats (V(G) 21) thành holdSeatsPrecheck, checkHolderRules, lockAndHoldSeats; HandleIpn (13) thành validateReport, applyDecision; ProcessRefund (13) thành beginAttempt, callGateway, recordResult | P12 2.2; X2 2.2 ghi CFG giữ ở mức hàm công khai |
+| SY-129 | X2 2.1 Đề xuất dòng 4 | P12 lõi Vấn đề còn mở 17; X2 F2.42.7 | Áp dụng | Chọn phương án bộ dựng SetTicketId chỉ có ở mã test; không thêm operation công khai vào DC-Booking, DC-Ticket | P12 2.2; X2 giữ F2.42.7 |
+| SY-130 | X2 2.1 Đề xuất dòng 5; Q-354 | P12 PKG-19-PKG-32 F2 UnlockStaff; P04 UC-017 | Áp dụng | StaffStatusUnchangedError (1c3a) trước StaleStaffError (1c3b) | P12 PKG-19-PKG-32 1.2, P04 UC-017 1.3; X2 TC-475 |
+| SY-131 | X2 2.1 Đề xuất dòng 6 | P12 lõi F2 IF-17.LockByID | Áp dụng | Ghi bất biến seat_hold không có thao tác xoá, bỏ NotFoundError của LockByID | P12 2.2; X2 chú thích CFG HoldSeats |
+| SY-132 | X2 2.1 Đề xuất dòng 7; Q-355 | P12 lõi F2 DC-VnpayReportDecoder.Decode; P11b SS-01 V-03 đến V-05 | Áp dụng | Chốt bộ tham số vnp_ chuẩn (vnp_TxnRef, vnp_Amount nhân 100, vnp_ResponseCode, vnp_TransactionStatus, vnp_OrderInfo, vnp_PayDate); giả định ghi rõ, kiểm lại với tài liệu sandbox khi viết mã | P11b 2.2, SS-01 1.5, P12 2.2; X2 TC-630 |
+| SY-133 | X2 2.1 Đề xuất dòng 8 | P12 PKG-11 F1b, F2b, F3 | Áp dụng | DC-ErrorScope thêm CUSTOMER_LOGIN, STAFF_LOGIN để LOGIN_FAILED chọn MSG-02 hoặc MSG-86 | P12 PKG-11 1.2 |
+| SY-134 | X2 2.1 Đề xuất dòng 9; Q-356 | Đề bài Mục 15; P00 REQ-162; P04 _BR-register BR-87, UC-012; P06 BR-87; P05 GL-46; P12 PKG-16-PKG-27 F2 | Áp dụng | Quy tắc làm thay đổi đề bài: sơ đồ ghế gồm vị trí và loại của từng ghế, đổi loại ghế đang có cũng bị BR-87 chặn; ghi vào sổ BR, P06, UC-012, P00, P05, đề bài yeu-cau-dat-ve.md | P00 1.12, P04 UC-012 1.3, P05 1.3, P06 1.5, PKG-16-PKG-27 1.2; X2 TC-775 |
+| SY-135 | X2 2.1 Đề xuất dòng 10; Q-357 | P12 PKG-16-PKG-27 F3 CreateShowtime bước 4 | Áp dụng | Giai đoạn B kiểm lại 6b, 6c bằng tx.Now (ShowtimeStartedError nếu bắt đầu giữa hai giai đoạn) | P12 PKG-16-PKG-27 1.2; X2 TC-824 |
+| SY-136 | X2 2.1 Đề xuất dòng 11 | P12 PKG-16-PKG-27 F2 GetPriceList | Áp dụng | Ghi bất biến mỗi cụm rạp có đúng một bảng giá, bỏ NotFoundError khỏi F2 (thiếu bảng giá là lỗi hệ thống) | P12 PKG-16-PKG-27 1.2; X2 TC-803 |
+| SY-137 | X2 2.1 Đề xuất dòng 12 (X1 RV-02, RV-04) | P09, P10 chữ ký công khai PKG-13, PKG-15 | Không áp | RV-02 (DTO thay kiểu miền) vẫn hoãn sau Project 3 theo SY-23; phần cleanupEvents của RV-04 đã áp ở SY-111 | Không đổi; dữ liệu vào của TC giữ kiểu miền |
+| SY-138 | P11b Q-132 | P11b-system-interfaces.md Câu hỏi mở, Vấn đề còn mở | Áp dụng | Q-132 chốt theo phương án an toàn không phụ thuộc tài liệu ngoài: không dựa vào việc cổng loại trùng; vẫn gửi refundKey ổn định; findRefund trước mỗi lần gửi lại; cổng không có tra cứu hoặc không rõ thì Cần xử lý thủ công, không gửi lại tự động (khớp Q-118, Q-127 và cờ supportsRefundLookup mặc định false). Giả định ghi rõ, V-09, V-11 vẫn cần kiểm với tài liệu VNPay khi viết mã | P11b 2.2 |
+| SY-139 | P11a ui-standards, screen-list: Q-119, Q-272 đến Q-276 | P11a ui-standards F-Q, Vấn đề còn mở 5; screen-list | Áp dụng | Còn câu "chờ xác nhận": chốt theo đề xuất, ghi đã trả lời | P11a ui-standards 2.2, screen-list 2.2 |
+| SY-140 | P02 Mục 5 Q-51 | P02-usecases.md | Áp dụng | Câu "Q-51 chưa trả lời" lỗi thời: P04 UC-006 và P00 đã trả lời | P02 1.10 |
+| SY-141 | P12 lõi Đề xuất sửa artifact trước (hai dòng cho P13, X2 của bản 2.0) | P12 lõi | Áp dụng | Hai dòng đã được P13 2.0 và X2 2.0 thực hiện; xoá khỏi nguồn | P12 2.2 |
+| SY-142 | check_artifacts K09 | Hàng Đầu vào đã dùng của các artifact | Áp dụng | Cập nhật theo phiên bản hiện hành: toàn bộ cảnh báo K09 --> 0 (sau khi các file được tăng phiên bản, cập nhật lặp tới khi hết); các file chỉ được sửa vì lý do này (P01, P03, P04 còn lại, P07 mười sáu file) tăng phiên bản một lần, không đổi nội dung | Xem danh sách file |
+| SY-143 | check_artifacts K11 | P04 UC-005, UC-006, UC-008, UC-009, UC-013 Mục 1 hàng REQ | Áp dụng | Thêm các REQ phụ của BR đã dẫn ở Mục 6 vào hàng REQ; 16 cảnh báo K11 --> 0 | P04 UC-005 1.17, UC-006 1.12, UC-008 1.11, UC-009 1.9, UC-013 1.6 |
+
+### Ánh xạ mã R
+
+Quan hệ P12 đổi đầu mút (class Pg Store tách, controller tách, interface tách, lớp cha mới) nhận mã mới; mã cũ không dùng lại (C3). Mã mới bắt đầu từ R-436.
+
+| Mã cũ | Mã mới | Quan hệ P12 |
+|---|---|---|
+| R-144 | R-438 | DC-PgTicketingStore --> IF-16 thành DC-PgSeatHoldStore --> IF-16 |
+| R-145 | R-439 | --> IF-17, DC-PgSeatHoldStore |
+| R-189 | R-440 | --> IF-26, DC-PgSeatHoldStore |
+| R-146 | R-441 | --> IF-18, DC-PgSeatStatusStore |
+| R-313 | R-442 | --> IF-29, DC-PgSeatStatusStore |
+| R-147 | R-443 | --> IF-19, DC-PgPaymentStore |
+| R-148 | R-444 | --> IF-20, DC-PgBookingStore |
+| R-190 | R-445 | --> IF-27, DC-PgBookingStore |
+| R-149 | R-446 | --> IF-21, DC-PgRefundStore |
+| R-150 | R-447 | DC-PgCinemaOperationsStore --> IF-11 thành DC-PgShowtimeStore |
+| R-151 | R-448 | --> IF-12, DC-PgCatalogStore |
+| R-312 | R-449 | --> IF-14, DC-PgCatalogStore |
+| R-152 | R-450 | --> IF-13, DC-PgCinemaStore |
+| R-314 | R-452 | --> IF-15, DC-PgStaffStore |
+| R-154 | R-454 đến R-458 | DC-PgTicketingStore --> DC-ConnectionPools thành năm Pg Store ticketing |
+| R-155 | R-459 đến R-462 | DC-PgCinemaOperationsStore --> DC-ConnectionPools thành bốn Pg Store cụm rạp |
+| R-158 | R-463 | DC-PgTicketingStore --> DC-SeatEventWriter thành DC-PgSeatStatusStore |
+| R-182 | R-464 đến R-468 | --> DC-PgTx, năm Pg Store ticketing |
+| R-183 | R-469 đến R-472 | --> DC-PgTx, bốn Pg Store cụm rạp |
+| R-163, R-164 | R-494 | DC-BookTicketsService --> DC-Customer, DC-BoxOfficeClerk thành --> DC-SeatHold |
+| R-415 | R-437 | DC-HoldExpiryJob --> IF-22 thành DC-SeatEventCleanupJob --> IF-22 |
+| R-244 | R-483 | DC-BrowseShowtimesService --> IF-13 thành --> IF-47 |
+| R-254 | R-484 | DC-ViewChainReportService --> IF-13 thành --> IF-47 |
+| R-391 | R-495 | DC-AccountController --> DC-ManageStaffAccountsService thành DC-StaffAdminController |
+| R-354 | R-508 | DC-FetchApiClient --> DC-SessionStore thành --> IF-48 |
+| R-330.8, R-330.9, R-330.10, R-330.12, R-330.13 | R-498 đến R-502 | Store quản lý --> DC-StoreBase thành --> DC-ManagedListStore |
+| R-330.11, R-330.14 | R-503, R-504 | Store báo cáo --> DC-StoreBase thành --> DC-ReportStoreBase |
+| R-61, R-218, R-219, R-220 | (bỏ) | Hai chiều DC-Showtime, DC-Auditorium, DC-PriceList bỏ do RV-17; R-60 giữ |
+
+### Mã cấp mới
+
+R-436, R-453, R-473 đến R-482, R-485 đến R-493, R-496, R-497, R-505 đến R-507, R-509 (quan hệ mới); DC-SeatEventCleanupJob, DC-PgStoreSupport, DC-PgSeatHoldStore, DC-PgSeatStatusStore, DC-PgPaymentStore, DC-PgBookingStore, DC-PgRefundStore, DC-PgShowtimeStore, DC-PgCatalogStore, DC-PgCinemaStore, DC-PgStaffStore, DC-ShowtimeSchedulingRules, DC-SeatMapEditor, DC-StaffAdminController, DC-RequestStoreBase, DC-ManagedListStore, DC-ReportStoreBase, DC-PaymentRequest, DC-RefundTarget, DC-CounterCashRefundView, DC-SeatMapGrid, DC-ReportFormInput; IF-47 ICinemaReader, IF-48 ISessionSource; trigger trg_seat_hold_clerk_role, hàm fn_seat_hold_clerk_role, ràng buộc C-35; TC-894, TC-895.
+
+### File đã sửa và phiên bản mới
+
+- Đề bài và sổ: yeu-cau-dat-ve.md (Mục 15), P04-uc-specs/_BR-register.md (BR-87, không có số phiên bản).
+- P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; P04-uc-specs/UC-001-register-account.md 1.3; P04-uc-specs/UC-003-browse-movies.md 1.2; P04-uc-specs/UC-004-browse-showtimes.md 1.3; P04-uc-specs/UC-005-book-tickets.md 1.17; P04-uc-specs/UC-006-refund-late-payment.md 1.12; P04-uc-specs/UC-007-view-booking-history.md 1.3; P04-uc-specs/UC-008-cancel-ticket.md 1.11; P04-uc-specs/UC-009-check-ticket.md 1.9; P04-uc-specs/UC-010-manage-movies.md 1.3; P04-uc-specs/UC-011-manage-cinemas.md 1.3; P04-uc-specs/UC-012-manage-auditoriums.md 1.3; P04-uc-specs/UC-013-manage-price-list.md 1.6; P04-uc-specs/UC-014-schedule-showtimes.md 1.9; P04-uc-specs/UC-015-view-cinema-report.md 1.3; P04-uc-specs/UC-016-view-chain-report.md 1.3; P04-uc-specs/UC-017-manage-staff-accounts.md 1.3; P04-uc-specs/_BR-register.md -; P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; P07-uc-analysis/UC-001-register-account-analysis.md 1.2; P07-uc-analysis/UC-003-browse-movies-analysis.md 1.2; P07-uc-analysis/UC-004-browse-showtimes-analysis.md 1.2; P07-uc-analysis/UC-005-book-tickets-analysis.md 1.6; P07-uc-analysis/UC-006-refund-late-payment-analysis.md 1.6; P07-uc-analysis/UC-007-view-booking-history-analysis.md 1.2; P07-uc-analysis/UC-008-cancel-ticket-analysis.md 1.5; P07-uc-analysis/UC-009-check-ticket-analysis.md 1.6; P07-uc-analysis/UC-010-manage-movies-analysis.md 1.2; P07-uc-analysis/UC-011-manage-cinemas-analysis.md 1.2; P07-uc-analysis/UC-012-manage-auditoriums-analysis.md 1.3; P07-uc-analysis/UC-013-manage-price-list-analysis.md 1.4; P07-uc-analysis/UC-014-schedule-showtimes-analysis.md 1.8; P07-uc-analysis/UC-015-view-cinema-report-analysis.md 1.2; P07-uc-analysis/UC-016-view-chain-report-analysis.md 1.2; P07-uc-analysis/UC-017-manage-staff-accounts-analysis.md 1.2; P08-analysis-model.md 2.2; P09-architecture.md 2.2; P10-design-elements.md 2.2; P11a-gui/screen-list.md 2.2; P11a-gui/ui-standards.md 2.2; P11b-system-interfaces.md 2.2; P11b-system-interfaces/SS-01-payment-gateway.md 1.5; P11b-system-interfaces/SS-04-scheduler.md 1.3; P12-class-design/PKG-05-PKG-10-PKG-20-PKG-23-PKG-29-PKG-31-frontend-and-notification.md 1.2; P12-class-design/PKG-11-http-api.md 1.2; P12-class-design/PKG-16-PKG-27-schedule-and-catalog-domain.md 1.2; P12-class-design/PKG-17-PKG-18-PKG-30-PKG-33-catalog-chain-reports.md 2.2; P12-class-design/PKG-19-PKG-32-accounts-and-staff.md 1.2; P12-class-design/design.md 2.2; P13-data-model.md 2.1; X1-design-review.md 2.1; X2-unit-tests.md 2.2.
+- Sơ đồ .drawio đổi: P08-class-analysis, P09-package-layers, P10-package-design, P10-subsystem-context (trang SS-04), P12-class-PKG-08-PKG-09-PKG-10, P12-class-PKG-11, P12-class-PKG-13, P12-class-PKG-17, P12-class-PKG-18-PKG-33, P12-class-PKG-20-PKG-23, P12-class-PKG-21, P12-class-PKG-27, P12-class-PKG-28, P12-class-PKG-29-PKG-31, P12-sequence-cancel-ticket, P12-sequence-check-ticket, P12-sequence-expiry-sweep, P12-sequence-handle-ipn, P12-sequence-hold-seats. Đã chạy diakempt -in-place (sơ đồ lớp thêm -no-classlayout; P12-class-PKG-21 chạy -level safe vì mức mặc định không kết thúc trong thời gian chờ), xoá .bak, XML parse được, mọi mxGraphModel còn grid="0", background="#ffffff", adaptiveColors="none"; không đụng *.tidy.drawio.
+- P13-schema.sql (thêm fn_seat_hold_clerk_role, trg_seat_hold_clerk_role) và P13-schema-tests.sql (thêm năm ca, sửa hai ca và số trigger 13 --> 14). Chạy lại trên PostgreSQL 16 (docker postgres:16, container p13check, đã dừng và xoá): schema 0 lỗi; bộ ca thử 212/212 ca đạt, log ở thư mục scratchpad của phiên (p13-schema.log, p13-tests.log).
+
+### Bước cần rà lại
+
+P07 UC-005 (checkNoActiveSeatHold chuyển sang SeatHold, khớp P08 2.2); P11a (màn hình cho CUSTOMER_LOGIN, STAFF_LOGIN dùng MSG-02, MSG-86 không đổi); P12 chạy lại để kiểm các lớp mới theo X1 (chín Pg Store, DC-SeatEventCleanupJob, DC-ShowtimeSchedulingRules, DC-SeatMapEditor, DC-StaffAdminController, DC-RequestStoreBase, DC-ManagedListStore, DC-ReportStoreBase); X1 (chạy lại sau lần này để xác nhận); X2 (CFG của HoldSeats, HandleIpn, ProcessRefund vẫn ở mức hàm công khai, chưa vẽ sơ đồ CFG); P13 F9 nếu thêm ca đồng thời.
+
+### Đầu vào cho lần chạy lại X2
+
+| Phần tử | Ca thử cần thêm | Nguồn |
+|---|---|---|
+| DC-HoldSettlement.End, Sell | Không cần thêm; TC-228, TC-231, TC-406, TC-601 đã khớp thiết kế mới | Q-352 |
+| Các hàm private của HoldSeats, HandleIpn, ProcessRefund | Nếu viết mã tách đúng ba, hai, ba hàm thì chạy lại hộp trắng theo hàm private | SY-128 |
+| DC-PgSeatHoldStore, DC-PgSeatStatusStore, DC-PgPaymentStore, DC-PgBookingStore, DC-PgRefundStore, DC-PgShowtimeStore, DC-PgCatalogStore, DC-PgCinemaStore, DC-PgStaffStore | Ca tích hợp F2.40, F2.55 theo lớp mới (nội dung không đổi) | SY-112, SY-114 |
+| trg_seat_hold_clerk_role | Ca tích hợp: giữ ghế bằng nhân viên không phải nhân viên quầy bị chặn (đã có ở P13-schema-tests.sql) | SY-125 |
+
+### Khoảng trống trong dải mã
+
+R-510 trở đi chưa cấp; R-315 đến R-329 không dùng; R-438 đến R-482 liên tục; Q cuối vẫn Q-357 (không cấp Q mới); SY cuối SY-143; IF cuối IF-48 (IF-45, IF-46 vẫn không dùng); TC cuối TC-895.
+
+### Lỗi hình thức (check_artifacts.py)
+
+Trước: 0 LOI, 133 CANH_BAO đầu lần chạy (gồm K09 của P04, P08, X1, X2 và 16 K11); Sau: 0 LOI, 111 CANH_BAO (K09 và K11 về 0 sau khi tăng phiên bản các file chỉ sửa đầu vào đã dùng; còn K18 82 toạ độ lệch lưới 10, K06 20 mã Q cũ ở P07 và nhật ký này, K03 7 và K10 2 có từ trước).

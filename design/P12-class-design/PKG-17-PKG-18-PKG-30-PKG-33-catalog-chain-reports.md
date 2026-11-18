@@ -3,7 +3,8 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P12 |
-| Phiên bản | 2.1 |
+| Phiên bản | 2.2 |
+| Thay đổi 2.2 | Đồng bộ X3 lần 6 (design/_sync-log.md): DC-BrowseShowtimesService, DC-ViewChainReportService phụ thuộc IF-47 ICinemaReader thay IF-13 (R-483, R-484 thay R-244, R-254; RV-16) |
 | Đầu vào đã dùng | 00-Conventions.md (C10); 00-Concurrency.md (M7); project-profile.md; P04-uc-specs UC-003, UC-004, UC-010, UC-011, UC-015, UC-016 và _BR-register.md (BR-76, BR-77, BR-84, BR-88, BR-115 đến BR-119, BR-134, BR-138, BR-139, BR-141, BR-142); P06-supplementary-spec.md; P07-uc-analysis UC-003, UC-004, UC-010, UC-011, UC-015, UC-016 (bảng message, Câu hỏi mở, Đề xuất sửa artifact trước); P08-analysis-model.md 2.0 (F3, F4, F4b EX-16, EX-17); P09-architecture.md 2.0 (F7.2, F7.3, F7.10, F7.12, Q-268, Q-269); P10-design-elements.md 2.0 (F3, F3a EX-16, EX-17, F4, F5, F6); P11a-gui SCR-23 đến SCR-25, SCR-30, SCR-32 đến SCR-36; P12-class-design.md 1.6 (lõi, chỉ đọc, quy ước mục 0.2, 0.3 và chữ ký IF-08, IF-11, IF-13, IF-25, DC-Money, DC-CinemaIds, DC-TxOptions); _sync-log.md (mục Đầu vào cho lần chạy lại P08-P13, dòng P12). P12-class-design/PKG-16-PKG-27-schedule-and-catalog-domain.md chưa có khi chạy. Dải mã của phiên (C10): R-240 đến R-269, ST-10 đến ST-11, IF-32 đến IF-34, Q-302 đến Q-311. Q đến Q-282 coi như đã chốt theo đề xuất |
 | Phạm vi | PKG-30 ChainManagement, PKG-17 Catalog, PKG-18 Reporting, PKG-33 ReportModel; UC-003, UC-004, UC-010, UC-011, UC-015, UC-016. Lớp miền Movie, Cinema, Showtime thuộc PKG-27 do phiên khác thiết kế song song: ở đây chỉ dùng tên DC và operation đã có ở P10 2.0 hoặc P12-class-design.md, operation miền cần thêm ghi ở mục Đề xuất sửa artifact trước |
 | Mã Q, ASM cuối đã cấp | Q-304 (Q-302 đến Q-304 cấp ở file này, dải Q-302 đến Q-311); không có ASM (NGHIEM_NGAT). R-269 là mã cuối của dải R; không dùng ST-10, ST-11, IF-32 đến IF-34 |
@@ -122,7 +123,7 @@ Các operation đều chạy trong một giao dịch hoặc không giao dịch; 
 | DC-BrowseShowtimesService.ListMoviesForBrowsing | Như ListMovies nhưng chỉ lấy MovieOption (mã, tên) của phim NOW_SHOWING và COMING_SOON, theo thứ tự Q-302. | IF-08, IF-14, DC-Movie | zone | Không có ST |
 | DC-BrowseShowtimesService.FindShowtimesByMovie, FindShowtimesByCinema | 1. Do(UserTx(...)): infos = IF-11.ListInfoByMovie hoặc ListInfoByCinema (một câu join phim, suất chiếu, phòng, cụm rạp, không khoá); now = tx.Now.<br>2. selectShowtimes(infos, criteria, now) giữ suất chiếu theo thứ tự: status IN_SCHEDULE (checkInSchedule), StartTime sau now (checkNotStarted, BR-56), rồi criteria khớp: province bằng, ngày chiếu của StartTime đổi theo zone bằng date, auditoriumType bằng, format bằng; trường tiêu chí rỗng thì bỏ qua.<br>3. Sắp theo Q-302, trả ShowtimeListing; IsEmpty đúng khi không còn suất nào (luồng 4a, 1a4a). | IF-08, IF-11 | criteria, zone | Không có ST |
 | DC-BrowseShowtimesService.GetShowtime | Do(UserTx("GetShowtime")): info = IF-11.FindInfo(showtimeId) (không có hoặc status DELETED thì NotFoundError); trả info (kèm lastChangedAt để màn chọn ghế gửi lại displayedAt ở BR-54). | IF-08, IF-11 | showtimeId | Không có ST |
-| DC-BrowseShowtimesService.ListCinemasForBrowsing | Do(UserTx("ListCinemas")): IF-13.ListCinemas; dựng CinemaOption (mã, tên, tỉnh thành phố). | IF-08, IF-13, DC-Cinema | - | Không có ST |
+| DC-BrowseShowtimesService.ListCinemasForBrowsing | Do(UserTx("ListCinemas")): IF-47.ListCinemas; dựng CinemaOption (mã, tên, tỉnh thành phố). | IF-08, IF-13, DC-Cinema | - | Không có ST |
 | DC-ManageMoviesService.AddMovie | 1. Kiểm trước giao dịch: NewMovie(d, time.Time{}).CheckMovieInfoValid() (mốc chưa dùng); lỗi thì ném FieldInvalidError (luồng 4a, BR-134, Q-196 đến Q-199); danh sách phim không đổi.<br>2. IF-08.Do(UserTx("AddMovie")), trong fn: m = NewMovie(d, tx.Now); IF-14.Insert(m) (mã IDENTITY gán khi lưu). Không khoá, không kiểm trùng tên (Q-200); commit.<br>Ranh giới: một giao dịch, một INSERT. | IF-08, IF-14, DC-Movie | d | Không có ST |
 | DC-ManageMoviesService.SaveMovieChanges | 1. Kiểm như AddMovie bước 1 (FieldInvalidError).<br>2. IF-08.Do(UserTx("SaveMovie")), trong fn đặt lại biến kết quả: m = IF-14.LockExclusive(movieId) (hạng 10, NotFoundError nếu không có); m.SaveChanges(d, displayedAt, tx.Now): mốc đã đổi thì MovieChangedError, fn trả lỗi, rollback, không ghi gì (BR-138); IF-14.Save(m); commit.<br>3. Chỉ UPDATE dòng phim, không đụng suất chiếu (BR-84, BR-139). Yêu cầu bấm lại sau khi lần trước đã commit mang mốc cũ nên bị từ chối (P09 F7.10). | IF-08, IF-14, DC-Movie, DC-LockOrderGuard (qua IF-14) | displayedAt phải là mốc nhận lúc hiển thị | Không có ST |
 | DC-ManageMoviesService.ListMovies, GetMovieForEdit | Do(UserTx(...)): IF-14.List hoặc FindByID; trả entity. Không khoá: mốc trả ra là căn cứ cho kiểm ở SaveMovieChanges. | IF-08, IF-14 | - | Không có ST |
@@ -130,7 +131,7 @@ Các operation đều chạy trong một giao dịch hoặc không giao dịch; 
 | DC-ManageCinemasService.SaveCinemaChanges | 1. Kiểm như AddCinema bước 1.<br>2. IF-08.Do(UserTx("SaveCinema")): LockValue(CINEMA_NAME, d.Name) luôn lấy kể cả khi tên không đổi; c = IF-13.LockCinemaExclusive(cinemaId) (hạng 0, NotFoundError nếu không có); same = IF-13.FindCinemaByNormalizedName(d.Name); c.CheckNameNotTaken(same): tìm thấy cụm rạp khác c thì CinemaNameTakenError (5b); rồi c.SaveChanges(d, displayedAt, tx.Now): mốc đã đổi thì CinemaChangedError (5a, BR-142); IF-13.SaveCinema(c); commit.<br>3. Phòng chiếu, suất chiếu, nhân viên không đổi. Khoá giá trị đứng trước khoá Cinema nên hai cụm rạp đổi tên cho nhau không tạo chu trình chờ (P10 F3a EX-17). | IF-08, IF-13, DC-Cinema | displayedAt | Không có ST |
 | DC-ManageCinemasService.ListCinemas, GetCinemaForEdit | Như ListMovies, GetMovieForEdit với IF-13.ListCinemas, IF-13.FindCinema. | IF-08, IF-13 | - | Không có ST |
 | DC-ViewCinemaReportService.ViewCinemaReport | 1. period = NewReportPeriod(req.FromDate, req.ToDate); period.CheckValid lỗi thì ném InvalidPeriodError, chưa mở giao dịch (luồng 1a).<br>2. start, end = period.ToRange(zone); q = ReportQuery{req.View, start, end}.<br>3. IF-08.Do(ReportTx("CinemaReport")): rows = IF-28.FindCinemaFigures(cinemaId, q). Một giao dịch REPEATABLE READ READ ONLY nên mọi câu thấy cùng ảnh chụp (P09 F7.12).<br>4. rows rỗng thì trả CinemaReport rỗng (luồng 2a, Q-236).<br>5. Với mỗi dòng theo thứ tự nhận: g = nhóm theo f.Key (NewReportGroup nếu chưa có); g.AddFigures(f). Rồi mỗi nhóm: Figures() (đã gồm OccupancyPercent, không áp dụng khi sức chứa 0, Q-235).<br>6. Trả CinemaReport theo thứ tự nhóm của IF-28 (Q-303). | IF-08, IF-28, DC-ReportPeriod, DC-ReportGroup | zone; cinemaId do PKG-11 lấy từ dòng Staff của phiên | Không có ST |
-| DC-ViewChainReportService.ViewChainReport | 1. Kiểm kỳ như ViewCinemaReport bước 1, 2.<br>2. IF-08.Do(ReportTx("ChainReport")): rows = IF-28.FindChainFigures(q); cinemas = IF-13.ListCinemas (theo tên, Q-303).<br>3. rows rỗng thì trả ChainReport rỗng (2a).<br>4. Với mỗi dòng f: chain[f.Key].AddFigures(f) (NewReportGroup nếu chưa có) và cinemaGroup[f.Key][f.CinemaId].AddFigures(f) (NewCinemaReportGroup nếu chưa có). Hai nhóm cộng riêng nên tỉ lệ toàn chuỗi là tổng ghế chia tổng sức chứa, không trung bình tỉ lệ (BR-88).<br>5. Với mỗi khoá nhóm và mỗi cụm rạp trong cinemas chưa có nhóm: NewCinemaReportGroup rỗng (0 đồng, không áp dụng, Q-237).<br>6. Dựng ChainReportEntry cho mỗi khoá nhóm: overall = chain.Figures(), cinemas theo thứ tự cinemas. | IF-08, IF-28, IF-13, DC-ReportPeriod, DC-ReportGroup, DC-Cinema | zone | Không có ST |
+| DC-ViewChainReportService.ViewChainReport | 1. Kiểm kỳ như ViewCinemaReport bước 1, 2.<br>2. IF-08.Do(ReportTx("ChainReport")): rows = IF-28.FindChainFigures(q); cinemas = IF-47.ListCinemas (theo tên, Q-303).<br>3. rows rỗng thì trả ChainReport rỗng (2a).<br>4. Với mỗi dòng f: chain[f.Key].AddFigures(f) (NewReportGroup nếu chưa có) và cinemaGroup[f.Key][f.CinemaId].AddFigures(f) (NewCinemaReportGroup nếu chưa có). Hai nhóm cộng riêng nên tỉ lệ toàn chuỗi là tổng ghế chia tổng sức chứa, không trung bình tỉ lệ (BR-88).<br>5. Với mỗi khoá nhóm và mỗi cụm rạp trong cinemas chưa có nhóm: NewCinemaReportGroup rỗng (0 đồng, không áp dụng, Q-237).<br>6. Dựng ChainReportEntry cho mỗi khoá nhóm: overall = chain.Figures(), cinemas theo thứ tự cinemas. | IF-08, IF-28, IF-13, DC-ReportPeriod, DC-ReportGroup, DC-Cinema | zone | Không có ST |
 | DC-ReportPeriod.CheckValid | Theo thứ tự: fromDate rỗng thì MISSING_FROM; toDate rỗng thì MISSING_TO; fromDate sau toDate thì FROM_AFTER_TO; còn lại nil. Từ ngày bằng đến ngày là hợp lệ (kỳ một ngày). | - | fromDate, toDate | Không có ST |
 | DC-ReportPeriod.ToRange | start = fromDate lúc 00:00 theo zone; end = (toDate cộng một ngày) lúc 00:00 theo zone. Khoảng nửa mở nên suất chiếu lúc 23:59 ngày cuối thuộc kỳ, 00:00 ngày kế tiếp thì không. | - | zone qua tham số | Không có ST |
 | DC-ReportGroup.AddFigures, OccupancyPercent | AddFigures: revenue cộng f.Revenue (Money.Add), soldSeats và capacity cộng tương ứng. OccupancyPercent: capacity bằng 0 thì (0, false), ngược lại (soldSeats nhân 100 chia capacity, true) bằng phép chia số thực; không làm tròn ở đây, bên hiển thị chọn số chữ số. | DC-Money | revenue, soldSeats, capacity | Không có ST |
@@ -157,7 +158,7 @@ Mọi message của sáu P07 có lớp gửi hoặc lớp nhận thuộc phạm 
 | UC-004 | 2.1.4, 2.1.4.1, 2.1.4.2, 2.1.4.2.1 | AC-C-BrowseShowtimesController, AC-E-Showtime | AC-E-Showtime, AC-E-Movie, AC-E-Auditorium, AC-E-Cinema | // provideShowtimeForBrowsing, // provideMovieTitle, // provideAuditoriumInfo, // provideCinemaInfo | Khác lớp nhận: P10 F3; một lần đọc join IF-11.ListInfoByMovie trả DC-ShowtimeInfo (PKG-27) |
 | UC-004 | 2.1.5, 2.1.6 | AC-C-BrowseShowtimesController | AC-B-BrowseShowtimesForm | // notifyNoShowtimes, // showShowtimes | Trả về: FindShowtimesByMovie trả DC-ShowtimeListing, IsEmpty cho luồng 4a |
 | UC-004 | 1a.1 | AC-B-BrowseShowtimesForm | AC-C-BrowseShowtimesController | // startBrowsingByCinema | DC-BrowseShowtimesService.ListCinemasForBrowsing(ctx Ctx) ([]CinemaOption, error) |
-| UC-004 | 1a.1.1 | AC-C-BrowseShowtimesController | AC-E-Cinema | // provideCinemaInfo | IF-13.ListCinemas và getter Name, Province của DC-Cinema (PKG-27) |
+| UC-004 | 1a.1.1 | AC-C-BrowseShowtimesController | AC-E-Cinema | // provideCinemaInfo | IF-47.ListCinemas và getter Name, Province của DC-Cinema (PKG-27) |
 | UC-004 | 1a.1.2 | AC-C-BrowseShowtimesController | AC-B-BrowseShowtimesForm | // showCinemaList | Trả về: ListCinemasForBrowsing trả []DC-CinemaOption |
 | UC-005 | Bổ sung | - | AC-C-BrowseShowtimesController | Đọc một suất chiếu cho màn chọn ghế | DC-BrowseShowtimesService.GetShowtime(ctx Ctx, showtimeId ShowtimeId) (ShowtimeInfo, error) |
 | UC-004 | 1a.2.1 | AC-B-BrowseShowtimesForm | AC-C-BrowseShowtimesController | // findShowtimesByCinema | DC-BrowseShowtimesService.FindShowtimesByCinema(ctx Ctx, cinemaId CinemaId, criteria BrowseCriteria) (ShowtimeListing, error) |
@@ -221,7 +222,7 @@ Mọi message của sáu P07 có lớp gửi hoặc lớp nhận thuộc phạm 
 | UC-016 | 1.1.8, 1.1.10 | AC-C-ViewChainReportController | AC-E-ReportGroup | // addShowtimeFigures | DC-ReportGroup.AddFigures(f ReportFigures) |
 | UC-016 | 1.1.11, 1.1.13 | AC-C-ViewChainReportController | AC-E-ReportGroup | // calculateOccupancyRate | DC-ReportGroup.OccupancyPercent() |
 | UC-016 | 1.1.12, 1.1.14 | AC-C-ViewChainReportController | AC-E-ReportGroup | // provideGroupFigures | DC-ReportGroup.Figures() |
-| UC-016 | 1.1.15 | AC-C-ViewChainReportController | AC-E-Cinema | // provideCinemaInfo | IF-13.ListCinemas và getter ID, Name của DC-Cinema (PKG-27) |
+| UC-016 | 1.1.15 | AC-C-ViewChainReportController | AC-E-Cinema | // provideCinemaInfo | IF-47.ListCinemas và getter ID, Name của DC-Cinema (PKG-27) |
 | UC-016 | 1.1.16 | AC-C-ViewChainReportController | AC-B-ViewChainReportForm | // showChainReport | Trả về: ViewChainReport trả DC-ChainReport |
 
 ## F5. Bảng quan hệ
@@ -235,7 +236,7 @@ Quan hệ có mã R-nn của P08 giữ mã. R-76, R-77, R-78 (BrowseShowtimes t�
 | R-74 | DC-BrowseMoviesService | DC-Movie | Dependency |  | A --> B | Giữ mã P08 R-74; Association tạm của P08 thành Dependency vì Movie đến qua kết quả của IF-14.List, không giữ lâu |  | biến cục bộ |
 | R-242 | DC-BrowseShowtimesService | IF-08 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / uow | field |
 | R-243 | DC-BrowseShowtimesService | IF-11 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / showtimes | field |
-| R-244 | DC-BrowseShowtimesService | IF-13 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / cinemas | field |
+| R-483 | DC-BrowseShowtimesService | IF-47 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / cinemas | field |
 | R-245 | DC-BrowseShowtimesService | IF-14 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / movies | field |
 | R-246 | DC-BrowseShowtimesService | DC-BrowseCriteria | Dependency |  | A --> B | Tiêu chí lọc nhận qua tham số của FindShowtimesByMovie, FindShowtimesByCinema |  | tham số |
 | R-247 | DC-BrowseShowtimesService | DC-ShowtimeInfo | Dependency |  | A --> B | Thay P08 R-76, R-77, R-78: dữ liệu hiển thị của suất chiếu, phòng, cụm rạp đến qua DC-ShowtimeInfo của IF-11, một lần đọc join |  | biến cục bộ |
@@ -247,7 +248,7 @@ Quan hệ có mã R-nn của P08 giữ mã. R-76, R-77, R-78 (BrowseShowtimes t�
 | R-95 | DC-ViewCinemaReportService | DC-ReportGroup | Dependency |  | A --> B | Giữ mã P08 R-95; nhóm tạo và dùng trong một lần gọi |  | biến cục bộ |
 | R-252 | DC-ViewChainReportService | IF-08 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / uow | field |
 | R-253 | DC-ViewChainReportService | IF-28 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc | - / reports | field |
-| R-254 | DC-ViewChainReportService | IF-13 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc; lấy danh sách cụm rạp để mọi cụm rạp có dòng (Q-237) | - / cinemas | field |
+| R-484 | DC-ViewChainReportService | IF-47 | Association | A 0..* - B 1 | A --> B | Thiết kế: tiêm phụ thuộc; lấy danh sách cụm rạp để mọi cụm rạp có dòng (Q-237) | - / cinemas | field |
 | R-97 | DC-ViewChainReportService | DC-ReportPeriod | Dependency |  | A --> B | Giữ mã P08 R-97; như R-91 |  | biến cục bộ |
 | R-98 | DC-ViewChainReportService | DC-Cinema | Dependency |  | A --> B | Giữ mã P08 R-98; Cinema đến qua kết quả của IF-13.ListCinemas (tên cụm rạp, mã) |  | biến cục bộ |
 | R-100 | DC-ViewChainReportService | DC-ReportGroup | Dependency |  | A --> B | Giữ mã P08 R-100; hai nhóm chainGroup, cinemaGroup tạo trong một lần gọi |  | biến cục bộ |
@@ -312,7 +313,7 @@ F8.1. Sơ đồ PKG-17
 | IF-14 | Interface | IMovieRepository | «interface» | PKG-27 | tham chiếu (PKG-27) |
 | IF-08 | Interface | IUnitOfWork | «interface» | PKG-27 | tham chiếu (PKG-27) |
 | IF-11 | Interface | IShowtimeRepository | «interface» | PKG-27 | tham chiếu (PKG-27) |
-| IF-13 | Interface | ICinemaRepository | «interface» | PKG-27 | tham chiếu (PKG-27) |
+| IF-47 | Interface | ICinemaReader | «interface» | PKG-27 | tham chiếu (PKG-27) |
 | DC-Movie | Class | Movie | «entity» | PKG-27 | tham chiếu (PKG-27) |
 | DC-ShowtimeInfo | Class | ShowtimeInfo | «value object» | PKG-27 | tham chiếu (PKG-27) |
 | DC-MovieListing | Class | MovieListing | «value object» | PKG-17 | thành phần ở F1b, ngăn thuộc tính và operation không vẽ |
@@ -327,7 +328,7 @@ F8.1. Sơ đồ PKG-17
 | R-74 | DC-BrowseMoviesService | DC-Movie | Dependency | - | - |
 | R-242 | DC-BrowseShowtimesService | IF-08 | Association | A 0..* - B 1 | tiêm phụ thuộc |
 | R-243 | DC-BrowseShowtimesService | IF-11 | Association | A 0..* - B 1 | tiêm phụ thuộc |
-| R-244 | DC-BrowseShowtimesService | IF-13 | Association | A 0..* - B 1 | tiêm phụ thuộc |
+| R-483 | DC-BrowseShowtimesService | IF-47 | Association | A 0..* - B 1 | tiêm phụ thuộc |
 | R-245 | DC-BrowseShowtimesService | IF-14 | Association | A 0..* - B 1 | tiêm phụ thuộc |
 | R-246 | DC-BrowseShowtimesService | DC-BrowseCriteria | Dependency | - | - |
 | R-247 | DC-BrowseShowtimesService | DC-ShowtimeInfo | Dependency | - | - |
@@ -342,7 +343,7 @@ F8.2. Sơ đồ PKG-18 và PKG-33
 | DC-ViewChainReportService | Class | ViewChainReportService | «control» | PKG-18 | - |
 | IF-08 | Interface | IUnitOfWork | «interface» | PKG-27 | tham chiếu (PKG-27) |
 | IF-28 | Interface | IReportRepository | «interface» | PKG-33 | - |
-| IF-13 | Interface | ICinemaRepository | «interface» | PKG-27 | tham chiếu (PKG-27) |
+| IF-47 | Interface | ICinemaReader | «interface» | PKG-27 | tham chiếu (PKG-27) |
 | DC-ReportPeriod | Class | ReportPeriod | «entity» | PKG-33 | - |
 | DC-ReportGroup | Class | ReportGroup | «entity» | PKG-33 | - |
 | DC-Cinema | Class | Cinema | «entity» | PKG-27 | tham chiếu (PKG-27) |
@@ -362,7 +363,7 @@ F8.2. Sơ đồ PKG-18 và PKG-33
 | R-95 | DC-ViewCinemaReportService | DC-ReportGroup | Dependency | - | - |
 | R-252 | DC-ViewChainReportService | IF-08 | Association | A 0..* - B 1 | tiêm phụ thuộc |
 | R-253 | DC-ViewChainReportService | IF-28 | Association | A 0..* - B 1 | tiêm phụ thuộc |
-| R-254 | DC-ViewChainReportService | IF-13 | Association | A 0..* - B 1 | tiêm phụ thuộc |
+| R-484 | DC-ViewChainReportService | IF-47 | Association | A 0..* - B 1 | tiêm phụ thuộc |
 | R-97 | DC-ViewChainReportService | DC-ReportPeriod | Dependency | - | - |
 | R-98 | DC-ViewChainReportService | DC-Cinema | Dependency | - | - |
 | R-100 | DC-ViewChainReportService | DC-ReportGroup | Dependency | - | - |
@@ -408,8 +409,8 @@ F8.3. Sơ đồ PKG-30
 
 | PKG | Lớp (DC) | Phụ thuộc vào PKG (suy từ F5) | Hợp lệ theo P09 (Có / Không: lý do) |
 |---|---|---|---|
-| PKG-17 Catalog | DC-BrowseMoviesService, DC-BrowseShowtimesService và 7 kiểu F1b | PKG-27 (IF-08, IF-11, IF-13, IF-14, DC-Movie, DC-ShowtimeInfo) | Có: Application xuống Domain, không vòng. Cạnh PKG-17 --> PKG-21 của P10 không có quan hệ lớp nào ở đây vì IF-08 thuộc PKG-27; việc nối bản hiện thực chỉ ở hàm khởi động (Đề xuất sửa artifact trước) |
-| PKG-18 Reporting | DC-ViewCinemaReportService, DC-ViewChainReportService và 5 kiểu F1b | PKG-27 (IF-08, IF-13, DC-Cinema, BusinessDate, TxOptions), PKG-33 (IF-28, DC-ReportPeriod, DC-ReportGroup) | Có: xuống Domain, không vòng. Cạnh PKG-18 --> PKG-21 và PKG-18 --> PKG-28 của P10 không có quan hệ lớp: doanh thu ròng tính ở IF-28, không gọi DC-Ticket, DC-RefundRequest |
+| PKG-17 Catalog | DC-BrowseMoviesService, DC-BrowseShowtimesService và 7 kiểu F1b | PKG-27 (IF-08, IF-11, IF-47, IF-14, DC-Movie, DC-ShowtimeInfo) | Có: Application xuống Domain, không vòng. Cạnh PKG-17 --> PKG-21 của P10 không có quan hệ lớp nào ở đây vì IF-08 thuộc PKG-27; việc nối bản hiện thực chỉ ở hàm khởi động (Đề xuất sửa artifact trước) |
+| PKG-18 Reporting | DC-ViewCinemaReportService, DC-ViewChainReportService và 5 kiểu F1b | PKG-27 (IF-08, IF-47, DC-Cinema, BusinessDate, TxOptions), PKG-33 (IF-28, DC-ReportPeriod, DC-ReportGroup) | Có: xuống Domain, không vòng. Cạnh PKG-18 --> PKG-21 và PKG-18 --> PKG-28 của P10 không có quan hệ lớp: doanh thu ròng tính ở IF-28, không gọi DC-Ticket, DC-RefundRequest |
 | PKG-30 ChainManagement | DC-ManageMoviesService, DC-ManageCinemasService, DC-FieldInvalidError, DC-CinemaNameTakenError | PKG-27 (IF-08, IF-12, IF-13, IF-14, DC-Movie, DC-Cinema, DC-PriceList, DC-ValueLockKind) | Có: như trên; cạnh PKG-30 --> PKG-21 không có quan hệ lớp |
 | PKG-33 ReportModel | DC-ReportPeriod, DC-ReportGroup, IF-28 và 8 kiểu F1b | PKG-27 (DC-CinemaIds, DC-Money, IF-25 Tx, DC-Cinema) | Có: Domain sang Domain, một chiều. DC-PgReportStore (PKG-21) hiện thực IF-28 là realization xuống layer dưới đặt interface ở Domain, hợp lệ |
 

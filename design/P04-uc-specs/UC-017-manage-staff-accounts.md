@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6: luồng 1c ghi thứ tự kiểm 1c3a trước 1c3b khi cả hai cùng đúng, đối xứng với khoá tài khoản (Q-354); không đổi luồng |
 | Thay đổi 1.2 | Chốt Q-230: bước 4 kiểm theo thứ tự email, họ tên, vai trò, cụm rạp; điều kiện của luồng 4a, 4b, 4c, 4d loại trừ nhau, mỗi điều kiện chỉ xét khi các điều kiện đứng trước đã đúng |
 | Thay đổi 1.1 | Chốt Q-161 đến Q-166: thêm luồng 1c (mở khoá), 1d (sửa họ tên), 1e (đặt lại mật khẩu), 4c, 4d (điều kiện email, họ tên), luồng bị từ chối khi lưu đồng thời, BR-100 đến BR-102, điều kiện Dữ liệu vào, bảng Thao tác nguyên tử |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2, UC-007-view-booking-history.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.16, UC-009-check-ticket.md 1.8 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; UC-001-register-account.md 1.3, UC-007-view-booking-history.md 1.3 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.17, UC-009-check-ticket.md 1.9 (use case dùng tài khoản nhân viên); _review-P13.md (trả lời Q-136) |
 | Phạm vi | UC-017 |
 | Mã Q, ASM cuối đã cấp | Q-166 (Q-161 đến Q-166 cấp ở use case này, đã trả lời; Q-136 đã trả lời); không có ASM (NGHIEM_NGAT) |
 
@@ -58,7 +59,7 @@
 | 1c2 | | Quản trị viên | Chọn tài khoản nhân viên cần mở khoá (xem Dữ liệu vào 2). | |
 | 1c3 | | Hệ thống | Kiểm tra tài khoản đã chọn đang bị khoá rồi đặt tài khoản ở trạng thái đang hoạt động, tất cả là một thao tác không chia cắt (BR-102). | |
 | 1c3a | Tài khoản đã chọn đang hoạt động | Hệ thống | Thông báo tài khoản đang hoạt động. | Kết thúc use case (thất bại) |
-| 1c3b | Tài khoản đã bị yêu cầu khác thay đổi kể từ lúc hiển thị (BR-102) | Hệ thống | Từ chối mở khoá, không ghi đè và thông báo quy tắc bị vi phạm (BR-102). | Quay lại bước 1c1 |
+| 1c3b | Tài khoản đã bị yêu cầu khác thay đổi kể từ lúc hiển thị (BR-102) và không thuộc 1c3a (kiểm 1c3a trước, Q-354) | Hệ thống | Từ chối mở khoá, không ghi đè và thông báo quy tắc bị vi phạm (BR-102). | Quay lại bước 1c1 |
 | 1c4 | | Hệ thống | Thông báo mở khoá tài khoản thành công. | Kết thúc use case (thành công) |
 | 1d | Quản trị viên chọn sửa họ tên của một nhân viên thay vì tạo tài khoản mới (Q-162) | - | Sửa họ tên nhân viên | - |
 | 1d1 | | Hệ thống | Hiển thị danh sách tài khoản nhân viên (xem Dữ liệu ra 3). | |

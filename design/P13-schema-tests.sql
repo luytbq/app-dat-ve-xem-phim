@@ -103,7 +103,7 @@ SELECT pg_temp.expect_true('showtime không có cột sức chứa', $q$ SELECT 
 SELECT pg_temp.expect_true('Không còn ba bảng nhân viên theo vai trò', $q$ SELECT count(*) = 0 FROM information_schema.tables WHERE table_name IN ('box_office_clerk', 'ticket_checker', 'cinema_manager') $q$);
 SELECT pg_temp.expect_true('Có đủ chỉ mục unique theo biểu thức và từng phần', $q$ SELECT count(*) = 13 FROM pg_indexes WHERE indexname IN ('uq_cinema_name_norm','uq_auditorium_cinema_name_norm','uq_customer_email_norm','uq_staff_email_norm','uq_seat_position','uq_seat_hold_active_customer','uq_seat_hold_active_clerk','uq_ticket_active_seat','uq_payment_transaction_ticketed_hold','uq_payment_transaction_gateway_no','uq_refund_request_full_per_payment','uq_seat_status_current_ticket','ix_booking_customer_booked') $q$);
 SELECT pg_temp.expect_true('uq_seat_position là chỉ mục từng phần WHERE in_seat_map', $q$ SELECT indexdef LIKE '%WHERE in_seat_map%' FROM pg_indexes WHERE indexname = 'uq_seat_position' $q$);
-SELECT pg_temp.expect_true('Có đủ 13 trigger do người dùng định nghĩa (11 thường và 1 hoãn, cộng trg_booking_customer)', $q$ SELECT count(*) = 13 FROM pg_trigger WHERE NOT tgisinternal $q$);
+SELECT pg_temp.expect_true('Có đủ 14 trigger do người dùng định nghĩa (11 thường và 1 hoãn, cộng trg_booking_customer và trg_seat_hold_clerk_role)', $q$ SELECT count(*) = 14 FROM pg_trigger WHERE NOT tgisinternal $q$);
 
 --------------------------------------------------------------------------------
 SELECT pg_temp.grp('C: tên cụm rạp, tên phòng, ghế');
@@ -232,13 +232,37 @@ BEGIN
   IF NOT EXISTS (SELECT 1 FROM staff WHERE id = 2 AND access_changed_at = '2030-01-02 00:00:00.123456+07') THEN RAISE EXCEPTION 'mốc micro giây mất'; END IF;
 END
 $d$ $q$);
-SELECT pg_temp.expect('Đổi vai trò kèm đổi cụm rạp trên cùng một dòng được phép (BR-100)', '00000', $q$ UPDATE staff SET role = 'CHAIN_MANAGER', cinema_id = NULL WHERE id = 2; $q$);
+SELECT pg_temp.expect('Đổi vai trò kèm đổi cụm rạp trên cùng một dòng được phép (BR-100)', '00000', $q$
+DO $d$
+BEGIN
+  INSERT INTO staff (id, email, full_name, password_hash, role, cinema_id, last_changed_at, access_changed_at)
+    VALUES (62, 'quay62@cinebook.vn', 'Nhân viên quầy 62', 'h', 'BOX_OFFICE_CLERK', 1, now(), now());
+  UPDATE staff SET role = 'CHAIN_MANAGER', cinema_id = NULL WHERE id = 62;
+END
+$d$ $q$);
 SELECT pg_temp.expect('Xoá nhân viên đã giữ ghế bị chặn (RESTRICT)', '23503', $q$
 DO $d$
 BEGIN
+  INSERT INTO staff (id, email, full_name, password_hash, role, cinema_id, last_changed_at, access_changed_at)
+    VALUES (60, 'quay60@cinebook.vn', 'Nhân viên quầy 60', 'h', 'BOX_OFFICE_CLERK', 1, now(), now());
   INSERT INTO seat_hold (id, showtime_id, box_office_clerk_id, hold_ref, request_id, hold_time, expiry_time)
-    VALUES (90, 1, 3, 'ref-90', 'req-90', '2030-01-01 09:00+07', '2030-01-01 09:10+07');
-  DELETE FROM staff WHERE id = 3;
+    VALUES (90, 1, 60, 'ref-90', 'req-90', '2030-01-01 09:00+07', '2030-01-01 09:10+07');
+  DELETE FROM staff WHERE id = 60;
+END
+$d$ $q$);
+SELECT pg_temp.expect('Người giữ ghế là nhân viên soát vé bị chặn (BR-79)', '23514', $q$ INSERT INTO seat_hold (id, showtime_id, box_office_clerk_id, hold_ref, request_id, status, hold_time, expiry_time) VALUES (91, 1, 3, 'ref-91', 'req-91', 'EXPIRED', '2030-01-01 09:00+07', '2030-01-01 09:10+07') $q$);
+SELECT pg_temp.expect('Người giữ ghế là quản lý cụm rạp bị chặn (BR-79)', '23514', $q$ INSERT INTO seat_hold (id, showtime_id, box_office_clerk_id, hold_ref, request_id, status, hold_time, expiry_time) VALUES (92, 1, 4, 'ref-92', 'req-92', 'EXPIRED', '2030-01-01 09:00+07', '2030-01-01 09:10+07') $q$);
+SELECT pg_temp.expect('Người giữ ghế là nhân viên quầy được phép', '00000', $q$ INSERT INTO seat_hold (id, showtime_id, box_office_clerk_id, hold_ref, request_id, status, hold_time, expiry_time) VALUES (93, 1, 1, 'ref-93', 'req-93', 'EXPIRED', '2030-01-01 09:00+07', '2030-01-01 09:10+07') $q$);
+SELECT pg_temp.expect('Đổi người giữ ghế của lần giữ ghế sang nhân viên không phải quầy bị chặn', '23514', $q$ UPDATE seat_hold SET box_office_clerk_id = 3 WHERE id = 93 $q$);
+SELECT pg_temp.expect('Đổi vai trò của nhân viên quầy đã từng giữ ghế vẫn được phép, lịch sử giữ nguyên', '00000', $q$
+DO $d$
+BEGIN
+  INSERT INTO staff (id, email, full_name, password_hash, role, cinema_id, last_changed_at, access_changed_at)
+    VALUES (61, 'quay61@cinebook.vn', 'Nhân viên quầy 61', 'h', 'BOX_OFFICE_CLERK', 1, now(), now());
+  INSERT INTO seat_hold (id, showtime_id, box_office_clerk_id, hold_ref, request_id, status, hold_time, expiry_time)
+    VALUES (94, 1, 61, 'ref-94', 'req-94', 'EXPIRED', '2030-01-01 09:00+07', '2030-01-01 09:10+07');
+  UPDATE staff SET role = 'TICKET_CHECKER' WHERE id = 61;
+  IF NOT EXISTS (SELECT 1 FROM seat_hold WHERE id = 94 AND box_office_clerk_id = 61) THEN RAISE EXCEPTION 'lịch sử giữ ghế mất'; END IF;
 END
 $d$ $q$);
 SELECT pg_temp.expect('Bảng administrator chỉ có một dòng: dòng thứ hai (id mặc định) bị chặn', '23505', $q$ INSERT INTO administrator (email, password_hash) VALUES ('admin2@cinebook.vn', 'h') $q$);
@@ -266,6 +290,7 @@ SELECT pg_temp.expect('Giờ kết thúc không sau giờ bắt đầu bị ch�
 
 --------------------------------------------------------------------------------
 SELECT pg_temp.grp('G: lần giữ ghế và trạng thái ghế');
+
 --------------------------------------------------------------------------------
 SELECT pg_temp.expect('Dựng lần giữ ghế 1 (khách 1), 2 (khách 2), 3 (khách 3), 5 (nhân viên quầy 1)', '00000', $q$
 DO $d$

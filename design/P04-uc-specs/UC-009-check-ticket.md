@@ -3,12 +3,13 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.8 |
+| Phiên bản | 1.9 |
+| Thay đổi 1.9 | Đồng bộ X3 lần 6 (design/_sync-log.md): hàng REQ ở Mục 1 bổ sung các REQ phụ của BR; đồng bộ đầu vào đã dùng; không đổi luồng và quy tắc |
 | Thay đổi 1.8 | Bước 1 nêu hệ thống hiển thị danh sách suất chiếu của cụm rạp; thêm luồng 2a (suất chiếu không thuộc cụm rạp, BR-34) (quyết định SY-72 của chủ dự án); thêm ghi chú N-2a vào sơ đồ |
 | Thay đổi 1.7 | Đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.6 | Thêm bảng Thao tác nguyên tử ở Mục 8 theo mô-đun đồng thời (1 thao tác); không đổi luồng và quy tắc nghiệp vụ |
 | Thay đổi 1.5 | Đồng bộ số phiên bản và nhãn BR của dòng Đầu vào đã dùng với bản hiện hành; nội dung đã đối chiếu lại ở lượt review cuối (design/_review-final.md, RF-06) |
-| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.2; UC-005-book-tickets.md 1.16 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.10 (điểm nối huỷ và soát) |
+| Đầu vào đã dùng | 00-Conventions.md; project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; sổ BR (_BR-register.md, đã gộp BR-01 đến BR-93); P05-glossary.md 1.3; UC-005-book-tickets.md 1.17 (mẫu văn phong; vé do UC-005 tạo); UC-008-cancel-ticket.md 1.11 (điểm nối huỷ và soát) |
 | Phạm vi | UC-009 |
 | Mã Q, ASM cuối đã cấp | Q-51 (Q-47 gộp vào Q-35); không có ASM (NGHIEM_NGAT) |
 
@@ -27,7 +28,7 @@
 | Hậu điều kiện tối thiểu | Không có luồng kết thúc thất bại: vé bị từ chối ở các luồng 4a đến 4e không thay đổi trạng thái và use case tiếp tục ở bước 7. |
 | Quan hệ | Không có |
 | Điểm mở rộng | Không có |
-| REQ | REQ-50, REQ-51, REQ-52, REQ-93, REQ-94, REQ-118, REQ-123 đến REQ-128 (theo P02); REQ-102 (tiền điều kiện; P02 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-61 (tham chiếu, UC-014); REQ-30, REQ-105 (tham chiếu, UC-005); REQ-40, REQ-83 (tham chiếu, UC-008) |
+| REQ | REQ-50, REQ-51, REQ-52, REQ-93, REQ-94, REQ-118, REQ-123 đến REQ-128 (theo P02); REQ-102 (tiền điều kiện; P02 ghi "-"); REQ-100 (tham chiếu, UC-017); REQ-61 (tham chiếu, UC-014); REQ-30, REQ-105 (tham chiếu, UC-005); REQ-40, REQ-83 (tham chiếu, UC-008); REQ-106 (phụ của các BR ở Mục 6) |
 
 ## 2. Luồng sự kiện chính
 

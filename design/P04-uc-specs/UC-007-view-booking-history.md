@@ -3,10 +3,11 @@
 | Thuộc tính | Giá trị |
 |---|---|
 | Bước | P04 |
-| Phiên bản | 1.2 |
+| Phiên bản | 1.3 |
+| Thay đổi 1.3 | Đồng bộ X3 lần 6 (design/_sync-log.md): đồng bộ đầu vào đã dùng theo phiên bản hiện hành; không đổi nội dung |
 | Thay đổi 1.2 | Bước 2 và Dữ liệu ra 1 nêu thứ tự hiển thị: lần đặt gần nhất trước, xếp theo thời điểm đặt vé |
 | Thay đổi 1.1 | Chốt Q-159, Q-160: lịch sử gồm toàn bộ vé từng mua kèm trạng thái vé; thông tin của mỗi lần đặt ở Dữ liệu ra 1 |
-| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.11; P01-actors.md 1.2; P02-usecases.md 1.9; P03-usecase-model.md 1.2; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.2; P06-supplementary-spec.md 1.4; UC-001-register-account.md 1.2 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.16 (vé và lần đặt do UC-005 tạo); UC-008-cancel-ticket.md 1.10, UC-009-check-ticket.md 1.8 (trạng thái vé) |
+| Đầu vào đã dùng | 00-Conventions.md; 00-Concurrency.md (M1); project-profile.md; yeu-cau-dat-ve.md; P00-problem-brief.md 1.12; P01-actors.md 1.3; P02-usecases.md 1.10; P03-usecase-model.md 1.3; _BR-register.md (đã gộp BR-01 đến BR-147); P05-glossary.md 1.3; P06-supplementary-spec.md 1.5; UC-001-register-account.md 1.3 (đặc tả cùng lô, mẫu định dạng); UC-005-book-tickets.md 1.17 (vé và lần đặt do UC-005 tạo); UC-008-cancel-ticket.md 1.11, UC-009-check-ticket.md 1.9 (trạng thái vé) |
 | Phạm vi | UC-007 |
 | Mã Q, ASM cuối đã cấp | Q-160 (Q-159, Q-160 cấp ở use case này, đã trả lời); không có ASM (NGHIEM_NGAT) |
 
